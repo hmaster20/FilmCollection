@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace FilmCollection
 {
@@ -15,6 +13,15 @@ namespace FilmCollection
             get { return _videoList; }
             set { _videoList = value; }
         }
+
+        private string _source = ""; // Ресурс
+        [XmlAttribute("source")]
+        public string Source
+        {
+            get { return _source; }
+            set { _source = value; }
+        }
+
 
         public RecordCollection()
         {
