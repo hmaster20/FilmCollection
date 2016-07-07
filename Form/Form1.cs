@@ -112,17 +112,17 @@ namespace FilmCollection
 
 
 
-                ////ListView1.Items.Add(new ListViewItem(elem));
-                //List<string> mylist = new List<string>() { "stealthy", "ninja", "panda" };
-                ////ListView1.Items.Add(mylist);
+            ////ListView1.Items.Add(new ListViewItem(elem));
+            //List<string> mylist = new List<string>() { "stealthy", "ninja", "panda" };
+            ////ListView1.Items.Add(mylist);
 
-                //listView1.BeginUpdate();
-              
-                ////foreach (var row in rec)
-                ////{
-                ////   listView1.Items.Add(row.Name);
-                ////}
-                //listView1.EndUpdate();
+            //listView1.BeginUpdate();
+
+            ////foreach (var row in rec)
+            ////{
+            ////   listView1.Items.Add(row.Name);
+            ////}
+            //listView1.EndUpdate();
 
         }
 
@@ -288,7 +288,7 @@ namespace FilmCollection
         {
             // Архитектура для папок
             var info = new XElement("dir",
-                //  new XAttribute("name", dir.Name));
+                           //  new XAttribute("name", dir.Name));
                            new XAttribute("name", dir.Name),
                            new XAttribute("path", dir.FullName),
                                 new XElement("info",
@@ -428,6 +428,10 @@ namespace FilmCollection
         private void btnScanDir_Click(object sender, EventArgs e)
         {
             DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
+            _videoCollection.Source = directory.FullName;
+            int dlinna = directory.FullName.Length;
+            string strr;
+
             if (directory.Exists)
             {
                 char[] charsToTrim = { '.' };
@@ -437,7 +441,9 @@ namespace FilmCollection
                     record.Name = file.Name;
                     record.Year = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);
                     record.Type = file.Extension.Trim(charsToTrim);
-                    record.Path = file.DirectoryName;
+                    record.Path = file.DirectoryName;//полный путь к файлу               // record.Path = file.Directory.Name; - папка расположения файла
+                    if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+
                     _videoCollection.Add(record);
                     _videoCollection.Save();
                 }
@@ -458,23 +464,6 @@ namespace FilmCollection
             _videoCollection = RecordCollection.Load();
             RefreshTables();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -558,59 +547,37 @@ namespace FilmCollection
 
         private void btnTree_Click(object sender, EventArgs e)
         {
-
-            //XmlDocument doc = new XmlDocument();
-            //doc.Load("VideoList.xml");
-
-            //foreach (XmlNode node in doc.DocumentElement)
-            //{
-            //    //string name = node.Attributes[0].Value;
-            //    //int age = int.Parse(node["Age"].InnerText);
-            //    //listBox1.Items.Add(new Employee(name, age, programmer));
-            //    treeFolder.Nodes.Clear();
-            //    //treeFolder.Nodes.Add(new TreeNode(node["Name"].InnerText));
-
-
-            //    
-            //    //if (node["Age"].Name != null)
-            //    //{ 
-            //    //treeFolder.Nodes[0].Nodes.Add(node["Age"].Name);
-            //    //}
-
-            //    //foreach (XElement el in tests)
-            //    //    Console.WriteLine((string)el.Attribute("TestId"));
-            //    treeFolder.Nodes[0].Nodes.Add((string)node.Attributes.);
-            //}
-
             XmlDocument doc = new XmlDocument();
             doc.Load("VideoList.xml");
 
-            // Retrieve all prices.
-            XmlNodeList nodeList = doc.GetElementsByTagName("Path");
+            #region Чтение содержимого атрибута source и файла XML
+            string SourceValue = "";
+            foreach (XmlNode xmlNode in doc.ChildNodes)
+            {
+                if (xmlNode.NodeType == XmlNodeType.Element)                           // Проверка ноды, что это элемент
+                {
+                    foreach (XmlAttribute xmlattribute in xmlNode.Attributes)
+                    {
+                        if (xmlattribute.Name == "source") SourceValue = xmlattribute.Value; // Поиск атрибута "source"
+                        break;
+                    }
+                }
+            }
+            #endregion
+
+            XmlNodeList nodeList = doc.GetElementsByTagName("Path");             // Чтение элементов "Path"
 
             treeFolder.Nodes.Clear();
-
-            //treeFolder.PathSeparator = @"\";
-            var paths = new List<string>(); // PopulateTreeView(treeFolder, paths, '\\');
-
-
+            var paths = new List<string>();                     // PopulateTreeView(treeFolder, paths, '\\');
 
             foreach (XmlNode node in nodeList)
             {
-                //Console.WriteLine(node.ChildNodes[0].Value);
-                //treeFolder.Nodes[0].Nodes.Add("-123");
-                // treeFolder.Nodes.Add(node.ChildNodes[0].Value);
-
-                //treeFolder.Nodes.Add(new TreeNode(node.ChildNodes[0].Value));
-                //AddItemMod(treeFolder, null, node.ChildNodes[0].Value);
-
-               paths.Add(node.ChildNodes[0].Value); // PopulateTreeView(treeFolder, paths, '\\');
-
+                paths.Add(node.ChildNodes[0].Value);            // PopulateTreeView(treeFolder, paths, '\\');
             }
 
-           PopulateTreeView(treeFolder, paths, '\\'); // PopulateTreeView(treeFolder, paths, '\\');
+            int dlinna = SourceValue.Length;
 
-
+            PopulateTreeView(treeFolder, paths, '\\');          // PopulateTreeView(treeFolder, paths, '\\');
             treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
@@ -641,7 +608,7 @@ namespace FilmCollection
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            textBox4.Text = e.Node.FullPath;
+            textBox4.Text = e.Node.FullPath;                // вывод полного пути ноды
         }
 
 
