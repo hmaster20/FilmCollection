@@ -41,7 +41,6 @@
             this.btnLoad = new System.Windows.Forms.Button();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.btnTree = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,19 +159,11 @@
             this.btnTree.UseVisualStyleBackColor = true;
             this.btnTree.Click += new System.EventHandler(this.btnTree_Click);
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(581, 489);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 14;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1189, 604);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.btnTree);
             this.Controls.Add(this.treeFolder);
             this.Controls.Add(this.btnLoad);
@@ -205,7 +196,6 @@
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.TreeView treeFolder;
         private System.Windows.Forms.Button btnTree;
-        private System.Windows.Forms.TextBox textBox4;
     }
 }
 

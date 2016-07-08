@@ -499,7 +499,6 @@ namespace FilmCollection
 
         // СТРУКТУРА XML в TreeFolder
 
-
         //private void AdddNode(XmlNode inXmlNode, TreeNode inTreeNode)
         //{
         //    XmlNode xNode;
@@ -541,14 +540,12 @@ namespace FilmCollection
         //}
 
 
-
         //private void BuildTreeS(TreeView treeView, XDocument doc)
         //{
         //    TreeNode treeNode = new TreeNode(doc.Root.Name.LocalName);
         //    treeView.Nodes.Add(treeNode);
         //    BuildNodes(treeNode, doc.Root);
         //}
-
 
 
         //private void BuildNodes(TreeNode treeNode, XElement element)
@@ -646,10 +643,8 @@ namespace FilmCollection
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            textBox4.Text = e.Node.FullPath;                // вывод полного пути ноды
-            NodeName = e.Node.FullPath;
+            NodeName = e.Node.FullPath;         // получение полного пути ноды
             RefreshTables();
-
         }
 
 
