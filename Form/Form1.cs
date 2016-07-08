@@ -20,6 +20,8 @@ namespace FilmCollection
         //List<Record> rec = new List<Record>();
         RecordCollection _videoCollection = new RecordCollection();
         Record record = null;
+        string NodeName = ""; // хранение полного пути узла из TreeFolder
+        string SourceValue = "";
 
         /*
       //Вспомогательный класс, который и будем сериализовать, так как TreeNodeCollection не сериализуется.
@@ -208,7 +210,7 @@ namespace FilmCollection
                                  select n).ToList();
             foreach (var node in nodesToRemove)
                 //node.Remove();
-                textBox3.Text = node.Name.ToString();
+                //textBox3.Text = node.Name.ToString();
 
 
 
@@ -456,13 +458,22 @@ namespace FilmCollection
         private void RefreshTables()
         {
             List<Record> filtered = _videoCollection.VideoList;
-            dataGridView1.DataSource = filtered;
+            if (NodeName != "")
+            {
+                filtered = filtered.FindAll(v => v.Path == SourceValue+ Path.DirectorySeparatorChar +NodeName);
+                dataGridView1.DataSource = filtered;
+            }
+            else
+            {
+                dataGridView1.DataSource = filtered;
+            }
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
             _videoCollection = RecordCollection.Load();
             RefreshTables();
+
         }
 
 
@@ -551,7 +562,7 @@ namespace FilmCollection
             doc.Load("VideoList.xml");
 
             #region Чтение содержимого атрибута source и файла XML
-            string SourceValue = "";
+            //string SourceValue = "";
             foreach (XmlNode xmlNode in doc.ChildNodes)
             {
                 if (xmlNode.NodeType == XmlNodeType.Element)                           // Проверка ноды, что это элемент
@@ -559,23 +570,32 @@ namespace FilmCollection
                     foreach (XmlAttribute xmlattribute in xmlNode.Attributes)
                     {
                         if (xmlattribute.Name == "source") SourceValue = xmlattribute.Value; // Поиск атрибута "source"
-                        break;
+                        if ((SourceValue != null) && (SourceValue.Length != 0)) break;
                     }
                 }
             }
             #endregion
 
+            int dlinna = SourceValue.Length; // расчет длинны пути
+
             XmlNodeList nodeList = doc.GetElementsByTagName("Path");             // Чтение элементов "Path"
 
             treeFolder.Nodes.Clear();
             var paths = new List<string>();                     // PopulateTreeView(treeFolder, paths, '\\');
+            //paths.Add("Фильмотека");
 
             foreach (XmlNode node in nodeList)
             {
-                paths.Add(node.ChildNodes[0].Value);            // PopulateTreeView(treeFolder, paths, '\\');
+                string temp = "";
+                if (-1 != node.ChildNodes[0].Value.Substring(dlinna).IndexOf('\\'))
+                {
+                    temp = node.ChildNodes[0].Value.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                    if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(dlinna + 1));
+                }
+ 
             }
 
-            int dlinna = SourceValue.Length;
+            
 
             PopulateTreeView(treeFolder, paths, '\\');          // PopulateTreeView(treeFolder, paths, '\\');
             treeFolder.AfterSelect += treeFolder_AfterSelect;
@@ -602,6 +622,7 @@ namespace FilmCollection
                     else
                         lastNode = nodes[0];
                 }
+                lastNode = null; // This is the place code was changed
             }
         }
 
@@ -609,6 +630,9 @@ namespace FilmCollection
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e)
         {
             textBox4.Text = e.Node.FullPath;                // вывод полного пути ноды
+            NodeName = e.Node.FullPath;
+            RefreshTables();
+
         }
 
 
