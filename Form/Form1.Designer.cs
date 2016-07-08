@@ -28,15 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("фильм");
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.treeView2 = new System.Windows.Forms.TreeView();
-            this.treeView3 = new System.Windows.Forms.TreeView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,9 +47,9 @@
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(12, 58);
+            this.treeView1.Location = new System.Drawing.Point(12, 94);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(243, 206);
+            this.treeView1.Size = new System.Drawing.Size(243, 170);
             this.treeView1.TabIndex = 0;
             // 
             // richTextBox1
@@ -73,47 +68,12 @@
             this.treeView2.TabIndex = 2;
             this.treeView2.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView2_AfterSelect);
             // 
-            // treeView3
-            // 
-            this.treeView3.Location = new System.Drawing.Point(628, 12);
-            this.treeView3.Name = "treeView3";
-            treeNode1.Name = "f1";
-            treeNode1.Tag = "123";
-            treeNode1.Text = "фильм";
-            this.treeView3.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            this.treeView3.Size = new System.Drawing.Size(121, 97);
-            this.treeView3.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(625, 112);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(628, 143);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(146, 20);
-            this.textBox1.TabIndex = 5;
-            // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(628, 169);
+            this.textBox2.Location = new System.Drawing.Point(12, 68);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(146, 20);
             this.textBox2.TabIndex = 6;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(628, 200);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(146, 20);
-            this.textBox3.TabIndex = 7;
             // 
             // dataGridView1
             // 
@@ -218,11 +178,7 @@
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnScanDir);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.treeView3);
             this.Controls.Add(this.treeView2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.treeView1);
@@ -239,11 +195,7 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TreeView treeView2;
-        private System.Windows.Forms.TreeView treeView3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnScanDir;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
