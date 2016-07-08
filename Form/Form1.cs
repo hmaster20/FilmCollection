@@ -214,21 +214,21 @@ namespace FilmCollection
 
 
 
-            //XmlDocument doc = new XmlDocument();
-            //doc.Load("Dirs_v6.xml");
-            //XmlNode book = doc.SelectSingleNode("..");
-            //if (book != null)
-            //{
-            //    XmlAttribute gid = book.Attributes[e.Node.Name];
-            //    if (gid != null)
-            //    {
-            //        string value = gid.Value;
-            //        textBox3.Text = gid.Value;
-            //    }
-            //}
+                //XmlDocument doc = new XmlDocument();
+                //doc.Load("Dirs_v6.xml");
+                //XmlNode book = doc.SelectSingleNode("..");
+                //if (book != null)
+                //{
+                //    XmlAttribute gid = book.Attributes[e.Node.Name];
+                //    if (gid != null)
+                //    {
+                //        string value = gid.Value;
+                //        textBox3.Text = gid.Value;
+                //    }
+                //}
 
 
-            textBox2.Text = e.Node.FullPath;
+                textBox2.Text = e.Node.FullPath;
             //textBox3.Text = Convert.ToString(e.Node.Tag);
             //if (e.Node.Tag != null) textBox3.Text = e.Node.Tag.ToString();
 
@@ -434,20 +434,37 @@ namespace FilmCollection
             int dlinna = directory.FullName.Length;
             string strr;
 
+            #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
+            List<string> FileName = new List<string>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("VideoList.xml");
+
+            XmlNodeList nodeList = doc.GetElementsByTagName("Name");
+
+            foreach (XmlNode node in nodeList)
+            {
+                FileName.Add(node.ChildNodes[0].Value);
+            }
+            #endregion
+
+
             if (directory.Exists)
             {
                 char[] charsToTrim = { '.' };
                 foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                 {
-                    record = new Record();
-                    record.Name = file.Name;
-                    record.Year = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);
-                    record.Type = file.Extension.Trim(charsToTrim);
-                    record.Path = file.DirectoryName;//полный путь к файлу               // record.Path = file.Directory.Name; - папка расположения файла
-                    if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                    if (file.Name != FileName.Find(x => x.Contains(file.Name)))
+                    {
+                        record = new Record();
+                        record.Name = file.Name;
+                        record.Year = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);
+                        record.Type = file.Extension.Trim(charsToTrim);
+                        record.Path = file.DirectoryName;//полный путь к файлу               // record.Path = file.Directory.Name; - папка расположения файла
+                        if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
 
-                    _videoCollection.Add(record);
-                    _videoCollection.Save();
+                        _videoCollection.Add(record);
+                        _videoCollection.Save();
+                    }
                 }
             }
             _videoCollection = RecordCollection.Load();
@@ -460,7 +477,7 @@ namespace FilmCollection
             List<Record> filtered = _videoCollection.VideoList;
             if (NodeName != "")
             {
-                filtered = filtered.FindAll(v => v.Path == SourceValue+ Path.DirectorySeparatorChar +NodeName);
+                filtered = filtered.FindAll(v => v.Path == SourceValue + Path.DirectorySeparatorChar + NodeName);
                 dataGridView1.DataSource = filtered;
             }
             else
@@ -592,10 +609,10 @@ namespace FilmCollection
                     temp = node.ChildNodes[0].Value.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
                     if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(dlinna + 1));
                 }
- 
+
             }
 
-            
+
 
             PopulateTreeView(treeFolder, paths, '\\');          // PopulateTreeView(treeFolder, paths, '\\');
             treeFolder.AfterSelect += treeFolder_AfterSelect;
