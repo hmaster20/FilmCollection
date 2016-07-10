@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using System.Xml.Serialization;
-using System.Xml.Linq;
-
 using System.Xml;
 
 
 
 namespace FilmCollection
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         RecordCollection _videoCollection = new RecordCollection();
         Record record = null;
@@ -23,197 +16,20 @@ namespace FilmCollection
         string SourceValue = "";
 
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
-            //  СОЗДАНИЕ дерева из ПАПКИ
-            DirectoryInfo directoryInfo = new DirectoryInfo(@"C:\temp");
-            if (directoryInfo.Exists)
-            {
-                treeView1.AfterSelect += treeView1_AfterSelect;
-                BuildTree(directoryInfo, treeView1.Nodes);
-            }
-
-            // СОХРАНЕНИЕ XML
             //string rootPath = Console.ReadLine(); var dir = new DirectoryInfo(rootPath);
-            var dir = new DirectoryInfo(@"C:\temp");
-            var doc = new XDocument(GetDirectoryXml(dir));
-            doc.Save("Dirs_v6.xml");
-
-
-            // ЧТЕНИЕ XML и создание дерева
-            string samplePath = Application.StartupPath + @"\\Dirs_v6.xml";
-            DisplayTreeView(samplePath);
+            //string samplePath = Application.StartupPath + @"\\Dirs_v6.xml";
+            //DisplayTreeView(samplePath);
         }
-
-
-
-        #region СОЗДАНИЕ ДЕРЕВА на основе ФАЙЛОВОЙ системы
-        // СОЗДАНИЕ ДЕРЕВА на основе ФАЙЛОВОЙ системы =========================================================================================================
-        private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)
-        {
-            //Чтение директории
-            TreeNode curNode = addInMe.Add(directoryInfo.Name);
-
-            foreach (FileInfo file in directoryInfo.GetFiles())
-            {
-                curNode.Nodes.Add(file.FullName, file.Name);
-            }
-            foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
-            {
-                BuildTree(subdir, curNode.Nodes);
-            }
-        }
-
-
-
-
-
-        //Чтение файла при клике по ветке дерева
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node.Name.EndsWith("txt"))
-            {
-                this.richTextBox1.Clear();
-                StreamReader reader = new StreamReader(e.Node.Name);
-                this.richTextBox1.Text = reader.ReadToEnd();
-                reader.Close();
-            }
-
-            //var doc = XDocument.Parse(openSourceFileDialog.FileName); 
-            string xmlPath = @"Dirs_v6.xml";
-
-            var doc = XDocument.Load(xmlPath);
-
-            var nodesToRemove = (from n in doc.Descendants("file")
-                                 where n.Attribute("name") != null && n.Attribute("name").Value == e.Node.Name
-                                 select n).ToList();
-           // foreach (var node in nodesToRemove)
-                //textBox2.Text = e.Node.FullPath;
-        }
-
-        // СОЗДАНИЕ ДЕРЕВА на основе ФАЙЛОВОЙ системы =========================================================================================================
-        #endregion
-
-
-
-
-
-        #region СОЗДАНИЕ XML
-        // СОЗДАНИЕ XML =========================================================================================================
-
-        public static XElement GetDirectoryXml(DirectoryInfo dir)
-        {
-            // Архитектура для папок
-            var info = new XElement("dir",
-                           //  new XAttribute("name", dir.Name));
-                           new XAttribute("name", dir.Name),
-                           new XAttribute("path", dir.FullName),
-                                new XElement("info",
-                                new XElement("comment", "информация о папке")));
-
-
-            foreach (var file in dir.GetFiles())
-                // Архитектура для файлов
-                info.Add(new XElement("file",
-                         new XAttribute("name", file.Name),
-                           new XElement("info",
-                           new XElement("lastModify", file.LastWriteTime),
-                           new XElement("Attributes", file.Attributes.ToString()))));
-
-
-            foreach (var subDir in dir.GetDirectories())
-                info.Add(GetDirectoryXml(subDir));
-
-            return info;
-        }
-
-        // СОЗДАНИЕ XML =========================================================================================================
-        #endregion
-
-
-
-
-
-        #region ЧТЕНИЕ XML и СОЗДАНИЕ ДЕРЕВА
-        // ЧТЕНИЕ XML и СОЗДАНИЕ ДЕРЕВА =========================================================================================================
-
-        private void DisplayTreeView(string pathname)
-        {
-            try
-            {
-                XmlDocument dom = new XmlDocument();    // SECTION 1. Create a DOM Document and load the XML data into it.
-                dom.Load(pathname);
-
-                treeView2.Nodes.Clear();                // SECTION 2. Initialize the TreeView control.
-                treeView2.Nodes.Add(new TreeNode(dom.DocumentElement.Name));
-                TreeNode tNode = new TreeNode();
-                tNode = treeView2.Nodes[0];
-                
-                AddNode(dom.DocumentElement, tNode);    // SECTION 3. Populate the TreeView with the DOM nodes.
-
-            }
-            catch (XmlException xmlEx)
-            {
-                MessageBox.Show(xmlEx.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void AddNode(XmlNode inXmlNode, TreeNode inTreeNode)
-        {
-            // Loop through the XML nodes until the leaf is reached.
-            // Add the nodes to the TreeView during the looping process.
-
-            if (inXmlNode.HasChildNodes)
-            {
-                //Check if the XmlNode has attributes
-                foreach (XmlAttribute att in inXmlNode.Attributes)
-                {
-                    if (att.Name == "name")
-                    {
-                        //inTreeNode.Text = inTreeNode.Text + " " + att.Name + ": " + att.Value;
-                        inTreeNode.Text = inTreeNode.Text + att.Value;
-                    }
-                }
-
-                var nodeList = inXmlNode.ChildNodes;
-                for (int i = 0; i < nodeList.Count; i++)
-                {
-                    var xNode = inXmlNode.ChildNodes[i];
-                    if (xNode.Name == "dir")
-                    {
-                        var tNode = inTreeNode.Nodes[inTreeNode.Nodes.Add(new TreeNode(""))];
-                        AddNode(xNode, tNode);
-                    }
-                }
-            }
-            else
-            {
-                // Here you need to pull the data from the XmlNode based on the
-                // type of node, whether attribute values are required, and so forth.
-                inTreeNode.Text = (inXmlNode.OuterXml).Trim();
-            }
-            treeView2.ExpandAll();
-        }
-
-
-
-        // ЧТЕНИЕ XML и СОЗДАНИЕ ДЕРЕВА =========================================================================================================
-        #endregion
-
-
-
 
 
 
         private void btnScanDir_Click(object sender, EventArgs e)
         {
-            DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
+            DirectoryInfo directory = new DirectoryInfo(@"C:\temp");    
             _videoCollection.Source = directory.FullName;
             int dlinna = directory.FullName.Length;
             string strr;

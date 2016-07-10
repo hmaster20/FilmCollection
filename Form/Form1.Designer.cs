@@ -1,6 +1,6 @@
 ﻿namespace FilmCollection
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.treeView2 = new System.Windows.Forms.TreeView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,28 +40,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // treeView1
-            // 
-            this.treeView1.Location = new System.Drawing.Point(12, 94);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(243, 170);
-            this.treeView1.TabIndex = 0;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(331, 40);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
-            // 
-            // treeView2
-            // 
-            this.treeView2.Location = new System.Drawing.Point(358, 12);
-            this.treeView2.Name = "treeView2";
-            this.treeView2.Size = new System.Drawing.Size(253, 252);
-            this.treeView2.TabIndex = 2;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -76,7 +51,7 @@
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dataGridView1.Location = new System.Drawing.Point(358, 318);
+            this.dataGridView1.Location = new System.Drawing.Point(362, 49);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -115,7 +90,7 @@
             // 
             // btnScanDir
             // 
-            this.btnScanDir.Location = new System.Drawing.Point(358, 487);
+            this.btnScanDir.Location = new System.Drawing.Point(362, 218);
             this.btnScanDir.Name = "btnScanDir";
             this.btnScanDir.Size = new System.Drawing.Size(86, 46);
             this.btnScanDir.TabIndex = 10;
@@ -125,7 +100,7 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(472, 489);
+            this.btnLoad.Location = new System.Drawing.Point(476, 220);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(80, 44);
             this.btnLoad.TabIndex = 11;
@@ -135,14 +110,14 @@
             // 
             // treeFolder
             // 
-            this.treeFolder.Location = new System.Drawing.Point(12, 318);
+            this.treeFolder.Location = new System.Drawing.Point(16, 49);
             this.treeFolder.Name = "treeFolder";
             this.treeFolder.Size = new System.Drawing.Size(308, 150);
             this.treeFolder.TabIndex = 12;
             // 
             // btnTree
             // 
-            this.btnTree.Location = new System.Drawing.Point(146, 500);
+            this.btnTree.Location = new System.Drawing.Point(150, 231);
             this.btnTree.Name = "btnTree";
             this.btnTree.Size = new System.Drawing.Size(75, 23);
             this.btnTree.TabIndex = 13;
@@ -150,7 +125,7 @@
             this.btnTree.UseVisualStyleBackColor = true;
             this.btnTree.Click += new System.EventHandler(this.btnTree_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -160,10 +135,7 @@
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnScanDir);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.treeView2);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.treeView1);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -171,10 +143,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TreeView treeView2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnScanDir;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
