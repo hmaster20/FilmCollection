@@ -31,7 +31,6 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.treeView2 = new System.Windows.Forms.TreeView();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,14 +64,6 @@
             this.treeView2.Name = "treeView2";
             this.treeView2.Size = new System.Drawing.Size(253, 252);
             this.treeView2.TabIndex = 2;
-            this.treeView2.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView2_AfterSelect);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(12, 68);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(146, 20);
-            this.textBox2.TabIndex = 6;
             // 
             // dataGridView1
             // 
@@ -155,7 +146,7 @@
             this.btnTree.Name = "btnTree";
             this.btnTree.Size = new System.Drawing.Size(75, 23);
             this.btnTree.TabIndex = 13;
-            this.btnTree.Text = "button1";
+            this.btnTree.Text = "btnTree";
             this.btnTree.UseVisualStyleBackColor = true;
             this.btnTree.Click += new System.EventHandler(this.btnTree_Click);
             // 
@@ -169,7 +160,6 @@
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnScanDir);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.treeView2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.treeView1);
@@ -177,7 +167,6 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -186,7 +175,6 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TreeView treeView2;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnScanDir;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
