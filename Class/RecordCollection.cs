@@ -21,8 +21,7 @@ namespace FilmCollection
             get { return _source; }
             set { _source = value; }
         }
-
-
+        
         public RecordCollection()
         {
             VideoList = new List<Record>();

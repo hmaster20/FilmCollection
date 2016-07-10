@@ -33,6 +33,5 @@ namespace FilmCollection
             get { return _path; }
             set { _path = value; }
         }
-
     }
 }
