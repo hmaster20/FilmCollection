@@ -35,6 +35,12 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.сMenuRefresh = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cMenuChange = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cMenuAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.browserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
@@ -43,19 +49,13 @@
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuTree = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.версииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.tabWriter = new System.Windows.Forms.TabPage();
-            this.сMenuRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.cMenuAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.cMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.cMenuChange = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.версииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -123,7 +123,42 @@
             this.cMenuAdd,
             this.cMenuDelete});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(136, 104);
+            this.contextMenu.Size = new System.Drawing.Size(153, 126);
+            // 
+            // сMenuRefresh
+            // 
+            this.сMenuRefresh.Name = "сMenuRefresh";
+            this.сMenuRefresh.Size = new System.Drawing.Size(152, 22);
+            this.сMenuRefresh.Text = "Обновить";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // cMenuChange
+            // 
+            this.cMenuChange.Name = "cMenuChange";
+            this.cMenuChange.Size = new System.Drawing.Size(152, 22);
+            this.cMenuChange.Text = "Изменить";
+            this.cMenuChange.Click += new System.EventHandler(this.cMenuChange_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // cMenuAdd
+            // 
+            this.cMenuAdd.Name = "cMenuAdd";
+            this.cMenuAdd.Size = new System.Drawing.Size(152, 22);
+            this.cMenuAdd.Text = "Добавить...";
+            // 
+            // cMenuDelete
+            // 
+            this.cMenuDelete.Name = "cMenuDelete";
+            this.cMenuDelete.Size = new System.Drawing.Size(152, 22);
+            this.cMenuDelete.Text = "Удалить...";
             // 
             // browserDialog
             // 
@@ -188,6 +223,18 @@
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
             // 
+            // оПрограммеToolStripMenuItem
+            // 
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            // 
+            // версииToolStripMenuItem
+            // 
+            this.версииToolStripMenuItem.Name = "версииToolStripMenuItem";
+            this.версииToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.версииToolStripMenuItem.Text = "Версии";
+            // 
             // treeFolder
             // 
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Left;
@@ -236,52 +283,6 @@
             this.tabWriter.TabIndex = 1;
             this.tabWriter.Text = "Редактор";
             this.tabWriter.UseVisualStyleBackColor = true;
-            // 
-            // сMenuRefresh
-            // 
-            this.сMenuRefresh.Name = "сMenuRefresh";
-            this.сMenuRefresh.Size = new System.Drawing.Size(135, 22);
-            this.сMenuRefresh.Text = "Обновить";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
-            // 
-            // cMenuAdd
-            // 
-            this.cMenuAdd.Name = "cMenuAdd";
-            this.cMenuAdd.Size = new System.Drawing.Size(135, 22);
-            this.cMenuAdd.Text = "Добавить...";
-            // 
-            // cMenuDelete
-            // 
-            this.cMenuDelete.Name = "cMenuDelete";
-            this.cMenuDelete.Size = new System.Drawing.Size(135, 22);
-            this.cMenuDelete.Text = "Удалить...";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(132, 6);
-            // 
-            // cMenuChange
-            // 
-            this.cMenuChange.Name = "cMenuChange";
-            this.cMenuChange.Size = new System.Drawing.Size(135, 22);
-            this.cMenuChange.Text = "Изменить";
-            // 
-            // оПрограммеToolStripMenuItem
-            // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
-            // 
-            // версииToolStripMenuItem
-            // 
-            this.версииToolStripMenuItem.Name = "версииToolStripMenuItem";
-            this.версииToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.версииToolStripMenuItem.Text = "Версии";
             // 
             // MainForm
             // 

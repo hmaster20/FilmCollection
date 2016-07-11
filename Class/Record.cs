@@ -25,11 +25,18 @@ namespace FilmCollection
             set { _country = value; }
         }
   
-        private string _genre = "";               //жанр (комедия, боевик, вестерн)
+        private string _genre = "";               // Жанр (комедия, боевик, вестерн)
         public string Genre
         {
             get { return _genre; }
             set { _genre = value; }
+        }
+
+        private string _time = "";               // Время (в минутах)
+        public string Time
+        {
+            get { return _time; }
+            set { _time = value; }
         }
 
         private string _description = "";        // Описание Фильма
@@ -52,5 +59,13 @@ namespace FilmCollection
             get { return _path; }
             set { _path = value; }
         }
+    }
+
+    public enum TypeVideo
+    {
+        Film,
+        Series,
+        Cartoon,
+        Unknown
     }
 }

@@ -8,8 +8,8 @@
     <ProjectGuid>{71390507-A2FE-4174-8D01-C37CC565B48F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>demo18_xml_w</RootNamespace>
-    <AssemblyName>demo18_xml_w</AssemblyName>
+    <RootNamespace>FilmCollection</RootNamespace>
+    <AssemblyName>FilmCollection</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -63,6 +63,9 @@
     <Compile Include="Class\Record.cs" />
     <Compile Include="Class\RecordCollection.cs" />
     <Compile Include="Class\XmlSerializeHelper.cs" />
+    <EmbeddedResource Include="Form\EditForm.resx">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,6 +77,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

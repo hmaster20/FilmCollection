@@ -194,7 +194,17 @@ namespace FilmCollection
 
         }
 
+        private void cMenuChange_Click(object sender, EventArgs e)
+        {
 
+            EditForm form = new EditForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                //_videoCollection.Add(form.Record);
+                //_videoCollection.Save();
+                RefreshTables();
+            }
+        }
     }
 }
 
