@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnEditOk = new System.Windows.Forms.Button();
             this.btnEditCancel = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
@@ -48,6 +49,12 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.btnUpSize = new System.Windows.Forms.Button();
+            this.btnDownSize = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.labelTypeVideo = new System.Windows.Forms.Label();
+            this.toolTipEditForm = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,7 +145,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(129, 143);
+            this.numericUpDown1.Location = new System.Drawing.Point(129, 172);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(259, 20);
             this.numericUpDown1.TabIndex = 7;
@@ -146,7 +153,7 @@
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(46, 145);
+            this.lblTime.Location = new System.Drawing.Point(46, 174);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(40, 13);
             this.lblTime.TabIndex = 4;
@@ -155,7 +162,7 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(46, 237);
+            this.lblDescription.Location = new System.Drawing.Point(46, 205);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(57, 13);
             this.lblDescription.TabIndex = 4;
@@ -163,7 +170,7 @@
             // 
             // tbDescription
             // 
-            this.tbDescription.Location = new System.Drawing.Point(129, 234);
+            this.tbDescription.Location = new System.Drawing.Point(129, 202);
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(259, 47);
@@ -174,7 +181,7 @@
             this.dynamicRichTextBox.Location = new System.Drawing.Point(149, 326);
             this.dynamicRichTextBox.Name = "dynamicRichTextBox";
             this.dynamicRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.dynamicRichTextBox.Size = new System.Drawing.Size(297, 74);
+            this.dynamicRichTextBox.Size = new System.Drawing.Size(359, 87);
             this.dynamicRichTextBox.TabIndex = 8;
             this.dynamicRichTextBox.Text = "";
             // 
@@ -228,11 +235,62 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.btnUnderline_Click);
             // 
+            // btnUpSize
+            // 
+            this.btnUpSize.Location = new System.Drawing.Point(299, 297);
+            this.btnUpSize.Name = "btnUpSize";
+            this.btnUpSize.Size = new System.Drawing.Size(54, 23);
+            this.btnUpSize.TabIndex = 12;
+            this.btnUpSize.Text = "UpSize";
+            this.btnUpSize.UseVisualStyleBackColor = true;
+            this.btnUpSize.Click += new System.EventHandler(this.btnSizePlus_Click);
+            // 
+            // btnDownSize
+            // 
+            this.btnDownSize.Location = new System.Drawing.Point(359, 297);
+            this.btnDownSize.Name = "btnDownSize";
+            this.btnDownSize.Size = new System.Drawing.Size(68, 23);
+            this.btnDownSize.TabIndex = 12;
+            this.btnDownSize.Text = "DownSize";
+            this.btnDownSize.UseVisualStyleBackColor = true;
+            this.btnDownSize.Click += new System.EventHandler(this.btnSizeMinus_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(433, 297);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 13;
+            this.button6.Text = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(129, 142);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(259, 21);
+            this.comboBox2.TabIndex = 14;
+            // 
+            // labelTypeVideo
+            // 
+            this.labelTypeVideo.AutoSize = true;
+            this.labelTypeVideo.Location = new System.Drawing.Point(46, 145);
+            this.labelTypeVideo.Name = "labelTypeVideo";
+            this.labelTypeVideo.Size = new System.Drawing.Size(26, 13);
+            this.labelTypeVideo.TabIndex = 4;
+            this.labelTypeVideo.Text = "Тип";
+            // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(512, 478);
+            this.ClientSize = new System.Drawing.Size(577, 478);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.btnDownSize);
+            this.Controls.Add(this.btnUpSize);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -247,6 +305,7 @@
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblTime);
+            this.Controls.Add(this.labelTypeVideo);
             this.Controls.Add(this.lblGenre);
             this.Controls.Add(this.lblCountry);
             this.Controls.Add(this.lblYear);
@@ -259,6 +318,7 @@
             this.Name = "EditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "EditForm";
+            this.Load += new System.EventHandler(this.EditForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -287,5 +347,11 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnUpSize;
+        private System.Windows.Forms.Button btnDownSize;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label labelTypeVideo;
+        private System.Windows.Forms.ToolTip toolTipEditForm;
     }
 }

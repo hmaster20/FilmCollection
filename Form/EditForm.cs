@@ -61,9 +61,15 @@ namespace FilmCollection
 
             dynamicRichTextBox.SelectionFont = new Font("Tahoma", 10);
 
-            dynamicRichTextBox.SelectionColor = Color.Black;
+            dynamicRichTextBox.SelectionColor = Color.Gray;
 
             dynamicRichTextBox.SelectedText = "This is a list of Mindcracker Network websites.\n";
+
+            dynamicRichTextBox.SelectionFont = new Font("Microsoft San Serif", 12);
+
+            dynamicRichTextBox.SelectedText = "Microsoft.\n";
+
+
 
             RecordCollection _videoCollection = new RecordCollection();
             _videoCollection.Txt = dynamicRichTextBox.Rtf.ToString();
@@ -112,8 +118,63 @@ namespace FilmCollection
                 dynamicRichTextBox.SelectionFont = new Font(SelectedText_Font, SelectedText_Font.Style ^ FontStyle.Underline);
         }
 
+        private void btnSizePlus_Click(object sender, EventArgs e)
+        {
+            Font SelectedText_Font = dynamicRichTextBox.SelectionFont;
+            int count;
+            count = Convert.ToInt32(SelectedText_Font.Size);
+            if (SelectedText_Font != null)
+                dynamicRichTextBox.SelectionFont = new Font(SelectedText_Font.ToString(), ++count);
+        }
+
+        private void btnSizeMinus_Click(object sender, EventArgs e)
+        {
+            Font SelectedText_Font = dynamicRichTextBox.SelectionFont;
+            int count;
+            count = Convert.ToInt32(SelectedText_Font.Size);
+            if (SelectedText_Font != null)
+                dynamicRichTextBox.SelectionFont = new Font(SelectedText_Font.ToString(), --count);
+        }
 
 
 
+        private void ToggleBold()
+        {
+            if (dynamicRichTextBox.SelectionFont != null)
+            {
+                System.Drawing.Font currentFont = dynamicRichTextBox.SelectionFont;
+                System.Drawing.FontStyle newFontStyle;
+
+                if (dynamicRichTextBox.SelectionFont.Bold == true)
+                {
+                    newFontStyle = FontStyle.Regular;
+                }
+                else
+                {
+                    newFontStyle = FontStyle.Bold;
+                }
+
+                dynamicRichTextBox.SelectionFont = new Font(
+                   currentFont.FontFamily,
+                   currentFont.Size,
+                   newFontStyle
+                );
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            ToggleBold();
+        }
+
+        private void EditForm_Load(object sender, EventArgs e)
+        {
+            toolTipEditForm.SetToolTip(labelTypeVideo, 
+            @"Необходимо выбрать один из следующих типов:
+            Фильм - Полнометражный фильм (состоит из одного файла)
+            Сериал - многосерийный фильм
+            Мультфильм - мультипликационный фильм
+            Прочее - короткометражные фильмы, зарисовки и т.д.");
+        }
     }
 }
