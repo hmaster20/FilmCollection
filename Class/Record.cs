@@ -17,14 +17,14 @@ namespace FilmCollection
             get { return _year; }
             set { _year = value; }
         }
-        
+
         private string _country = "";             // Страна выпуска
         public string Country
         {
             get { return _country; }
             set { _country = value; }
         }
-  
+
         private string _genre = "";               // Жанр (комедия, боевик, вестерн)
         public string Genre
         {

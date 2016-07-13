@@ -37,7 +37,7 @@
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbYear = new System.Windows.Forms.TextBox();
             this.tbCountry = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cBoxGenre = new System.Windows.Forms.ComboBox();
             this.lblGenre = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.lblTime = new System.Windows.Forms.Label();
@@ -52,7 +52,7 @@
             this.btnUpSize = new System.Windows.Forms.Button();
             this.btnDownSize = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
             this.labelTypeVideo = new System.Windows.Forms.Label();
             this.toolTipEditForm = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -126,13 +126,13 @@
             this.tbCountry.Size = new System.Drawing.Size(259, 20);
             this.tbCountry.TabIndex = 5;
             // 
-            // comboBox1
+            // cBoxGenre
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(129, 112);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(259, 21);
-            this.comboBox1.TabIndex = 6;
+            this.cBoxGenre.FormattingEnabled = true;
+            this.cBoxGenre.Location = new System.Drawing.Point(129, 112);
+            this.cBoxGenre.Name = "cBoxGenre";
+            this.cBoxGenre.Size = new System.Drawing.Size(259, 21);
+            this.cBoxGenre.TabIndex = 6;
             // 
             // lblGenre
             // 
@@ -265,13 +265,17 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // comboBox2
+            // cBoxTypeVideo
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(129, 142);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(259, 21);
-            this.comboBox2.TabIndex = 14;
+            this.cBoxTypeVideo.FormattingEnabled = true;
+            this.cBoxTypeVideo.Items.AddRange(new object[] {
+            "Фильм",
+            "Сериал",
+            "Мультфильм"});
+            this.cBoxTypeVideo.Location = new System.Drawing.Point(129, 142);
+            this.cBoxTypeVideo.Name = "cBoxTypeVideo";
+            this.cBoxTypeVideo.Size = new System.Drawing.Size(259, 21);
+            this.cBoxTypeVideo.TabIndex = 14;
             // 
             // labelTypeVideo
             // 
@@ -287,7 +291,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 478);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cBoxTypeVideo);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.btnDownSize);
             this.Controls.Add(this.btnUpSize);
@@ -298,7 +302,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dynamicRichTextBox);
             this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cBoxGenre);
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.tbCountry);
             this.Controls.Add(this.tbYear);
@@ -335,7 +339,7 @@
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.TextBox tbYear;
         private System.Windows.Forms.TextBox tbCountry;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cBoxGenre;
         private System.Windows.Forms.Label lblGenre;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label lblTime;
@@ -350,7 +354,7 @@
         private System.Windows.Forms.Button btnUpSize;
         private System.Windows.Forms.Button btnDownSize;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cBoxTypeVideo;
         private System.Windows.Forms.Label labelTypeVideo;
         private System.Windows.Forms.ToolTip toolTipEditForm;
     }

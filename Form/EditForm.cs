@@ -14,10 +14,52 @@ namespace FilmCollection
 {
     public partial class EditForm : Form
     {
+        public Record Rec = null;
+
+
+
         public EditForm()
         {
             InitializeComponent();
         }
+
+
+
+
+
+        public EditForm(Record record)
+        {
+            InitializeComponent();
+
+            Rec = record;
+
+            // поле EditForm = поле класса
+            tbName.Text = record.Name;
+            tbYear.Text = record.Year;
+            tbCountry.Text = record.Country;
+            tbDescription.Text = record.Description;
+
+            //nudDuration.Value = record.Duration;
+            //nudScore.Value = (decimal)record.Score;
+            //tbSynopsis.Text = record.Synopsis;
+            //tbUrl.Text = record.Url;
+            //tbComment.Text = record.Comment;
+
+            //switch (record.Type)
+            //{
+            //    case TypeVideo.Movie: cBoxTypeVideo.SelectedIndex = 0; break;
+            //    case TypeVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 1; break;
+            //    case TypeVideo.Series: cBoxTypeVideo.SelectedIndex = 2; break;
+            //}
+
+        }
+
+
+
+
+
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {

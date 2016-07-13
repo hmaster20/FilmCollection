@@ -194,17 +194,57 @@ namespace FilmCollection
 
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
         private void cMenuChange_Click(object sender, EventArgs e)
         {
 
-            EditForm form = new EditForm();
-            if (form.ShowDialog() == DialogResult.OK)
+            //EditForm form = new EditForm();
+            //if (form.ShowDialog() == DialogResult.OK)
+            //{
+            //    //_videoCollection.Add(form.Record);
+            //    //_videoCollection.Save();
+            //    RefreshTables();
+            //}
+            Record record = GetSelectedRecord();
+            if (new EditForm(record).ShowDialog() == DialogResult.OK)
             {
-                //_videoCollection.Add(form.Record);
-                //_videoCollection.Save();
+                _videoCollection.Save();
                 RefreshTables();
             }
+
+
         }
+
+
+
+        private Record GetSelectedRecord()
+        {
+            DataGridView dgv = dataGridView1;
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            {
+                Record record = null;
+                if (dgv.SelectedRows[0].DataBoundItem is Record)
+                    record = dgv.SelectedRows[0].DataBoundItem as Record;
+                if (record != null)
+                    return record;
+            }
+
+            return null;
+        }
+
+
+
     }
 }
 
