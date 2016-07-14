@@ -37,6 +37,8 @@
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.сRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cChange = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,8 +58,6 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.tabWriter = new System.Windows.Forms.TabPage();
-            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -127,41 +127,53 @@
             this.cAdd,
             this.cDelete});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(136, 132);
+            this.contextMenu.Size = new System.Drawing.Size(153, 154);
             // 
             // сRefresh
             // 
             this.сRefresh.Name = "сRefresh";
-            this.сRefresh.Size = new System.Drawing.Size(135, 22);
+            this.сRefresh.Size = new System.Drawing.Size(152, 22);
             this.сRefresh.Text = "Обновить";
             // 
             // toolsSeparator1
             // 
             this.toolsSeparator1.Name = "toolsSeparator1";
-            this.toolsSeparator1.Size = new System.Drawing.Size(132, 6);
+            this.toolsSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // cFind
+            // 
+            this.cFind.Name = "cFind";
+            this.cFind.Size = new System.Drawing.Size(152, 22);
+            this.cFind.Text = "Найти (F3)";
+            // 
+            // toolsSeparator2
+            // 
+            this.toolsSeparator2.Name = "toolsSeparator2";
+            this.toolsSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // cChange
             // 
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(135, 22);
+            this.cChange.Size = new System.Drawing.Size(152, 22);
             this.cChange.Text = "Изменить";
             this.cChange.Click += new System.EventHandler(this.cMenuChange_Click);
             // 
             // toolsSeparator3
             // 
             this.toolsSeparator3.Name = "toolsSeparator3";
-            this.toolsSeparator3.Size = new System.Drawing.Size(132, 6);
+            this.toolsSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // cAdd
             // 
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(135, 22);
+            this.cAdd.Size = new System.Drawing.Size(152, 22);
             this.cAdd.Text = "Добавить...";
+            this.cAdd.Click += new System.EventHandler(this.cAdd_Click);
             // 
             // cDelete
             // 
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(135, 22);
+            this.cDelete.Size = new System.Drawing.Size(152, 22);
             this.cDelete.Text = "Удалить...";
             // 
             // browserDialog
@@ -287,17 +299,6 @@
             this.tabWriter.TabIndex = 1;
             this.tabWriter.Text = "Редактор";
             this.tabWriter.UseVisualStyleBackColor = true;
-            // 
-            // cFind
-            // 
-            this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(135, 22);
-            this.cFind.Text = "Найти (F3)";
-            // 
-            // toolsSeparator2
-            // 
-            this.toolsSeparator2.Name = "toolsSeparator2";
-            this.toolsSeparator2.Size = new System.Drawing.Size(132, 6);
             // 
             // MainForm
             // 

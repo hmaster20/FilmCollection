@@ -14,114 +14,137 @@ namespace FilmCollection
 {
     public partial class EditForm : Form
     {
-        public Record Rec = null;
+        public Record rec = null;
 
 
-
-        public EditForm()
+        public EditForm()               // Конструктор по умолчанию
         {
             InitializeComponent();
+
+            cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
+            "Фильм",
+            "Сериал",
+            "Мультфильм"});
+
+            cBoxGenre.Items.AddRange(new object[] {         // Создание списка жанров
+            "Боевик",
+            "Вестерн",
+            "Комедия"});
         }
 
-
-
-
-
-        public EditForm(Record record)
+        public EditForm(Record record)  // Переопределенный конструктор по умолчанию
         {
             InitializeComponent();
 
-            Rec = record;
+            cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
+            "Фильм",
+            "Сериал",
+            "Мультфильм"});
 
-            // поле EditForm = поле класса
+            cBoxGenre.Items.AddRange(new object[] {         // Создание списка жанров
+            "Боевик",
+            "Вестерн",
+            "Комедия"});
+
+            rec = record;
+
             tbName.Text = record.Name;
             tbYear.Text = record.Year;
             tbCountry.Text = record.Country;
+            numericTime.Value = record.Time;
             tbDescription.Text = record.Description;
 
-            //nudDuration.Value = record.Duration;
-            //nudScore.Value = (decimal)record.Score;
-            //tbSynopsis.Text = record.Synopsis;
-            //tbUrl.Text = record.Url;
-            //tbComment.Text = record.Comment;
+            switch (record.Types)
+            {
+                case TypeVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
+                case TypeVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
+                case TypeVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
+            }
 
-            //switch (record.Type)
-            //{
-            //    case TypeVideo.Movie: cBoxTypeVideo.SelectedIndex = 0; break;
-            //    case TypeVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 1; break;
-            //    case TypeVideo.Series: cBoxTypeVideo.SelectedIndex = 2; break;
-            //}
+            switch (record.GenreVideo)
+            {
+                case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
+                case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
+                case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
+            }
 
+        }
+
+
+        private void btnEditOk_Click(object sender, EventArgs e)    // Сохранение измененных параметров
+        {
+            TypeVideo type;
+            GenreVideo genre;
+
+            switch (cBoxGenre.SelectedIndex)
+            {
+                case 0: genre = GenreVideo.Action; break;
+                case 1: genre = GenreVideo.Vestern; break;
+                case 2: genre = GenreVideo.Comedy; break;
+                default: MessageBox.Show("Не выбран тип"); return;
+            }
+
+            switch (cBoxTypeVideo.SelectedIndex)
+            {
+                case 0: type = TypeVideo.Film; break;
+                case 1: type = TypeVideo.Series; break;
+                case 2: type = TypeVideo.Cartoon; break;
+                default: MessageBox.Show("Не выбран тип"); return;
+            }
+
+
+            if (rec == null)
+                rec = new Record();
+
+            rec.Name = tbName.Text;
+            rec.Year = tbYear.Text;
+            rec.Country = tbCountry.Text;
+            rec.Time = (int)numericTime.Value;
+            rec.Types = type;
+            rec.GenreVideo = genre;
+            rec.Description = tbDescription.Text;
+
+            DialogResult = DialogResult.OK;
         }
 
 
 
 
-
-
-
-
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)      // отображение данных в RichTextBox и сохранение
         {
-            
+
             dynamicRichTextBox.BackColor = Color.White;
-
             dynamicRichTextBox.Clear();
-
-
             dynamicRichTextBox.BulletIndent = 10;
-
             dynamicRichTextBox.SelectionFont = new Font("Georgia", 16, FontStyle.Bold);
-
             dynamicRichTextBox.SelectedText = "Mindcracker Network \n";
-
             dynamicRichTextBox.SelectionFont = new Font("Verdana", 12);
-
             dynamicRichTextBox.SelectionBullet = true;
-
             dynamicRichTextBox.SelectionColor = Color.DarkBlue;
-
             dynamicRichTextBox.SelectedText = "C# Corner" + "\n";
-
             dynamicRichTextBox.SelectionFont = new Font("Verdana", 12);
-
             dynamicRichTextBox.SelectionColor = Color.Orange;
-
             dynamicRichTextBox.SelectedText = "VB.NET Heaven" + "\n";
-
             dynamicRichTextBox.SelectionFont = new Font("Verdana", 12);
-
             dynamicRichTextBox.SelectionColor = Color.Green;
-
             dynamicRichTextBox.SelectedText = ".Longhorn Corner" + "\n";
-
             dynamicRichTextBox.SelectionColor = Color.Red;
-
             dynamicRichTextBox.SelectedText = ".NET Heaven" + "\n";
-
             dynamicRichTextBox.SelectionBullet = false;
-
             dynamicRichTextBox.SelectionFont = new Font("Tahoma", 10);
-
             dynamicRichTextBox.SelectionColor = Color.Gray;
-
             dynamicRichTextBox.SelectedText = "This is a list of Mindcracker Network websites.\n";
-
             dynamicRichTextBox.SelectionFont = new Font("Microsoft San Serif", 12);
-
             dynamicRichTextBox.SelectedText = "Microsoft.\n";
-
 
 
             RecordCollection _videoCollection = new RecordCollection();
             _videoCollection.Txt = dynamicRichTextBox.Rtf.ToString();
             _videoCollection.Save();
 
-
-
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)      // загрузка данных в RichTextBox
         {
             DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
 
@@ -209,14 +232,22 @@ namespace FilmCollection
             ToggleBold();
         }
 
-        private void EditForm_Load(object sender, EventArgs e)
+        private void EditForm_Load(object sender, EventArgs e)          // Всплывающая подсказка
         {
-            toolTipEditForm.SetToolTip(labelTypeVideo, 
+            toolTipEditForm.SetToolTip(labelTypeVideo,
             @"Необходимо выбрать один из следующих типов:
             Фильм - Полнометражный фильм (состоит из одного файла)
             Сериал - многосерийный фильм
             Мультфильм - мультипликационный фильм
-            Прочее - короткометражные фильмы, зарисовки и т.д.");
+            Прочее - короткометражные фильмы, зарисовки и т.д");
+
+            toolTipEditForm.SetToolTip(lblTime,
+            "Указать в минутах");
         }
+
+        
+
+
+
     }
 }

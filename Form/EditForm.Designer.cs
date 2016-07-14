@@ -39,7 +39,7 @@
             this.tbCountry = new System.Windows.Forms.TextBox();
             this.cBoxGenre = new System.Windows.Forms.ComboBox();
             this.lblGenre = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericTime = new System.Windows.Forms.NumericUpDown();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.tbDescription = new System.Windows.Forms.TextBox();
@@ -55,7 +55,7 @@
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
             this.labelTypeVideo = new System.Windows.Forms.Label();
             this.toolTipEditForm = new System.Windows.Forms.ToolTip(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTime)).BeginInit();
             this.SuspendLayout();
             // 
             // btnEditOk
@@ -67,6 +67,7 @@
             this.btnEditOk.TabIndex = 0;
             this.btnEditOk.Text = "Ok";
             this.btnEditOk.UseVisualStyleBackColor = true;
+            this.btnEditOk.Click += new System.EventHandler(this.btnEditOk_Click);
             // 
             // btnEditCancel
             // 
@@ -143,12 +144,17 @@
             this.lblGenre.TabIndex = 4;
             this.lblGenre.Text = "Жанр";
             // 
-            // numericUpDown1
+            // numericTime
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(129, 172);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(259, 20);
-            this.numericUpDown1.TabIndex = 7;
+            this.numericTime.Location = new System.Drawing.Point(129, 172);
+            this.numericTime.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericTime.Name = "numericTime";
+            this.numericTime.Size = new System.Drawing.Size(259, 20);
+            this.numericTime.TabIndex = 7;
             // 
             // lblTime
             // 
@@ -268,10 +274,6 @@
             // cBoxTypeVideo
             // 
             this.cBoxTypeVideo.FormattingEnabled = true;
-            this.cBoxTypeVideo.Items.AddRange(new object[] {
-            "Фильм",
-            "Сериал",
-            "Мультфильм"});
             this.cBoxTypeVideo.Location = new System.Drawing.Point(129, 142);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
             this.cBoxTypeVideo.Size = new System.Drawing.Size(259, 21);
@@ -301,7 +303,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dynamicRichTextBox);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numericTime);
             this.Controls.Add(this.cBoxGenre);
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.tbCountry);
@@ -323,7 +325,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "EditForm";
             this.Load += new System.EventHandler(this.EditForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -341,7 +343,7 @@
         private System.Windows.Forms.TextBox tbCountry;
         private System.Windows.Forms.ComboBox cBoxGenre;
         private System.Windows.Forms.Label lblGenre;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericTime;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TextBox tbDescription;

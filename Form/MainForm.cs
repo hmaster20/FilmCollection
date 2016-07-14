@@ -19,6 +19,7 @@ namespace FilmCollection
         public MainForm()
         {
             InitializeComponent();
+            dataGridView1.AutoGenerateColumns = false;
 
             //string rootPath = Console.ReadLine(); var dir = new DirectoryInfo(rootPath);
             //string samplePath = Application.StartupPath + @"\\Dirs_v6.xml";
@@ -59,7 +60,7 @@ namespace FilmCollection
                         record = new Record();
                         record.Name = file.Name;
                         record.Year = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);
-                        record.Type = file.Extension.Trim(charsToTrim);
+                        record.Extension = file.Extension.Trim(charsToTrim);
                         record.Path = file.DirectoryName;//полный путь к файлу               // record.Path = file.Directory.Name; - папка расположения файла
                                                          // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
 
@@ -243,8 +244,16 @@ namespace FilmCollection
             return null;
         }
 
-
-
+        private void cAdd_Click(object sender, EventArgs e)
+        {
+            EditForm form = new EditForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                _videoCollection.Add(form.rec);
+                _videoCollection.Save();
+                RefreshTables();
+            }
+        }
     }
 }
 
