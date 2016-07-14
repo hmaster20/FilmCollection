@@ -28,7 +28,7 @@ namespace FilmCollection
 
 
 
-        private void btnScanDir_Click(object sender, EventArgs e)
+        private void btnScanDir_Click(object sender, EventArgs e)       // Автоматическое построение базы
         {
             DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
             _videoCollection.Source = directory.FullName;
@@ -37,15 +37,15 @@ namespace FilmCollection
             //string strr;
 
             #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
-            List<string> FileName = new List<string>();
+            List<string> FileNameList = new List<string>();
             XmlDocument doc = new XmlDocument();
             doc.Load("VideoList.xml");
 
-            XmlNodeList nodeList = doc.GetElementsByTagName("Name");
+            XmlNodeList nodeList = doc.GetElementsByTagName("Name");    // передается название файла
 
             foreach (XmlNode node in nodeList)
             {
-                FileName.Add(node.ChildNodes[0].Value);
+                FileNameList.Add(node.ChildNodes[0].Value);
             }
             #endregion
 
@@ -55,13 +55,14 @@ namespace FilmCollection
                 char[] charsToTrim = { '.' };
                 foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                 {
-                    if (file.Name != FileName.Find(x => x.Contains(file.Name)))
+                    if (file.Name != FileNameList.Find(x => x.Contains(file.Name)))
                     {
                         record = new Record();
-                        record.Name = file.Name;
-                        record.Year = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);
+
+                        record.FileName = file.Name;
+                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);
                         record.Extension = file.Extension.Trim(charsToTrim);
-                        record.Path = file.DirectoryName;//полный путь к файлу               // record.Path = file.Directory.Name; - папка расположения файла
+                        record.Path = file.DirectoryName;   //полный путь к файлу  | file.Directory.Name - папка расположения файла
                                                          // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
 
                         _videoCollection.Add(record);
@@ -253,6 +254,12 @@ namespace FilmCollection
                 _videoCollection.Save();
                 RefreshTables();
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            _videoCollection = RecordCollection.Load();
+            RefreshTables();
         }
     }
 }

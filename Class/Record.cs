@@ -41,6 +41,13 @@ namespace FilmCollection
             set { _description = value; }
         }
 
+        private string _filename = "";         // Название файла
+        public string FileName
+        {
+            get { return _filename; }
+            set { _filename = value; }
+        }
+
         private string _extension = "";         // Расширение (тип) файла (avi, mkv, mpeg)
         public string Extension
         {
@@ -95,46 +102,46 @@ namespace FilmCollection
 
 
         #region Обработка типа записи (Фильм. Сериал, Мультфильм)
-        private TypeVideo _types = TypeVideo.Unknown;   // Тип записи (Фильм. Сериал, Мультфильм)
+        private CategoryVideo _category = CategoryVideo.Unknown;   // Тип записи (Фильм. Сериал, Мультфильм)
         [XmlIgnore]
-        public TypeVideo Types
+        public CategoryVideo Category
         {
-            get { return _types; }
-            set { _types = value; }
+            get { return _category; }
+            set { _category = value; }
         }
 
-        public string TypesString
+        public string CategoryString
         {
-            get { return TypeToString(Types); }
-            set { Types = StringToType(value); }
+            get { return CategoryToString(Category); }
+            set { Category = StringToCategory(value); }
         }
 
-        public static string TypeToString(TypeVideo type)
+        public static string CategoryToString(CategoryVideo category)
         {
-            switch (type)
+            switch (category)
             {
-                case TypeVideo.Film: return "Фильм";
-                case TypeVideo.Series: return "Сериал";
-                case TypeVideo.Cartoon: return "Мультфильм";
+                case CategoryVideo.Film: return "Фильм";
+                case CategoryVideo.Series: return "Сериал";
+                case CategoryVideo.Cartoon: return "Мультфильм";
                 default: return "Прочее";
             }
         }
 
-        public static TypeVideo StringToType(string type)
+        public static CategoryVideo StringToCategory(string category)
         {
-            switch (type)
+            switch (category)
             {
-                case "Фильм": return TypeVideo.Film;
-                case "Сериал": return TypeVideo.Series;
-                case "Мультфильм": return TypeVideo.Cartoon;
-                default: return TypeVideo.Unknown;
+                case "Фильм": return CategoryVideo.Film;
+                case "Сериал": return CategoryVideo.Series;
+                case "Мультфильм": return CategoryVideo.Cartoon;
+                default: return CategoryVideo.Unknown;
             }
         }
         #endregion
 
     }
 
-    public enum TypeVideo
+    public enum CategoryVideo
     {
         Film,
         Series,

@@ -54,11 +54,11 @@ namespace FilmCollection
             numericTime.Value = record.Time;
             tbDescription.Text = record.Description;
 
-            switch (record.Types)
+            switch (record.Category)
             {
-                case TypeVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
-                case TypeVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
-                case TypeVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
+                case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
+                case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
+                case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
             }
 
             switch (record.GenreVideo)
@@ -73,7 +73,7 @@ namespace FilmCollection
 
         private void btnEditOk_Click(object sender, EventArgs e)    // Сохранение измененных параметров
         {
-            TypeVideo type;
+            CategoryVideo category;
             GenreVideo genre;
 
             switch (cBoxGenre.SelectedIndex)
@@ -86,9 +86,9 @@ namespace FilmCollection
 
             switch (cBoxTypeVideo.SelectedIndex)
             {
-                case 0: type = TypeVideo.Film; break;
-                case 1: type = TypeVideo.Series; break;
-                case 2: type = TypeVideo.Cartoon; break;
+                case 0: category = CategoryVideo.Film; break;
+                case 1: category = CategoryVideo.Series; break;
+                case 2: category = CategoryVideo.Cartoon; break;
                 default: MessageBox.Show("Не выбран тип"); return;
             }
 
@@ -100,7 +100,7 @@ namespace FilmCollection
             rec.Year = tbYear.Text;
             rec.Country = tbCountry.Text;
             rec.Time = (int)numericTime.Value;
-            rec.Types = type;
+            rec.Category = category;
             rec.GenreVideo = genre;
             rec.Description = tbDescription.Text;
 
