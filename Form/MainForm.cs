@@ -19,7 +19,7 @@ namespace FilmCollection
         public MainForm()
         {
             InitializeComponent();
-            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
 
             //string rootPath = Console.ReadLine(); var dir = new DirectoryInfo(rootPath);
             //string samplePath = Application.StartupPath + @"\\Dirs_v6.xml";
@@ -27,21 +27,24 @@ namespace FilmCollection
         }
 
 
-
         private void btnScanDir_Click(object sender, EventArgs e)       // Автоматическое построение базы
+        {
+            CreateBase();
+        }
+
+        private void CreateBase()       // Автоматическое построение базы
         {
             DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
             _videoCollection.Source = directory.FullName;
             _videoCollection.Save();
             //int dlinna = directory.FullName.Length;
-            //string strr;
 
             #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
             List<string> FileNameList = new List<string>();
             XmlDocument doc = new XmlDocument();
             doc.Load("VideoList.xml");
 
-            XmlNodeList nodeList = doc.GetElementsByTagName("Name");    // передается название файла
+            XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
 
             foreach (XmlNode node in nodeList)
             {
@@ -59,11 +62,12 @@ namespace FilmCollection
                     {
                         record = new Record();
 
-                        record.FileName = file.Name;
-                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);
-                        record.Extension = file.Extension.Trim(charsToTrim);
-                        record.Path = file.DirectoryName;   //полный путь к файлу  | file.Directory.Name - папка расположения файла
-                                                         // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                        record.FileName = file.Name;                            // полное название файла (film.avi)
+                        record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
+                        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                        record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                        // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
 
                         _videoCollection.Add(record);
                         _videoCollection.Save();
@@ -75,7 +79,7 @@ namespace FilmCollection
         }
 
 
-        private void RefreshTables()
+        private void RefreshTables()    // Обновление таблицы путем фильтрации элементов по полю Path
         {
             List<Record> filtered = _videoCollection.VideoList;
             if (NodeName != "")
@@ -89,28 +93,29 @@ namespace FilmCollection
             }
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        private void btnLoad_Click(object sender, EventArgs e)  // Загрузка базы
         {
             _videoCollection = RecordCollection.Load();
             RefreshTables();
-
         }
 
 
 
-
-
-
-        private void btnTree_Click(object sender, EventArgs e)
+        private void btnTree_Click(object sender, EventArgs e)  // Построение дерева
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("VideoList.xml");
+            CreateTree();
+        }
 
-            #region Чтение содержимого атрибута source и файла XML
-            //string SourceValue = "";
+
+        private void CreateTree()  // Построение дерева
+        {
+             XmlDocument doc = new XmlDocument();
+            doc.Load(RecordCollection.BaseName);                            // Получения файла базы
+
+            #region Поиск атрибута source из файла XML, содержащего путь к папке с видео
             foreach (XmlNode xmlNode in doc.ChildNodes)
             {
-                if (xmlNode.NodeType == XmlNodeType.Element)                           // Проверка ноды, что это элемент
+                if (xmlNode.NodeType == XmlNodeType.Element)                // Проверка ноды, что это элемент
                 {
                     foreach (XmlAttribute xmlattribute in xmlNode.Attributes)
                     {
@@ -121,36 +126,30 @@ namespace FilmCollection
             }
             #endregion
 
-            int dlinna = SourceValue.Length; // расчет длинны пути
+            int SourceLength = SourceValue.Length; // Получение длинны пути
 
-            XmlNodeList nodeList = doc.GetElementsByTagName("Path");             // Чтение элементов "Path"
+            XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
 
-            treeFolder.Nodes.Clear();
-            var paths = new List<string>();                     // PopulateTreeView(treeFolder, paths, '\\');
+            treeFolder.Nodes.Clear();                                       // Очистка дерева
+            var paths = new List<string>();                                 // Создание списка
             //paths.Add("Фильмотека");
 
-            foreach (XmlNode node in nodeList)
+            foreach (XmlNode node in nodeList)                              // Заполнение списка для формирования дерева
             {
                 string temp = "";
-                //if (-1 != node.ChildNodes[0].Value.Substring(dlinna).IndexOf('\\')) //Path.DirectorySeparatorChar
-                if (-1 != node.ChildNodes[0].Value.Substring(dlinna).IndexOf(Path.DirectorySeparatorChar))
+                if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
                 {
-                    temp = node.ChildNodes[0].Value.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                    if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(dlinna + 1));
+                    temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                    if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(SourceLength + 1));
                 }
-
             }
-
-
-
-            //PopulateTreeView(treeFolder, paths, '\\');          // PopulateTreeView(treeFolder, paths, '\\');
-            PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar);          // PopulateTreeView(treeFolder, paths, '\\');
-            treeFolder.AfterSelect += treeFolder_AfterSelect;
+            PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar);
+            //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
 
 
-        private static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)
+        private static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)  // Построение дерева
         {
             TreeNode lastNode = null;
             string subPathAgg;
@@ -169,38 +168,16 @@ namespace FilmCollection
                     else
                         lastNode = nodes[0];
                 }
-                lastNode = null; // This is the place code was changed
+                lastNode = null;
             }
+            treeView.ExpandAll();           // развернуть дерево
         }
 
-
-        private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e)
+        private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e)                                 // Команда при клике по строке
         {
             NodeName = e.Node.FullPath;         // получение полного пути ноды
             RefreshTables();
-
-            //TreeNode ChildNode1 = new TreeNode();
-            //ChildNode1.Text = "Next Child 1";
-            //ChildNode1.ImageIndex = 1;
-            //ChildNode1.SelectedImageIndex = 1;
-            //treeView2.SelectedNode.Nodes.Add(ChildNode1);       
         }
-
-
-        public void ChooseFolder()
-        {
-            if (browserDialog.ShowDialog() == DialogResult.OK)
-            {
-                //textBox1.Text = foldBrowsDialog.SelectedPath;
-            }
-
-        }
-
-
-
-
-
-
 
 
 
@@ -241,11 +218,12 @@ namespace FilmCollection
                 if (record != null)
                     return record;
             }
-
             return null;
         }
 
-        private void cAdd_Click(object sender, EventArgs e)
+
+
+        private void cAdd_Click(object sender, EventArgs e)     // добавление новой записи
         {
             EditForm form = new EditForm();
             if (form.ShowDialog() == DialogResult.OK)
@@ -256,10 +234,121 @@ namespace FilmCollection
             }
         }
 
+        Timer t = new Timer();
         private void MainForm_Load(object sender, EventArgs e)
         {
             _videoCollection = RecordCollection.Load();
+            CreateTree();
             RefreshTables();
+
+            // костыль для исключения селекта treeFolder и фильтра dataGridView1
+            t.Interval = 100;
+            t.Tick += T_Tick;
+            t.Enabled = true;
+        }
+
+        private void T_Tick(object sender, EventArgs e)
+        {
+            t.Enabled = false;
+            treeFolder.SelectedNode = null;
+            treeFolder.AfterSelect += treeFolder_AfterSelect;
+        }
+
+
+
+        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // проверка выбора строки перед открытием меню
+        {
+            contextMenu.Items[4].Enabled = false;
+            DataGridView dgv = dataGridView1;
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            {
+                contextMenu.Items[4].Enabled = true;
+            }
+        }
+
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                // Can leave these here - doesn't hurt
+                dataGridView1.Rows[e.RowIndex].Selected = true;
+                dataGridView1.Focus();
+            }
+        }
+
+        private void cResetTreeFilter_Click(object sender, EventArgs e)     // Сброс фильтра по дереву
+        {
+            NodeName = ""; 
+            RefreshTables();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void ChooseFolder()
+        {
+            //if (browserDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    //textBox1.Text = foldBrowsDialog.SelectedPath;
+            //}
+
+
+
+            //// Show the FolderBrowserDialog.
+            //DialogResult result = browserDialog.ShowDialog();
+            //if (result == DialogResult.OK)
+            //{
+            //    folderName = browserDialog.SelectedPath;
+            //    if (!fileOpened)
+            //    {
+            //        // No file is opened, bring up openFileDialog in selected path.
+            //        openFileDialog1.InitialDirectory = folderName;
+            //        openFileDialog1.FileName = null;
+            //        openMenuItem.PerformClick();
+            //    }
+            //}
+
+
+            //if (browserDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    //textBox1.Text = browserDialog.SelectedPath;
+          
+            //}
+
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            browserDialog.Description = "Выбор папки!!!!!!!!!";
+            DialogResult dialogresult = browserDialog.ShowDialog();
+            //Надпись выше окна контрола
+
+            string folderName = "";
+            if (dialogresult == DialogResult.OK)
+            {
+                //Извлечение имени папки
+                folderName = browserDialog.SelectedPath;
+                MessageBox.Show(folderName);
+            }
         }
     }
 }
