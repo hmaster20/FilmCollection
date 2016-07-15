@@ -6,6 +6,11 @@ namespace FilmCollection
     public class RecordCollection
     {
         private static string fileName = "VideoList.xml";       // Файл базы
+        [XmlIgnore]
+        public static string BaseName
+        {
+            get { return fileName; }
+        }
 
         private List<Record> _videoList;
         public List<Record> VideoList
