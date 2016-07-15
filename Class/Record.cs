@@ -48,6 +48,13 @@ namespace FilmCollection
             set { _filename = value; }
         }
 
+        private string _dirname = "";         // Название папки в которой расположен файл
+        public string DirName
+        {
+            get { return _dirname; }
+            set { _dirname = value; }
+        }
+
         private string _extension = "";         // Расширение (тип) файла (avi, mkv, mpeg)
         public string Extension
         {
@@ -101,7 +108,7 @@ namespace FilmCollection
         #endregion
 
 
-        #region Обработка типа записи (Фильм. Сериал, Мультфильм)
+        #region Обработка категории записи (Фильм. Сериал, Мультфильм)
         private CategoryVideo _category = CategoryVideo.Unknown;   // Тип записи (Фильм. Сериал, Мультфильм)
         [XmlIgnore]
         public CategoryVideo Category
