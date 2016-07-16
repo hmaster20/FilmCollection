@@ -27,14 +27,118 @@ namespace FilmCollection
         }
 
 
-        private void btnScanDir_Click(object sender, EventArgs e)       // Автоматическое построение базы
+        private void btnScanDir_Click(object sender, EventArgs e)
         {
             CreateBase();
         }
 
-        private void CreateBase()       // Автоматическое построение базы
+
+
+
+
+        private void CreateBase()       // Создание файла базы
         {
-            DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
+            if (File.Exists(RecordCollection.BaseName))
+            {
+                DialogResult result = MessageBox.Show("Текущая база будет удалена", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    File.WriteAllText(RecordCollection.BaseName, string.Empty);
+                    _videoCollection.Clear();
+                    MessageBox.Show("Очистка выполнена!");
+                    // Перечитать дерево и таблицу
+
+                    NodeName = "";
+                    RefreshTables();
+
+                    treeFolder.Nodes.Clear();
+                 
+                }
+
+            }
+            DialogResult dialogresult = browserDialog.ShowDialog();
+
+            string folderName = "";
+            if (dialogresult == DialogResult.OK)
+            {
+                folderName = browserDialog.SelectedPath;                //Извлечение имени папки
+
+                SourceValue = folderName;
+
+             DirectoryInfo directory = new DirectoryInfo(folderName);
+                _videoCollection.Source = directory.FullName;
+                //_videoCollection.Save();
+
+
+                //#region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
+                //List<string> FileNameList = new List<string>();
+                //XmlDocument doc = new XmlDocument();
+                //doc.Load(RecordCollection.BaseName);
+
+
+                //XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
+
+                //foreach (XmlNode node in nodeList)
+                //{
+                //    FileNameList.Add(node.ChildNodes[0].Value);
+                //}
+                //#endregion
+
+
+                if (directory.Exists)
+                {
+                    char[] charsToTrim = { '.' };
+                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                    {
+                        //if (file.Name != FileNameList.Find(x => x.Contains(file.Name)))
+                        //{
+                        record = new Record();
+
+                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                        record.FileName = file.Name;                            // полное название файла (film.avi)
+                        record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
+                        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                        record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                                // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+
+                        _videoCollection.Add(record);
+                        //_videoCollection.Save();
+                        //}
+                    }
+                }
+                //_videoCollection = RecordCollection.Load();
+                //RefreshTables();
+                _videoCollection.Save();
+                LoadForm();
+            }
+        }
+
+
+
+
+
+        private void UpdateBase()       // Добавить обновление базы
+        {
+            if (File.Exists(RecordCollection.BaseName))
+            {
+                File.WriteAllText(RecordCollection.BaseName, string.Empty);
+            }
+            //browserDialog.Description = "Выбор папки!!!!!!!!!";
+            DialogResult dialogresult = browserDialog.ShowDialog();
+            //Надпись выше окна контрола
+
+            string folderName = "";
+            if (dialogresult == DialogResult.OK)
+            {
+                //Извлечение имени папки
+                folderName = browserDialog.SelectedPath;
+                //MessageBox.Show(folderName);
+            }
+
+
+            //DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
+
+            DirectoryInfo directory = new DirectoryInfo(folderName);
             _videoCollection.Source = directory.FullName;
             _videoCollection.Save();
             //int dlinna = directory.FullName.Length;
@@ -42,7 +146,9 @@ namespace FilmCollection
             #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
             List<string> FileNameList = new List<string>();
             XmlDocument doc = new XmlDocument();
-            doc.Load("VideoList.xml");
+            //doc.Load("VideoList.xml");
+            doc.Load(RecordCollection.BaseName);
+
 
             XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
 
@@ -74,9 +180,30 @@ namespace FilmCollection
                     }
                 }
             }
-            _videoCollection = RecordCollection.Load();
-            RefreshTables();
+            //_videoCollection = RecordCollection.Load();
+            //RefreshTables();
+            LoadForm();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         private void RefreshTables()    // Обновление таблицы путем фильтрации элементов по полю Path
@@ -100,7 +227,6 @@ namespace FilmCollection
         }
 
 
-
         private void btnTree_Click(object sender, EventArgs e)  // Построение дерева
         {
             CreateTree();
@@ -109,7 +235,7 @@ namespace FilmCollection
 
         private void CreateTree()  // Построение дерева
         {
-             XmlDocument doc = new XmlDocument();
+            XmlDocument doc = new XmlDocument();
             doc.Load(RecordCollection.BaseName);                            // Получения файла базы
 
             #region Поиск атрибута source из файла XML, содержащего путь к папке с видео
@@ -148,7 +274,6 @@ namespace FilmCollection
         }
 
 
-
         private static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)  // Построение дерева
         {
             TreeNode lastNode = null;
@@ -183,30 +308,6 @@ namespace FilmCollection
 
 
 
-
-
-        private void cMenuChange_Click(object sender, EventArgs e)
-        {
-
-            //EditForm form = new EditForm();
-            //if (form.ShowDialog() == DialogResult.OK)
-            //{
-            //    //_videoCollection.Add(form.Record);
-            //    //_videoCollection.Save();
-            //    RefreshTables();
-            //}
-            Record record = GetSelectedRecord();
-            if (new EditForm(record).ShowDialog() == DialogResult.OK)
-            {
-                _videoCollection.Save();
-                RefreshTables();
-            }
-
-
-        }
-
-
-
         private Record GetSelectedRecord()
         {
             DataGridView dgv = dataGridView1;
@@ -223,7 +324,73 @@ namespace FilmCollection
 
 
 
-        private void cAdd_Click(object sender, EventArgs e)     // добавление новой записи
+
+
+
+
+
+
+
+        private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
+        {
+            LoadForm();
+        }
+
+
+
+
+        private void LoadForm()
+        {
+            if (File.Exists(RecordCollection.BaseName)) // Если база создана, то выполняем
+            {
+                _videoCollection = RecordCollection.Load();
+                if (_videoCollection.VideoList.Count > 0)
+                {
+                    RefreshTables();
+                    CreateTree();
+                }
+                timerLoad.Enabled = true;   // костыль для исключения селекта treeFolder и фильтра dataGridView1
+
+            }
+
+        }
+
+        private void T_Tick(object sender, EventArgs e)             // таймер для селекта MainForm_Load
+        {
+            timerLoad.Enabled = false;
+            treeFolder.SelectedNode = null;
+            treeFolder.AfterSelect += treeFolder_AfterSelect;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #region Контекстное меню для DataGridView
+
+        private void cResetTreeFilter_Click(object sender, EventArgs e)     // Сброс фильтра по дереву
+        {
+            NodeName = "";
+            RefreshTables();
+        }
+
+        private void cAdd_Click(object sender, EventArgs e)                 // добавление новой записи
         {
             EditForm form = new EditForm();
             if (form.ShowDialog() == DialogResult.OK)
@@ -234,29 +401,17 @@ namespace FilmCollection
             }
         }
 
-        Timer t = new Timer();
-        private void MainForm_Load(object sender, EventArgs e)
+        private void cMenuChange_Click(object sender, EventArgs e)          // Изменить запись
         {
-            _videoCollection = RecordCollection.Load();
-            CreateTree();
-            RefreshTables();
-
-            // костыль для исключения селекта treeFolder и фильтра dataGridView1
-            t.Interval = 100;
-            t.Tick += T_Tick;
-            t.Enabled = true;
+            Record record = GetSelectedRecord();
+            if (new EditForm(record).ShowDialog() == DialogResult.OK)
+            {
+                _videoCollection.Save();
+                RefreshTables();
+            }
         }
 
-        private void T_Tick(object sender, EventArgs e)
-        {
-            t.Enabled = false;
-            treeFolder.SelectedNode = null;
-            treeFolder.AfterSelect += treeFolder_AfterSelect;
-        }
-
-
-
-        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // проверка выбора строки перед открытием меню
+        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // Загрузка меню и проверка селекта строки перед открытием меню
         {
             contextMenu.Items[4].Enabled = false;
             DataGridView dgv = dataGridView1;
@@ -265,6 +420,9 @@ namespace FilmCollection
                 contextMenu.Items[4].Enabled = true;
             }
         }
+
+        #endregion
+
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
         {
@@ -277,79 +435,9 @@ namespace FilmCollection
             }
         }
 
-        private void cResetTreeFilter_Click(object sender, EventArgs e)     // Сброс фильтра по дереву
-        {
-            NodeName = ""; 
-            RefreshTables();
-        }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public void ChooseFolder()
-        {
-            //if (browserDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    //textBox1.Text = foldBrowsDialog.SelectedPath;
-            //}
-
-
-
-            //// Show the FolderBrowserDialog.
-            //DialogResult result = browserDialog.ShowDialog();
-            //if (result == DialogResult.OK)
-            //{
-            //    folderName = browserDialog.SelectedPath;
-            //    if (!fileOpened)
-            //    {
-            //        // No file is opened, bring up openFileDialog in selected path.
-            //        openFileDialog1.InitialDirectory = folderName;
-            //        openFileDialog1.FileName = null;
-            //        openMenuItem.PerformClick();
-            //    }
-            //}
-
-
-            //if (browserDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    //textBox1.Text = browserDialog.SelectedPath;
-          
-            //}
-
-        }
-
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            browserDialog.Description = "Выбор папки!!!!!!!!!";
-            DialogResult dialogresult = browserDialog.ShowDialog();
-            //Надпись выше окна контрола
-
-            string folderName = "";
-            if (dialogresult == DialogResult.OK)
-            {
-                //Извлечение имени папки
-                folderName = browserDialog.SelectedPath;
-                MessageBox.Show(folderName);
-            }
-        }
     }
 }
 

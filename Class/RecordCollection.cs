@@ -64,5 +64,11 @@ namespace FilmCollection
         {
             VideoList.Add(record);
         }
+
+        public void Clear()
+        {
+            VideoList.Clear();
+        }
+
     }
 }
