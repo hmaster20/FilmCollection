@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvTable = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +53,8 @@
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuScan = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuTree = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -69,20 +71,21 @@
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabFilm.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvTable
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTable.AllowUserToAddRows = false;
+            this.dgvTable.AllowUserToDeleteRows = false;
+            this.dgvTable.AllowUserToOrderColumns = true;
+            this.dgvTable.AllowUserToResizeRows = false;
+            this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column9,
             this.Column2,
@@ -91,17 +94,17 @@
             this.Column3,
             this.Column8,
             this.Column4});
-            this.dataGridView1.ContextMenuStrip = this.contextMenu;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(693, 411);
-            this.dataGridView1.TabIndex = 9;
-            this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
+            this.dgvTable.ContextMenuStrip = this.contextMenu;
+            this.dgvTable.Dock = System.Windows.Forms.DockStyle.Left;
+            this.dgvTable.Location = new System.Drawing.Point(3, 3);
+            this.dgvTable.MultiSelect = false;
+            this.dgvTable.Name = "dgvTable";
+            this.dgvTable.ReadOnly = true;
+            this.dgvTable.RowHeadersVisible = false;
+            this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTable.Size = new System.Drawing.Size(693, 411);
+            this.dgvTable.TabIndex = 9;
+            this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
             // 
             // Column1
             // 
@@ -261,6 +264,8 @@
             // 
             this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuScan,
+            this.btnUpdateBase,
+            this.toolStripSeparator3,
             this.MenuLoad,
             this.MenuTree,
             this.toolStripSeparator1,
@@ -277,7 +282,19 @@
             this.MenuScan.Name = "MenuScan";
             this.MenuScan.Size = new System.Drawing.Size(164, 22);
             this.MenuScan.Text = "Создать базу";
-            this.MenuScan.Click += new System.EventHandler(this.btnScanDir_Click);
+            this.MenuScan.Click += new System.EventHandler(this.btnCreateBase_Click);
+            // 
+            // btnUpdateBase
+            // 
+            this.btnUpdateBase.Name = "btnUpdateBase";
+            this.btnUpdateBase.Size = new System.Drawing.Size(164, 22);
+            this.btnUpdateBase.Text = "Обновить базу";
+            this.btnUpdateBase.Click += new System.EventHandler(this.btnUpdateBase_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
             // 
             // MenuLoad
             // 
@@ -372,7 +389,7 @@
             // 
             // tabFilm
             // 
-            this.tabFilm.Controls.Add(this.dataGridView1);
+            this.tabFilm.Controls.Add(this.dgvTable);
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
@@ -408,7 +425,7 @@
             this.Name = "MainForm";
             this.Text = "Фильмотека";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
@@ -420,7 +437,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvTable;
         private System.Windows.Forms.FolderBrowserDialog browserDialog;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -450,6 +467,10 @@
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cResetTreeFilter;
         private System.Windows.Forms.ToolStripSeparator cSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
+        private System.Windows.Forms.Timer timerLoad;
+        private System.Windows.Forms.ToolStripMenuItem btnUpdateBase;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -458,8 +479,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
-        private System.Windows.Forms.Timer timerLoad;
     }
 }
 

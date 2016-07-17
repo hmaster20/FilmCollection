@@ -4,8 +4,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 
-
-
 namespace FilmCollection
 {
     public partial class MainForm : Form
@@ -13,25 +11,27 @@ namespace FilmCollection
         RecordCollection _videoCollection = new RecordCollection();
         Record record = null;
         string NodeName = "";       // хранение полного пути узла из TreeFolder
-        string SourceValue = "";
+        //string SourceValue = "";
 
 
         public MainForm()
         {
             InitializeComponent();
-            dataGridView1.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
-
-            //string rootPath = Console.ReadLine(); var dir = new DirectoryInfo(rootPath);
-            //string samplePath = Application.StartupPath + @"\\Dirs_v6.xml";
-            //DisplayTreeView(samplePath);
+            dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
         }
 
 
-        private void btnScanDir_Click(object sender, EventArgs e)
+
+
+        private void btnCreateBase_Click(object sender, EventArgs e)
         {
             CreateBase();
         }
 
+        private void btnUpdateBase_Click(object sender, EventArgs e)
+        {
+            UpdateBase();
+        }
 
 
 
@@ -40,58 +40,34 @@ namespace FilmCollection
         {
             if (File.Exists(RecordCollection.BaseName))
             {
-                DialogResult result = MessageBox.Show("Текущая база будет удалена", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Текущая база будет удалена", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     File.WriteAllText(RecordCollection.BaseName, string.Empty);
                     _videoCollection.Clear();
-                    MessageBox.Show("Очистка выполнена!");
-                    // Перечитать дерево и таблицу
-
+                    treeFolder.Nodes.Clear();
                     NodeName = "";
                     RefreshTables();
-
-                    treeFolder.Nodes.Clear();
-                 
+                    //MessageBox.Show("Очистка выполнена!");
                 }
 
             }
             DialogResult dialogresult = browserDialog.ShowDialog();
 
             string folderName = "";
+
             if (dialogresult == DialogResult.OK)
             {
                 folderName = browserDialog.SelectedPath;                //Извлечение имени папки
-
-                SourceValue = folderName;
-
-             DirectoryInfo directory = new DirectoryInfo(folderName);
-                _videoCollection.Source = directory.FullName;
-                //_videoCollection.Save();
-
-
-                //#region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
-                //List<string> FileNameList = new List<string>();
-                //XmlDocument doc = new XmlDocument();
-                //doc.Load(RecordCollection.BaseName);
-
-
-                //XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
-
-                //foreach (XmlNode node in nodeList)
-                //{
-                //    FileNameList.Add(node.ChildNodes[0].Value);
-                //}
-                //#endregion
-
+                //SourceValue = folderName;
+                DirectoryInfo directory = new DirectoryInfo(folderName);
 
                 if (directory.Exists)
                 {
+                    _videoCollection.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
                     foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                     {
-                        //if (file.Name != FileNameList.Find(x => x.Contains(file.Name)))
-                        //{
                         record = new Record();
 
                         record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
@@ -100,14 +76,9 @@ namespace FilmCollection
                         record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
                         record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
                                                                                 // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-
                         _videoCollection.Add(record);
-                        //_videoCollection.Save();
-                        //}
                     }
                 }
-                //_videoCollection = RecordCollection.Load();
-                //RefreshTables();
                 _videoCollection.Save();
                 LoadForm();
             }
@@ -119,36 +90,22 @@ namespace FilmCollection
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            if (File.Exists(RecordCollection.BaseName))
-            {
-                File.WriteAllText(RecordCollection.BaseName, string.Empty);
-            }
-            //browserDialog.Description = "Выбор папки!!!!!!!!!";
-            DialogResult dialogresult = browserDialog.ShowDialog();
-            //Надпись выше окна контрола
+            //string folderName = "";
 
-            string folderName = "";
-            if (dialogresult == DialogResult.OK)
-            {
-                //Извлечение имени папки
-                folderName = browserDialog.SelectedPath;
-                //MessageBox.Show(folderName);
-            }
+            //// перечитать каталог source
 
 
-            //DirectoryInfo directory = new DirectoryInfo(@"C:\temp");
-
-            DirectoryInfo directory = new DirectoryInfo(folderName);
-            _videoCollection.Source = directory.FullName;
-            _videoCollection.Save();
+            //DirectoryInfo directory = new DirectoryInfo(folderName);
+            //_videoCollection.Source = directory.FullName;
+            //_videoCollection.Save();
             //int dlinna = directory.FullName.Length;
+
+            DirectoryInfo directory = new DirectoryInfo(_videoCollection.Source);
 
             #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
             List<string> FileNameList = new List<string>();
             XmlDocument doc = new XmlDocument();
-            //doc.Load("VideoList.xml");
             doc.Load(RecordCollection.BaseName);
-
 
             XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
 
@@ -176,12 +133,12 @@ namespace FilmCollection
                         // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
 
                         _videoCollection.Add(record);
-                        _videoCollection.Save();
                     }
                 }
             }
             //_videoCollection = RecordCollection.Load();
             //RefreshTables();
+            _videoCollection.Save();
             LoadForm();
         }
 
@@ -208,23 +165,36 @@ namespace FilmCollection
 
         private void RefreshTables()    // Обновление таблицы путем фильтрации элементов по полю Path
         {
+
             List<Record> filtered = _videoCollection.VideoList;
             if (NodeName != "")
             {
-                filtered = filtered.FindAll(v => v.Path == SourceValue + Path.DirectorySeparatorChar + NodeName);
-                dataGridView1.DataSource = filtered;
+                //filtered = filtered.FindAll(v => v.Path == SourceValue + Path.DirectorySeparatorChar + NodeName);
+                filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + NodeName);
+
+                dgvTable.DataSource = filtered;
             }
             else
             {
-                dataGridView1.DataSource = filtered;
+                dgvTable.DataSource = filtered;
             }
         }
+
+
+
+
+
+
 
         private void btnLoad_Click(object sender, EventArgs e)  // Загрузка базы
         {
             _videoCollection = RecordCollection.Load();
             RefreshTables();
         }
+
+
+
+
 
 
         private void btnTree_Click(object sender, EventArgs e)  // Построение дерева
@@ -238,21 +208,26 @@ namespace FilmCollection
             XmlDocument doc = new XmlDocument();
             doc.Load(RecordCollection.BaseName);                            // Получения файла базы
 
-            #region Поиск атрибута source из файла XML, содержащего путь к папке с видео
-            foreach (XmlNode xmlNode in doc.ChildNodes)
-            {
-                if (xmlNode.NodeType == XmlNodeType.Element)                // Проверка ноды, что это элемент
-                {
-                    foreach (XmlAttribute xmlattribute in xmlNode.Attributes)
-                    {
-                        if (xmlattribute.Name == "source") SourceValue = xmlattribute.Value; // Поиск атрибута "source"
-                        if ((SourceValue != null) && (SourceValue.Length != 0)) break;
-                    }
-                }
-            }
-            #endregion
+            //#region Поиск атрибута source из файла XML, содержащего путь к папке с видео
+            //foreach (XmlNode xmlNode in doc.ChildNodes)
+            //{
+            //    if (xmlNode.NodeType == XmlNodeType.Element)                // Проверка ноды, что это элемент
+            //    {
+            //        foreach (XmlAttribute xmlattribute in xmlNode.Attributes)
+            //        {
+            //            //if (xmlattribute.Name == "source") SourceValue = xmlattribute.Value; // Поиск атрибута "source"
+            //            //if ((SourceValue != null) && (SourceValue.Length != 0)) break;
+            //            if (xmlattribute.Name == "source") SourceValue = xmlattribute.Value; // Поиск атрибута "source"
+            //            if ((SourceValue != null) && (SourceValue.Length != 0)) break;
 
-            int SourceLength = SourceValue.Length; // Получение длинны пути
+            //        }
+            //    }
+            //}
+            //#endregion
+
+            //int SourceLength = SourceValue.Length; // Получение длинны пути
+            int SourceLength = _videoCollection.Source.Length; // Получение длинны пути
+            //_videoCollection.Source
 
             XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
 
@@ -310,7 +285,7 @@ namespace FilmCollection
 
         private Record GetSelectedRecord()
         {
-            DataGridView dgv = dataGridView1;
+            DataGridView dgv = dgvTable;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 Record record = null;
@@ -414,7 +389,7 @@ namespace FilmCollection
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // Загрузка меню и проверка селекта строки перед открытием меню
         {
             contextMenu.Items[4].Enabled = false;
-            DataGridView dgv = dataGridView1;
+            DataGridView dgv = dgvTable;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 contextMenu.Items[4].Enabled = true;
@@ -428,12 +403,15 @@ namespace FilmCollection
         {
             if (e.Button == MouseButtons.Right)
             {
-                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 // Can leave these here - doesn't hurt
-                dataGridView1.Rows[e.RowIndex].Selected = true;
-                dataGridView1.Focus();
+                dgvTable.Rows[e.RowIndex].Selected = true;
+                dgvTable.Focus();
             }
         }
+
+
+
 
 
 
