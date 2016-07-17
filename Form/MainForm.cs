@@ -10,8 +10,7 @@ namespace FilmCollection
     {
         RecordCollection _videoCollection = new RecordCollection();
         Record record = null;
-        string NodeName = "";       // хранение полного пути узла из TreeFolder
-        //string SourceValue = "";
+        //string NodeName = "";       // хранение полного пути узла из TreeFolder
 
 
         public MainForm()
@@ -20,8 +19,35 @@ namespace FilmCollection
             dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
         }
 
+        private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
+        {
+            LoadForm();
+        }
+
+        private void LoadForm()
+        {
+            if (File.Exists(RecordCollection.BaseName)) // Если база создана, то выполняем
+            {
+                _videoCollection = RecordCollection.Load();
+                if (_videoCollection.VideoList.Count > 0)
+                {
+                    RefreshTables("");
+                    CreateTree();
+                }
+                timerLoad.Enabled = true;   // костыль для исключения селекта treeFolder и фильтра dataGridView1
+            }
+        }
+
+        private void T_Tick(object sender, EventArgs e)             // таймер для селекта MainForm_Load
+        {
+            timerLoad.Enabled = false;
+            treeFolder.SelectedNode = null;
+            treeFolder.AfterSelect += treeFolder_AfterSelect;
+        }
 
 
+
+        #region Главное меню
 
         private void btnCreateBase_Click(object sender, EventArgs e)
         {
@@ -33,7 +59,18 @@ namespace FilmCollection
             UpdateBase();
         }
 
+        private void btnLoad_Click(object sender, EventArgs e)  // Загрузка базы
+        {
+            _videoCollection = RecordCollection.Load();
+            RefreshTables("");
+        }
 
+        private void btnBackupBase_Click(object sender, EventArgs e)    // Создание копии базы
+        {
+            BackupBase();
+        }
+
+        #endregion
 
 
         private void CreateBase()       // Создание файла базы
@@ -46,60 +83,51 @@ namespace FilmCollection
                     File.WriteAllText(RecordCollection.BaseName, string.Empty);
                     _videoCollection.Clear();
                     treeFolder.Nodes.Clear();
-                    NodeName = "";
-                    RefreshTables();
+                    //NodeName = "";
+                    RefreshTables("");
                     //MessageBox.Show("Очистка выполнена!");
-                }
 
-            }
-            DialogResult dialogresult = browserDialog.ShowDialog();
+                    DialogResult dialogresult = browserDialog.ShowDialog();
 
-            string folderName = "";
+                    string folderName = "";
 
-            if (dialogresult == DialogResult.OK)
-            {
-                folderName = browserDialog.SelectedPath;                //Извлечение имени папки
-                //SourceValue = folderName;
-                DirectoryInfo directory = new DirectoryInfo(folderName);
-
-                if (directory.Exists)
-                {
-                    _videoCollection.Source = directory.FullName;   // Сохранение каталога фильмов
-                    char[] charsToTrim = { '.' };
-                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                    if (dialogresult == DialogResult.OK)
                     {
-                        record = new Record();
+                        folderName = browserDialog.SelectedPath;                //Извлечение имени папки
 
-                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-                        record.FileName = file.Name;                            // полное название файла (film.avi)
-                        record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                        record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                                // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                        _videoCollection.Add(record);
+                        DirectoryInfo directory = new DirectoryInfo(folderName);
+
+                        if (directory.Exists)
+                        {
+                            _videoCollection.Source = directory.FullName;   // Сохранение каталога фильмов
+                            char[] charsToTrim = { '.' };
+                            foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                            {
+                                record = new Record();
+
+                                record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                                record.FileName = file.Name;                            // полное название файла (film.avi)
+                                record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
+                                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                                record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                                        // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                                _videoCollection.Add(record);
+                            }
+                        }
+                        _videoCollection.Save();
+                        LoadForm();
                     }
+
+
                 }
-                _videoCollection.Save();
-                LoadForm();
+
             }
+
         }
-
-
-
 
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            //string folderName = "";
-
-            //// перечитать каталог source
-
-
-            //DirectoryInfo directory = new DirectoryInfo(folderName);
-            //_videoCollection.Source = directory.FullName;
-            //_videoCollection.Save();
-            //int dlinna = directory.FullName.Length;
-
             DirectoryInfo directory = new DirectoryInfo(_videoCollection.Source);
 
             #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
@@ -136,41 +164,40 @@ namespace FilmCollection
                     }
                 }
             }
-            //_videoCollection = RecordCollection.Load();
-            //RefreshTables();
             _videoCollection.Save();
             LoadForm();
         }
 
+        private void BackupBase()       // Резервная копия базы
+        {
+            if (File.Exists(RecordCollection.BaseName))
+            {
+                try
+                {
+                    File.Copy(RecordCollection.BaseName, Path.GetFileNameWithoutExtension(RecordCollection.BaseName)
+                        + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
+                        + Path.GetExtension(RecordCollection.BaseName));
+                    MessageBox.Show("Создана резервная копия!");
+                }
+                catch (IOException copyError)
+                {
+                    //Console.WriteLine(copyError.Message);
+                    MessageBox.Show(copyError.Message);
+                }
+            }
+        }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private void RefreshTables()    // Обновление таблицы путем фильтрации элементов по полю Path
+        private void RefreshTables(string nodeName)    // Обновление таблицы путем фильтрации элементов по полю Path
         {
 
             List<Record> filtered = _videoCollection.VideoList;
-            if (NodeName != "")
+            //if (NodeName != "")
+            if (nodeName != "")
             {
-                //filtered = filtered.FindAll(v => v.Path == SourceValue + Path.DirectorySeparatorChar + NodeName);
-                filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + NodeName);
+                //filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + NodeName);
+                filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + nodeName);
 
                 dgvTable.DataSource = filtered;
             }
@@ -180,27 +207,6 @@ namespace FilmCollection
             }
         }
 
-
-
-
-
-
-
-        private void btnLoad_Click(object sender, EventArgs e)  // Загрузка базы
-        {
-            _videoCollection = RecordCollection.Load();
-            RefreshTables();
-        }
-
-
-
-
-
-
-        private void btnTree_Click(object sender, EventArgs e)  // Построение дерева
-        {
-            CreateTree();
-        }
 
 
         private void CreateTree()  // Построение дерева
@@ -270,20 +276,17 @@ namespace FilmCollection
                 }
                 lastNode = null;
             }
-            treeView.ExpandAll();           // развернуть дерево
+            //treeView.ExpandAll();           // развернуть дерево
         }
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e)                                 // Команда при клике по строке
         {
-            NodeName = e.Node.FullPath;         // получение полного пути ноды
-            RefreshTables();
+            RefreshTables(e.Node.FullPath);     // обновление на основе полученной ноды
         }
 
 
 
-
-
-        private Record GetSelectedRecord()
+        private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
             DataGridView dgv = dgvTable;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
@@ -299,70 +302,12 @@ namespace FilmCollection
 
 
 
-
-
-
-
-
-
-
-        private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
-        {
-            LoadForm();
-        }
-
-
-
-
-        private void LoadForm()
-        {
-            if (File.Exists(RecordCollection.BaseName)) // Если база создана, то выполняем
-            {
-                _videoCollection = RecordCollection.Load();
-                if (_videoCollection.VideoList.Count > 0)
-                {
-                    RefreshTables();
-                    CreateTree();
-                }
-                timerLoad.Enabled = true;   // костыль для исключения селекта treeFolder и фильтра dataGridView1
-
-            }
-
-        }
-
-        private void T_Tick(object sender, EventArgs e)             // таймер для селекта MainForm_Load
-        {
-            timerLoad.Enabled = false;
-            treeFolder.SelectedNode = null;
-            treeFolder.AfterSelect += treeFolder_AfterSelect;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #region Контекстное меню для DataGridView
 
         private void cResetTreeFilter_Click(object sender, EventArgs e)     // Сброс фильтра по дереву
         {
-            NodeName = "";
-            RefreshTables();
+            //NodeName = "";
+            RefreshTables("");
         }
 
         private void cAdd_Click(object sender, EventArgs e)                 // добавление новой записи
@@ -372,7 +317,7 @@ namespace FilmCollection
             {
                 _videoCollection.Add(form.rec);
                 _videoCollection.Save();
-                RefreshTables();
+                RefreshTables("");
             }
         }
 
@@ -382,7 +327,7 @@ namespace FilmCollection
             if (new EditForm(record).ShowDialog() == DialogResult.OK)
             {
                 _videoCollection.Save();
-                RefreshTables();
+                RefreshTables("");      //Должно быть обновление вместо фильтра
             }
         }
 
@@ -399,21 +344,15 @@ namespace FilmCollection
         #endregion
 
 
-        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
+        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
         {
             if (e.Button == MouseButtons.Right)
             {
                 dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                // Can leave these here - doesn't hurt
                 dgvTable.Rows[e.RowIndex].Selected = true;
                 dgvTable.Focus();
             }
         }
-
-
-
-
-
 
 
     }

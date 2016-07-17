@@ -56,7 +56,6 @@
             this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuTree = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.экспортВHTMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,6 +70,8 @@
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
+            this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -82,7 +83,6 @@
             // 
             this.dgvTable.AllowUserToAddRows = false;
             this.dgvTable.AllowUserToDeleteRows = false;
-            this.dgvTable.AllowUserToOrderColumns = true;
             this.dgvTable.AllowUserToResizeRows = false;
             this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -104,7 +104,7 @@
             this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTable.Size = new System.Drawing.Size(693, 411);
             this.dgvTable.TabIndex = 9;
-            this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
+            this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             // 
             // Column1
             // 
@@ -266,8 +266,9 @@
             this.MenuScan,
             this.btnUpdateBase,
             this.toolStripSeparator3,
+            this.btnBackupBase,
+            this.toolStripSeparator4,
             this.MenuLoad,
-            this.MenuTree,
             this.toolStripSeparator1,
             this.экспортВHTMLToolStripMenuItem,
             this.отчетToolStripMenuItem,
@@ -280,62 +281,55 @@
             // MenuScan
             // 
             this.MenuScan.Name = "MenuScan";
-            this.MenuScan.Size = new System.Drawing.Size(164, 22);
+            this.MenuScan.Size = new System.Drawing.Size(187, 22);
             this.MenuScan.Text = "Создать базу";
             this.MenuScan.Click += new System.EventHandler(this.btnCreateBase_Click);
             // 
             // btnUpdateBase
             // 
             this.btnUpdateBase.Name = "btnUpdateBase";
-            this.btnUpdateBase.Size = new System.Drawing.Size(164, 22);
+            this.btnUpdateBase.Size = new System.Drawing.Size(187, 22);
             this.btnUpdateBase.Text = "Обновить базу";
             this.btnUpdateBase.Click += new System.EventHandler(this.btnUpdateBase_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(184, 6);
             // 
             // MenuLoad
             // 
             this.MenuLoad.Name = "MenuLoad";
-            this.MenuLoad.Size = new System.Drawing.Size(164, 22);
+            this.MenuLoad.Size = new System.Drawing.Size(187, 22);
             this.MenuLoad.Text = "Загрузить";
             this.MenuLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
-            // MenuTree
-            // 
-            this.MenuTree.Name = "MenuTree";
-            this.MenuTree.Size = new System.Drawing.Size(164, 22);
-            this.MenuTree.Text = "Дерево";
-            this.MenuTree.Click += new System.EventHandler(this.btnTree_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
             // 
             // экспортВHTMLToolStripMenuItem
             // 
             this.экспортВHTMLToolStripMenuItem.Name = "экспортВHTMLToolStripMenuItem";
-            this.экспортВHTMLToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.экспортВHTMLToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.экспортВHTMLToolStripMenuItem.Text = "Экспорт в HTML";
             // 
             // отчетToolStripMenuItem
             // 
             this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
-            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.отчетToolStripMenuItem.Text = "Отчет";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             // 
             // справкаToolStripMenuItem
@@ -412,6 +406,18 @@
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
             // 
+            // btnBackupBase
+            // 
+            this.btnBackupBase.Name = "btnBackupBase";
+            this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
+            this.btnBackupBase.Text = "Создать копию базы";
+            this.btnBackupBase.Click += new System.EventHandler(this.btnBackupBase_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(184, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,7 +456,6 @@
         private System.Windows.Forms.ToolStripMenuItem MenuFile;
         private System.Windows.Forms.ToolStripMenuItem MenuScan;
         private System.Windows.Forms.ToolStripMenuItem MenuLoad;
-        private System.Windows.Forms.ToolStripMenuItem MenuTree;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сRefresh;
         private System.Windows.Forms.ToolStripSeparator cSeparator1;
@@ -479,6 +484,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.ToolStripMenuItem btnBackupBase;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 
