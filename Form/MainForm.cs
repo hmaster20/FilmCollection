@@ -10,8 +10,6 @@ namespace FilmCollection
     {
         RecordCollection _videoCollection = new RecordCollection();
         Record record = null;
-        //string NodeName = "";       // хранение полного пути узла из TreeFolder
-
 
         public MainForm()
         {
@@ -70,6 +68,11 @@ namespace FilmCollection
             BackupBase();
         }
 
+        private void btnExit_Click(object sender, EventArgs e)   //Выход
+        {
+            Close();
+        }
+
         #endregion
 
 
@@ -77,15 +80,13 @@ namespace FilmCollection
         {
             if (File.Exists(RecordCollection.BaseName))
             {
-                DialogResult result = MessageBox.Show("Текущая база будет удалена", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     File.WriteAllText(RecordCollection.BaseName, string.Empty);
                     _videoCollection.Clear();
                     treeFolder.Nodes.Clear();
-                    //NodeName = "";
                     RefreshTables("");
-                    //MessageBox.Show("Очистка выполнена!");
 
                     DialogResult dialogresult = browserDialog.ShowDialog();
 
@@ -124,7 +125,6 @@ namespace FilmCollection
             }
 
         }
-
 
         private void UpdateBase()       // Добавить обновление базы
         {
@@ -187,8 +187,6 @@ namespace FilmCollection
             }
         }
 
-
-
         private void RefreshTables(string nodeName)    // Обновление таблицы путем фильтрации элементов по полю Path
         {
 
@@ -206,8 +204,6 @@ namespace FilmCollection
                 dgvTable.DataSource = filtered;
             }
         }
-
-
 
         private void CreateTree()  // Построение дерева
         {
@@ -254,7 +250,6 @@ namespace FilmCollection
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
-
         private static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)  // Построение дерева
         {
             TreeNode lastNode = null;
@@ -284,8 +279,6 @@ namespace FilmCollection
             RefreshTables(e.Node.FullPath);     // обновление на основе полученной ноды
         }
 
-
-
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
             DataGridView dgv = dgvTable;
@@ -299,7 +292,6 @@ namespace FilmCollection
             }
             return null;
         }
-
 
 
         #region Контекстное меню для DataGridView
@@ -354,7 +346,33 @@ namespace FilmCollection
             }
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)    // обработка события Close()
+        {
+            DialogResult dialog = MessageBox.Show("Вы уверены что хотите выйти из программы?",
+                                                  "Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                Application.ExitThread();
+            }
+            else if (dialog == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //ControlMainScreen.Visible = false;
+            panel1.Visible = true;
+            panel2.Visible = false;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel2.Visible = true;
+        }
     }
 }
 
