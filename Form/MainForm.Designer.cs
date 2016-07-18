@@ -55,12 +55,14 @@
             this.MenuScan = new System.Windows.Forms.ToolStripMenuItem();
             this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.экспортВHTMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.версииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,10 +70,12 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new FilmCollection.RecordInfo();
+            this.panel2 = new FilmCollection.RecordEdit();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
-            this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -103,7 +107,7 @@
             this.dgvTable.RowHeadersVisible = false;
             this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTable.Size = new System.Drawing.Size(693, 411);
-            this.dgvTable.TabIndex = 9;
+            this.dgvTable.TabIndex = 12;
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             // 
             // Column1
@@ -257,7 +261,7 @@
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(1154, 24);
-            this.mainMenu.TabIndex = 21;
+            this.mainMenu.TabIndex = 10;
             this.mainMenu.Text = "menuStrip1";
             // 
             // MenuFile
@@ -273,7 +277,7 @@
             this.экспортВHTMLToolStripMenuItem,
             this.отчетToolStripMenuItem,
             this.toolStripSeparator2,
-            this.выходToolStripMenuItem});
+            this.btnExit});
             this.MenuFile.Name = "MenuFile";
             this.MenuFile.Size = new System.Drawing.Size(48, 20);
             this.MenuFile.Text = "Файл";
@@ -296,6 +300,18 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(184, 6);
+            // 
+            // btnBackupBase
+            // 
+            this.btnBackupBase.Name = "btnBackupBase";
+            this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
+            this.btnBackupBase.Text = "Создать копию базы";
+            this.btnBackupBase.Click += new System.EventHandler(this.btnBackupBase_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(184, 6);
             // 
             // MenuLoad
             // 
@@ -326,11 +342,12 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
             // 
-            // выходToolStripMenuItem
+            // btnExit
             // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(187, 22);
+            this.btnExit.Text = "Выход";
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -379,10 +396,14 @@
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(923, 443);
-            this.tabControl2.TabIndex = 24;
+            this.tabControl2.TabIndex = 11;
             // 
             // tabFilm
             // 
+            this.tabFilm.Controls.Add(this.button2);
+            this.tabFilm.Controls.Add(this.button1);
+            this.tabFilm.Controls.Add(this.panel1);
+            this.tabFilm.Controls.Add(this.panel2);
             this.tabFilm.Controls.Add(this.dgvTable);
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
@@ -391,6 +412,43 @@
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(495, 332);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(414, 332);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(696, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(216, 411);
+            this.panel1.TabIndex = 13;
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(696, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(216, 411);
+            this.panel2.TabIndex = 14;
             // 
             // tabWriter
             // 
@@ -406,18 +464,6 @@
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
             // 
-            // btnBackupBase
-            // 
-            this.btnBackupBase.Name = "btnBackupBase";
-            this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
-            this.btnBackupBase.Text = "Создать копию базы";
-            this.btnBackupBase.Click += new System.EventHandler(this.btnBackupBase_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(184, 6);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -430,6 +476,7 @@
             this.Controls.Add(this.mainMenu);
             this.Name = "MainForm";
             this.Text = "Фильмотека";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.contextMenu.ResumeLayout(false);
@@ -469,7 +516,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem экспортВHTMLToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnExit;
         private System.Windows.Forms.ToolStripMenuItem cResetTreeFilter;
         private System.Windows.Forms.ToolStripSeparator cSeparator2;
         private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
@@ -486,6 +533,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.ToolStripMenuItem btnBackupBase;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private RecordInfo panel1;
+        private RecordEdit panel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
