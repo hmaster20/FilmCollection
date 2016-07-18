@@ -52,20 +52,20 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuScan = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCreateBase = new System.Windows.Forms.ToolStripMenuItem();
             this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tS1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tS2 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.экспортВHTMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tS3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnExportHTML = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnReport = new System.Windows.Forms.ToolStripMenuItem();
+            this.tS4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.версииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -257,7 +257,7 @@
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuFile,
-            this.справкаToolStripMenuItem});
+            this.btnHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(1154, 24);
@@ -267,27 +267,27 @@
             // MenuFile
             // 
             this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuScan,
+            this.btnCreateBase,
             this.btnUpdateBase,
-            this.toolStripSeparator3,
+            this.tS1,
             this.btnBackupBase,
-            this.toolStripSeparator4,
+            this.tS2,
             this.MenuLoad,
-            this.toolStripSeparator1,
-            this.экспортВHTMLToolStripMenuItem,
-            this.отчетToolStripMenuItem,
-            this.toolStripSeparator2,
+            this.tS3,
+            this.btnExportHTML,
+            this.btnReport,
+            this.tS4,
             this.btnExit});
             this.MenuFile.Name = "MenuFile";
             this.MenuFile.Size = new System.Drawing.Size(48, 20);
             this.MenuFile.Text = "Файл";
             // 
-            // MenuScan
+            // btnCreateBase
             // 
-            this.MenuScan.Name = "MenuScan";
-            this.MenuScan.Size = new System.Drawing.Size(187, 22);
-            this.MenuScan.Text = "Создать базу";
-            this.MenuScan.Click += new System.EventHandler(this.btnCreateBase_Click);
+            this.btnCreateBase.Name = "btnCreateBase";
+            this.btnCreateBase.Size = new System.Drawing.Size(187, 22);
+            this.btnCreateBase.Text = "Создать базу";
+            this.btnCreateBase.Click += new System.EventHandler(this.btnCreateBase_Click);
             // 
             // btnUpdateBase
             // 
@@ -296,10 +296,10 @@
             this.btnUpdateBase.Text = "Обновить базу";
             this.btnUpdateBase.Click += new System.EventHandler(this.btnUpdateBase_Click);
             // 
-            // toolStripSeparator3
+            // tS1
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(184, 6);
+            this.tS1.Name = "tS1";
+            this.tS1.Size = new System.Drawing.Size(184, 6);
             // 
             // btnBackupBase
             // 
@@ -308,10 +308,10 @@
             this.btnBackupBase.Text = "Создать копию базы";
             this.btnBackupBase.Click += new System.EventHandler(this.btnBackupBase_Click);
             // 
-            // toolStripSeparator4
+            // tS2
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(184, 6);
+            this.tS2.Name = "tS2";
+            this.tS2.Size = new System.Drawing.Size(184, 6);
             // 
             // MenuLoad
             // 
@@ -320,27 +320,27 @@
             this.MenuLoad.Text = "Загрузить";
             this.MenuLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
-            // toolStripSeparator1
+            // tS3
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(184, 6);
+            this.tS3.Name = "tS3";
+            this.tS3.Size = new System.Drawing.Size(184, 6);
             // 
-            // экспортВHTMLToolStripMenuItem
+            // btnExportHTML
             // 
-            this.экспортВHTMLToolStripMenuItem.Name = "экспортВHTMLToolStripMenuItem";
-            this.экспортВHTMLToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.экспортВHTMLToolStripMenuItem.Text = "Экспорт в HTML";
+            this.btnExportHTML.Name = "btnExportHTML";
+            this.btnExportHTML.Size = new System.Drawing.Size(187, 22);
+            this.btnExportHTML.Text = "Экспорт в HTML";
             // 
-            // отчетToolStripMenuItem
+            // btnReport
             // 
-            this.отчетToolStripMenuItem.Name = "отчетToolStripMenuItem";
-            this.отчетToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.отчетToolStripMenuItem.Text = "Отчет";
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(187, 22);
+            this.btnReport.Text = "Отчет";
             // 
-            // toolStripSeparator2
+            // tS4
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(184, 6);
+            this.tS4.Name = "tS4";
+            this.tS4.Size = new System.Drawing.Size(184, 6);
             // 
             // btnExit
             // 
@@ -349,26 +349,26 @@
             this.btnExit.Text = "Выход";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // справкаToolStripMenuItem
+            // btnHelp
             // 
-            this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.оПрограммеToolStripMenuItem,
-            this.версииToolStripMenuItem});
-            this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.справкаToolStripMenuItem.Text = "Справка";
+            this.btnHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAbout,
+            this.btnRelease});
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(65, 20);
+            this.btnHelp.Text = "Справка";
             // 
-            // оПрограммеToolStripMenuItem
+            // btnAbout
             // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Text = "О программе";
             // 
-            // версииToolStripMenuItem
+            // btnRelease
             // 
-            this.версииToolStripMenuItem.Name = "версииToolStripMenuItem";
-            this.версииToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.версииToolStripMenuItem.Text = "Версии";
+            this.btnRelease.Name = "btnRelease";
+            this.btnRelease.Size = new System.Drawing.Size(152, 22);
+            this.btnRelease.Text = "Версии";
             // 
             // treeFolder
             // 
@@ -501,28 +501,28 @@
         private System.Windows.Forms.TabPage tabFilm;
         private System.Windows.Forms.TabPage tabWriter;
         private System.Windows.Forms.ToolStripMenuItem MenuFile;
-        private System.Windows.Forms.ToolStripMenuItem MenuScan;
+        private System.Windows.Forms.ToolStripMenuItem btnCreateBase;
         private System.Windows.Forms.ToolStripMenuItem MenuLoad;
-        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnHelp;
         private System.Windows.Forms.ToolStripMenuItem сRefresh;
         private System.Windows.Forms.ToolStripSeparator cSeparator1;
         private System.Windows.Forms.ToolStripMenuItem cAdd;
         private System.Windows.Forms.ToolStripMenuItem cDelete;
         private System.Windows.Forms.ToolStripMenuItem cChange;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem версииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnAbout;
+        private System.Windows.Forms.ToolStripMenuItem btnRelease;
         private System.Windows.Forms.ToolStripMenuItem cFind;
         private System.Windows.Forms.ToolStripSeparator cSeparator3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem экспортВHTMLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator tS3;
+        private System.Windows.Forms.ToolStripMenuItem btnExportHTML;
+        private System.Windows.Forms.ToolStripSeparator tS4;
         private System.Windows.Forms.ToolStripMenuItem btnExit;
         private System.Windows.Forms.ToolStripMenuItem cResetTreeFilter;
         private System.Windows.Forms.ToolStripSeparator cSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem отчетToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnReport;
         private System.Windows.Forms.Timer timerLoad;
         private System.Windows.Forms.ToolStripMenuItem btnUpdateBase;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator tS1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -532,7 +532,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.ToolStripMenuItem btnBackupBase;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator tS2;
         private RecordInfo panel1;
         private RecordEdit panel2;
         private System.Windows.Forms.Button button1;
