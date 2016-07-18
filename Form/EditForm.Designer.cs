@@ -55,6 +55,9 @@
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
             this.labelTypeVideo = new System.Windows.Forms.Label();
             this.toolTipEditForm = new System.Windows.Forms.ToolTip(this.components);
+            this.btnFileNameEdit = new System.Windows.Forms.Button();
+            this.tbFileName = new System.Windows.Forms.TextBox();
+            this.lblFileName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).BeginInit();
             this.SuspendLayout();
             // 
@@ -288,11 +291,42 @@
             this.labelTypeVideo.TabIndex = 4;
             this.labelTypeVideo.Text = "Тип";
             // 
+            // btnFileNameEdit
+            // 
+            this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources.IconFileEdit;
+            this.btnFileNameEdit.Location = new System.Drawing.Point(394, 254);
+            this.btnFileNameEdit.Name = "btnFileNameEdit";
+            this.btnFileNameEdit.Size = new System.Drawing.Size(23, 27);
+            this.btnFileNameEdit.TabIndex = 15;
+            this.btnFileNameEdit.UseVisualStyleBackColor = true;
+            // 
+            // tbFileName
+            // 
+            this.tbFileName.Enabled = false;
+            this.tbFileName.Location = new System.Drawing.Point(129, 258);
+            this.tbFileName.Name = "tbFileName";
+            this.tbFileName.ReadOnly = true;
+            this.tbFileName.Size = new System.Drawing.Size(259, 20);
+            this.tbFileName.TabIndex = 16;
+            // 
+            // lblFileName
+            // 
+            this.lblFileName.AutoSize = true;
+            this.lblFileName.Location = new System.Drawing.Point(46, 261);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(64, 13);
+            this.lblFileName.TabIndex = 4;
+            this.lblFileName.Text = "Имя файла";
+            // 
             // EditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 478);
+            this.Controls.Add(this.tbFileName);
+            this.Controls.Add(this.btnFileNameEdit);
             this.Controls.Add(this.cBoxTypeVideo);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.btnDownSize);
@@ -309,6 +343,7 @@
             this.Controls.Add(this.tbCountry);
             this.Controls.Add(this.tbYear);
             this.Controls.Add(this.tbName);
+            this.Controls.Add(this.lblFileName);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.labelTypeVideo);
@@ -359,5 +394,8 @@
         private System.Windows.Forms.ComboBox cBoxTypeVideo;
         private System.Windows.Forms.Label labelTypeVideo;
         private System.Windows.Forms.ToolTip toolTipEditForm;
+        private System.Windows.Forms.Button btnFileNameEdit;
+        private System.Windows.Forms.TextBox tbFileName;
+        private System.Windows.Forms.Label lblFileName;
     }
 }

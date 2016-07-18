@@ -53,6 +53,7 @@ namespace FilmCollection
             tbCountry.Text = record.Country;
             numericTime.Value = record.Time;
             tbDescription.Text = record.Description;
+            tbFileName.Text = record.FileName;
 
             switch (record.Category)
             {
@@ -243,6 +244,13 @@ namespace FilmCollection
 
             toolTipEditForm.SetToolTip(lblTime,
             "Указать в минутах");
+
+
+            toolTipEditForm.SetToolTip(btnFileNameEdit,
+            "Переименовать файл");
+
+            
+
         }
 
         
