@@ -30,14 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvTable = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.сRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -67,20 +59,36 @@
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel1 = new FilmCollection.RecordInfo();
-            this.panel2 = new FilmCollection.RecordEdit();
+            this.scTabFilm = new System.Windows.Forms.SplitContainer();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
+            this.scMain = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new FilmCollection.RecordInfo();
+            this.panel2 = new FilmCollection.RecordEdit();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabFilm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).BeginInit();
+            this.scTabFilm.Panel1.SuspendLayout();
+            this.scTabFilm.Panel2.SuspendLayout();
+            this.scTabFilm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
+            this.scMain.Panel1.SuspendLayout();
+            this.scMain.Panel2.SuspendLayout();
+            this.scMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTable
@@ -88,6 +96,8 @@
             this.dgvTable.AllowUserToAddRows = false;
             this.dgvTable.AllowUserToDeleteRows = false;
             this.dgvTable.AllowUserToResizeRows = false;
+            this.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTable.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -99,77 +109,16 @@
             this.Column8,
             this.Column4});
             this.dgvTable.ContextMenuStrip = this.contextMenu;
-            this.dgvTable.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dgvTable.Location = new System.Drawing.Point(3, 3);
+            this.dgvTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTable.Location = new System.Drawing.Point(0, 0);
             this.dgvTable.MultiSelect = false;
             this.dgvTable.Name = "dgvTable";
             this.dgvTable.ReadOnly = true;
             this.dgvTable.RowHeadersVisible = false;
             this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTable.Size = new System.Drawing.Size(693, 411);
+            this.dgvTable.Size = new System.Drawing.Size(461, 411);
             this.dgvTable.TabIndex = 12;
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Name";
-            this.Column1.HeaderText = "Название фильма";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 150;
-            // 
-            // Column9
-            // 
-            this.Column9.DataPropertyName = "DirName";
-            this.Column9.HeaderText = "Расположение";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Year";
-            this.Column2.HeaderText = "Год";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 50;
-            // 
-            // Column6
-            // 
-            this.Column6.DataPropertyName = "Country";
-            this.Column6.HeaderText = "Страна";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 80;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "GenreString";
-            this.Column5.HeaderText = "Жанр";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 80;
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "CategoryString";
-            this.Column3.HeaderText = "Категория";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 80;
-            // 
-            // Column8
-            // 
-            this.Column8.DataPropertyName = "Time";
-            this.Column8.HeaderText = "Время";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 50;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Файл";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
             // 
             // contextMenu
             // 
@@ -361,101 +310,82 @@
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
             this.btnAbout.Text = "О программе";
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(152, 22);
+            this.btnRelease.Size = new System.Drawing.Size(149, 22);
             this.btnRelease.Text = "Версии";
             // 
             // treeFolder
             // 
-            this.treeFolder.Dock = System.Windows.Forms.DockStyle.Left;
-            this.treeFolder.Location = new System.Drawing.Point(0, 24);
+            this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
-            this.treeFolder.Size = new System.Drawing.Size(228, 443);
+            this.treeFolder.Size = new System.Drawing.Size(250, 443);
             this.treeFolder.TabIndex = 22;
-            // 
-            // splitter1
-            // 
-            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitter1.Location = new System.Drawing.Point(228, 24);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 443);
-            this.splitter1.TabIndex = 23;
-            this.splitter1.TabStop = false;
             // 
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.tabFilm);
             this.tabControl2.Controls.Add(this.tabWriter);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl2.Location = new System.Drawing.Point(231, 24);
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(923, 443);
+            this.tabControl2.Size = new System.Drawing.Size(900, 443);
             this.tabControl2.TabIndex = 11;
             // 
             // tabFilm
             // 
-            this.tabFilm.Controls.Add(this.button2);
-            this.tabFilm.Controls.Add(this.button1);
-            this.tabFilm.Controls.Add(this.panel1);
-            this.tabFilm.Controls.Add(this.panel2);
-            this.tabFilm.Controls.Add(this.dgvTable);
+            this.tabFilm.Controls.Add(this.scTabFilm);
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(915, 417);
+            this.tabFilm.Size = new System.Drawing.Size(892, 417);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // scTabFilm
             // 
-            this.button2.Location = new System.Drawing.Point(495, 332);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.scTabFilm.BackColor = System.Drawing.Color.LightGray;
+            this.scTabFilm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scTabFilm.Location = new System.Drawing.Point(3, 3);
+            this.scTabFilm.Name = "scTabFilm";
             // 
-            // button1
+            // scTabFilm.Panel1
             // 
-            this.button1.Location = new System.Drawing.Point(414, 332);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.scTabFilm.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel1.Controls.Add(this.dgvTable);
             // 
-            // panel1
+            // scTabFilm.Panel2
             // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(696, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(216, 411);
-            this.panel1.TabIndex = 13;
+            this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.panel3);
+            this.scTabFilm.Panel2.Controls.Add(this.panel1);
+            this.scTabFilm.Panel2.Controls.Add(this.panel2);
+            this.scTabFilm.Size = new System.Drawing.Size(886, 411);
+            this.scTabFilm.SplitterDistance = 461;
+            this.scTabFilm.TabIndex = 17;
             // 
-            // panel2
+            // panel3
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(696, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(216, 411);
-            this.panel2.TabIndex = 14;
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(421, 411);
+            this.panel3.TabIndex = 15;
             // 
             // tabWriter
             // 
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
             this.tabWriter.Name = "tabWriter";
             this.tabWriter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWriter.Size = new System.Drawing.Size(915, 417);
+            this.tabWriter.Size = new System.Drawing.Size(892, 417);
             this.tabWriter.TabIndex = 1;
             this.tabWriter.Text = "Редактор";
             this.tabWriter.UseVisualStyleBackColor = true;
@@ -464,14 +394,103 @@
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
             // 
+            // scMain
+            // 
+            this.scMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scMain.Location = new System.Drawing.Point(0, 24);
+            this.scMain.Name = "scMain";
+            // 
+            // scMain.Panel1
+            // 
+            this.scMain.Panel1.Controls.Add(this.treeFolder);
+            this.scMain.Panel1MinSize = 200;
+            // 
+            // scMain.Panel2
+            // 
+            this.scMain.Panel2.Controls.Add(this.tabControl2);
+            this.scMain.Panel2MinSize = 600;
+            this.scMain.Size = new System.Drawing.Size(1154, 443);
+            this.scMain.SplitterDistance = 250;
+            this.scMain.TabIndex = 24;
+            // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(421, 411);
+            this.panel1.TabIndex = 13;
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(421, 411);
+            this.panel2.TabIndex = 14;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Name";
+            this.Column1.HeaderText = "Название";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column9
+            // 
+            this.Column9.DataPropertyName = "DirName";
+            this.Column9.HeaderText = "Расположение";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Year";
+            this.Column2.HeaderText = "Год";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "Country";
+            this.Column6.HeaderText = "Страна";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "GenreString";
+            this.Column5.HeaderText = "Жанр";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "CategoryString";
+            this.Column3.HeaderText = "Категория";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column8
+            // 
+            this.Column8.DataPropertyName = "Time";
+            this.Column8.HeaderText = "Время";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Файл";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1154, 489);
-            this.Controls.Add(this.tabControl2);
-            this.Controls.Add(this.splitter1);
-            this.Controls.Add(this.treeFolder);
+            this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.mainMenu);
             this.Name = "MainForm";
@@ -484,6 +503,14 @@
             this.mainMenu.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabFilm.ResumeLayout(false);
+            this.scTabFilm.Panel1.ResumeLayout(false);
+            this.scTabFilm.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).EndInit();
+            this.scTabFilm.ResumeLayout(false);
+            this.scMain.Panel1.ResumeLayout(false);
+            this.scMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
+            this.scMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -496,7 +523,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.TreeView treeFolder;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabFilm;
         private System.Windows.Forms.TabPage tabWriter;
@@ -523,6 +549,13 @@
         private System.Windows.Forms.Timer timerLoad;
         private System.Windows.Forms.ToolStripMenuItem btnUpdateBase;
         private System.Windows.Forms.ToolStripSeparator tS1;
+        private System.Windows.Forms.ToolStripMenuItem btnBackupBase;
+        private System.Windows.Forms.ToolStripSeparator tS2;
+        private RecordInfo panel1;
+        private RecordEdit panel2;
+        private System.Windows.Forms.SplitContainer scMain;
+        private System.Windows.Forms.SplitContainer scTabFilm;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -531,12 +564,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.ToolStripMenuItem btnBackupBase;
-        private System.Windows.Forms.ToolStripSeparator tS2;
-        private RecordInfo panel1;
-        private RecordEdit panel2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
     }
 }
 

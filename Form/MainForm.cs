@@ -15,6 +15,7 @@ namespace FilmCollection
         {
             InitializeComponent();
             dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
+            panel1.BringToFront();
         }
 
         private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
@@ -192,7 +193,8 @@ namespace FilmCollection
 
             List<Record> filtered = _videoCollection.VideoList;
             //if (NodeName != "")
-            if (nodeName != "")
+            //if (nodeName == "Фильмотека") { nodeName = ""; }
+            if (nodeName != "" && nodeName != "Фильмотека")
             {
                 //filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + NodeName);
                 filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + nodeName);
@@ -235,7 +237,7 @@ namespace FilmCollection
 
             treeFolder.Nodes.Clear();                                       // Очистка дерева
             var paths = new List<string>();                                 // Создание списка
-            //paths.Add("Фильмотека");
+            paths.Add("Фильмотека");
 
             foreach (XmlNode node in nodeList)                              // Заполнение списка для формирования дерева
             {
@@ -372,7 +374,10 @@ namespace FilmCollection
         {
             panel1.Visible = false;
             panel2.Visible = true;
+            //panel1.BringToFront();
         }
+
+
     }
 }
 
