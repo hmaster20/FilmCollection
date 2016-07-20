@@ -27,14 +27,6 @@ namespace FilmCollection
             set { _source = value; }
         }
 
-        private string _txt = "";                               // тестовый элемент   
-        [XmlElement]
-        public string Txt
-        {
-            get { return _txt; }
-            set { _txt = value; }
-        }
-
         public RecordCollection()
         {
             VideoList = new List<Record>();
@@ -69,6 +61,36 @@ namespace FilmCollection
         {
             VideoList.Clear();
         }
+
+
+
+
+        private string _txt = "";                               // тестовый элемент   
+        [XmlElement]
+        public string Txt
+        {
+            get { return _txt; }
+            set { _txt = value; }
+        }
+
+        private int _splitter1;                               // тестовый элемент   
+        [XmlAttribute]
+        public int scMainSplitter
+        {
+            get { return _splitter1; }
+            set { _splitter1 = value; }
+        }
+
+        private int _splitter2;                               // тестовый элемент   
+        [XmlAttribute]
+        public int scTabFilmSplitter
+        {
+            get { return _splitter2; }
+            set { _splitter2 = value; }
+        }
+
+
+
 
     }
 }
