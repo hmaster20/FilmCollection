@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace FilmCollection
 {
@@ -10,12 +12,13 @@ namespace FilmCollection
     {
         RecordCollection _videoCollection = new RecordCollection();
         Record record = null;
+       
 
         public MainForm()
         {
             InitializeComponent();
             dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
-            panel1.BringToFront();
+            panelView.BringToFront();
         }
 
         private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
@@ -34,6 +37,8 @@ namespace FilmCollection
                     CreateTree();
                 }
                 timerLoad.Enabled = true;   // костыль для исключения селекта treeFolder и фильтра dataGridView1
+                scMain.SplitterDistance = _videoCollection.scMainSplitter;
+                scTabFilm.SplitterDistance = _videoCollection.scTabFilmSplitter;
             }
         }
 
@@ -229,9 +234,7 @@ namespace FilmCollection
             //}
             //#endregion
 
-            //int SourceLength = SourceValue.Length; // Получение длинны пути
             int SourceLength = _videoCollection.Source.Length; // Получение длинны пути
-            //_videoCollection.Source
 
             XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
 
@@ -313,6 +316,7 @@ namespace FilmCollection
                 _videoCollection.Save();
                 RefreshTables("");
             }
+            panelEdit.BringToFront();
         }
 
         private void cMenuChange_Click(object sender, EventArgs e)          // Изменить запись
@@ -333,6 +337,11 @@ namespace FilmCollection
             {
                 contextMenu.Items[4].Enabled = true;
             }
+        }
+
+        private void cFind_Click(object sender, EventArgs e)    // Поиск
+        {
+            panelFind.BringToFront();
         }
 
         #endregion
@@ -360,21 +369,94 @@ namespace FilmCollection
             {
                 e.Cancel = true;
             }
+            _videoCollection.scMainSplitter = scMain.SplitterDistance;
+            _videoCollection.scTabFilmSplitter = scTabFilm.SplitterDistance;
+            _videoCollection.Save();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+
+
+
+
+
+
+
+
+
+ 
+
+ 
+
+        private void dgvTable_SelectionChanged(object sender, EventArgs e)  // Отражение информации в карточке
         {
-            //ControlMainScreen.Visible = false;
-            panel1.Visible = true;
-            panel2.Visible = false;
+            Record record = GetSelectedRecord();
+            if (record != null)
+            { 
+            tbfName.Text = record.Name;
+            tbfDesc.Text = record.Description;
+            }
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnPlay_Click(object sender, EventArgs e)  // запуск файла
         {
-            panel1.Visible = false;
-            panel2.Visible = true;
-            //panel1.BringToFront();
+            Record record = GetSelectedRecord();
+            Process.Start(record.Path + Path.DirectorySeparatorChar + record.FileName);
+        }
+
+
+
+
+
+   
+
+
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string searchValue = textBox1.Text;
+
+            dgvTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            try
+            {
+                foreach (DataGridViewRow row in dgvTable.Rows)
+                {
+                    // if (row.Cells[2].Value.ToString().Equals(searchValue))
+                    if (row.Cells[3].Value.ToString().Equals(searchValue))
+                    {
+                        row.Selected = true;
+                        break;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Regex regex = new Regex(textBox2.Text, RegexOptions.IgnoreCase);
+
+            dgvTable.ClearSelection();
+            dgvTable.MultiSelect = true;
+            try
+            {
+                foreach (DataGridViewRow row in dgvTable.Rows)
+                {
+                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                    {
+                        row.Selected = true;
+                        //break;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
 
