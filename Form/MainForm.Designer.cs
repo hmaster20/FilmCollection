@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvTable = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnGenreString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.сRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -145,14 +145,14 @@
             this.dgvTable.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column9,
-            this.Column2,
-            this.Column6,
-            this.Column5,
-            this.Column3,
-            this.Column8,
-            this.Column4});
+            this.cmnName,
+            this.cmnDirName,
+            this.cmnYear,
+            this.cmnCountry,
+            this.cmnGenreString,
+            this.cmnCategoryString,
+            this.cmnTime,
+            this.cmnFileName});
             this.dgvTable.ContextMenuStrip = this.contextMenu;
             this.dgvTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTable.Location = new System.Drawing.Point(0, 0);
@@ -166,60 +166,61 @@
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTable.SelectionChanged += new System.EventHandler(this.dgvTable_SelectionChanged);
             // 
-            // Column1
+            // cmnName
             // 
-            this.Column1.DataPropertyName = "Name";
-            this.Column1.HeaderText = "Название";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            this.cmnName.DataPropertyName = "Name";
+            this.cmnName.HeaderText = "Название";
+            this.cmnName.Name = "cmnName";
+            this.cmnName.ReadOnly = true;
             // 
-            // Column9
+            // cmnDirName
             // 
-            this.Column9.DataPropertyName = "DirName";
-            this.Column9.HeaderText = "Расположение";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
+            this.cmnDirName.DataPropertyName = "DirName";
+            this.cmnDirName.HeaderText = "Расположение";
+            this.cmnDirName.Name = "cmnDirName";
+            this.cmnDirName.ReadOnly = true;
             // 
-            // Column2
+            // cmnYear
             // 
-            this.Column2.DataPropertyName = "Year";
-            this.Column2.HeaderText = "Год";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
+            this.cmnYear.DataPropertyName = "Year";
+            this.cmnYear.HeaderText = "Год";
+            this.cmnYear.Name = "cmnYear";
+            this.cmnYear.ReadOnly = true;
             // 
-            // Column6
+            // cmnCountry
             // 
-            this.Column6.DataPropertyName = "Country";
-            this.Column6.HeaderText = "Страна";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
+            this.cmnCountry.DataPropertyName = "Country";
+            this.cmnCountry.HeaderText = "Страна";
+            this.cmnCountry.Name = "cmnCountry";
+            this.cmnCountry.ReadOnly = true;
             // 
-            // Column5
+            // cmnGenreString
             // 
-            this.Column5.DataPropertyName = "GenreString";
-            this.Column5.HeaderText = "Жанр";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
+            this.cmnGenreString.DataPropertyName = "GenreString";
+            this.cmnGenreString.HeaderText = "Жанр";
+            this.cmnGenreString.Name = "cmnGenreString";
+            this.cmnGenreString.ReadOnly = true;
             // 
-            // Column3
+            // cmnCategoryString
             // 
-            this.Column3.DataPropertyName = "CategoryString";
-            this.Column3.HeaderText = "Категория";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
+            this.cmnCategoryString.DataPropertyName = "CategoryString";
+            this.cmnCategoryString.HeaderText = "Категория";
+            this.cmnCategoryString.Name = "cmnCategoryString";
+            this.cmnCategoryString.ReadOnly = true;
             // 
-            // Column8
+            // cmnTime
             // 
-            this.Column8.DataPropertyName = "Time";
-            this.Column8.HeaderText = "Время";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
+            this.cmnTime.DataPropertyName = "Time";
+            this.cmnTime.HeaderText = "Время";
+            this.cmnTime.Name = "cmnTime";
+            this.cmnTime.ReadOnly = true;
             // 
-            // Column4
+            // cmnFileName
             // 
-            this.Column4.HeaderText = "Файл";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
+            this.cmnFileName.DataPropertyName = "FileName";
+            this.cmnFileName.HeaderText = "Файл";
+            this.cmnFileName.Name = "cmnFileName";
+            this.cmnFileName.ReadOnly = true;
             // 
             // contextMenu
             // 
@@ -467,8 +468,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(899, 459);
@@ -919,6 +920,7 @@
             // 
             // cbTypeFind
             // 
+            this.cbTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTypeFind.FormattingEnabled = true;
             this.cbTypeFind.Items.AddRange(new object[] {
             "Название",
@@ -1031,14 +1033,14 @@
         private System.Windows.Forms.ToolStripSeparator tS2;
         private System.Windows.Forms.SplitContainer scMain;
         private System.Windows.Forms.SplitContainer scTabFilm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnDirName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCountry;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnGenreString;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.Panel panelFind;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox2;
