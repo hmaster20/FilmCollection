@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dgvTable = new System.Windows.Forms.DataGridView();
             this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,7 +71,16 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.scTabFilm = new System.Windows.Forms.SplitContainer();
+            this.panelFind = new System.Windows.Forms.Panel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.btnFind = new System.Windows.Forms.Button();
+            this.cbTypeFind = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
+            this.btnPlay = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblRecName = new System.Windows.Forms.Label();
             this.tbfDesc = new System.Windows.Forms.TextBox();
@@ -105,18 +115,9 @@
             this.lblName = new System.Windows.Forms.Label();
             this.btnEditCancel = new System.Windows.Forms.Button();
             this.btnEditOk = new System.Windows.Forms.Button();
-            this.panelFind = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
-            this.cbTypeFind = new System.Windows.Forms.ComboBox();
-            this.btnFind = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.btnPlay = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -126,10 +127,10 @@
             this.scTabFilm.Panel1.SuspendLayout();
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
+            this.panelFind.SuspendLayout();
             this.panelView.SuspendLayout();
             this.panelEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).BeginInit();
-            this.panelFind.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
@@ -476,6 +477,85 @@
             this.scTabFilm.SplitterDistance = 534;
             this.scTabFilm.TabIndex = 17;
             // 
+            // panelFind
+            // 
+            this.panelFind.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelFind.Controls.Add(this.textBox3);
+            this.panelFind.Controls.Add(this.btnFind);
+            this.panelFind.Controls.Add(this.cbTypeFind);
+            this.panelFind.Controls.Add(this.button2);
+            this.panelFind.Controls.Add(this.textBox2);
+            this.panelFind.Controls.Add(this.textBox1);
+            this.panelFind.Controls.Add(this.button1);
+            this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFind.Location = new System.Drawing.Point(0, 0);
+            this.panelFind.Name = "panelFind";
+            this.panelFind.Size = new System.Drawing.Size(361, 459);
+            this.panelFind.TabIndex = 0;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(3, 103);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(207, 20);
+            this.textBox3.TabIndex = 15;
+            // 
+            // btnFind
+            // 
+            this.btnFind.Location = new System.Drawing.Point(135, 132);
+            this.btnFind.Name = "btnFind";
+            this.btnFind.Size = new System.Drawing.Size(75, 23);
+            this.btnFind.TabIndex = 14;
+            this.btnFind.Text = "Поиск";
+            this.btnFind.UseVisualStyleBackColor = true;
+            // 
+            // cbTypeFind
+            // 
+            this.cbTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTypeFind.FormattingEnabled = true;
+            this.cbTypeFind.Items.AddRange(new object[] {
+            "Название",
+            "Расположение",
+            "Год"});
+            this.cbTypeFind.Location = new System.Drawing.Point(3, 132);
+            this.cbTypeFind.Name = "cbTypeFind";
+            this.cbTypeFind.Size = new System.Drawing.Size(121, 21);
+            this.cbTypeFind.TabIndex = 13;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(109, 29);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "Name";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(3, 31);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 8;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(3, 57);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 7;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(109, 57);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Year";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // panelView
             // 
             this.panelView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -490,6 +570,17 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(361, 459);
             this.panelView.TabIndex = 10;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPlay.Location = new System.Drawing.Point(5, 431);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(98, 23);
+            this.btnPlay.TabIndex = 6;
+            this.btnPlay.Text = "Воспроизвести";
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
             // label1
             // 
@@ -834,56 +925,6 @@
             this.btnEditOk.Text = "Ok";
             this.btnEditOk.UseVisualStyleBackColor = true;
             // 
-            // panelFind
-            // 
-            this.panelFind.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelFind.Controls.Add(this.textBox3);
-            this.panelFind.Controls.Add(this.btnFind);
-            this.panelFind.Controls.Add(this.cbTypeFind);
-            this.panelFind.Controls.Add(this.button2);
-            this.panelFind.Controls.Add(this.textBox2);
-            this.panelFind.Controls.Add(this.textBox1);
-            this.panelFind.Controls.Add(this.button1);
-            this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFind.Location = new System.Drawing.Point(0, 0);
-            this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(361, 459);
-            this.panelFind.TabIndex = 0;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(109, 29);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Name";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(3, 31);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 8;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(3, 57);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(109, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Year";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // tabWriter
             // 
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
@@ -918,46 +959,6 @@
             this.scMain.SplitterDistance = 254;
             this.scMain.TabIndex = 24;
             // 
-            // cbTypeFind
-            // 
-            this.cbTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTypeFind.FormattingEnabled = true;
-            this.cbTypeFind.Items.AddRange(new object[] {
-            "Название",
-            "Расположение",
-            "Год"});
-            this.cbTypeFind.Location = new System.Drawing.Point(3, 132);
-            this.cbTypeFind.Name = "cbTypeFind";
-            this.cbTypeFind.Size = new System.Drawing.Size(121, 21);
-            this.cbTypeFind.TabIndex = 13;
-            // 
-            // btnFind
-            // 
-            this.btnFind.Location = new System.Drawing.Point(135, 132);
-            this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(75, 23);
-            this.btnFind.TabIndex = 14;
-            this.btnFind.Text = "Поиск";
-            this.btnFind.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(3, 103);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(207, 20);
-            this.textBox3.TabIndex = 15;
-            // 
-            // btnPlay
-            // 
-            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPlay.Location = new System.Drawing.Point(5, 431);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(98, 23);
-            this.btnPlay.TabIndex = 6;
-            this.btnPlay.Text = "Воспроизвести";
-            this.btnPlay.UseVisualStyleBackColor = true;
-            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -966,6 +967,7 @@
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.mainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Фильмотека";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -980,13 +982,13 @@
             this.scTabFilm.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).EndInit();
             this.scTabFilm.ResumeLayout(false);
+            this.panelFind.ResumeLayout(false);
+            this.panelFind.PerformLayout();
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
             this.panelEdit.ResumeLayout(false);
             this.panelEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).EndInit();
-            this.panelFind.ResumeLayout(false);
-            this.panelFind.PerformLayout();
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();

@@ -19,6 +19,7 @@ namespace FilmCollection
             InitializeComponent();
             dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
             panelView.BringToFront();
+       
         }
 
         private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
