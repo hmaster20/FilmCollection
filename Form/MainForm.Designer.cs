@@ -71,6 +71,10 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.scTabFilm = new System.Windows.Forms.SplitContainer();
+            this.menudgvTable = new System.Windows.Forms.MenuStrip();
+            this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
+            this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelFind = new System.Windows.Forms.Panel();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.btnFind = new System.Windows.Forms.Button();
@@ -127,6 +131,7 @@
             this.scTabFilm.Panel1.SuspendLayout();
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
+            this.menudgvTable.SuspendLayout();
             this.panelFind.SuspendLayout();
             this.panelView.SuspendLayout();
             this.panelEdit.SuspendLayout();
@@ -144,6 +149,7 @@
             this.dgvTable.AllowUserToResizeRows = false;
             this.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTable.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgvTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cmnName,
@@ -156,13 +162,13 @@
             this.cmnFileName});
             this.dgvTable.ContextMenuStrip = this.contextMenu;
             this.dgvTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTable.Location = new System.Drawing.Point(0, 0);
+            this.dgvTable.Location = new System.Drawing.Point(0, 27);
             this.dgvTable.MultiSelect = false;
             this.dgvTable.Name = "dgvTable";
             this.dgvTable.ReadOnly = true;
             this.dgvTable.RowHeadersVisible = false;
             this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTable.Size = new System.Drawing.Size(534, 459);
+            this.dgvTable.Size = new System.Drawing.Size(532, 430);
             this.dgvTable.TabIndex = 12;
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTable.SelectionChanged += new System.EventHandler(this.dgvTable_SelectionChanged);
@@ -389,6 +395,7 @@
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(187, 22);
             this.btnReport.Text = "Отчет";
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
             // tS4
             // 
@@ -455,7 +462,8 @@
             // 
             // scTabFilm
             // 
-            this.scTabFilm.BackColor = System.Drawing.Color.LightGray;
+            this.scTabFilm.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scTabFilm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scTabFilm.Location = new System.Drawing.Point(3, 3);
             this.scTabFilm.Name = "scTabFilm";
@@ -464,6 +472,7 @@
             // 
             this.scTabFilm.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.scTabFilm.Panel1.Controls.Add(this.dgvTable);
+            this.scTabFilm.Panel1.Controls.Add(this.menudgvTable);
             this.scTabFilm.Panel1MinSize = 500;
             // 
             // scTabFilm.Panel2
@@ -477,9 +486,54 @@
             this.scTabFilm.SplitterDistance = 534;
             this.scTabFilm.TabIndex = 17;
             // 
+            // menudgvTable
+            // 
+            this.menudgvTable.BackColor = System.Drawing.SystemColors.Control;
+            this.menudgvTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuResetFilter,
+            this.tscbTypeFilter,
+            this.tscbSort});
+            this.menudgvTable.Location = new System.Drawing.Point(0, 0);
+            this.menudgvTable.Name = "menudgvTable";
+            this.menudgvTable.Size = new System.Drawing.Size(532, 27);
+            this.menudgvTable.TabIndex = 23;
+            this.menudgvTable.Text = "menuStrip1";
+            // 
+            // menuResetFilter
+            // 
+            this.menuResetFilter.Name = "menuResetFilter";
+            this.menuResetFilter.Size = new System.Drawing.Size(104, 23);
+            this.menuResetFilter.Text = "Сброс фильтра";
+            this.menuResetFilter.Click += new System.EventHandler(this.cResetTreeFilter_Click);
+            // 
+            // tscbTypeFilter
+            // 
+            this.tscbTypeFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tscbTypeFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbTypeFilter.Items.AddRange(new object[] {
+            "Все",
+            "Фильмы",
+            "Мульты",
+            "Сериалы"});
+            this.tscbTypeFilter.Name = "tscbTypeFilter";
+            this.tscbTypeFilter.Size = new System.Drawing.Size(121, 23);
+            this.tscbTypeFilter.SelectedIndexChanged += new System.EventHandler(this.Filter);
+            // 
+            // tscbSort
+            // 
+            this.tscbSort.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tscbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscbSort.Items.AddRange(new object[] {
+            "По именам",
+            "По времени",
+            "По году",
+            "По категориям"});
+            this.tscbSort.Name = "tscbSort";
+            this.tscbSort.Size = new System.Drawing.Size(121, 23);
+            this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
+            // 
             // panelFind
             // 
-            this.panelFind.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelFind.Controls.Add(this.textBox3);
             this.panelFind.Controls.Add(this.btnFind);
             this.panelFind.Controls.Add(this.cbTypeFind);
@@ -490,7 +544,7 @@
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(361, 459);
+            this.panelFind.Size = new System.Drawing.Size(359, 457);
             this.panelFind.TabIndex = 0;
             // 
             // textBox3
@@ -558,7 +612,6 @@
             // 
             // panelView
             // 
-            this.panelView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelView.Controls.Add(this.btnPlay);
             this.panelView.Controls.Add(this.label1);
             this.panelView.Controls.Add(this.lblRecName);
@@ -568,7 +621,7 @@
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(361, 459);
+            this.panelView.Size = new System.Drawing.Size(359, 457);
             this.panelView.TabIndex = 10;
             // 
             // btnPlay
@@ -640,7 +693,6 @@
             // 
             // panelEdit
             // 
-            this.panelEdit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelEdit.Controls.Add(this.tbFileName);
             this.panelEdit.Controls.Add(this.btnFileNameEdit);
             this.panelEdit.Controls.Add(this.cBoxTypeVideo);
@@ -672,7 +724,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(361, 459);
+            this.panelEdit.Size = new System.Drawing.Size(359, 457);
             this.panelEdit.TabIndex = 10;
             // 
             // tbFileName
@@ -968,6 +1020,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menudgvTable;
             this.Name = "MainForm";
             this.Text = "Фильмотека";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -979,9 +1032,12 @@
             this.tabControl2.ResumeLayout(false);
             this.tabFilm.ResumeLayout(false);
             this.scTabFilm.Panel1.ResumeLayout(false);
+            this.scTabFilm.Panel1.PerformLayout();
             this.scTabFilm.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).EndInit();
             this.scTabFilm.ResumeLayout(false);
+            this.menudgvTable.ResumeLayout(false);
+            this.menudgvTable.PerformLayout();
             this.panelFind.ResumeLayout(false);
             this.panelFind.PerformLayout();
             this.panelView.ResumeLayout(false);
@@ -1087,6 +1143,10 @@
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.ComboBox cbTypeFind;
         private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.MenuStrip menudgvTable;
+        private System.Windows.Forms.ToolStripMenuItem menuResetFilter;
+        private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
+        private System.Windows.Forms.ToolStripComboBox tscbSort;
     }
 }
 

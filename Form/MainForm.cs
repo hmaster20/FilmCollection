@@ -12,14 +12,14 @@ namespace FilmCollection
     {
         RecordCollection _videoCollection = new RecordCollection();
         Record record = null;
-       
+
 
         public MainForm()
         {
             InitializeComponent();
             dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
             panelView.BringToFront();
-       
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
@@ -196,22 +196,55 @@ namespace FilmCollection
 
         private void RefreshTables(string nodeName)    // Обновление таблицы путем фильтрации элементов по полю Path
         {
+            Record selected = GetSelectedRecord();  // получение выбранной строки
 
             List<Record> filtered = _videoCollection.VideoList;
-            //if (NodeName != "")
-            //if (nodeName == "Фильмотека") { nodeName = ""; }
-            if (nodeName != "" && nodeName != "Фильмотека")
-            {
-                //filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + NodeName);
-                filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + nodeName);
 
-                dgvTable.DataSource = filtered;
-            }
-            else
-            {
-                dgvTable.DataSource = filtered;
-            }
+            if (nodeName != "" && nodeName != "Фильмотека")
+            filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + nodeName);
+
+            #region фильтр по категориям
+            if (tscbTypeFilter.SelectedIndex == 1)
+                filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film);
+            else if (tscbTypeFilter.SelectedIndex == 2)
+                filtered = filtered.FindAll(v => v.Category == CategoryVideo.Cartoon);
+            else if (tscbTypeFilter.SelectedIndex == 3)
+                filtered = filtered.FindAll(v => v.Category == CategoryVideo.Series);
+            #endregion
+
+            if (tscbSort.SelectedIndex == 0)
+                filtered.Sort(Record.CompareByName);
+            else if (tscbSort.SelectedIndex == 1)
+                filtered.Sort(Record.CompareByTime);
+            else if (tscbSort.SelectedIndex == 2)
+            filtered.Sort(Record.CompareByYear);
+            else if (tscbSort.SelectedIndex == 3)
+                filtered.Sort(Record.CompareByCategory);
+
+            dgvTable.DataSource = null;
+            dgvTable.DataSource = filtered;
+
+            if (selected != null)
+                SelectRecord(dgvTable, selected);
         }
+
+
+        private void SelectRecord(DataGridView dgv, Record record)
+        {
+            dgv.ClearSelection();
+            foreach (DataGridViewRow row in dgv.Rows)
+                if ((row.DataBoundItem as Record).Name == record.Name)
+                {
+                    row.Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = row.Index;
+                    break;
+                }
+        }
+
+
+
+
+
 
         private void CreateTree()  // Построение дерева
         {
@@ -306,6 +339,14 @@ namespace FilmCollection
         {
             //NodeName = "";
             RefreshTables("");
+            tscbTypeFilter.SelectedIndex = -1;
+            tscbSort.SelectedIndex = -1;
+        }
+
+        private void Filter(object sender, EventArgs e)     // Сброс фильтра по дереву
+        {
+            dgvTable.ClearSelection();
+            RefreshTables("");
         }
 
         private void cAdd_Click(object sender, EventArgs e)                 // добавление новой записи
@@ -385,17 +426,17 @@ namespace FilmCollection
 
 
 
- 
 
- 
+
+
 
         private void dgvTable_SelectionChanged(object sender, EventArgs e)  // Отражение информации в карточке
         {
             Record record = GetSelectedRecord();
             if (record != null)
-            { 
-            tbfName.Text = record.Name;
-            tbfDesc.Text = record.Description;
+            {
+                tbfName.Text = record.Name;
+                tbfDesc.Text = record.Description;
             }
 
         }
@@ -410,7 +451,7 @@ namespace FilmCollection
 
 
 
-   
+
 
 
 
@@ -460,7 +501,10 @@ namespace FilmCollection
             }
         }
 
-
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            // Сформировать отчет в формате html и открыть его в браузере по умолчанию 
+        }
     }
 }
 
