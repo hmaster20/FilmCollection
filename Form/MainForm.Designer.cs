@@ -76,6 +76,8 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelFind = new System.Windows.Forms.Panel();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button9 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.btnFind = new System.Windows.Forms.Button();
             this.cbTypeFind = new System.Windows.Forms.ComboBox();
@@ -534,6 +536,8 @@
             // 
             // panelFind
             // 
+            this.panelFind.Controls.Add(this.textBox4);
+            this.panelFind.Controls.Add(this.button9);
             this.panelFind.Controls.Add(this.textBox3);
             this.panelFind.Controls.Add(this.btnFind);
             this.panelFind.Controls.Add(this.cbTypeFind);
@@ -546,6 +550,24 @@
             this.panelFind.Name = "panelFind";
             this.panelFind.Size = new System.Drawing.Size(359, 457);
             this.panelFind.TabIndex = 0;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(44, 252);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(204, 70);
+            this.textBox4.TabIndex = 17;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(83, 196);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.TabIndex = 16;
+            this.button9.Text = "button9";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // textBox3
             // 
@@ -1147,6 +1169,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuResetFilter;
         private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
         private System.Windows.Forms.ToolStripComboBox tscbSort;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button9;
     }
 }
 

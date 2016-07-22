@@ -119,6 +119,7 @@
             // tbYear
             // 
             this.tbYear.Location = new System.Drawing.Point(129, 54);
+            this.tbYear.MaxLength = 4;
             this.tbYear.Name = "tbYear";
             this.tbYear.Size = new System.Drawing.Size(259, 20);
             this.tbYear.TabIndex = 5;

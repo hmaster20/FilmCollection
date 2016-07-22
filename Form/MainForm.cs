@@ -5,6 +5,9 @@ using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+// Для получения верисии
+using System.Deployment.Application;
+using System.Reflection;
 
 namespace FilmCollection
 {
@@ -19,6 +22,7 @@ namespace FilmCollection
             InitializeComponent();
             dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
             panelView.BringToFront();
+            tscbTypeFilter.SelectedIndex = 0;
 
         }
 
@@ -201,26 +205,27 @@ namespace FilmCollection
             List<Record> filtered = _videoCollection.VideoList;
 
             if (nodeName != "" && nodeName != "Фильмотека")
-            filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + nodeName);
+                filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + nodeName);
 
-            #region фильтр по категориям
-            if (tscbTypeFilter.SelectedIndex == 1)
-                filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film);
-            else if (tscbTypeFilter.SelectedIndex == 2)
-                filtered = filtered.FindAll(v => v.Category == CategoryVideo.Cartoon);
-            else if (tscbTypeFilter.SelectedIndex == 3)
-                filtered = filtered.FindAll(v => v.Category == CategoryVideo.Series);
-            #endregion
+            int switch_filter = tscbTypeFilter.SelectedIndex;
+            switch (switch_filter)  // фильтр по категориям
+            {
+                case 1: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film); break;
+                case 2: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Cartoon); break;
+                case 3: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Series); break;
+                default: break;
+            }
 
-            if (tscbSort.SelectedIndex == 0)
-                filtered.Sort(Record.CompareByName);
-            else if (tscbSort.SelectedIndex == 1)
-                filtered.Sort(Record.CompareByTime);
-            else if (tscbSort.SelectedIndex == 2)
-            filtered.Sort(Record.CompareByYear);
-            else if (tscbSort.SelectedIndex == 3)
-                filtered.Sort(Record.CompareByCategory);
-
+            int switch_sort = tscbSort.SelectedIndex;
+            switch (switch_sort)  // Сортировка по столбцам
+            {
+                case 0: filtered.Sort(Record.CompareByName); break;
+                case 1: filtered.Sort(Record.CompareByTime); break;
+                case 2: filtered.Sort(Record.CompareByYear); break;
+                case 3: filtered.Sort(Record.CompareByCategory); break;
+                default: break;
+            }
+            
             dgvTable.DataSource = null;
             dgvTable.DataSource = filtered;
 
@@ -339,7 +344,7 @@ namespace FilmCollection
         {
             //NodeName = "";
             RefreshTables("");
-            tscbTypeFilter.SelectedIndex = -1;
+            tscbTypeFilter.SelectedIndex = 0;
             tscbSort.SelectedIndex = -1;
         }
 
@@ -504,6 +509,33 @@ namespace FilmCollection
         private void btnReport_Click(object sender, EventArgs e)
         {
             // Сформировать отчет в формате html и открыть его в браузере по умолчанию 
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            //            Console.WriteLine(" O S : {0}", Environment.OSVersion); // операционная система
+            //            Console.WriteLine("Number of processors: {0}",
+            //            Environment.ProcessorCount); // количество процессоров
+            //            Console.WriteLineC.NET Version: { 0}
+            //            ",
+            //Environment.Version);
+
+            // string txt = " O S : {0}\n", Environment.OSVersion;
+            string txt = " O S : " + typeof(string).Assembly.GetName().VersionCompatibility;
+
+            textBox4.AppendText(CurrentVersion);
+
+
+        }
+
+        public string CurrentVersion
+        {
+            get
+            {
+                return ApplicationDeployment.IsNetworkDeployed
+                       ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+                       : Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
         }
     }
 }
