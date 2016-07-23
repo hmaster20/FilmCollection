@@ -76,6 +76,7 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelFind = new System.Windows.Forms.Panel();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button9 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -423,13 +424,14 @@
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(149, 22);
+            this.btnAbout.Size = new System.Drawing.Size(152, 22);
             this.btnAbout.Text = "О программе";
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(149, 22);
+            this.btnRelease.Size = new System.Drawing.Size(152, 22);
             this.btnRelease.Text = "Версии";
             // 
             // treeFolder
@@ -536,6 +538,7 @@
             // 
             // panelFind
             // 
+            this.panelFind.Controls.Add(this.textBox5);
             this.panelFind.Controls.Add(this.textBox4);
             this.panelFind.Controls.Add(this.button9);
             this.panelFind.Controls.Add(this.textBox3);
@@ -551,9 +554,17 @@
             this.panelFind.Size = new System.Drawing.Size(359, 457);
             this.panelFind.TabIndex = 0;
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(35, 321);
+            this.textBox5.Multiline = true;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(204, 70);
+            this.textBox5.TabIndex = 17;
+            // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(44, 252);
+            this.textBox4.Location = new System.Drawing.Point(35, 241);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(204, 70);
@@ -1171,6 +1182,7 @@
         private System.Windows.Forms.ToolStripComboBox tscbSort;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 

@@ -22,39 +22,13 @@ namespace FilmCollection
             InitializeComponent();
             dgvTable.AutoGenerateColumns = false;  // Отключение автоматического заполнения таблицы
             panelView.BringToFront();
-            tscbTypeFilter.SelectedIndex = 0;
-
+            tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
         }
 
         private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
         {
             LoadForm();
         }
-
-        private void LoadForm()
-        {
-            if (File.Exists(RecordCollection.BaseName)) // Если база создана, то выполняем
-            {
-                _videoCollection = RecordCollection.Load();
-                if (_videoCollection.VideoList.Count > 0)
-                {
-                    RefreshTables("");
-                    CreateTree();
-                }
-                timerLoad.Enabled = true;   // костыль для исключения селекта treeFolder и фильтра dataGridView1
-                scMain.SplitterDistance = _videoCollection.scMainSplitter;
-                scTabFilm.SplitterDistance = _videoCollection.scTabFilmSplitter;
-            }
-        }
-
-        private void T_Tick(object sender, EventArgs e)             // таймер для селекта MainForm_Load
-        {
-            timerLoad.Enabled = false;
-            treeFolder.SelectedNode = null;
-            treeFolder.AfterSelect += treeFolder_AfterSelect;
-        }
-
-
 
         #region Главное меню
 
@@ -85,6 +59,66 @@ namespace FilmCollection
         }
 
         #endregion
+
+
+
+
+
+
+        private void LoadForm()
+        {
+            if (File.Exists(RecordCollection.BaseName))     // Если база создана, то выполняем
+            {
+                _videoCollection = RecordCollection.Load();
+                if (_videoCollection.VideoList.Count > 0)
+                {
+                    RefreshTables("");
+                    CreateTree();
+                }
+                timerLoad.Enabled = true;                   // Исключение раннего селекта treeFolder и фильтра dataGridView1
+
+                #region Восстановление состояния сплиттеров
+                scMain.SplitterDistance = _videoCollection.scMainSplitter;
+                scTabFilm.SplitterDistance = _videoCollection.scTabFilmSplitter;
+                #endregion
+
+                #region Восстановление состояния ширины колонок
+                DataGridViewColumnCollection columns = dgvTable.Columns;
+                char[] delimiterChars = { ',' };
+                string text = _videoCollection.ColumnsWidth;
+                string[] words = text.Split(delimiterChars);
+                for (int i = 0; i < words.Length; i++)
+                {
+                    columns[i].Width = Convert.ToInt32(words[i]);
+                }
+                #endregion
+
+                #region Восстановление состояния главной формы
+                string switch_on = _videoCollection.FormState;
+                switch (switch_on)
+                {
+                    case "Normal": WindowState = FormWindowState.Normal; break;
+                    case "Minimized": WindowState = FormWindowState.Minimized; break;
+                    case "Maximized": WindowState = FormWindowState.Maximized; break;
+                    default: WindowState = FormWindowState.Maximized; break;
+                }
+                #endregion
+
+            }
+        }
+
+        private void T_Tick(object sender, EventArgs e)     // таймер для селекта MainForm_Load
+        {
+            timerLoad.Enabled = false;
+            treeFolder.SelectedNode = null;
+            treeFolder.AfterSelect += treeFolder_AfterSelect;
+        }
+
+
+
+
+
+
 
 
         private void CreateBase()       // Создание файла базы
@@ -225,7 +259,7 @@ namespace FilmCollection
                 case 3: filtered.Sort(Record.CompareByCategory); break;
                 default: break;
             }
-            
+
             dgvTable.DataSource = null;
             dgvTable.DataSource = filtered;
 
@@ -404,22 +438,7 @@ namespace FilmCollection
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)    // обработка события Close()
-        {
-            DialogResult dialog = MessageBox.Show("Вы уверены что хотите выйти из программы?",
-                                                  "Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialog == DialogResult.Yes)
-            {
-                Application.ExitThread();
-            }
-            else if (dialog == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-            _videoCollection.scMainSplitter = scMain.SplitterDistance;
-            _videoCollection.scTabFilmSplitter = scTabFilm.SplitterDistance;
-            _videoCollection.Save();
-        }
+
 
 
 
@@ -536,6 +555,55 @@ namespace FilmCollection
                        ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
                        : Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
+        }
+
+
+
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)    // обработка события Close()
+        {
+            DialogResult dialog = MessageBox.Show("Вы уверены что хотите выйти из программы?",
+                                                  "Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                Application.ExitThread();
+            }
+            else if (dialog == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+
+            #region Сохранение состояния сплиттеров
+            _videoCollection.scMainSplitter = scMain.SplitterDistance;
+            _videoCollection.scTabFilmSplitter = scTabFilm.SplitterDistance;
+            #endregion
+
+            #region Сохранение ширины колонок
+            DataGridViewColumnCollection columns = dgvTable.Columns;
+            _videoCollection.ColumnsWidth = "";
+            for (int i = 0; i < columns.Count; i++)
+            {
+                if (i < columns.Count - 1)
+                {
+                    _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width + ",";
+                }
+                else
+                {
+                    _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width;
+                }
+            }
+            #endregion
+
+            // Сохранение состояния главной формы
+            _videoCollection.FormState = this.WindowState.ToString();
+
+            _videoCollection.Save();
+
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
