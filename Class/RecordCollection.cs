@@ -62,6 +62,11 @@ namespace FilmCollection
             VideoList.Clear();
         }
 
+        public void Remove(Record record)
+        {
+            VideoList.Remove(record);
+        }
+
 
 
 
