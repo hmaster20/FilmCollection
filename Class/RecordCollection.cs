@@ -90,6 +90,22 @@ namespace FilmCollection
         }
 
 
+        private string _columnsWidth;                          // тестовый элемент   
+        [XmlAttribute]
+        public string ColumnsWidth
+        {
+            get { return _columnsWidth; }
+            set { _columnsWidth = value; }
+        }
+
+
+        private string _formState;                          // тестовый элемент   
+        [XmlAttribute]
+        public string FormState
+        {
+            get { return _formState; }
+            set { _formState = value; }
+        }
 
 
     }
