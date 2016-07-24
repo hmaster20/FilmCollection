@@ -40,10 +40,6 @@
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.сRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            this.cSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.cResetTreeFilter = new System.Windows.Forms.ToolStripMenuItem();
-            this.cSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,8 +54,6 @@
             this.tS1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
             this.tS2 = new System.Windows.Forms.ToolStripSeparator();
-            this.MenuLoad = new System.Windows.Forms.ToolStripMenuItem();
-            this.tS3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExportHTML = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReport = new System.Windows.Forms.ToolStripMenuItem();
             this.tS4 = new System.Windows.Forms.ToolStripSeparator();
@@ -76,16 +70,9 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelFind = new System.Windows.Forms.Panel();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button9 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbFind = new System.Windows.Forms.TextBox();
             this.btnFind = new System.Windows.Forms.Button();
             this.cbTypeFind = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.btnPlay = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -235,73 +222,47 @@
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сRefresh,
-            this.cSeparator1,
-            this.cResetTreeFilter,
-            this.cSeparator2,
             this.cFind,
             this.cSeparator3,
             this.cAdd,
             this.cChange,
             this.cDelete});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(160, 154);
+            this.contextMenu.Size = new System.Drawing.Size(129, 98);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
-            // 
-            // сRefresh
-            // 
-            this.сRefresh.Name = "сRefresh";
-            this.сRefresh.Size = new System.Drawing.Size(159, 22);
-            this.сRefresh.Text = "Обновить";
-            // 
-            // cSeparator1
-            // 
-            this.cSeparator1.Name = "cSeparator1";
-            this.cSeparator1.Size = new System.Drawing.Size(156, 6);
-            // 
-            // cResetTreeFilter
-            // 
-            this.cResetTreeFilter.Name = "cResetTreeFilter";
-            this.cResetTreeFilter.Size = new System.Drawing.Size(159, 22);
-            this.cResetTreeFilter.Text = "Сброс фильтра";
-            this.cResetTreeFilter.Click += new System.EventHandler(this.cResetTreeFilter_Click);
-            // 
-            // cSeparator2
-            // 
-            this.cSeparator2.Name = "cSeparator2";
-            this.cSeparator2.Size = new System.Drawing.Size(156, 6);
             // 
             // cFind
             // 
             this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(159, 22);
-            this.cFind.Text = "Найти (F3)";
+            this.cFind.Size = new System.Drawing.Size(128, 22);
+            this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(156, 6);
+            this.cSeparator3.Size = new System.Drawing.Size(125, 6);
             // 
             // cAdd
             // 
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(159, 22);
+            this.cAdd.Size = new System.Drawing.Size(128, 22);
             this.cAdd.Text = "Добавить";
             this.cAdd.Click += new System.EventHandler(this.cAdd_Click);
             // 
             // cChange
             // 
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(159, 22);
+            this.cChange.Size = new System.Drawing.Size(128, 22);
             this.cChange.Text = "Изменить";
             this.cChange.Click += new System.EventHandler(this.cMenuChange_Click);
             // 
             // cDelete
             // 
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(159, 22);
+            this.cDelete.Size = new System.Drawing.Size(128, 22);
             this.cDelete.Text = "Удалить";
+            this.cDelete.Click += new System.EventHandler(this.cDelete_Click);
             // 
             // browserDialog
             // 
@@ -334,8 +295,6 @@
             this.tS1,
             this.btnBackupBase,
             this.tS2,
-            this.MenuLoad,
-            this.tS3,
             this.btnExportHTML,
             this.btnReport,
             this.tS4,
@@ -374,30 +333,21 @@
             // 
             this.tS2.Name = "tS2";
             this.tS2.Size = new System.Drawing.Size(184, 6);
-            // 
-            // MenuLoad
-            // 
-            this.MenuLoad.Name = "MenuLoad";
-            this.MenuLoad.Size = new System.Drawing.Size(187, 22);
-            this.MenuLoad.Text = "Загрузить";
-            this.MenuLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
-            // tS3
-            // 
-            this.tS3.Name = "tS3";
-            this.tS3.Size = new System.Drawing.Size(184, 6);
+            this.tS2.Visible = false;
             // 
             // btnExportHTML
             // 
             this.btnExportHTML.Name = "btnExportHTML";
             this.btnExportHTML.Size = new System.Drawing.Size(187, 22);
             this.btnExportHTML.Text = "Экспорт в HTML";
+            this.btnExportHTML.Visible = false;
             // 
             // btnReport
             // 
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(187, 22);
             this.btnReport.Text = "Отчет";
+            this.btnReport.Visible = false;
             this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
             // tS4
@@ -424,15 +374,16 @@
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(152, 22);
+            this.btnRelease.Size = new System.Drawing.Size(149, 22);
             this.btnRelease.Text = "Версии";
+            this.btnRelease.Visible = false;
             // 
             // treeFolder
             // 
@@ -482,9 +433,9 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
-            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(899, 459);
             this.scTabFilm.SplitterDistance = 534;
@@ -508,7 +459,7 @@
             this.menuResetFilter.Name = "menuResetFilter";
             this.menuResetFilter.Size = new System.Drawing.Size(104, 23);
             this.menuResetFilter.Text = "Сброс фильтра";
-            this.menuResetFilter.Click += new System.EventHandler(this.cResetTreeFilter_Click);
+            this.menuResetFilter.Click += new System.EventHandler(this.menuResetFilter_Click);
             // 
             // tscbTypeFilter
             // 
@@ -538,63 +489,31 @@
             // 
             // panelFind
             // 
-            this.panelFind.Controls.Add(this.textBox5);
-            this.panelFind.Controls.Add(this.textBox4);
-            this.panelFind.Controls.Add(this.button9);
-            this.panelFind.Controls.Add(this.textBox3);
+            this.panelFind.Controls.Add(this.tbFind);
             this.panelFind.Controls.Add(this.btnFind);
             this.panelFind.Controls.Add(this.cbTypeFind);
-            this.panelFind.Controls.Add(this.button2);
-            this.panelFind.Controls.Add(this.textBox2);
-            this.panelFind.Controls.Add(this.textBox1);
-            this.panelFind.Controls.Add(this.button1);
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
             this.panelFind.Size = new System.Drawing.Size(359, 457);
             this.panelFind.TabIndex = 0;
             // 
-            // textBox5
+            // tbFind
             // 
-            this.textBox5.Location = new System.Drawing.Point(35, 321);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(204, 70);
-            this.textBox5.TabIndex = 17;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(35, 241);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(204, 70);
-            this.textBox4.TabIndex = 17;
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(83, 196);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 16;
-            this.button9.Text = "button9";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(3, 103);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(207, 20);
-            this.textBox3.TabIndex = 15;
+            this.tbFind.Location = new System.Drawing.Point(22, 25);
+            this.tbFind.Name = "tbFind";
+            this.tbFind.Size = new System.Drawing.Size(207, 20);
+            this.tbFind.TabIndex = 15;
             // 
             // btnFind
             // 
-            this.btnFind.Location = new System.Drawing.Point(135, 132);
+            this.btnFind.Location = new System.Drawing.Point(154, 62);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(75, 23);
             this.btnFind.TabIndex = 14;
             this.btnFind.Text = "Поиск";
             this.btnFind.UseVisualStyleBackColor = true;
+            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
             // 
             // cbTypeFind
             // 
@@ -602,46 +521,11 @@
             this.cbTypeFind.FormattingEnabled = true;
             this.cbTypeFind.Items.AddRange(new object[] {
             "Название",
-            "Расположение",
             "Год"});
-            this.cbTypeFind.Location = new System.Drawing.Point(3, 132);
+            this.cbTypeFind.Location = new System.Drawing.Point(23, 64);
             this.cbTypeFind.Name = "cbTypeFind";
             this.cbTypeFind.Size = new System.Drawing.Size(121, 21);
             this.cbTypeFind.TabIndex = 13;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(109, 29);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Name";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(3, 31);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 8;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(3, 57);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(109, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Year";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // panelView
             // 
@@ -719,8 +603,10 @@
             this.tbfinfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbfinfo.Location = new System.Drawing.Point(0, 0);
             this.tbfinfo.Name = "tbfinfo";
+            this.tbfinfo.ReadOnly = true;
             this.tbfinfo.Size = new System.Drawing.Size(359, 16);
             this.tbfinfo.TabIndex = 4;
+            this.tbfinfo.TabStop = false;
             this.tbfinfo.Text = "Общие сведения";
             this.tbfinfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1099,10 +985,7 @@
         private System.Windows.Forms.TabPage tabWriter;
         private System.Windows.Forms.ToolStripMenuItem MenuFile;
         private System.Windows.Forms.ToolStripMenuItem btnCreateBase;
-        private System.Windows.Forms.ToolStripMenuItem MenuLoad;
         private System.Windows.Forms.ToolStripMenuItem btnHelp;
-        private System.Windows.Forms.ToolStripMenuItem сRefresh;
-        private System.Windows.Forms.ToolStripSeparator cSeparator1;
         private System.Windows.Forms.ToolStripMenuItem cAdd;
         private System.Windows.Forms.ToolStripMenuItem cDelete;
         private System.Windows.Forms.ToolStripMenuItem cChange;
@@ -1110,12 +993,9 @@
         private System.Windows.Forms.ToolStripMenuItem btnRelease;
         private System.Windows.Forms.ToolStripMenuItem cFind;
         private System.Windows.Forms.ToolStripSeparator cSeparator3;
-        private System.Windows.Forms.ToolStripSeparator tS3;
         private System.Windows.Forms.ToolStripMenuItem btnExportHTML;
         private System.Windows.Forms.ToolStripSeparator tS4;
         private System.Windows.Forms.ToolStripMenuItem btnExit;
-        private System.Windows.Forms.ToolStripMenuItem cResetTreeFilter;
-        private System.Windows.Forms.ToolStripSeparator cSeparator2;
         private System.Windows.Forms.ToolStripMenuItem btnReport;
         private System.Windows.Forms.Timer timerLoad;
         private System.Windows.Forms.ToolStripMenuItem btnUpdateBase;
@@ -1133,10 +1013,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.Panel panelFind;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panelEdit;
         private System.Windows.Forms.Panel panelView;
         private System.Windows.Forms.TextBox tbFileName;
@@ -1172,7 +1048,7 @@
         private System.Windows.Forms.TextBox tbfinfo;
         private System.Windows.Forms.Label lblRecName;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbFind;
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.ComboBox cbTypeFind;
         private System.Windows.Forms.Button btnPlay;
@@ -1180,9 +1056,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuResetFilter;
         private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
         private System.Windows.Forms.ToolStripComboBox tscbSort;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.TextBox textBox5;
     }
 }
 

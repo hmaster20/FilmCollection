@@ -5,9 +5,9 @@ using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-// Для получения верисии
-using System.Deployment.Application;
-using System.Reflection;
+//// Для получения верисии
+//using System.Deployment.Application;
+//using System.Reflection;
 
 namespace FilmCollection
 {
@@ -82,16 +82,16 @@ namespace FilmCollection
                 scTabFilm.SplitterDistance = _videoCollection.scTabFilmSplitter;
                 #endregion
 
-                #region Восстановление состояния ширины колонок
-                DataGridViewColumnCollection columns = dgvTable.Columns;
-                char[] delimiterChars = { ',' };
-                string text = _videoCollection.ColumnsWidth;
-                string[] words = text.Split(delimiterChars);
-                for (int i = 0; i < words.Length; i++)
-                {
-                    columns[i].Width = Convert.ToInt32(words[i]);
-                }
-                #endregion
+                //#region Восстановление состояния ширины колонок
+                //DataGridViewColumnCollection columns = dgvTable.Columns;
+                //char[] delimiterChars = { ',' };
+                //string text = _videoCollection.ColumnsWidth;
+                //string[] words = text.Split(delimiterChars);
+                //for (int i = 0; i < words.Length; i++)
+                //{
+                //    columns[i].Width = Convert.ToInt32(words[i]);
+                //}
+                //#endregion
 
                 #region Восстановление состояния главной формы
                 string switch_on = _videoCollection.FormState;
@@ -374,14 +374,6 @@ namespace FilmCollection
 
         #region Контекстное меню для DataGridView
 
-        private void cResetTreeFilter_Click(object sender, EventArgs e)     // Сброс фильтра по дереву
-        {
-            //NodeName = "";
-            RefreshTables("");
-            tscbTypeFilter.SelectedIndex = 0;
-            tscbSort.SelectedIndex = -1;
-        }
-
         private void Filter(object sender, EventArgs e)     // Сброс фильтра по дереву
         {
             dgvTable.ClearSelection();
@@ -427,6 +419,12 @@ namespace FilmCollection
 
         #endregion
 
+        private void menuResetFilter_Click(object sender, EventArgs e)
+        {
+            RefreshTables("");
+            tscbTypeFilter.SelectedIndex = 0;
+            tscbSort.SelectedIndex = -1;
+        }
 
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
         {
@@ -479,83 +477,30 @@ namespace FilmCollection
 
 
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            string searchValue = textBox1.Text;
 
-            dgvTable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            try
-            {
-                foreach (DataGridViewRow row in dgvTable.Rows)
-                {
-                    // if (row.Cells[2].Value.ToString().Equals(searchValue))
-                    if (row.Cells[3].Value.ToString().Equals(searchValue))
-                    {
-                        row.Selected = true;
-                        break;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
-        }
 
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            Regex regex = new Regex(textBox2.Text, RegexOptions.IgnoreCase);
-
-            dgvTable.ClearSelection();
-            dgvTable.MultiSelect = true;
-            try
-            {
-                foreach (DataGridViewRow row in dgvTable.Rows)
-                {
-                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
-                    {
-                        row.Selected = true;
-                        //break;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
-        }
 
         private void btnReport_Click(object sender, EventArgs e)
         {
             // Сформировать отчет в формате html и открыть его в браузере по умолчанию 
         }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            //            Console.WriteLine(" O S : {0}", Environment.OSVersion); // операционная система
-            //            Console.WriteLine("Number of processors: {0}",
-            //            Environment.ProcessorCount); // количество процессоров
-            //            Console.WriteLineC.NET Version: { 0}
-            //            ",
-            //Environment.Version);
+        //private void button9_Click(object sender, EventArgs e)
+        //{
+        //    // версия программы
+        //    textBox4.AppendText(CurrentVersion);
+        //}
 
-            // string txt = " O S : {0}\n", Environment.OSVersion;
-            string txt = " O S : " + typeof(string).Assembly.GetName().VersionCompatibility;
-
-            textBox4.AppendText(CurrentVersion);
-
-
-        }
-
-        public string CurrentVersion
-        {
-            get
-            {
-                return ApplicationDeployment.IsNetworkDeployed
-                       ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
-                       : Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        //   
+        //public string CurrentVersion      // версия программы
+        //{
+        //    get
+        //    {
+        //        return ApplicationDeployment.IsNetworkDeployed
+        //               ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+        //               : Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        //    }
+        //}
 
 
 
@@ -578,21 +523,21 @@ namespace FilmCollection
             _videoCollection.scTabFilmSplitter = scTabFilm.SplitterDistance;
             #endregion
 
-            #region Сохранение ширины колонок
-            DataGridViewColumnCollection columns = dgvTable.Columns;
-            _videoCollection.ColumnsWidth = "";
-            for (int i = 0; i < columns.Count; i++)
-            {
-                if (i < columns.Count - 1)
-                {
-                    _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width + ",";
-                }
-                else
-                {
-                    _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width;
-                }
-            }
-            #endregion
+            //#region Сохранение ширины колонок
+            //DataGridViewColumnCollection columns = dgvTable.Columns;
+            //_videoCollection.ColumnsWidth = "";
+            //for (int i = 0; i < columns.Count-1; i++)
+            //{
+            //    if (i < columns.Count - 2)
+            //    {
+            //        _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width + ",";
+            //    }
+            //    else
+            //    {
+            //        _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width;
+            //    }
+            //}
+            //#endregion
 
             // Сохранение состояния главной формы
             _videoCollection.FormState = this.WindowState.ToString();
@@ -603,7 +548,60 @@ namespace FilmCollection
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
+            About about = new About();
+            about.ShowDialog();
+        }
 
+        private void cDelete_Click(object sender, EventArgs e)
+        {
+            Record record = GetSelectedRecord();
+            _videoCollection.Remove(record);
+            dgvTable.ClearSelection();
+            _videoCollection.Save();
+            RefreshTables("");
+
+        }
+
+
+
+
+
+
+
+
+        private void btnFind_Click(object sender, EventArgs e)  // Поиск
+        {
+            int switch_Find = cbTypeFind.SelectedIndex;
+            switch (switch_Find)
+            {
+                case 0: Find(0); break; // поиск по названию
+                case 1: Find(2); break; // поиск по году
+                default: MessageBox.Show("Укажите режим поиска"); break;
+            }
+        }
+
+
+        private void Find(int cell)
+        {
+            Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
+
+            dgvTable.ClearSelection();
+            dgvTable.MultiSelect = true;    // Требуется для выбора всех строк
+            try
+            {
+                foreach (DataGridViewRow row in dgvTable.Rows)
+                {
+                    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
+                    {
+                        row.Selected = true;
+                        //break; //Требуется для выбора одно строки
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }
