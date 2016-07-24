@@ -5,9 +5,6 @@ using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-//// Для получения верисии
-//using System.Deployment.Application;
-//using System.Reflection;
 
 namespace FilmCollection
 {
@@ -485,22 +482,6 @@ namespace FilmCollection
             // Сформировать отчет в формате html и открыть его в браузере по умолчанию 
         }
 
-        //private void button9_Click(object sender, EventArgs e)
-        //{
-        //    // версия программы
-        //    textBox4.AppendText(CurrentVersion);
-        //}
-
-        //   
-        //public string CurrentVersion      // версия программы
-        //{
-        //    get
-        //    {
-        //        return ApplicationDeployment.IsNetworkDeployed
-        //               ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
-        //               : Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        //    }
-        //}
 
 
 
