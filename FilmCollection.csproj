@@ -64,6 +64,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\EditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     <Compile Include="Class\Record.cs" />
     <Compile Include="Class\RecordCollection.cs" />
     <Compile Include="Class\XmlSerializeHelper.cs" />
+    <EmbeddedResource Include="Form\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\EditForm.resx">
       <DependentUpon>EditForm.cs</DependentUpon>
     </EmbeddedResource>
