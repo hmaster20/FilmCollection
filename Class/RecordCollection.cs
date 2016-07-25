@@ -1,25 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace FilmCollection
 {
-    public class RecordCollection
+    public class RecordCollection : RecCollection
     {
-        private static string fileName = "VideoList.xml";       // Файл базы
-        [XmlIgnore]
-        public static string BaseName
-        {
-            get { return fileName; }
-        }
-
-        private List<Record> _videoList;
-        public List<Record> VideoList
-        {
-            get { return _videoList; }
-            set { _videoList = value; }
-        }
-
-        private string _source = "";                            // Расположение фильмов
+        // Поле содержащее путь к корневой папке
+        private string _source = "";                            
         [XmlAttribute("source")]
         public string Source
         {
@@ -27,50 +13,9 @@ namespace FilmCollection
             set { _source = value; }
         }
 
-        public RecordCollection()
-        {
-            VideoList = new List<Record>();
-        }
 
-        public void Save()
-        {
-            XmlSerializeHelper.SerializeAndSave(fileName, this);
-        }
-
-        public static RecordCollection Load()
-        {
-            RecordCollection result;
-            try
-            {
-                result = fileName.LoadAndDeserialize<RecordCollection>();
-            }
-            catch
-            {
-                return new RecordCollection();
-            }
-
-            return result;
-        }
-
-        public void Add(Record record)
-        {
-            VideoList.Add(record);
-        }
-
-        public void Clear()
-        {
-            VideoList.Clear();
-        }
-
-        public void Remove(Record record)
-        {
-            VideoList.Remove(record);
-        }
-
-
-
-
-        private string _txt = "";                               // тестовый элемент   
+        // Тестовое ПОЛЕ
+        private string _txt = "";                               
         [XmlElement]
         public string Txt
         {
@@ -78,7 +23,9 @@ namespace FilmCollection
             set { _txt = value; }
         }
 
-        private int _splitter1;                               // тестовый элемент   
+
+        // Поле сохранения параметра сплиттера
+        private int _splitter1;                              
         [XmlAttribute]
         public int scMainSplitter
         {
@@ -86,7 +33,9 @@ namespace FilmCollection
             set { _splitter1 = value; }
         }
 
-        private int _splitter2;                               // тестовый элемент   
+
+        // Поле сохранения параметра сплиттера
+        private int _splitter2;                               
         [XmlAttribute]
         public int scTabFilmSplitter
         {
@@ -95,7 +44,8 @@ namespace FilmCollection
         }
 
 
-        private string _columnsWidth;                          // тестовый элемент   
+        // Поле сохранения параметра ширины колонок
+        private string _columnsWidth;                             
         [XmlAttribute]
         public string ColumnsWidth
         {
@@ -104,14 +54,13 @@ namespace FilmCollection
         }
 
 
-        private string _formState;                          // тестовый элемент   
+        // Поле сохранения состояния главной формы
+        private string _formState;                         
         [XmlAttribute]
         public string FormState
         {
             get { return _formState; }
             set { _formState = value; }
         }
-
-
     }
 }
