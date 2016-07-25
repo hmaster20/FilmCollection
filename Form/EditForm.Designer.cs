@@ -302,13 +302,13 @@
             this.btnFileNameEdit.Size = new System.Drawing.Size(23, 27);
             this.btnFileNameEdit.TabIndex = 15;
             this.btnFileNameEdit.UseVisualStyleBackColor = true;
+            this.btnFileNameEdit.Click += new System.EventHandler(this.btnFileNameEdit_Click);
             // 
             // tbFileName
             // 
             this.tbFileName.Enabled = false;
             this.tbFileName.Location = new System.Drawing.Point(129, 258);
             this.tbFileName.Name = "tbFileName";
-            this.tbFileName.ReadOnly = true;
             this.tbFileName.Size = new System.Drawing.Size(259, 20);
             this.tbFileName.TabIndex = 16;
             // 

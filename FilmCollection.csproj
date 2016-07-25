@@ -64,6 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Base\Enums.cs" />
+    <Compile Include="Class\Base\Rec.cs" />
+    <Compile Include="Class\Base\RecCollection.cs" />
     <Compile Include="Form\About.cs">
       <SubType>Form</SubType>
     </Compile>

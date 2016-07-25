@@ -58,17 +58,15 @@ namespace FilmCollection
         #endregion
 
 
-
-
-
-
-        private void LoadForm()
+        
+        private void LoadForm()     // Загрузка формы
         {
             if (File.Exists(RecordCollection.BaseName))     // Если база создана, то выполняем
             {
                 _videoCollection = RecordCollection.Load();
                 if (_videoCollection.VideoList.Count > 0)
                 {
+                    tssLabel.Text = "Коллекция из " +_videoCollection.VideoList.Count.ToString() + " элементов";
                     RefreshTables("");
                     CreateTree();
                 }
@@ -128,6 +126,7 @@ namespace FilmCollection
                     File.WriteAllText(RecordCollection.BaseName, string.Empty);
                     _videoCollection.Clear();
                     treeFolder.Nodes.Clear();
+                    dgvTable.ClearSelection();
                     RefreshTables("");
 
                     DialogResult dialogresult = browserDialog.ShowDialog();
@@ -379,13 +378,13 @@ namespace FilmCollection
 
         private void cAdd_Click(object sender, EventArgs e)                 // добавление новой записи
         {
-            EditForm form = new EditForm();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                _videoCollection.Add(form.rec);
-                _videoCollection.Save();
-                RefreshTables("");
-            }
+            //EditForm form = new EditForm();
+            //if (form.ShowDialog() == DialogResult.OK)
+            //{
+            //    _videoCollection.Add(form.rec);
+            //    _videoCollection.Save();
+            //    RefreshTables("");
+            //}
             panelEdit.BringToFront();
         }
 

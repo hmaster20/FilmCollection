@@ -253,9 +253,10 @@ namespace FilmCollection
 
         }
 
-        
-
-
-
+        private void btnFileNameEdit_Click(object sender, EventArgs e)
+        {
+            tbFileName.Enabled = true;
+            btnFileNameEdit.Enabled = false;
+        }
     }
 }
