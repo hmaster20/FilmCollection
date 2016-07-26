@@ -10,6 +10,14 @@ namespace FilmCollection
         Unknown
     }
 
+    public enum CategoryVideoRus
+    {
+        Фильм,
+        Сериал,
+        Мультфильм,
+        Прочее
+    }
+
     public enum GenreVideo
     {
         Action,
