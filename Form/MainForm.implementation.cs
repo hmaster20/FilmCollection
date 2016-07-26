@@ -342,8 +342,32 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
+                // Панель описания
                 tbfName.Text = record.Name;
                 tbfDesc.Text = record.Description;
+
+                // Панель редактирования
+                tbName.Text = record.Name;
+                tbYear.Text = record.Year;
+                tbCountry.Text = record.Country;
+                numericTime.Value = record.Time;
+                tbDescription.Text = record.Description;
+                tbFileName.Text = record.FileName;
+
+                switch (record.Category)
+                {
+                    case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
+                    case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
+                    case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
+                }
+
+                switch (record.GenreVideo)
+                {
+                    case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
+                    case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
+                    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
+                }
+
             }
 
         }

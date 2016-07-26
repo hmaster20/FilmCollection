@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Form\MainForm.implementation.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
