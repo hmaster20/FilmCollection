@@ -4,13 +4,16 @@ namespace FilmCollection
 {
     public class Record
     {
+        public string Name { get; set; }
 
-        private string _name = "";              // Название Фильма
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        //private string _name = "";              // Название Фильма
+        //public string Name
+        //{
+        //    get { return _name; }
+        //    set { _name = value; }
+        //}
+
+
 
         private string _year = "";              // Год выпуска
         public string Year

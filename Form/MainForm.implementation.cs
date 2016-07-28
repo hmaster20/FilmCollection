@@ -81,13 +81,13 @@ namespace FilmCollection
                     dgvTable.ClearSelection();
                     RefreshTables("");
 
-                    DialogResult dialogresult = browserDialog.ShowDialog();
+                    DialogResult dialogStatus = FolderDialog.ShowDialog();
 
                     string folderName = "";
 
-                    if (dialogresult == DialogResult.OK)
+                    if (dialogStatus == DialogResult.OK)
                     {
-                        folderName = browserDialog.SelectedPath;                //Извлечение имени папки
+                        folderName = FolderDialog.SelectedPath;                //Извлечение имени папки
 
                         DirectoryInfo directory = new DirectoryInfo(folderName);
 
@@ -261,13 +261,23 @@ namespace FilmCollection
 
             foreach (XmlNode node in nodeList)                              // Заполнение списка для формирования дерева
             {
-                string temp = "";
-                if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
+                try
                 {
-                    temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                    if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(SourceLength + 1));
-                }
+                    string temp = "";
+                    if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
+                    {
+                        temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                        if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(SourceLength + 1));
+                    }
             }
+                catch (NullReferenceException e)
+            {
+
+                MessageBox.Show(e.Message + " " + node.Name + " - не заполен!");
+            }
+
+
+        }
             PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }

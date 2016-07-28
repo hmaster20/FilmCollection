@@ -45,7 +45,8 @@
             this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cChange = new System.Windows.Forms.ToolStripMenuItem();
             this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.browserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
@@ -104,6 +105,7 @@
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
+            this.FileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -219,9 +221,10 @@
             this.cSeparator3,
             this.cAdd,
             this.cChange,
-            this.cDelete});
+            this.cDelete,
+            this.testToolStripMenuItem});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(129, 98);
+            this.contextMenu.Size = new System.Drawing.Size(129, 120);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
@@ -257,9 +260,17 @@
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.cDelete_Click);
             // 
-            // browserDialog
+            // testToolStripMenuItem
             // 
-            this.browserDialog.ShowNewFolderButton = false;
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.Add_rec);
+            // 
+            // FolderDialog
+            // 
+            this.FolderDialog.Description = "Укажите расположение файлов мультимедиа:";
+            this.FolderDialog.ShowNewFolderButton = false;
             // 
             // statusStrip1
             // 
@@ -853,6 +864,10 @@
             this.scMain.SplitterDistance = 238;
             this.scMain.TabIndex = 24;
             // 
+            // FileDialog
+            // 
+            this.FileDialog.FileName = "openFileDialog1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -900,7 +915,7 @@
 
         #endregion
         private System.Windows.Forms.DataGridView dgvTable;
-        private System.Windows.Forms.FolderBrowserDialog browserDialog;
+        private System.Windows.Forms.FolderBrowserDialog FolderDialog;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip mainMenu;
@@ -973,6 +988,8 @@
         private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
         private System.Windows.Forms.ToolStripComboBox tscbSort;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog FileDialog;
     }
 }
 

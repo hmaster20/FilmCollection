@@ -85,6 +85,12 @@ namespace FilmCollection
 
         private void cAdd_Click(object sender, EventArgs e)                 // добавление новой записи
         {
+            //  предварительно сделать диалог для добавления файла ???
+            // открыв корневую папку базы -- не давая возможность выйти из нее.
+            // ==================================================================
+            // ==================================================================
+            // ==================================================================
+
             //EditForm form = new EditForm();
             //if (form.ShowDialog() == DialogResult.OK)
             //{
@@ -93,6 +99,17 @@ namespace FilmCollection
             //    RefreshTables("");
             //}
             panelEdit.BringToFront();
+        }
+
+        private void Add_rec(object sender, EventArgs e)                 // добавление новой записи
+        {
+            EditForm form = new EditForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                _videoCollection.Add(form.rec);
+                _videoCollection.Save();
+                RefreshTables("");
+            }
         }
 
         private void cMenuChange_Click(object sender, EventArgs e)          // Изменить запись
@@ -142,19 +159,44 @@ namespace FilmCollection
 
         private void btnEditSave_Click(object sender, EventArgs e)  // Сохранение изменений
         {
-            SaveRecord(NewRecords);
+            SaveRecord();
         }
 
         Record NewRecords = null;
 
+
+
         private void NewRecord()
         {
-            //Record record = new Record();
-            //NewRecords = new Record();
+            btnEditSave.Enabled = false;    // Блокировка кнопки сохранения
 
-         
 
-            record = new Record();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            //openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.InitialDirectory = _videoCollection.Source;
+            //openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.Filter = "Все файлы (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.FileInfo fInfo = new System.IO.FileInfo(openFileDialog1.FileName);
+
+                string strFileName = fInfo.Name;
+
+                string strFilePath = fInfo.DirectoryName;
+
+                if (!strFilePath.StartsWith(_videoCollection.Source)) MessageBox.Show("Fack you");
+                                MessageBox.Show(openFileDialog1.FileName);
+    
+                
+            }
+
+
+            Record record = new Record();
+            NewRecords = record;
 
             tbName.Text = record.Name;
             tbYear.Text = record.Year;
@@ -176,17 +218,21 @@ namespace FilmCollection
                 case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
                 case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
             }
-            NewRecords = record;
+           
+
         }
 
 
 
-        private void SaveRecord(Record record)
+        private void SaveRecord()
         {
             //Record record = GetSelectedRecord();
 
-            if (record != null)
+
+            if (NewRecords == null)
             {
+                Record record = new Record();
+
                 CategoryVideo category;
                 GenreVideo genre;
 
@@ -217,7 +263,7 @@ namespace FilmCollection
 
                 _videoCollection.Save();
 
-                dgvTable.Enabled = true;
+                 dgvTable.Enabled = true;
                 dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
                 RefreshTables("");      //Должно быть обновление вместо фильтра
             }
