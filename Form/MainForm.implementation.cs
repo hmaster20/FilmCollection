@@ -70,79 +70,38 @@ namespace FilmCollection
 
         private void CreateBase()       // Создание файла базы
         {
-            if (File.Exists(RecordCollection.BaseName))
+            if (File.Exists(RecordCollection.BaseName)) // Если база есть, то запрашиваем удаление
             {
-                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
+                                                      "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) // Если соглашаемся
                 {
-                    File.WriteAllText(RecordCollection.BaseName, string.Empty);
-                    _videoCollection.Clear();
-                    treeFolder.Nodes.Clear();
-                    dgvTable.ClearSelection();
-                    RefreshTables("");
-
-                    DialogResult dialogStatus = FolderDialog.ShowDialog();
-
-                    string folderName = "";
-
-                    if (dialogStatus == DialogResult.OK)
-                    {
-                        folderName = FolderDialog.SelectedPath;                //Извлечение имени папки
-
-                        DirectoryInfo directory = new DirectoryInfo(folderName);
-
-                        if (directory.Exists)
-                        {
-                            _videoCollection.Source = directory.FullName;   // Сохранение каталога фильмов
-                            char[] charsToTrim = { '.' };
-                            foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                            {
-                                record = new Record();
-
-                                record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-                                record.FileName = file.Name;                            // полное название файла (film.avi)
-                                record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                                record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                                        // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                                _videoCollection.Add(record);
-                            }
-                        }
-                        _videoCollection.Save();
-                        FormLoad();
-                    }
-
-
+                    File.WriteAllText(RecordCollection.BaseName, string.Empty); // Затираем содержимое файла базы
+                    _videoCollection.Clear();   // очищаем колелкцию
+                    treeFolder.Nodes.Clear();   // очищаем иерархию
+                    dgvTable.ClearSelection();  // выключаем селекты таблицы
+                    RefreshTables("");          // сбрасываем старые значения таблицы
                 }
-
+            }
+            else // Если базы нет, то создаем пусатой файл базы
+            {
+                //File.Create(RecordCollection.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
             }
 
-        }
+            DialogResult dialogStatus = FolderDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
 
-        private void UpdateBase()       // Добавить обновление базы
-        {
-            DirectoryInfo directory = new DirectoryInfo(_videoCollection.Source);
+            string folderName = "";
 
-            #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
-            List<string> FileNameList = new List<string>();
-            XmlDocument doc = new XmlDocument();
-            doc.Load(RecordCollection.BaseName);
-
-            XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
-
-            foreach (XmlNode node in nodeList)
+            if (dialogStatus == DialogResult.OK)
             {
-                FileNameList.Add(node.ChildNodes[0].Value);
-            }
-            #endregion
+                folderName = FolderDialog.SelectedPath;                     //Извлечение имени папки
+                DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
 
-
-            if (directory.Exists)
-            {
-                char[] charsToTrim = { '.' };
-                foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                if (directory.Exists)
                 {
-                    if (file.Name != FileNameList.Find(x => x.Contains(file.Name)))
+                    _videoCollection.Source = directory.FullName;   // Сохранение каталога фильмов
+                    char[] charsToTrim = { '.' };
+                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                     {
                         record = new Record();
 
@@ -151,30 +110,72 @@ namespace FilmCollection
                         record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
                         record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
                         record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                        // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-
+                                                                                // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
                         _videoCollection.Add(record);
                     }
                 }
+                _videoCollection.Save();
+                FormLoad();
             }
-            _videoCollection.Save();
-            FormLoad();
         }
+
+
+
+        private void UpdateBase()               // Добавить обновление базы
+        {
+            if (_videoCollection.Source != "")  // Если есть информация о корневой папки коллекции
+            {
+                DirectoryInfo directory = new DirectoryInfo(_videoCollection.Source);
+                if (directory.Exists)   // проверяем существование заявленной папки коллекции
+                {
+                    #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
+                    List<string> FileNameList = new List<string>();                 // создаем пустой список типа string
+                    XmlDocument doc = new XmlDocument();                            // создаем объект для доступа в xml документ
+                    doc.Load(RecordCollection.BaseName);                            // загружаем файл базы
+                    XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
+
+                    foreach (XmlNode node in nodeList)
+                    {
+                        FileNameList.Add(node.ChildNodes[0].Value);
+                    }
+                    #endregion
+
+                    char[] charsToTrim = { '.' };
+                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                    {
+                        if (file.Name != FileNameList.Find(x => x.Contains(file.Name)))
+                        {
+                            record = new Record();
+
+                            record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                            record.FileName = file.Name;                            // полное название файла (film.avi)
+                            record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
+                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                                    // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                            _videoCollection.Add(record);
+                        }
+                    }
+                    _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
+                    FormLoad();                 // и перегружаем главную форму
+                }
+            }
+        }
+
 
         private void BackupBase()       // Резервная копия базы
         {
-            if (File.Exists(RecordCollection.BaseName))
+            if (File.Exists(RecordCollection.BaseName)) // если есть что бэкапить...
             {
                 try
-                {
+                {   // создаем бэкап
                     File.Copy(RecordCollection.BaseName, Path.GetFileNameWithoutExtension(RecordCollection.BaseName)
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
                         + Path.GetExtension(RecordCollection.BaseName));
                     MessageBox.Show("Создана резервная копия!");
                 }
                 catch (IOException copyError)
-                {
-                    //Console.WriteLine(copyError.Message);
+                {   // если не можем создать бэкап, то ругаемся
                     MessageBox.Show(copyError.Message);
                 }
             }
@@ -232,26 +233,8 @@ namespace FilmCollection
         private void CreateTree()  // Построение дерева
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(RecordCollection.BaseName);                            // Получения файла базы
-
-            //#region Поиск атрибута source из файла XML, содержащего путь к папке с видео
-            //foreach (XmlNode xmlNode in doc.ChildNodes)
-            //{
-            //    if (xmlNode.NodeType == XmlNodeType.Element)                // Проверка ноды, что это элемент
-            //    {
-            //        foreach (XmlAttribute xmlattribute in xmlNode.Attributes)
-            //        {
-            //            //if (xmlattribute.Name == "source") SourceValue = xmlattribute.Value; // Поиск атрибута "source"
-            //            //if ((SourceValue != null) && (SourceValue.Length != 0)) break;
-            //            if (xmlattribute.Name == "source") SourceValue = xmlattribute.Value; // Поиск атрибута "source"
-            //            if ((SourceValue != null) && (SourceValue.Length != 0)) break;
-
-            //        }
-            //    }
-            //}
-            //#endregion
-
-            int SourceLength = _videoCollection.Source.Length; // Получение длинны пути
+            doc.Load(RecordCollection.BaseName);                // Получения файла базы
+            int SourceLength = _videoCollection.Source.Length;  // Получение длинны пути
 
             XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
 
@@ -264,20 +247,21 @@ namespace FilmCollection
                 try
                 {
                     string temp = "";
+                    if (node.ChildNodes[0].Value.Length > SourceLength)     // длинна патча, не должна превышать полного пути к дирректории
                     if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
                     {
                         temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
                         if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(SourceLength + 1));
                     }
-            }
+                }
                 catch (NullReferenceException e)
-            {
+                {
 
-                MessageBox.Show(e.Message + " " + node.Name + " - не заполен!");
+                    MessageBox.Show(e.Message + " " + node.Name + " - не заполен!");
+                }
+
+
             }
-
-
-        }
             PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
@@ -481,9 +465,6 @@ namespace FilmCollection
             _videoCollection.Save();
 
         }
-
-
-
 
     }
 }
