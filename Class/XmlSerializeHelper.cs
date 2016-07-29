@@ -15,8 +15,9 @@ namespace FilmCollection
                 using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Create))
                     serializer.Serialize(stream, objectToSerialize);
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
                 return false;
             }
             return true;
