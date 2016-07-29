@@ -154,7 +154,24 @@ namespace FilmCollection
 
 
 
-
+        public bool Equals(Record rec)
+        {
+            if (rec is Record && rec != null)
+            {
+                Record temp;
+                temp = (Record)rec;
+                if (temp.FileName == this.FileName
+                && temp.Path == this.Path)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
 
 
 
