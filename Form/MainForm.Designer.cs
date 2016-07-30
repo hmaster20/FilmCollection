@@ -45,7 +45,9 @@
             this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cChange = new System.Windows.Forms.ToolStripMenuItem();
             this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -72,7 +74,8 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEditSaveR = new System.Windows.Forms.Button();
+            this.btnEditCancel = new System.Windows.Forms.Button();
             this.tbFileName = new System.Windows.Forms.TextBox();
             this.btnFileNameEdit = new System.Windows.Forms.Button();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
@@ -107,7 +110,6 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btnEditCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -224,50 +226,64 @@
             this.cAdd,
             this.cChange,
             this.cDelete,
-            this.testToolStripMenuItem});
+            this.toolStripSeparator1,
+            this.testToolStripMenuItem,
+            this.testChangeToolStripMenuItem});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(129, 120);
+            this.contextMenu.Size = new System.Drawing.Size(140, 148);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
             // 
             this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(128, 22);
+            this.cFind.Size = new System.Drawing.Size(139, 22);
             this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(125, 6);
+            this.cSeparator3.Size = new System.Drawing.Size(136, 6);
             // 
             // cAdd
             // 
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(128, 22);
+            this.cAdd.Size = new System.Drawing.Size(139, 22);
             this.cAdd.Text = "Добавить";
-            this.cAdd.Click += new System.EventHandler(this.cAdd_Click);
+            this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
             // 
             // cChange
             // 
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(128, 22);
+            this.cChange.Size = new System.Drawing.Size(139, 22);
             this.cChange.Text = "Изменить";
-            this.cChange.Click += new System.EventHandler(this.cMenuChange_Click);
+            this.cChange.Click += new System.EventHandler(this.EditRec_Click);
             // 
             // cDelete
             // 
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(128, 22);
+            this.cDelete.Size = new System.Drawing.Size(139, 22);
             this.cDelete.Text = "Удалить";
-            this.cDelete.Click += new System.EventHandler(this.cDelete_Click);
+            this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
-            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testToolStripMenuItem.Text = "Test Create";
             this.testToolStripMenuItem.Click += new System.EventHandler(this.Add_rec);
+            // 
+            // testChangeToolStripMenuItem
+            // 
+            this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
+            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testChangeToolStripMenuItem.Text = "Test Change";
+            this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.cMenuChange_Click);
             // 
             // FolderDialog
             // 
@@ -321,14 +337,14 @@
             this.btnCreateBase.Name = "btnCreateBase";
             this.btnCreateBase.Size = new System.Drawing.Size(187, 22);
             this.btnCreateBase.Text = "Создать базу";
-            this.btnCreateBase.Click += new System.EventHandler(this.btnCreateBase_Click);
+            this.btnCreateBase.Click += new System.EventHandler(this.CreateBase_Click);
             // 
             // btnUpdateBase
             // 
             this.btnUpdateBase.Name = "btnUpdateBase";
             this.btnUpdateBase.Size = new System.Drawing.Size(187, 22);
             this.btnUpdateBase.Text = "Обновить базу";
-            this.btnUpdateBase.Click += new System.EventHandler(this.btnUpdateBase_Click);
+            this.btnUpdateBase.Click += new System.EventHandler(this.UpdateBase_Click);
             // 
             // tS1
             // 
@@ -340,7 +356,7 @@
             this.btnBackupBase.Name = "btnBackupBase";
             this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
             this.btnBackupBase.Text = "Создать копию базы";
-            this.btnBackupBase.Click += new System.EventHandler(this.btnBackupBase_Click);
+            this.btnBackupBase.Click += new System.EventHandler(this.BackupBase_Click);
             // 
             // tS2
             // 
@@ -373,7 +389,7 @@
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(187, 22);
             this.btnExit.Text = "Выход";
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // btnHelp
             // 
@@ -389,7 +405,7 @@
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(149, 22);
             this.btnAbout.Text = "О программе";
-            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
@@ -472,7 +488,7 @@
             this.menuResetFilter.Name = "menuResetFilter";
             this.menuResetFilter.Size = new System.Drawing.Size(104, 23);
             this.menuResetFilter.Text = "Сброс фильтра";
-            this.menuResetFilter.Click += new System.EventHandler(this.menuResetFilter_Click);
+            this.menuResetFilter.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
             // tscbTypeFilter
             // 
@@ -502,8 +518,8 @@
             // 
             // panelEdit
             // 
+            this.panelEdit.Controls.Add(this.btnEditSaveR);
             this.panelEdit.Controls.Add(this.btnEditCancel);
-            this.panelEdit.Controls.Add(this.button1);
             this.panelEdit.Controls.Add(this.tbFileName);
             this.panelEdit.Controls.Add(this.btnFileNameEdit);
             this.panelEdit.Controls.Add(this.cBoxTypeVideo);
@@ -529,15 +545,29 @@
             this.panelEdit.Size = new System.Drawing.Size(327, 457);
             this.panelEdit.TabIndex = 10;
             // 
-            // button1
+            // btnEditSaveR
             // 
-            this.button1.Location = new System.Drawing.Point(75, 354);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 45;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.SaveRecordfsInfo);
+            this.btnEditSaveR.Enabled = false;
+            this.btnEditSaveR.Location = new System.Drawing.Point(161, 298);
+            this.btnEditSaveR.Name = "btnEditSaveR";
+            this.btnEditSaveR.Size = new System.Drawing.Size(75, 23);
+            this.btnEditSaveR.TabIndex = 47;
+            this.btnEditSaveR.Text = "Save";
+            this.btnEditSaveR.UseVisualStyleBackColor = true;
+            this.btnEditSaveR.Visible = false;
+            this.btnEditSaveR.Click += new System.EventHandler(this.btnEditSaveR_Click);
+            // 
+            // btnEditCancel
+            // 
+            this.btnEditCancel.Enabled = false;
+            this.btnEditCancel.Location = new System.Drawing.Point(242, 327);
+            this.btnEditCancel.Name = "btnEditCancel";
+            this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnEditCancel.TabIndex = 46;
+            this.btnEditCancel.Text = "Отмена";
+            this.btnEditCancel.UseVisualStyleBackColor = true;
+            this.btnEditCancel.Visible = false;
+            this.btnEditCancel.Click += new System.EventHandler(this.btnEditCancel_Click);
             // 
             // tbFileName
             // 
@@ -883,16 +913,6 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
-            // btnEditCancel
-            // 
-            this.btnEditCancel.Location = new System.Drawing.Point(242, 327);
-            this.btnEditCancel.Name = "btnEditCancel";
-            this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnEditCancel.TabIndex = 46;
-            this.btnEditCancel.Text = "Отмена";
-            this.btnEditCancel.UseVisualStyleBackColor = true;
-            this.btnEditCancel.Click += new System.EventHandler(this.btnEditCancel_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1015,8 +1035,10 @@
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog FileDialog;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnEditCancel;
+        private System.Windows.Forms.Button btnEditSaveR;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem testChangeToolStripMenuItem;
     }
 }
 

@@ -120,8 +120,7 @@ namespace FilmCollection
         }
 
 
-
-        private void UpdateBase()               // Добавить обновление базы
+        private void UpdateBase()       // Добавить обновление базы
         {
             if (_videoCollection.Source != "")  // Если есть информация о корневой папки коллекции
             {
@@ -181,6 +180,7 @@ namespace FilmCollection
             }
         }
 
+
         private void RefreshTables(string nodeName)    // Обновление таблицы путем фильтрации элементов по полю Path
         {
             Record selected = GetSelectedRecord();  // получение выбранной строки
@@ -230,7 +230,7 @@ namespace FilmCollection
         }
 
 
-        private void CreateTree()  // Построение дерева
+        private void CreateTree()       // Построение дерева
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(RecordCollection.BaseName);                // Получения файла базы
@@ -266,6 +266,7 @@ namespace FilmCollection
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
+
         private static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)  // Построение дерева
         {
             TreeNode lastNode = null;
@@ -290,10 +291,12 @@ namespace FilmCollection
             //treeView.ExpandAll();           // развернуть дерево
         }
 
+
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e)                                 // Команда при клике по строке
         {
             RefreshTables(e.Node.FullPath);     // обновление на основе полученной ноды
         }
+
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
@@ -310,14 +313,25 @@ namespace FilmCollection
         }
 
 
-
-
-        private void menuResetFilter_Click(object sender, EventArgs e)
+        private void ResetFilter_Click(object sender, EventArgs e)
         {
             RefreshTables("");
+            dgvTable.ClearSelection(); // сброс селекта
+
             tscbTypeFilter.SelectedIndex = 0;
             tscbSort.SelectedIndex = -1;
+
+            tbName.Text = "";
+            tbYear.Text = "";
+            tbCountry.Text = "";
+            numericTime.Value = 0;
+            tbDescription.Text = "";
+            tbFileName.Text = "";
+            cBoxGenre.SelectedIndex = 0;
+            cBoxTypeVideo.SelectedIndex = 0;
+
         }
+
 
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
         {
@@ -328,7 +342,6 @@ namespace FilmCollection
                 dgvTable.Focus();
             }
         }
-
 
 
         private void dgvTable_SelectionChanged(object sender, EventArgs e)  // Отражение информации в карточке
@@ -366,6 +379,7 @@ namespace FilmCollection
 
         }
 
+
         private void btnPlay_Click(object sender, EventArgs e)  // запуск файла
         {
             Record record = GetSelectedRecord();
@@ -373,18 +387,14 @@ namespace FilmCollection
         }
 
 
-
-        private void cDelete_Click(object sender, EventArgs e)
+        private void DeleteRec_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
             _videoCollection.Remove(record);
             dgvTable.ClearSelection();
             _videoCollection.Save();
             RefreshTables("");
-
         }
-
-
 
 
         private void btnFind_Click(object sender, EventArgs e)  // Поиск
@@ -421,8 +431,6 @@ namespace FilmCollection
                 MessageBox.Show(exc.Message);
             }
         }
-
-
 
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -465,6 +473,44 @@ namespace FilmCollection
             _videoCollection.Save();
 
         }
+
+
+
+        #region Панель редактирования
+
+        private void panelEditLock()    //Блокировка кнопок
+        {
+            // Блокировать клавишу "Сохранить"
+            btnEditSave.Visible = false;
+            btnEditSave.Enabled = false;
+            // Блокировать клавишу "Отмена"
+            btnEditCancel.Visible = false;
+            btnEditCancel.Enabled = false;
+            // Блокировать клавишу "Save"
+            btnEditSaveR.Visible = false;
+            btnEditSaveR.Enabled = false;
+
+        }
+
+        private void panelEditUnlock()    //Разблокировка кнопок
+        {
+            // Разблокировать клавишу "Сохранить"
+            btnEditSave.Visible = true;
+            btnEditSave.Enabled = true;
+            // Разблокировать клавишу "Отмена"
+            btnEditCancel.Visible = true;
+            btnEditCancel.Enabled = true;
+            // Блокировать клавишу "Save"
+            btnEditSaveR.Visible = true;
+            btnEditSaveR.Enabled = true;
+        }
+
+
+        #endregion
+
+
+
+
 
     }
 }
