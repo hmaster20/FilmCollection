@@ -95,6 +95,7 @@ namespace FilmCollection
                 case GenreVideo.Action: return "Боевик";
                 case GenreVideo.Vestern: return "Вестерн";
                 case GenreVideo.Comedy: return "Комедия";
+                case GenreVideo.Unknown: return "Прочее";
                 default: return "Прочее";
             }
         }
@@ -106,6 +107,7 @@ namespace FilmCollection
                 case "Боевик": return GenreVideo.Action;
                 case "Вестерн": return GenreVideo.Vestern;
                 case "Комедия": return GenreVideo.Comedy;
+                case "Прочее": return GenreVideo.Unknown;
                 default: return GenreVideo.Unknown;
             }
         }
@@ -136,6 +138,7 @@ namespace FilmCollection
                 case CategoryVideo.Film: return "Фильм";
                 case CategoryVideo.Series: return "Сериал";
                 case CategoryVideo.Cartoon: return "Мультфильм";
+                case CategoryVideo.Unknown: return "Прочее";
                 default: return "Прочее";
             }
         }
@@ -147,6 +150,7 @@ namespace FilmCollection
                 case "Фильм": return CategoryVideo.Film;
                 case "Сериал": return CategoryVideo.Series;
                 case "Мультфильм": return CategoryVideo.Cartoon;
+                case "Прочее": return CategoryVideo.Unknown;
                 default: return CategoryVideo.Unknown;
             }
         }

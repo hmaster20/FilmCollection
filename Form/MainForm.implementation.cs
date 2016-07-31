@@ -346,6 +346,10 @@ namespace FilmCollection
 
         private void dgvTable_SelectionChanged(object sender, EventArgs e)  // Отражение информации в карточке
         {
+           // panelView.BringToFront();
+
+            // Предоставляет данные выбранной записи
+
             Record record = GetSelectedRecord();
             if (record != null)
             {
@@ -366,6 +370,7 @@ namespace FilmCollection
                     case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
                     case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
                     case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
+                    case CategoryVideo.Unknown: cBoxTypeVideo.SelectedIndex = 3; break;
                 }
 
                 switch (record.GenreVideo)
@@ -373,6 +378,7 @@ namespace FilmCollection
                     case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
                     case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
                     case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
+                    case GenreVideo.Unknown: cBoxGenre.SelectedIndex = 3; break;
                 }
 
             }
@@ -480,27 +486,23 @@ namespace FilmCollection
 
         private void panelEditLock()    //Блокировка кнопок
         {
-            // Блокировать клавишу "Сохранить"
-            btnEditSave.Visible = false;
-            btnEditSave.Enabled = false;
             // Блокировать клавишу "Отмена"
             btnEditCancel.Visible = false;
             btnEditCancel.Enabled = false;
-            // Блокировать клавишу "Save"
+            // Блокировать клавишу "Сохранить"
             btnEditSaveR.Visible = false;
             btnEditSaveR.Enabled = false;
+
+            panelView.BringToFront();
 
         }
 
         private void panelEditUnlock()    //Разблокировка кнопок
         {
-            // Разблокировать клавишу "Сохранить"
-            btnEditSave.Visible = true;
-            btnEditSave.Enabled = true;
             // Разблокировать клавишу "Отмена"
             btnEditCancel.Visible = true;
             btnEditCancel.Enabled = true;
-            // Блокировать клавишу "Save"
+            // Блокировать клавишу "Сохранить"
             btnEditSaveR.Visible = true;
             btnEditSaveR.Enabled = true;
         }

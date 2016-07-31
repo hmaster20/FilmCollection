@@ -8,7 +8,6 @@ namespace FilmCollection
 {
     public partial class MainForm : Form
     {
-
         public MainForm()
         {
             InitializeComponent();                  // Создание и отрисовка элементов
@@ -21,12 +20,14 @@ namespace FilmCollection
             cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
             "Фильм",
             "Сериал",
-            "Мультфильм"});
+            "Мультфильм",
+            "Прочее" });
 
             cBoxGenre.Items.AddRange(new object[] {         // Создание списка жанров
             "Боевик",
             "Вестерн",
-            "Комедия"});
+            "Комедия",
+            "Прочее"});
 
         }
 
@@ -78,7 +79,7 @@ namespace FilmCollection
 
 
         #region Контекстное меню для DataGridView
-        private void Filter(object sender, EventArgs e)     // Сброс фильтра по дереву
+        private void Filter(object sender, EventArgs e)     // При выборе фильтра выполняется сброс фильтра по дереву и таблице
         {
             dgvTable.ClearSelection();
             RefreshTables("");
@@ -89,7 +90,7 @@ namespace FilmCollection
             NewRecord();
         }
 
-        private void EditRec_Click(object sender, EventArgs e)                 // добавление новой записи
+        private void EditRec_Click(object sender, EventArgs e)                 // Изменение записи
         {
             panelEdit.BringToFront();
         }
@@ -157,11 +158,6 @@ namespace FilmCollection
         }
 
 
-        private void btnEditSave_Click(object sender, EventArgs e)  // Сохранение изменений
-        {
-            SaveRecord();
-        }
-
         private void SaveRecordfsInfo(object sender, EventArgs e)
         {
             SaveRecordfsInfo();
@@ -180,12 +176,11 @@ namespace FilmCollection
                 SaveRecord();
             }
 
-            tbName.Modified = false;// возвращаем назад статус изменения поля
-            tbYear.Modified = false;// возвращаем назад статус изменения поля
-            tbCountry.Modified = false;// возвращаем назад статус изменения поля
-            tbDescription.Modified = false;// возвращаем назад статус изменения поля
+            tbName.Modified = false;        // возвращаем назад статус изменения поля
+            tbYear.Modified = false;        // возвращаем назад статус изменения поля
+            tbCountry.Modified = false;     // возвращаем назад статус изменения поля
+            tbDescription.Modified = false; // возвращаем назад статус изменения поля
             //tbFileName.Text = fInfo.Name;
-
 
             dgvTable.Enabled = true;
             dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
@@ -193,8 +188,6 @@ namespace FilmCollection
             fsInfo = null;
 
             panelEditLock();
-
-
         }
 
 
@@ -279,7 +272,9 @@ namespace FilmCollection
                 case 0: genre = GenreVideo.Action; break;
                 case 1: genre = GenreVideo.Vestern; break;
                 case 2: genre = GenreVideo.Comedy; break;
-                default: MessageBox.Show("Не выбран тип"); return;
+                case 3: genre = GenreVideo.Unknown; break;
+                default: genre = GenreVideo.Unknown; return;
+                //default: MessageBox.Show("Не выбран тип"); return;
             }
 
             switch (cBoxTypeVideo.SelectedIndex)
@@ -287,7 +282,9 @@ namespace FilmCollection
                 case 0: category = CategoryVideo.Film; break;
                 case 1: category = CategoryVideo.Series; break;
                 case 2: category = CategoryVideo.Cartoon; break;
-                default: MessageBox.Show("Не выбран тип"); return;
+                case 3: category = CategoryVideo.Unknown; break;
+                default: category = CategoryVideo.Unknown; return;
+                    //default: MessageBox.Show("Не выбран тип"); return;
             }
 
             record.FileName = fsInfo.Name;
@@ -324,7 +321,9 @@ namespace FilmCollection
                     case 0: genre = GenreVideo.Action; break;
                     case 1: genre = GenreVideo.Vestern; break;
                     case 2: genre = GenreVideo.Comedy; break;
-                    default: MessageBox.Show("Не выбран тип"); return;
+                    case 3: genre = GenreVideo.Unknown; break;
+                    default: genre = GenreVideo.Unknown; return;
+                        //default: MessageBox.Show("Не выбран тип"); return;
                 }
 
                 switch (cBoxTypeVideo.SelectedIndex)
@@ -332,7 +331,9 @@ namespace FilmCollection
                     case 0: category = CategoryVideo.Film; break;
                     case 1: category = CategoryVideo.Series; break;
                     case 2: category = CategoryVideo.Cartoon; break;
-                    default: MessageBox.Show("Не выбран тип"); return;
+                    case 3: category = CategoryVideo.Unknown; break;
+                    default: category = CategoryVideo.Unknown; return;
+                        //default: MessageBox.Show("Не выбран тип"); return;
                 }
 
                 record.Name = tbName.Text;

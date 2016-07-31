@@ -94,7 +94,6 @@
             this.lblYear = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.btnEditNew = new System.Windows.Forms.Button();
-            this.btnEditSave = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.btnPlay = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -538,7 +537,6 @@
             this.panelEdit.Controls.Add(this.lblYear);
             this.panelEdit.Controls.Add(this.lblName);
             this.panelEdit.Controls.Add(this.btnEditNew);
-            this.panelEdit.Controls.Add(this.btnEditSave);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
@@ -548,11 +546,11 @@
             // btnEditSaveR
             // 
             this.btnEditSaveR.Enabled = false;
-            this.btnEditSaveR.Location = new System.Drawing.Point(161, 298);
+            this.btnEditSaveR.Location = new System.Drawing.Point(242, 298);
             this.btnEditSaveR.Name = "btnEditSaveR";
             this.btnEditSaveR.Size = new System.Drawing.Size(75, 23);
             this.btnEditSaveR.TabIndex = 47;
-            this.btnEditSaveR.Text = "Save";
+            this.btnEditSaveR.Text = "Сохранить";
             this.btnEditSaveR.UseVisualStyleBackColor = true;
             this.btnEditSaveR.Visible = false;
             this.btnEditSaveR.Click += new System.EventHandler(this.btnEditSaveR_Click);
@@ -737,20 +735,6 @@
             this.btnEditNew.Text = "Добавить";
             this.btnEditNew.UseVisualStyleBackColor = true;
             this.btnEditNew.Click += new System.EventHandler(this.btnEditNew_Click);
-            // 
-            // btnEditSave
-            // 
-            this.btnEditSave.BackColor = System.Drawing.SystemColors.Control;
-            this.btnEditSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnEditSave.Enabled = false;
-            this.btnEditSave.Location = new System.Drawing.Point(242, 298);
-            this.btnEditSave.Name = "btnEditSave";
-            this.btnEditSave.Size = new System.Drawing.Size(75, 23);
-            this.btnEditSave.TabIndex = 17;
-            this.btnEditSave.Text = "Сохранить";
-            this.btnEditSave.UseVisualStyleBackColor = true;
-            this.btnEditSave.Visible = false;
-            this.btnEditSave.Click += new System.EventHandler(this.btnEditSave_Click);
             // 
             // panelView
             // 
@@ -1018,7 +1002,6 @@
         private System.Windows.Forms.Label lblYear;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Button btnEditNew;
-        private System.Windows.Forms.Button btnEditSave;
         private System.Windows.Forms.TextBox tbfDesc;
         private System.Windows.Forms.TextBox tbfName;
         private System.Windows.Forms.TextBox tbfinfo;
