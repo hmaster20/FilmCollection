@@ -96,11 +96,10 @@
             this.btnEditNew = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.btnPlay = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblRecDescription = new System.Windows.Forms.Label();
             this.lblRecName = new System.Windows.Forms.Label();
             this.tbfDesc = new System.Windows.Forms.TextBox();
             this.tbfName = new System.Windows.Forms.TextBox();
-            this.tbfinfo = new System.Windows.Forms.TextBox();
             this.panelFind = new System.Windows.Forms.Panel();
             this.tbFind = new System.Windows.Forms.TextBox();
             this.btnFind = new System.Windows.Forms.Button();
@@ -109,6 +108,14 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.panelTitle = new System.Windows.Forms.Panel();
+            this.lblRecTitle = new System.Windows.Forms.Label();
+            this.panelEditTitle = new System.Windows.Forms.Panel();
+            this.lblEditTitle = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -128,6 +135,9 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
+            this.panelTitle.SuspendLayout();
+            this.panelEditTitle.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTable
@@ -156,7 +166,7 @@
             this.dgvTable.ReadOnly = true;
             this.dgvTable.RowHeadersVisible = false;
             this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTable.Size = new System.Drawing.Size(498, 430);
+            this.dgvTable.Size = new System.Drawing.Size(499, 430);
             this.dgvTable.TabIndex = 12;
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTable.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
@@ -295,7 +305,7 @@
             this.tssLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 515);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1089, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1117, 22);
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -311,7 +321,7 @@
             this.btnHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1089, 24);
+            this.mainMenu.Size = new System.Drawing.Size(1117, 24);
             this.mainMenu.TabIndex = 10;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -429,7 +439,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(847, 491);
+            this.tabControl2.Size = new System.Drawing.Size(875, 491);
             this.tabControl2.TabIndex = 11;
             // 
             // tabFilm
@@ -438,7 +448,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(839, 465);
+            this.tabFilm.Size = new System.Drawing.Size(867, 465);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -461,12 +471,12 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
-            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 300;
-            this.scTabFilm.Size = new System.Drawing.Size(833, 459);
-            this.scTabFilm.SplitterDistance = 500;
+            this.scTabFilm.Size = new System.Drawing.Size(861, 459);
+            this.scTabFilm.SplitterDistance = 501;
             this.scTabFilm.TabIndex = 17;
             // 
             // menudgvTable
@@ -478,7 +488,7 @@
             this.tscbSort});
             this.menudgvTable.Location = new System.Drawing.Point(0, 0);
             this.menudgvTable.Name = "menudgvTable";
-            this.menudgvTable.Size = new System.Drawing.Size(498, 27);
+            this.menudgvTable.Size = new System.Drawing.Size(499, 27);
             this.menudgvTable.TabIndex = 23;
             this.menudgvTable.Text = "menuStrip1";
             // 
@@ -517,6 +527,7 @@
             // 
             // panelEdit
             // 
+            this.panelEdit.Controls.Add(this.panelEditTitle);
             this.panelEdit.Controls.Add(this.btnEditSaveR);
             this.panelEdit.Controls.Add(this.btnEditCancel);
             this.panelEdit.Controls.Add(this.tbFileName);
@@ -540,13 +551,13 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(327, 457);
+            this.panelEdit.Size = new System.Drawing.Size(354, 457);
             this.panelEdit.TabIndex = 10;
             // 
             // btnEditSaveR
             // 
             this.btnEditSaveR.Enabled = false;
-            this.btnEditSaveR.Location = new System.Drawing.Point(242, 298);
+            this.btnEditSaveR.Location = new System.Drawing.Point(242, 301);
             this.btnEditSaveR.Name = "btnEditSaveR";
             this.btnEditSaveR.Size = new System.Drawing.Size(75, 23);
             this.btnEditSaveR.TabIndex = 47;
@@ -558,7 +569,7 @@
             // btnEditCancel
             // 
             this.btnEditCancel.Enabled = false;
-            this.btnEditCancel.Location = new System.Drawing.Point(242, 327);
+            this.btnEditCancel.Location = new System.Drawing.Point(242, 330);
             this.btnEditCancel.Name = "btnEditCancel";
             this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
             this.btnEditCancel.TabIndex = 46;
@@ -570,7 +581,7 @@
             // tbFileName
             // 
             this.tbFileName.Enabled = false;
-            this.tbFileName.Location = new System.Drawing.Point(71, 260);
+            this.tbFileName.Location = new System.Drawing.Point(71, 263);
             this.tbFileName.Name = "tbFileName";
             this.tbFileName.Size = new System.Drawing.Size(220, 20);
             this.tbFileName.TabIndex = 44;
@@ -581,7 +592,7 @@
             this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
             this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources.IconFileEdit;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(294, 257);
+            this.btnFileNameEdit.Location = new System.Drawing.Point(294, 260);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
             this.btnFileNameEdit.Size = new System.Drawing.Size(23, 25);
             this.btnFileNameEdit.TabIndex = 43;
@@ -592,7 +603,7 @@
             // 
             this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxTypeVideo.FormattingEnabled = true;
-            this.cBoxTypeVideo.Location = new System.Drawing.Point(71, 144);
+            this.cBoxTypeVideo.Location = new System.Drawing.Point(71, 147);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
             this.cBoxTypeVideo.Size = new System.Drawing.Size(246, 21);
             this.cBoxTypeVideo.TabIndex = 42;
@@ -600,7 +611,7 @@
             // 
             // numericTime
             // 
-            this.numericTime.Location = new System.Drawing.Point(71, 174);
+            this.numericTime.Location = new System.Drawing.Point(71, 177);
             this.numericTime.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -615,7 +626,7 @@
             // 
             this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxGenre.FormattingEnabled = true;
-            this.cBoxGenre.Location = new System.Drawing.Point(71, 114);
+            this.cBoxGenre.Location = new System.Drawing.Point(71, 117);
             this.cBoxGenre.Name = "cBoxGenre";
             this.cBoxGenre.Size = new System.Drawing.Size(246, 21);
             this.cBoxGenre.TabIndex = 31;
@@ -623,7 +634,7 @@
             // 
             // tbDescription
             // 
-            this.tbDescription.Location = new System.Drawing.Point(71, 204);
+            this.tbDescription.Location = new System.Drawing.Point(71, 207);
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(246, 47);
@@ -632,7 +643,7 @@
             // 
             // tbCountry
             // 
-            this.tbCountry.Location = new System.Drawing.Point(71, 85);
+            this.tbCountry.Location = new System.Drawing.Point(71, 88);
             this.tbCountry.Name = "tbCountry";
             this.tbCountry.Size = new System.Drawing.Size(246, 20);
             this.tbCountry.TabIndex = 29;
@@ -640,7 +651,7 @@
             // 
             // tbYear
             // 
-            this.tbYear.Location = new System.Drawing.Point(71, 56);
+            this.tbYear.Location = new System.Drawing.Point(71, 59);
             this.tbYear.Name = "tbYear";
             this.tbYear.Size = new System.Drawing.Size(246, 20);
             this.tbYear.TabIndex = 28;
@@ -648,7 +659,7 @@
             // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(71, 27);
+            this.tbName.Location = new System.Drawing.Point(71, 30);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(246, 20);
             this.tbName.TabIndex = 27;
@@ -657,7 +668,7 @@
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(7, 263);
+            this.lblFileName.Location = new System.Drawing.Point(7, 266);
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(64, 13);
             this.lblFileName.TabIndex = 26;
@@ -666,7 +677,7 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(13, 207);
+            this.lblDescription.Location = new System.Drawing.Point(13, 210);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(57, 13);
             this.lblDescription.TabIndex = 25;
@@ -675,7 +686,7 @@
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(13, 176);
+            this.lblTime.Location = new System.Drawing.Point(13, 179);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(40, 13);
             this.lblTime.TabIndex = 24;
@@ -684,7 +695,7 @@
             // labelTypeVideo
             // 
             this.labelTypeVideo.AutoSize = true;
-            this.labelTypeVideo.Location = new System.Drawing.Point(10, 147);
+            this.labelTypeVideo.Location = new System.Drawing.Point(10, 150);
             this.labelTypeVideo.Name = "labelTypeVideo";
             this.labelTypeVideo.Size = new System.Drawing.Size(26, 13);
             this.labelTypeVideo.TabIndex = 23;
@@ -693,7 +704,7 @@
             // lblGenre
             // 
             this.lblGenre.AutoSize = true;
-            this.lblGenre.Location = new System.Drawing.Point(10, 117);
+            this.lblGenre.Location = new System.Drawing.Point(10, 120);
             this.lblGenre.Name = "lblGenre";
             this.lblGenre.Size = new System.Drawing.Size(36, 13);
             this.lblGenre.TabIndex = 22;
@@ -702,7 +713,7 @@
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(10, 88);
+            this.lblCountry.Location = new System.Drawing.Point(10, 91);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(43, 13);
             this.lblCountry.TabIndex = 21;
@@ -711,7 +722,7 @@
             // lblYear
             // 
             this.lblYear.AutoSize = true;
-            this.lblYear.Location = new System.Drawing.Point(10, 59);
+            this.lblYear.Location = new System.Drawing.Point(10, 62);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(25, 13);
             this.lblYear.TabIndex = 20;
@@ -720,7 +731,7 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(5, 30);
+            this.lblName.Location = new System.Drawing.Point(5, 33);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(60, 13);
             this.lblName.TabIndex = 19;
@@ -728,7 +739,7 @@
             // 
             // btnEditNew
             // 
-            this.btnEditNew.Location = new System.Drawing.Point(71, 298);
+            this.btnEditNew.Location = new System.Drawing.Point(71, 301);
             this.btnEditNew.Name = "btnEditNew";
             this.btnEditNew.Size = new System.Drawing.Size(75, 23);
             this.btnEditNew.TabIndex = 18;
@@ -739,15 +750,15 @@
             // panelView
             // 
             this.panelView.Controls.Add(this.btnPlay);
-            this.panelView.Controls.Add(this.label1);
+            this.panelView.Controls.Add(this.lblRecDescription);
             this.panelView.Controls.Add(this.lblRecName);
             this.panelView.Controls.Add(this.tbfDesc);
             this.panelView.Controls.Add(this.tbfName);
-            this.panelView.Controls.Add(this.tbfinfo);
+            this.panelView.Controls.Add(this.panelTitle);
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(327, 457);
+            this.panelView.Size = new System.Drawing.Size(354, 457);
             this.panelView.TabIndex = 10;
             // 
             // btnPlay
@@ -761,23 +772,25 @@
             this.btnPlay.UseVisualStyleBackColor = true;
             this.btnPlay.Click += new System.EventHandler(this.Play_Click);
             // 
-            // label1
+            // lblRecDescription
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(4, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = " Описание:";
+            this.lblRecDescription.AutoSize = true;
+            this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecDescription.Location = new System.Drawing.Point(0, 51);
+            this.lblRecDescription.Name = "lblRecDescription";
+            this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
+            this.lblRecDescription.TabIndex = 5;
+            this.lblRecDescription.Text = " Описание:";
             // 
             // lblRecName
             // 
             this.lblRecName.AutoSize = true;
+            this.lblRecName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblRecName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lblRecName.Location = new System.Drawing.Point(2, 29);
             this.lblRecName.Name = "lblRecName";
-            this.lblRecName.Size = new System.Drawing.Size(63, 13);
+            this.lblRecName.Size = new System.Drawing.Size(80, 17);
             this.lblRecName.TabIndex = 5;
             this.lblRecName.Text = " Название:";
             // 
@@ -786,11 +799,12 @@
             this.tbfDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfDesc.Location = new System.Drawing.Point(68, 51);
+            this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfDesc.Location = new System.Drawing.Point(88, 51);
             this.tbfDesc.Multiline = true;
             this.tbfDesc.Name = "tbfDesc";
             this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.Size = new System.Drawing.Size(256, 329);
+            this.tbfDesc.Size = new System.Drawing.Size(263, 360);
             this.tbfDesc.TabIndex = 3;
             // 
             // tbfName
@@ -798,50 +812,42 @@
             this.tbfName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfName.Location = new System.Drawing.Point(67, 29);
+            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfName.Location = new System.Drawing.Point(82, 29);
             this.tbfName.Name = "tbfName";
             this.tbfName.ReadOnly = true;
-            this.tbfName.Size = new System.Drawing.Size(256, 13);
+            this.tbfName.Size = new System.Drawing.Size(268, 16);
             this.tbfName.TabIndex = 2;
-            // 
-            // tbfinfo
-            // 
-            this.tbfinfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfinfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbfinfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfinfo.Location = new System.Drawing.Point(0, 0);
-            this.tbfinfo.Name = "tbfinfo";
-            this.tbfinfo.ReadOnly = true;
-            this.tbfinfo.Size = new System.Drawing.Size(327, 16);
-            this.tbfinfo.TabIndex = 4;
-            this.tbfinfo.TabStop = false;
-            this.tbfinfo.Text = "Общие сведения";
-            this.tbfinfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panelFind
             // 
+            this.panelFind.Controls.Add(this.label3);
+            this.panelFind.Controls.Add(this.label2);
+            this.panelFind.Controls.Add(this.panel1);
             this.panelFind.Controls.Add(this.tbFind);
             this.panelFind.Controls.Add(this.btnFind);
             this.panelFind.Controls.Add(this.cbTypeFind);
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(327, 457);
+            this.panelFind.Size = new System.Drawing.Size(354, 457);
             this.panelFind.TabIndex = 0;
             // 
             // tbFind
             // 
-            this.tbFind.Location = new System.Drawing.Point(22, 25);
+            this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFind.Location = new System.Drawing.Point(22, 59);
             this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(207, 20);
+            this.tbFind.Size = new System.Drawing.Size(314, 20);
             this.tbFind.TabIndex = 15;
             // 
             // btnFind
             // 
-            this.btnFind.Location = new System.Drawing.Point(154, 62);
+            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFind.Location = new System.Drawing.Point(254, 107);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(75, 23);
+            this.btnFind.Size = new System.Drawing.Size(82, 23);
             this.btnFind.TabIndex = 14;
             this.btnFind.Text = "Поиск";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -854,9 +860,9 @@
             this.cbTypeFind.Items.AddRange(new object[] {
             "Название",
             "Год"});
-            this.cbTypeFind.Location = new System.Drawing.Point(23, 64);
+            this.cbTypeFind.Location = new System.Drawing.Point(22, 107);
             this.cbTypeFind.Name = "cbTypeFind";
-            this.cbTypeFind.Size = new System.Drawing.Size(121, 21);
+            this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
             this.cbTypeFind.TabIndex = 13;
             // 
             // tabWriter
@@ -889,7 +895,7 @@
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1089, 491);
+            this.scMain.Size = new System.Drawing.Size(1117, 491);
             this.scMain.SplitterDistance = 238;
             this.scMain.TabIndex = 24;
             // 
@@ -897,11 +903,89 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
+            // panelTitle
+            // 
+            this.panelTitle.Controls.Add(this.lblRecTitle);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(354, 27);
+            this.panelTitle.TabIndex = 7;
+            // 
+            // lblRecTitle
+            // 
+            this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblRecTitle.Name = "lblRecTitle";
+            this.lblRecTitle.Size = new System.Drawing.Size(354, 27);
+            this.lblRecTitle.TabIndex = 0;
+            this.lblRecTitle.Text = "Общие сведения";
+            this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelEditTitle
+            // 
+            this.panelEditTitle.Controls.Add(this.lblEditTitle);
+            this.panelEditTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEditTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelEditTitle.Name = "panelEditTitle";
+            this.panelEditTitle.Size = new System.Drawing.Size(354, 27);
+            this.panelEditTitle.TabIndex = 48;
+            // 
+            // lblEditTitle
+            // 
+            this.lblEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblEditTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblEditTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblEditTitle.Name = "lblEditTitle";
+            this.lblEditTitle.Size = new System.Drawing.Size(354, 27);
+            this.lblEditTitle.TabIndex = 0;
+            this.lblEditTitle.Text = "Панель редактирования";
+            this.lblEditTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(354, 27);
+            this.panel1.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(354, 27);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Панель поиска";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Строка поиска";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(22, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Критерий поиска";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1089, 537);
+            this.ClientSize = new System.Drawing.Size(1117, 537);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.mainMenu);
@@ -937,6 +1021,9 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
+            this.panelTitle.ResumeLayout(false);
+            this.panelEditTitle.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1004,9 +1091,8 @@
         private System.Windows.Forms.Button btnEditNew;
         private System.Windows.Forms.TextBox tbfDesc;
         private System.Windows.Forms.TextBox tbfName;
-        private System.Windows.Forms.TextBox tbfinfo;
         private System.Windows.Forms.Label lblRecName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblRecDescription;
         private System.Windows.Forms.TextBox tbFind;
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.ComboBox cbTypeFind;
@@ -1022,6 +1108,14 @@
         private System.Windows.Forms.Button btnEditSaveR;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem testChangeToolStripMenuItem;
+        private System.Windows.Forms.Panel panelTitle;
+        private System.Windows.Forms.Label lblRecTitle;
+        private System.Windows.Forms.Panel panelEditTitle;
+        private System.Windows.Forms.Label lblEditTitle;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 

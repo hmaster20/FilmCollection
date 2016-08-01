@@ -84,7 +84,7 @@ namespace FilmCollection
         private void Filter(object sender, EventArgs e)     // При выборе фильтра выполняется сброс фильтра по дереву и таблице
         {
             dgvTable.ClearSelection();
-            RefreshTables("");
+            RefreshTable("");
         }
 
         private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
@@ -104,7 +104,7 @@ namespace FilmCollection
             {
                 _videoCollection.Add(form.rec);
                 _videoCollection.Save();
-                RefreshTables("");
+                RefreshTable("");
             }
         }
 
@@ -114,7 +114,7 @@ namespace FilmCollection
             if (new EditForm(record).ShowDialog() == DialogResult.OK)
             {
                 _videoCollection.Save();
-                RefreshTables("");      //Должно быть обновление вместо фильтра
+                RefreshTable("");      //Должно быть обновление вместо фильтра
             }
         }
 
@@ -160,9 +160,10 @@ namespace FilmCollection
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при внесение изменения в панели редактирования
         {
+            if (fsInfo == null) dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки
             panelEditUnlock();          // разблокировка кнопок
             dgvTable.Enabled = false;   // блокировка таблицы
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки
+            treeFolder.Enabled = false; // блокировка дерева
         }
     }
 }
