@@ -159,7 +159,7 @@
             this.dgvTable.Size = new System.Drawing.Size(498, 430);
             this.dgvTable.TabIndex = 12;
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
-            this.dgvTable.SelectionChanged += new System.EventHandler(this.dgvTable_SelectionChanged);
+            this.dgvTable.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
             // 
             // cmnName
             // 
@@ -275,14 +275,14 @@
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
             this.testToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.testToolStripMenuItem.Text = "Test Create";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.Add_rec);
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.Test_Add_rec);
             // 
             // testChangeToolStripMenuItem
             // 
             this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
             this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.testChangeToolStripMenuItem.Text = "Test Change";
-            this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.cMenuChange_Click);
+            this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.Test_Change_rec);
             // 
             // FolderDialog
             // 
@@ -553,7 +553,7 @@
             this.btnEditSaveR.Text = "Сохранить";
             this.btnEditSaveR.UseVisualStyleBackColor = true;
             this.btnEditSaveR.Visible = false;
-            this.btnEditSaveR.Click += new System.EventHandler(this.btnEditSaveR_Click);
+            this.btnEditSaveR.Click += new System.EventHandler(this.Edit_SaveRec);
             // 
             // btnEditCancel
             // 
@@ -565,7 +565,7 @@
             this.btnEditCancel.Text = "Отмена";
             this.btnEditCancel.UseVisualStyleBackColor = true;
             this.btnEditCancel.Visible = false;
-            this.btnEditCancel.Click += new System.EventHandler(this.btnEditCancel_Click);
+            this.btnEditCancel.Click += new System.EventHandler(this.Edit_CancelRec);
             // 
             // tbFileName
             // 
@@ -586,7 +586,7 @@
             this.btnFileNameEdit.Size = new System.Drawing.Size(23, 25);
             this.btnFileNameEdit.TabIndex = 43;
             this.btnFileNameEdit.UseVisualStyleBackColor = true;
-            this.btnFileNameEdit.Click += new System.EventHandler(this.btnFileNameEdit_Click);
+            this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
             // 
             // cBoxTypeVideo
             // 
@@ -734,7 +734,7 @@
             this.btnEditNew.TabIndex = 18;
             this.btnEditNew.Text = "Добавить";
             this.btnEditNew.UseVisualStyleBackColor = true;
-            this.btnEditNew.Click += new System.EventHandler(this.btnEditNew_Click);
+            this.btnEditNew.Click += new System.EventHandler(this.Edit_NewRec);
             // 
             // panelView
             // 
@@ -759,7 +759,7 @@
             this.btnPlay.TabIndex = 6;
             this.btnPlay.Text = "Воспроизвести";
             this.btnPlay.UseVisualStyleBackColor = true;
-            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
             // 
             // label1
             // 
@@ -845,7 +845,7 @@
             this.btnFind.TabIndex = 14;
             this.btnFind.Text = "Поиск";
             this.btnFind.UseVisualStyleBackColor = true;
-            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+            this.btnFind.Click += new System.EventHandler(this.FindRec_Click);
             // 
             // cbTypeFind
             // 
@@ -909,8 +909,8 @@
             this.MainMenuStrip = this.menudgvTable;
             this.Name = "MainForm";
             this.Text = "Фильмотека";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
+            this.Load += new System.EventHandler(this.Main_FormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);

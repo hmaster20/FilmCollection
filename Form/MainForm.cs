@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.IO;
 
 
 namespace FilmCollection
@@ -16,27 +15,30 @@ namespace FilmCollection
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
 
+            //cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
+            //"Фильм",
+            //"Сериал",
+            //"Мультфильм",
+            //"Прочее" });
 
-            cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
-            "Фильм",
-            "Сериал",
-            "Мультфильм",
-            "Прочее" });
+            // Создание списка на основе перечисления
+            foreach (var item in Enum.GetValues(typeof(CategoryVideoRus)))
+            {
+                cBoxTypeVideo.Items.Add(item);
+            }
 
-            cBoxGenre.Items.AddRange(new object[] {         // Создание списка жанров
-            "Боевик",
-            "Вестерн",
-            "Комедия",
-            "Прочее"});
-
+            foreach (var item in Enum.GetValues(typeof(GenreVideoRus)))
+            {
+                cBoxGenre.Items.Add(item);
+            }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)      // Загрузка главное формы
+        private void Main_FormLoad(object sender, EventArgs e)      // Загрузка формы
         {
             FormLoad();
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)    // обработка события Close() - Exit
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)    // обработка закрытия формы или выхода
         {
             FormClose(e);
         }
@@ -95,9 +97,7 @@ namespace FilmCollection
             panelEdit.BringToFront();
         }
 
-
-
-        private void Add_rec(object sender, EventArgs e)                 // добавление новой записи
+        private void Test_Add_rec(object sender, EventArgs e)                 // добавление новой записи
         {
             EditForm form = new EditForm();
             if (form.ShowDialog() == DialogResult.OK)
@@ -108,7 +108,7 @@ namespace FilmCollection
             }
         }
 
-        private void cMenuChange_Click(object sender, EventArgs e)          // Изменить запись
+        private void Test_Change_rec(object sender, EventArgs e)          // Изменить запись
         {
             Record record = GetSelectedRecord();
             if (new EditForm(record).ShowDialog() == DialogResult.OK)
@@ -118,18 +118,16 @@ namespace FilmCollection
             }
         }
 
-        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // Загрузка меню и проверка селекта строки перед открытием меню
+        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // Проверка селекта строки перед открытием меню
         {
             //contextMenu.Items[4].Enabled = false;
-            //contextMenu.Items[3].Enabled = false;
-            contextMenu.Enabled = false;
+            contextMenu.Enabled = false;    // Блокировка меню
 
             DataGridView dgv = dgvTable;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 //contextMenu.Items[4].Enabled = true;
-                //contextMenu.Items[3].Enabled = true;
-                contextMenu.Enabled = true;
+                contextMenu.Enabled = true; // Разблокировка меню
             }
         }
 
@@ -137,256 +135,35 @@ namespace FilmCollection
         {
             panelFind.BringToFront();
         }
-
         #endregion
 
 
-
-
-
-
-        private void btnFileNameEdit_Click(object sender, EventArgs e)
+        private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разбдлокировка поля имени файла
         {
             tbFileName.Enabled = true;
             btnFileNameEdit.Enabled = false;
         }
 
-
-        private void btnEditNew_Click(object sender, EventArgs e)   // Создание нового элемента
+        private void Edit_NewRec(object sender, EventArgs e)    // Создание элемента
         {
             NewRecord();
         }
-
-
-        private void SaveRecordfsInfo(object sender, EventArgs e)
+        private void Edit_SaveRec(object sender, EventArgs e)   // Сохранение нового или измененого элемента
         {
-            SaveRecordfsInfo();
+            EditSave();
         }
-
-        private void btnEditSaveR_Click(object sender, EventArgs e)
+        private void Edit_CancelRec(object sender, EventArgs e) // Отмена редактирования
         {
-            if (fsInfo != null)
-            {
-                SaveRecordfsInfo();
-                //fsInfo = null;
-
-            }
-            else
-            {
-                SaveRecord();
-            }
-
-            tbName.Modified = false;        // возвращаем назад статус изменения поля
-            tbYear.Modified = false;        // возвращаем назад статус изменения поля
-            tbCountry.Modified = false;     // возвращаем назад статус изменения поля
-            tbDescription.Modified = false; // возвращаем назад статус изменения поля
-            //tbFileName.Text = fInfo.Name;
-
-            dgvTable.Enabled = true;
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
-            RefreshTables("");
-            fsInfo = null;
-
-            panelEditLock();
+            panelEditCancel();
         }
 
 
-
-
-
-
-
-
-
-        // Поле для нового файла, добавляемого в базу
-        //System.IO.FileInfo fsInfo = null;
-        FileInfo fsInfo = null;
-
-
-
-        private void NewRecord()
+        private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при внесение изменения в панели редактирования
         {
-            //btnEditSave.Enabled = false;    // Блокировка кнопки сохранения
-
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = _videoCollection.Source;
-            //openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            fileDialog.Filter = "Все файлы (*.*)|*.*";
-            fileDialog.RestoreDirectory = true;
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
-            {
-                FileInfo fInfo = new FileInfo(fileDialog.FileName);
-                string strFilePath = fInfo.DirectoryName;
-
-                if (!strFilePath.StartsWith(_videoCollection.Source))
-                {
-                    MessageBox.Show("Файл не принадлежит базе коллекций " + _videoCollection.Source);
-                    return;
-                }
-
-                Record record = new Record();
-                record.FileName = fInfo.Name;
-                record.Path = fInfo.DirectoryName;
-
-                foreach (Record item in _videoCollection.VideoList)
-                {
-                    if (item.Equals(record))
-                    {
-                        MessageBox.Show("Файл " + record.FileName + " уже есть!");
-                        return;
-                    }
-                }
-
-                //MessageBox.Show("Работа выполнена!");
-
-                // выполнить блокировку таблицы и дерева
-                tbName.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
-                tbYear.Text = "";
-                tbCountry.Text = "";
-                numericTime.Value = 0;
-                tbDescription.Text = "";
-                tbFileName.Text = fInfo.Name;
-                cBoxGenre.SelectedIndex = 0;
-                cBoxTypeVideo.SelectedIndex = 0;
-
-                // если все хорошо передаем объект
-                fsInfo = fInfo;
-
-                panelEdit.BringToFront();
-                panelEditUnlock();
-            }
+            panelEditUnlock();          // разблокировка кнопок
+            dgvTable.Enabled = false;   // блокировка таблицы
+            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки
         }
-
-
-
-        private void SaveRecordfsInfo()
-        {
-            Record record = new Record();
-
-            CategoryVideo category;
-            GenreVideo genre;
-
-            switch (cBoxGenre.SelectedIndex)
-            {
-                case 0: genre = GenreVideo.Action; break;
-                case 1: genre = GenreVideo.Vestern; break;
-                case 2: genre = GenreVideo.Comedy; break;
-                case 3: genre = GenreVideo.Unknown; break;
-                default: genre = GenreVideo.Unknown; return;
-                //default: MessageBox.Show("Не выбран тип"); return;
-            }
-
-            switch (cBoxTypeVideo.SelectedIndex)
-            {
-                case 0: category = CategoryVideo.Film; break;
-                case 1: category = CategoryVideo.Series; break;
-                case 2: category = CategoryVideo.Cartoon; break;
-                case 3: category = CategoryVideo.Unknown; break;
-                default: category = CategoryVideo.Unknown; return;
-                    //default: MessageBox.Show("Не выбран тип"); return;
-            }
-
-            record.FileName = fsInfo.Name;
-            record.Path = fsInfo.DirectoryName;
-
-            record.Name = tbName.Text;
-            record.Year = tbYear.Text;
-            record.Country = tbCountry.Text;
-            record.Time = (int)numericTime.Value;
-            record.Category = category;
-            record.GenreVideo = genre;
-            record.Description = tbDescription.Text;
-
-            _videoCollection.Add(record);
-            _videoCollection.Save();
-
-
-            dgvTable.Enabled = true;
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
-            RefreshTables("");      //Должно быть обновление вместо фильтра
-        }
-
-
-        private void SaveRecord()
-        {
-            Record record = GetSelectedRecord();
-            if (record != null)
-            {
-                CategoryVideo category;
-                GenreVideo genre;
-
-                switch (cBoxGenre.SelectedIndex)
-                {
-                    case 0: genre = GenreVideo.Action; break;
-                    case 1: genre = GenreVideo.Vestern; break;
-                    case 2: genre = GenreVideo.Comedy; break;
-                    case 3: genre = GenreVideo.Unknown; break;
-                    default: genre = GenreVideo.Unknown; return;
-                        //default: MessageBox.Show("Не выбран тип"); return;
-                }
-
-                switch (cBoxTypeVideo.SelectedIndex)
-                {
-                    case 0: category = CategoryVideo.Film; break;
-                    case 1: category = CategoryVideo.Series; break;
-                    case 2: category = CategoryVideo.Cartoon; break;
-                    case 3: category = CategoryVideo.Unknown; break;
-                    default: category = CategoryVideo.Unknown; return;
-                        //default: MessageBox.Show("Не выбран тип"); return;
-                }
-
-                record.Name = tbName.Text;
-                record.Year = tbYear.Text;
-                record.Country = tbCountry.Text;
-                record.Time = (int)numericTime.Value;
-                record.Category = category;
-                record.GenreVideo = genre;
-                record.Description = tbDescription.Text;
-
-                _videoCollection.Save();
-
-                dgvTable.Enabled = true;
-                dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
-                RefreshTables("");      //Должно быть обновление вместо фильтра
-            }
-        }
-
-
-
-
-
-
-        private void UserModifiedChanged(object sender, EventArgs e)
-        {
-            panelEditUnlock();
-
-
-            dgvTable.Enabled = false;
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;
-        }
-
-
-
-        private void btnEditCancel_Click(object sender, EventArgs e)
-        {
-
-            tbName.Modified = false;// возвращаем назад статус изменения поля
-            tbYear.Modified = false;// возвращаем назад статус изменения поля
-            tbCountry.Modified = false;// возвращаем назад статус изменения поля
-            tbDescription.Modified = false;// возвращаем назад статус изменения поля
-            //tbFileName.Text = fInfo.Name;
-
-
-            dgvTable.Enabled = true;
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
-            RefreshTables("");
-            fsInfo = null;
-
-            panelEditLock();    // Блокируем кнопки
-        }
-
-
     }
 }
 

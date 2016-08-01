@@ -26,5 +26,12 @@ namespace FilmCollection
         Unknown
     }
 
+    public enum GenreVideoRus
+    {
+        Боевик,
+        Вестерн,
+        Комедия,
+        Прочее
+    }
 }
 
