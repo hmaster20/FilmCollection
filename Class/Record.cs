@@ -7,13 +7,7 @@ namespace FilmCollection
         public string Name { get; set; }
 
         //private string _name = "";              // Название Фильма
-        //public string Name
-        //{
-        //    get { return _name; }
-        //    set { _name = value; }
-        //}
-
-
+        //public string Name { get { return _name; } set { _name = value; }}
 
         private string _year = "";              // Год выпуска
         public string Year
@@ -199,6 +193,10 @@ namespace FilmCollection
             if (a.Category == CategoryVideo.Series)
                 return -1;
             if (b.Category == CategoryVideo.Series)
+                return 1;
+            if (a.Category == CategoryVideo.Unknown)
+                return -1;
+            if (b.Category == CategoryVideo.Unknown)
                 return 1;
             return 0;
         }
