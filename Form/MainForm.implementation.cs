@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Drawing;
 
+// this.customersDataGridView.Columns[0].Visible = false;
+
+
 namespace FilmCollection
 {
     public partial class MainForm

@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FC.ico" />
+    <Content Include="Resources\FilmCollection.png" />
     <Content Include="Resources\IconFileEdit.png" />
   </ItemGroup>
   <ItemGroup>

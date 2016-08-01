@@ -9,17 +9,12 @@ namespace FilmCollection
     {
         public MainForm()
         {
+            this.MinimumSize = new System.Drawing.Size(800, 600);   // Установка минимального размера формы
             InitializeComponent();                  // Создание и отрисовка элементов
             dgvTable.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
             dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
-
-            //cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
-            //"Фильм",
-            //"Сериал",
-            //"Мультфильм",
-            //"Прочее" });
 
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideoRus)))
