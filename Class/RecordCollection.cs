@@ -5,142 +5,58 @@ namespace FilmCollection
 {
     public class RecordCollection
     {
+        private RecordOptions _options = new RecordOptions();   // Параметры настройки
+        [XmlElement]
+        public RecordOptions Options
+        {
+            get { return _options; }
+            set { _options = value; }
+        }
 
-
-        private List<Record> _videoList;
+        private List<Record> _videoList;                        // Объявление списка
         public List<Record> VideoList
         {
             get { return _videoList; }
             set { _videoList = value; }
         }
 
-        // Создание списка коллекции типа Record
-        public RecordCollection()
+        public RecordCollection()                               // Создание списка
         {
             VideoList = new List<Record>();
         }
 
-
-        // Добавить запись
-        public void Add(Record record)
+        public void Add(Record record)                          // Добавление записи
         {
             VideoList.Add(record);
         }
 
+        public void Save()                                      // Сохранение
+        {
+            XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
+        }
 
-        // Удалить запись
-        public void Remove(Record record)
+        public void Remove(Record record)                       // Удаление записи
         {
             VideoList.Remove(record);
         }
 
-        // Очистить коллекцию
-        public void Clear()
+        public void Clear()                                     // Очистить коллекцию
         {
             VideoList.Clear();
         }
 
-
-        // Файл базы коллекции
-        private static string fileName = "VideoList.xml";       // Файл базы
-        [XmlIgnore]
-        public static string BaseName
-        {
-            get { return fileName; }
-        }
-
-
-        // Загрузка коллекции
-        public static RecordCollection Load()
+        public static RecordCollection Load()                   // Загрузка коллекции
         {
             RecordCollection result;
             try
             {
-                result = fileName.LoadAndDeserialize<RecordCollection>();
+                result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
             }
             catch
             {
                 return new RecordCollection();
             }
-
             return result;
-        }
-
-
-        // Сохранение коллекции
-        public void Save()
-        {
-            XmlSerializeHelper.SerializeAndSave(fileName, this);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        // Поле содержащее путь к корневой папке
-        private string _source = "";                            
-        [XmlAttribute("source")]
-        public string Source
-        {
-            get { return _source; }
-            set { _source = value; }
-        }
-
-
-        // Тестовое ПОЛЕ
-        private string _txt = "";                               
-        [XmlElement]
-        public string Txt
-        {
-            get { return _txt; }
-            set { _txt = value; }
-        }
-
-
-        // Поле сохранения параметра сплиттера
-        private int _splitter1;                              
-        [XmlAttribute]
-        public int scMainSplitter
-        {
-            get { return _splitter1; }
-            set { _splitter1 = value; }
-        }
-
-
-        // Поле сохранения параметра сплиттера
-        private int _splitter2;                               
-        [XmlAttribute]
-        public int scTabFilmSplitter
-        {
-            get { return _splitter2; }
-            set { _splitter2 = value; }
-        }
-
-
-        // Поле сохранения параметра ширины колонок
-        private string _columnsWidth;                             
-        [XmlAttribute]
-        public string ColumnsWidth
-        {
-            get { return _columnsWidth; }
-            set { _columnsWidth = value; }
-        }
-
-
-        // Поле сохранения состояния главной формы
-        private string _formState;                         
-        [XmlAttribute]
-        public string FormState
-        {
-            get { return _formState; }
-            set { _formState = value; }
         }
     }
 }
