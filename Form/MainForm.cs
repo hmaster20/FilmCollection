@@ -161,6 +161,7 @@ namespace FilmCollection
             dgvTable.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
         }
+
     }
 }
 

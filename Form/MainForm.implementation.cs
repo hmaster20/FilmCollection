@@ -22,7 +22,7 @@ namespace FilmCollection
         #region Загрузка формы
         private void FormLoad()     // Загрузка формы
         {
-            if (File.Exists(RecordCollection.BaseName))     // Если база создана, то выполняем
+            if (File.Exists(RecordOptions.BaseName))     // Если база создана, то выполняем
             {
                 _videoCollection = RecordCollection.Load();
                 if (_videoCollection.VideoList.Count > 0)
@@ -34,8 +34,8 @@ namespace FilmCollection
                 timerLoad.Enabled = true;                   // Исключение раннего селекта treeFolder и фильтра dataGridView1
 
                 #region Восстановление состояния сплиттеров
-                scMain.SplitterDistance = _videoCollection.scMainSplitter;
-                scTabFilm.SplitterDistance = _videoCollection.scTabFilmSplitter;
+                scMain.SplitterDistance = _videoCollection.Options.scMainSplitter;
+                scTabFilm.SplitterDistance = _videoCollection.Options.scTabFilmSplitter;
                 #endregion
 
                 //#region Восстановление состояния ширины колонок
@@ -50,7 +50,7 @@ namespace FilmCollection
                 //#endregion
 
                 #region Восстановление состояния главной формы
-                string switch_on = _videoCollection.FormState;
+                string switch_on = _videoCollection.Options.FormState;
                 switch (switch_on)
                 {
                     case "Normal": WindowState = FormWindowState.Normal; break;
@@ -74,13 +74,13 @@ namespace FilmCollection
 
         private void CreateBase()       // Создание файла базы
         {
-            if (File.Exists(RecordCollection.BaseName)) // Если база есть, то запрашиваем удаление
+            if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
             {
                 DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) // Если соглашаемся
                 {
-                    File.WriteAllText(RecordCollection.BaseName, string.Empty); // Затираем содержимое файла базы
+                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
                     _videoCollection.Clear();   // очищаем колелкцию
                     treeFolder.Nodes.Clear();   // очищаем иерархию
                     dgvTable.ClearSelection();  // выключаем селекты таблицы
@@ -89,7 +89,7 @@ namespace FilmCollection
             }
             else // Если базы нет, то создаем пусатой файл базы
             {
-                File.Create(RecordCollection.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
+                File.Create(RecordOptions.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
             }
 
             DialogResult dialogStatus = FolderDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
@@ -102,7 +102,7 @@ namespace FilmCollection
 
                 if (directory.Exists)
                 {
-                    _videoCollection.Source = directory.FullName;   // Сохранение каталога фильмов
+                    _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
                     foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                     {
@@ -125,15 +125,15 @@ namespace FilmCollection
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            if (_videoCollection.Source != "")  // Если есть информация о корневой папки коллекции
+            if (_videoCollection.Options.Source != "")  // Если есть информация о корневой папки коллекции
             {
-                DirectoryInfo directory = new DirectoryInfo(_videoCollection.Source);
+                DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
                 if (directory.Exists)   // проверяем существование заявленной папки коллекции
                 {
                     #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
                     List<string> FileNameList = new List<string>();                 // создаем пустой список типа string
                     XmlDocument doc = new XmlDocument();                            // создаем объект для доступа в xml документ
-                    doc.Load(RecordCollection.BaseName);                            // загружаем файл базы
+                    doc.Load(RecordOptions.BaseName);                            // загружаем файл базы
                     XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
 
                     foreach (XmlNode node in nodeList)
@@ -167,13 +167,13 @@ namespace FilmCollection
 
         private void BackupBase()       // Резервная копия базы
         {
-            if (File.Exists(RecordCollection.BaseName)) // если есть что бэкапить...
+            if (File.Exists(RecordOptions.BaseName)) // если есть что бэкапить...
             {
                 try
                 {   // создаем бэкап
-                    File.Copy(RecordCollection.BaseName, Path.GetFileNameWithoutExtension(RecordCollection.BaseName)
+                    File.Copy(RecordOptions.BaseName, Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
-                        + Path.GetExtension(RecordCollection.BaseName));
+                        + Path.GetExtension(RecordOptions.BaseName));
                     MessageBox.Show("Создана резервная копия!");
                 }
                 catch (IOException copyError)
@@ -191,7 +191,7 @@ namespace FilmCollection
             List<Record> filtered = _videoCollection.VideoList;
 
             if (nodeName != "" && nodeName != "Фильмотека")
-                filtered = filtered.FindAll(v => v.Path == _videoCollection.Source + Path.DirectorySeparatorChar + nodeName);
+                filtered = filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
 
             int switch_filter = tscbTypeFilter.SelectedIndex;
             switch (switch_filter)  // фильтр по категориям
@@ -288,8 +288,8 @@ namespace FilmCollection
         private void CreateTree()       // Построение дерева
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(RecordCollection.BaseName);                // Получения файла базы
-            int SourceLength = _videoCollection.Source.Length;  // Получение длинны пути
+            doc.Load(RecordOptions.BaseName);                // Получения файла базы
+            int SourceLength = _videoCollection.Options.Source.Length;  // Получение длинны пути
 
             XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
 
@@ -391,10 +391,15 @@ namespace FilmCollection
         private void DeleteRec_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
-            _videoCollection.Remove(record);
-            dgvTable.ClearSelection();
-            _videoCollection.Save();
-            RefreshTable("");
+            DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + record.Name + "\" ?",
+                                      "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                _videoCollection.Remove(record);
+                dgvTable.ClearSelection();
+                _videoCollection.Save();
+                RefreshTable("");
+            }
         }
 
 
@@ -448,8 +453,8 @@ namespace FilmCollection
             }
 
             #region Сохранение состояния сплиттеров
-            _videoCollection.scMainSplitter = scMain.SplitterDistance;
-            _videoCollection.scTabFilmSplitter = scTabFilm.SplitterDistance;
+            _videoCollection.Options.scMainSplitter = scMain.SplitterDistance;
+            _videoCollection.Options.scTabFilmSplitter = scTabFilm.SplitterDistance;
             #endregion
 
             //#region Сохранение ширины колонок
@@ -469,7 +474,7 @@ namespace FilmCollection
             //#endregion
 
             // Сохранение состояния главной формы
-            _videoCollection.FormState = this.WindowState.ToString();
+            _videoCollection.Options.FormState = this.WindowState.ToString();
 
             _videoCollection.Save();
 
@@ -479,7 +484,7 @@ namespace FilmCollection
         private void NewRecord()    // Создание новой записи - объекта Record
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = _videoCollection.Source;
+            fileDialog.InitialDirectory = _videoCollection.Options.Source;
             //openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             fileDialog.Filter = "Все файлы (*.*)|*.*";
             fileDialog.RestoreDirectory = true;
@@ -489,9 +494,9 @@ namespace FilmCollection
                 FileInfo fInfo = new FileInfo(fileDialog.FileName);
                 string strFilePath = fInfo.DirectoryName;
 
-                if (!strFilePath.StartsWith(_videoCollection.Source))
+                if (!strFilePath.StartsWith(_videoCollection.Options.Source))
                 {
-                    MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Source);
+                    MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Options.Source);
                     return; // Выходим из метода
                 }
 
