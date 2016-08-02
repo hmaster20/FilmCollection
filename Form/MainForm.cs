@@ -133,10 +133,11 @@ namespace FilmCollection
         #endregion
 
 
-        private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разбдлокировка поля имени файла
+        private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разблокировка поля имени файла
         {
             tbFileName.Enabled = true;
-            btnFileNameEdit.Enabled = false;
+            btnFileNameEdit.Enabled = false;    // блокировка кнопки разблокировки :)
+            UserModifiedChanged(sender, e);
         }
 
         private void Edit_NewRec(object sender, EventArgs e)    // Создание элемента
@@ -147,9 +148,9 @@ namespace FilmCollection
         {
             EditSave();
         }
-        private void Edit_CancelRec(object sender, EventArgs e) // Отмена редактирования
+        private void Edit_Cancel(object sender, EventArgs e) // Отмена редактирования
         {
-            panelEditCancel();
+            EditCancel();
         }
 
 

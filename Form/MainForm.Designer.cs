@@ -412,14 +412,14 @@
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(152, 22);
+            this.btnRelease.Size = new System.Drawing.Size(149, 22);
             this.btnRelease.Text = "Версии";
             this.btnRelease.Visible = false;
             // 
@@ -471,8 +471,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
+            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(861, 459);
@@ -660,8 +660,9 @@
             // 
             // btnEditSaveR
             // 
+            this.btnEditSaveR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditSaveR.Enabled = false;
-            this.btnEditSaveR.Location = new System.Drawing.Point(242, 301);
+            this.btnEditSaveR.Location = new System.Drawing.Point(261, 301);
             this.btnEditSaveR.Name = "btnEditSaveR";
             this.btnEditSaveR.Size = new System.Drawing.Size(75, 23);
             this.btnEditSaveR.TabIndex = 47;
@@ -672,31 +673,35 @@
             // 
             // btnEditCancel
             // 
+            this.btnEditCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditCancel.Enabled = false;
-            this.btnEditCancel.Location = new System.Drawing.Point(242, 330);
+            this.btnEditCancel.Location = new System.Drawing.Point(261, 330);
             this.btnEditCancel.Name = "btnEditCancel";
             this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
             this.btnEditCancel.TabIndex = 46;
             this.btnEditCancel.Text = "Отмена";
             this.btnEditCancel.UseVisualStyleBackColor = true;
             this.btnEditCancel.Visible = false;
-            this.btnEditCancel.Click += new System.EventHandler(this.Edit_CancelRec);
+            this.btnEditCancel.Click += new System.EventHandler(this.Edit_Cancel);
             // 
             // tbFileName
             // 
+            this.tbFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFileName.Enabled = false;
             this.tbFileName.Location = new System.Drawing.Point(71, 263);
             this.tbFileName.Name = "tbFileName";
-            this.tbFileName.Size = new System.Drawing.Size(220, 20);
+            this.tbFileName.Size = new System.Drawing.Size(236, 20);
             this.tbFileName.TabIndex = 44;
             this.tbFileName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // btnFileNameEdit
             // 
+            this.btnFileNameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
             this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources.IconFileEdit;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(294, 260);
+            this.btnFileNameEdit.Location = new System.Drawing.Point(313, 260);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
             this.btnFileNameEdit.Size = new System.Drawing.Size(23, 25);
             this.btnFileNameEdit.TabIndex = 43;
@@ -705,16 +710,20 @@
             // 
             // cBoxTypeVideo
             // 
+            this.cBoxTypeVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxTypeVideo.FormattingEnabled = true;
             this.cBoxTypeVideo.Location = new System.Drawing.Point(71, 147);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
-            this.cBoxTypeVideo.Size = new System.Drawing.Size(246, 21);
+            this.cBoxTypeVideo.Size = new System.Drawing.Size(265, 21);
             this.cBoxTypeVideo.TabIndex = 42;
             this.cBoxTypeVideo.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
             // numericTime
             // 
+            this.numericTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.numericTime.Location = new System.Drawing.Point(71, 177);
             this.numericTime.Maximum = new decimal(new int[] {
             1000,
@@ -722,50 +731,60 @@
             0,
             0});
             this.numericTime.Name = "numericTime";
-            this.numericTime.Size = new System.Drawing.Size(246, 20);
+            this.numericTime.Size = new System.Drawing.Size(265, 20);
             this.numericTime.TabIndex = 32;
             this.numericTime.Enter += new System.EventHandler(this.UserModifiedChanged);
             // 
             // cBoxGenre
             // 
+            this.cBoxGenre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxGenre.FormattingEnabled = true;
             this.cBoxGenre.Location = new System.Drawing.Point(71, 117);
             this.cBoxGenre.Name = "cBoxGenre";
-            this.cBoxGenre.Size = new System.Drawing.Size(246, 21);
+            this.cBoxGenre.Size = new System.Drawing.Size(265, 21);
             this.cBoxGenre.TabIndex = 31;
             this.cBoxGenre.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
             // tbDescription
             // 
+            this.tbDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbDescription.Location = new System.Drawing.Point(71, 207);
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(246, 47);
+            this.tbDescription.Size = new System.Drawing.Size(265, 47);
             this.tbDescription.TabIndex = 30;
             this.tbDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // tbCountry
             // 
+            this.tbCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCountry.Location = new System.Drawing.Point(71, 88);
             this.tbCountry.Name = "tbCountry";
-            this.tbCountry.Size = new System.Drawing.Size(246, 20);
+            this.tbCountry.Size = new System.Drawing.Size(265, 20);
             this.tbCountry.TabIndex = 29;
             this.tbCountry.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // tbYear
             // 
+            this.tbYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbYear.Location = new System.Drawing.Point(71, 59);
             this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(246, 20);
+            this.tbYear.Size = new System.Drawing.Size(265, 20);
             this.tbYear.TabIndex = 28;
             this.tbYear.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // tbName
             // 
+            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(71, 30);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(246, 20);
+            this.tbName.Size = new System.Drawing.Size(265, 20);
             this.tbName.TabIndex = 27;
             this.tbName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 

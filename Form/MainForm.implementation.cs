@@ -526,14 +526,21 @@ namespace FilmCollection
                 treeFolder.Enabled = false; // блокировка дерева
 
                 panelEditUnlock();          // разблокировка кнопок
+                btnFileNameEdit.Enabled = false; // блокировка кнопки разблокировки :)
+                tbFileName.Enabled = false; // блокировка поля измнения названия файла
             }
         }
+
+
+
 
 
         private void EditSave()
         {
             GenreVideo genre;
             CategoryVideo category;
+            char[] charsToTrim = { '.' };
+
             switch (cBoxGenre.SelectedIndex)
             {
                 case 0: genre = GenreVideo.Action; break;
@@ -551,10 +558,10 @@ namespace FilmCollection
                 default: category = CategoryVideo.Unknown; return;
             }
 
-            if (fsInfo != null)
+            if (fsInfo != null) // если новый объект
             {
                 Record record = new Record();
-                char[] charsToTrim = { '.' };
+               
 
                 record.FileName = fsInfo.Name;
                 record.Path = fsInfo.DirectoryName;
@@ -573,7 +580,7 @@ namespace FilmCollection
 
                 fsInfo = null;
             }
-            else
+            else    // если выбраный объект 
             {
                 Record record = GetSelectedRecord();
                 if (record != null)
@@ -585,56 +592,55 @@ namespace FilmCollection
                     record.Category = category;
                     record.GenreVideo = genre;
                     record.Description = tbDescription.Text;
+                    if (record.FileName != tbFileName.Text)
+                    {
+                        // System.IO.File.Move("oldfilename", "newfilename");
+                        File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
+                            record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
+                        record.FileName = tbFileName.Text;
+                        record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
+                    }
+                    else
+                    {
+                        record.FileName = tbFileName.Text;
+                    }
 
                     _videoCollection.Save();
                 }
             }
-
-
-
-            tbName.Modified = false;        // возвращаем назад статус изменения поля
-            tbYear.Modified = false;        // возвращаем назад статус изменения поля
-            tbCountry.Modified = false;     // возвращаем назад статус изменения поля
-            tbDescription.Modified = false; // возвращаем назад статус изменения поля
-                                            //tbFileName.Text = fInfo.Name;
-
-            treeFolder.Enabled = true;  // Разблокировка дерева
-            dgvTable.Enabled = true;    // Разблокировка таблиц
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;
-            RefreshTable("");
-
             panelEditLock();    // блокировка панели
         }
 
 
-        #region Панель редактирования
-        private void panelEditCancel()    // Отмена редактирования в panelEdit
+        private void EditCancel()    // Отмена редактирования в panelEdit
         {
-            tbName.Modified = false;// возвращаем назад статус изменения поля
-            tbYear.Modified = false;// возвращаем назад статус изменения поля
-            tbCountry.Modified = false;// возвращаем назад статус изменения поля
-            tbDescription.Modified = false;// возвращаем назад статус изменения поля
-
-            treeFolder.Enabled = true;  // Разблокировка дерева
-            dgvTable.Enabled = true;    // Разблокировка таблиц
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
-            RefreshTable("");  // перезагрузка таблицы
-            fsInfo = null;      // удаление информации о файле
-
+            fsInfo = null;
             panelEditLock();    // блокировка кнопок панели редактирования
         }
 
+
         private void panelEditLock()    //Блокировка кнопок
         {
-            // Блокировать клавишу "Отмена"
-            btnEditCancel.Visible = false;
-            btnEditCancel.Enabled = false;
-            // Блокировать клавишу "Сохранить"
-            btnEditSaveR.Visible = false;
-            btnEditSaveR.Enabled = false;
+            tbName.Modified = false;    // возвращаем назад статус изменения поля
+            tbYear.Modified = false;    // возвращаем назад статус изменения поля
+            tbCountry.Modified = false; // возвращаем назад статус изменения поля
+            tbDescription.Modified = false;// возвращаем назад статус изменения поля
+
+            treeFolder.Enabled = true;  // Разблокировка дерева
+            dgvTable.Enabled = true;    // Разблокировка таблицы
+            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+
+            RefreshTable("");  // перезагрузка таблицы
+
+            btnFileNameEdit.Enabled = true; // Разблокировка кнопки разблокировки :)
+            btnEditCancel.Visible = false;  // "Отмена" - скрыть
+            btnEditCancel.Enabled = false;  // "Отмена" - блокировать
+            btnEditSaveR.Visible = false;  // "Сохранить" - скрыть
+            btnEditSaveR.Enabled = false;  // "Сохранить" - блокировать
 
             panelView.BringToFront();   // показать панель сведений
         }
+
 
         private void panelEditUnlock()    //Разблокировка кнопок
         {
@@ -645,8 +651,6 @@ namespace FilmCollection
             btnEditSaveR.Visible = true;
             btnEditSaveR.Enabled = true;
         }
-        #endregion
-
     }
 }
 
