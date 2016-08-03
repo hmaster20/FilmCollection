@@ -134,13 +134,17 @@
   <ItemGroup>
     <Content Include="FC.ico" />
     <Content Include="Resources\add.png" />
+    <Content Include="Resources\change.png" />
+    <Content Include="Resources\db.png" />
+    <Content Include="Resources\dbBackup.png" />
+    <Content Include="Resources\dbRebuild.png" />
     <Content Include="Resources\del.png" />
     <Content Include="Resources\FilmCollection.png" />
     <Content Include="Resources\find.png" />
     <Content Include="Resources\help.png" />
-    <Content Include="Resources\IconFileEdit.png" />
-    <Content Include="Resources\new.png" />
-    <Content Include="Resources\rebuild.png" />
+    <Content Include="Resources\lock.png" />
+    <Content Include="Resources\play.png" />
+    <Content Include="Resources\resetFiltr.png" />
     <Content Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>

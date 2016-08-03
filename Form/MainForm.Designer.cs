@@ -40,7 +40,11 @@
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cChange = new System.Windows.Forms.ToolStripMenuItem();
+            this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +63,7 @@
             this.tS4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -74,6 +79,7 @@
             this.btnEditSaveR = new System.Windows.Forms.Button();
             this.btnEditCancel = new System.Windows.Forms.Button();
             this.tbFileName = new System.Windows.Forms.TextBox();
+            this.btnFileNameEdit = new System.Windows.Forms.Button();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
             this.numericTime = new System.Windows.Forms.NumericUpDown();
             this.cBoxGenre = new System.Windows.Forms.ComboBox();
@@ -90,14 +96,6 @@
             this.lblYear = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.btnEditNew = new System.Windows.Forms.Button();
-            this.panelFind = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbFind = new System.Windows.Forms.TextBox();
-            this.btnFind = new System.Windows.Forms.Button();
-            this.cbTypeFind = new System.Windows.Forms.ComboBox();
             this.panelView = new System.Windows.Forms.Panel();
             this.btnPlay = new System.Windows.Forms.Button();
             this.lblRecDescription = new System.Windows.Forms.Label();
@@ -106,16 +104,19 @@
             this.tbfName = new System.Windows.Forms.TextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
+            this.panelFind = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbFind = new System.Windows.Forms.TextBox();
+            this.btnFind = new System.Windows.Forms.Button();
+            this.cbTypeFind = new System.Windows.Forms.ComboBox();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
-            this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.cChange = new System.Windows.Forms.ToolStripMenuItem();
-            this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnFileNameEdit = new System.Windows.Forms.Button();
-            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -130,10 +131,10 @@
             this.panelEdit.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).BeginInit();
-            this.panelFind.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panelView.SuspendLayout();
             this.panelTitle.SuspendLayout();
+            this.panelFind.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
@@ -256,21 +257,55 @@
             this.contextMenu.Size = new System.Drawing.Size(140, 148);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
+            // cFind
+            // 
+            this.cFind.Image = global::FilmCollection.Properties.Resources.find;
+            this.cFind.Name = "cFind";
+            this.cFind.Size = new System.Drawing.Size(139, 22);
+            this.cFind.Text = "Найти";
+            this.cFind.Click += new System.EventHandler(this.cFind_Click);
+            // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
             this.cSeparator3.Size = new System.Drawing.Size(136, 6);
             // 
+            // cAdd
+            // 
+            this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
+            this.cAdd.Name = "cAdd";
+            this.cAdd.Size = new System.Drawing.Size(139, 22);
+            this.cAdd.Text = "Добавить";
+            this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
+            // 
+            // cChange
+            // 
+            this.cChange.Image = global::FilmCollection.Properties.Resources.change;
+            this.cChange.Name = "cChange";
+            this.cChange.Size = new System.Drawing.Size(139, 22);
+            this.cChange.Text = "Изменить";
+            this.cChange.Click += new System.EventHandler(this.EditRec_Click);
+            // 
+            // cDelete
+            // 
+            this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
+            this.cDelete.Name = "cDelete";
+            this.cDelete.Size = new System.Drawing.Size(139, 22);
+            this.cDelete.Text = "Удалить";
+            this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
+            this.toolStripSeparator1.Visible = false;
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
             this.testToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.testToolStripMenuItem.Text = "Test Create";
+            this.testToolStripMenuItem.Visible = false;
             this.testToolStripMenuItem.Click += new System.EventHandler(this.Test_Add_rec);
             // 
             // testChangeToolStripMenuItem
@@ -278,6 +313,7 @@
             this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
             this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.testChangeToolStripMenuItem.Text = "Test Change";
+            this.testChangeToolStripMenuItem.Visible = false;
             this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.Test_Change_rec);
             // 
             // FolderDialog
@@ -288,7 +324,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tssLabel});
+            this.tssLabel,
+            this.toolStripProgressBar1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 515);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1117, 22);
@@ -329,7 +366,7 @@
             // 
             // btnCreateBase
             // 
-            this.btnCreateBase.Image = global::FilmCollection.Properties.Resources._new;
+            this.btnCreateBase.Image = global::FilmCollection.Properties.Resources.db;
             this.btnCreateBase.Name = "btnCreateBase";
             this.btnCreateBase.Size = new System.Drawing.Size(187, 22);
             this.btnCreateBase.Text = "Создать базу";
@@ -337,7 +374,7 @@
             // 
             // btnUpdateBase
             // 
-            this.btnUpdateBase.Image = global::FilmCollection.Properties.Resources.rebuild;
+            this.btnUpdateBase.Image = global::FilmCollection.Properties.Resources.dbRebuild;
             this.btnUpdateBase.Name = "btnUpdateBase";
             this.btnUpdateBase.Size = new System.Drawing.Size(187, 22);
             this.btnUpdateBase.Text = "Обновить базу";
@@ -350,7 +387,7 @@
             // 
             // btnBackupBase
             // 
-            this.btnBackupBase.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnBackupBase.Image = global::FilmCollection.Properties.Resources.dbBackup;
             this.btnBackupBase.Name = "btnBackupBase";
             this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
             this.btnBackupBase.Text = "Создать копию базы";
@@ -397,6 +434,14 @@
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(65, 20);
             this.btnHelp.Text = "Справка";
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
+            this.btnAbout.Text = "О программе";
+            this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
@@ -454,8 +499,8 @@
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
-            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(908, 459);
             this.scTabFilm.SplitterDistance = 534;
@@ -476,8 +521,9 @@
             // 
             // menuResetFilter
             // 
+            this.menuResetFilter.Image = global::FilmCollection.Properties.Resources.resetFiltr;
             this.menuResetFilter.Name = "menuResetFilter";
-            this.menuResetFilter.Size = new System.Drawing.Size(104, 23);
+            this.menuResetFilter.Size = new System.Drawing.Size(120, 23);
             this.menuResetFilter.Text = "Сброс фильтра";
             this.menuResetFilter.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
@@ -560,11 +606,14 @@
             // 
             this.btnEditSaveR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditSaveR.Enabled = false;
-            this.btnEditSaveR.Location = new System.Drawing.Point(275, 301);
+            this.btnEditSaveR.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnEditSaveR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEditSaveR.Location = new System.Drawing.Point(264, 301);
             this.btnEditSaveR.Name = "btnEditSaveR";
-            this.btnEditSaveR.Size = new System.Drawing.Size(75, 23);
+            this.btnEditSaveR.Size = new System.Drawing.Size(86, 23);
             this.btnEditSaveR.TabIndex = 47;
             this.btnEditSaveR.Text = "Сохранить";
+            this.btnEditSaveR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEditSaveR.UseVisualStyleBackColor = true;
             this.btnEditSaveR.Visible = false;
             this.btnEditSaveR.Click += new System.EventHandler(this.Edit_SaveRec);
@@ -573,9 +622,9 @@
             // 
             this.btnEditCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditCancel.Enabled = false;
-            this.btnEditCancel.Location = new System.Drawing.Point(275, 330);
+            this.btnEditCancel.Location = new System.Drawing.Point(264, 330);
             this.btnEditCancel.Name = "btnEditCancel";
-            this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnEditCancel.Size = new System.Drawing.Size(86, 23);
             this.btnEditCancel.TabIndex = 46;
             this.btnEditCancel.Text = "Отмена";
             this.btnEditCancel.UseVisualStyleBackColor = true;
@@ -592,6 +641,20 @@
             this.tbFileName.Size = new System.Drawing.Size(250, 20);
             this.tbFileName.TabIndex = 44;
             this.tbFileName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            // 
+            // btnFileNameEdit
+            // 
+            this.btnFileNameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
+            this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 260);
+            this.btnFileNameEdit.Name = "btnFileNameEdit";
+            this.btnFileNameEdit.Size = new System.Drawing.Size(24, 25);
+            this.btnFileNameEdit.TabIndex = 43;
+            this.btnFileNameEdit.UseVisualStyleBackColor = true;
+            this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
             // 
             // cBoxTypeVideo
             // 
@@ -747,13 +810,111 @@
             // 
             // btnEditNew
             // 
+            this.btnEditNew.Image = global::FilmCollection.Properties.Resources.add;
+            this.btnEditNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEditNew.Location = new System.Drawing.Point(71, 301);
             this.btnEditNew.Name = "btnEditNew";
-            this.btnEditNew.Size = new System.Drawing.Size(75, 23);
+            this.btnEditNew.Size = new System.Drawing.Size(81, 23);
             this.btnEditNew.TabIndex = 18;
             this.btnEditNew.Text = "Добавить";
+            this.btnEditNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEditNew.UseVisualStyleBackColor = true;
             this.btnEditNew.Click += new System.EventHandler(this.Edit_NewRec);
+            // 
+            // panelView
+            // 
+            this.panelView.Controls.Add(this.btnPlay);
+            this.panelView.Controls.Add(this.lblRecDescription);
+            this.panelView.Controls.Add(this.lblRecName);
+            this.panelView.Controls.Add(this.tbfDesc);
+            this.panelView.Controls.Add(this.tbfName);
+            this.panelView.Controls.Add(this.panelTitle);
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(0, 0);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(368, 457);
+            this.panelView.TabIndex = 10;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
+            this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPlay.Location = new System.Drawing.Point(5, 431);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(111, 23);
+            this.btnPlay.TabIndex = 6;
+            this.btnPlay.Text = "Воспроизвести";
+            this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
+            // 
+            // lblRecDescription
+            // 
+            this.lblRecDescription.AutoSize = true;
+            this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecDescription.Location = new System.Drawing.Point(0, 51);
+            this.lblRecDescription.Name = "lblRecDescription";
+            this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
+            this.lblRecDescription.TabIndex = 5;
+            this.lblRecDescription.Text = " Описание:";
+            // 
+            // lblRecName
+            // 
+            this.lblRecName.AutoSize = true;
+            this.lblRecName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecName.Location = new System.Drawing.Point(2, 29);
+            this.lblRecName.Name = "lblRecName";
+            this.lblRecName.Size = new System.Drawing.Size(80, 17);
+            this.lblRecName.TabIndex = 5;
+            this.lblRecName.Text = " Название:";
+            // 
+            // tbfDesc
+            // 
+            this.tbfDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfDesc.Location = new System.Drawing.Point(88, 51);
+            this.tbfDesc.Multiline = true;
+            this.tbfDesc.Name = "tbfDesc";
+            this.tbfDesc.ReadOnly = true;
+            this.tbfDesc.Size = new System.Drawing.Size(277, 360);
+            this.tbfDesc.TabIndex = 3;
+            // 
+            // tbfName
+            // 
+            this.tbfName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfName.Location = new System.Drawing.Point(82, 29);
+            this.tbfName.Name = "tbfName";
+            this.tbfName.ReadOnly = true;
+            this.tbfName.Size = new System.Drawing.Size(282, 16);
+            this.tbfName.TabIndex = 2;
+            // 
+            // panelTitle
+            // 
+            this.panelTitle.Controls.Add(this.lblRecTitle);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(368, 27);
+            this.panelTitle.TabIndex = 7;
+            // 
+            // lblRecTitle
+            // 
+            this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblRecTitle.Name = "lblRecTitle";
+            this.lblRecTitle.Size = new System.Drawing.Size(368, 27);
+            this.lblRecTitle.TabIndex = 0;
+            this.lblRecTitle.Text = "Общие сведения";
+            this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelFind
             // 
@@ -839,98 +1000,6 @@
             this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
             this.cbTypeFind.TabIndex = 13;
             // 
-            // panelView
-            // 
-            this.panelView.Controls.Add(this.btnPlay);
-            this.panelView.Controls.Add(this.lblRecDescription);
-            this.panelView.Controls.Add(this.lblRecName);
-            this.panelView.Controls.Add(this.tbfDesc);
-            this.panelView.Controls.Add(this.tbfName);
-            this.panelView.Controls.Add(this.panelTitle);
-            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelView.Location = new System.Drawing.Point(0, 0);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 457);
-            this.panelView.TabIndex = 10;
-            // 
-            // btnPlay
-            // 
-            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPlay.Location = new System.Drawing.Point(5, 431);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(98, 23);
-            this.btnPlay.TabIndex = 6;
-            this.btnPlay.Text = "Воспроизвести";
-            this.btnPlay.UseVisualStyleBackColor = true;
-            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
-            // 
-            // lblRecDescription
-            // 
-            this.lblRecDescription.AutoSize = true;
-            this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecDescription.Location = new System.Drawing.Point(0, 51);
-            this.lblRecDescription.Name = "lblRecDescription";
-            this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
-            this.lblRecDescription.TabIndex = 5;
-            this.lblRecDescription.Text = " Описание:";
-            // 
-            // lblRecName
-            // 
-            this.lblRecName.AutoSize = true;
-            this.lblRecName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecName.Location = new System.Drawing.Point(2, 29);
-            this.lblRecName.Name = "lblRecName";
-            this.lblRecName.Size = new System.Drawing.Size(80, 17);
-            this.lblRecName.TabIndex = 5;
-            this.lblRecName.Text = " Название:";
-            // 
-            // tbfDesc
-            // 
-            this.tbfDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfDesc.Location = new System.Drawing.Point(88, 51);
-            this.tbfDesc.Multiline = true;
-            this.tbfDesc.Name = "tbfDesc";
-            this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.Size = new System.Drawing.Size(277, 360);
-            this.tbfDesc.TabIndex = 3;
-            // 
-            // tbfName
-            // 
-            this.tbfName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfName.Location = new System.Drawing.Point(82, 29);
-            this.tbfName.Name = "tbfName";
-            this.tbfName.ReadOnly = true;
-            this.tbfName.Size = new System.Drawing.Size(282, 16);
-            this.tbfName.TabIndex = 2;
-            // 
-            // panelTitle
-            // 
-            this.panelTitle.Controls.Add(this.lblRecTitle);
-            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(368, 27);
-            this.panelTitle.TabIndex = 7;
-            // 
-            // lblRecTitle
-            // 
-            this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblRecTitle.Name = "lblRecTitle";
-            this.lblRecTitle.Size = new System.Drawing.Size(368, 27);
-            this.lblRecTitle.TabIndex = 0;
-            this.lblRecTitle.Text = "Общие сведения";
-            this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // tabWriter
             // 
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
@@ -969,58 +1038,11 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
-            // cFind
+            // toolStripProgressBar1
             // 
-            this.cFind.Image = global::FilmCollection.Properties.Resources.find;
-            this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(139, 22);
-            this.cFind.Text = "Найти";
-            this.cFind.Click += new System.EventHandler(this.cFind_Click);
-            // 
-            // cAdd
-            // 
-            this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
-            this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(139, 22);
-            this.cAdd.Text = "Добавить";
-            this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
-            // 
-            // cChange
-            // 
-            this.cChange.Image = global::FilmCollection.Properties.Resources.save;
-            this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(139, 22);
-            this.cChange.Text = "Изменить";
-            this.cChange.Click += new System.EventHandler(this.EditRec_Click);
-            // 
-            // cDelete
-            // 
-            this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
-            this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(139, 22);
-            this.cDelete.Text = "Удалить";
-            this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
-            // 
-            // btnFileNameEdit
-            // 
-            this.btnFileNameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources.IconFileEdit;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(327, 260);
-            this.btnFileNameEdit.Name = "btnFileNameEdit";
-            this.btnFileNameEdit.Size = new System.Drawing.Size(23, 25);
-            this.btnFileNameEdit.TabIndex = 43;
-            this.btnFileNameEdit.UseVisualStyleBackColor = true;
-            this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
-            // 
-            // btnAbout
-            // 
-            this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(149, 22);
-            this.btnAbout.Text = "О программе";
-            this.btnAbout.Click += new System.EventHandler(this.About_Click);
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(200, 16);
+            this.toolStripProgressBar1.Visible = false;
             // 
             // MainForm
             // 
@@ -1055,12 +1077,12 @@
             this.panelEdit.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).EndInit();
-            this.panelFind.ResumeLayout(false);
-            this.panelFind.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
             this.panelTitle.ResumeLayout(false);
+            this.panelFind.ResumeLayout(false);
+            this.panelFind.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
@@ -1157,6 +1179,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }
 

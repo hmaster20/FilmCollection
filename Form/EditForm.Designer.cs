@@ -296,7 +296,6 @@
             // 
             this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources.IconFileEdit;
             this.btnFileNameEdit.Location = new System.Drawing.Point(394, 254);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
             this.btnFileNameEdit.Size = new System.Drawing.Size(23, 27);

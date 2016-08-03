@@ -63,9 +63,9 @@ namespace FilmCollection.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _new {
+        internal static System.Drawing.Bitmap _lock {
             get {
-                object obj = ResourceManager.GetObject("_new", resourceCulture);
+                object obj = ResourceManager.GetObject("_lock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -76,6 +76,46 @@ namespace FilmCollection.Properties {
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap change {
+            get {
+                object obj = ResourceManager.GetObject("change", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap db {
+            get {
+                object obj = ResourceManager.GetObject("db", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dbBackup {
+            get {
+                object obj = ResourceManager.GetObject("dbBackup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dbRebuild {
+            get {
+                object obj = ResourceManager.GetObject("dbRebuild", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +163,9 @@ namespace FilmCollection.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap IconFileEdit {
+        internal static System.Drawing.Bitmap play {
             get {
-                object obj = ResourceManager.GetObject("IconFileEdit", resourceCulture);
+                object obj = ResourceManager.GetObject("play", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +173,9 @@ namespace FilmCollection.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rebuild {
+        internal static System.Drawing.Bitmap resetFiltr {
             get {
-                object obj = ResourceManager.GetObject("rebuild", resourceCulture);
+                object obj = ResourceManager.GetObject("resetFiltr", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

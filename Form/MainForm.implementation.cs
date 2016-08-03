@@ -107,10 +107,16 @@ namespace FilmCollection
 
                 if (directory.Exists)
                 {
+                   // int fCount = directory.GetFiles("*", SearchOption.AllDirectories).Length;   // Количество файлов всего
+                   // int count = 0;
+                    
                     _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
                     foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                     {
+                       // count++;
+                       // if (count == fCount/100*)
+
                         record = new Record();
 
                         record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
@@ -377,12 +383,16 @@ namespace FilmCollection
 
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                dgvTable.Rows[e.RowIndex].Selected = true;
-                dgvTable.Focus();
-            }
+            //      if (e.RowIndex > -1 && e.RowIndex < dgvTable.Rows.Count - 1)
+            //{
+                if (e.Button == MouseButtons.Right)
+                {
+
+                    dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    dgvTable.Rows[e.RowIndex].Selected = true;
+                    dgvTable.Focus();
+                }
+            //}
         }
 
 
@@ -571,7 +581,7 @@ namespace FilmCollection
             if (fsInfo != null) // если новый объект
             {
                 Record record = new Record();
-               
+
 
                 record.FileName = fsInfo.Name;
                 record.Path = fsInfo.DirectoryName;
