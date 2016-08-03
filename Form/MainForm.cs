@@ -9,7 +9,7 @@ namespace FilmCollection
     {
         public MainForm()
         {
-            this.MinimumSize = new System.Drawing.Size(800, 600);   // Установка минимального размера формы
+            this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
             InitializeComponent();                  // Создание и отрисовка элементов
             dgvTable.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
             dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона

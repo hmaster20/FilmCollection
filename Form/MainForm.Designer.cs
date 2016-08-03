@@ -40,11 +40,7 @@
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.cChange = new System.Windows.Forms.ToolStripMenuItem();
-            this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +59,6 @@
             this.tS4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -79,7 +74,6 @@
             this.btnEditSaveR = new System.Windows.Forms.Button();
             this.btnEditCancel = new System.Windows.Forms.Button();
             this.tbFileName = new System.Windows.Forms.TextBox();
-            this.btnFileNameEdit = new System.Windows.Forms.Button();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
             this.numericTime = new System.Windows.Forms.NumericUpDown();
             this.cBoxGenre = new System.Windows.Forms.ComboBox();
@@ -116,6 +110,12 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
+            this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cChange = new System.Windows.Forms.ToolStripMenuItem();
+            this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnFileNameEdit = new System.Windows.Forms.Button();
+            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -166,13 +166,14 @@
             this.dgvTable.ReadOnly = true;
             this.dgvTable.RowHeadersVisible = false;
             this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTable.Size = new System.Drawing.Size(499, 430);
+            this.dgvTable.Size = new System.Drawing.Size(532, 430);
             this.dgvTable.TabIndex = 12;
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTable.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
             // 
             // cmnName
             // 
+            this.cmnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.cmnName.DataPropertyName = "Name";
             this.cmnName.HeaderText = "Название";
             this.cmnName.Name = "cmnName";
@@ -180,48 +181,61 @@
             // 
             // cmnDirName
             // 
+            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.cmnDirName.DataPropertyName = "DirName";
             this.cmnDirName.HeaderText = "Расположение";
             this.cmnDirName.Name = "cmnDirName";
             this.cmnDirName.ReadOnly = true;
+            this.cmnDirName.Width = 107;
             // 
             // cmnYear
             // 
+            this.cmnYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.cmnYear.DataPropertyName = "Year";
             this.cmnYear.HeaderText = "Год";
             this.cmnYear.Name = "cmnYear";
             this.cmnYear.ReadOnly = true;
+            this.cmnYear.Width = 60;
             // 
             // cmnCountry
             // 
+            this.cmnCountry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.cmnCountry.DataPropertyName = "Country";
             this.cmnCountry.HeaderText = "Страна";
             this.cmnCountry.Name = "cmnCountry";
             this.cmnCountry.ReadOnly = true;
+            this.cmnCountry.Width = 68;
             // 
             // cmnGenreString
             // 
+            this.cmnGenreString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.cmnGenreString.DataPropertyName = "GenreString";
             this.cmnGenreString.HeaderText = "Жанр";
             this.cmnGenreString.Name = "cmnGenreString";
             this.cmnGenreString.ReadOnly = true;
+            this.cmnGenreString.Width = 61;
             // 
             // cmnCategoryString
             // 
+            this.cmnCategoryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.cmnCategoryString.DataPropertyName = "CategoryString";
             this.cmnCategoryString.HeaderText = "Категория";
             this.cmnCategoryString.Name = "cmnCategoryString";
             this.cmnCategoryString.ReadOnly = true;
+            this.cmnCategoryString.Width = 85;
             // 
             // cmnTime
             // 
+            this.cmnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.cmnTime.DataPropertyName = "Time";
             this.cmnTime.HeaderText = "Время";
             this.cmnTime.Name = "cmnTime";
             this.cmnTime.ReadOnly = true;
+            this.cmnTime.Width = 60;
             // 
             // cmnFileName
             // 
+            this.cmnFileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.cmnFileName.DataPropertyName = "FileName";
             this.cmnFileName.HeaderText = "Файл";
             this.cmnFileName.Name = "cmnFileName";
@@ -242,38 +256,10 @@
             this.contextMenu.Size = new System.Drawing.Size(140, 148);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
-            // cFind
-            // 
-            this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(139, 22);
-            this.cFind.Text = "Найти";
-            this.cFind.Click += new System.EventHandler(this.cFind_Click);
-            // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
             this.cSeparator3.Size = new System.Drawing.Size(136, 6);
-            // 
-            // cAdd
-            // 
-            this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(139, 22);
-            this.cAdd.Text = "Добавить";
-            this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
-            // 
-            // cChange
-            // 
-            this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(139, 22);
-            this.cChange.Text = "Изменить";
-            this.cChange.Click += new System.EventHandler(this.EditRec_Click);
-            // 
-            // cDelete
-            // 
-            this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(139, 22);
-            this.cDelete.Text = "Удалить";
-            this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // toolStripSeparator1
             // 
@@ -343,6 +329,7 @@
             // 
             // btnCreateBase
             // 
+            this.btnCreateBase.Image = global::FilmCollection.Properties.Resources._new;
             this.btnCreateBase.Name = "btnCreateBase";
             this.btnCreateBase.Size = new System.Drawing.Size(187, 22);
             this.btnCreateBase.Text = "Создать базу";
@@ -350,6 +337,7 @@
             // 
             // btnUpdateBase
             // 
+            this.btnUpdateBase.Image = global::FilmCollection.Properties.Resources.rebuild;
             this.btnUpdateBase.Name = "btnUpdateBase";
             this.btnUpdateBase.Size = new System.Drawing.Size(187, 22);
             this.btnUpdateBase.Text = "Обновить базу";
@@ -362,6 +350,7 @@
             // 
             // btnBackupBase
             // 
+            this.btnBackupBase.Image = global::FilmCollection.Properties.Resources.save;
             this.btnBackupBase.Name = "btnBackupBase";
             this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
             this.btnBackupBase.Text = "Создать копию базы";
@@ -409,13 +398,6 @@
             this.btnHelp.Size = new System.Drawing.Size(65, 20);
             this.btnHelp.Text = "Справка";
             // 
-            // btnAbout
-            // 
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(149, 22);
-            this.btnAbout.Text = "О программе";
-            this.btnAbout.Click += new System.EventHandler(this.About_Click);
-            // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
@@ -428,7 +410,7 @@
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
-            this.treeFolder.Size = new System.Drawing.Size(238, 491);
+            this.treeFolder.Size = new System.Drawing.Size(191, 491);
             this.treeFolder.TabIndex = 22;
             // 
             // tabControl2
@@ -439,7 +421,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(875, 491);
+            this.tabControl2.Size = new System.Drawing.Size(922, 491);
             this.tabControl2.TabIndex = 11;
             // 
             // tabFilm
@@ -448,7 +430,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(867, 465);
+            this.tabFilm.Size = new System.Drawing.Size(914, 465);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -475,8 +457,8 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(861, 459);
-            this.scTabFilm.SplitterDistance = 501;
+            this.scTabFilm.Size = new System.Drawing.Size(908, 459);
+            this.scTabFilm.SplitterDistance = 534;
             this.scTabFilm.TabIndex = 17;
             // 
             // menudgvTable
@@ -488,7 +470,7 @@
             this.tscbSort});
             this.menudgvTable.Location = new System.Drawing.Point(0, 0);
             this.menudgvTable.Name = "menudgvTable";
-            this.menudgvTable.Size = new System.Drawing.Size(499, 27);
+            this.menudgvTable.Size = new System.Drawing.Size(532, 27);
             this.menudgvTable.TabIndex = 23;
             this.menudgvTable.Text = "menuStrip1";
             // 
@@ -551,7 +533,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(354, 457);
+            this.panelEdit.Size = new System.Drawing.Size(368, 457);
             this.panelEdit.TabIndex = 10;
             // 
             // panelEditTitle
@@ -560,7 +542,7 @@
             this.panelEditTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEditTitle.Location = new System.Drawing.Point(0, 0);
             this.panelEditTitle.Name = "panelEditTitle";
-            this.panelEditTitle.Size = new System.Drawing.Size(354, 27);
+            this.panelEditTitle.Size = new System.Drawing.Size(368, 27);
             this.panelEditTitle.TabIndex = 48;
             // 
             // lblEditTitle
@@ -569,7 +551,7 @@
             this.lblEditTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblEditTitle.Location = new System.Drawing.Point(0, 0);
             this.lblEditTitle.Name = "lblEditTitle";
-            this.lblEditTitle.Size = new System.Drawing.Size(354, 27);
+            this.lblEditTitle.Size = new System.Drawing.Size(368, 27);
             this.lblEditTitle.TabIndex = 0;
             this.lblEditTitle.Text = "Панель редактирования";
             this.lblEditTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -578,7 +560,7 @@
             // 
             this.btnEditSaveR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditSaveR.Enabled = false;
-            this.btnEditSaveR.Location = new System.Drawing.Point(261, 301);
+            this.btnEditSaveR.Location = new System.Drawing.Point(275, 301);
             this.btnEditSaveR.Name = "btnEditSaveR";
             this.btnEditSaveR.Size = new System.Drawing.Size(75, 23);
             this.btnEditSaveR.TabIndex = 47;
@@ -591,7 +573,7 @@
             // 
             this.btnEditCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEditCancel.Enabled = false;
-            this.btnEditCancel.Location = new System.Drawing.Point(261, 330);
+            this.btnEditCancel.Location = new System.Drawing.Point(275, 330);
             this.btnEditCancel.Name = "btnEditCancel";
             this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
             this.btnEditCancel.TabIndex = 46;
@@ -607,22 +589,9 @@
             this.tbFileName.Enabled = false;
             this.tbFileName.Location = new System.Drawing.Point(71, 263);
             this.tbFileName.Name = "tbFileName";
-            this.tbFileName.Size = new System.Drawing.Size(236, 20);
+            this.tbFileName.Size = new System.Drawing.Size(250, 20);
             this.tbFileName.TabIndex = 44;
             this.tbFileName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // btnFileNameEdit
-            // 
-            this.btnFileNameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources.IconFileEdit;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(313, 260);
-            this.btnFileNameEdit.Name = "btnFileNameEdit";
-            this.btnFileNameEdit.Size = new System.Drawing.Size(23, 25);
-            this.btnFileNameEdit.TabIndex = 43;
-            this.btnFileNameEdit.UseVisualStyleBackColor = true;
-            this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
             // 
             // cBoxTypeVideo
             // 
@@ -632,7 +601,7 @@
             this.cBoxTypeVideo.FormattingEnabled = true;
             this.cBoxTypeVideo.Location = new System.Drawing.Point(71, 147);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
-            this.cBoxTypeVideo.Size = new System.Drawing.Size(265, 21);
+            this.cBoxTypeVideo.Size = new System.Drawing.Size(279, 21);
             this.cBoxTypeVideo.TabIndex = 42;
             this.cBoxTypeVideo.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -647,7 +616,7 @@
             0,
             0});
             this.numericTime.Name = "numericTime";
-            this.numericTime.Size = new System.Drawing.Size(265, 20);
+            this.numericTime.Size = new System.Drawing.Size(279, 20);
             this.numericTime.TabIndex = 32;
             this.numericTime.Enter += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -659,7 +628,7 @@
             this.cBoxGenre.FormattingEnabled = true;
             this.cBoxGenre.Location = new System.Drawing.Point(71, 117);
             this.cBoxGenre.Name = "cBoxGenre";
-            this.cBoxGenre.Size = new System.Drawing.Size(265, 21);
+            this.cBoxGenre.Size = new System.Drawing.Size(279, 21);
             this.cBoxGenre.TabIndex = 31;
             this.cBoxGenre.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -670,7 +639,7 @@
             this.tbDescription.Location = new System.Drawing.Point(71, 207);
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(265, 47);
+            this.tbDescription.Size = new System.Drawing.Size(279, 47);
             this.tbDescription.TabIndex = 30;
             this.tbDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -680,7 +649,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCountry.Location = new System.Drawing.Point(71, 88);
             this.tbCountry.Name = "tbCountry";
-            this.tbCountry.Size = new System.Drawing.Size(265, 20);
+            this.tbCountry.Size = new System.Drawing.Size(279, 20);
             this.tbCountry.TabIndex = 29;
             this.tbCountry.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -690,7 +659,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbYear.Location = new System.Drawing.Point(71, 59);
             this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(265, 20);
+            this.tbYear.Size = new System.Drawing.Size(279, 20);
             this.tbYear.TabIndex = 28;
             this.tbYear.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -700,7 +669,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(71, 30);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(265, 20);
+            this.tbName.Size = new System.Drawing.Size(279, 20);
             this.tbName.TabIndex = 27;
             this.tbName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -797,7 +766,7 @@
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(354, 457);
+            this.panelFind.Size = new System.Drawing.Size(368, 457);
             this.panelFind.TabIndex = 0;
             // 
             // label3
@@ -824,7 +793,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(354, 27);
+            this.panel1.Size = new System.Drawing.Size(368, 27);
             this.panel1.TabIndex = 16;
             // 
             // label1
@@ -833,7 +802,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(354, 27);
+            this.label1.Size = new System.Drawing.Size(368, 27);
             this.label1.TabIndex = 0;
             this.label1.Text = "Панель поиска";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -844,13 +813,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFind.Location = new System.Drawing.Point(22, 59);
             this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(314, 20);
+            this.tbFind.Size = new System.Drawing.Size(328, 20);
             this.tbFind.TabIndex = 15;
             // 
             // btnFind
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Location = new System.Drawing.Point(254, 107);
+            this.btnFind.Location = new System.Drawing.Point(268, 107);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(82, 23);
             this.btnFind.TabIndex = 14;
@@ -881,7 +850,7 @@
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(354, 457);
+            this.panelView.Size = new System.Drawing.Size(368, 457);
             this.panelView.TabIndex = 10;
             // 
             // btnPlay
@@ -927,7 +896,7 @@
             this.tbfDesc.Multiline = true;
             this.tbfDesc.Name = "tbfDesc";
             this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.Size = new System.Drawing.Size(263, 360);
+            this.tbfDesc.Size = new System.Drawing.Size(277, 360);
             this.tbfDesc.TabIndex = 3;
             // 
             // tbfName
@@ -939,7 +908,7 @@
             this.tbfName.Location = new System.Drawing.Point(82, 29);
             this.tbfName.Name = "tbfName";
             this.tbfName.ReadOnly = true;
-            this.tbfName.Size = new System.Drawing.Size(268, 16);
+            this.tbfName.Size = new System.Drawing.Size(282, 16);
             this.tbfName.TabIndex = 2;
             // 
             // panelTitle
@@ -948,7 +917,7 @@
             this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitle.Location = new System.Drawing.Point(0, 0);
             this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(354, 27);
+            this.panelTitle.Size = new System.Drawing.Size(368, 27);
             this.panelTitle.TabIndex = 7;
             // 
             // lblRecTitle
@@ -957,7 +926,7 @@
             this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
             this.lblRecTitle.Name = "lblRecTitle";
-            this.lblRecTitle.Size = new System.Drawing.Size(354, 27);
+            this.lblRecTitle.Size = new System.Drawing.Size(368, 27);
             this.lblRecTitle.TabIndex = 0;
             this.lblRecTitle.Text = "Общие сведения";
             this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -967,7 +936,7 @@
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
             this.tabWriter.Name = "tabWriter";
             this.tabWriter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWriter.Size = new System.Drawing.Size(867, 465);
+            this.tabWriter.Size = new System.Drawing.Size(914, 465);
             this.tabWriter.TabIndex = 1;
             this.tabWriter.Text = "Редактор";
             this.tabWriter.UseVisualStyleBackColor = true;
@@ -993,12 +962,65 @@
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
             this.scMain.Size = new System.Drawing.Size(1117, 491);
-            this.scMain.SplitterDistance = 238;
+            this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
             // FileDialog
             // 
             this.FileDialog.FileName = "openFileDialog1";
+            // 
+            // cFind
+            // 
+            this.cFind.Image = global::FilmCollection.Properties.Resources.find;
+            this.cFind.Name = "cFind";
+            this.cFind.Size = new System.Drawing.Size(139, 22);
+            this.cFind.Text = "Найти";
+            this.cFind.Click += new System.EventHandler(this.cFind_Click);
+            // 
+            // cAdd
+            // 
+            this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
+            this.cAdd.Name = "cAdd";
+            this.cAdd.Size = new System.Drawing.Size(139, 22);
+            this.cAdd.Text = "Добавить";
+            this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
+            // 
+            // cChange
+            // 
+            this.cChange.Image = global::FilmCollection.Properties.Resources.save;
+            this.cChange.Name = "cChange";
+            this.cChange.Size = new System.Drawing.Size(139, 22);
+            this.cChange.Text = "Изменить";
+            this.cChange.Click += new System.EventHandler(this.EditRec_Click);
+            // 
+            // cDelete
+            // 
+            this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
+            this.cDelete.Name = "cDelete";
+            this.cDelete.Size = new System.Drawing.Size(139, 22);
+            this.cDelete.Text = "Удалить";
+            this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
+            // 
+            // btnFileNameEdit
+            // 
+            this.btnFileNameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources.IconFileEdit;
+            this.btnFileNameEdit.Location = new System.Drawing.Point(327, 260);
+            this.btnFileNameEdit.Name = "btnFileNameEdit";
+            this.btnFileNameEdit.Size = new System.Drawing.Size(23, 25);
+            this.btnFileNameEdit.TabIndex = 43;
+            this.btnFileNameEdit.UseVisualStyleBackColor = true;
+            this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
+            this.btnAbout.Text = "О программе";
+            this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // MainForm
             // 
@@ -1079,14 +1101,6 @@
         private System.Windows.Forms.ToolStripSeparator tS2;
         private System.Windows.Forms.SplitContainer scMain;
         private System.Windows.Forms.SplitContainer scTabFilm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnDirName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnYear;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCountry;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnGenreString;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.Panel panelFind;
         private System.Windows.Forms.Panel panelEdit;
         private System.Windows.Forms.Panel panelView;
@@ -1135,6 +1149,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnDirName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCountry;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnGenreString;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
     }
 }
 

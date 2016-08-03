@@ -41,12 +41,16 @@ namespace FilmCollection
                 //#region Восстановление состояния ширины колонок
                 //DataGridViewColumnCollection columns = dgvTable.Columns;
                 //char[] delimiterChars = { ',' };
-                //string text = _videoCollection.ColumnsWidth;
-                //string[] words = text.Split(delimiterChars);
-                //for (int i = 0; i < words.Length; i++)
+                //string text = _videoCollection.Options.ColumnsWidth;
+                //if (text != null && text != "")
                 //{
-                //    columns[i].Width = Convert.ToInt32(words[i]);
+                //    string[] words = text.Split(delimiterChars);
+                //    for (int i = 0; i < words.Length; i++)
+                //    {
+                //        columns[i].Width = Convert.ToInt32(words[i]);
+                //    }
                 //}
+
                 //#endregion
 
                 #region Восстановление состояния главной формы
@@ -74,6 +78,7 @@ namespace FilmCollection
 
         private void CreateBase()       // Создание файла базы
         {
+            // ============= Нужно сделать фильтрацию добавляемых файлов по расширению ============= 
             if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
             {
                 DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
@@ -459,16 +464,16 @@ namespace FilmCollection
 
             //#region Сохранение ширины колонок
             //DataGridViewColumnCollection columns = dgvTable.Columns;
-            //_videoCollection.ColumnsWidth = "";
-            //for (int i = 0; i < columns.Count-1; i++)
+            //_videoCollection.Options.ColumnsWidth = "";
+            //for (int i = 0; i < columns.Count - 2; i++)
             //{
-            //    if (i < columns.Count - 2)
+            //    if (i < columns.Count - 3)
             //    {
-            //        _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width + ",";
+            //        _videoCollection.Options.ColumnsWidth = _videoCollection.Options.ColumnsWidth + columns[i].Width + ",";
             //    }
             //    else
             //    {
-            //        _videoCollection.ColumnsWidth = _videoCollection.ColumnsWidth + columns[i].Width;
+            //        _videoCollection.Options.ColumnsWidth = _videoCollection.Options.ColumnsWidth + columns[i].Width;
             //    }
             //}
             //#endregion

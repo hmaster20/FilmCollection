@@ -133,8 +133,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FC.ico" />
+    <Content Include="Resources\add.png" />
+    <Content Include="Resources\del.png" />
     <Content Include="Resources\FilmCollection.png" />
+    <Content Include="Resources\find.png" />
+    <Content Include="Resources\help.png" />
     <Content Include="Resources\IconFileEdit.png" />
+    <Content Include="Resources\new.png" />
+    <Content Include="Resources\rebuild.png" />
+    <Content Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
