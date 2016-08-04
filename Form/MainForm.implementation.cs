@@ -107,9 +107,25 @@ namespace FilmCollection
 
                 if (directory.Exists)
                 {
-                   // int fCount = directory.GetFiles("*", SearchOption.AllDirectories).Length;   // Количество файлов всего
-                   // int count = 0;
-                    
+                    int fCount = directory.GetFiles("*", SearchOption.AllDirectories).Length;   // Количество файлов всего
+                    // int count = 0;
+
+                    int[] mylnts = new int[10];
+                    for (int i = 0; i < mylnts.Length; i++)
+                    {
+                        mylnts[i] = Convert.ToInt32(Math.Floor(fCount*0.1*(i+1)));
+                    }
+
+                    foreach (int i in mylnts)
+                    {
+                       // if (fCount == i) [i].
+
+                    }
+                 
+
+
+
+
                     _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
                     foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
