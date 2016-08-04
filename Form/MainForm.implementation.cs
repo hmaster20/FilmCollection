@@ -6,6 +6,8 @@ using System.Xml;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Drawing;
+using System.Collections;
+using System.ComponentModel;
 
 // this.customersDataGridView.Columns[0].Visible = false;
 
@@ -17,6 +19,8 @@ namespace FilmCollection
         RecordCollection _videoCollection = new RecordCollection(); // Доступ к коллекции
         Record record = null;       // Доступ к записи
         FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
+        BackgroundWorker smth;
+        
 
 
         #region Загрузка формы
@@ -104,48 +108,11 @@ namespace FilmCollection
             {
                 folderName = FolderDialog.SelectedPath;                     //Извлечение имени папки
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
+                tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
 
-                if (directory.Exists)
-                {
-                    int fCount = directory.GetFiles("*", SearchOption.AllDirectories).Length;   // Количество файлов всего
-                    // int count = 0;
+                smth.RunWorkerAsync(directory);
 
-                    int[] mylnts = new int[10];
-                    for (int i = 0; i < mylnts.Length; i++)
-                    {
-                        mylnts[i] = Convert.ToInt32(Math.Floor(fCount*0.1*(i+1)));
-                    }
-
-                    foreach (int i in mylnts)
-                    {
-                       // if (fCount == i) [i].
-
-                    }
-                 
-
-
-
-
-                    _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
-                    char[] charsToTrim = { '.' };
-                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                    {
-                       // count++;
-                       // if (count == fCount/100*)
-
-                        record = new Record();
-
-                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-                        record.FileName = file.Name;                            // полное название файла (film.avi)
-                        record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                        record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                                // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                        _videoCollection.Add(record);
-                    }
-                }
-                _videoCollection.Save();
-                FormLoad();
+    
             }
         }
 

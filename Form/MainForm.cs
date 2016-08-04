@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
+using System.IO;
 
 
 namespace FilmCollection
@@ -26,6 +28,76 @@ namespace FilmCollection
             foreach (var item in Enum.GetValues(typeof(GenreVideoRus)))
             {
                 cBoxGenre.Items.Add(item);
+            }
+
+            smth = new BackgroundWorker();
+            smth.DoWork += Smth_DoWork;
+            smth.RunWorkerCompleted += Smth_RunWorkerCompleted;
+            smth.ProgressChanged += Smth_ProgressChanged;
+            smth.ReportProgress(12);
+            smth.WorkerReportsProgress = true;
+        }
+
+        private void Smth_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            tsProgressBar.Value = e.ProgressPercentage;
+        }
+
+        private void Smth_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            _videoCollection.Save();
+            FormLoad();
+        }
+
+
+        private void Smth_DoWork(object sender, DoWorkEventArgs e)
+        {
+            DirectoryInfo directory = (DirectoryInfo)e.Argument;
+
+            if (directory.Exists)
+            {
+                int count = 0;
+
+                ////int[] mylnts = new int[10];             // массив значений на каждые 10%
+                //ArrayList myAL = new ArrayList();
+                ////for (int i = 0; i < mylnts.Length; i++) // проходимся по элементам массива
+                ////{
+                ////    mylnts[i] = Convert.ToInt32(Math.Floor(fCount*0.1*(i+1)));  // Вычисляем значение и присваиваем
+                ////}
+                //for (int i = 0; i < 10; i++)
+                //{
+                //    myAL.Add(Convert.ToInt32(Math.Floor(fCount * 0.1 * (i + 1))));
+                //}
+
+
+
+                _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
+                char[] charsToTrim = { '.' };
+                foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                {
+                    count++;
+                    // if (count == fCount/100*)
+                    //foreach (int i in mylnts)
+                    //{
+                    //    if (count == i)
+                    //    { 
+                    //        int index = Array.IndexOf(mylnts, i);
+                    //    }
+                    //}
+
+
+                    smth.ReportProgress(count);
+
+                    record = new Record();
+
+                    record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                    record.FileName = file.Name;                            // полное название файла (film.avi)
+                    record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
+                    record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                    record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                            // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                    _videoCollection.Add(record);
+                }
             }
         }
 
