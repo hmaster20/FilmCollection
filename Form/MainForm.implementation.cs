@@ -272,17 +272,23 @@ namespace FilmCollection
                     MessageBox.Show(e.Message + " " + node.Name + " - не заполен!");
                 }
             }
-            PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar);
+
+            PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar, paths.Count);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
 
-        private static void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator)  // Построение дерева
+        private void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator, int count)  // Построение дерева
         {
+            tsProgressBar.Maximum = count;
+            int cc = 0;
             TreeNode lastNode = null;
             string subPathAgg;
+            
             foreach (string path in paths)
             {
+                cc++;
+                tsProgressBar.Value = cc;
                 subPathAgg = string.Empty;
                 foreach (string subPath in path.Split(pathSeparator))
                 {

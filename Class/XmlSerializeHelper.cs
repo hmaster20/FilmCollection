@@ -7,18 +7,13 @@ namespace FilmCollection
 {
     public static class XmlSerializeHelper
     {
-        //public static long Count { get; set; }
         public static bool SerializeAndSave(string filename, object objectToSerialize)
         {
             XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
             try
             {
                 using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Create))
-                {
-                   // MessageBox.Show("Запись потока. Текущая позиция: " + Convert.ToString(stream.Position) + ", длина потока: " + Convert.ToString(stream.Length));
                     serializer.Serialize(stream, objectToSerialize);
-                   // MessageBox.Show("Запись потока. Финальная позиция: " + Convert.ToString(stream.Position) + ", длина потока: " + Convert.ToString(stream.Length));
-                }
             }
             catch (Exception e)
             {
