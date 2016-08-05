@@ -9,10 +9,17 @@ namespace FilmCollection
 {
     public partial class MainForm : Form
     {
+        RecordCollection _videoCollection = new RecordCollection(); // Доступ к коллекции
+        Record record = null;       // Доступ к записи
+        FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
+        BackgroundWorker WorkerCB;
+        BackgroundWorker workeLoad;
+
         public MainForm()
         {
-            this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
             InitializeComponent();                  // Создание и отрисовка элементов
+            this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
+
             dgvTable.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
             dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона
             dgvTable.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
@@ -30,63 +37,58 @@ namespace FilmCollection
                 cBoxGenre.Items.Add(item);
             }
 
-            smth = new BackgroundWorker();
-            smth.DoWork += Smth_DoWork;
-            smth.RunWorkerCompleted += Smth_RunWorkerCompleted;
-            smth.ProgressChanged += Smth_ProgressChanged;
-            smth.ReportProgress(12);
-            smth.WorkerReportsProgress = true;
+            WorkerCB = new BackgroundWorker();
+            WorkerCB.DoWork += Smth_DoWork;                         // Здесь работает поток
+            WorkerCB.RunWorkerCompleted += Smth_RunWorkerCompleted; // Здесь завершающая задачка в потоке
+            WorkerCB.ProgressChanged += Smth_ProgressChanged;       // Здесь работает прогрес бар
+            WorkerCB.WorkerReportsProgress = true;                  // Говорим что поток может передавать информацию о ходе своей работы
+
+            workeLoad = new BackgroundWorker();
+            workeLoad.DoWork += WorkeLoad_DoWork;
+            workeLoad.ProgressChanged += WorkeLoad_ProgressChanged;
+            workeLoad.WorkerReportsProgress = true;
         }
+
+   
+        private void WorkeLoad_DoWork(object sender, DoWorkEventArgs e)
+        {
+           //
+        }
+        private void WorkeLoad_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+
+
+
+
 
         private void Smth_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             tsProgressBar.Value = e.ProgressPercentage;
         }
 
+
         private void Smth_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            _videoCollection.Save();
-            FormLoad();
+            // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогрес бара
         }
 
 
-        private void Smth_DoWork(object sender, DoWorkEventArgs e)
+        private void Smth_DoWork(object sender, DoWorkEventArgs e)  // Тело потока
         {
             DirectoryInfo directory = (DirectoryInfo)e.Argument;
 
             if (directory.Exists)
             {
                 int count = 0;
-
-                ////int[] mylnts = new int[10];             // массив значений на каждые 10%
-                //ArrayList myAL = new ArrayList();
-                ////for (int i = 0; i < mylnts.Length; i++) // проходимся по элементам массива
-                ////{
-                ////    mylnts[i] = Convert.ToInt32(Math.Floor(fCount*0.1*(i+1)));  // Вычисляем значение и присваиваем
-                ////}
-                //for (int i = 0; i < 10; i++)
-                //{
-                //    myAL.Add(Convert.ToInt32(Math.Floor(fCount * 0.1 * (i + 1))));
-                //}
-
-
-
                 _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                 char[] charsToTrim = { '.' };
                 foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                 {
                     count++;
-                    // if (count == fCount/100*)
-                    //foreach (int i in mylnts)
-                    //{
-                    //    if (count == i)
-                    //    { 
-                    //        int index = Array.IndexOf(mylnts, i);
-                    //    }
-                    //}
-
-
-                    smth.ReportProgress(count);
+                    WorkerCB.ReportProgress(count);
 
                     record = new Record();
 
@@ -100,6 +102,75 @@ namespace FilmCollection
                 }
             }
         }
+
+      
+        //public Timer ttt = new Timer();
+        //public void T_Tickss(object sender, EventArgs e)
+        //{
+        //   // ttt.Enabled = false;
+        //    MessageBox.Show("Значение Count = " + Convert.ToString( XmlSerializeHelper.Count));
+        //}
+
+        private void CreateBase()       // Создание файла базы
+        {
+            // ============= Нужно сделать фильтрацию добавляемых файлов по расширению ============= 
+            if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
+            {
+                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
+                                                      "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) // Если соглашаемся
+                {
+                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                    _videoCollection.Clear();   // очищаем колелкцию
+                    treeFolder.Nodes.Clear();   // очищаем иерархию
+                    dgvTable.ClearSelection();  // выключаем селекты таблицы
+                    RefreshTable("");          // сбрасываем старые значения таблицы
+                }
+            }
+            else // Если базы нет, то создаем пусатой файл базы
+            {
+                File.Create(RecordOptions.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
+            }
+
+            DialogResult dialogStatus = FolderDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+            string folderName = "";
+
+            if (dialogStatus == DialogResult.OK)
+            {
+                tsProgressBar.Visible = true;
+                tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
+                tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
+
+
+                folderName = FolderDialog.SelectedPath;                     //Извлечение имени папки
+                DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
+                tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
+
+                WorkerCB.RunWorkerAsync(directory);
+
+                _videoCollection.Save();
+
+
+
+                //ttt.Interval = 2000;
+                //ttt.Tick += T_Tickss;
+                //ttt.Enabled = true;
+
+                FormLoad();
+
+
+
+                //ttt.Enabled = false;
+
+
+            }
+        }
+
+
+
+
+
+
 
         private void Main_FormLoad(object sender, EventArgs e)      // Загрузка формы
         {

@@ -8,19 +8,18 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Drawing.Drawing2D;
 
 // this.customersDataGridView.Columns[0].Visible = false;
 
 
 namespace FilmCollection
 {
+   
     public partial class MainForm
     {
-        RecordCollection _videoCollection = new RecordCollection(); // Доступ к коллекции
-        Record record = null;       // Доступ к записи
-        FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
-        BackgroundWorker smth;
-        
+
 
 
         #region Загрузка формы
@@ -80,42 +79,7 @@ namespace FilmCollection
         #endregion
 
 
-        private void CreateBase()       // Создание файла базы
-        {
-            // ============= Нужно сделать фильтрацию добавляемых файлов по расширению ============= 
-            if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
-            {
-                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
-                                                      "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes) // Если соглашаемся
-                {
-                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                    _videoCollection.Clear();   // очищаем колелкцию
-                    treeFolder.Nodes.Clear();   // очищаем иерархию
-                    dgvTable.ClearSelection();  // выключаем селекты таблицы
-                    RefreshTable("");          // сбрасываем старые значения таблицы
-                }
-            }
-            else // Если базы нет, то создаем пусатой файл базы
-            {
-                File.Create(RecordOptions.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
-            }
-
-            DialogResult dialogStatus = FolderDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
-            string folderName = "";
-
-            if (dialogStatus == DialogResult.OK)
-            {
-                folderName = FolderDialog.SelectedPath;                     //Извлечение имени папки
-                DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-                tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
-
-                smth.RunWorkerAsync(directory);
-
-    
-            }
-        }
-
+  
 
         private void UpdateBase()       // Добавить обновление базы
         {

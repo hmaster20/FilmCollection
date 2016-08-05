@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Xml.Serialization;
 
 namespace FilmCollection
 {
+
     public class RecordCollection
     {
         private RecordOptions _options = new RecordOptions();   // Параметры настройки

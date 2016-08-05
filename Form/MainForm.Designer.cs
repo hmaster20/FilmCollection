@@ -334,12 +334,14 @@
             // 
             // tssLabel
             // 
+            this.tssLabel.AutoSize = false;
             this.tssLabel.Name = "tssLabel";
-            this.tssLabel.Size = new System.Drawing.Size(0, 17);
+            this.tssLabel.Size = new System.Drawing.Size(200, 17);
+            this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // toolStripProgressBar1
+            // tsProgressBar
             // 
-            this.tsProgressBar.Name = "toolStripProgressBar1";
+            this.tsProgressBar.Name = "tsProgressBar";
             this.tsProgressBar.Size = new System.Drawing.Size(200, 16);
             this.tsProgressBar.Visible = false;
             // 
@@ -1096,7 +1098,6 @@
         private System.Windows.Forms.DataGridView dgvTable;
         private System.Windows.Forms.FolderBrowserDialog FolderDialog;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.TreeView treeFolder;
         private System.Windows.Forms.TabControl tabControl2;
@@ -1180,6 +1181,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.ToolStripProgressBar tsProgressBar;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
 
