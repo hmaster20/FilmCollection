@@ -13,7 +13,7 @@ namespace FilmCollection
         Record record = null;       // Доступ к записи
         FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
         BackgroundWorker WorkerCB;
-        BackgroundWorker workeLoad;
+        public BackgroundWorker workeLoad;
 
         public MainForm()
         {
@@ -56,7 +56,7 @@ namespace FilmCollection
         }
         private void WorkeLoad_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //throw new NotImplementedException();
+            tsProgressBar.Value = e.ProgressPercentage;
         }
 
 

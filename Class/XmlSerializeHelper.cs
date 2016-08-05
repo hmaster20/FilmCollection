@@ -7,9 +7,7 @@ namespace FilmCollection
 {
     public static class XmlSerializeHelper
     {
-        public static long Count { get; set; }
-
-
+        //public static long Count { get; set; }
         public static bool SerializeAndSave(string filename, object objectToSerialize)
         {
             XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
@@ -40,21 +38,24 @@ namespace FilmCollection
             {
                 using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Open))
                 {
-                    MessageBox.Show("Чтение потока. Текущая позиция: " + Convert.ToString(stream.Position) + 
-                        ", длина потока: " + Convert.ToString(stream.Length));
+                    // MessageBox.Show("Чтение потока. Финальная позиция: " + Convert.ToString(stream.Position) + ", длина потока: " + Convert.ToString(stream.Length));
 
-                    var v = serializer.Deserialize(stream);
-                    Count = stream.Position;
+                    //int data;
+                    //long test = 0;
+                    //long total = stream.Length;
+                    //while ((data = stream.ReadByte()) != -1)
+                    //{
+                    //    test++;
+                    //    if (test % 1000 == 0)
+                    //    {
+                    //        MessageBox.Show("Позиция : " + Convert.ToString(stream.Position) + ", Финальная позиция: " + Convert.ToString(stream.Length) + " dd:" + Convert.ToString(((int)(test * 100 / total))));
+                    //    }
 
-                    MessageBox.Show("Чтение потока. Финальная позиция: " + Convert.ToString(stream.Position) + 
-                        ", длина потока: " + Convert.ToString(stream.Length));
+                    //}
 
-              
 
-           
 
-                    return (T)v;
-
+                    return (T)serializer.Deserialize(stream);
 
                     //int data;
                     //long test = 0;
@@ -69,8 +70,13 @@ namespace FilmCollection
                     //}
                 }
             }
-            catch
+            //catch
+            //{
+            //    throw new Exception("Error during deserializing");
+            //}
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
                 throw new Exception("Error during deserializing");
             }
         }
