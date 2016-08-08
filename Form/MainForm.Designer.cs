@@ -48,7 +48,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -315,11 +314,6 @@
             this.testChangeToolStripMenuItem.Text = "Test Change";
             this.testChangeToolStripMenuItem.Visible = false;
             this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.Test_Change_rec);
-            // 
-            // FolderDialog
-            // 
-            this.FolderDialog.Description = "Укажите расположение файлов мультимедиа:";
-            this.FolderDialog.ShowNewFolderButton = false;
             // 
             // statusStrip1
             // 
@@ -1096,7 +1090,6 @@
 
         #endregion
         private System.Windows.Forms.DataGridView dgvTable;
-        private System.Windows.Forms.FolderBrowserDialog FolderDialog;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.TreeView treeFolder;

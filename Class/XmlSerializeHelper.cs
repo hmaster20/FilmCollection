@@ -3,17 +3,21 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
+using System.Runtime.Serialization;
+
 namespace FilmCollection
 {
     public static class XmlSerializeHelper
     {
         public static bool SerializeAndSave(string filename, object objectToSerialize)
         {
+
             XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
             try
             {
                 using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Create))
-                    serializer.Serialize(stream, objectToSerialize);
+
+                    serializer.Serialize(GetStream(stream), objectToSerialize);
             }
             catch (Exception e)
             {
@@ -21,6 +25,29 @@ namespace FilmCollection
                 return false;
             }
             return true;
+        }
+
+        private static FileStream GetStream(FileStream stream)
+        {
+            if (stream.Length > 0)
+            {
+                stream.Position = 0;
+                while (stream.Position != stream.Length)
+                {
+                    MessageBox.Show("stream.Position = " + stream.Position);
+                }
+
+                //for (int i = 0; i < stream.Length; i++)
+                //{
+
+                //    if (stream.Position == 0) MessageBox.Show("stream.Position = " + stream.Position);
+                //    if (stream.Position == 300) MessageBox.Show("stream.Position = 300 = " + stream.Position);
+                //    if (stream.Position == (stream.Length - 1)) MessageBox.Show("stream.Final = " + stream.Position);
+                //}
+            }
+
+
+            return stream;
         }
 
         public static T LoadAndDeserialize<T>(this string filename)
@@ -75,5 +102,7 @@ namespace FilmCollection
                 throw new Exception("Error during deserializing");
             }
         }
+
+
     }
 }
