@@ -136,6 +136,7 @@
     <Content Include="Resources\db.png" />
     <Content Include="Resources\dbBackup.png" />
     <Content Include="Resources\dbRebuild.png" />
+    <Content Include="Resources\dbRecovery.png" />
     <Content Include="Resources\del.png" />
     <Content Include="Resources\FilmCollection.png" />
     <Content Include="Resources\find.png" />
