@@ -8,22 +8,43 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Xml;
 
-
-// this.customersDataGridView.Columns[0].Visible = false;
-
-
 namespace FilmCollection
 {
     public partial class MainForm : Form
     {
         RecordCollection _videoCollection = new RecordCollection(); // Доступ к коллекции
+        TreeViewColletion _treeViewColletion = new TreeViewColletion(); // Доступ к коллекции
+
         Record record = null;       // Доступ к записи
         FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
+
         BackgroundWorker WorkerCB;
         public BackgroundWorker workeLoad;
 
         public MainForm()
         {
+
+            //System.Windows.Window w = new System.Windows.Window();
+            //w.TaskbarItemInfo = new System.Windows.Shell.TaskbarItemInfo() { ProgressState = System.Windows.Shell.TaskbarItemProgressState.Error };
+            //w.TaskbarItemInfo.ProgressValue = 55;
+
+            //w.Loaded += delegate {
+            //    Action<Object> callUpdateProgress = (o) => {
+            //        w.TaskbarItemInfo.ProgressValue = (double)o;
+            //    };
+
+            //    Thread t = new Thread(() => {
+            //        for (int i = 1; i <= 10; i++)
+            //        {
+            //            w.Dispatcher.BeginInvoke(callUpdateProgress, 1.0 * i / 10);
+            //            Thread.Sleep(1000);
+            //        }
+            //    });
+            //    t.Start();
+            //};
+
+
+
             InitializeComponent();                  // Создание и отрисовка элементов
             this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
 
@@ -32,6 +53,8 @@ namespace FilmCollection
             dgvTable.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
+
+
 
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideoRus)))
@@ -50,22 +73,50 @@ namespace FilmCollection
             WorkerCB.ProgressChanged += Smth_ProgressChanged;       // Здесь работает прогрес бар
             WorkerCB.WorkerReportsProgress = true;                  // Говорим что поток может передавать информацию о ходе своей работы
 
-            workeLoad = new BackgroundWorker();
-            workeLoad.DoWork += WorkeLoad_DoWork;
-            workeLoad.ProgressChanged += WorkeLoad_ProgressChanged;
-            workeLoad.WorkerReportsProgress = true;
         }
 
 
-        private void WorkeLoad_DoWork(object sender, DoWorkEventArgs e)
-        {
-            //
-        }
-        private void WorkeLoad_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            tsProgressBar.Value = e.ProgressPercentage;
-        }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    // When the task ends, change the ProgressState and Overlay
+        //    // of the taskbar item to indicate a stopped task.
+        //    if (e.Cancelled == true)
+        //    {
+        //        // The task was stopped by the user. Show the progress indicator
+        //        // in the paused state.
+        //        this.taskBarItemInfo1.ProgressState = TaskbarItemProgressState.Paused;
+        //    }
+        //    else if (e.Error != null)
+        //    {
+        //        // The task ended with an error. Show the progress indicator
+        //        // in the error state.
+        //        this.taskBarItemInfo1.ProgressState = TaskbarItemProgressState.Error;
+        //    }
+        //    else
+        //    {
+        //        // The task completed normally. Remove the progress indicator.
+        //        this.taskBarItemInfo1.ProgressState = TaskbarItemProgressState.None;
+        //    }
+        //    // In all cases, show the 'Stopped' overlay.
+        //    this.taskBarItemInfo1.Overlay = (DrawingImage)this.FindResource("StopImage");
+        //}
 
 
 
@@ -556,6 +607,7 @@ namespace FilmCollection
             XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
 
             treeFolder.Nodes.Clear();                                       // Очистка дерева
+
             var paths = new List<string>();                                 // Создание списка
             paths.Add("Фильмотека");
 
@@ -584,31 +636,142 @@ namespace FilmCollection
 
         private void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator, int count)  // Построение дерева
         {
-            tsProgressBar.Maximum = count;
-            int cc = 0;
-            TreeNode lastNode = null;
-            string subPathAgg;
+            int pathCount = 0;
+            Employee emp = new Employee();
 
             foreach (string path in paths)
             {
-                cc++;
-                tsProgressBar.Value = cc;
-                subPathAgg = string.Empty;
-                foreach (string subPath in path.Split(pathSeparator))
+                string[] PathD = path.Split(pathSeparator);
+                if (PathD.Length == 1)
                 {
-                    subPathAgg += subPath + pathSeparator;
-                    TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
-                    if (nodes.Length == 0)
-                        if (lastNode == null)
-                            lastNode = treeView.Nodes.Add(subPathAgg, subPath);
-                        else
-                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                    emp.Name = PathD[0];
+                    emp.ParentId = (int?)null;
+
+                    if (_treeViewColletion.Employees.Count > 0)
+                    {
+                        for (int e = 0; e < _treeViewColletion.Employees.Count; e++)
+                        {
+                            if (!_treeViewColletion.Employees[e].Equals(emp))
+                            {
+                                emp.nodeId = pathCount;
+                                _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                                pathCount++;
+                                //break;
+                            }
+                            //return;
+                        }
+                    }
                     else
-                        lastNode = nodes[0];
+                    {
+                        emp.nodeId = pathCount;
+                        _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                        pathCount++;
+                    }
                 }
-                lastNode = null;
+                else
+                {
+                    for (int i = 0; i < PathD.Length; i++)
+                    {
+                        emp.Name = PathD[i];
+                        emp.ParentId = (i != 0) ? (i - 1) : (int?)null;
+
+                        //emp.Parent = (i != 0) ? PathD[i - 1] : ""; // сокращенная нотация if (i != 0) { emp.Parent =  PathD[i - 1]} ...
+                        if (_treeViewColletion.Employees.Count > 0)
+                        {
+                            for (int e = 0; e < _treeViewColletion.Employees.Count; e++)
+                            {
+                                if (!_treeViewColletion.Employees[e].Equals(emp))
+                                {
+                                    emp.nodeId = pathCount;
+                                    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                                    pathCount++;
+                                    //break;
+                                    //return;
+                                }
+
+                                //return;
+                            }
+                            // foreach (Employee item in _treeViewColletion.Employees)
+                            // {
+                            //if(!item.Equals(emp)) _treeViewColletion.Add(emp);   // если нет в списке то добавляем
+                            //if (!item.Equals(emp))
+                            //{
+                            //    emp.nodeId = pathCount;
+                            //    //_treeViewColletion.Add(emp);
+                            //    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                            //    pathCount++;
+                            //    return;
+                            //}
+                            // }
+                        }
+                        else
+                        {
+                            emp.nodeId = pathCount;
+                            _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                            pathCount++;
+                        }
+                        //emp = null;
+                    }
+                }
             }
-            //treeView.ExpandAll();           // развернуть дерево
+            MessageBox.Show(_treeViewColletion.Employees.Count.ToString());
+            // Define functions needed by the load method
+            Func<Employee, int> getId = (x => x.nodeId);
+            Func<Employee, int?> getParentId = (x => x.ParentId);
+            Func<Employee, string> getDisplayName = (x => x.Name);
+
+            // Load items into TreeViewFast
+            treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
+
+
+
+
+
+
+
+            //for (int i = PathD.Length; i > 0; i--)
+            //{
+            //    Employee emp = new Employee();
+            //    emp.Name = PathD[i];
+            //    emp.Parent = (i != 0) ? PathD[i - 1] : ""; // сокращенная нотация if (i != 0) { emp.Parent =  PathD[i - 1]} ...
+
+            //    foreach (Employee item in _treeViewColletion.Employees)
+            //    {
+            //        if (!item.Equals(emp)) _treeViewColletion.Add(emp);   // если нет в списке то добавляем
+            //    }
+            //}
+
+
+
+
+
+
+
+            //tsProgressBar.Maximum = count;
+            //int cc = 0;
+            //TreeNode lastNode = null;
+            //string subPathAgg;
+
+            //foreach (string path in paths)
+            //{
+            //    cc++;
+            //    tsProgressBar.Value = cc;
+            //    subPathAgg = string.Empty;
+            //    foreach (string subPath in path.Split(pathSeparator))
+            //    {
+            //        subPathAgg += subPath + pathSeparator;
+            //        TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
+            //        if (nodes.Length == 0)
+            //            if (lastNode == null)
+            //                lastNode = treeView.Nodes.Add(subPathAgg, subPath);
+            //            else
+            //                lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+            //        else
+            //            lastNode = nodes[0];
+            //    }
+            //    lastNode = null;
+            //}
+            ////treeView.ExpandAll();           // развернуть дерево
         }
 
 
@@ -930,7 +1093,16 @@ namespace FilmCollection
         }
 
 
-
     }
 }
 
+
+
+// this.customersDataGridView.Columns[0].Visible = false;
+/* Сделать настриваемый фильтр для доабвления файлов в процессе создания базы
+ * Оптимизировать создание дерева до передачи инетрфейсу
+ * Сделать опцию настройки и добавления столбцов
+ * 
+ * 
+ * 
+ */
