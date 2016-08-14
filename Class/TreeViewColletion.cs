@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace FilmCollection
@@ -18,7 +17,9 @@ namespace FilmCollection
             {
                 Employee temp;
                 temp = (Employee)emp;
-                if (temp.Name == this.Name)
+                if (temp.Name == this.Name
+                    && temp.ParentId == this.ParentId)
+                //if (temp.Name == this.Name)
                 //&& temp.Parent == this.Parent)
                 {
                     return true;
@@ -31,9 +32,10 @@ namespace FilmCollection
             return false;
         }
 
+
     }
 
-    class TreeViewColletion
+    class TreeViewColletion // : IEquatable<Employee>
     {
         public TreeViewColletion()
         {
@@ -53,7 +55,6 @@ namespace FilmCollection
         }
 
         public void Add(int _nodeId, int? _parentId, string _nodeName)
-        //public void Add(string _parentName, string _nodeName)
         {
             var employee = new Employee
             {
@@ -61,10 +62,34 @@ namespace FilmCollection
                 ParentId = _parentId,
                 Name = _nodeName
             };
-        //FirstName = FirstNames[MyRandom.Next(0, FirstNames.Length - 1)],
-        //LastName = LastNames[MyRandom.Next(0, LastNames.Length - 1)]
         Employees.Add(employee);
         }
-          //  if () { System.Windows.Forms.MessageBox.Show("Test");}
+
+
+
+        //public bool Equals(Employee other)
+        //{
+        //    if (other == null) { return false; }
+        //    else
+        //    {
+        //        //f (this.Employees.)
+        //        return (this.Employees.Equals(other));
+        //    }
+        //}
+
+
+        //  if () { System.Windows.Forms.MessageBox.Show("Test");}
+
+
+        //public bool Contains(T item)
+        //{
+        //    foreach (T member in list)
+        //        if (member.Equals(item))
+        //           return true;
+        //    return false;
+        //}
+
+
+
     }
 }
