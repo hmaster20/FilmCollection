@@ -648,73 +648,47 @@ namespace FilmCollection
             foreach (string path in paths)
             {
                 string[] PathD = path.Split(Path.DirectorySeparatorChar);
-                if (PathD.Length == 1)  // элемент 1
+                if (PathD.Length == 1)  // Корневые папки без поддиректорий
                 {
                     emp.Name = PathD[0];
-                    emp.ParentId = (int?)null;
+                    emp.ParentId = (int?)null; // родителя нет
 
-                    if (_treeViewColletion.Employees.Count > 0)
+                    if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
                     {
+                        emp.nodeId = pathCount;
+                        _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                        pathCount++;
+                    }
+                    else
+                    {
+                        bool isElement = false; // элемента нет
+
                         for (int i = 0; i < _treeViewColletion.Employees.Count; i++)
                         {
-                            if (!_treeViewColletion.Employees[i].Equals(emp))
-                            {// если нет объекта то ничего не делаем
-                                //MessageBox.Show("Объект " + emp.Name + " отсутствует в базе!");
-                            }
-                            else
+                            if (_treeViewColletion.Employees[i].Equals(emp))
                             { // если есть то выводим инфу и будем использовать его id
                                 MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
+                                // emp.ParentId = id;
+                                isElement = true;
                                 break;
                             }
                         }
-
-
-
-                        //foreach (Record item in _videoCollection.VideoList)
-                        //{
-                        //    if (item.Equals(record))
-                        //    {
-                        //        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
-                        //        return; // Выходим из метода
-                        //    }
-                        //}
-
-                        //MessageBox.Show("Наличие объекта: " + _treeViewColletion.Employees.Contains(emp).ToString());
-
-                        if (!_treeViewColletion.Employees.Exists(x => x == emp))
+                        if (!isElement) // если элемента нет, то создаем                       
+                        //if (!_treeViewColletion.Employees.Exists(x => x == emp))
                         {
                             emp.nodeId = pathCount;
                             _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
                             pathCount++;
                         }
                     }
-                    else
-                    {
-                        emp.nodeId = pathCount;
-                        _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-                        pathCount++;
-                    }
                 }
-                else // если элементов > 1
+                else // папки с поддиректориями
                 {
+
                     for (int i = 0; i < PathD.Length; i++)
                     {
+
                         emp.Name = PathD[i];
-
-                        for (int ii = 0; ii < _treeViewColletion.Employees.Count; ii++)
-                        {
-                            if (!_treeViewColletion.Employees[ii].Equals(emp))
-                            {// если нет объекта то ничего не делаем
-                                //MessageBox.Show("Объект " + emp.Name + " отсутствует в базе!");
-                            }
-                            else
-                            { // если есть то выводим инфу и будем использовать его id
-                                MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
-                                break;
-                            }
-                        }
-                        //_treeViewColletion.Employees.Where(x => x.Name == emp.Name || x.ParentId = emp.ParentId);
-
                         //emp.ParentId = (i != 0) ? (i - 1) : (int?)null;
                         if (i == 0)
                         {
@@ -723,39 +697,47 @@ namespace FilmCollection
                         else
                         {
                             Employee emps = new Employee();
-                            // убрать if
-                            //if (_treeViewColletion.Employees.Exists(x => x.Name == PathD[i - 1]))
-                            //{
-                                emps = _treeViewColletion.Employees.Find(x => x.Name == PathD[i - 1]);
-                            //}
+                            emps = _treeViewColletion.Employees.Find(x => x.Name == PathD[i - 1]);
                             emp.ParentId = emps.nodeId;
                         }
 
-                        if (_treeViewColletion.Employees.Count > 0)
-                        {
-                            //if (!_treeViewColletion.Employees.Exists(x => x.Name == emp.Name && x.ParentId = emp.ParentId))
-
-                            //if (!_treeViewColletion.Employees.Exists(x => x.Name == emp.Name))
-                            // if (!_treeViewColletion.Employees.Exists(x => x == emp))
-                            // if (!_treeViewColletion.Employees.Any(x => x.Name == emp.Name && x.ParentId = emp.ParentId))
-                           
-                           // MessageBox.Show("Наличие объекта: " + _treeViewColletion.Employees.Contains(emp).ToString());
-
-                            if (!_treeViewColletion.Employees.Exists(x => x == emp))
-                            {
-                              
-                                emp.nodeId = pathCount;
-                                _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-                                pathCount++;
-                            }
-                        }
-                        else
+                        if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
                         {
                             emp.nodeId = pathCount;
                             _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
                             pathCount++;
                         }
+                        else
+                        {
+                            // Проверяем наличие элемента
+                            bool isElement = false; // элемента нет
+
+                            for (int j = 0; j < _treeViewColletion.Employees.Count; j++)
+                            {
+                                if (_treeViewColletion.Employees[j].Equals(emp))
+                                { // если есть то выводим инфу и будем использовать его id
+                                    MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
+                                    isElement = true;
+                                    break;
+                                }
+                            }
+                            if (!isElement) // если элемента нет, то создаем                       
+                            {
+                                emp.nodeId = pathCount;
+                                _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                                pathCount++;
+                            }
+                            //if (!_treeViewColletion.Employees.Exists(x => x == emp))
+                            //{
+                            //    emp.nodeId = pathCount;
+                            //    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+                            //    pathCount++;
+                            //}
+                        }
                     }
+
+
+
                 }
             }
 
