@@ -132,6 +132,7 @@ namespace FilmCollection
         private void Smth_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогрес бара
+            MessageBox.Show(_videoCollection.VideoList.Count.ToString());
         }
 
 
@@ -191,7 +192,7 @@ namespace FilmCollection
                     RefreshTable("");          // сбрасываем старые значения таблицы
                 }
             }
-            else // Если базы нет, то создаем пусатой файл базы
+            else // Если базы нет, то создаем пустой файл базы
             {
                 File.Create(RecordOptions.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
             }
@@ -207,8 +208,29 @@ namespace FilmCollection
 
 
                 folderName = fbDialog.SelectedPath;                     //Извлечение имени папки
+
+                DialogResult correct = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
+                                MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                if (correct == DialogResult.Cancel)
+                {
+                    CreateBase();
+                }
+
+
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-                tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
+                try
+                {
+                    tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return;
+                }
+
+
+
+
 
                 WorkerCB.RunWorkerAsync(directory);
 
@@ -644,7 +666,7 @@ namespace FilmCollection
         private void TreeFast(IEnumerable<string> paths)
         {
             int pathCount = 0;
-            Employee emp = new Employee();
+            Catalog emp = new Catalog();
             foreach (string path in paths)
             {
                 string[] PathD = path.Split(Path.DirectorySeparatorChar);
@@ -667,7 +689,7 @@ namespace FilmCollection
                         {
                             if (_treeViewColletion.Employees[i].Equals(emp))
                             { // если есть то выводим инфу и будем использовать его id
-                                MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
+                                //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
                                 // emp.ParentId = id;
                                 isElement = true;
                                 break;
@@ -684,10 +706,10 @@ namespace FilmCollection
                 }
                 else // папки с поддиректориями
                 {
+                    List<int> parent = new List<int>();
 
                     for (int i = 0; i < PathD.Length; i++)
                     {
-
                         emp.Name = PathD[i];
                         //emp.ParentId = (i != 0) ? (i - 1) : (int?)null;
                         if (i == 0)
@@ -696,13 +718,15 @@ namespace FilmCollection
                         }
                         else
                         {
-                            Employee emps = new Employee();
-                            emps = _treeViewColletion.Employees.Find(x => x.Name == PathD[i - 1]);
-                            emp.ParentId = emps.nodeId;
+                            //Employee emps = new Employee(); // ВЫЧИСЛЯЕТСЯ ID родителя
+                            //emps = _treeViewColletion.Employees.Find(x => x.Name == PathD[i - 1]);
+                            // emp.ParentId = emps.nodeId;
+                            emp.ParentId = parent[i - 1];
                         }
 
                         if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
                         {
+                            parent.Add(pathCount);  // добавили id родителя List<int> parent 
                             emp.nodeId = pathCount;
                             _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
                             pathCount++;
@@ -716,14 +740,22 @@ namespace FilmCollection
                             {
                                 if (_treeViewColletion.Employees[j].Equals(emp))
                                 { // если есть то выводим инфу и будем использовать его id
-                                    MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
-                                    isElement = true;
+                                  //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
+
+                                    // !!!!Неправильно выбирается элемент!!!! .Берется текущий id вместо id того который в базе.
+                                    
+                                    Catalog emps = _treeViewColletion.Employees.Find(x => emp.Name == x.Name && emp.ParentId == x.ParentId);
+                                    if (emps != null) { parent.Add(emps.nodeId); }
+                                    //isElement = true;
+                                      // добавили id родителя List<int> parent 
                                     break;
                                 }
                             }
                             if (!isElement) // если элемента нет, то создаем                       
                             {
+                                parent.Add(pathCount);  // добавили id родителя List<int> parent 
                                 emp.nodeId = pathCount;
+
                                 _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
                                 pathCount++;
                             }
@@ -743,9 +775,10 @@ namespace FilmCollection
 
             MessageBox.Show(_treeViewColletion.Employees.Count.ToString());
             // Define functions needed by the load method
-            Func<Employee, int> getId = (x => x.nodeId);
-            Func<Employee, int?> getParentId = (x => x.ParentId);
-            Func<Employee, string> getDisplayName = (x => x.Name);
+            Func<Catalog, int> getId = (x => x.nodeId);
+            Func<Catalog, int?> getParentId = (x => x.ParentId);
+            Func<Catalog, string> getDisplayName = (x => x.Name);
+
 
             // Load items into TreeViewFast
             treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);

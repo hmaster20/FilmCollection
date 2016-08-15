@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FilmCollection
 {
-    public class Employee
+    public class Catalog
     {
         public int nodeId { get; set; }
         public int? ParentId { get; set; }
-       // public string Parent { get; set; }
         public string Name { get; set; }
 
-        public bool Equals(Employee emp)
+        public bool Equals(Catalog emp)
         {
-            if (emp is Employee && emp != null)
+            if (emp is Catalog && emp != null)
             {
-                Employee temp;
-                temp = (Employee)emp;
+                Catalog temp;
+                temp = (Catalog)emp;
                 if (temp.Name == this.Name
                     && temp.ParentId == this.ParentId)
-                //if (temp.Name == this.Name)
-                //&& temp.Parent == this.Parent)
                 {
                     return true;
                 }
@@ -31,32 +27,25 @@ namespace FilmCollection
             }
             return false;
         }
-
-
     }
 
-    class TreeViewColletion // : IEquatable<Employee>
+    class TreeViewColletion
     {
         public TreeViewColletion()
         {
-            Employees = new List<Employee>();
+            Employees = new List<Catalog>();
         }
 
-        private List<Employee> _employees;
-        public List<Employee> Employees
-        {
-            get { return _employees; }
-            set { _employees = value; }
-        }
-
-        public void Add(Employee _emp)
+        //private List<Employee> _employees;
+        public List<Catalog> Employees { get; set; }
+        public void Add(Catalog _emp)
         {
             Employees.Add(_emp);
         }
 
         public void Add(int _nodeId, int? _parentId, string _nodeName)
         {
-            var employee = new Employee
+            var employee = new Catalog
             {
                 nodeId = _nodeId,
                 ParentId = _parentId,
@@ -64,8 +53,6 @@ namespace FilmCollection
             };
         Employees.Add(employee);
         }
-
-
 
         //public bool Equals(Employee other)
         //{
@@ -78,9 +65,6 @@ namespace FilmCollection
         //}
 
 
-        //  if () { System.Windows.Forms.MessageBox.Show("Test");}
-
-
         //public bool Contains(T item)
         //{
         //    foreach (T member in list)
@@ -88,7 +72,6 @@ namespace FilmCollection
         //           return true;
         //    return false;
         //}
-
 
 
     }
