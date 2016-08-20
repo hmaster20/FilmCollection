@@ -665,6 +665,7 @@ namespace FilmCollection
 
         private void TreeFast(IEnumerable<string> paths)
         {
+            // подумать об использовании анонимного класса!
             int pathCount = 0;
             Catalog emp = new Catalog();
             foreach (string path in paths)
