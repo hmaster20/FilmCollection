@@ -76,7 +76,7 @@ namespace FilmCollection
             set { _genreVideo = value; }
         }
 
-        public string GenreString
+        public string GenreString         //используется для вывода значения в таблицу
         {
             get { return GenreToString(GenreVideo); }
             set { GenreVideo = StringToGenre(value); }

@@ -80,6 +80,12 @@
     <Compile Include="Form\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\Actors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Actors.Designer.cs">
+      <DependentUpon>Actors.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\EditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +111,9 @@
     <Compile Include="Class\XmlSerializeHelper.cs" />
     <EmbeddedResource Include="Form\About.resx">
       <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Actors.resx">
+      <DependentUpon>Actors.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\EditForm.resx">
       <DependentUpon>EditForm.cs</DependentUpon>

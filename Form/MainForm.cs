@@ -71,7 +71,7 @@ namespace FilmCollection
             WorkerCB = new BackgroundWorker();
             WorkerCB.DoWork += Smth_DoWork;                         // Здесь работает поток
             WorkerCB.RunWorkerCompleted += Smth_RunWorkerCompleted; // Здесь завершающая задачка в потоке
-            WorkerCB.ProgressChanged += Smth_ProgressChanged;       // Здесь работает прогрес бар
+            WorkerCB.ProgressChanged += Smth_ProgressChanged;       // Здесь работает прогресс бар
             WorkerCB.WorkerReportsProgress = true;                  // Говорим что поток может передавать информацию о ходе своей работы
 
         }
@@ -367,7 +367,7 @@ namespace FilmCollection
         {
             NewRecord();
         }
-        private void Edit_SaveRec(object sender, EventArgs e)   // Сохранение нового или измененого элемента
+        private void Edit_SaveRec(object sender, EventArgs e)   // Сохранение нового или измененного элемента
         {
             EditSave();
         }
@@ -639,7 +639,7 @@ namespace FilmCollection
                 try
                 {
                     string temp = "";
-                    if (node.ChildNodes[0].Value.Length > SourceLength)     // длинна патча, не должна превышать полного пути к дирректории
+                    if (node.ChildNodes[0].Value.Length > SourceLength)     // длинна патча, не должна превышать полного пути к директории
                         if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
                         {
                             temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
@@ -653,17 +653,17 @@ namespace FilmCollection
                 }
                 catch (NullReferenceException e)
                 {
-                    MessageBox.Show(e.Message + " " + node.Name + " - не заполен!");
+                    MessageBox.Show(e.Message + " " + node.Name + " - не заполнен!");
                 }
             }
 
             PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar, paths.Count);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
-            TreeFast(paths);
+           // TreeFast(paths);
         }
 
 
-        private void TreeFast(IEnumerable<string> paths)
+        private void TreeFastT(IEnumerable<string> paths)
         {
             // подумать об использовании анонимного класса!
             int pathCount = 0;
@@ -1241,15 +1241,24 @@ namespace FilmCollection
             btnEditSaveR.Enabled = true;
         }
 
-
+        private void btnActors_Click(object sender, EventArgs e)
+        {
+            Actors form = new Actors();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+               // _videoCollection.Add(form.Record);
+               // _videoCollection.Save();
+               // RefreshTables();
+            }
+        }
     }
 }
 
 
 
 // this.customersDataGridView.Columns[0].Visible = false;
-/* Сделать настриваемый фильтр для доабвления файлов в процессе создания базы
- * Оптимизировать создание дерева до передачи инетрфейсу
+/* Сделать настраиваемый фильтр для добавления файлов в процессе создания базы
+ * Оптимизировать создание дерева до передачи интерфейсу
  * Сделать опцию настройки и добавления столбцов
  * 
  * 

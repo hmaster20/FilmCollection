@@ -117,7 +117,9 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.treeViewFast1 = new TreeViewFast.Controls.TreeViewFast();
+            this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -345,6 +347,7 @@
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuFile,
+            this.настройкаToolStripMenuItem,
             this.btnHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -451,14 +454,14 @@
             // 
             this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(149, 22);
+            this.btnAbout.Size = new System.Drawing.Size(152, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(149, 22);
+            this.btnRelease.Size = new System.Drawing.Size(152, 22);
             this.btnRelease.Text = "Версии";
             this.btnRelease.Visible = false;
             // 
@@ -567,7 +570,6 @@
             // 
             // panelView
             // 
-            this.panelView.Controls.Add(this.treeViewFast1);
             this.panelView.Controls.Add(this.btnPlay);
             this.panelView.Controls.Add(this.lblRecDescription);
             this.panelView.Controls.Add(this.lblRecName);
@@ -1051,12 +1053,27 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
-            // treeViewFast1
+            // настройкаToolStripMenuItem
             // 
-            this.treeViewFast1.Location = new System.Drawing.Point(39, 177);
-            this.treeViewFast1.Name = "treeViewFast1";
-            this.treeViewFast1.Size = new System.Drawing.Size(295, 223);
-            this.treeViewFast1.TabIndex = 8;
+            this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnOptions,
+            this.btnActors});
+            this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
+            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.настройкаToolStripMenuItem.Text = "Настройка";
+            // 
+            // btnOptions
+            // 
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(152, 22);
+            this.btnOptions.Text = "Параметры";
+            // 
+            // btnActors
+            // 
+            this.btnActors.Name = "btnActors";
+            this.btnActors.Size = new System.Drawing.Size(152, 22);
+            this.btnActors.Text = "Актеры";
+            this.btnActors.Click += new System.EventHandler(this.btnActors_Click);
             // 
             // MainForm
             // 
@@ -1195,6 +1212,9 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem восстановитьИзToolStripMenuItem;
         private TreeViewFast.Controls.TreeViewFast treeViewFast1;
+        private System.Windows.Forms.ToolStripMenuItem настройкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnOptions;
+        private System.Windows.Forms.ToolStripMenuItem btnActors;
     }
 }
 
