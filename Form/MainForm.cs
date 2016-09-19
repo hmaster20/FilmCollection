@@ -984,6 +984,23 @@ namespace FilmCollection
                 _videoCollection.Save();
                 RefreshTable("");
             }
+
+            /*            
+             * Кто поможет написать код для удалении строк из DataGridView,
+             * что бы после рефреша формы или проекта не строка с такой ID больше не появлялся в списке DataGridView.
+             * если удалить все то так:
+             * dataGridView1.Rows.Clear();
+             * dataGridView1.Refresh();
+             * если конкретную строчку то надо знать ее индекс
+             * dataGridView1.Rows.RemoveAt(индекс строки);
+             * dataGridView1.Refresh();
+             * можно удалить и имея объект row
+             * dataGridView1.Rows.Remove(row);
+             * dataGridView1.Refresh();
+             * дополнительно вам надо ее еще и из базы удалить. 
+             * Необходимо знать уникальный идентификатор записи в базе (обычно Id), выполнить запрос на удаление
+             */
+
         }
 
 

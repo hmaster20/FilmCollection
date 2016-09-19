@@ -63,6 +63,9 @@
             this.btnReport = new System.Windows.Forms.ToolStripMenuItem();
             this.tS4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,9 +120,6 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -257,27 +257,27 @@
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(140, 148);
+            this.contextMenu.Size = new System.Drawing.Size(153, 170);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
             // 
             this.cFind.Image = global::FilmCollection.Properties.Resources.find;
             this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(139, 22);
+            this.cFind.Size = new System.Drawing.Size(152, 22);
             this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(136, 6);
+            this.cSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // cAdd
             // 
             this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(139, 22);
+            this.cAdd.Size = new System.Drawing.Size(152, 22);
             this.cAdd.Text = "Добавить";
             this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
             // 
@@ -285,7 +285,7 @@
             // 
             this.cChange.Image = global::FilmCollection.Properties.Resources.change;
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(139, 22);
+            this.cChange.Size = new System.Drawing.Size(152, 22);
             this.cChange.Text = "Изменить";
             this.cChange.Click += new System.EventHandler(this.EditRec_Click);
             // 
@@ -293,20 +293,20 @@
             // 
             this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(139, 22);
+            this.cDelete.Size = new System.Drawing.Size(152, 22);
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             this.toolStripSeparator1.Visible = false;
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.testToolStripMenuItem.Text = "Test Create";
             this.testToolStripMenuItem.Visible = false;
             this.testToolStripMenuItem.Click += new System.EventHandler(this.Test_Add_rec);
@@ -314,7 +314,7 @@
             // testChangeToolStripMenuItem
             // 
             this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
-            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.testChangeToolStripMenuItem.Text = "Test Change";
             this.testChangeToolStripMenuItem.Visible = false;
             this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.Test_Change_rec);
@@ -441,6 +441,28 @@
             this.btnExit.Text = "Выход";
             this.btnExit.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // настройкаToolStripMenuItem
+            // 
+            this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnOptions,
+            this.btnActors});
+            this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
+            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.настройкаToolStripMenuItem.Text = "Настройка";
+            // 
+            // btnOptions
+            // 
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(138, 22);
+            this.btnOptions.Text = "Параметры";
+            // 
+            // btnActors
+            // 
+            this.btnActors.Name = "btnActors";
+            this.btnActors.Size = new System.Drawing.Size(138, 22);
+            this.btnActors.Text = "Актеры";
+            this.btnActors.Click += new System.EventHandler(this.btnActors_Click);
+            // 
             // btnHelp
             // 
             this.btnHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -454,14 +476,14 @@
             // 
             this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(152, 22);
+            this.btnRelease.Size = new System.Drawing.Size(149, 22);
             this.btnRelease.Text = "Версии";
             this.btnRelease.Visible = false;
             // 
@@ -513,8 +535,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(908, 459);
@@ -1052,28 +1074,6 @@
             // FileDialog
             // 
             this.FileDialog.FileName = "openFileDialog1";
-            // 
-            // настройкаToolStripMenuItem
-            // 
-            this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnOptions,
-            this.btnActors});
-            this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
-            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.настройкаToolStripMenuItem.Text = "Настройка";
-            // 
-            // btnOptions
-            // 
-            this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(152, 22);
-            this.btnOptions.Text = "Параметры";
-            // 
-            // btnActors
-            // 
-            this.btnActors.Name = "btnActors";
-            this.btnActors.Size = new System.Drawing.Size(152, 22);
-            this.btnActors.Text = "Актеры";
-            this.btnActors.Click += new System.EventHandler(this.btnActors_Click);
             // 
             // MainForm
             // 
