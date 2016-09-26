@@ -659,7 +659,7 @@ namespace FilmCollection
 
             PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar, paths.Count);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
-           // TreeFast(paths);
+            // TreeFast(paths);
         }
 
 
@@ -744,11 +744,11 @@ namespace FilmCollection
                                   //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
 
                                     // !!!!Неправильно выбирается элемент!!!! .Берется текущий id вместо id того который в базе.
-                                    
+
                                     Catalog emps = _treeViewColletion.Employees.Find(x => emp.Name == x.Name && emp.ParentId == x.ParentId);
                                     if (emps != null) { parent.Add(emps.nodeId); }
                                     //isElement = true;
-                                      // добавили id родителя List<int> parent 
+                                    // добавили id родителя List<int> parent 
                                     break;
                                 }
                             }
@@ -1009,25 +1009,30 @@ namespace FilmCollection
             int switch_Find = cbTypeFind.SelectedIndex;
             switch (switch_Find)
             {
-                case 0: Find(0); break; // поиск по названию
-                case 1: Find(2); break; // поиск по году
+                case 0: FindAll(0); break; // поиск по названию
+                case 1: FindAll(2); break; // поиск по году
                 default: MessageBox.Show("Укажите критерий поиска!"); break;
             }
         }
 
+        private void btnFindNext_Click(object sender, EventArgs e)
+        {
+            FindNext();
+        }
 
-        private void Find(int cell)
+        private void FindAll(int cell)
         {
             Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
-
             dgvTable.ClearSelection();
             dgvTable.MultiSelect = true;    // Требуется для выбора всех строк
+
             try
             {
                 foreach (DataGridViewRow row in dgvTable.Rows)
                 {
                     if (regex.IsMatch(row.Cells[cell].Value.ToString()))
                     {
+                        dgvSelected.Add(row.Cells[cell].RowIndex);
                         row.Selected = true;
                         //break; //Требуется для выбора одно строки
                     }
@@ -1038,6 +1043,30 @@ namespace FilmCollection
                 MessageBox.Show(exc.Message);
             }
         }
+
+
+        int FindCount { get; set; }
+        List<int> dgvSelected = new List<int>();
+        private void FindNext()
+        {
+            if (FindCount < dgvSelected.Count)
+            {
+                dgvTable.ClearSelection();
+                if (dgvSelected.Count > 0) dgvTable.FirstDisplayedScrollingRowIndex = dgvSelected[FindCount];
+
+                foreach (DataGridViewRow row in dgvTable.Rows)
+                {
+                    if (row.Index == dgvSelected[FindCount]) row.Selected = true;
+                }
+                FindCount++;
+            }
+            if (!(FindCount < dgvSelected.Count))
+            {
+                FindCount = 0;
+            }
+        }
+        
+
 
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -1263,11 +1292,13 @@ namespace FilmCollection
             Actors form = new Actors();
             if (form.ShowDialog() == DialogResult.OK)
             {
-               // _videoCollection.Add(form.Record);
-               // _videoCollection.Save();
-               // RefreshTables();
+                // _videoCollection.Add(form.Record);
+                // _videoCollection.Save();
+                // RefreshTables();
             }
         }
+
+
     }
 }
 
