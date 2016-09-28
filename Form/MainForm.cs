@@ -393,12 +393,6 @@ namespace FilmCollection
 
 
 
-
-
-
-
-
-
         #region Загрузка формы
         private void FormLoad()     // Загрузка формы
         {
@@ -550,8 +544,7 @@ namespace FilmCollection
             dgvTable.DataSource = null;
             dgvTable.DataSource = filtered;
 
-            if (selected != null)
-                SelectRecord(dgvTable, selected);
+            if (selected != null) SelectRecord(dgvTable, selected);
         }
 
 
@@ -1003,6 +996,10 @@ namespace FilmCollection
 
         }
 
+        private void cbTypeFind_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFind.Enabled = true;
+        }
 
         private void FindRec_Click(object sender, EventArgs e)  // Поиск
         {
@@ -1022,12 +1019,16 @@ namespace FilmCollection
 
         private void FindAll(int cell)
         {
-            Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
-            dgvTable.ClearSelection();
-            dgvTable.MultiSelect = true;    // Требуется для выбора всех строк
-
-            try
+             try
             {
+                string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
+
+               // Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
+                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+                dgvTable.ClearSelection();
+                dgvTable.MultiSelect = true;    // Требуется для выбора всех строк
+
                 foreach (DataGridViewRow row in dgvTable.Rows)
                 {
                     if (regex.IsMatch(row.Cells[cell].Value.ToString()))
@@ -1060,12 +1061,9 @@ namespace FilmCollection
                 }
                 FindCount++;
             }
-            if (!(FindCount < dgvSelected.Count))
-            {
-                FindCount = 0;
-            }
+            if (!(FindCount < dgvSelected.Count)) FindCount = 0;
         }
-        
+
 
 
 
@@ -1298,7 +1296,7 @@ namespace FilmCollection
             }
         }
 
-
+  
     }
 }
 

@@ -83,6 +83,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.tbFind = new System.Windows.Forms.TextBox();
+            this.btnFindNext = new System.Windows.Forms.Button();
             this.btnFind = new System.Windows.Forms.Button();
             this.cbTypeFind = new System.Windows.Forms.ComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
@@ -120,7 +121,6 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btnFindNext = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -653,9 +653,21 @@
             this.tbFind.Size = new System.Drawing.Size(328, 20);
             this.tbFind.TabIndex = 15;
             // 
+            // btnFindNext
+            // 
+            this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFindNext.Location = new System.Drawing.Point(227, 136);
+            this.btnFindNext.Name = "btnFindNext";
+            this.btnFindNext.Size = new System.Drawing.Size(123, 23);
+            this.btnFindNext.TabIndex = 14;
+            this.btnFindNext.Text = "Найти следующее";
+            this.btnFindNext.UseVisualStyleBackColor = true;
+            this.btnFindNext.Click += new System.EventHandler(this.btnFindNext_Click);
+            // 
             // btnFind
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFind.Enabled = false;
             this.btnFind.Location = new System.Drawing.Point(227, 107);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(123, 23);
@@ -675,6 +687,7 @@
             this.cbTypeFind.Name = "cbTypeFind";
             this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
             this.cbTypeFind.TabIndex = 13;
+            this.cbTypeFind.SelectedIndexChanged += new System.EventHandler(this.cbTypeFind_SelectedIndexChanged);
             // 
             // panelEdit
             // 
@@ -1076,17 +1089,6 @@
             // FileDialog
             // 
             this.FileDialog.FileName = "openFileDialog1";
-            // 
-            // btnFindNext
-            // 
-            this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFindNext.Location = new System.Drawing.Point(227, 136);
-            this.btnFindNext.Name = "btnFindNext";
-            this.btnFindNext.Size = new System.Drawing.Size(123, 23);
-            this.btnFindNext.TabIndex = 14;
-            this.btnFindNext.Text = "Найти следующее";
-            this.btnFindNext.UseVisualStyleBackColor = true;
-            this.btnFindNext.Click += new System.EventHandler(this.btnFindNext_Click);
             // 
             // MainForm
             // 

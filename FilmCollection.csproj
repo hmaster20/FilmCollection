@@ -161,6 +161,7 @@
     <Content Include="Resources\play.png" />
     <Content Include="Resources\resetFiltr.png" />
     <Content Include="Resources\save.png" />
+    <Content Include="Описание\Разработка.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
