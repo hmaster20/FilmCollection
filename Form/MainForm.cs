@@ -516,6 +516,7 @@ namespace FilmCollection
         private void RefreshTable(string nodeName)    // Обновление таблицы путем фильтрации элементов по полю Path
         {
             Record selected = GetSelectedRecord();  // получение выбранной строки
+            if (selected != null) SelectRecord(dgvTable, selected);
 
             List<Record> filtered = _videoCollection.VideoList;
 
@@ -541,10 +542,15 @@ namespace FilmCollection
                 default: break;
             }
 
-            dgvTable.DataSource = null;
-            dgvTable.DataSource = filtered;
-
-            if (selected != null) SelectRecord(dgvTable, selected);
+            try
+            {
+                dgvTable.DataSource = null;
+                dgvTable.DataSource = filtered;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -949,10 +955,21 @@ namespace FilmCollection
             //{
             if (e.Button == MouseButtons.Right)
             {
+                try
+                {
+                    if (e.RowIndex > -1)
+                    {
+                        dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        dgvTable.Rows[e.RowIndex].Selected = true;
+                        dgvTable.Focus();
 
-                dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                dgvTable.Rows[e.RowIndex].Selected = true;
-                dgvTable.Focus();
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
+
             }
             //}
         }
@@ -1043,7 +1060,7 @@ namespace FilmCollection
 
         private void FindAll(int cell)
         {
-             try
+            try
             {
                 string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
                 // Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
@@ -1063,7 +1080,7 @@ namespace FilmCollection
                         row.Selected = true;
                         //break; //Требуется для выбора одно строки
                     }
-                }                
+                }
                 if (i == 0)
                 {
                     MessageBox.Show("Элементов не найдено!");
@@ -1080,7 +1097,7 @@ namespace FilmCollection
 
         }
 
- 
+
 
 
 
@@ -1337,7 +1354,7 @@ namespace FilmCollection
             }
         }
 
-   
+
     }
 }
 
