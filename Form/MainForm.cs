@@ -1001,8 +1001,35 @@ namespace FilmCollection
             btnFind.Enabled = true;
         }
 
+        private void btnFindNext_Click(object sender, EventArgs e)
+        {
+            FindNext();
+        }
+
+        private void tabControl_ResetFindStatus_Click(object sender, EventArgs e)
+        {
+            ResetFind();
+        }
+
+        private void btnFindReset_Click(object sender, EventArgs e)
+        {
+            ResetFind();
+        }
+
+        private void ResetFind()
+        {
+            tbFind.Text = "";
+            FindStatusLabel.Text = "";
+            cbTypeFind.SelectedIndex = -1;
+            btnFind.Enabled = false;
+            btnFindNext.Enabled = false;
+        }
+
+
         private void FindRec_Click(object sender, EventArgs e)  // Поиск
         {
+            btnFindNext.Enabled = true;
+
             int switch_Find = cbTypeFind.SelectedIndex;
             switch (switch_Find)
             {
@@ -1012,10 +1039,7 @@ namespace FilmCollection
             }
         }
 
-        private void btnFindNext_Click(object sender, EventArgs e)
-        {
-            FindNext();
-        }
+
 
         private void FindAll(int cell)
         {
@@ -1039,21 +1063,25 @@ namespace FilmCollection
                         row.Selected = true;
                         //break; //Требуется для выбора одно строки
                     }
+                }                
+                if (i == 0)
+                {
+                    MessageBox.Show("Элементов не найдено!");
                 }
-                FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                else
+                {
+                    FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                }
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
+
         }
 
-        private void tabControl_ResetFindStatus_Click(object sender, EventArgs e)
-        {
-            tbFind.Text = "";
-            FindStatusLabel.Text = "";
-            btnFind.Enabled = false;
-        }
+ 
+
 
 
         int FindCount { get; set; }
@@ -1073,6 +1101,9 @@ namespace FilmCollection
             }
             if (!(FindCount < dgvSelected.Count)) FindCount = 0;
         }
+
+
+
 
 
 
@@ -1306,7 +1337,7 @@ namespace FilmCollection
             }
         }
 
-  
+   
     }
 }
 

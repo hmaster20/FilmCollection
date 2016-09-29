@@ -122,6 +122,7 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
             this.FindStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnFindReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -596,6 +597,7 @@
             // 
             // panelFind
             // 
+            this.panelFind.Controls.Add(this.btnFindReset);
             this.panelFind.Controls.Add(this.label3);
             this.panelFind.Controls.Add(this.label2);
             this.panelFind.Controls.Add(this.panel1);
@@ -659,6 +661,7 @@
             // btnFindNext
             // 
             this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFindNext.Enabled = false;
             this.btnFindNext.Location = new System.Drawing.Point(227, 136);
             this.btnFindNext.Name = "btnFindNext";
             this.btnFindNext.Size = new System.Drawing.Size(123, 23);
@@ -1100,6 +1103,16 @@
             this.FindStatusLabel.Name = "FindStatusLabel";
             this.FindStatusLabel.Size = new System.Drawing.Size(4, 17);
             // 
+            // btnFindReset
+            // 
+            this.btnFindReset.Location = new System.Drawing.Point(59, 136);
+            this.btnFindReset.Name = "btnFindReset";
+            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
+            this.btnFindReset.TabIndex = 18;
+            this.btnFindReset.Text = "Сброс";
+            this.btnFindReset.UseVisualStyleBackColor = true;
+            this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1242,6 +1255,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnActors;
         private System.Windows.Forms.Button btnFindNext;
         private System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
+        private System.Windows.Forms.Button btnFindReset;
     }
 }
 
