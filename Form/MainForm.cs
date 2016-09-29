@@ -1022,27 +1022,37 @@ namespace FilmCollection
              try
             {
                 string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
-
-               // Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
+                // Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
                 Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
                 dgvTable.ClearSelection();
                 dgvTable.MultiSelect = true;    // Требуется для выбора всех строк
 
+                int i = 0;
+
                 foreach (DataGridViewRow row in dgvTable.Rows)
                 {
                     if (regex.IsMatch(row.Cells[cell].Value.ToString()))
                     {
+                        i++;
                         dgvSelected.Add(row.Cells[cell].RowIndex);
                         row.Selected = true;
                         //break; //Требуется для выбора одно строки
                     }
                 }
+                FindStatusLabel.Text = "Найдено " + i + " элементов.";
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        private void tabControl_ResetFindStatus_Click(object sender, EventArgs e)
+        {
+            tbFind.Text = "";
+            FindStatusLabel.Text = "";
+            btnFind.Enabled = false;
         }
 
 

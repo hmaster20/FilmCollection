@@ -121,6 +121,7 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.FindStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -324,7 +325,8 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel,
-            this.tsProgressBar});
+            this.tsProgressBar,
+            this.FindStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 515);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1117, 22);
@@ -506,6 +508,7 @@
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(922, 491);
             this.tabControl2.TabIndex = 11;
+            this.tabControl2.Click += new System.EventHandler(this.tabControl_ResetFindStatus_Click);
             // 
             // tabFilm
             // 
@@ -1090,6 +1093,13 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
+            // FindStatusLabel
+            // 
+            this.FindStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.FindStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.FindStatusLabel.Name = "FindStatusLabel";
+            this.FindStatusLabel.Size = new System.Drawing.Size(4, 17);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1231,6 +1241,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnOptions;
         private System.Windows.Forms.ToolStripMenuItem btnActors;
         private System.Windows.Forms.Button btnFindNext;
+        private System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
     }
 }
 
