@@ -51,6 +51,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.FindStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCreateBase = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,6 +79,7 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelFind = new System.Windows.Forms.Panel();
+            this.btnFindReset = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -121,8 +123,6 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.FindStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnFindReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -165,7 +165,6 @@
             this.cmnCategoryString,
             this.cmnTime,
             this.cmnFileName});
-            this.dgvTable.ContextMenuStrip = this.contextMenu;
             this.dgvTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTable.Location = new System.Drawing.Point(0, 27);
             this.dgvTable.MultiSelect = false;
@@ -260,27 +259,27 @@
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(140, 148);
+            this.contextMenu.Size = new System.Drawing.Size(153, 170);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
             // 
             this.cFind.Image = global::FilmCollection.Properties.Resources.find;
             this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(139, 22);
+            this.cFind.Size = new System.Drawing.Size(152, 22);
             this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(136, 6);
+            this.cSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // cAdd
             // 
             this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(139, 22);
+            this.cAdd.Size = new System.Drawing.Size(152, 22);
             this.cAdd.Text = "Добавить";
             this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
             // 
@@ -288,7 +287,7 @@
             // 
             this.cChange.Image = global::FilmCollection.Properties.Resources.change;
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(139, 22);
+            this.cChange.Size = new System.Drawing.Size(152, 22);
             this.cChange.Text = "Изменить";
             this.cChange.Click += new System.EventHandler(this.EditRec_Click);
             // 
@@ -296,20 +295,20 @@
             // 
             this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(139, 22);
+            this.cDelete.Size = new System.Drawing.Size(152, 22);
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             this.toolStripSeparator1.Visible = false;
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.testToolStripMenuItem.Text = "Test Create";
             this.testToolStripMenuItem.Visible = false;
             this.testToolStripMenuItem.Click += new System.EventHandler(this.Test_Add_rec);
@@ -317,7 +316,7 @@
             // testChangeToolStripMenuItem
             // 
             this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
-            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.testChangeToolStripMenuItem.Text = "Test Change";
             this.testChangeToolStripMenuItem.Visible = false;
             this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.Test_Change_rec);
@@ -346,6 +345,13 @@
             this.tsProgressBar.Name = "tsProgressBar";
             this.tsProgressBar.Size = new System.Drawing.Size(200, 16);
             this.tsProgressBar.Visible = false;
+            // 
+            // FindStatusLabel
+            // 
+            this.FindStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.FindStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.FindStatusLabel.Name = "FindStatusLabel";
+            this.FindStatusLabel.Size = new System.Drawing.Size(4, 17);
             // 
             // mainMenu
             // 
@@ -610,6 +616,16 @@
             this.panelFind.Name = "panelFind";
             this.panelFind.Size = new System.Drawing.Size(368, 457);
             this.panelFind.TabIndex = 0;
+            // 
+            // btnFindReset
+            // 
+            this.btnFindReset.Location = new System.Drawing.Point(59, 136);
+            this.btnFindReset.Name = "btnFindReset";
+            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
+            this.btnFindReset.TabIndex = 18;
+            this.btnFindReset.Text = "Сброс";
+            this.btnFindReset.UseVisualStyleBackColor = true;
+            this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
             // 
             // label3
             // 
@@ -1095,23 +1111,6 @@
             // FileDialog
             // 
             this.FileDialog.FileName = "openFileDialog1";
-            // 
-            // FindStatusLabel
-            // 
-            this.FindStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
-            this.FindStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
-            this.FindStatusLabel.Name = "FindStatusLabel";
-            this.FindStatusLabel.Size = new System.Drawing.Size(4, 17);
-            // 
-            // btnFindReset
-            // 
-            this.btnFindReset.Location = new System.Drawing.Point(59, 136);
-            this.btnFindReset.Name = "btnFindReset";
-            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
-            this.btnFindReset.TabIndex = 18;
-            this.btnFindReset.Text = "Сброс";
-            this.btnFindReset.UseVisualStyleBackColor = true;
-            this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
             // 
             // MainForm
             // 
