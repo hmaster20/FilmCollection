@@ -951,27 +951,30 @@ namespace FilmCollection
 
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
         {
-            //      if (e.RowIndex > -1 && e.RowIndex < dgvTable.Rows.Count - 1)
-            //{
+            // if (e.RowIndex > -1 && e.RowIndex < dgvTable.Rows.Count - 1)
             if (e.Button == MouseButtons.Right)
             {
                 try
                 {
-                    if (e.RowIndex > -1)
+                    if (e.ColumnIndex > -1 && e.RowIndex > -1)
                     {
                         dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
                         dgvTable.Rows[e.RowIndex].Selected = true;
                         dgvTable.Focus();
-
+                        dgvTable.ContextMenuStrip = contextMenu;
+                        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+                    }
+                    else
+                    {
+                        dgvTable.ContextMenuStrip = null;
+                        dgvTable.ClearSelection();
                     }
                 }
                 catch (Exception Ex)
                 {
                     MessageBox.Show(Ex.Message);
                 }
-
             }
-            //}
         }
 
 
@@ -1090,11 +1093,10 @@ namespace FilmCollection
                     FindStatusLabel.Text = "Найдено " + i + " элементов.";
                 }
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(ex.Message);
             }
-
         }
 
 
@@ -1353,7 +1355,7 @@ namespace FilmCollection
                 // RefreshTables();
             }
         }
-
+        
 
     }
 }
