@@ -897,10 +897,11 @@ namespace FilmCollection
                     subPathAgg += subPath + pathSeparator;
                     TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
                     if (nodes.Length == 0)
-                        if (lastNode == null)
-                            lastNode = treeView.Nodes.Add(subPathAgg, subPath);
-                        else
-                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                        lastNode = (lastNode == null) ? treeView.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                        //if (lastNode == null)
+                        //    lastNode = treeView.Nodes.Add(subPathAgg, subPath);
+                        //else
+                        //    lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
                     else
                         lastNode = nodes[0];
                 }
@@ -1101,7 +1102,8 @@ namespace FilmCollection
             else if (dialog == DialogResult.No)
             {
                 e.Cancel = true;
-            }            
+            }
+
             _videoCollection.Save();
 
             SaveFormVisualConfig();
