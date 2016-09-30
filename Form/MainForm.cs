@@ -81,8 +81,82 @@ namespace FilmCollection
         }
 
 
+        private void Main_Load(object sender, EventArgs e)      // Загрузка формы
+        {
+            FormLoad();
+        }
 
+        private void Main_Close(object sender, FormClosingEventArgs e)    // обработка закрытия формы или выхода
+        {
+            FormClose(e);
+        }
+        
+        #region Главное меню
 
+        private void CreateBase_Click(object sender, EventArgs e)
+        {
+            CreateBase();
+        }
+
+        private void UpdateBase_Click(object sender, EventArgs e)
+        {
+            UpdateBase();
+        }
+
+        private void BackupBase_Click(object sender, EventArgs e)
+        {
+            BackupBase();
+        }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            // Сформировать отчет в формате html и открыть его в браузере по умолчанию 
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void About_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
+        }
+
+        #endregion
+        
+
+        #region Панель редактирования
+        private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разблокировка поля имени файла
+        {
+            tbFileName.Enabled = true;
+            btnFileNameEdit.Enabled = false;    // блокировка кнопки разблокировки :)
+            UserModifiedChanged(sender, e);
+        }
+
+        private void Edit_NewRec(object sender, EventArgs e)    // Создание элемента
+        {
+            NewRecord();
+        }
+        private void Edit_SaveRec(object sender, EventArgs e)   // Сохранение нового или измененного элемента
+        {
+            EditSave();
+        }
+        private void Edit_Cancel(object sender, EventArgs e) // Отмена редактирования
+        {
+            EditCancel();
+        }
+
+        private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
+        {
+            if (fsInfo == null) dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки в таблице
+            panelEditUnlock();          // разблокировка кнопок
+            dgvTable.Enabled = false;   // блокировка таблицы
+            treeFolder.Enabled = false; // блокировка дерева
+        }
+
+        #endregion
 
 
 
@@ -132,14 +206,12 @@ namespace FilmCollection
             tsProgressBar.Value = e.ProgressPercentage;
         }
 
-
         private void Smth_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогрес бара
             MessageBox.Show(_videoCollection.VideoList.Count.ToString());
         }
-
-
+        
         private void Smth_DoWork(object sender, DoWorkEventArgs e)  // Тело потока
         {
             DirectoryInfo directory = (DirectoryInfo)e.Argument;
@@ -177,12 +249,10 @@ namespace FilmCollection
 
         private void CreateBase()       // Создание файла базы
         {
-            // Создание диалогового окна FolderBrowserDialog
             FolderBrowserDialog fbDialog = new FolderBrowserDialog();
             fbDialog.Description = "Укажите расположение файлов мультимедиа:";
             fbDialog.ShowNewFolderButton = false;
 
-            // ============= Нужно сделать фильтрацию добавляемых файлов по расширению ============= 
             if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
             {
                 DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
@@ -210,7 +280,6 @@ namespace FilmCollection
                 tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
                 tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
 
-
                 folderName = fbDialog.SelectedPath;                     //Извлечение имени папки
 
                 DialogResult correct = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
@@ -219,7 +288,6 @@ namespace FilmCollection
                 {
                     CreateBase();
                 }
-
 
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
                 try
@@ -231,10 +299,6 @@ namespace FilmCollection
                     MessageBox.Show(e.Message);
                     return;
                 }
-
-
-
-
 
                 WorkerCB.RunWorkerAsync(directory);
 
@@ -249,57 +313,6 @@ namespace FilmCollection
             }
         }
 
-
-
-
-
-
-
-        private void Main_FormLoad(object sender, EventArgs e)      // Загрузка формы
-        {
-            FormLoad();
-        }
-
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)    // обработка закрытия формы или выхода
-        {
-            FormClose(e);
-        }
-
-
-        #region Главное меню
-
-        private void CreateBase_Click(object sender, EventArgs e)
-        {
-            CreateBase();
-        }
-
-        private void UpdateBase_Click(object sender, EventArgs e)
-        {
-            UpdateBase();
-        }
-
-        private void BackupBase_Click(object sender, EventArgs e)    // Создание копии базы
-        {
-            BackupBase();
-        }
-
-        private void btnReport_Click(object sender, EventArgs e)
-        {
-            // Сформировать отчет в формате html и открыть его в браузере по умолчанию 
-        }
-
-        private void Exit_Click(object sender, EventArgs e)   //Выход
-        {
-            Close();
-        }
-
-        private void About_Click(object sender, EventArgs e)
-        {
-            About about = new About();
-            about.ShowDialog();
-        }
-
-        #endregion
 
 
         #region Контекстное меню для DataGridView
@@ -359,35 +372,6 @@ namespace FilmCollection
         }
         #endregion
 
-
-        private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разблокировка поля имени файла
-        {
-            tbFileName.Enabled = true;
-            btnFileNameEdit.Enabled = false;    // блокировка кнопки разблокировки :)
-            UserModifiedChanged(sender, e);
-        }
-
-        private void Edit_NewRec(object sender, EventArgs e)    // Создание элемента
-        {
-            NewRecord();
-        }
-        private void Edit_SaveRec(object sender, EventArgs e)   // Сохранение нового или измененного элемента
-        {
-            EditSave();
-        }
-        private void Edit_Cancel(object sender, EventArgs e) // Отмена редактирования
-        {
-            EditCancel();
-        }
-
-
-        private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при внесение изменения в панели редактирования
-        {
-            if (fsInfo == null) dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки
-            panelEditUnlock();          // разблокировка кнопок
-            dgvTable.Enabled = false;   // блокировка таблицы
-            treeFolder.Enabled = false; // блокировка дерева
-        }
 
 
 
@@ -876,12 +860,7 @@ namespace FilmCollection
             //}
 
 
-
-
-
-
-
-
+            
 
 
 
@@ -953,7 +932,6 @@ namespace FilmCollection
             tbFileName.Text = "";
             cBoxGenre.SelectedIndex = 0;
             cBoxTypeVideo.SelectedIndex = 0;
-
         }
 
 

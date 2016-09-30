@@ -1124,8 +1124,8 @@
             this.MainMenuStrip = this.menudgvTable;
             this.Name = "MainForm";
             this.Text = "Фильмотека";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
-            this.Load += new System.EventHandler(this.Main_FormLoad);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_Close);
+            this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
             this.contextMenu.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
