@@ -189,7 +189,7 @@ namespace FilmCollection
                     _videoCollection.Clear();   // очищаем колелкцию
                     treeFolder.Nodes.Clear();   // очищаем иерархию
                     dgvTable.ClearSelection();  // выключаем селекты таблицы
-                    RefreshTable("");          // сбрасываем старые значения таблицы
+                    PepareRefresh("");          // сбрасываем старые значения таблицы
                 }
             }
             else // Если базы нет, то создаем пустой файл базы
@@ -302,7 +302,7 @@ namespace FilmCollection
         private void Filter(object sender, EventArgs e)     // При выборе фильтра выполняется сброс фильтра по дереву и таблице
         {
             dgvTable.ClearSelection();
-            RefreshTable("");
+            PepareRefresh("");
         }
 
         private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
@@ -322,7 +322,7 @@ namespace FilmCollection
             {
                 _videoCollection.Add(form.rec);
                 _videoCollection.Save();
-                RefreshTable("");
+                PepareRefresh("");
             }
         }
 
@@ -332,7 +332,7 @@ namespace FilmCollection
             if (new EditForm(record).ShowDialog() == DialogResult.OK)
             {
                 _videoCollection.Save();
-                RefreshTable("");      //Должно быть обновление вместо фильтра
+                PepareRefresh("");      //Должно быть обновление вместо фильтра
             }
         }
 
@@ -402,7 +402,7 @@ namespace FilmCollection
                 if (_videoCollection.VideoList.Count > 0)
                 {
                     tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
-                    RefreshTable("");
+                    PepareRefresh("");
                     CreateTree();
                 }
                 timerLoad.Enabled = true;                   // Исключение раннего селекта treeFolder и фильтра dataGridView1
@@ -513,11 +513,8 @@ namespace FilmCollection
         }
 
 
-        private void RefreshTable(string nodeName)    // Обновление таблицы путем фильтрации элементов по полю Path
+        private void PepareRefresh(string nodeName)
         {
-            Record selected = GetSelectedRecord();  // получение выбранной строки
-            if (selected != null) SelectRecord(dgvTable, selected);
-
             List<Record> filtered = _videoCollection.VideoList;
 
             if (nodeName != "" && nodeName != "Фильмотека")
@@ -541,6 +538,13 @@ namespace FilmCollection
                 case 3: filtered.Sort(Record.CompareByCategory); break;
                 default: break;
             }
+            RefreshTable(filtered);
+        }
+        
+        private void RefreshTable(List<Record> filtered)
+        {
+            Record selected = GetSelectedRecord();  // получение выбранной строки
+            if (selected != null) SelectRecord(dgvTable, selected);
 
             try
             {
@@ -925,13 +929,13 @@ namespace FilmCollection
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
-            RefreshTable(e.Node.FullPath);     // обновление на основе полученной ноды
+            PepareRefresh(e.Node.FullPath);     // обновление на основе полученной ноды
         }
 
 
         private void ResetFilter_Click(object sender, EventArgs e)
         {
-            RefreshTable("");
+            PepareRefresh("");
             dgvTable.ClearSelection(); // сброс селекта
 
             tscbTypeFilter.SelectedIndex = 0;
@@ -989,31 +993,14 @@ namespace FilmCollection
         {
             Record record = GetSelectedRecord();
             DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + record.Name + "\" ?",
-                                      "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                                  "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialog == DialogResult.Yes)
             {
                 _videoCollection.Remove(record);
                 dgvTable.ClearSelection();
                 _videoCollection.Save();
-                RefreshTable("");
+                PepareRefresh("");
             }
-
-            /*            
-             * Кто поможет написать код для удалении строк из DataGridView,
-             * что бы после рефреша формы или проекта не строка с такой ID больше не появлялся в списке DataGridView.
-             * если удалить все то так:
-             * dataGridView1.Rows.Clear();
-             * dataGridView1.Refresh();
-             * если конкретную строчку то надо знать ее индекс
-             * dataGridView1.Rows.RemoveAt(индекс строки);
-             * dataGridView1.Refresh();
-             * можно удалить и имея объект row
-             * dataGridView1.Rows.Remove(row);
-             * dataGridView1.Refresh();
-             * дополнительно вам надо ее еще и из базы удалить. 
-             * Необходимо знать уникальный идентификатор записи в базе (обычно Id), выполнить запрос на удаление
-             */
-
         }
 
         private void cbTypeFind_SelectedIndexChanged(object sender, EventArgs e)
@@ -1255,7 +1242,6 @@ namespace FilmCollection
             {
                 Record record = new Record();
 
-
                 record.FileName = fsInfo.Name;
                 record.Path = fsInfo.DirectoryName;
                 record.DirName = fsInfo.Directory.Name;
@@ -1289,7 +1275,7 @@ namespace FilmCollection
                     {
                         // System.IO.File.Move("oldfilename", "newfilename");
                         File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
-                            record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
+                                  record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
                         record.FileName = tbFileName.Text;
                         record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
                     }
@@ -1323,7 +1309,7 @@ namespace FilmCollection
             dgvTable.Enabled = true;    // Разблокировка таблицы
             dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
 
-            RefreshTable("");  // перезагрузка таблицы
+            PepareRefresh("");  // перезагрузка таблицы
 
             btnFileNameEdit.Enabled = true; // Разблокировка кнопки разблокировки :)
             btnEditCancel.Visible = false;  // "Отмена" - скрыть
@@ -1355,18 +1341,6 @@ namespace FilmCollection
                 // RefreshTables();
             }
         }
-        
 
     }
 }
-
-
-
-// this.customersDataGridView.Columns[0].Visible = false;
-/* Сделать настраиваемый фильтр для добавления файлов в процессе создания базы
- * Оптимизировать создание дерева до передачи интерфейсу
- * Сделать опцию настройки и добавления столбцов
- * 
- * 
- * 
- */
