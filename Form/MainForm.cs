@@ -19,6 +19,9 @@ namespace FilmCollection
         Record record = null;       // Доступ к записи
         FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
 
+        int FindCount { get; set; }                 // счетчик найденых строк
+        public List<int> dgvSelected { get; set; }  // индексы найденых строк
+
         BackgroundWorker WorkerCB;
         public BackgroundWorker workeLoad;
 
@@ -54,6 +57,7 @@ namespace FilmCollection
             dgvTable.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
+            dgvSelected = new List<int>();          // хранение найденых индексов строки
 
 
 
@@ -1030,6 +1034,8 @@ namespace FilmCollection
             cbTypeFind.SelectedIndex = -1;
             btnFind.Enabled = false;
             btnFindNext.Enabled = false;
+            dgvSelected.Clear();
+            dgvTable.ClearSelection();
         }
 
 
@@ -1044,16 +1050,13 @@ namespace FilmCollection
                 case 1: FindAll(2); break; // поиск по году
                 default: MessageBox.Show("Укажите критерий поиска!"); break;
             }
-        }
-
-
+        }        
 
         private void FindAll(int cell)
         {
             try
             {
                 string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
-                // Regex regex = new Regex(tbFind.Text, RegexOptions.IgnoreCase);
                 Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
                 dgvTable.ClearSelection();
@@ -1072,13 +1075,9 @@ namespace FilmCollection
                     }
                 }
                 if (i == 0)
-                {
                     MessageBox.Show("Элементов не найдено!");
-                }
                 else
-                {
                     FindStatusLabel.Text = "Найдено " + i + " элементов.";
-                }
             }
             catch (Exception ex)
             {
@@ -1090,8 +1089,7 @@ namespace FilmCollection
 
 
 
-        int FindCount { get; set; }
-        List<int> dgvSelected = new List<int>();
+
         private void FindNext()
         {
             if (FindCount < dgvSelected.Count)
@@ -1125,8 +1123,16 @@ namespace FilmCollection
             else if (dialog == DialogResult.No)
             {
                 e.Cancel = true;
-            }
+            }            
+            _videoCollection.Save();
 
+            SaveFormVisualConfig();
+        }
+
+        private void SaveFormVisualConfig()
+        {
+            // Сохранение состояния главной формы
+            _videoCollection.Options.FormState = this.WindowState.ToString();
             #region Сохранение состояния сплиттеров
             _videoCollection.Options.scMainSplitter = scMain.SplitterDistance;
             _videoCollection.Options.scTabFilmSplitter = scTabFilm.SplitterDistance;
@@ -1147,14 +1153,7 @@ namespace FilmCollection
             //    }
             //}
             //#endregion
-
-            // Сохранение состояния главной формы
-            _videoCollection.Options.FormState = this.WindowState.ToString();
-
-            _videoCollection.Save();
-
         }
-
 
         private void NewRecord()    // Создание новой записи - объекта Record
         {
@@ -1210,9 +1209,6 @@ namespace FilmCollection
                 tbFileName.Enabled = false; // блокировка поля измнения названия файла
             }
         }
-
-
-
 
 
         private void EditSave()
