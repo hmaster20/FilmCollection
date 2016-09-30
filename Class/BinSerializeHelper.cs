@@ -1,31 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
+using System.Windows;
 
 namespace FilmCollection
 {
     class BinSerializeHelper
     {
-        //        static void serDe()
-        //        {
-        //            // создаем объект BinaryFormatter
-        //            BinaryFormatter formatter = new BinaryFormatter();
-        //            // получаем поток, куда будем записывать сериализованный объект
-        //            using (FileStream fs = new FileStream("people.dat", FileMode.OpenOrCreate)
-        //            {   Formatter.Serialize(fs, person);
-        //        }
+        public static bool SerializeAndSave(string filename, object objectToSerialize)
+        {
+            try
+            {
+                // создаем объект BinaryFormatter
+                BinaryFormatter formatter = new BinaryFormatter();
+                // получаем поток, куда будем записывать сериализованный объект
+                using (FileStream fs = new FileStream("Films.dat", FileMode.OpenOrCreate))
+                {
+                    formatter.Serialize(fs, objectToSerialize);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+            return true;
+        }
 
-        //            // десериализация из файла people.dat
-        //            using (FileStream fs = new FileStream("people.dat", FileMode.OpenOrCreate))
-        //            {                 Person newPerson = (Person)formatter.Deserialize(fs);
-        //}
-        //                using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Create))
-        //                    serializer.Serialize(stream, objectToSerialize);
-
-        // }
+        static void LoadFromBinaryFile(string fileName)
+        {
+            BinaryFormatter binFormat = new BinaryFormatter();
+            // Прочитать JamesBondCar из двоичного файла.
+            using (Stream fStream = File.OpenRead(fileName))
+            {
+                //J carFromDisk = (J)binFormat.Deserialize(fStream);
+            }
+        }
     }
 }
+
+
+
