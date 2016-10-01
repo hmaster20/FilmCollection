@@ -123,6 +123,8 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.tabImage = new System.Windows.Forms.TabPage();
+            this.btnDownloadPic = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -145,6 +147,7 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
+            this.tabImage.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTable
@@ -259,27 +262,27 @@
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(153, 170);
+            this.contextMenu.Size = new System.Drawing.Size(140, 148);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
             // 
             this.cFind.Image = global::FilmCollection.Properties.Resources.find;
             this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(152, 22);
+            this.cFind.Size = new System.Drawing.Size(139, 22);
             this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.cSeparator3.Size = new System.Drawing.Size(136, 6);
             // 
             // cAdd
             // 
             this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(152, 22);
+            this.cAdd.Size = new System.Drawing.Size(139, 22);
             this.cAdd.Text = "Добавить";
             this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
             // 
@@ -287,7 +290,7 @@
             // 
             this.cChange.Image = global::FilmCollection.Properties.Resources.change;
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(152, 22);
+            this.cChange.Size = new System.Drawing.Size(139, 22);
             this.cChange.Text = "Изменить";
             this.cChange.Click += new System.EventHandler(this.EditRec_Click);
             // 
@@ -295,20 +298,20 @@
             // 
             this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(152, 22);
+            this.cDelete.Size = new System.Drawing.Size(139, 22);
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
             this.toolStripSeparator1.Visible = false;
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.testToolStripMenuItem.Text = "Test Create";
             this.testToolStripMenuItem.Visible = false;
             this.testToolStripMenuItem.Click += new System.EventHandler(this.Test_Add_rec);
@@ -316,7 +319,7 @@
             // testChangeToolStripMenuItem
             // 
             this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
-            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.testChangeToolStripMenuItem.Text = "Test Change";
             this.testChangeToolStripMenuItem.Visible = false;
             this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.Test_Change_rec);
@@ -509,6 +512,7 @@
             // 
             this.tabControl2.Controls.Add(this.tabFilm);
             this.tabControl2.Controls.Add(this.tabWriter);
+            this.tabControl2.Controls.Add(this.tabImage);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
@@ -1112,6 +1116,26 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
+            // tabImage
+            // 
+            this.tabImage.Controls.Add(this.btnDownloadPic);
+            this.tabImage.Location = new System.Drawing.Point(4, 22);
+            this.tabImage.Name = "tabImage";
+            this.tabImage.Size = new System.Drawing.Size(914, 465);
+            this.tabImage.TabIndex = 2;
+            this.tabImage.Text = "Постеры";
+            this.tabImage.UseVisualStyleBackColor = true;
+            // 
+            // btnDownloadPic
+            // 
+            this.btnDownloadPic.Location = new System.Drawing.Point(632, 95);
+            this.btnDownloadPic.Name = "btnDownloadPic";
+            this.btnDownloadPic.Size = new System.Drawing.Size(93, 40);
+            this.btnDownloadPic.TabIndex = 0;
+            this.btnDownloadPic.Text = "Загрузка Изображения";
+            this.btnDownloadPic.UseVisualStyleBackColor = true;
+            this.btnDownloadPic.Click += new System.EventHandler(this.DownloadPic_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1155,6 +1179,7 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
+            this.tabImage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1255,6 +1280,8 @@
         private System.Windows.Forms.Button btnFindNext;
         private System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
         private System.Windows.Forms.Button btnFindReset;
+        private System.Windows.Forms.TabPage tabImage;
+        private System.Windows.Forms.Button btnDownloadPic;
     }
 }
 
