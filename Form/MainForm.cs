@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Xml;
 using System.Linq;
+using System.Net;
 
 namespace FilmCollection
 {
@@ -46,8 +47,7 @@ namespace FilmCollection
             //    });
             //    t.Start();
             //};
-
-
+            
 
             InitializeComponent();                  // Создание и отрисовка элементов
             this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
@@ -58,9 +58,7 @@ namespace FilmCollection
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение найденых индексов строки
-
-
-
+            
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideoRus)))
             {
@@ -77,10 +75,8 @@ namespace FilmCollection
             WorkerCB.RunWorkerCompleted += Smth_RunWorkerCompleted; // Здесь завершающая задачка в потоке
             WorkerCB.ProgressChanged += Smth_ProgressChanged;       // Здесь работает прогресс бар
             WorkerCB.WorkerReportsProgress = true;                  // Говорим что поток может передавать информацию о ходе своей работы
-
         }
-
-
+        
         private void Main_Load(object sender, EventArgs e)      // Загрузка формы
         {
             FormLoad();
@@ -90,7 +86,7 @@ namespace FilmCollection
         {
             FormClose(e);
         }
-        
+
         #region Главное меню
 
         private void CreateBase_Click(object sender, EventArgs e)
@@ -125,7 +121,7 @@ namespace FilmCollection
         }
 
         #endregion
-        
+
 
         #region Панель редактирования
         private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разблокировка поля имени файла
@@ -160,15 +156,7 @@ namespace FilmCollection
 
 
 
-
-
-
-
-
-
-
-
-
+        
 
 
 
@@ -211,7 +199,7 @@ namespace FilmCollection
             // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогрес бара
             MessageBox.Show(_videoCollection.VideoList.Count.ToString());
         }
-        
+
         private void Smth_DoWork(object sender, DoWorkEventArgs e)  // Тело потока
         {
             DirectoryInfo directory = (DirectoryInfo)e.Argument;
@@ -374,11 +362,7 @@ namespace FilmCollection
 
 
 
-
-
-
-
-
+        
 
 
         #region Загрузка формы
@@ -528,7 +512,7 @@ namespace FilmCollection
             }
             RefreshTable(filtered);
         }
-        
+
         private void RefreshTable(List<Record> filtered)
         {
             Record selected = GetSelectedRecord();  // получение выбранной строки
@@ -602,10 +586,8 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 Record record = null;
-                if (dgv.SelectedRows[0].DataBoundItem is Record)
-                    record = dgv.SelectedRows[0].DataBoundItem as Record;
-                if (record != null)
-                    return record;
+                if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
+                if (record != null) return record;
             }
             return null;
         }
@@ -860,7 +842,7 @@ namespace FilmCollection
             //}
 
 
-            
+
 
 
 
@@ -898,10 +880,10 @@ namespace FilmCollection
                     TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
                     if (nodes.Length == 0)
                         lastNode = (lastNode == null) ? treeView.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
-                        //if (lastNode == null)
-                        //    lastNode = treeView.Nodes.Add(subPathAgg, subPath);
-                        //else
-                        //    lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                    //if (lastNode == null)
+                    //    lastNode = treeView.Nodes.Add(subPathAgg, subPath);
+                    //else
+                    //    lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
                     else
                         lastNode = nodes[0];
                 }
@@ -1029,7 +1011,7 @@ namespace FilmCollection
                 case 1: FindAll(2); break; // поиск по году
                 default: MessageBox.Show("Укажите критерий поиска!"); break;
             }
-        }        
+        }
 
         private void FindAll(int cell)
         {
@@ -1318,5 +1300,81 @@ namespace FilmCollection
             }
         }
 
+
+        #region Обработка постеров
+        private void DownloadPic_Click(object sender, EventArgs e)
+        {
+            string remoteFileUrl = @"https://pic.afisha.mail.ru/share/event/730486/?20160916210443.1";
+            string localFileName = "someImage.jpg";
+            //using (WebClient webClient = new WebClient())
+            WebClient webClient = new WebClient();
+            webClient.DownloadFile(remoteFileUrl, localFileName);            
+            //byte[] data;
+            //using (WebClient client = new WebClient())
+            //{
+            //    data = client.DownloadData("http://testsite.com/web/abc.jpg");
+            //}
+            //File.WriteAllBytes(@"c:\images\xyz.jpg", data);
+        }
+
+
+        static void Mains()
+        {
+            parse();
+            Console.WriteLine("!!!");
+            //string ii = GetHtmlPageText("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
+            // Console.WriteLine(ii);
+            // Console.WriteLine("222");
+            Console.ReadKey();
+        }        
+        //<meta property="og:image" content="
+
+        static void parse()
+        {
+            string sourcestring = GetHtmlPageText("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
+            // String sourcestring = "source string to match with pattern";
+            //Regex re = new Regex(@"<meta\b[^>]*\bname=[""]keywords[""][^>]*\bcontent=(['""]?)((?:[^,>""'],?){1,})\1[>]", RegexOptions.IgnoreCase);
+            //var tags = Regex.Matches(myHtmlText, @"(?<tag>\<meta[^\>]*>)", RegexOptions.IgnoreCase);
+            //MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta[^\>]*>)", RegexOptions.IgnoreCase);
+            //Regex metaTag = new Regex(@"<meta name=\"(.+?)\" content=\"(.+?)\">");
+            //MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta property\""(.+?)\"">)", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+            MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta.property=\""og:image\"".[^\>]*>)", RegexOptions.IgnoreCase);
+            //MatchCollection mc = re.Matches(sourcestring);
+            //int mIdx = 0;
+            foreach (Match m in mc)
+            {
+                Console.WriteLine(m.ToString());
+                //for (int gIdx = 0; gIdx < m.Groups.Count; gIdx++)
+                //{
+                //    Console.WriteLine("[{0}][{1}] = {2}", mIdx, re.GetGroupNames()[gIdx], m.Groups[gIdx].Value);
+                //}
+                //mIdx++;
+                Console.WriteLine("====================");
+                string myString = m.ToString();
+                string[] subStrings = myString.Split('"');
+                Console.WriteLine("content = " + subStrings[3]);
+                //foreach (string str in subStrings)
+                //{
+                //    Console.WriteLine(str);
+                //}
+            }
+        }        
+        public static string GetHtmlPageText(string url)
+        {
+            WebClient client = new WebClient();
+            using (Stream data = client.OpenRead(url))
+            {
+                using (StreamReader reader = new StreamReader(data))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }        
+        // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
+        // <a href = "/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
+        // https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/
+        // https://afisha.mail.ru
+        // https://pic.afisha.mail.ru/7087157/
+        #endregion
     }
 }
