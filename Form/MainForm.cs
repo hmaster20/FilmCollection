@@ -1329,6 +1329,7 @@ namespace FilmCollection
         }        
         //<meta property="og:image" content="
 
+        //получение meta тэга
         static void parse()
         {
             string sourcestring = GetHtmlPageText("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
@@ -1359,6 +1360,7 @@ namespace FilmCollection
                 //}
             }
         }        
+        //получение веб-страницы
         public static string GetHtmlPageText(string url)
         {
             WebClient client = new WebClient();
