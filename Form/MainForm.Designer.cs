@@ -39,7 +39,7 @@
             this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextTabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,13 +120,18 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
             this.tabWriter = new System.Windows.Forms.TabPage();
+            this.tabImage = new System.Windows.Forms.TabPage();
+            this.btnDownloadPic = new System.Windows.Forms.Button();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.tabImage = new System.Windows.Forms.TabPage();
-            this.btnDownloadPic = new System.Windows.Forms.Button();
+            this.contextTreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.сCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.сExpandAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.cShowAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
-            this.contextMenu.SuspendLayout();
+            this.contextTabMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -143,11 +148,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).BeginInit();
             this.panelView.SuspendLayout();
             this.panelTitle.SuspendLayout();
+            this.tabImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
-            this.tabImage.SuspendLayout();
+            this.contextTreeMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTable
@@ -250,9 +256,9 @@
             this.cmnFileName.Name = "cmnFileName";
             this.cmnFileName.ReadOnly = true;
             // 
-            // contextMenu
+            // contextTabMenu
             // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextTabMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cFind,
             this.cSeparator3,
             this.cAdd,
@@ -261,9 +267,9 @@
             this.toolStripSeparator1,
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
-            this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(140, 148);
-            this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
+            this.contextTabMenu.Name = "contextMenuStrip1";
+            this.contextTabMenu.Size = new System.Drawing.Size(140, 148);
+            this.contextTabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
             // 
@@ -1088,6 +1094,26 @@
             this.tabWriter.Text = "Редактор";
             this.tabWriter.UseVisualStyleBackColor = true;
             // 
+            // tabImage
+            // 
+            this.tabImage.Controls.Add(this.btnDownloadPic);
+            this.tabImage.Location = new System.Drawing.Point(4, 22);
+            this.tabImage.Name = "tabImage";
+            this.tabImage.Size = new System.Drawing.Size(914, 465);
+            this.tabImage.TabIndex = 2;
+            this.tabImage.Text = "Постеры";
+            this.tabImage.UseVisualStyleBackColor = true;
+            // 
+            // btnDownloadPic
+            // 
+            this.btnDownloadPic.Location = new System.Drawing.Point(632, 95);
+            this.btnDownloadPic.Name = "btnDownloadPic";
+            this.btnDownloadPic.Size = new System.Drawing.Size(93, 40);
+            this.btnDownloadPic.TabIndex = 0;
+            this.btnDownloadPic.Text = "Загрузка Изображения";
+            this.btnDownloadPic.UseVisualStyleBackColor = true;
+            this.btnDownloadPic.Click += new System.EventHandler(this.DownloadPic_Click);
+            // 
             // timerLoad
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
@@ -1116,25 +1142,38 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
-            // tabImage
+            // contextTreeMenu
             // 
-            this.tabImage.Controls.Add(this.btnDownloadPic);
-            this.tabImage.Location = new System.Drawing.Point(4, 22);
-            this.tabImage.Name = "tabImage";
-            this.tabImage.Size = new System.Drawing.Size(914, 465);
-            this.tabImage.TabIndex = 2;
-            this.tabImage.Text = "Постеры";
-            this.tabImage.UseVisualStyleBackColor = true;
+            this.contextTreeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сCollapseAll,
+            this.сExpandAll,
+            this.toolStripSeparator2,
+            this.cShowAll});
+            this.contextTreeMenu.Name = "contextTreeMenu";
+            this.contextTreeMenu.Size = new System.Drawing.Size(157, 76);
             // 
-            // btnDownloadPic
+            // сCollapseAll
             // 
-            this.btnDownloadPic.Location = new System.Drawing.Point(632, 95);
-            this.btnDownloadPic.Name = "btnDownloadPic";
-            this.btnDownloadPic.Size = new System.Drawing.Size(93, 40);
-            this.btnDownloadPic.TabIndex = 0;
-            this.btnDownloadPic.Text = "Загрузка Изображения";
-            this.btnDownloadPic.UseVisualStyleBackColor = true;
-            this.btnDownloadPic.Click += new System.EventHandler(this.DownloadPic_Click);
+            this.сCollapseAll.Name = "сCollapseAll";
+            this.сCollapseAll.Size = new System.Drawing.Size(156, 22);
+            this.сCollapseAll.Text = "Свернуть все";
+            // 
+            // сExpandAll
+            // 
+            this.сExpandAll.Name = "сExpandAll";
+            this.сExpandAll.Size = new System.Drawing.Size(156, 22);
+            this.сExpandAll.Text = "Развернуть все";
+            // 
+            // cShowAll
+            // 
+            this.cShowAll.Name = "cShowAll";
+            this.cShowAll.Size = new System.Drawing.Size(156, 22);
+            this.cShowAll.Text = "Показать всё";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
             // 
             // MainForm
             // 
@@ -1151,7 +1190,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_Close);
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
-            this.contextMenu.ResumeLayout(false);
+            this.contextTabMenu.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.mainMenu.ResumeLayout(false);
@@ -1175,11 +1214,12 @@
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
             this.panelTitle.ResumeLayout(false);
+            this.tabImage.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
-            this.tabImage.ResumeLayout(false);
+            this.contextTreeMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1187,7 +1227,7 @@
 
         #endregion
         private System.Windows.Forms.DataGridView dgvTable;
-        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ContextMenuStrip contextTabMenu;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.TreeView treeFolder;
         private System.Windows.Forms.TabControl tabControl2;
@@ -1282,6 +1322,11 @@
         private System.Windows.Forms.Button btnFindReset;
         private System.Windows.Forms.TabPage tabImage;
         private System.Windows.Forms.Button btnDownloadPic;
+        private System.Windows.Forms.ContextMenuStrip contextTreeMenu;
+        private System.Windows.Forms.ToolStripMenuItem сCollapseAll;
+        private System.Windows.Forms.ToolStripMenuItem сExpandAll;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem cShowAll;
     }
 }
 

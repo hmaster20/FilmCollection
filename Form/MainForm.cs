@@ -344,13 +344,13 @@ namespace FilmCollection
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // Проверка селекта строки перед открытием меню
         {
             //contextMenu.Items[4].Enabled = false;
-            contextMenu.Enabled = false;    // Блокировка меню
+            contextTabMenu.Enabled = false;    // Блокировка меню
 
             DataGridView dgv = dgvTable;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 //contextMenu.Items[4].Enabled = true;
-                contextMenu.Enabled = true; // Разблокировка меню
+                contextTabMenu.Enabled = true; // Разблокировка меню
             }
         }
 
@@ -930,7 +930,7 @@ namespace FilmCollection
                         dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
                         dgvTable.Rows[e.RowIndex].Selected = true;
                         dgvTable.Focus();
-                        dgvTable.ContextMenuStrip = contextMenu;
+                        dgvTable.ContextMenuStrip = contextTabMenu;
                         //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
                     }
                     else
@@ -1305,10 +1305,12 @@ namespace FilmCollection
         private void DownloadPic_Click(object sender, EventArgs e)
         {
             string remoteFileUrl = @"https://pic.afisha.mail.ru/share/event/730486/?20160916210443.1";
-            string localFileName = "someImage.jpg";
+            string localFileName = "someImage.jpg";
+
             //using (WebClient webClient = new WebClient())
             WebClient webClient = new WebClient();
-            webClient.DownloadFile(remoteFileUrl, localFileName);            
+            webClient.DownloadFile(remoteFileUrl, localFileName);
+            
             //byte[] data;
             //using (WebClient client = new WebClient())
             //{
@@ -1320,21 +1322,19 @@ namespace FilmCollection
 
         static void Mains()
         {
-            parse();
+            GetMetaInfo();
             Console.WriteLine("!!!");
             //string ii = GetHtmlPageText("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
             // Console.WriteLine(ii);
-            // Console.WriteLine("222");
             Console.ReadKey();
-        }        
+        }
+        
         //<meta property="og:image" content="
 
         //получение meta тэга
-        static void parse()
+        static void GetMetaInfo()
         {
             string sourcestring = GetHtmlPageText("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
-            // String sourcestring = "source string to match with pattern";
-            //Regex re = new Regex(@"<meta\b[^>]*\bname=[""]keywords[""][^>]*\bcontent=(['""]?)((?:[^,>""'],?){1,})\1[>]", RegexOptions.IgnoreCase);
             //var tags = Regex.Matches(myHtmlText, @"(?<tag>\<meta[^\>]*>)", RegexOptions.IgnoreCase);
             //MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta[^\>]*>)", RegexOptions.IgnoreCase);
             //Regex metaTag = new Regex(@"<meta name=\"(.+?)\" content=\"(.+?)\">");
@@ -1359,7 +1359,8 @@ namespace FilmCollection
                 //    Console.WriteLine(str);
                 //}
             }
-        }        
+        }
+        
         //получение веб-страницы
         public static string GetHtmlPageText(string url)
         {
@@ -1371,7 +1372,8 @@ namespace FilmCollection
                     return reader.ReadToEnd();
                 }
             }
-        }        
+        }
+        
         // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
         // <a href = "/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
         // https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/
