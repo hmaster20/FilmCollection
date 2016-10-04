@@ -47,7 +47,7 @@ namespace FilmCollection
             //    });
             //    t.Start();
             //};
-            
+
 
             InitializeComponent();                  // Создание и отрисовка элементов
             this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
@@ -58,7 +58,7 @@ namespace FilmCollection
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение найденых индексов строки
-            
+
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideoRus)))
             {
@@ -76,7 +76,7 @@ namespace FilmCollection
             WorkerCB.ProgressChanged += Smth_ProgressChanged;       // Здесь работает прогресс бар
             WorkerCB.WorkerReportsProgress = true;                  // Говорим что поток может передавать информацию о ходе своей работы
         }
-        
+
         private void Main_Load(object sender, EventArgs e)      // Загрузка формы
         {
             FormLoad();
@@ -156,7 +156,7 @@ namespace FilmCollection
 
 
 
-        
+
 
 
 
@@ -362,7 +362,7 @@ namespace FilmCollection
 
 
 
-        
+
 
 
         #region Загрузка формы
@@ -1310,7 +1310,7 @@ namespace FilmCollection
             //using (WebClient webClient = new WebClient())
             WebClient webClient = new WebClient();
             webClient.DownloadFile(remoteFileUrl, localFileName);
-            
+
             //byte[] data;
             //using (WebClient client = new WebClient())
             //{
@@ -1328,7 +1328,7 @@ namespace FilmCollection
             // Console.WriteLine(ii);
             Console.ReadKey();
         }
-        
+
         //<meta property="og:image" content="
 
         //получение meta тэга
@@ -1360,7 +1360,7 @@ namespace FilmCollection
                 //}
             }
         }
-        
+
         //получение веб-страницы
         public static string GetHtmlPageText(string url)
         {
@@ -1373,12 +1373,43 @@ namespace FilmCollection
                 }
             }
         }
-        
+
         // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
         // <a href = "/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
         // https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/
         // https://afisha.mail.ru
         // https://pic.afisha.mail.ru/7087157/
         #endregion
+
+
+
+        private void treeFolder_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                treeFolder.SelectedNode = treeFolder.GetNodeAt(e.X, e.Y);
+                if (treeFolder.SelectedNode != null) // && treeFolder.SelectedNode.Parent == null)
+                {
+                    contextTreeMenu.Show(treeFolder, e.Location);
+                }
+            }
+        }
+
+        private void сCollapseAll_Click(object sender, EventArgs e)
+        {
+            treeFolder.CollapseAll();
+        }
+
+        private void сExpandAll_Click(object sender, EventArgs e)
+        {
+            treeFolder.ExpandAll();
+        }
+
+        private void cExpandSelectNode_Click(object sender, EventArgs e)
+        {
+            treeFolder.SelectedNode.ExpandAll();
+        }
+
+   
     }
 }

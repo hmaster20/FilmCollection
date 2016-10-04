@@ -71,6 +71,11 @@
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
+            this.contextTreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.сCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.сExpandAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cExpandSelectNode = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.scTabFilm = new System.Windows.Forms.SplitContainer();
@@ -125,15 +130,11 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.contextTreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.сCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.сExpandAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.cShowAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextTabMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.mainMenu.SuspendLayout();
+            this.contextTreeMenu.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabFilm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).BeginInit();
@@ -153,7 +154,6 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
-            this.contextTreeMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTable
@@ -513,6 +513,43 @@
             this.treeFolder.Name = "treeFolder";
             this.treeFolder.Size = new System.Drawing.Size(191, 491);
             this.treeFolder.TabIndex = 22;
+            this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
+            // 
+            // contextTreeMenu
+            // 
+            this.contextTreeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сCollapseAll,
+            this.сExpandAll,
+            this.toolStripSeparator2,
+            this.cExpandSelectNode});
+            this.contextTreeMenu.Name = "contextTreeMenu";
+            this.contextTreeMenu.Size = new System.Drawing.Size(168, 98);
+            // 
+            // сCollapseAll
+            // 
+            this.сCollapseAll.Name = "сCollapseAll";
+            this.сCollapseAll.Size = new System.Drawing.Size(167, 22);
+            this.сCollapseAll.Text = "Свернуть все";
+            this.сCollapseAll.Click += new System.EventHandler(this.сCollapseAll_Click);
+            // 
+            // сExpandAll
+            // 
+            this.сExpandAll.Name = "сExpandAll";
+            this.сExpandAll.Size = new System.Drawing.Size(167, 22);
+            this.сExpandAll.Text = "Развернуть все";
+            this.сExpandAll.Click += new System.EventHandler(this.сExpandAll_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
+            // 
+            // cExpandSelectNode
+            // 
+            this.cExpandSelectNode.Name = "cExpandSelectNode";
+            this.cExpandSelectNode.Size = new System.Drawing.Size(167, 22);
+            this.cExpandSelectNode.Text = "Развернуть ветку";
+            this.cExpandSelectNode.Click += new System.EventHandler(this.cExpandSelectNode_Click);
             // 
             // tabControl2
             // 
@@ -1142,39 +1179,6 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
-            // contextTreeMenu
-            // 
-            this.contextTreeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сCollapseAll,
-            this.сExpandAll,
-            this.toolStripSeparator2,
-            this.cShowAll});
-            this.contextTreeMenu.Name = "contextTreeMenu";
-            this.contextTreeMenu.Size = new System.Drawing.Size(157, 76);
-            // 
-            // сCollapseAll
-            // 
-            this.сCollapseAll.Name = "сCollapseAll";
-            this.сCollapseAll.Size = new System.Drawing.Size(156, 22);
-            this.сCollapseAll.Text = "Свернуть все";
-            // 
-            // сExpandAll
-            // 
-            this.сExpandAll.Name = "сExpandAll";
-            this.сExpandAll.Size = new System.Drawing.Size(156, 22);
-            this.сExpandAll.Text = "Развернуть все";
-            // 
-            // cShowAll
-            // 
-            this.cShowAll.Name = "cShowAll";
-            this.cShowAll.Size = new System.Drawing.Size(156, 22);
-            this.cShowAll.Text = "Показать всё";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1195,6 +1199,7 @@
             this.statusStrip1.PerformLayout();
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
+            this.contextTreeMenu.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabFilm.ResumeLayout(false);
             this.scTabFilm.Panel1.ResumeLayout(false);
@@ -1219,7 +1224,6 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
-            this.contextTreeMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1326,7 +1330,7 @@
         private System.Windows.Forms.ToolStripMenuItem сCollapseAll;
         private System.Windows.Forms.ToolStripMenuItem сExpandAll;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem cShowAll;
+        private System.Windows.Forms.ToolStripMenuItem cExpandSelectNode;
     }
 }
 
