@@ -932,9 +932,10 @@ namespace FilmCollection
         }
 
 
-        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при правом клике выполняется выбор строки и открывается меню
+        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
-            // if (e.RowIndex > -1 && e.RowIndex < dgvTable.Rows.Count - 1)
+            FindNextBlock();    //блокировка кнопки поиска следующего элемента
+
             if (e.Button == MouseButtons.Right)
             {
                 try
@@ -1008,26 +1009,29 @@ namespace FilmCollection
             FindStatusLabel.Text = "";
             cbTypeFind.SelectedIndex = -1;
             btnFind.Enabled = false;
-            btnFindNext.Enabled = false;
             dgvSelected.Clear();
             dgvTable.ClearSelection();
+            FindNextBlock();
         }
 
-
-        private void FindRec_Click(object sender, EventArgs e)  // Поиск
+        private void FindNextBlock()
         {
-            btnFindNext.Enabled = true;
+            FindCount = 0;
+            btnFindNext.Enabled = false;
+        }
 
+        private void Find_Click(object sender, EventArgs e)  // Поиск
+        {
             int switch_Find = cbTypeFind.SelectedIndex;
             switch (switch_Find)
             {
-                case 0: FindAll(0); break; // поиск по названию
-                case 1: FindAll(2); break; // поиск по году
+                case 0: Find(0); break; // поиск по названию
+                case 1: Find(2); break; // поиск по году
                 default: MessageBox.Show("Укажите критерий поиска!"); break;
             }
         }
 
-        private void FindAll(int cell)
+        private void Find(int cell)
         {
             try
             {
@@ -1052,17 +1056,16 @@ namespace FilmCollection
                 if (i == 0)
                     MessageBox.Show("Элементов не найдено!");
                 else
+                {
                     FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                    btnFindNext.Enabled = true;
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-
-
-
 
 
         private void FindNext()
@@ -1296,18 +1299,18 @@ namespace FilmCollection
             btnCancel.Visible = false;  // "Отмена" - скрыть
             //btnEditCancel.Enabled = false;  // "Отмена" - блокировать
             btnSaveRec.Visible = false;  // "Сохранить" - скрыть
-                                           //btnEditSaveR.Enabled = false;  // "Сохранить" - блокировать
+                                         //btnEditSaveR.Enabled = false;  // "Сохранить" - блокировать
         }
 
         private void panelEdit_Button_Unlock()
         {
             {
                 btnCancel.Visible = true;   // Разблокировать клавишу "Отмена"
-                                                // btnEditCancel.Enabled = true;
+                                            // btnEditCancel.Enabled = true;
             }
             {
                 btnSaveRec.Visible = true;    // Блокировать клавишу "Сохранить"
-                                                // btnEditSaveR.Enabled = true;
+                                              // btnEditSaveR.Enabled = true;
             }
         }
 
