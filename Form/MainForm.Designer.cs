@@ -132,6 +132,10 @@
             this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbfYear = new System.Windows.Forms.TextBox();
+            this.tbfCountry = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextTabMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -527,8 +531,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(908, 459);
@@ -746,7 +750,7 @@
             this.btnSaveRec.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveRec.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSaveRec.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveRec.Location = new System.Drawing.Point(264, 301);
+            this.btnSaveRec.Location = new System.Drawing.Point(264, 304);
             this.btnSaveRec.Name = "btnSaveRec";
             this.btnSaveRec.Size = new System.Drawing.Size(86, 23);
             this.btnSaveRec.TabIndex = 47;
@@ -759,7 +763,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(264, 330);
+            this.btnCancel.Location = new System.Drawing.Point(264, 333);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -773,7 +777,7 @@
             this.tbFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFileName.Enabled = false;
-            this.tbFileName.Location = new System.Drawing.Point(71, 263);
+            this.tbFileName.Location = new System.Drawing.Point(71, 266);
             this.tbFileName.Name = "tbFileName";
             this.tbFileName.Size = new System.Drawing.Size(250, 20);
             this.tbFileName.TabIndex = 44;
@@ -786,7 +790,7 @@
             this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
             this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
             this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 260);
+            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 263);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
             this.btnFileNameEdit.Size = new System.Drawing.Size(24, 25);
             this.btnFileNameEdit.TabIndex = 43;
@@ -799,7 +803,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxTypeVideo.FormattingEnabled = true;
-            this.cBoxTypeVideo.Location = new System.Drawing.Point(71, 147);
+            this.cBoxTypeVideo.Location = new System.Drawing.Point(71, 122);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
             this.cBoxTypeVideo.Size = new System.Drawing.Size(279, 21);
             this.cBoxTypeVideo.TabIndex = 42;
@@ -809,7 +813,7 @@
             // 
             this.numericTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericTime.Location = new System.Drawing.Point(71, 177);
+            this.numericTime.Location = new System.Drawing.Point(71, 152);
             this.numericTime.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -826,7 +830,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxGenre.FormattingEnabled = true;
-            this.cBoxGenre.Location = new System.Drawing.Point(71, 117);
+            this.cBoxGenre.Location = new System.Drawing.Point(71, 92);
             this.cBoxGenre.Name = "cBoxGenre";
             this.cBoxGenre.Size = new System.Drawing.Size(279, 21);
             this.cBoxGenre.TabIndex = 31;
@@ -836,10 +840,10 @@
             // 
             this.tbDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDescription.Location = new System.Drawing.Point(71, 207);
+            this.tbDescription.Location = new System.Drawing.Point(71, 182);
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(279, 47);
+            this.tbDescription.Size = new System.Drawing.Size(279, 75);
             this.tbDescription.TabIndex = 30;
             this.tbDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -847,9 +851,9 @@
             // 
             this.tbCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCountry.Location = new System.Drawing.Point(71, 88);
+            this.tbCountry.Location = new System.Drawing.Point(206, 59);
             this.tbCountry.Name = "tbCountry";
-            this.tbCountry.Size = new System.Drawing.Size(279, 20);
+            this.tbCountry.Size = new System.Drawing.Size(144, 20);
             this.tbCountry.TabIndex = 29;
             this.tbCountry.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -859,7 +863,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbYear.Location = new System.Drawing.Point(71, 59);
             this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(279, 20);
+            this.tbYear.Size = new System.Drawing.Size(57, 20);
             this.tbYear.TabIndex = 28;
             this.tbYear.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -876,7 +880,7 @@
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(7, 266);
+            this.lblFileName.Location = new System.Drawing.Point(7, 269);
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(64, 13);
             this.lblFileName.TabIndex = 26;
@@ -885,7 +889,7 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(13, 210);
+            this.lblDescription.Location = new System.Drawing.Point(13, 185);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(57, 13);
             this.lblDescription.TabIndex = 25;
@@ -894,7 +898,7 @@
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(13, 179);
+            this.lblTime.Location = new System.Drawing.Point(13, 154);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(40, 13);
             this.lblTime.TabIndex = 24;
@@ -903,7 +907,7 @@
             // labelTypeVideo
             // 
             this.labelTypeVideo.AutoSize = true;
-            this.labelTypeVideo.Location = new System.Drawing.Point(10, 150);
+            this.labelTypeVideo.Location = new System.Drawing.Point(10, 125);
             this.labelTypeVideo.Name = "labelTypeVideo";
             this.labelTypeVideo.Size = new System.Drawing.Size(26, 13);
             this.labelTypeVideo.TabIndex = 23;
@@ -912,7 +916,7 @@
             // lblGenre
             // 
             this.lblGenre.AutoSize = true;
-            this.lblGenre.Location = new System.Drawing.Point(10, 120);
+            this.lblGenre.Location = new System.Drawing.Point(10, 95);
             this.lblGenre.Name = "lblGenre";
             this.lblGenre.Size = new System.Drawing.Size(36, 13);
             this.lblGenre.TabIndex = 22;
@@ -921,7 +925,7 @@
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(10, 91);
+            this.lblCountry.Location = new System.Drawing.Point(157, 62);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(43, 13);
             this.lblCountry.TabIndex = 21;
@@ -949,7 +953,7 @@
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(71, 301);
+            this.btnNew.Location = new System.Drawing.Point(71, 304);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -962,8 +966,12 @@
             // 
             this.panelView.Controls.Add(this.btnPlay);
             this.panelView.Controls.Add(this.lblRecDescription);
+            this.panelView.Controls.Add(this.label5);
+            this.panelView.Controls.Add(this.label4);
             this.panelView.Controls.Add(this.lblRecName);
             this.panelView.Controls.Add(this.tbfDesc);
+            this.panelView.Controls.Add(this.tbfCountry);
+            this.panelView.Controls.Add(this.tbfYear);
             this.panelView.Controls.Add(this.tbfName);
             this.panelView.Controls.Add(this.panelTitle);
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -991,7 +999,7 @@
             this.lblRecDescription.AutoSize = true;
             this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecDescription.Location = new System.Drawing.Point(0, 51);
+            this.lblRecDescription.Location = new System.Drawing.Point(2, 76);
             this.lblRecDescription.Name = "lblRecDescription";
             this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
             this.lblRecDescription.TabIndex = 4;
@@ -1014,11 +1022,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfDesc.Location = new System.Drawing.Point(88, 51);
+            this.tbfDesc.Location = new System.Drawing.Point(88, 76);
             this.tbfDesc.Multiline = true;
             this.tbfDesc.Name = "tbfDesc";
             this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.Size = new System.Drawing.Size(277, 360);
+            this.tbfDesc.Size = new System.Drawing.Size(277, 335);
             this.tbfDesc.TabIndex = 8;
             // 
             // tbfName
@@ -1193,6 +1201,52 @@
             this.cmnFileName.Name = "cmnFileName";
             this.cmnFileName.ReadOnly = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label4.Location = new System.Drawing.Point(7, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 17);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Год:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(120, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 17);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Страна:";
+            // 
+            // tbfYear
+            // 
+            this.tbfYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfYear.Location = new System.Drawing.Point(41, 53);
+            this.tbfYear.Name = "tbfYear";
+            this.tbfYear.ReadOnly = true;
+            this.tbfYear.Size = new System.Drawing.Size(75, 16);
+            this.tbfYear.TabIndex = 7;
+            // 
+            // tbfCountry
+            // 
+            this.tbfCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfCountry.Location = new System.Drawing.Point(180, 53);
+            this.tbfCountry.Name = "tbfCountry";
+            this.tbfCountry.ReadOnly = true;
+            this.tbfCountry.Size = new System.Drawing.Size(170, 16);
+            this.tbfCountry.TabIndex = 7;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1347,6 +1401,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbfCountry;
+        private System.Windows.Forms.TextBox tbfYear;
     }
 }
 

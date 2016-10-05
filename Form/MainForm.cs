@@ -568,6 +568,8 @@ namespace FilmCollection
                 // Панель описания
                 tbfName.Text = record.Name;
                 tbfDesc.Text = record.Description;
+                tbfYear.Text = record.Year;
+                tbfCountry.Text = record.Country;
 
                 // Панель редактирования
                 tbName.Text = record.Name;
