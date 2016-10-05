@@ -96,8 +96,8 @@
             this.panelEdit = new System.Windows.Forms.Panel();
             this.panelEditTitle = new System.Windows.Forms.Panel();
             this.lblEditTitle = new System.Windows.Forms.Label();
-            this.btnEditSaveR = new System.Windows.Forms.Button();
-            this.btnEditCancel = new System.Windows.Forms.Button();
+            this.btnSaveRec = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.tbFileName = new System.Windows.Forms.TextBox();
             this.btnFileNameEdit = new System.Windows.Forms.Button();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
@@ -115,7 +115,7 @@
             this.lblCountry = new System.Windows.Forms.Label();
             this.lblYear = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.btnEditNew = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.btnPlay = new System.Windows.Forms.Button();
             this.lblRecDescription = new System.Windows.Forms.Label();
@@ -130,6 +130,8 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.cShowSelcetNodeAllFiles = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.contextTabMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -521,33 +523,35 @@
             this.сCollapseAll,
             this.сExpandAll,
             this.toolStripSeparator2,
-            this.cExpandSelectNode});
+            this.cExpandSelectNode,
+            this.toolStripSeparator3,
+            this.cShowSelcetNodeAllFiles});
             this.contextTreeMenu.Name = "contextTreeMenu";
-            this.contextTreeMenu.Size = new System.Drawing.Size(168, 98);
+            this.contextTreeMenu.Size = new System.Drawing.Size(187, 126);
             // 
             // сCollapseAll
             // 
             this.сCollapseAll.Name = "сCollapseAll";
-            this.сCollapseAll.Size = new System.Drawing.Size(167, 22);
+            this.сCollapseAll.Size = new System.Drawing.Size(186, 22);
             this.сCollapseAll.Text = "Свернуть все";
             this.сCollapseAll.Click += new System.EventHandler(this.сCollapseAll_Click);
             // 
             // сExpandAll
             // 
             this.сExpandAll.Name = "сExpandAll";
-            this.сExpandAll.Size = new System.Drawing.Size(167, 22);
+            this.сExpandAll.Size = new System.Drawing.Size(186, 22);
             this.сExpandAll.Text = "Развернуть все";
             this.сExpandAll.Click += new System.EventHandler(this.сExpandAll_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
             // 
             // cExpandSelectNode
             // 
             this.cExpandSelectNode.Name = "cExpandSelectNode";
-            this.cExpandSelectNode.Size = new System.Drawing.Size(167, 22);
+            this.cExpandSelectNode.Size = new System.Drawing.Size(186, 22);
             this.cExpandSelectNode.Text = "Развернуть ветку";
             this.cExpandSelectNode.Click += new System.EventHandler(this.cExpandSelectNode_Click);
             // 
@@ -593,9 +597,9 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(908, 459);
             this.scTabFilm.SplitterDistance = 534;
@@ -761,8 +765,8 @@
             // panelEdit
             // 
             this.panelEdit.Controls.Add(this.panelEditTitle);
-            this.panelEdit.Controls.Add(this.btnEditSaveR);
-            this.panelEdit.Controls.Add(this.btnEditCancel);
+            this.panelEdit.Controls.Add(this.btnSaveRec);
+            this.panelEdit.Controls.Add(this.btnCancel);
             this.panelEdit.Controls.Add(this.tbFileName);
             this.panelEdit.Controls.Add(this.btnFileNameEdit);
             this.panelEdit.Controls.Add(this.cBoxTypeVideo);
@@ -780,7 +784,7 @@
             this.panelEdit.Controls.Add(this.lblCountry);
             this.panelEdit.Controls.Add(this.lblYear);
             this.panelEdit.Controls.Add(this.lblName);
-            this.panelEdit.Controls.Add(this.btnEditNew);
+            this.panelEdit.Controls.Add(this.btnNew);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
@@ -807,34 +811,32 @@
             this.lblEditTitle.Text = "Панель редактирования";
             this.lblEditTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnEditSaveR
+            // btnSaveRec
             // 
-            this.btnEditSaveR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditSaveR.Enabled = false;
-            this.btnEditSaveR.Image = global::FilmCollection.Properties.Resources.save;
-            this.btnEditSaveR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditSaveR.Location = new System.Drawing.Point(264, 301);
-            this.btnEditSaveR.Name = "btnEditSaveR";
-            this.btnEditSaveR.Size = new System.Drawing.Size(86, 23);
-            this.btnEditSaveR.TabIndex = 47;
-            this.btnEditSaveR.Text = "Сохранить";
-            this.btnEditSaveR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEditSaveR.UseVisualStyleBackColor = true;
-            this.btnEditSaveR.Visible = false;
-            this.btnEditSaveR.Click += new System.EventHandler(this.Edit_SaveRec);
+            this.btnSaveRec.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveRec.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnSaveRec.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveRec.Location = new System.Drawing.Point(264, 301);
+            this.btnSaveRec.Name = "btnSaveRec";
+            this.btnSaveRec.Size = new System.Drawing.Size(86, 23);
+            this.btnSaveRec.TabIndex = 47;
+            this.btnSaveRec.Text = "Сохранить";
+            this.btnSaveRec.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveRec.UseVisualStyleBackColor = true;
+            this.btnSaveRec.Visible = false;
+            this.btnSaveRec.Click += new System.EventHandler(this.Edit_SaveRec);
             // 
-            // btnEditCancel
+            // btnCancel
             // 
-            this.btnEditCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEditCancel.Enabled = false;
-            this.btnEditCancel.Location = new System.Drawing.Point(264, 330);
-            this.btnEditCancel.Name = "btnEditCancel";
-            this.btnEditCancel.Size = new System.Drawing.Size(86, 23);
-            this.btnEditCancel.TabIndex = 46;
-            this.btnEditCancel.Text = "Отмена";
-            this.btnEditCancel.UseVisualStyleBackColor = true;
-            this.btnEditCancel.Visible = false;
-            this.btnEditCancel.Click += new System.EventHandler(this.Edit_Cancel);
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(264, 330);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(86, 23);
+            this.btnCancel.TabIndex = 46;
+            this.btnCancel.Text = "Отмена";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.Edit_Cancel);
             // 
             // tbFileName
             // 
@@ -1013,18 +1015,18 @@
             this.lblName.TabIndex = 19;
             this.lblName.Text = " Название";
             // 
-            // btnEditNew
+            // btnNew
             // 
-            this.btnEditNew.Image = global::FilmCollection.Properties.Resources.add;
-            this.btnEditNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEditNew.Location = new System.Drawing.Point(71, 301);
-            this.btnEditNew.Name = "btnEditNew";
-            this.btnEditNew.Size = new System.Drawing.Size(81, 23);
-            this.btnEditNew.TabIndex = 18;
-            this.btnEditNew.Text = "Добавить";
-            this.btnEditNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnEditNew.UseVisualStyleBackColor = true;
-            this.btnEditNew.Click += new System.EventHandler(this.Edit_NewRec);
+            this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
+            this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNew.Location = new System.Drawing.Point(71, 301);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(81, 23);
+            this.btnNew.TabIndex = 18;
+            this.btnNew.Text = "Добавить";
+            this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.Edit_NewRec);
             // 
             // panelView
             // 
@@ -1062,7 +1064,7 @@
             this.lblRecDescription.Location = new System.Drawing.Point(0, 51);
             this.lblRecDescription.Name = "lblRecDescription";
             this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
-            this.lblRecDescription.TabIndex = 5;
+            this.lblRecDescription.TabIndex = 4;
             this.lblRecDescription.Text = " Описание:";
             // 
             // lblRecName
@@ -1073,7 +1075,7 @@
             this.lblRecName.Location = new System.Drawing.Point(2, 29);
             this.lblRecName.Name = "lblRecName";
             this.lblRecName.Size = new System.Drawing.Size(80, 17);
-            this.lblRecName.TabIndex = 5;
+            this.lblRecName.TabIndex = 3;
             this.lblRecName.Text = " Название:";
             // 
             // tbfDesc
@@ -1087,7 +1089,7 @@
             this.tbfDesc.Name = "tbfDesc";
             this.tbfDesc.ReadOnly = true;
             this.tbfDesc.Size = new System.Drawing.Size(277, 360);
-            this.tbfDesc.TabIndex = 3;
+            this.tbfDesc.TabIndex = 8;
             // 
             // tbfName
             // 
@@ -1099,7 +1101,7 @@
             this.tbfName.Name = "tbfName";
             this.tbfName.ReadOnly = true;
             this.tbfName.Size = new System.Drawing.Size(282, 16);
-            this.tbfName.TabIndex = 2;
+            this.tbfName.TabIndex = 7;
             // 
             // panelTitle
             // 
@@ -1178,6 +1180,18 @@
             // FileDialog
             // 
             this.FileDialog.FileName = "openFileDialog1";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(183, 6);
+            // 
+            // cShowSelcetNodeAllFiles
+            // 
+            this.cShowSelcetNodeAllFiles.Name = "cShowSelcetNodeAllFiles";
+            this.cShowSelcetNodeAllFiles.Size = new System.Drawing.Size(186, 22);
+            this.cShowSelcetNodeAllFiles.Text = "Показать все файлы";
+            this.cShowSelcetNodeAllFiles.Click += new System.EventHandler(this.cShowSelcetNodeAllFiles_Click);
             // 
             // MainForm
             // 
@@ -1278,7 +1292,7 @@
         private System.Windows.Forms.Label lblCountry;
         private System.Windows.Forms.Label lblYear;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Button btnEditNew;
+        private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.TextBox tbfDesc;
         private System.Windows.Forms.TextBox tbfName;
         private System.Windows.Forms.Label lblRecName;
@@ -1294,8 +1308,8 @@
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog FileDialog;
-        private System.Windows.Forms.Button btnEditCancel;
-        private System.Windows.Forms.Button btnEditSaveR;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSaveRec;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem testChangeToolStripMenuItem;
         private System.Windows.Forms.Panel panelTitle;
@@ -1331,6 +1345,8 @@
         private System.Windows.Forms.ToolStripMenuItem сExpandAll;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem cExpandSelectNode;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem cShowSelcetNodeAllFiles;
     }
 }
 

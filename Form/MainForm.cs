@@ -50,6 +50,7 @@ namespace FilmCollection
 
 
             InitializeComponent();                  // Создание и отрисовка элементов
+
             this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
 
             dgvTable.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
@@ -147,7 +148,7 @@ namespace FilmCollection
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
         {
             if (fsInfo == null) dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки в таблице
-            panelEditUnlock();          // разблокировка кнопок
+            panelEdit_Button_Unlock();          // разблокировка кнопок
             dgvTable.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
         }
@@ -1117,7 +1118,7 @@ namespace FilmCollection
             //#endregion
         }
 
-        private void NewRecord()    // Создание новой записи - объекта Record
+        private void NewRecord()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = _videoCollection.Options.Source;
@@ -1166,11 +1167,12 @@ namespace FilmCollection
                 dgvTable.Enabled = false;   // блокировка таблицы
                 treeFolder.Enabled = false; // блокировка дерева
 
-                panelEditUnlock();          // разблокировка кнопок
-                btnFileNameEdit.Enabled = false; // блокировка кнопки разблокировки :)
-                tbFileName.Enabled = false; // блокировка поля измнения названия файла
+                panelEdit_Button_Unlock();          // разблокировка кнопок
+
+                FileNameDisabled();
             }
         }
+
 
 
         private void EditSave()
@@ -1245,18 +1247,18 @@ namespace FilmCollection
                     _videoCollection.Save();
                 }
             }
-            panelEditLock();    // блокировка панели
+            panelEdit_Lock();    // блокировка панели
         }
 
 
         private void EditCancel()    // Отмена редактирования в panelEdit
         {
             fsInfo = null;
-            panelEditLock();    // блокировка кнопок панели редактирования
+            panelEdit_Lock();    // блокировка кнопок панели редактирования
         }
 
 
-        private void panelEditLock()    //Блокировка кнопок
+        private void panelEdit_Lock()    //Блокировка кнопок
         {
             tbName.Modified = false;    // возвращаем назад статус изменения поля
             tbYear.Modified = false;    // возвращаем назад статус изменения поля
@@ -1269,25 +1271,48 @@ namespace FilmCollection
 
             PepareRefresh("");  // перезагрузка таблицы
 
-            btnFileNameEdit.Enabled = true; // Разблокировка кнопки разблокировки :)
-            btnEditCancel.Visible = false;  // "Отмена" - скрыть
-            btnEditCancel.Enabled = false;  // "Отмена" - блокировать
-            btnEditSaveR.Visible = false;  // "Сохранить" - скрыть
-            btnEditSaveR.Enabled = false;  // "Сохранить" - блокировать
+            FileNameEnabled();
+
+            panelEdit_Button_Lock();
 
             panelView.BringToFront();   // показать панель сведений
         }
 
-
-        private void panelEditUnlock()    //Разблокировка кнопок
+        private void panelEdit_Button_Lock()
         {
-            // Разблокировать клавишу "Отмена"
-            btnEditCancel.Visible = true;
-            btnEditCancel.Enabled = true;
-            // Блокировать клавишу "Сохранить"
-            btnEditSaveR.Visible = true;
-            btnEditSaveR.Enabled = true;
+            btnCancel.Visible = false;  // "Отмена" - скрыть
+            //btnEditCancel.Enabled = false;  // "Отмена" - блокировать
+            btnSaveRec.Visible = false;  // "Сохранить" - скрыть
+                                           //btnEditSaveR.Enabled = false;  // "Сохранить" - блокировать
         }
+
+        private void panelEdit_Button_Unlock()
+        {
+            {
+                btnCancel.Visible = true;   // Разблокировать клавишу "Отмена"
+                                                // btnEditCancel.Enabled = true;
+            }
+            {
+                btnSaveRec.Visible = true;    // Блокировать клавишу "Сохранить"
+                                                // btnEditSaveR.Enabled = true;
+            }
+        }
+
+        #region Блокировка переименования файла
+        private void FileNameEnabled()
+        {
+            btnFileNameEdit.Enabled = true;     // Замок "Имя файла" - деблокировать
+            tbFileName.Enabled = false;         // "Имя файла" - блокировать
+        }
+
+        private void FileNameDisabled()
+        {
+            btnFileNameEdit.Enabled = false;    // Замок "Имя файла" - блокировать
+            tbFileName.Enabled = false;         // "Имя файла" - разблокировать
+        }
+        #endregion
+
+
 
         private void btnActors_Click(object sender, EventArgs e)
         {
@@ -1410,6 +1435,9 @@ namespace FilmCollection
             treeFolder.SelectedNode.ExpandAll();
         }
 
-   
+        private void cShowSelcetNodeAllFiles_Click(object sender, EventArgs e)
+        {
+         
+        }
     }
 }
