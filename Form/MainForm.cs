@@ -360,11 +360,18 @@ namespace FilmCollection
         #endregion
 
 
+        #region Панель просмотра
+
+        private void Play_Click(object sender, EventArgs e)  // запуск файла
+        {
+            Record record = GetSelectedRecord();
+            Process.Start(record.Path + Path.DirectorySeparatorChar + record.FileName);
+        }
+
+        #endregion
 
 
         #region Фоновый поток обработки коллекции файлов
-
-        #endregion
 
         private void WorkerProgressChanged(object sender, ProgressChangedEventArgs e)
         {
@@ -404,16 +411,11 @@ namespace FilmCollection
             }
         }
 
-
-        //public Timer ttt = new Timer();
-        //public void T_Tickss(object sender, EventArgs e)
-        //{
-        //   // ttt.Enabled = false;
-        //    MessageBox.Show("Значение Count = " + Convert.ToString( XmlSerializeHelper.Count));
-        //}
+        #endregion
 
 
 
+        #region Обработка DataGridView
 
         #region Контекстное меню для DataGridView
         private void Filter(object sender, EventArgs e)     // При выборе фильтра выполняется сброс фильтра по дереву и таблице
@@ -471,21 +473,12 @@ namespace FilmCollection
             panelFind.BringToFront();
         }
         #endregion
-
-
-
-
-
-
-
-
+                       
         private void PepareRefresh()
         {
             PepareRefresh("", false);
         }
-
-
-
+        
         private void PepareRefresh(string nodeName, bool flag)
         {
             List<Record> filtered = _videoCollection.VideoList;
@@ -537,8 +530,7 @@ namespace FilmCollection
                 MessageBox.Show(ex.Message);
             }
         }
-
-
+        
         private void SelectRecord(DataGridView dgv, Record record)
         {
             dgv.ClearSelection();
@@ -600,6 +592,58 @@ namespace FilmCollection
             }
             return null;
         }
+
+        private void ResetFilter_Click(object sender, EventArgs e)
+        {
+            PepareRefresh();
+            dgvTable.ClearSelection(); // сброс селекта
+
+            tscbTypeFilter.SelectedIndex = 0;
+            tscbSort.SelectedIndex = -1;
+
+            tbName.Text = "";
+            tbYear.Text = "";
+            tbCountry.Text = "";
+            numericTime.Value = 0;
+            tbDescription.Text = "";
+            tbFileName.Text = "";
+            cBoxGenre.SelectedIndex = 0;
+            cBoxTypeVideo.SelectedIndex = 0;
+        }
+
+        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+        {
+            FindNextButton_Lock();    //блокировка кнопки поиска следующего элемента
+
+            if (e.Button == MouseButtons.Right)
+            {
+                try
+                {
+                    if (e.ColumnIndex > -1 && e.RowIndex > -1)
+                    {
+                        dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        dgvTable.Rows[e.RowIndex].Selected = true;
+                        dgvTable.Focus();
+                        dgvTable.ContextMenuStrip = contextTabMenu;
+                        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+                    }
+                    else
+                    {
+                        dgvTable.ContextMenuStrip = null;
+                        dgvTable.ClearSelection();
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
+            }
+        }
+
+
+        #endregion
+
+
 
 
 
@@ -765,8 +809,7 @@ namespace FilmCollection
             // Load items into TreeViewFast
             treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
         }
-
-
+        
         private void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator, int count)  // Построение дерева
         {
             //Employee emp = new Employee();
@@ -894,68 +937,13 @@ namespace FilmCollection
             //treeView.ExpandAll();           // развернуть дерево
         }
 
-
-
-
+        
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
             PepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
         }
 
 
-        private void ResetFilter_Click(object sender, EventArgs e)
-        {
-            PepareRefresh();
-            dgvTable.ClearSelection(); // сброс селекта
-
-            tscbTypeFilter.SelectedIndex = 0;
-            tscbSort.SelectedIndex = -1;
-
-            tbName.Text = "";
-            tbYear.Text = "";
-            tbCountry.Text = "";
-            numericTime.Value = 0;
-            tbDescription.Text = "";
-            tbFileName.Text = "";
-            cBoxGenre.SelectedIndex = 0;
-            cBoxTypeVideo.SelectedIndex = 0;
-        }
-
-        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
-        {
-            FindNextButton_Lock();    //блокировка кнопки поиска следующего элемента
-
-            if (e.Button == MouseButtons.Right)
-            {
-                try
-                {
-                    if (e.ColumnIndex > -1 && e.RowIndex > -1)
-                    {
-                        dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                        dgvTable.Rows[e.RowIndex].Selected = true;
-                        dgvTable.Focus();
-                        dgvTable.ContextMenuStrip = contextTabMenu;
-                        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
-                    }
-                    else
-                    {
-                        dgvTable.ContextMenuStrip = null;
-                        dgvTable.ClearSelection();
-                    }
-                }
-                catch (Exception Ex)
-                {
-                    MessageBox.Show(Ex.Message);
-                }
-            }
-        }
-
-
-        private void Play_Click(object sender, EventArgs e)  // запуск файла
-        {
-            Record record = GetSelectedRecord();
-            Process.Start(record.Path + Path.DirectorySeparatorChar + record.FileName);
-        }
 
 
         private void DeleteRec_Click(object sender, EventArgs e)
