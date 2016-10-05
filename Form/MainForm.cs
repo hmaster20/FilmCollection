@@ -26,67 +26,271 @@ namespace FilmCollection
         BackgroundWorker WorkerCB;
         public BackgroundWorker workeLoad;
 
-        public MainForm()
+
+        #region Главная форма (Main)
+
+        public MainForm()                           //Конструктор формы
         {
-
-            //System.Windows.Window w = new System.Windows.Window();
-            //w.TaskbarItemInfo = new System.Windows.Shell.TaskbarItemInfo() { ProgressState = System.Windows.Shell.TaskbarItemProgressState.Error };
-            //w.TaskbarItemInfo.ProgressValue = 55;
-
-            //w.Loaded += delegate {
-            //    Action<Object> callUpdateProgress = (o) => {
-            //        w.TaskbarItemInfo.ProgressValue = (double)o;
-            //    };
-
-            //    Thread t = new Thread(() => {
-            //        for (int i = 1; i <= 10; i++)
-            //        {
-            //            w.Dispatcher.BeginInvoke(callUpdateProgress, 1.0 * i / 10);
-            //            Thread.Sleep(1000);
-            //        }
-            //    });
-            //    t.Start();
-            //};
-
-
             InitializeComponent();                  // Создание и отрисовка элементов
-
-            this.MinimumSize = new Size(800, 600);   // Установка минимального размера формы
+            this.MinimumSize = new Size(800, 600);  // Установка минимального размера формы
 
             dgvTable.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
             dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона
             dgvTable.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
+
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
-            dgvSelected = new List<int>();          // хранение найденых индексов строки
+            dgvSelected = new List<int>();          // хранение поисковых индексов
 
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideoRus)))
-            {
-                cBoxTypeVideo.Items.Add(item);
-            }
+            { cBoxTypeVideo.Items.Add(item); }
 
             foreach (var item in Enum.GetValues(typeof(GenreVideoRus)))
-            {
-                cBoxGenre.Items.Add(item);
-            }
+            { cBoxGenre.Items.Add(item); }
 
             WorkerCB = new BackgroundWorker();
-            WorkerCB.DoWork += Smth_DoWork;                         // Здесь работает поток
-            WorkerCB.RunWorkerCompleted += Smth_RunWorkerCompleted; // Здесь завершающая задачка в потоке
-            WorkerCB.ProgressChanged += Smth_ProgressChanged;       // Здесь работает прогресс бар
-            WorkerCB.WorkerReportsProgress = true;                  // Говорим что поток может передавать информацию о ходе своей работы
+            WorkerCB.DoWork += Worker_DoWork;                     // Здесь работает поток
+            WorkerCB.RunWorkerCompleted += WorkerCompleted;     // Здесь завершающая задачка в потоке
+            WorkerCB.ProgressChanged += WorkerProgressChanged;  // Здесь работает прогресс бар
+            WorkerCB.WorkerReportsProgress = true;              // Говорим что поток может передавать информацию о ходе своей работы
         }
 
-        private void Main_Load(object sender, EventArgs e)      // Загрузка формы
+        private void T_Tick(object sender, EventArgs e)     // таймер для селекта MainForm_Load
+        {
+            timerLoad.Enabled = false;
+            treeFolder.SelectedNode = null;
+            treeFolder.AfterSelect += treeFolder_AfterSelect;
+        }
+
+        private void Main_Load(object sender, EventArgs e)              // Загрузка формы
         {
             FormLoad();
         }
 
-        private void Main_Close(object sender, FormClosingEventArgs e)    // обработка закрытия формы или выхода
+        private void Main_Close(object sender, FormClosingEventArgs e)  // Закрытие формы или выход
         {
             FormClose(e);
         }
+
+        private void FormLoad()
+        {
+            if (File.Exists(RecordOptions.BaseName))    // Если база создана, то загружаем
+            {
+                _videoCollection = RecordCollection.Load();
+                if (_videoCollection.VideoList.Count > 0)
+                {
+                    tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
+                    PepareRefresh();
+                    CreateTree();
+                }
+                timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
+            }
+            LoadFormVisualEffect();
+        }
+
+        private void FormClose(FormClosingEventArgs e)    // обработка события Close()
+        {
+            DialogResult dialog = MessageBox.Show("Вы уверены что хотите выйти из программы?",
+                                                  "Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                Application.ExitThread();
+            }
+            else if (dialog == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            _videoCollection.Save();
+            SaveFormVisualEffect();
+        }
+
+        private void LoadFormVisualEffect()
+        {
+            #region Восстановление состояния главной формы
+            string switch_on = _videoCollection.Options.FormState;
+            switch (switch_on)
+            {
+                case "Normal": WindowState = FormWindowState.Normal; break;
+                case "Minimized": WindowState = FormWindowState.Minimized; break;
+                case "Maximized": WindowState = FormWindowState.Maximized; break;
+                default: WindowState = FormWindowState.Maximized; break;
+            }
+            #endregion
+
+            #region Восстановление состояния сплиттеров
+            scMain.SplitterDistance = _videoCollection.Options.scMainSplitter;
+            scTabFilm.SplitterDistance = _videoCollection.Options.scTabFilmSplitter;
+            #endregion
+
+            //#region Восстановление состояния ширины колонок
+            //DataGridViewColumnCollection columns = dgvTable.Columns;
+            //char[] delimiterChars = { ',' };
+            //string text = _videoCollection.Options.ColumnsWidth;
+            //if (text != null && text != "")
+            //{
+            //    string[] words = text.Split(delimiterChars);
+            //    for (int i = 0; i < words.Length; i++)
+            //    {
+            //        columns[i].Width = Convert.ToInt32(words[i]);
+            //    }
+            //}
+            //#endregion
+        }
+
+        private void SaveFormVisualEffect()
+        {
+            // Сохранение состояния главной формы
+            _videoCollection.Options.FormState = this.WindowState.ToString();
+            #region Сохранение состояния сплиттеров
+            _videoCollection.Options.scMainSplitter = scMain.SplitterDistance;
+            _videoCollection.Options.scTabFilmSplitter = scTabFilm.SplitterDistance;
+            #endregion
+
+            //#region Сохранение ширины колонок
+            //DataGridViewColumnCollection columns = dgvTable.Columns;
+            //_videoCollection.Options.ColumnsWidth = "";
+            //for (int i = 0; i < columns.Count - 2; i++)
+            //{
+            //    if (i < columns.Count - 3)
+            //    {
+            //        _videoCollection.Options.ColumnsWidth = _videoCollection.Options.ColumnsWidth + columns[i].Width + ",";
+            //    }
+            //    else
+            //    {
+            //        _videoCollection.Options.ColumnsWidth = _videoCollection.Options.ColumnsWidth + columns[i].Width;
+            //    }
+            //}
+            //#endregion
+        }
+
+        #endregion
+
+
+        #region Обработка файла базы
+
+        private void CreateBase()       // Создание файла базы
+        {
+            FolderBrowserDialog fbDialog = new FolderBrowserDialog();
+            fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+            fbDialog.ShowNewFolderButton = false;
+
+            if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
+            {
+                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
+                                                      "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes) // Если соглашаемся
+                {
+                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                    _videoCollection.Clear();   // очищаем колелкцию
+                    treeFolder.Nodes.Clear();   // очищаем иерархию
+                    dgvTable.ClearSelection();  // выключаем селекты таблицы
+                    PepareRefresh();            // сбрасываем старые значения таблицы
+                }
+            }
+            else // Если базы нет, то создаем пустой файл базы
+            {
+                File.Create(RecordOptions.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
+            }
+
+            DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+            string folderName = "";
+
+            if (dialogStatus == DialogResult.OK)
+            {
+                tsProgressBar.Visible = true;
+                tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
+                tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
+
+                folderName = fbDialog.SelectedPath;                     //Извлечение имени папки
+
+                DialogResult correct = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
+                                MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                if (correct == DialogResult.Cancel)
+                {
+                   CreateBase();
+                }
+
+                DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
+                try
+                {
+                    tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    return;
+                }
+
+                WorkerCB.RunWorkerAsync(directory);
+
+                _videoCollection.Save();
+
+                FormLoad();
+            }
+        }
+
+        private void UpdateBase()       // Добавить обновление базы
+        {
+            if (_videoCollection.Options.Source != "")  // Если есть информация о корневой папки коллекции
+            {
+                DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
+                if (directory.Exists)   // проверяем существование заявленной папки коллекции
+                {
+                    #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
+                    List<string> FileNameList = new List<string>();                 // создаем пустой список типа string
+                    XmlDocument doc = new XmlDocument();                            // создаем объект для доступа в xml документ
+                    doc.Load(RecordOptions.BaseName);                            // загружаем файл базы
+                    XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
+
+                    foreach (XmlNode node in nodeList)
+                    {
+                        FileNameList.Add(node.ChildNodes[0].Value);
+                    }
+                    #endregion
+
+                    char[] charsToTrim = { '.' };
+                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                    {
+                        if (file.Name != FileNameList.Find(x => x.Contains(file.Name)))
+                        {
+                            record = new Record();
+
+                            record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                            record.FileName = file.Name;                            // полное название файла (film.avi)
+                            record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
+                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                                    // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                            _videoCollection.Add(record);
+                        }
+                    }
+                    _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
+                    FormLoad();                 // и перегружаем главную форму
+                }
+            }
+        }
+
+        private void BackupBase()       // Резервная копия базы
+        {
+            if (File.Exists(RecordOptions.BaseName)) // если есть что бэкапить...
+            {
+                try
+                {   // создаем бэкап
+                    File.Copy(RecordOptions.BaseName, Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                        + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
+                        + Path.GetExtension(RecordOptions.BaseName));
+                    MessageBox.Show("Создана резервная копия!");
+                }
+                catch (IOException copyError)
+                {   // если не можем создать бэкап, то ругаемся
+                    MessageBox.Show(copyError.Message);
+                }
+            }
+        }
+
+        #endregion
+
 
         #region Главное меню
 
@@ -158,47 +362,22 @@ namespace FilmCollection
 
 
 
-        //void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    // When the task ends, change the ProgressState and Overlay
-        //    // of the taskbar item to indicate a stopped task.
-        //    if (e.Cancelled == true)
-        //    {
-        //        // The task was stopped by the user. Show the progress indicator
-        //        // in the paused state.
-        //        this.taskBarItemInfo1.ProgressState = TaskbarItemProgressState.Paused;
-        //    }
-        //    else if (e.Error != null)
-        //    {
-        //        // The task ended with an error. Show the progress indicator
-        //        // in the error state.
-        //        this.taskBarItemInfo1.ProgressState = TaskbarItemProgressState.Error;
-        //    }
-        //    else
-        //    {
-        //        // The task completed normally. Remove the progress indicator.
-        //        this.taskBarItemInfo1.ProgressState = TaskbarItemProgressState.None;
-        //    }
-        //    // In all cases, show the 'Stopped' overlay.
-        //    this.taskBarItemInfo1.Overlay = (DrawingImage)this.FindResource("StopImage");
-        //}
+        #region Фоновый поток обработки коллекции файлов
 
+        #endregion
 
-
-
-
-        private void Smth_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void WorkerProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             tsProgressBar.Value = e.ProgressPercentage;
         }
 
-        private void Smth_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогрес бара
             MessageBox.Show(_videoCollection.VideoList.Count.ToString());
         }
 
-        private void Smth_DoWork(object sender, DoWorkEventArgs e)  // Тело потока
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)  // Тело потока
         {
             DirectoryInfo directory = (DirectoryInfo)e.Argument;
 
@@ -233,71 +412,7 @@ namespace FilmCollection
         //    MessageBox.Show("Значение Count = " + Convert.ToString( XmlSerializeHelper.Count));
         //}
 
-        private void CreateBase()       // Создание файла базы
-        {
-            FolderBrowserDialog fbDialog = new FolderBrowserDialog();
-            fbDialog.Description = "Укажите расположение файлов мультимедиа:";
-            fbDialog.ShowNewFolderButton = false;
 
-            if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
-            {
-                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
-                                                      "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes) // Если соглашаемся
-                {
-                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                    _videoCollection.Clear();   // очищаем колелкцию
-                    treeFolder.Nodes.Clear();   // очищаем иерархию
-                    dgvTable.ClearSelection();  // выключаем селекты таблицы
-                    PepareRefresh();            // сбрасываем старые значения таблицы
-                }
-            }
-            else // Если базы нет, то создаем пустой файл базы
-            {
-                File.Create(RecordOptions.BaseName).Close(); // создание файла и закрытие дескриптора (Объект FileStream)
-            }
-
-            DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
-            string folderName = "";
-
-            if (dialogStatus == DialogResult.OK)
-            {
-                tsProgressBar.Visible = true;
-                tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
-                tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
-
-                folderName = fbDialog.SelectedPath;                     //Извлечение имени папки
-
-                DialogResult correct = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
-                                MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                if (correct == DialogResult.Cancel)
-                {
-                    CreateBase();
-                }
-
-                DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-                try
-                {
-                    tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    return;
-                }
-
-                WorkerCB.RunWorkerAsync(directory);
-
-                _videoCollection.Save();
-
-                //ttt.Interval = 2000;
-                //ttt.Tick += T_Tickss;
-                //ttt.Enabled = true;
-
-                FormLoad();
-                //ttt.Enabled = false;
-            }
-        }
 
 
         #region Контекстное меню для DataGridView
@@ -358,123 +473,10 @@ namespace FilmCollection
         #endregion
 
 
-        #region Загрузка формы
-        private void FormLoad()     // Загрузка формы
-        {
-            if (File.Exists(RecordOptions.BaseName))     // Если база создана, то выполняем
-            {
-                _videoCollection = RecordCollection.Load();
-                if (_videoCollection.VideoList.Count > 0)
-                {
-                    tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
-                    PepareRefresh();
-                    CreateTree();
-                }
-                timerLoad.Enabled = true;                   // Исключение раннего селекта treeFolder и фильтра dataGridView1
-
-                #region Восстановление состояния сплиттеров
-                scMain.SplitterDistance = _videoCollection.Options.scMainSplitter;
-                scTabFilm.SplitterDistance = _videoCollection.Options.scTabFilmSplitter;
-                #endregion
-
-                //#region Восстановление состояния ширины колонок
-                //DataGridViewColumnCollection columns = dgvTable.Columns;
-                //char[] delimiterChars = { ',' };
-                //string text = _videoCollection.Options.ColumnsWidth;
-                //if (text != null && text != "")
-                //{
-                //    string[] words = text.Split(delimiterChars);
-                //    for (int i = 0; i < words.Length; i++)
-                //    {
-                //        columns[i].Width = Convert.ToInt32(words[i]);
-                //    }
-                //}
-
-                //#endregion
-
-                #region Восстановление состояния главной формы
-                string switch_on = _videoCollection.Options.FormState;
-                switch (switch_on)
-                {
-                    case "Normal": WindowState = FormWindowState.Normal; break;
-                    case "Minimized": WindowState = FormWindowState.Minimized; break;
-                    case "Maximized": WindowState = FormWindowState.Maximized; break;
-                    default: WindowState = FormWindowState.Maximized; break;
-                }
-                #endregion
-
-            }
-        }
-
-        private void T_Tick(object sender, EventArgs e)     // таймер для селекта MainForm_Load
-        {
-            timerLoad.Enabled = false;
-            treeFolder.SelectedNode = null;
-            treeFolder.AfterSelect += treeFolder_AfterSelect;
-        }
-        #endregion
 
 
 
-        private void UpdateBase()       // Добавить обновление базы
-        {
-            if (_videoCollection.Options.Source != "")  // Если есть информация о корневой папки коллекции
-            {
-                DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
-                if (directory.Exists)   // проверяем существование заявленной папки коллекции
-                {
-                    #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
-                    List<string> FileNameList = new List<string>();                 // создаем пустой список типа string
-                    XmlDocument doc = new XmlDocument();                            // создаем объект для доступа в xml документ
-                    doc.Load(RecordOptions.BaseName);                            // загружаем файл базы
-                    XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
 
-                    foreach (XmlNode node in nodeList)
-                    {
-                        FileNameList.Add(node.ChildNodes[0].Value);
-                    }
-                    #endregion
-
-                    char[] charsToTrim = { '.' };
-                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                    {
-                        if (file.Name != FileNameList.Find(x => x.Contains(file.Name)))
-                        {
-                            record = new Record();
-
-                            record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-                            record.FileName = file.Name;                            // полное название файла (film.avi)
-                            record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                                    // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                            _videoCollection.Add(record);
-                        }
-                    }
-                    _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
-                    FormLoad();                 // и перегружаем главную форму
-                }
-            }
-        }
-
-
-        private void BackupBase()       // Резервная копия базы
-        {
-            if (File.Exists(RecordOptions.BaseName)) // если есть что бэкапить...
-            {
-                try
-                {   // создаем бэкап
-                    File.Copy(RecordOptions.BaseName, Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                        + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
-                        + Path.GetExtension(RecordOptions.BaseName));
-                    MessageBox.Show("Создана резервная копия!");
-                }
-                catch (IOException copyError)
-                {   // если не можем создать бэкап, то ругаемся
-                    MessageBox.Show(copyError.Message);
-                }
-            }
-        }
 
 
         private void PepareRefresh()
@@ -970,6 +972,7 @@ namespace FilmCollection
             }
         }
 
+
         private void cbTypeFind_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnFind.Enabled = true;
@@ -990,6 +993,10 @@ namespace FilmCollection
             ResetFind();
         }
 
+
+
+
+        #region панель поиска (panelFind)
         private void ResetFind()
         {
             tbFind.Text = "";
@@ -1069,56 +1076,11 @@ namespace FilmCollection
             }
             if (!(FindCount < dgvSelected.Count)) FindCount = 0;
         }
+        #endregion
 
 
 
-
-
-
-
-        private void FormClose(FormClosingEventArgs e)    // обработка события Close()
-        {
-            DialogResult dialog = MessageBox.Show("Вы уверены что хотите выйти из программы?",
-                                                  "Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialog == DialogResult.Yes)
-            {
-                Application.ExitThread();
-            }
-            else if (dialog == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-
-            _videoCollection.Save();
-
-            SaveFormVisualConfig();
-        }
-
-        private void SaveFormVisualConfig()
-        {
-            // Сохранение состояния главной формы
-            _videoCollection.Options.FormState = this.WindowState.ToString();
-            #region Сохранение состояния сплиттеров
-            _videoCollection.Options.scMainSplitter = scMain.SplitterDistance;
-            _videoCollection.Options.scTabFilmSplitter = scTabFilm.SplitterDistance;
-            #endregion
-
-            //#region Сохранение ширины колонок
-            //DataGridViewColumnCollection columns = dgvTable.Columns;
-            //_videoCollection.Options.ColumnsWidth = "";
-            //for (int i = 0; i < columns.Count - 2; i++)
-            //{
-            //    if (i < columns.Count - 3)
-            //    {
-            //        _videoCollection.Options.ColumnsWidth = _videoCollection.Options.ColumnsWidth + columns[i].Width + ",";
-            //    }
-            //    else
-            //    {
-            //        _videoCollection.Options.ColumnsWidth = _videoCollection.Options.ColumnsWidth + columns[i].Width;
-            //    }
-            //}
-            //#endregion
-        }
+        #region Панель редактирования (panelEdit)
 
         private void NewRecord()
         {
@@ -1174,7 +1136,6 @@ namespace FilmCollection
                 FileNameDisabled();
             }
         }
-
 
         private void EditSave()
         {
@@ -1252,12 +1213,13 @@ namespace FilmCollection
         }
 
 
+        #region Управление блокировками для Панели редактирования
+
         private void EditCancel()    // Отмена редактирования в panelEdit
         {
             fsInfo = null;
             panelEdit_Lock();    // блокировка кнопок панели редактирования
         }
-
 
         private void panelEdit_Lock()    //Блокировка кнопок
         {
@@ -1291,7 +1253,6 @@ namespace FilmCollection
             btnSaveRec.Visible = true;    // Блокировать клавишу "Сохранить"
         }
 
-        #region Блокировка переименования файла
         private void FileNameEnabled()
         {
             btnFileNameEdit.Enabled = true;     // Замок "Имя файла" - деблокировать
@@ -1302,6 +1263,47 @@ namespace FilmCollection
         {
             btnFileNameEdit.Enabled = false;    // Замок "Имя файла" - блокировать
             tbFileName.Enabled = false;         // "Имя файла" - разблокировать
+        }
+
+
+        #endregion
+
+        #endregion
+
+
+
+        #region Обработка меню дерева (treeFolder)
+
+        private void treeFolder_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                treeFolder.SelectedNode = treeFolder.GetNodeAt(e.X, e.Y);
+                if (treeFolder.SelectedNode != null) // && treeFolder.SelectedNode.Parent == null)
+                {
+                    contextTreeMenu.Show(treeFolder, e.Location);
+                }
+            }
+        }
+
+        private void сCollapseAll_Click(object sender, EventArgs e)
+        {
+            treeFolder.CollapseAll();
+        }
+
+        private void сExpandAll_Click(object sender, EventArgs e)
+        {
+            treeFolder.ExpandAll();
+        }
+
+        private void cExpandSelectNode_Click(object sender, EventArgs e)
+        {
+            treeFolder.SelectedNode.ExpandAll();
+        }
+
+        private void cShowSelcetNodeAllFiles_Click(object sender, EventArgs e)
+        {
+            PepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды
         }
         #endregion
 
@@ -1336,7 +1338,6 @@ namespace FilmCollection
             //}
             //File.WriteAllBytes(@"c:\images\xyz.jpg", data);
         }
-
 
         static void Mains()
         {
@@ -1399,38 +1400,5 @@ namespace FilmCollection
         // https://pic.afisha.mail.ru/7087157/
         #endregion
 
-
-
-        private void treeFolder_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                treeFolder.SelectedNode = treeFolder.GetNodeAt(e.X, e.Y);
-                if (treeFolder.SelectedNode != null) // && treeFolder.SelectedNode.Parent == null)
-                {
-                    contextTreeMenu.Show(treeFolder, e.Location);
-                }
-            }
-        }
-
-        private void сCollapseAll_Click(object sender, EventArgs e)
-        {
-            treeFolder.CollapseAll();
-        }
-
-        private void сExpandAll_Click(object sender, EventArgs e)
-        {
-            treeFolder.ExpandAll();
-        }
-
-        private void cExpandSelectNode_Click(object sender, EventArgs e)
-        {
-            treeFolder.SelectedNode.ExpandAll();
-        }
-
-        private void cShowSelcetNodeAllFiles_Click(object sender, EventArgs e)
-        {
-            PepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды
-        }
     }
 }
