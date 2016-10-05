@@ -158,9 +158,6 @@ namespace FilmCollection
 
 
 
-
-
-
         //void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         //{
         //    // When the task ends, change the ProgressState and Overlay
@@ -303,7 +300,6 @@ namespace FilmCollection
         }
 
 
-
         #region Контекстное меню для DataGridView
         private void Filter(object sender, EventArgs e)     // При выборе фильтра выполняется сброс фильтра по дереву и таблице
         {
@@ -362,10 +358,6 @@ namespace FilmCollection
         #endregion
 
 
-
-
-
-
         #region Загрузка формы
         private void FormLoad()     // Загрузка формы
         {
@@ -421,7 +413,6 @@ namespace FilmCollection
             treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
         #endregion
-
 
 
 
@@ -558,7 +549,6 @@ namespace FilmCollection
                 }
         }
 
-
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
             // Предоставляет данные выбранной записи
@@ -597,7 +587,6 @@ namespace FilmCollection
             }
         }
 
-
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
             DataGridView dgv = dgvTable;
@@ -611,7 +600,7 @@ namespace FilmCollection
         }
 
 
-        // Сделать расчет для прогресс бара
+
         private void CreateTree()       // Построение дерева
         {
             XmlDocument doc = new XmlDocument();
@@ -652,7 +641,6 @@ namespace FilmCollection
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
             // TreeFast(paths);
         }
-
 
         private void TreeFastT(IEnumerable<string> paths)
         {
@@ -775,8 +763,6 @@ namespace FilmCollection
             // Load items into TreeViewFast
             treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
         }
-
-
 
 
         private void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator, int count)  // Построение дерева
@@ -907,6 +893,8 @@ namespace FilmCollection
         }
 
 
+
+
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
             PepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
@@ -931,10 +919,9 @@ namespace FilmCollection
             cBoxTypeVideo.SelectedIndex = 0;
         }
 
-
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
-            FindNextBlock();    //блокировка кнопки поиска следующего элемента
+            FindNextButton_Lock();    //блокировка кнопки поиска следующего элемента
 
             if (e.Button == MouseButtons.Right)
             {
@@ -1011,10 +998,10 @@ namespace FilmCollection
             btnFind.Enabled = false;
             dgvSelected.Clear();
             dgvTable.ClearSelection();
-            FindNextBlock();
+            FindNextButton_Lock();
         }
 
-        private void FindNextBlock()
+        private void FindNextButton_Lock()
         {
             FindCount = 0;
             btnFindNext.Enabled = false;
@@ -1066,7 +1053,6 @@ namespace FilmCollection
                 MessageBox.Show(ex.Message);
             }
         }
-
 
         private void FindNext()
         {
@@ -1190,7 +1176,6 @@ namespace FilmCollection
         }
 
 
-
         private void EditSave()
         {
             GenreVideo genre;
@@ -1297,21 +1282,13 @@ namespace FilmCollection
         private void panelEdit_Button_Lock()
         {
             btnCancel.Visible = false;  // "Отмена" - скрыть
-            //btnEditCancel.Enabled = false;  // "Отмена" - блокировать
             btnSaveRec.Visible = false;  // "Сохранить" - скрыть
-                                         //btnEditSaveR.Enabled = false;  // "Сохранить" - блокировать
         }
 
         private void panelEdit_Button_Unlock()
         {
-            {
-                btnCancel.Visible = true;   // Разблокировать клавишу "Отмена"
-                                            // btnEditCancel.Enabled = true;
-            }
-            {
-                btnSaveRec.Visible = true;    // Блокировать клавишу "Сохранить"
-                                              // btnEditSaveR.Enabled = true;
-            }
+            btnCancel.Visible = true;   // Разблокировать клавишу "Отмена"
+            btnSaveRec.Visible = true;    // Блокировать клавишу "Сохранить"
         }
 
         #region Блокировка переименования файла
