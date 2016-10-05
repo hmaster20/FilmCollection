@@ -252,7 +252,7 @@ namespace FilmCollection
                     _videoCollection.Clear();   // очищаем колелкцию
                     treeFolder.Nodes.Clear();   // очищаем иерархию
                     dgvTable.ClearSelection();  // выключаем селекты таблицы
-                    PepareRefresh("");          // сбрасываем старые значения таблицы
+                    PepareRefresh();            // сбрасываем старые значения таблицы
                 }
             }
             else // Если базы нет, то создаем пустой файл базы
@@ -308,7 +308,7 @@ namespace FilmCollection
         private void Filter(object sender, EventArgs e)     // При выборе фильтра выполняется сброс фильтра по дереву и таблице
         {
             dgvTable.ClearSelection();
-            PepareRefresh("");
+            PepareRefresh();
         }
 
         private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
@@ -328,7 +328,7 @@ namespace FilmCollection
             {
                 _videoCollection.Add(form.rec);
                 _videoCollection.Save();
-                PepareRefresh("");
+                PepareRefresh();
             }
         }
 
@@ -338,7 +338,7 @@ namespace FilmCollection
             if (new EditForm(record).ShowDialog() == DialogResult.OK)
             {
                 _videoCollection.Save();
-                PepareRefresh("");      //Должно быть обновление вместо фильтра
+                PepareRefresh();      //Должно быть обновление вместо фильтра
             }
         }
 
@@ -375,7 +375,7 @@ namespace FilmCollection
                 if (_videoCollection.VideoList.Count > 0)
                 {
                     tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
-                    PepareRefresh("");
+                    PepareRefresh();
                     CreateTree();
                 }
                 timerLoad.Enabled = true;                   // Исключение раннего селекта treeFolder и фильтра dataGridView1
@@ -486,12 +486,27 @@ namespace FilmCollection
         }
 
 
-        private void PepareRefresh(string nodeName)
+        private void PepareRefresh()
+        {
+            PepareRefresh("", false);
+        }
+
+
+
+        private void PepareRefresh(string nodeName, bool flag)
         {
             List<Record> filtered = _videoCollection.VideoList;
 
             if (nodeName != "" && nodeName != "Фильмотека")
-                filtered = filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
+                if (!flag)
+                {
+                    filtered = filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
+                }
+                else
+                {
+                    filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
+                }
+
 
             int switch_filter = tscbTypeFilter.SelectedIndex;
             switch (switch_filter)  // фильтр по категориям
@@ -881,10 +896,6 @@ namespace FilmCollection
                     TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
                     if (nodes.Length == 0)
                         lastNode = (lastNode == null) ? treeView.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
-                    //if (lastNode == null)
-                    //    lastNode = treeView.Nodes.Add(subPathAgg, subPath);
-                    //else
-                    //    lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
                     else
                         lastNode = nodes[0];
                 }
@@ -896,13 +907,13 @@ namespace FilmCollection
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
-            PepareRefresh(e.Node.FullPath);     // обновление на основе полученной ноды
+            PepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
         }
 
 
         private void ResetFilter_Click(object sender, EventArgs e)
         {
-            PepareRefresh("");
+            PepareRefresh();
             dgvTable.ClearSelection(); // сброс селекта
 
             tscbTypeFilter.SelectedIndex = 0;
@@ -965,7 +976,7 @@ namespace FilmCollection
                 _videoCollection.Remove(record);
                 dgvTable.ClearSelection();
                 _videoCollection.Save();
-                PepareRefresh("");
+                PepareRefresh();
             }
         }
 
@@ -1269,7 +1280,7 @@ namespace FilmCollection
             dgvTable.Enabled = true;    // Разблокировка таблицы
             dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
 
-            PepareRefresh("");  // перезагрузка таблицы
+            PepareRefresh();  // перезагрузка таблицы
 
             FileNameEnabled();
 
@@ -1437,7 +1448,7 @@ namespace FilmCollection
 
         private void cShowSelcetNodeAllFiles_Click(object sender, EventArgs e)
         {
-         
+            PepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды
         }
     }
 }
