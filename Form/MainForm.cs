@@ -208,7 +208,7 @@ namespace FilmCollection
                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                 if (correct == DialogResult.Cancel)
                 {
-                   CreateBase();
+                    CreateBase();
                 }
 
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
@@ -267,6 +267,11 @@ namespace FilmCollection
                     }
                     _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
                     FormLoad();                 // и перегружаем главную форму
+                    MessageBox.Show("Сведения о файлах в каталоге" + directory + " обновлены!");
+                }
+                else
+                {
+                    MessageBox.Show("Каталог " + directory + " не обнаружен!");
                 }
             }
         }
@@ -326,7 +331,7 @@ namespace FilmCollection
         }
 
         #endregion
-                
+
 
         #region Фоновый поток обработки коллекции файлов
 
@@ -374,7 +379,7 @@ namespace FilmCollection
         #region Обработка DataGridView
 
         #region Контекстное меню для DataGridView
-        
+
         private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
         {
             NewRecord();
@@ -449,7 +454,7 @@ namespace FilmCollection
         {
             PepareRefresh("", false);
         }
-        
+
         private void PepareRefresh(string nodeName, bool flag)
         {
             List<Record> filtered = _videoCollection.VideoList;
@@ -501,7 +506,7 @@ namespace FilmCollection
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
         private void SelectRecord(DataGridView dgv, Record record)
         {
             dgv.ClearSelection();
@@ -613,7 +618,7 @@ namespace FilmCollection
 
 
         #endregion
-        
+
 
         #region Панель редактирования (panelEdit)
         private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разблокировка поля имени файла
@@ -854,7 +859,7 @@ namespace FilmCollection
 
         #endregion
 
-        
+
         #region панель поиска (panelFind)
         private void ResetFind()
         {
@@ -947,10 +952,10 @@ namespace FilmCollection
         }
 
         #endregion
-        
-                
+
+
         #region Обработка меню дерева (treeFolder)
-        
+
 
         private void CreateTree()       // Построение дерева
         {
@@ -1247,7 +1252,7 @@ namespace FilmCollection
         {
             PepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
         }
-        
+
         private void treeFolder_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -1284,7 +1289,7 @@ namespace FilmCollection
 
         #endregion
 
-        
+
         #region Обработка актеров
 
         private void btnActors_Click(object sender, EventArgs e)
@@ -1297,7 +1302,7 @@ namespace FilmCollection
                 // RefreshTables();
             }
         }
-        
+
         #endregion
 
 
