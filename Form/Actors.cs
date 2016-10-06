@@ -12,9 +12,9 @@ namespace FilmCollection
 {
     public partial class Actors : Form
     {
-        private DataSet dataSet;
-        private Hashtable fieldProps;
-        private Hashtable sectionProps;
+        //private DataSet dataSet;
+        //private Hashtable fieldProps;
+        //private Hashtable sectionProps;
 
 
         public Actors()
