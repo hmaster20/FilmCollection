@@ -710,7 +710,7 @@ namespace FilmCollection
                 case 1: genre = GenreVideo.Vestern; break;
                 case 2: genre = GenreVideo.Comedy; break;
                 case 3: genre = GenreVideo.Unknown; break;
-                default: genre = GenreVideo.Unknown; return;
+                default: genre = GenreVideo.Unknown; break;
             }
             switch (cBoxTypeVideo.SelectedIndex)
             {
@@ -718,7 +718,7 @@ namespace FilmCollection
                 case 1: category = CategoryVideo.Series; break;
                 case 2: category = CategoryVideo.Cartoon; break;
                 case 3: category = CategoryVideo.Unknown; break;
-                default: category = CategoryVideo.Unknown; return;
+                default: category = CategoryVideo.Unknown; break;
             }
 
             if (fsInfo != null) // если новый объект
