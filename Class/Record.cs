@@ -4,10 +4,7 @@ namespace FilmCollection
 {
     public class Record
     {
-        public string Name { get; set; }
-
-        //private string _name = "";              // Название Фильма
-        //public string Name { get { return _name; } set { _name = value; }}
+        public string Name { get; set; }        // Название Фильма
 
         private string _year = "";              // Год выпуска
         public string Year
@@ -84,14 +81,22 @@ namespace FilmCollection
 
         public static string GenreToString(GenreVideo genretype)
         {
-            switch (genretype)
-            {
-                case GenreVideo.Action: return "Боевик";
-                case GenreVideo.Vestern: return "Вестерн";
-                case GenreVideo.Comedy: return "Комедия";
-                case GenreVideo.Unknown: return "Прочее";
-                default: return "Прочее";
-            }
+            // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
+            //return (GenreVideo) genretype = Enum.GetValues(typeof(GenreVideo));
+
+            GenreVideoRus genretypes = (GenreVideoRus)((int)genretype);
+            return genretypes.ToString();
+
+            //System.Windows.Forms.MessageBox.Show("genretypes =" + genretypes.ToString());
+
+            //switch (genretype)
+            //{
+            //    case GenreVideo.Action: return "Боевик";
+            //    case GenreVideo.Vestern: return "Вестерн";
+            //    case GenreVideo.Comedy: return "Комедия";
+            //    case GenreVideo.Unknown: return "Прочее";
+            //    default: return "Прочее";
+            //}
         }
 
         public static GenreVideo StringToGenre(string type)
