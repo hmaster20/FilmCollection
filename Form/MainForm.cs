@@ -853,8 +853,7 @@ namespace FilmCollection
             btnFileNameEdit.Enabled = false;    // Замок "Имя файла" - блокировать
             tbFileName.Enabled = false;         // "Имя файла" - разблокировать
         }
-
-
+        
         #endregion
 
         #endregion
@@ -880,8 +879,7 @@ namespace FilmCollection
 
         private void Find_Click(object sender, EventArgs e)  // Поиск
         {
-            int switch_Find = cbTypeFind.SelectedIndex;
-            switch (switch_Find)
+            switch (cbTypeFind.SelectedIndex)
             {
                 case 0: Find(0); break; // поиск по названию
                 case 1: Find(2); break; // поиск по году
