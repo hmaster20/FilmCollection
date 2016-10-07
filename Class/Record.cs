@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
 
 namespace FilmCollection
 {
@@ -81,14 +82,11 @@ namespace FilmCollection
 
         public static string GenreToString(GenreVideo genretype)
         {
-            // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
-            //return (GenreVideo) genretype = Enum.GetValues(typeof(GenreVideo));
-
             GenreVideoRus genretypes = (GenreVideoRus)((int)genretype);
             return genretypes.ToString();
 
-            //System.Windows.Forms.MessageBox.Show("genretypes =" + genretypes.ToString());
-
+            // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
+            //return (GenreVideo) genretype = Enum.GetValues(typeof(GenreVideo));
             //switch (genretype)
             //{
             //    case GenreVideo.Action: return "Боевик";
@@ -101,14 +99,17 @@ namespace FilmCollection
 
         public static GenreVideo StringToGenre(string type)
         {
-            switch (type)
-            {
-                case "Боевик": return GenreVideo.Action;
-                case "Вестерн": return GenreVideo.Vestern;
-                case "Комедия": return GenreVideo.Comedy;
-                case "Прочее": return GenreVideo.Unknown;
-                default: return GenreVideo.Unknown;
-            }
+            GenreVideo genretypes = (GenreVideo)(Enum.Parse(typeof(GenreVideoRus), type));
+            return genretypes;
+
+            //switch (type)
+            //{
+            //    case "Боевик": return GenreVideo.Action;
+            //    case "Вестерн": return GenreVideo.Vestern;
+            //    case "Комедия": return GenreVideo.Comedy;
+            //    case "Прочее": return GenreVideo.Unknown;
+            //    default: return GenreVideo.Unknown;
+            //}
         }
         #endregion
 
