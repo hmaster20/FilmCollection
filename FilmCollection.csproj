@@ -74,7 +74,6 @@
   <ItemGroup>
     <Compile Include="Class\BinSerializeHelper.cs" />
     <Compile Include="Class\Enum.cs" />
-    <Compile Include="Class\Enum2.cs" />
     <Compile Include="Class\RecordOptions.cs" />
     <Compile Include="Class\TreeViewColletion.cs" />
     <Compile Include="Class\TreeViewFast.cs">

@@ -711,7 +711,6 @@ namespace FilmCollection
 
             genre = (GenreVideo)cBoxGenre.SelectedIndex;
 
-
             //switch (cBoxGenre.SelectedIndex)
             //{
             //    case 0: genre = GenreVideo.Action; break;
@@ -721,14 +720,16 @@ namespace FilmCollection
             //    default: genre = GenreVideo.Unknown; break;
             //}
 
-            switch (cBoxTypeVideo.SelectedIndex)
-            {
-                case 0: category = CategoryVideo.Film; break;
-                case 1: category = CategoryVideo.Series; break;
-                case 2: category = CategoryVideo.Cartoon; break;
-                case 3: category = CategoryVideo.Unknown; break;
-                default: category = CategoryVideo.Unknown; break;
-            }
+            category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
+
+            //switch (cBoxTypeVideo.SelectedIndex)
+            //{
+            //    case 0: category = CategoryVideo.Film; break;
+            //    case 1: category = CategoryVideo.Series; break;
+            //    case 2: category = CategoryVideo.Cartoon; break;
+            //    case 3: category = CategoryVideo.Unknown; break;
+            //    default: category = CategoryVideo.Unknown; break;
+            //}
 
             if (fsInfo != null) // если новый объект
             {
