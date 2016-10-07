@@ -23,6 +23,14 @@ namespace FilmCollection
         Action,
         Vestern,
         Comedy,
+        Accident,
+        Military,
+        Detective,
+        Fantastic,
+        Documentary,
+        Adventure,
+        Family,
+        Fable,
         Unknown
     }
 
@@ -31,6 +39,14 @@ namespace FilmCollection
         Боевик,
         Вестерн,
         Комедия,
+        Катастрофа,
+        Военный,
+        Детектив,
+        Фантастика,
+        Документальный,
+        Приключения,
+        Семейный,
+        Сказка,
         Прочее
     }
 }
