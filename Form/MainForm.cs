@@ -540,22 +540,29 @@ namespace FilmCollection
                 tbFileName.Text = record.FileName;
 
 
+                //genre = (GenreVideo)cBoxGenre.SelectedIndex;
+                //Enum.GetValues(typeof(GenreVideo));
+                // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
 
-                switch (record.Category)
-                {
-                    case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
-                    case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
-                    case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
-                    case CategoryVideo.Unknown: cBoxTypeVideo.SelectedIndex = 3; break;
-                }
+                cBoxTypeVideo.SelectedIndex = ((int)record.Category);
 
-                switch (record.GenreVideo)
-                {
-                    case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
-                    case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
-                    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
-                    case GenreVideo.Unknown: cBoxGenre.SelectedIndex = 3; break;
-                }
+                //switch (record.Category)
+                //{
+                //    case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
+                //    case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
+                //    case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
+                //    case CategoryVideo.Unknown: cBoxTypeVideo.SelectedIndex = 3; break;
+                //}
+
+                cBoxGenre.SelectedIndex = ((int)record.GenreVideo);
+
+                //switch (record.GenreVideo)
+                //{
+                //    case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
+                //    case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
+                //    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
+                //    case GenreVideo.Unknown: cBoxGenre.SelectedIndex = 3; break;
+                //}
             }
         }
 
