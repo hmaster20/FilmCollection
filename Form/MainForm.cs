@@ -539,6 +539,8 @@ namespace FilmCollection
                 tbDescription.Text = record.Description;
                 tbFileName.Text = record.FileName;
 
+
+
                 switch (record.Category)
                 {
                     case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
@@ -704,14 +706,21 @@ namespace FilmCollection
             CategoryVideo category;
             char[] charsToTrim = { '.' };
 
-            switch (cBoxGenre.SelectedIndex)
-            {
-                case 0: genre = GenreVideo.Action; break;
-                case 1: genre = GenreVideo.Vestern; break;
-                case 2: genre = GenreVideo.Comedy; break;
-                case 3: genre = GenreVideo.Unknown; break;
-                default: genre = GenreVideo.Unknown; break;
-            }
+            // cbRace.DataSource = Enum.GetValues(typeof(Races));
+            // genre = Enum.GetValues(typeof(cBoxGenre.SelectedIndex));
+
+            genre = (GenreVideo)cBoxGenre.SelectedIndex;
+
+
+            //switch (cBoxGenre.SelectedIndex)
+            //{
+            //    case 0: genre = GenreVideo.Action; break;
+            //    case 1: genre = GenreVideo.Vestern; break;
+            //    case 2: genre = GenreVideo.Comedy; break;
+            //    case 3: genre = GenreVideo.Unknown; break;
+            //    default: genre = GenreVideo.Unknown; break;
+            //}
+
             switch (cBoxTypeVideo.SelectedIndex)
             {
                 case 0: category = CategoryVideo.Film; break;
@@ -1242,7 +1251,6 @@ namespace FilmCollection
                 }
                 lastNode = null;
             }
-            //treeView.ExpandAll();           // развернуть дерево
         }
 
 
