@@ -14,12 +14,8 @@ namespace FilmCollection
             set { _year = value; }
         }
 
-        private string _country = "";           // Страна выпуска
-        public string Country
-        {
-            get { return _country; }
-            set { _country = value; }
-        }
+        public string Country { get; set; }     // Страна выпуска
+
 
         private int _time = 0;                  // Время (в минутах)
         public int Time
@@ -35,26 +31,12 @@ namespace FilmCollection
             set { _description = value; }
         }
 
-        private string _filename = "";         // Название файла
-        public string FileName
-        {
-            get { return _filename; }
-            set { _filename = value; }
-        }
+        public string FileName { get; set; }    // Название файла
 
-        private string _dirname = "";         // Название папки в которой расположен файл
-        public string DirName
-        {
-            get { return _dirname; }
-            set { _dirname = value; }
-        }
+        public string DirName { get; set; }     // Название папки в которой расположен файл
 
-        private string _extension = "";         // Расширение (тип) файла (avi, mkv, mpeg)
-        public string Extension
-        {
-            get { return _extension; }
-            set { _extension = value; }
-        }
+        public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
+
 
         private string _path = "";              // Путь к файлу
         public string Path
@@ -82,8 +64,8 @@ namespace FilmCollection
 
         public static string GenreToString(GenreVideo genretype)
         {
-            GenreVideoRus genretypes = (GenreVideoRus)((int)genretype);
-            return genretypes.ToString();
+            GenreVideo_Rus _genretype = (GenreVideo_Rus)((int)genretype);
+            return _genretype.ToString();
 
             // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
             //return (GenreVideo) genretype = Enum.GetValues(typeof(GenreVideo));
@@ -99,8 +81,8 @@ namespace FilmCollection
 
         public static GenreVideo StringToGenre(string type)
         {
-            GenreVideo genretypes = (GenreVideo)(Enum.Parse(typeof(GenreVideoRus), type));
-            return genretypes;
+            GenreVideo _type = (GenreVideo)(Enum.Parse(typeof(GenreVideo_Rus), type));
+            return _type;
 
             //switch (type)
             //{
@@ -133,26 +115,32 @@ namespace FilmCollection
 
         public static string CategoryToString(CategoryVideo category)
         {
-            switch (category)
-            {
-                case CategoryVideo.Film: return "Фильм";
-                case CategoryVideo.Series: return "Сериал";
-                case CategoryVideo.Cartoon: return "Мультфильм";
-                case CategoryVideo.Unknown: return "Прочее";
-                default: return "Прочее";
-            }
+            CategoryVideo_Rus _category = (CategoryVideo_Rus)((int)category);
+            return _category.ToString();
+
+            //switch (category)
+            //{
+            //    case CategoryVideo.Film: return "Фильм";
+            //    case CategoryVideo.Series: return "Сериал";
+            //    case CategoryVideo.Cartoon: return "Мультфильм";
+            //    case CategoryVideo.Unknown: return "Прочее";
+            //    default: return "Прочее";
+            //}
         }
 
         public static CategoryVideo StringToCategory(string category)
         {
-            switch (category)
-            {
-                case "Фильм": return CategoryVideo.Film;
-                case "Сериал": return CategoryVideo.Series;
-                case "Мультфильм": return CategoryVideo.Cartoon;
-                case "Прочее": return CategoryVideo.Unknown;
-                default: return CategoryVideo.Unknown;
-            }
+            CategoryVideo _category = (CategoryVideo)(Enum.Parse(typeof(CategoryVideo_Rus), category));
+            return _category;
+
+            //switch (category)
+            //{
+            //    case "Фильм": return CategoryVideo.Film;
+            //    case "Сериал": return CategoryVideo.Series;
+            //    case "Мультфильм": return CategoryVideo.Cartoon;
+            //    case "Прочее": return CategoryVideo.Unknown;
+            //    default: return CategoryVideo.Unknown;
+            //}
         }
         #endregion
 
@@ -182,6 +170,11 @@ namespace FilmCollection
         public static int CompareByName(Record a, Record b) // Сравнение по названию
         {
             return string.Compare(a.Name, b.Name);
+        }
+
+        public static int CompareByCatalog(Record a, Record b) // Сравнение по каталогу
+        {
+            return string.Compare(a.DirName, b.DirName);
         }
 
         public static int CompareByCategory(Record a, Record b) // Сравнение по категории
@@ -230,16 +223,17 @@ namespace FilmCollection
 
         public static int CompareByYear(Record a, Record b) // Сравнение по году
         {
-            if (a.Year != "" && b.Year != "") { 
-            string aYearString = a.Year.Substring(0, 4);
-            string bYearString = b.Year.Substring(0, 4);
+            if (a.Year != "" && b.Year != "")
+            {
+                string aYearString = a.Year.Substring(0, 4);
+                string bYearString = b.Year.Substring(0, 4);
 
-            if (aYearString == bYearString)
-                return CompareByName(a, b);
-            int aYear = 0;
-            int bYear = 0;
-            if (int.TryParse(aYearString, out aYear) && int.TryParse(bYearString, out bYear))
-                return (int)((bYear - aYear) * 100);
+                if (aYearString == bYearString)
+                    return CompareByName(a, b);
+                int aYear = 0;
+                int bYear = 0;
+                if (int.TryParse(aYearString, out aYear) && int.TryParse(bYearString, out bYear))
+                    return (int)((bYear - aYear) * 100);
             }
             return CompareByName(a, b);
         }
