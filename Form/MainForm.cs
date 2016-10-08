@@ -49,6 +49,9 @@ namespace FilmCollection
             foreach (var item in Enum.GetValues(typeof(GenreVideo_Rus)))
             { cBoxGenre.Items.Add(item); }
 
+            foreach (var item in Enum.GetValues(typeof(Country_Rus)))
+            { cBoxCountry.Items.Add(item); }
+
             WorkerCB = new BackgroundWorker();
             WorkerCB.DoWork += Worker_DoWork;                     // Здесь работает поток
             WorkerCB.RunWorkerCompleted += WorkerCompleted;     // Здесь завершающая задачка в потоке
@@ -569,13 +572,13 @@ namespace FilmCollection
                 tbfName.Text = record.Name;
                 tbfDesc.Text = record.Description;
                 tbfYear.Text = Convert.ToString(record.Year);
-                tbfCountry.Text = record.Country;
+                //tbfCountry.Text = record.Country;
 
                 // Панель редактирования
                 tbName.Text = record.Name;
                 //tbYear.Text = record.Year;
                 mtbYear.Text = Convert.ToString(record.Year);
-                tbCountry.Text = record.Country;
+                //tbCountry.Text = record.Country;
                 numericTime.Value = record.Time;
                 tbDescription.Text = record.Description;
                 tbFileName.Text = record.FileName;
@@ -604,6 +607,8 @@ namespace FilmCollection
                 //    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
                 //    case GenreVideo.Unknown: cBoxGenre.SelectedIndex = 3; break;
                 //}
+
+                cBoxCountry.SelectedIndex = ((int)record.Country);
             }
         }
 
@@ -628,13 +633,14 @@ namespace FilmCollection
             tscbSort.SelectedIndex = -1;
 
             tbName.Text = "";
-            tbYear.Text = "";
-            tbCountry.Text = "";
+            //tbYear.Text = "";
+            //tbCountry.Text = "";
             numericTime.Value = 0;
             tbDescription.Text = "";
             tbFileName.Text = "";
-            cBoxGenre.SelectedIndex = 0;
-            cBoxTypeVideo.SelectedIndex = 0;
+            cBoxGenre.SelectedIndex = -1;
+            cBoxTypeVideo.SelectedIndex = -1;
+            cBoxCountry.SelectedIndex = -1;
         }
 
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
@@ -727,13 +733,14 @@ namespace FilmCollection
 
                 // Заполняем поля
                 tbName.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
-                tbYear.Text = "";
-                tbCountry.Text = "";
+                //tbYear.Text = "";
+                //tbCountry.Text = "";
                 numericTime.Value = 0;
                 tbDescription.Text = "";
                 tbFileName.Text = fInfo.Name;
-                cBoxGenre.SelectedIndex = 0;
-                cBoxTypeVideo.SelectedIndex = 0;
+                cBoxGenre.SelectedIndex = -1;
+                cBoxTypeVideo.SelectedIndex = -1;
+                cBoxCountry.SelectedIndex = -1;
 
                 fsInfo = fInfo;             // если все хорошо, то передаем объект
 
@@ -752,6 +759,7 @@ namespace FilmCollection
         {
             GenreVideo genre;
             CategoryVideo category;
+            Country_Rus country;
             char[] charsToTrim = { '.' };
 
             // cbRace.DataSource = Enum.GetValues(typeof(Races));
@@ -779,6 +787,11 @@ namespace FilmCollection
             //    default: category = CategoryVideo.Unknown; break;
             //}
 
+            category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
+
+            country = (Country_Rus)cBoxCountry.SelectedIndex;
+            
+
             if (fsInfo != null) // если новый объект
             {
                 Record record = new Record();
@@ -790,7 +803,8 @@ namespace FilmCollection
                 record.Name = tbName.Text;
                 //record.Year = Convert.ToInt32(tbYear.Text);
                 record.Year = Convert.ToInt32(mtbYear.Text);
-                record.Country = tbCountry.Text;
+                //record.Country = tbCountry.Text;
+                record.Country = country;
                 record.Time = (int)numericTime.Value;
                 record.Category = category;
                 record.GenreVideo = genre;
@@ -809,7 +823,8 @@ namespace FilmCollection
                     record.Name = tbName.Text;
                     //record.Year = tbYear.Text;
                     record.Year = Convert.ToInt32(mtbYear.Text);
-                    record.Country = tbCountry.Text;
+                    //record.Country = tbCountry.Text;
+                    record.Country = country;
                     record.Time = (int)numericTime.Value;
                     record.Category = category;
                     record.GenreVideo = genre;
@@ -836,7 +851,7 @@ namespace FilmCollection
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
         {
             if (fsInfo == null) dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки в таблице
-            panelEdit_Button_Unlock();          // разблокировка кнопок
+            panelEdit_Button_Unlock();  // разблокировка кнопок
             dgvTable.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
         }
@@ -880,7 +895,8 @@ namespace FilmCollection
         private void panelEdit_Lock()    //Блокировка кнопок
         {
             tbName.Modified = false;    // возвращаем назад статус изменения поля
-            tbYear.Modified = false;    // возвращаем назад статус изменения поля
+            //tbYear.Modified = false;    // возвращаем назад статус изменения поля
+            mtbYear.Modified = false;    // возвращаем назад статус изменения поля
             tbCountry.Modified = false; // возвращаем назад статус изменения поля
             tbDescription.Modified = false;// возвращаем назад статус изменения поля
 

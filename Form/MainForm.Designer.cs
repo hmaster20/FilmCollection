@@ -31,14 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dgvTable = new System.Windows.Forms.DataGridView();
-            this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnGenreString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -100,7 +92,6 @@
             this.cBoxGenre = new System.Windows.Forms.ComboBox();
             this.tbDescription = new System.Windows.Forms.TextBox();
             this.tbCountry = new System.Windows.Forms.TextBox();
-            this.tbYear = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
@@ -153,6 +144,14 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCountryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnGenreString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -193,7 +192,7 @@
             this.cmnName,
             this.cmnDirName,
             this.cmnYear,
-            this.cmnCountry,
+            this.cmnCountryString,
             this.cmnGenreString,
             this.cmnCategoryString,
             this.cmnTime,
@@ -209,76 +208,6 @@
             this.dgvTable.TabIndex = 12;
             this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTable.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
-            // 
-            // cmnName
-            // 
-            this.cmnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cmnName.DataPropertyName = "Name";
-            this.cmnName.HeaderText = "Название";
-            this.cmnName.Name = "cmnName";
-            this.cmnName.ReadOnly = true;
-            // 
-            // cmnDirName
-            // 
-            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnDirName.DataPropertyName = "DirName";
-            this.cmnDirName.HeaderText = "Каталог";
-            this.cmnDirName.Name = "cmnDirName";
-            this.cmnDirName.ReadOnly = true;
-            this.cmnDirName.Width = 73;
-            // 
-            // cmnYear
-            // 
-            this.cmnYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cmnYear.DataPropertyName = "Year";
-            this.cmnYear.HeaderText = "Год";
-            this.cmnYear.Name = "cmnYear";
-            this.cmnYear.ReadOnly = true;
-            this.cmnYear.Width = 60;
-            // 
-            // cmnCountry
-            // 
-            this.cmnCountry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnCountry.DataPropertyName = "Country";
-            this.cmnCountry.HeaderText = "Страна";
-            this.cmnCountry.Name = "cmnCountry";
-            this.cmnCountry.ReadOnly = true;
-            this.cmnCountry.Width = 68;
-            // 
-            // cmnGenreString
-            // 
-            this.cmnGenreString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnGenreString.DataPropertyName = "GenreString";
-            this.cmnGenreString.HeaderText = "Жанр";
-            this.cmnGenreString.Name = "cmnGenreString";
-            this.cmnGenreString.ReadOnly = true;
-            this.cmnGenreString.Width = 61;
-            // 
-            // cmnCategoryString
-            // 
-            this.cmnCategoryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnCategoryString.DataPropertyName = "CategoryString";
-            this.cmnCategoryString.HeaderText = "Категория";
-            this.cmnCategoryString.Name = "cmnCategoryString";
-            this.cmnCategoryString.ReadOnly = true;
-            this.cmnCategoryString.Width = 85;
-            // 
-            // cmnTime
-            // 
-            this.cmnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cmnTime.DataPropertyName = "Time";
-            this.cmnTime.HeaderText = "Время";
-            this.cmnTime.Name = "cmnTime";
-            this.cmnTime.ReadOnly = true;
-            this.cmnTime.Width = 60;
-            // 
-            // cmnFileName
-            // 
-            this.cmnFileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cmnFileName.DataPropertyName = "FileName";
-            this.cmnFileName.HeaderText = "Файл";
-            this.cmnFileName.Name = "cmnFileName";
-            this.cmnFileName.ReadOnly = true;
             // 
             // TabMenu
             // 
@@ -710,7 +639,6 @@
             this.panelEdit.Controls.Add(this.cBoxGenre);
             this.panelEdit.Controls.Add(this.tbDescription);
             this.panelEdit.Controls.Add(this.tbCountry);
-            this.panelEdit.Controls.Add(this.tbYear);
             this.panelEdit.Controls.Add(this.tbName);
             this.panelEdit.Controls.Add(this.lblFileName);
             this.panelEdit.Controls.Add(this.lblDescription);
@@ -732,14 +660,14 @@
             // 
             this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCountry.FormattingEnabled = true;
-            this.cBoxCountry.Location = new System.Drawing.Point(71, 379);
+            this.cBoxCountry.Location = new System.Drawing.Point(71, 335);
             this.cBoxCountry.Name = "cBoxCountry";
             this.cBoxCountry.Size = new System.Drawing.Size(172, 21);
             this.cBoxCountry.TabIndex = 50;
             // 
             // mtbYear
             // 
-            this.mtbYear.Location = new System.Drawing.Point(71, 353);
+            this.mtbYear.Location = new System.Drawing.Point(71, 59);
             this.mtbYear.Mask = "0000";
             this.mtbYear.Name = "mtbYear";
             this.mtbYear.Size = new System.Drawing.Size(57, 20);
@@ -747,6 +675,7 @@
             this.mtbYear.Text = "2016";
             this.mtbYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbYear.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtbYear.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             this.mtbYear.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
             // 
             // panelEditTitle
@@ -880,14 +809,6 @@
             this.tbCountry.Size = new System.Drawing.Size(144, 20);
             this.tbCountry.TabIndex = 29;
             this.tbCountry.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // tbYear
-            // 
-            this.tbYear.Location = new System.Drawing.Point(71, 59);
-            this.tbYear.Name = "tbYear";
-            this.tbYear.Size = new System.Drawing.Size(57, 20);
-            this.tbYear.TabIndex = 28;
-            this.tbYear.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // tbName
             // 
@@ -1424,6 +1345,76 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // cmnName
+            // 
+            this.cmnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cmnName.DataPropertyName = "Name";
+            this.cmnName.HeaderText = "Название";
+            this.cmnName.Name = "cmnName";
+            this.cmnName.ReadOnly = true;
+            // 
+            // cmnDirName
+            // 
+            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnDirName.DataPropertyName = "DirName";
+            this.cmnDirName.HeaderText = "Каталог";
+            this.cmnDirName.Name = "cmnDirName";
+            this.cmnDirName.ReadOnly = true;
+            this.cmnDirName.Width = 73;
+            // 
+            // cmnYear
+            // 
+            this.cmnYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cmnYear.DataPropertyName = "Year";
+            this.cmnYear.HeaderText = "Год";
+            this.cmnYear.Name = "cmnYear";
+            this.cmnYear.ReadOnly = true;
+            this.cmnYear.Width = 60;
+            // 
+            // cmnCountryString
+            // 
+            this.cmnCountryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnCountryString.DataPropertyName = "CountryString";
+            this.cmnCountryString.HeaderText = "Страна";
+            this.cmnCountryString.Name = "cmnCountryString";
+            this.cmnCountryString.ReadOnly = true;
+            this.cmnCountryString.Width = 68;
+            // 
+            // cmnGenreString
+            // 
+            this.cmnGenreString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnGenreString.DataPropertyName = "GenreString";
+            this.cmnGenreString.HeaderText = "Жанр";
+            this.cmnGenreString.Name = "cmnGenreString";
+            this.cmnGenreString.ReadOnly = true;
+            this.cmnGenreString.Width = 61;
+            // 
+            // cmnCategoryString
+            // 
+            this.cmnCategoryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnCategoryString.DataPropertyName = "CategoryString";
+            this.cmnCategoryString.HeaderText = "Категория";
+            this.cmnCategoryString.Name = "cmnCategoryString";
+            this.cmnCategoryString.ReadOnly = true;
+            this.cmnCategoryString.Width = 85;
+            // 
+            // cmnTime
+            // 
+            this.cmnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cmnTime.DataPropertyName = "Time";
+            this.cmnTime.HeaderText = "Время";
+            this.cmnTime.Name = "cmnTime";
+            this.cmnTime.ReadOnly = true;
+            this.cmnTime.Width = 60;
+            // 
+            // cmnFileName
+            // 
+            this.cmnFileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cmnFileName.DataPropertyName = "FileName";
+            this.cmnFileName.HeaderText = "Файл";
+            this.cmnFileName.Name = "cmnFileName";
+            this.cmnFileName.ReadOnly = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1516,7 +1507,6 @@
         private System.Windows.Forms.ComboBox cBoxGenre;
         private System.Windows.Forms.TextBox tbDescription;
         private System.Windows.Forms.TextBox tbCountry;
-        private System.Windows.Forms.TextBox tbYear;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Label lblDescription;
@@ -1573,14 +1563,6 @@
         private System.Windows.Forms.ToolStripMenuItem cExpandSelectNode;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem cShowSelcetNodeAllFiles;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnDirName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnYear;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCountry;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnGenreString;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbfCountry;
@@ -1602,6 +1584,14 @@
         private System.Windows.Forms.ToolStripButton tsBackupDB;
         private System.Windows.Forms.ToolStripButton tsRecoveryDB;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnDirName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCountryString;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnGenreString;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
     }
 }
 
