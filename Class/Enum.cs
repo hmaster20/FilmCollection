@@ -11,7 +11,7 @@ namespace FilmCollection
         Unknown
     }
 
-    public enum CategoryVideoRus
+    public enum CategoryVideo_Rus
     {
         Фильм,
         Сериал,
@@ -35,7 +35,7 @@ namespace FilmCollection
         Unknown
     }
 
-    public enum GenreVideoRus
+    public enum GenreVideo_Rus
     {
         Боевик,
         Вестерн,
@@ -71,7 +71,6 @@ namespace FilmCollection
             description.Add(11, "Прочие фильмы");
 
 
-
             //foreach (KeyValuePair<int, string> keyValue in countries)
             //{
             //    Console.WriteLine(keyValue.Key + " - " + keyValue.Value);
@@ -83,7 +82,6 @@ namespace FilmCollection
         }
     }
 }
-
 
 
 //анимация
