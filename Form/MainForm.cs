@@ -43,10 +43,10 @@ namespace FilmCollection
             dgvSelected = new List<int>();          // хранение поисковых индексов
 
             // Создание списка на основе перечисления
-            foreach (var item in Enum.GetValues(typeof(CategoryVideoRus)))
+            foreach (var item in Enum.GetValues(typeof(CategoryVideo_Rus)))
             { cBoxTypeVideo.Items.Add(item); }
 
-            foreach (var item in Enum.GetValues(typeof(GenreVideoRus)))
+            foreach (var item in Enum.GetValues(typeof(GenreVideo_Rus)))
             { cBoxGenre.Items.Add(item); }
 
             WorkerCB = new BackgroundWorker();
@@ -87,6 +87,12 @@ namespace FilmCollection
                 timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
             }
             LoadFormVisualEffect();
+            Form_Tooltip();
+        }
+
+        private void Form_Tooltip()     // Всплывающая подсказка
+        {
+            toolinfo.SetToolTip(btnFileNameEdit, "Разблокировать для переименования файла");
         }
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -428,13 +434,13 @@ namespace FilmCollection
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // Проверка селекта строки перед открытием меню
         {
             //contextMenu.Items[4].Enabled = false;
-            contextTabMenu.Enabled = false;    // Блокировка меню
+            TabMenu.Enabled = false;    // Блокировка меню
 
             DataGridView dgv = dgvTable;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 //contextMenu.Items[4].Enabled = true;
-                contextTabMenu.Enabled = true; // Разблокировка меню
+                TabMenu.Enabled = true; // Разблокировка меню
             }
         }
 
@@ -486,6 +492,7 @@ namespace FilmCollection
                 case 1: filtered.Sort(Record.CompareByTime); break;
                 case 2: filtered.Sort(Record.CompareByYear); break;
                 case 3: filtered.Sort(Record.CompareByCategory); break;
+                case 4: filtered.Sort(Record.CompareByCatalog); break;
                 default: break;
             }
             RefreshTable(filtered);
@@ -609,7 +616,7 @@ namespace FilmCollection
                         dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
                         dgvTable.Rows[e.RowIndex].Selected = true;
                         dgvTable.Focus();
-                        dgvTable.ContextMenuStrip = contextTabMenu;
+                        dgvTable.ContextMenuStrip = TabMenu;
                         //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
                     }
                     else
@@ -870,7 +877,7 @@ namespace FilmCollection
             btnFileNameEdit.Enabled = false;    // Замок "Имя файла" - блокировать
             tbFileName.Enabled = false;         // "Имя файла" - разблокировать
         }
-        
+
         #endregion
 
         #endregion
@@ -883,6 +890,7 @@ namespace FilmCollection
             FindStatusLabel.Text = "";
             cbTypeFind.SelectedIndex = -1;
             btnFind.Enabled = false;
+
             dgvSelected.Clear();
             dgvTable.ClearSelection();
             FindNextButton_Lock();
@@ -1274,7 +1282,7 @@ namespace FilmCollection
                 treeFolder.SelectedNode = treeFolder.GetNodeAt(e.X, e.Y);
                 if (treeFolder.SelectedNode != null) // && treeFolder.SelectedNode.Parent == null)
                 {
-                    contextTreeMenu.Show(treeFolder, e.Location);
+                    TreeMenu.Show(treeFolder, e.Location);
                 }
             }
         }
