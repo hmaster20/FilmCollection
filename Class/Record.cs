@@ -15,8 +15,6 @@ namespace FilmCollection
             set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
         }
 
-        public string Country { get; set; }     // Страна выпуска
-
         private int _time = 0;                  // Время (в минутах)
         public int Time
         {
@@ -109,32 +107,50 @@ namespace FilmCollection
         {
             CategoryVideo_Rus _category = (CategoryVideo_Rus)((int)category);
             return _category.ToString();
-
-            //switch (category)
-            //{
-            //    case CategoryVideo.Film: return "Фильм";
-            //    case CategoryVideo.Series: return "Сериал";
-            //    case CategoryVideo.Cartoon: return "Мультфильм";
-            //    case CategoryVideo.Unknown: return "Прочее";
-            //    default: return "Прочее";
-            //}
         }
 
         public static CategoryVideo StringToCategory(string category)
         {
             CategoryVideo _category = (CategoryVideo)(Enum.Parse(typeof(CategoryVideo_Rus), category));
             return _category;
-
-            //switch (category)
-            //{
-            //    case "Фильм": return CategoryVideo.Film;
-            //    case "Сериал": return CategoryVideo.Series;
-            //    case "Мультфильм": return CategoryVideo.Cartoon;
-            //    case "Прочее": return CategoryVideo.Unknown;
-            //    default: return CategoryVideo.Unknown;
-            //}
         }
         #endregion
+
+
+        //public string Country { get; set; }     // Страна выпуска
+
+        private Country_Rus _country = Country_Rus.Россия;   // Страна
+        [XmlIgnore]
+        public Country_Rus Country
+        {
+            get { return _country; }
+            set { _country = value; }
+        }
+
+        public string CountryString
+        {
+            get { return CountryToString(Country); }
+            set { Country = StringToCountry(value); }
+        }
+
+        public static string CountryToString(Country_Rus country)
+        {
+            Country_Rus _category = (Country_Rus)((int)country);
+            return _category.ToString();
+        }
+
+        public static Country_Rus StringToCountry(string country)
+        {
+            Country_Rus _category = (Country_Rus)(Enum.Parse(typeof(Country_Rus), country));
+            return _category;
+        }
+
+
+
+
+
+
+
 
 
 
