@@ -16,7 +16,6 @@ namespace FilmCollection
 
         public string Country { get; set; }     // Страна выпуска
 
-
         private int _time = 0;                  // Время (в минутах)
         public int Time
         {
@@ -36,19 +35,13 @@ namespace FilmCollection
         public string DirName { get; set; }     // Название папки в которой расположен файл
 
         public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
+        
+        public string Path { get; set; }        // Путь к файлу
+        
 
 
-        private string _path = "";              // Путь к файлу
-        public string Path
-        {
-            get { return _path; }
-            set { _path = value; }
-        }
-
-
-
-        #region Обработка типа жанра (комедия, боевик, вестерн)
-        private GenreVideo _genreVideo = GenreVideo.Unknown;   // Тип  жанра (комедия, боевик, вестерн)
+        #region Обработка Жанра
+        private GenreVideo _genreVideo = GenreVideo.Unknown;   // Жанр
         [XmlIgnore]
         public GenreVideo GenreVideo
         {
@@ -96,10 +89,8 @@ namespace FilmCollection
         #endregion
 
 
-
-
-        #region Обработка категории записи (Фильм. Сериал, Мультфильм)
-        private CategoryVideo _category = CategoryVideo.Unknown;   // Тип записи (Фильм. Сериал, Мультфильм)
+        #region Обработка Категории
+        private CategoryVideo _category = CategoryVideo.Unknown;   // Категория
         [XmlIgnore]
         public CategoryVideo Category
         {
@@ -165,14 +156,12 @@ namespace FilmCollection
             return false;
         }
 
-
-
-        public static int CompareByName(Record a, Record b) // Сравнение по названию
+        public static int CompareByName(Record a, Record b)     // Сравнение по названию
         {
             return string.Compare(a.Name, b.Name);
         }
 
-        public static int CompareByCatalog(Record a, Record b) // Сравнение по каталогу
+        public static int CompareByCatalog(Record a, Record b)  // Сравнение по каталогу
         {
             return string.Compare(a.DirName, b.DirName);
         }
@@ -200,28 +189,14 @@ namespace FilmCollection
             return 0;
         }
 
-        //public static int CompareByScore(Record a, Record b)
-        //{
-        //    if (a.Score == b.Score)
-        //        return CompareByName(a, b);
-        //    return (int)((b.Score - a.Score) * 100);
-        //}
-
-        //public static int CompareByUserScore(VideoRecord a, VideoRecord b)
-        //{
-        //    if (a.UserScore == b.UserScore)
-        //        return CompareByName(a, b);
-        //    return (int)((b.UserScore - a.UserScore) * 100);
-        //}
-
-        public static int CompareByTime(Record a, Record b) // Сравнение по времени записи
+        public static int CompareByTime(Record a, Record b)     // Сравнение по времени записи
         {
             if (a.Time == b.Time)
                 return CompareByName(a, b);
             return (int)((b.Time - a.Time) * 100);
         }
 
-        public static int CompareByYear(Record a, Record b) // Сравнение по году
+        public static int CompareByYear(Record a, Record b)     // Сравнение по году
         {
             if (a.Year != "" && b.Year != "")
             {
@@ -238,6 +213,19 @@ namespace FilmCollection
             return CompareByName(a, b);
         }
 
-    }
 
+        //public static int CompareByScore(Record a, Record b)
+        //{
+        //    if (a.Score == b.Score)
+        //        return CompareByName(a, b);
+        //    return (int)((b.Score - a.Score) * 100);
+        //}
+
+        //public static int CompareByUserScore(VideoRecord a, VideoRecord b)
+        //{
+        //    if (a.UserScore == b.UserScore)
+        //        return CompareByName(a, b);
+        //    return (int)((b.UserScore - a.UserScore) * 100);
+        //}
+    }
 }
