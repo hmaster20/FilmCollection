@@ -247,10 +247,7 @@ namespace FilmCollection
 
 
             toolTipEditForm.SetToolTip(btnFileNameEdit,
-            "Переименовать файл");
-
-            
-
+            "Переименовать файл");       
         }
 
         private void btnFileNameEdit_Click(object sender, EventArgs e)
