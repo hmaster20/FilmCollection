@@ -49,8 +49,8 @@ namespace FilmCollection
             rec = record;
 
             tbName.Text = record.Name;
-            tbYear.Text = record.Year;
-            tbCountry.Text = record.Country;
+           // tbYear.Text = record.Year;
+           // tbCountry.Text = record.Country;
             numericTime.Value = record.Time;
             tbDescription.Text = record.Description;
             tbFileName.Text = record.FileName;
@@ -98,8 +98,8 @@ namespace FilmCollection
                 rec = new Record();
 
             rec.Name = tbName.Text;
-            rec.Year = tbYear.Text;
-            rec.Country = tbCountry.Text;
+           // rec.Year = tbYear.Text;
+           // rec.Country = tbCountry.Text;
             rec.Time = (int)numericTime.Value;
             rec.Category = category;
             rec.GenreVideo = genre;
