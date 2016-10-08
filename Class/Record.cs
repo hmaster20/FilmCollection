@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace FilmCollection
@@ -7,11 +8,11 @@ namespace FilmCollection
     {
         public string Name { get; set; }        // Название Фильма
 
-        private string _year = "";              // Год выпуска
-        public string Year
+        private int _year;                      // Год выпуска
+        public int Year
         {
             get { return _year; }
-            set { _year = value; }
+            set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
         }
 
         public string Country { get; set; }     // Страна выпуска
@@ -35,9 +36,9 @@ namespace FilmCollection
         public string DirName { get; set; }     // Название папки в которой расположен файл
 
         public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
-        
+
         public string Path { get; set; }        // Путь к файлу
-        
+
 
 
         #region Обработка Жанра
@@ -196,22 +197,22 @@ namespace FilmCollection
             return (int)((b.Time - a.Time) * 100);
         }
 
-        public static int CompareByYear(Record a, Record b)     // Сравнение по году
-        {
-            if (a.Year != "" && b.Year != "")
-            {
-                string aYearString = a.Year.Substring(0, 4);
-                string bYearString = b.Year.Substring(0, 4);
+        //public static int CompareByYear(Record a, Record b)     // Сравнение по году
+        //{
+        //    if (a.Year != "" && b.Year != "")
+        //    {
+        //        string aYearString = a.Year.Substring(0, 4);
+        //        string bYearString = b.Year.Substring(0, 4);
 
-                if (aYearString == bYearString)
-                    return CompareByName(a, b);
-                int aYear = 0;
-                int bYear = 0;
-                if (int.TryParse(aYearString, out aYear) && int.TryParse(bYearString, out bYear))
-                    return (int)((bYear - aYear) * 100);
-            }
-            return CompareByName(a, b);
-        }
+        //        if (aYearString == bYearString)
+        //            return CompareByName(a, b);
+        //        int aYear = 0;
+        //        int bYear = 0;
+        //        if (int.TryParse(aYearString, out aYear) && int.TryParse(bYearString, out bYear))
+        //            return (int)((bYear - aYear) * 100);
+        //    }
+        //    return CompareByName(a, b);
+        //}
 
 
         //public static int CompareByScore(Record a, Record b)
