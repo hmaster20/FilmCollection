@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace FilmCollection
 {
@@ -55,9 +56,10 @@ namespace FilmCollection
             {
                 result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
             }
-            catch
+            catch (Exception ex)
             {
-                return new RecordCollection();
+                throw new Exception(ex.Message);
+                //return new RecordCollection();
             }
             return result;
         }

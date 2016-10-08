@@ -77,7 +77,17 @@ namespace FilmCollection
         {
             if (File.Exists(RecordOptions.BaseName))    // Если база создана, то загружаем
             {
-                _videoCollection = RecordCollection.Load();
+                try
+                {
+                    _videoCollection = RecordCollection.Load();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    BackupBase();       // на всякий случай 
+                    return;
+                }
+
                 if (_videoCollection.VideoList.Count > 0)
                 {
                     tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
@@ -185,14 +195,13 @@ namespace FilmCollection
             {
                 DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?",
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes) // Если соглашаемся
-                {
-                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                    _videoCollection.Clear();   // очищаем колелкцию
-                    treeFolder.Nodes.Clear();   // очищаем иерархию
-                    dgvTable.ClearSelection();  // выключаем селекты таблицы
-                    PepareRefresh();            // сбрасываем старые значения таблицы
-                }
+                if (result == DialogResult.No) BackupBase();
+                File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                _videoCollection.Clear();   // очищаем колелкцию
+                treeFolder.Nodes.Clear();   // очищаем иерархию
+                dgvTable.ClearSelection();  // выключаем селекты таблицы
+                PepareRefresh();            // сбрасываем старые значения таблицы
+
             }
             else // Если базы нет, то создаем пустой файл базы
             {
@@ -238,9 +247,19 @@ namespace FilmCollection
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            if (_videoCollection.Options.Source != "")  // Если есть информация о корневой папки коллекции
+            if (_videoCollection.Options.Source != "" && _videoCollection.Options.Source != null)  // Если есть информация о корневой папки коллекции
             {
                 DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
+                //try
+                //{
+                //    DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message);
+                //    //throw;
+                //}
+
                 if (directory.Exists)   // проверяем существование заявленной папки коллекции
                 {
                     #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
@@ -280,18 +299,26 @@ namespace FilmCollection
                     MessageBox.Show("Каталог " + directory + " не обнаружен!");
                 }
             }
+            else
+            {
+                MessageBox.Show("Необходимо создать базу данных.");
+            }
         }
 
         private void BackupBase()       // Резервная копия базы
         {
-            if (File.Exists(RecordOptions.BaseName)) // если есть что бэкапить...
+            if (File.Exists(RecordOptions.BaseName)) // если есть, что бэкапить...
             {
                 try
                 {   // создаем бэкап
-                    File.Copy(RecordOptions.BaseName, Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                    string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
-                        + Path.GetExtension(RecordOptions.BaseName));
-                    MessageBox.Show("Создана резервная копия!");
+                        + Path.GetExtension(RecordOptions.BaseName);
+                    File.Copy(RecordOptions.BaseName, FileBase);
+                    //File.Copy(RecordOptions.BaseName, Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                    //    + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
+                    //    + Path.GetExtension(RecordOptions.BaseName));
+                    MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
                 }
                 catch (IOException copyError)
                 {   // если не можем создать бэкап, то ругаемся
@@ -318,6 +345,11 @@ namespace FilmCollection
         private void BackupBase_Click(object sender, EventArgs e)
         {
             BackupBase();
+        }
+
+        private void btnRecoveryBase_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnReport_Click(object sender, EventArgs e)
@@ -490,7 +522,8 @@ namespace FilmCollection
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByTime); break;
-                case 2: filtered.Sort(Record.CompareByYear); break;
+                case 2: break;
+                //case 2: filtered.Sort(Record.CompareByYear); break;
                 case 3: filtered.Sort(Record.CompareByCategory); break;
                 case 4: filtered.Sort(Record.CompareByCatalog); break;
                 default: break;
@@ -535,12 +568,13 @@ namespace FilmCollection
                 // Панель описания
                 tbfName.Text = record.Name;
                 tbfDesc.Text = record.Description;
-                tbfYear.Text = record.Year;
+                tbfYear.Text = Convert.ToString(record.Year);
                 tbfCountry.Text = record.Country;
 
                 // Панель редактирования
                 tbName.Text = record.Name;
-                tbYear.Text = record.Year;
+                //tbYear.Text = record.Year;
+                mtbYear.Text = Convert.ToString(record.Year);
                 tbCountry.Text = record.Country;
                 numericTime.Value = record.Time;
                 tbDescription.Text = record.Description;
@@ -754,7 +788,8 @@ namespace FilmCollection
                 record.DirName = fsInfo.Directory.Name;
                 record.Extension = fsInfo.Extension.Trim(charsToTrim);
                 record.Name = tbName.Text;
-                record.Year = tbYear.Text;
+                //record.Year = Convert.ToInt32(tbYear.Text);
+                record.Year = Convert.ToInt32(mtbYear.Text);
                 record.Country = tbCountry.Text;
                 record.Time = (int)numericTime.Value;
                 record.Category = category;
@@ -772,7 +807,8 @@ namespace FilmCollection
                 if (record != null)
                 {
                     record.Name = tbName.Text;
-                    record.Year = tbYear.Text;
+                    //record.Year = tbYear.Text;
+                    record.Year = Convert.ToInt32(mtbYear.Text);
                     record.Country = tbCountry.Text;
                     record.Time = (int)numericTime.Value;
                     record.Category = category;
@@ -825,6 +861,13 @@ namespace FilmCollection
             ResetFind();
         }
 
+        private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
+        {
+            if (!mtbYear.MaskCompleted)
+            {
+                MessageBox.Show("Неверно указан год!");
+            }
+        }
 
         #region Управление блокировками
 
@@ -1400,12 +1443,16 @@ namespace FilmCollection
             }
         }
 
+
         // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
         // <a href = "/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
         // https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/
         // https://afisha.mail.ru
         // https://pic.afisha.mail.ru/7087157/
         #endregion
+
+ 
+
 
     }
 }

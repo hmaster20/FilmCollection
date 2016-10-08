@@ -58,7 +58,7 @@
             this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
             this.tS1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.восстановитьИзToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRecoveryBase = new System.Windows.Forms.ToolStripMenuItem();
             this.tS2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExportHTML = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReport = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,6 +87,8 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
+            this.cBoxCountry = new System.Windows.Forms.ComboBox();
+            this.mtbYear = new System.Windows.Forms.MaskedTextBox();
             this.panelEditTitle = new System.Windows.Forms.Panel();
             this.lblEditTitle = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
@@ -102,6 +104,7 @@
             this.tbName = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
+            this.lblTimeMin = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.labelTypeVideo = new System.Windows.Forms.Label();
             this.lblGenre = new System.Windows.Forms.Label();
@@ -141,6 +144,9 @@
             this.tsCreateDB = new System.Windows.Forms.ToolStripButton();
             this.tsUpdateDB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsBackupDB = new System.Windows.Forms.ToolStripButton();
+            this.tsRecoveryDB = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
@@ -400,7 +406,7 @@
             this.btnUpdateBase,
             this.tS1,
             this.btnBackupBase,
-            this.восстановитьИзToolStripMenuItem,
+            this.btnRecoveryBase,
             this.tS2,
             this.btnExportHTML,
             this.btnReport,
@@ -439,12 +445,13 @@
             this.btnBackupBase.Text = "Создать копию базы";
             this.btnBackupBase.Click += new System.EventHandler(this.BackupBase_Click);
             // 
-            // восстановитьИзToolStripMenuItem
+            // btnRecoveryBase
             // 
-            this.восстановитьИзToolStripMenuItem.Image = global::FilmCollection.Properties.Resources.dbRecovery;
-            this.восстановитьИзToolStripMenuItem.Name = "восстановитьИзToolStripMenuItem";
-            this.восстановитьИзToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.восстановитьИзToolStripMenuItem.Text = "Восстановить из...";
+            this.btnRecoveryBase.Image = global::FilmCollection.Properties.Resources.dbRecovery;
+            this.btnRecoveryBase.Name = "btnRecoveryBase";
+            this.btnRecoveryBase.Size = new System.Drawing.Size(187, 22);
+            this.btnRecoveryBase.Text = "Восстановить из...";
+            this.btnRecoveryBase.Click += new System.EventHandler(this.btnRecoveryBase_Click);
             // 
             // tS2
             // 
@@ -691,6 +698,8 @@
             // 
             // panelEdit
             // 
+            this.panelEdit.Controls.Add(this.cBoxCountry);
+            this.panelEdit.Controls.Add(this.mtbYear);
             this.panelEdit.Controls.Add(this.panelEditTitle);
             this.panelEdit.Controls.Add(this.btnSave);
             this.panelEdit.Controls.Add(this.btnCancel);
@@ -705,6 +714,7 @@
             this.panelEdit.Controls.Add(this.tbName);
             this.panelEdit.Controls.Add(this.lblFileName);
             this.panelEdit.Controls.Add(this.lblDescription);
+            this.panelEdit.Controls.Add(this.lblTimeMin);
             this.panelEdit.Controls.Add(this.lblTime);
             this.panelEdit.Controls.Add(this.labelTypeVideo);
             this.panelEdit.Controls.Add(this.lblGenre);
@@ -717,6 +727,27 @@
             this.panelEdit.Name = "panelEdit";
             this.panelEdit.Size = new System.Drawing.Size(368, 432);
             this.panelEdit.TabIndex = 10;
+            // 
+            // cBoxCountry
+            // 
+            this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBoxCountry.FormattingEnabled = true;
+            this.cBoxCountry.Location = new System.Drawing.Point(71, 379);
+            this.cBoxCountry.Name = "cBoxCountry";
+            this.cBoxCountry.Size = new System.Drawing.Size(172, 21);
+            this.cBoxCountry.TabIndex = 50;
+            // 
+            // mtbYear
+            // 
+            this.mtbYear.Location = new System.Drawing.Point(71, 353);
+            this.mtbYear.Mask = "0000";
+            this.mtbYear.Name = "mtbYear";
+            this.mtbYear.Size = new System.Drawing.Size(57, 20);
+            this.mtbYear.TabIndex = 49;
+            this.mtbYear.Text = "2016";
+            this.mtbYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbYear.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtbYear.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
             // 
             // panelEditTitle
             // 
@@ -813,7 +844,7 @@
             0,
             0});
             this.numericTime.Name = "numericTime";
-            this.numericTime.Size = new System.Drawing.Size(279, 20);
+            this.numericTime.Size = new System.Drawing.Size(203, 20);
             this.numericTime.TabIndex = 32;
             this.numericTime.Enter += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -886,10 +917,19 @@
             this.lblDescription.TabIndex = 25;
             this.lblDescription.Text = "Описание";
             // 
+            // lblTimeMin
+            // 
+            this.lblTimeMin.AutoSize = true;
+            this.lblTimeMin.Location = new System.Drawing.Point(280, 154);
+            this.lblTimeMin.Name = "lblTimeMin";
+            this.lblTimeMin.Size = new System.Drawing.Size(37, 13);
+            this.lblTimeMin.TabIndex = 24;
+            this.lblTimeMin.Text = "минут";
+            // 
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(13, 154);
+            this.lblTime.Location = new System.Drawing.Point(10, 154);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(40, 13);
             this.lblTime.TabIndex = 24;
@@ -1272,6 +1312,9 @@
             this.tsCreateDB,
             this.tsUpdateDB,
             this.toolStripSeparator4,
+            this.tsBackupDB,
+            this.tsRecoveryDB,
+            this.toolStripSeparator6,
             this.toolStripButton3,
             this.toolStripButton4,
             this.toolStripButton5,
@@ -1291,6 +1334,7 @@
             this.tsCreateDB.Name = "tsCreateDB";
             this.tsCreateDB.Size = new System.Drawing.Size(23, 22);
             this.tsCreateDB.Text = "Создать базу";
+            this.tsCreateDB.Click += new System.EventHandler(this.CreateBase_Click);
             // 
             // tsUpdateDB
             // 
@@ -1300,11 +1344,37 @@
             this.tsUpdateDB.Name = "tsUpdateDB";
             this.tsUpdateDB.Size = new System.Drawing.Size(23, 22);
             this.tsUpdateDB.Text = "Обновить базу";
+            this.tsUpdateDB.Click += new System.EventHandler(this.UpdateBase_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsBackupDB
+            // 
+            this.tsBackupDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBackupDB.Image = global::FilmCollection.Properties.Resources.dbBackup;
+            this.tsBackupDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBackupDB.Name = "tsBackupDB";
+            this.tsBackupDB.Size = new System.Drawing.Size(23, 22);
+            this.tsBackupDB.Text = "Создать копию базы";
+            this.tsBackupDB.Click += new System.EventHandler(this.BackupBase_Click);
+            // 
+            // tsRecoveryDB
+            // 
+            this.tsRecoveryDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsRecoveryDB.Image = global::FilmCollection.Properties.Resources.dbRecovery;
+            this.tsRecoveryDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsRecoveryDB.Name = "tsRecoveryDB";
+            this.tsRecoveryDB.Size = new System.Drawing.Size(23, 22);
+            this.tsRecoveryDB.Text = "Восстановить из...";
+            this.tsRecoveryDB.Click += new System.EventHandler(this.btnRecoveryBase_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButton3
             // 
@@ -1486,7 +1556,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripProgressBar tsProgressBar;
         private System.Windows.Forms.StatusStrip statusLine;
-        private System.Windows.Forms.ToolStripMenuItem восстановитьИзToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnRecoveryBase;
         private TreeViewFast.Controls.TreeViewFast treeViewFast1;
         private System.Windows.Forms.ToolStripMenuItem настройкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnOptions;
@@ -1526,6 +1596,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton tsFind;
         private System.Windows.Forms.ToolTip toolinfo;
+        private System.Windows.Forms.MaskedTextBox mtbYear;
+        private System.Windows.Forms.ComboBox cBoxCountry;
+        private System.Windows.Forms.Label lblTimeMin;
+        private System.Windows.Forms.ToolStripButton tsBackupDB;
+        private System.Windows.Forms.ToolStripButton tsRecoveryDB;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 

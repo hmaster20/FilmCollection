@@ -25,24 +25,6 @@ namespace FilmCollection
             return true;
         }
 
-        //public static bool SerializeAndSave(string filename, object objectToSerialize)
-        //{
-
-        //    XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
-        //    try
-        //    {
-        //        using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Create))
-
-        //            serializer.Serialize(GetStream(stream), objectToSerialize);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        MessageBox.Show(e.Message);
-        //        return false;
-        //    }
-        //    return true;
-        //}
-
         //private static FileStream GetStream(FileStream stream)
         //{
         //    if (stream.Length > 0)
@@ -127,11 +109,11 @@ namespace FilmCollection
                 using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Open))
                     return (T)serializer.Deserialize(stream);
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Error during deserializing");
+                //throw new Exception("Error during deserializing");
+                throw new Exception(ex.Message);
             }
         }
-
     }
 }
