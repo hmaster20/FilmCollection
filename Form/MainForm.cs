@@ -20,8 +20,8 @@ namespace FilmCollection
         Record record = null;       // Доступ к записи
         FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
 
-        int FindCount { get; set; }                 // счетчик найденых строк
-        public List<int> dgvSelected { get; set; }  // индексы найденых строк
+        int FindCount { get; set; }                 // счетчик найденных строк
+        public List<int> dgvSelected { get; set; }  // индексы найденных строк
 
         BackgroundWorker WorkerCB;
         public BackgroundWorker workeLoad;
@@ -34,9 +34,9 @@ namespace FilmCollection
             InitializeComponent();                  // Создание и отрисовка элементов
             this.MinimumSize = new Size(800, 600);  // Установка минимального размера формы
 
-            dgvTable.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона
-            dgvTable.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
+            dgvTableRec.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
+            dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона
+            dgvTableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
 
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
@@ -202,7 +202,7 @@ namespace FilmCollection
                 File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
                 _videoCollection.Clear();   // очищаем колелкцию
                 treeFolder.Nodes.Clear();   // очищаем иерархию
-                dgvTable.ClearSelection();  // выключаем селекты таблицы
+                dgvTableRec.ClearSelection();  // выключаем селекты таблицы
                 PepareRefresh();            // сбрасываем старые значения таблицы
 
             }
@@ -439,7 +439,7 @@ namespace FilmCollection
             if (dialog == DialogResult.Yes)
             {
                 _videoCollection.Remove(record);
-                dgvTable.ClearSelection();
+                dgvTableRec.ClearSelection();
                 _videoCollection.Save();
                 PepareRefresh();
             }
@@ -471,7 +471,7 @@ namespace FilmCollection
             //contextMenu.Items[4].Enabled = false;
             TabMenu.Enabled = false;    // Блокировка меню
 
-            DataGridView dgv = dgvTable;
+            DataGridView dgv = dgvTableRec;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 //contextMenu.Items[4].Enabled = true;
@@ -487,7 +487,7 @@ namespace FilmCollection
 
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
         {
-            dgvTable.ClearSelection();
+            dgvTableRec.ClearSelection();
             PepareRefresh();
         }
 
@@ -537,12 +537,12 @@ namespace FilmCollection
         private void RefreshTable(List<Record> filtered)
         {
             Record selected = GetSelectedRecord();  // получение выбранной строки
-            if (selected != null) SelectRecord(dgvTable, selected);
+            if (selected != null) SelectRecord(dgvTableRec, selected);
 
             try
             {
-                dgvTable.DataSource = null;
-                dgvTable.DataSource = filtered;
+                dgvTableRec.DataSource = null;
+                dgvTableRec.DataSource = filtered;
             }
             catch (Exception ex)
             {
@@ -614,7 +614,7 @@ namespace FilmCollection
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
-            DataGridView dgv = dgvTable;
+            DataGridView dgv = dgvTableRec;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 Record record = null;
@@ -627,7 +627,7 @@ namespace FilmCollection
         private void ResetFilter_Click(object sender, EventArgs e)
         {
             PepareRefresh();
-            dgvTable.ClearSelection(); // сброс селекта
+            dgvTableRec.ClearSelection(); // сброс селекта
 
             tscbTypeFilter.SelectedIndex = 0;
             tscbSort.SelectedIndex = -1;
@@ -653,16 +653,16 @@ namespace FilmCollection
                 {
                     if (e.ColumnIndex > -1 && e.RowIndex > -1)
                     {
-                        dgvTable.CurrentCell = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                        dgvTable.Rows[e.RowIndex].Selected = true;
-                        dgvTable.Focus();
-                        dgvTable.ContextMenuStrip = TabMenu;
+                        dgvTableRec.CurrentCell = dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                        dgvTableRec.Rows[e.RowIndex].Selected = true;
+                        dgvTableRec.Focus();
+                        dgvTableRec.ContextMenuStrip = TabMenu;
                         //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
                     }
                     else
                     {
-                        dgvTable.ContextMenuStrip = null;
-                        dgvTable.ClearSelection();
+                        dgvTableRec.ContextMenuStrip = null;
+                        dgvTableRec.ClearSelection();
                     }
                 }
                 catch (Exception Ex)
@@ -746,7 +746,7 @@ namespace FilmCollection
 
                 panelEdit.BringToFront();   // показываем панель редактирования
 
-                dgvTable.Enabled = false;   // блокировка таблицы
+                dgvTableRec.Enabled = false;   // блокировка таблицы
                 treeFolder.Enabled = false; // блокировка дерева
 
                 panelEdit_Button_Unlock();          // разблокировка кнопок
@@ -815,7 +815,7 @@ namespace FilmCollection
 
                 fsInfo = null;
             }
-            else    // если выбраный объект 
+            else    // если выбранный объект 
             {
                 Record record = GetSelectedRecord();
                 if (record != null)
@@ -850,9 +850,11 @@ namespace FilmCollection
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
         {
-            if (fsInfo == null) dgvTable.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки в таблице
+            //if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки в таблице
+            //if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Aquamarine;   // зеленый
+            if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Gold;   // подсветка редактируемой строки в таблице
             panelEdit_Button_Unlock();  // разблокировка кнопок
-            dgvTable.Enabled = false;   // блокировка таблицы
+            dgvTableRec.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
         }
 
@@ -894,15 +896,13 @@ namespace FilmCollection
 
         private void panelEdit_Lock()    //Блокировка кнопок
         {
-            tbName.Modified = false;    // возвращаем назад статус изменения поля
-            //tbYear.Modified = false;    // возвращаем назад статус изменения поля
-            mtbYear.Modified = false;    // возвращаем назад статус изменения поля
-            tbCountry.Modified = false; // возвращаем назад статус изменения поля
-            tbDescription.Modified = false;// возвращаем назад статус изменения поля
+            tbName.Modified = false;        // возвращаем назад статус изменения поля
+            mtbYear.Modified = false;       // возвращаем назад статус изменения поля  
+            tbDescription.Modified = false; // возвращаем назад статус изменения поля
 
-            treeFolder.Enabled = true;  // Разблокировка дерева
-            dgvTable.Enabled = true;    // Разблокировка таблицы
-            dgvTable.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
+            treeFolder.Enabled = true;      // Разблокировка дерева
+            dgvTableRec.Enabled = true;     // Разблокировка таблицы
+            dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
 
             PepareRefresh();  // перезагрузка таблицы
 
@@ -951,7 +951,7 @@ namespace FilmCollection
             btnFind.Enabled = false;
 
             dgvSelected.Clear();
-            dgvTable.ClearSelection();
+            dgvTableRec.ClearSelection();
             FindNextButton_Lock();
         }
 
@@ -978,12 +978,12 @@ namespace FilmCollection
                 string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
                 Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-                dgvTable.ClearSelection();
-                dgvTable.MultiSelect = true;    // Требуется для выбора всех строк
+                dgvTableRec.ClearSelection();
+                dgvTableRec.MultiSelect = true;    // Требуется для выбора всех строк
 
                 int i = 0;
 
-                foreach (DataGridViewRow row in dgvTable.Rows)
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
                 {
                     if (regex.IsMatch(row.Cells[cell].Value.ToString()))
                     {
@@ -1011,10 +1011,10 @@ namespace FilmCollection
         {
             if (FindCount < dgvSelected.Count)
             {
-                dgvTable.ClearSelection();
-                if (dgvSelected.Count > 0) dgvTable.FirstDisplayedScrollingRowIndex = dgvSelected[FindCount];
+                dgvTableRec.ClearSelection();
+                if (dgvSelected.Count > 0) dgvTableRec.FirstDisplayedScrollingRowIndex = dgvSelected[FindCount];
 
-                foreach (DataGridViewRow row in dgvTable.Rows)
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
                 {
                     if (row.Index == dgvSelected[FindCount]) row.Selected = true;
                 }

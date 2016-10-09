@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.dgvTable = new System.Windows.Forms.DataGridView();
+            this.dgvTableRec = new System.Windows.Forms.DataGridView();
             this.TabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -91,7 +91,6 @@
             this.numericTime = new System.Windows.Forms.NumericUpDown();
             this.cBoxGenre = new System.Windows.Forms.ComboBox();
             this.tbDescription = new System.Windows.Forms.TextBox();
-            this.tbCountry = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
@@ -152,7 +151,13 @@
             this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).BeginInit();
+            this.tabActors = new System.Windows.Forms.TabPage();
+            this.dgvTableActors = new System.Windows.Forms.DataGridView();
+            this.scTabActors = new System.Windows.Forms.SplitContainer();
+            this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActlifetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -177,18 +182,23 @@
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
+            this.tabActors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).BeginInit();
+            this.scTabActors.Panel1.SuspendLayout();
+            this.scTabActors.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dgvTable
+            // dgvTableRec
             // 
-            this.dgvTable.AllowUserToAddRows = false;
-            this.dgvTable.AllowUserToDeleteRows = false;
-            this.dgvTable.AllowUserToResizeRows = false;
-            this.dgvTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTable.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dgvTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTableRec.AllowUserToAddRows = false;
+            this.dgvTableRec.AllowUserToDeleteRows = false;
+            this.dgvTableRec.AllowUserToResizeRows = false;
+            this.dgvTableRec.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTableRec.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dgvTableRec.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvTableRec.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTableRec.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cmnName,
             this.cmnDirName,
             this.cmnYear,
@@ -197,17 +207,17 @@
             this.cmnCategoryString,
             this.cmnTime,
             this.cmnFileName});
-            this.dgvTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTable.Location = new System.Drawing.Point(0, 27);
-            this.dgvTable.MultiSelect = false;
-            this.dgvTable.Name = "dgvTable";
-            this.dgvTable.ReadOnly = true;
-            this.dgvTable.RowHeadersVisible = false;
-            this.dgvTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTable.Size = new System.Drawing.Size(532, 405);
-            this.dgvTable.TabIndex = 12;
-            this.dgvTable.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
-            this.dgvTable.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
+            this.dgvTableRec.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTableRec.Location = new System.Drawing.Point(0, 27);
+            this.dgvTableRec.MultiSelect = false;
+            this.dgvTableRec.Name = "dgvTableRec";
+            this.dgvTableRec.ReadOnly = true;
+            this.dgvTableRec.RowHeadersVisible = false;
+            this.dgvTableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTableRec.Size = new System.Drawing.Size(532, 405);
+            this.dgvTableRec.TabIndex = 12;
+            this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
+            this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
             // 
             // TabMenu
             // 
@@ -530,6 +540,7 @@
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.tabFilm);
+            this.tabControl2.Controls.Add(this.tabActors);
             this.tabControl2.Controls.Add(this.tabWriter);
             this.tabControl2.Controls.Add(this.tabImage);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -562,7 +573,7 @@
             // scTabFilm.Panel1
             // 
             this.scTabFilm.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel1.Controls.Add(this.dgvTable);
+            this.scTabFilm.Panel1.Controls.Add(this.dgvTableRec);
             this.scTabFilm.Panel1.Controls.Add(this.menudgvTable);
             this.scTabFilm.Panel1MinSize = 400;
             // 
@@ -638,7 +649,6 @@
             this.panelEdit.Controls.Add(this.numericTime);
             this.panelEdit.Controls.Add(this.cBoxGenre);
             this.panelEdit.Controls.Add(this.tbDescription);
-            this.panelEdit.Controls.Add(this.tbCountry);
             this.panelEdit.Controls.Add(this.tbName);
             this.panelEdit.Controls.Add(this.lblFileName);
             this.panelEdit.Controls.Add(this.lblDescription);
@@ -660,10 +670,11 @@
             // 
             this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCountry.FormattingEnabled = true;
-            this.cBoxCountry.Location = new System.Drawing.Point(71, 335);
+            this.cBoxCountry.Location = new System.Drawing.Point(186, 59);
             this.cBoxCountry.Name = "cBoxCountry";
-            this.cBoxCountry.Size = new System.Drawing.Size(172, 21);
+            this.cBoxCountry.Size = new System.Drawing.Size(164, 21);
             this.cBoxCountry.TabIndex = 50;
+            this.cBoxCountry.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
             // mtbYear
             // 
@@ -800,16 +811,6 @@
             this.tbDescription.TabIndex = 30;
             this.tbDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
-            // tbCountry
-            // 
-            this.tbCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCountry.Location = new System.Drawing.Point(206, 59);
-            this.tbCountry.Name = "tbCountry";
-            this.tbCountry.Size = new System.Drawing.Size(144, 20);
-            this.tbCountry.TabIndex = 29;
-            this.tbCountry.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            // 
             // tbName
             // 
             this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -877,7 +878,7 @@
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(157, 62);
+            this.lblCountry.Location = new System.Drawing.Point(137, 62);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(43, 13);
             this.lblCountry.TabIndex = 21;
@@ -1415,6 +1416,57 @@
             this.cmnFileName.Name = "cmnFileName";
             this.cmnFileName.ReadOnly = true;
             // 
+            // tabActors
+            // 
+            this.tabActors.Controls.Add(this.scTabActors);
+            this.tabActors.Location = new System.Drawing.Point(4, 22);
+            this.tabActors.Name = "tabActors";
+            this.tabActors.Size = new System.Drawing.Size(914, 440);
+            this.tabActors.TabIndex = 3;
+            this.tabActors.Text = "Актеры";
+            this.tabActors.UseVisualStyleBackColor = true;
+            // 
+            // dgvTableActors
+            // 
+            this.dgvTableActors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTableActors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colActFIO,
+            this.colActlifetime,
+            this.colCountry});
+            this.dgvTableActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTableActors.Location = new System.Drawing.Point(0, 0);
+            this.dgvTableActors.Name = "dgvTableActors";
+            this.dgvTableActors.Size = new System.Drawing.Size(363, 440);
+            this.dgvTableActors.TabIndex = 0;
+            // 
+            // scTabActors
+            // 
+            this.scTabActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scTabActors.Location = new System.Drawing.Point(0, 0);
+            this.scTabActors.Name = "scTabActors";
+            // 
+            // scTabActors.Panel1
+            // 
+            this.scTabActors.Panel1.Controls.Add(this.dgvTableActors);
+            this.scTabActors.Size = new System.Drawing.Size(914, 440);
+            this.scTabActors.SplitterDistance = 363;
+            this.scTabActors.TabIndex = 1;
+            // 
+            // colActFIO
+            // 
+            this.colActFIO.HeaderText = "Ф.И.О.";
+            this.colActFIO.Name = "colActFIO";
+            // 
+            // colActlifetime
+            // 
+            this.colActlifetime.HeaderText = "Время жизни";
+            this.colActlifetime.Name = "colActlifetime";
+            // 
+            // colCountry
+            // 
+            this.colCountry.HeaderText = "Страна";
+            this.colCountry.Name = "colCountry";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1430,7 +1482,7 @@
             this.Text = "Фильмотека";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_Close);
             this.Load += new System.EventHandler(this.Main_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).EndInit();
             this.TabMenu.ResumeLayout(false);
             this.statusLine.ResumeLayout(false);
             this.statusLine.PerformLayout();
@@ -1463,13 +1515,18 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
+            this.tabActors.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).EndInit();
+            this.scTabActors.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).EndInit();
+            this.scTabActors.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dgvTable;
+        private System.Windows.Forms.DataGridView dgvTableRec;
         private System.Windows.Forms.ContextMenuStrip TabMenu;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.TreeView treeFolder;
@@ -1506,7 +1563,6 @@
         private System.Windows.Forms.NumericUpDown numericTime;
         private System.Windows.Forms.ComboBox cBoxGenre;
         private System.Windows.Forms.TextBox tbDescription;
-        private System.Windows.Forms.TextBox tbCountry;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Label lblDescription;
@@ -1592,6 +1648,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.TabPage tabActors;
+        private System.Windows.Forms.SplitContainer scTabActors;
+        private System.Windows.Forms.DataGridView dgvTableActors;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActFIO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActlifetime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
     }
 }
 
