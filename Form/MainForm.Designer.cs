@@ -31,6 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dgvTableRec = new System.Windows.Forms.DataGridView();
+            this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCountryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnGenreString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -124,6 +132,12 @@
             this.tbfName = new System.Windows.Forms.TextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
+            this.tabActors = new System.Windows.Forms.TabPage();
+            this.scTabActors = new System.Windows.Forms.SplitContainer();
+            this.dgvTableActors = new System.Windows.Forms.DataGridView();
+            this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActlifetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.btnDownloadPic = new System.Windows.Forms.Button();
@@ -143,20 +157,17 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnCountryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnGenreString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabActors = new System.Windows.Forms.TabPage();
-            this.dgvTableActors = new System.Windows.Forms.DataGridView();
-            this.scTabActors = new System.Windows.Forms.SplitContainer();
-            this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActlifetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.btnMoveDown = new System.Windows.Forms.Button();
+            this.btnMoveUp = new System.Windows.Forms.Button();
+            this.btnRemoveGroup = new System.Windows.Forms.Button();
+            this.btnAddGroup = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.chkRightFelds = new System.Windows.Forms.ListBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chkLeftFelds = new System.Windows.Forms.CheckedListBox();
+            this.panelActEditTitle = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -176,17 +187,19 @@
             this.panel1.SuspendLayout();
             this.panelView.SuspendLayout();
             this.panelTitle.SuspendLayout();
+            this.tabActors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).BeginInit();
+            this.scTabActors.Panel1.SuspendLayout();
+            this.scTabActors.Panel2.SuspendLayout();
+            this.scTabActors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
             this.tabImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
-            this.tabActors.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).BeginInit();
-            this.scTabActors.Panel1.SuspendLayout();
-            this.scTabActors.SuspendLayout();
+            this.panelActEditTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -214,10 +227,80 @@
             this.dgvTableRec.ReadOnly = true;
             this.dgvTableRec.RowHeadersVisible = false;
             this.dgvTableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableRec.Size = new System.Drawing.Size(532, 405);
+            this.dgvTableRec.Size = new System.Drawing.Size(532, 552);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
+            // 
+            // cmnName
+            // 
+            this.cmnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cmnName.DataPropertyName = "Name";
+            this.cmnName.HeaderText = "Название";
+            this.cmnName.Name = "cmnName";
+            this.cmnName.ReadOnly = true;
+            // 
+            // cmnDirName
+            // 
+            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnDirName.DataPropertyName = "DirName";
+            this.cmnDirName.HeaderText = "Каталог";
+            this.cmnDirName.Name = "cmnDirName";
+            this.cmnDirName.ReadOnly = true;
+            this.cmnDirName.Width = 73;
+            // 
+            // cmnYear
+            // 
+            this.cmnYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cmnYear.DataPropertyName = "Year";
+            this.cmnYear.HeaderText = "Год";
+            this.cmnYear.Name = "cmnYear";
+            this.cmnYear.ReadOnly = true;
+            this.cmnYear.Width = 60;
+            // 
+            // cmnCountryString
+            // 
+            this.cmnCountryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnCountryString.DataPropertyName = "CountryString";
+            this.cmnCountryString.HeaderText = "Страна";
+            this.cmnCountryString.Name = "cmnCountryString";
+            this.cmnCountryString.ReadOnly = true;
+            this.cmnCountryString.Width = 68;
+            // 
+            // cmnGenreString
+            // 
+            this.cmnGenreString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnGenreString.DataPropertyName = "GenreString";
+            this.cmnGenreString.HeaderText = "Жанр";
+            this.cmnGenreString.Name = "cmnGenreString";
+            this.cmnGenreString.ReadOnly = true;
+            this.cmnGenreString.Width = 61;
+            // 
+            // cmnCategoryString
+            // 
+            this.cmnCategoryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnCategoryString.DataPropertyName = "CategoryString";
+            this.cmnCategoryString.HeaderText = "Категория";
+            this.cmnCategoryString.Name = "cmnCategoryString";
+            this.cmnCategoryString.ReadOnly = true;
+            this.cmnCategoryString.Width = 85;
+            // 
+            // cmnTime
+            // 
+            this.cmnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cmnTime.DataPropertyName = "Time";
+            this.cmnTime.HeaderText = "Время";
+            this.cmnTime.Name = "cmnTime";
+            this.cmnTime.ReadOnly = true;
+            this.cmnTime.Width = 60;
+            // 
+            // cmnFileName
+            // 
+            this.cmnFileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cmnFileName.DataPropertyName = "FileName";
+            this.cmnFileName.HeaderText = "Файл";
+            this.cmnFileName.Name = "cmnFileName";
+            this.cmnFileName.ReadOnly = true;
             // 
             // TabMenu
             // 
@@ -299,7 +382,7 @@
             this.tssLabel,
             this.tsProgressBar,
             this.FindStatusLabel});
-            this.statusLine.Location = new System.Drawing.Point(0, 515);
+            this.statusLine.Location = new System.Drawing.Point(0, 662);
             this.statusLine.Name = "statusLine";
             this.statusLine.Size = new System.Drawing.Size(1117, 22);
             this.statusLine.TabIndex = 18;
@@ -483,7 +566,7 @@
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
-            this.treeFolder.Size = new System.Drawing.Size(191, 466);
+            this.treeFolder.Size = new System.Drawing.Size(191, 613);
             this.treeFolder.TabIndex = 22;
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
             // 
@@ -547,7 +630,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(922, 466);
+            this.tabControl2.Size = new System.Drawing.Size(922, 613);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.Click += new System.EventHandler(this.tabControl_ResetFindStatus_Click);
             // 
@@ -557,7 +640,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(914, 440);
+            this.tabFilm.Size = new System.Drawing.Size(914, 587);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -584,7 +667,7 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(908, 434);
+            this.scTabFilm.Size = new System.Drawing.Size(908, 581);
             this.scTabFilm.SplitterDistance = 534;
             this.scTabFilm.TabIndex = 17;
             // 
@@ -638,6 +721,15 @@
             // 
             // panelEdit
             // 
+            this.panelEdit.Controls.Add(this.checkedListBox1);
+            this.panelEdit.Controls.Add(this.btnMoveDown);
+            this.panelEdit.Controls.Add(this.btnMoveUp);
+            this.panelEdit.Controls.Add(this.btnRemoveGroup);
+            this.panelEdit.Controls.Add(this.btnAddGroup);
+            this.panelEdit.Controls.Add(this.label6);
+            this.panelEdit.Controls.Add(this.chkRightFelds);
+            this.panelEdit.Controls.Add(this.label7);
+            this.panelEdit.Controls.Add(this.chkLeftFelds);
             this.panelEdit.Controls.Add(this.cBoxCountry);
             this.panelEdit.Controls.Add(this.mtbYear);
             this.panelEdit.Controls.Add(this.panelEditTitle);
@@ -663,7 +755,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 432);
+            this.panelEdit.Size = new System.Drawing.Size(368, 579);
             this.panelEdit.TabIndex = 10;
             // 
             // cBoxCountry
@@ -714,7 +806,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(264, 304);
+            this.btnSave.Location = new System.Drawing.Point(264, 292);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 23);
             this.btnSave.TabIndex = 47;
@@ -727,7 +819,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(264, 333);
+            this.btnCancel.Location = new System.Drawing.Point(264, 321);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -906,7 +998,7 @@
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(71, 304);
+            this.btnNew.Location = new System.Drawing.Point(71, 292);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -928,7 +1020,7 @@
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 432);
+            this.panelFind.Size = new System.Drawing.Size(368, 579);
             this.panelFind.TabIndex = 0;
             // 
             // btnFindReset
@@ -1040,7 +1132,7 @@
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 432);
+            this.panelView.Size = new System.Drawing.Size(368, 579);
             this.panelView.TabIndex = 10;
             // 
             // btnPlay
@@ -1048,7 +1140,7 @@
             this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
             this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 406);
+            this.btnPlay.Location = new System.Drawing.Point(5, 553);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(111, 23);
             this.btnPlay.TabIndex = 6;
@@ -1170,6 +1262,71 @@
             this.lblRecTitle.Text = "Общие сведения";
             this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tabActors
+            // 
+            this.tabActors.Controls.Add(this.scTabActors);
+            this.tabActors.Location = new System.Drawing.Point(4, 22);
+            this.tabActors.Name = "tabActors";
+            this.tabActors.Size = new System.Drawing.Size(914, 587);
+            this.tabActors.TabIndex = 3;
+            this.tabActors.Text = "Актеры";
+            this.tabActors.UseVisualStyleBackColor = true;
+            // 
+            // scTabActors
+            // 
+            this.scTabActors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scTabActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scTabActors.Location = new System.Drawing.Point(0, 0);
+            this.scTabActors.Name = "scTabActors";
+            // 
+            // scTabActors.Panel1
+            // 
+            this.scTabActors.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabActors.Panel1.Controls.Add(this.dgvTableActors);
+            // 
+            // scTabActors.Panel2
+            // 
+            this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabActors.Panel2.Controls.Add(this.panelActEditTitle);
+            this.scTabActors.Size = new System.Drawing.Size(914, 587);
+            this.scTabActors.SplitterDistance = 363;
+            this.scTabActors.TabIndex = 1;
+            // 
+            // dgvTableActors
+            // 
+            this.dgvTableActors.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvTableActors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTableActors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colActFIO,
+            this.colActlifetime,
+            this.colCountry});
+            this.dgvTableActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTableActors.Location = new System.Drawing.Point(0, 0);
+            this.dgvTableActors.MultiSelect = false;
+            this.dgvTableActors.Name = "dgvTableActors";
+            this.dgvTableActors.ReadOnly = true;
+            this.dgvTableActors.RowHeadersVisible = false;
+            this.dgvTableActors.Size = new System.Drawing.Size(361, 585);
+            this.dgvTableActors.TabIndex = 0;
+            // 
+            // colActFIO
+            // 
+            this.colActFIO.HeaderText = "Ф.И.О.";
+            this.colActFIO.Name = "colActFIO";
+            this.colActFIO.ReadOnly = true;
+            // 
+            // colActlifetime
+            // 
+            this.colActlifetime.HeaderText = "Время жизни";
+            this.colActlifetime.Name = "colActlifetime";
+            this.colActlifetime.ReadOnly = true;
+            // 
+            // colCountry
+            // 
+            this.colCountry.HeaderText = "Страна";
+            this.colCountry.Name = "colCountry";
+            this.colCountry.ReadOnly = true;
+            // 
             // tabWriter
             // 
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
@@ -1220,7 +1377,7 @@
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1117, 466);
+            this.scMain.Size = new System.Drawing.Size(1117, 613);
             this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
@@ -1346,132 +1503,124 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // cmnName
+            // checkedListBox1
             // 
-            this.cmnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cmnName.DataPropertyName = "Name";
-            this.cmnName.HeaderText = "Название";
-            this.cmnName.Name = "cmnName";
-            this.cmnName.ReadOnly = true;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(237, 491);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 49);
+            this.checkedListBox1.TabIndex = 59;
             // 
-            // cmnDirName
+            // btnMoveDown
             // 
-            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnDirName.DataPropertyName = "DirName";
-            this.cmnDirName.HeaderText = "Каталог";
-            this.cmnDirName.Name = "cmnDirName";
-            this.cmnDirName.ReadOnly = true;
-            this.cmnDirName.Width = 73;
+            this.btnMoveDown.BackColor = System.Drawing.Color.LightGray;
+            this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnMoveDown.Location = new System.Drawing.Point(131, 546);
+            this.btnMoveDown.Name = "btnMoveDown";
+            this.btnMoveDown.Size = new System.Drawing.Size(68, 24);
+            this.btnMoveDown.TabIndex = 58;
+            this.btnMoveDown.Text = "Down";
+            this.btnMoveDown.UseVisualStyleBackColor = false;
+            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
             // 
-            // cmnYear
+            // btnMoveUp
             // 
-            this.cmnYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cmnYear.DataPropertyName = "Year";
-            this.cmnYear.HeaderText = "Год";
-            this.cmnYear.Name = "cmnYear";
-            this.cmnYear.ReadOnly = true;
-            this.cmnYear.Width = 60;
+            this.btnMoveUp.BackColor = System.Drawing.Color.LightGray;
+            this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnMoveUp.Location = new System.Drawing.Point(58, 546);
+            this.btnMoveUp.Name = "btnMoveUp";
+            this.btnMoveUp.Size = new System.Drawing.Size(68, 24);
+            this.btnMoveUp.TabIndex = 57;
+            this.btnMoveUp.Text = "Up";
+            this.btnMoveUp.UseVisualStyleBackColor = false;
+            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
             // 
-            // cmnCountryString
+            // btnRemoveGroup
             // 
-            this.cmnCountryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnCountryString.DataPropertyName = "CountryString";
-            this.cmnCountryString.HeaderText = "Страна";
-            this.cmnCountryString.Name = "cmnCountryString";
-            this.cmnCountryString.ReadOnly = true;
-            this.cmnCountryString.Width = 68;
+            this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
+            this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRemoveGroup.Location = new System.Drawing.Point(207, 432);
+            this.btnRemoveGroup.Name = "btnRemoveGroup";
+            this.btnRemoveGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveGroup.TabIndex = 53;
+            this.btnRemoveGroup.Text = "<";
+            this.btnRemoveGroup.UseVisualStyleBackColor = false;
+            this.btnRemoveGroup.Click += new System.EventHandler(this.btnRemoveGroup_Click);
             // 
-            // cmnGenreString
+            // btnAddGroup
             // 
-            this.cmnGenreString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnGenreString.DataPropertyName = "GenreString";
-            this.cmnGenreString.HeaderText = "Жанр";
-            this.cmnGenreString.Name = "cmnGenreString";
-            this.cmnGenreString.ReadOnly = true;
-            this.cmnGenreString.Width = 61;
+            this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
+            this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnAddGroup.Location = new System.Drawing.Point(207, 404);
+            this.btnAddGroup.Name = "btnAddGroup";
+            this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnAddGroup.TabIndex = 52;
+            this.btnAddGroup.Text = ">";
+            this.btnAddGroup.UseVisualStyleBackColor = false;
+            this.btnAddGroup.Click += new System.EventHandler(this.btnAddGroup_Click);
             // 
-            // cmnCategoryString
+            // label6
             // 
-            this.cmnCategoryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnCategoryString.DataPropertyName = "CategoryString";
-            this.cmnCategoryString.HeaderText = "Категория";
-            this.cmnCategoryString.Name = "cmnCategoryString";
-            this.cmnCategoryString.ReadOnly = true;
-            this.cmnCategoryString.Width = 85;
+            this.label6.Location = new System.Drawing.Point(234, 347);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 23);
+            this.label6.TabIndex = 56;
+            this.label6.Text = "Section(Group By):";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cmnTime
+            // chkRightFelds
             // 
-            this.cmnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cmnTime.DataPropertyName = "Time";
-            this.cmnTime.HeaderText = "Время";
-            this.cmnTime.Name = "cmnTime";
-            this.cmnTime.ReadOnly = true;
-            this.cmnTime.Width = 60;
+            this.chkRightFelds.Location = new System.Drawing.Point(238, 371);
+            this.chkRightFelds.Name = "chkRightFelds";
+            this.chkRightFelds.Size = new System.Drawing.Size(122, 95);
+            this.chkRightFelds.TabIndex = 55;
             // 
-            // cmnFileName
+            // label7
             // 
-            this.cmnFileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cmnFileName.DataPropertyName = "FileName";
-            this.cmnFileName.HeaderText = "Файл";
-            this.cmnFileName.Name = "cmnFileName";
-            this.cmnFileName.ReadOnly = true;
+            this.label7.Location = new System.Drawing.Point(58, 347);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 23);
+            this.label7.TabIndex = 54;
+            this.label7.Text = "Report Fields:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tabActors
+            // chkLeftFelds
             // 
-            this.tabActors.Controls.Add(this.scTabActors);
-            this.tabActors.Location = new System.Drawing.Point(4, 22);
-            this.tabActors.Name = "tabActors";
-            this.tabActors.Size = new System.Drawing.Size(914, 440);
-            this.tabActors.TabIndex = 3;
-            this.tabActors.Text = "Актеры";
-            this.tabActors.UseVisualStyleBackColor = true;
+            this.chkLeftFelds.CheckOnClick = true;
+            this.chkLeftFelds.Items.AddRange(new object[] {
+            "123",
+            "44",
+            "555"});
+            this.chkLeftFelds.Location = new System.Drawing.Point(58, 371);
+            this.chkLeftFelds.Name = "chkLeftFelds";
+            this.chkLeftFelds.Size = new System.Drawing.Size(141, 169);
+            this.chkLeftFelds.TabIndex = 51;
             // 
-            // dgvTableActors
+            // panelActEditTitle
             // 
-            this.dgvTableActors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTableActors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colActFIO,
-            this.colActlifetime,
-            this.colCountry});
-            this.dgvTableActors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTableActors.Location = new System.Drawing.Point(0, 0);
-            this.dgvTableActors.Name = "dgvTableActors";
-            this.dgvTableActors.Size = new System.Drawing.Size(363, 440);
-            this.dgvTableActors.TabIndex = 0;
+            this.panelActEditTitle.Controls.Add(this.label8);
+            this.panelActEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelActEditTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelActEditTitle.Name = "panelActEditTitle";
+            this.panelActEditTitle.Size = new System.Drawing.Size(545, 585);
+            this.panelActEditTitle.TabIndex = 0;
             // 
-            // scTabActors
+            // label8
             // 
-            this.scTabActors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scTabActors.Location = new System.Drawing.Point(0, 0);
-            this.scTabActors.Name = "scTabActors";
-            // 
-            // scTabActors.Panel1
-            // 
-            this.scTabActors.Panel1.Controls.Add(this.dgvTableActors);
-            this.scTabActors.Size = new System.Drawing.Size(914, 440);
-            this.scTabActors.SplitterDistance = 363;
-            this.scTabActors.TabIndex = 1;
-            // 
-            // colActFIO
-            // 
-            this.colActFIO.HeaderText = "Ф.И.О.";
-            this.colActFIO.Name = "colActFIO";
-            // 
-            // colActlifetime
-            // 
-            this.colActlifetime.HeaderText = "Время жизни";
-            this.colActlifetime.Name = "colActlifetime";
-            // 
-            // colCountry
-            // 
-            this.colCountry.HeaderText = "Страна";
-            this.colCountry.Name = "colCountry";
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(545, 27);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Панель редактирования";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1117, 537);
+            this.ClientSize = new System.Drawing.Size(1117, 684);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.toolMainMenu);
@@ -1508,6 +1657,12 @@
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
             this.panelTitle.ResumeLayout(false);
+            this.tabActors.ResumeLayout(false);
+            this.scTabActors.Panel1.ResumeLayout(false);
+            this.scTabActors.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).EndInit();
+            this.scTabActors.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).EndInit();
             this.tabImage.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
@@ -1515,11 +1670,7 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
-            this.tabActors.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).EndInit();
-            this.scTabActors.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).EndInit();
-            this.scTabActors.ResumeLayout(false);
+            this.panelActEditTitle.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1654,6 +1805,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colActFIO;
         private System.Windows.Forms.DataGridViewTextBoxColumn colActlifetime;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Button btnMoveDown;
+        private System.Windows.Forms.Button btnMoveUp;
+        private System.Windows.Forms.Button btnRemoveGroup;
+        private System.Windows.Forms.Button btnAddGroup;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ListBox chkRightFelds;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckedListBox chkLeftFelds;
+        private System.Windows.Forms.Panel panelActEditTitle;
+        private System.Windows.Forms.Label label8;
     }
 }
 

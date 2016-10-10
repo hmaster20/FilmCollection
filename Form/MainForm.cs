@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Linq;
 using System.Net;
+using System.Collections;
 
 namespace FilmCollection
 {
@@ -200,7 +201,7 @@ namespace FilmCollection
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
                 File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                _videoCollection.Clear();   // очищаем колелкцию
+                _videoCollection.ClearVideo();   // очищаем коллекцию
                 treeFolder.Nodes.Clear();   // очищаем иерархию
                 dgvTableRec.ClearSelection();  // выключаем селекты таблицы
                 PepareRefresh();            // сбрасываем старые значения таблицы
@@ -232,7 +233,7 @@ namespace FilmCollection
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
                 try
                 {
-                    tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количесво файлов
+                    tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количество файлов
                 }
                 catch (Exception e)
                 {
@@ -267,7 +268,7 @@ namespace FilmCollection
                 {
                     #region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
                     List<string> FileNameList = new List<string>();                 // создаем пустой список типа string
-                    XmlDocument doc = new XmlDocument();                            // создаем объект для доступа в xml документ
+                    XmlDocument doc = new XmlDocument();                            // создаем объект для доступа в XML документ
                     doc.Load(RecordOptions.BaseName);                            // загружаем файл базы
                     XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
 
@@ -357,7 +358,7 @@ namespace FilmCollection
 
         private void btnReport_Click(object sender, EventArgs e)
         {
-            // Сформировать отчет в формате html и открыть его в браузере по умолчанию 
+            // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -383,7 +384,7 @@ namespace FilmCollection
 
         private void WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогрес бара
+            // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогресс бара
             MessageBox.Show(_videoCollection.VideoList.Count.ToString());
         }
 
@@ -1371,20 +1372,7 @@ namespace FilmCollection
         #endregion
 
 
-        #region Обработка актеров
-
-        private void btnActors_Click(object sender, EventArgs e)
-        {
-            Actors form = new Actors();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                // _videoCollection.Add(form.Record);
-                // _videoCollection.Save();
-                // RefreshTables();
-            }
-        }
-
-        #endregion
+    
 
 
         #region Обработка постеров
@@ -1467,8 +1455,221 @@ namespace FilmCollection
         // https://pic.afisha.mail.ru/7087157/
         #endregion
 
- 
 
 
+
+
+        #region Обработка актеров
+
+        private void btnActors_Click(object sender, EventArgs e)
+        {
+            //Actors form = new Actors();
+            //if (form.ShowDialog() == DialogResult.OK)
+            //{
+                // _videoCollection.Add(form.Record);
+                // _videoCollection.Save();
+                // RefreshTables();
+           // }
+        }
+
+  
+
+
+
+        private void LoadFields()
+        {
+            //chkLeftFelds.Items.Clear();
+            //cmbChangeOnField.Items.Clear();
+            //cmbValueField.Items.Clear();
+            //cmbValueField.Items.Add("COUNT");
+            //foreach (DataColumn dc in dataSet.Tables[0].Columns)
+            //{
+            //    chkLeftFelds.Items.Add(dc.ColumnName);
+            //    cmbChangeOnField.Items.Add(dc.ColumnName);
+            //    cmbValueField.Items.Add(dc.ColumnName);
+            //}
+        }
+
+        private void btnMoveUp_Click(object sender, System.EventArgs e)
+        {
+            int index = chkLeftFelds.SelectedIndices[0];
+            if (index != 0)
+            {
+                ArrayList list = new ArrayList();
+                CheckedListBox cb = new CheckedListBox();
+                cb.Items.AddRange(chkLeftFelds.Items);
+                for (int i = 0; i < chkLeftFelds.CheckedItems.Count; i++)
+                {
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkLeftFelds.CheckedItems[i]), CheckState.Checked);
+                }
+                list.AddRange(chkLeftFelds.Items);
+                ArrayList newlist = new ArrayList(list);
+                newlist[index] = list[index - 1];
+                newlist[index - 1] = list[index];
+                chkLeftFelds.Items.Clear();
+                chkLeftFelds.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                for (int i = 0; i < cb.CheckedItems.Count; i++)
+                {
+                    chkLeftFelds.SetItemCheckState(chkLeftFelds.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                }
+                chkLeftFelds.SelectedItem = chkLeftFelds.Items[index - 1];
+            }
+        }
+
+
+        private void btnMoveDown_Click(object sender, System.EventArgs e)
+        {
+            int index = chkLeftFelds.SelectedIndices[0];
+            if (index != chkLeftFelds.Items.Count - 1)
+            {
+                CheckedListBox cb = new CheckedListBox();
+                cb.Items.AddRange(chkLeftFelds.Items);
+                for (int i = 0; i < chkLeftFelds.CheckedItems.Count; i++)
+                {
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkLeftFelds.CheckedItems[i]), CheckState.Checked);
+                }
+                ArrayList list = new ArrayList();
+                list.AddRange(chkLeftFelds.Items);
+                ArrayList newlist = new ArrayList(list);
+                newlist[index] = list[index + 1];
+                newlist[index + 1] = list[index];
+                chkLeftFelds.Items.Clear();
+                chkLeftFelds.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                for (int i = 0; i < cb.CheckedItems.Count; i++)
+                {
+                    chkLeftFelds.SetItemCheckState(chkLeftFelds.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                }
+                chkLeftFelds.SelectedItem = chkLeftFelds.Items[index + 1];
+            }
+        }
+
+
+        private void btnAddGroup_Click(object sender, System.EventArgs e)
+        {
+            if (chkLeftFelds.SelectedItems.Count > 0)
+            {
+                if (!chkRightFelds.Items.Contains(chkLeftFelds.SelectedItems[0].ToString()))
+                {
+                    // chkRightFelds.Items.Add(chkLeftFelds.SelectedItems[0].ToString());
+                    // CreateSectionProps(chkLeftFelds.SelectedItems[0].ToString());
+
+
+                    //chkLeftFelds.CheckedItems.OfType<string>().ToList().ForEach(chkRightFelds.Items.Add());
+                    foreach (var item in chkLeftFelds.CheckedItems.OfType<string>().ToList())
+                    {
+                        if (!chkRightFelds.Items.Contains(item))
+                        {
+                            chkRightFelds.Items.Add(item);
+                        }
+                    }
+
+                    //var items = new System.Collections.ArrayList(chkLeftFelds.SelectedItems);
+
+                    //foreach (var item in items)
+                    //{
+                    //    chkRightFelds.Items.Add(item);
+                    //   // listbox.Items.remove(item);
+
+                    //}
+
+
+                }
+            }
+        }
+
+        private void btnRemoveGroup_Click(object sender, System.EventArgs e)
+        {
+            if (chkRightFelds.SelectedItems.Count > 0)
+            {
+                string secName = chkRightFelds.SelectedItems[0].ToString();
+                chkRightFelds.Items.Remove(chkRightFelds.SelectedItems[0]);
+                //УБРАТЬ check
+                // chkLeftFelds.ch// chkLeftFelds.Items.IndexOf(chkRightFelds.SelectedItems[0])
+                //sectionProps.Remove(secName);
+
+
+
+
+
+            }
+        }
+
+        private void chkLstFields_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            // SaveFieldAttributes(selectedField);
+            if (chkLeftFelds.SelectedItems.Count > 0)
+            {
+                //LoadFieldAttributes(chkLstFields.SelectedItems[0].ToString());
+            }
+        }
+
+        private void lstGroupBy_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            //SaveSectionAttributes(selectedSection);
+            if (chkRightFelds.SelectedItems.Count > 0)
+            {
+                LoadSectionAttributes(chkRightFelds.SelectedItems[0].ToString());
+            }
+        }
+
+        private void CreateSectionProps(string groupByColumnName)
+        {
+            //sectionProps.Add(groupByColumnName, new Section(groupByColumnName, ""));
+        }
+
+        private void SaveFieldAttributes(string fieldName)
+        {
+            //if (fieldProps[fieldName] != null)
+            //{
+            //    Field field = (Field)fieldProps[fieldName];
+            //    field.FieldName = lblColumnName.Text;
+            //    field.HeaderName = txtHeaderText.Text;
+            //    field.HeaderBackColor = pnlHBG.BackColor;
+            //    field.BackColor = pnlBG.BackColor;
+            //    field.Width = int.Parse(txtWidth.Text);
+            //    field.Alignment = (cmbAlignment.Text == "RIGHT") ? ALIGN.RIGHT : (cmbAlignment.Text == "CENTER") ? ALIGN.CENTER : ALIGN.LEFT;
+            //    field.isTotalField = chkTotalField.Checked;
+            //}
+        }
+
+        private void LoadSectionAttributes(string sectionName)
+        {
+            //if (sectionProps[sectionName] != null)
+            //{
+            //    Section section = (Section)sectionProps[sectionName];
+            //    lblSectionName.Text = sectionName;
+            //    txtTitlePrefix.Text = section.TitlePrefix;
+            //    pnlSecBGColor.BackColor = section.BackColor;
+            //    chkGradient.Checked = section.GradientBackground;
+            //    chkTotalRow.Checked = section.IncludeTotal;
+            //    chkChart.Checked = section.IncludeChart;
+            //    chkChartAtBottom.Checked = section.ChartShowAtBottom;
+            //    chkBorder.Checked = section.ChartShowBorder;
+            //    if (section.IncludeChart)
+            //    {
+            //        grpChartProps.Enabled = true;
+            //        txtChartTitle.Text = section.ChartTitle;
+            //        cmbChangeOnField.Text = section.ChartChangeOnField;
+            //        cmbValueField.Text = section.ChartValueField == "" ? "COUNT" : section.ChartValueField;
+            //        txtLabelText.Text = section.ChartLabelHeader;
+            //        txtPercentageText.Text = section.ChartPercentageHeader;
+            //        txtValueText.Text = section.ChartValueHeader;
+            //    }
+            //    else
+            //    {
+            //        grpChartProps.Enabled = false;
+            //        txtChartTitle.Text = "";
+            //        cmbChangeOnField.Text = "";
+            //        cmbValueField.Text = "";
+            //        txtLabelText.Text = "";
+            //        txtPercentageText.Text = "";
+            //        txtValueText.Text = "";
+            //    }
+            //}
+            //selectedSection = sectionName;
+        }
+
+
+        #endregion
     }
 }
