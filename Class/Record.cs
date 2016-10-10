@@ -117,8 +117,7 @@ namespace FilmCollection
         #endregion
 
 
-        //public string Country { get; set; }     // Страна выпуска
-
+        #region Обработка Страны
         private Country_Rus _country = Country_Rus.Россия;   // Страна
         [XmlIgnore]
         public Country_Rus Country
@@ -144,7 +143,7 @@ namespace FilmCollection
             Country_Rus _category = (Country_Rus)(Enum.Parse(typeof(Country_Rus), country));
             return _category;
         }
-
+        #endregion
 
 
 
