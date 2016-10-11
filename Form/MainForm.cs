@@ -51,7 +51,10 @@ namespace FilmCollection
             { cBoxGenre.Items.Add(item); }
 
             foreach (var item in Enum.GetValues(typeof(Country_Rus)))
-            { cBoxCountry.Items.Add(item); }
+            {
+                cBoxCountry.Items.Add(item);
+                cBoxCountryActor.Items.Add(item);
+            }
 
             WorkerCB = new BackgroundWorker();
             WorkerCB.DoWork += Worker_DoWork;                     // Здесь работает поток
@@ -201,10 +204,10 @@ namespace FilmCollection
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
                 File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                _videoCollection.ClearVideo();   // очищаем коллекцию
-                treeFolder.Nodes.Clear();   // очищаем иерархию
-                dgvTableRec.ClearSelection();  // выключаем селекты таблицы
-                PepareRefresh();            // сбрасываем старые значения таблицы
+                _videoCollection.ClearVideo();  // очищаем коллекцию
+                treeFolder.Nodes.Clear();       // очищаем иерархию
+                dgvTableRec.ClearSelection();   // выключаем селекты таблицы
+                PepareRefresh();                // сбрасываем старые значения таблицы
 
             }
             else // Если базы нет, то создаем пустой файл базы
@@ -221,7 +224,7 @@ namespace FilmCollection
                 tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
                 tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
 
-                folderName = fbDialog.SelectedPath;                     //Извлечение имени папки
+                folderName = fbDialog.SelectedPath;         //Извлечение имени папки
 
                 DialogResult correct = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
@@ -299,14 +302,10 @@ namespace FilmCollection
                     MessageBox.Show("Сведения о файлах в каталоге" + directory + " обновлены!");
                 }
                 else
-                {
                     MessageBox.Show("Каталог " + directory + " не обнаружен!");
-                }
             }
             else
-            {
                 MessageBox.Show("Необходимо создать базу данных.");
-            }
         }
 
         private void BackupBase()       // Резервная копия базы
@@ -1440,74 +1439,74 @@ namespace FilmCollection
 
         private void btnMoveUp_Click(object sender, System.EventArgs e)
         {
-            int index = chkLeftFelds.SelectedIndices[0];
+            int index = chkActorList.SelectedIndices[0];
             if (index != 0)
             {
                 ArrayList list = new ArrayList();
                 CheckedListBox cb = new CheckedListBox();
-                cb.Items.AddRange(chkLeftFelds.Items);
-                for (int i = 0; i < chkLeftFelds.CheckedItems.Count; i++)
+                cb.Items.AddRange(chkActorList.Items);
+                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
                 {
-                    cb.SetItemCheckState(cb.Items.IndexOf(chkLeftFelds.CheckedItems[i]), CheckState.Checked);
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
                 }
-                list.AddRange(chkLeftFelds.Items);
+                list.AddRange(chkActorList.Items);
                 ArrayList newlist = new ArrayList(list);
                 newlist[index] = list[index - 1];
                 newlist[index - 1] = list[index];
-                chkLeftFelds.Items.Clear();
-                chkLeftFelds.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                chkActorList.Items.Clear();
+                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
                 for (int i = 0; i < cb.CheckedItems.Count; i++)
                 {
-                    chkLeftFelds.SetItemCheckState(chkLeftFelds.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
                 }
-                chkLeftFelds.SelectedItem = chkLeftFelds.Items[index - 1];
+                chkActorList.SelectedItem = chkActorList.Items[index - 1];
             }
         }
 
 
         private void btnMoveDown_Click(object sender, System.EventArgs e)
         {
-            int index = chkLeftFelds.SelectedIndices[0];
-            if (index != chkLeftFelds.Items.Count - 1)
+            int index = chkActorList.SelectedIndices[0];
+            if (index != chkActorList.Items.Count - 1)
             {
                 CheckedListBox cb = new CheckedListBox();
-                cb.Items.AddRange(chkLeftFelds.Items);
-                for (int i = 0; i < chkLeftFelds.CheckedItems.Count; i++)
+                cb.Items.AddRange(chkActorList.Items);
+                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
                 {
-                    cb.SetItemCheckState(cb.Items.IndexOf(chkLeftFelds.CheckedItems[i]), CheckState.Checked);
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
                 }
                 ArrayList list = new ArrayList();
-                list.AddRange(chkLeftFelds.Items);
+                list.AddRange(chkActorList.Items);
                 ArrayList newlist = new ArrayList(list);
                 newlist[index] = list[index + 1];
                 newlist[index + 1] = list[index];
-                chkLeftFelds.Items.Clear();
-                chkLeftFelds.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                chkActorList.Items.Clear();
+                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
                 for (int i = 0; i < cb.CheckedItems.Count; i++)
                 {
-                    chkLeftFelds.SetItemCheckState(chkLeftFelds.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
                 }
-                chkLeftFelds.SelectedItem = chkLeftFelds.Items[index + 1];
+                chkActorList.SelectedItem = chkActorList.Items[index + 1];
             }
         }
 
 
         private void btnAddGroup_Click(object sender, System.EventArgs e)
         {
-            if (chkLeftFelds.SelectedItems.Count > 0)
+            if (chkActorList.SelectedItems.Count > 0)
             {
-                if (!chkRightFelds.Items.Contains(chkLeftFelds.SelectedItems[0].ToString()))
+                if (!chkActorSelect.Items.Contains(chkActorList.SelectedItems[0].ToString()))
                 {
                     // chkRightFelds.Items.Add(chkLeftFelds.SelectedItems[0].ToString());
                     // CreateSectionProps(chkLeftFelds.SelectedItems[0].ToString());
 
 
                     //chkLeftFelds.CheckedItems.OfType<string>().ToList().ForEach(chkRightFelds.Items.Add());
-                    foreach (var item in chkLeftFelds.CheckedItems.OfType<string>().ToList())
+                    foreach (var item in chkActorList.CheckedItems.OfType<string>().ToList())
                     {
-                        if (!chkRightFelds.Items.Contains(item))
+                        if (!chkActorSelect.Items.Contains(item))
                         {
-                            chkRightFelds.Items.Add(item);
+                            chkActorSelect.Items.Add(item);
                         }
                     }
 
@@ -1527,10 +1526,10 @@ namespace FilmCollection
 
         private void btnRemoveGroup_Click(object sender, System.EventArgs e)
         {
-            if (chkRightFelds.SelectedItems.Count > 0)
+            if (chkActorSelect.SelectedItems.Count > 0)
             {
-                string secName = chkRightFelds.SelectedItems[0].ToString();
-                chkRightFelds.Items.Remove(chkRightFelds.SelectedItems[0]);
+                string secName = chkActorSelect.SelectedItems[0].ToString();
+                chkActorSelect.Items.Remove(chkActorSelect.SelectedItems[0]);
                 //УБРАТЬ check
                 // chkLeftFelds.ch// chkLeftFelds.Items.IndexOf(chkRightFelds.SelectedItems[0])
                 //sectionProps.Remove(secName);
@@ -1545,7 +1544,7 @@ namespace FilmCollection
         private void chkLstFields_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             // SaveFieldAttributes(selectedField);
-            if (chkLeftFelds.SelectedItems.Count > 0)
+            if (chkActorList.SelectedItems.Count > 0)
             {
                 //LoadFieldAttributes(chkLstFields.SelectedItems[0].ToString());
             }
@@ -1554,9 +1553,9 @@ namespace FilmCollection
         private void lstGroupBy_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             //SaveSectionAttributes(selectedSection);
-            if (chkRightFelds.SelectedItems.Count > 0)
+            if (chkActorSelect.SelectedItems.Count > 0)
             {
-                LoadSectionAttributes(chkRightFelds.SelectedItems[0].ToString());
+                LoadSectionAttributes(chkActorSelect.SelectedItems[0].ToString());
             }
         }
 
@@ -1618,6 +1617,38 @@ namespace FilmCollection
         }
 
 
+
         #endregion
+
+        private void btnNewActor_Click(object sender, EventArgs e)
+        {
+            Actor actor = new Actor();
+            actor.FIO = tbFIO.Text;
+            actor.LifeTime = "";
+            
+
+
+            //foreach (Record item in _videoCollection.VideoList)
+            //{
+            //    if (item.Equals(record))
+            //    {
+            //        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
+            //        return; // Выходим из метода
+            //    }
+            //}
+        }
+
+        private void btnSaveActor_Click(object sender, EventArgs e)
+        {
+            Country_Rus country = (Country_Rus)cBoxCountry.SelectedIndex;
+            Actor actor = new Actor();
+
+            actor.FIO = tbFIO.Text;
+            actor.LifeTime = "";
+            actor.Country = country;
+
+            _videoCollection.Add(actor);
+            _videoCollection.Save();
+        }
     }
 }
