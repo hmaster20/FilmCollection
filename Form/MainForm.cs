@@ -15,7 +15,7 @@ namespace FilmCollection
 {
     public partial class MainForm : Form
     {
-        RecordCollection _videoCollection = new RecordCollection(); // Доступ к коллекции
+        RecordCollection _videoCollection = new RecordCollection();     // Доступ к коллекции
         TreeViewColletion _treeViewColletion = new TreeViewColletion(); // Доступ к коллекции
 
         Record record = null;       // Доступ к записи

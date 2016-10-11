@@ -168,6 +168,10 @@
             this.chkLeftFelds = new System.Windows.Forms.CheckedListBox();
             this.panelActEditTitle = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -200,6 +204,7 @@
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
             this.panelActEditTitle.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -1267,6 +1272,7 @@
             this.tabActors.Controls.Add(this.scTabActors);
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
+            this.tabActors.Padding = new System.Windows.Forms.Padding(3);
             this.tabActors.Size = new System.Drawing.Size(914, 587);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
@@ -1276,24 +1282,27 @@
             // 
             this.scTabActors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scTabActors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scTabActors.Location = new System.Drawing.Point(0, 0);
+            this.scTabActors.Location = new System.Drawing.Point(3, 3);
             this.scTabActors.Name = "scTabActors";
             // 
             // scTabActors.Panel1
             // 
             this.scTabActors.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel1.Controls.Add(this.dgvTableActors);
+            this.scTabActors.Panel1.Controls.Add(this.menuStrip1);
             // 
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelActEditTitle);
-            this.scTabActors.Size = new System.Drawing.Size(914, 587);
-            this.scTabActors.SplitterDistance = 363;
+            this.scTabActors.Size = new System.Drawing.Size(908, 581);
+            this.scTabActors.SplitterDistance = 437;
             this.scTabActors.TabIndex = 1;
             // 
             // dgvTableActors
             // 
+            this.dgvTableActors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTableActors.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvTableActors.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvTableActors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTableActors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -1301,12 +1310,13 @@
             this.colActlifetime,
             this.colCountry});
             this.dgvTableActors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTableActors.Location = new System.Drawing.Point(0, 0);
+            this.dgvTableActors.Location = new System.Drawing.Point(0, 27);
             this.dgvTableActors.MultiSelect = false;
             this.dgvTableActors.Name = "dgvTableActors";
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
-            this.dgvTableActors.Size = new System.Drawing.Size(361, 585);
+            this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTableActors.Size = new System.Drawing.Size(435, 552);
             this.dgvTableActors.TabIndex = 0;
             // 
             // colActFIO
@@ -1602,7 +1612,7 @@
             this.panelActEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelActEditTitle.Location = new System.Drawing.Point(0, 0);
             this.panelActEditTitle.Name = "panelActEditTitle";
-            this.panelActEditTitle.Size = new System.Drawing.Size(545, 585);
+            this.panelActEditTitle.Size = new System.Drawing.Size(465, 579);
             this.panelActEditTitle.TabIndex = 0;
             // 
             // label8
@@ -1611,10 +1621,55 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label8.Location = new System.Drawing.Point(0, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(545, 27);
+            this.label8.Size = new System.Drawing.Size(465, 27);
             this.label8.TabIndex = 1;
             this.label8.Text = "Панель редактирования";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripComboBox1,
+            this.toolStripComboBox2});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(435, 27);
+            this.menuStrip1.TabIndex = 25;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = global::FilmCollection.Properties.Resources.resetFiltr;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 23);
+            this.toolStripMenuItem1.Text = "Сброс фильтра";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "Все",
+            "Фильмы",
+            "Мульты",
+            "Сериалы"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            // 
+            // toolStripComboBox2
+            // 
+            this.toolStripComboBox2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox2.Items.AddRange(new object[] {
+            "По именам",
+            "По времени",
+            "По году",
+            "По категориям",
+            "По каталогу"});
+            this.toolStripComboBox2.Name = "toolStripComboBox2";
+            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
             // 
             // MainForm
             // 
@@ -1659,6 +1714,7 @@
             this.panelTitle.ResumeLayout(false);
             this.tabActors.ResumeLayout(false);
             this.scTabActors.Panel1.ResumeLayout(false);
+            this.scTabActors.Panel1.PerformLayout();
             this.scTabActors.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).EndInit();
             this.scTabActors.ResumeLayout(false);
@@ -1671,6 +1727,8 @@
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
             this.panelActEditTitle.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1816,6 +1874,10 @@
         private System.Windows.Forms.CheckedListBox chkLeftFelds;
         private System.Windows.Forms.Panel panelActEditTitle;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
     }
 }
 
