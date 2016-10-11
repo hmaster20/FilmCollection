@@ -157,7 +157,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
             this.btnRemoveGroup = new System.Windows.Forms.Button();
@@ -232,7 +231,7 @@
             this.dgvTableRec.ReadOnly = true;
             this.dgvTableRec.RowHeadersVisible = false;
             this.dgvTableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableRec.Size = new System.Drawing.Size(532, 552);
+            this.dgvTableRec.Size = new System.Drawing.Size(532, 516);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
@@ -387,7 +386,7 @@
             this.tssLabel,
             this.tsProgressBar,
             this.FindStatusLabel});
-            this.statusLine.Location = new System.Drawing.Point(0, 662);
+            this.statusLine.Location = new System.Drawing.Point(0, 626);
             this.statusLine.Name = "statusLine";
             this.statusLine.Size = new System.Drawing.Size(1117, 22);
             this.statusLine.TabIndex = 18;
@@ -571,7 +570,7 @@
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
-            this.treeFolder.Size = new System.Drawing.Size(191, 613);
+            this.treeFolder.Size = new System.Drawing.Size(191, 577);
             this.treeFolder.TabIndex = 22;
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
             // 
@@ -635,7 +634,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(922, 613);
+            this.tabControl2.Size = new System.Drawing.Size(922, 577);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.Click += new System.EventHandler(this.tabControl_ResetFindStatus_Click);
             // 
@@ -645,7 +644,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(914, 587);
+            this.tabFilm.Size = new System.Drawing.Size(914, 551);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -672,7 +671,7 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(908, 581);
+            this.scTabFilm.Size = new System.Drawing.Size(908, 545);
             this.scTabFilm.SplitterDistance = 534;
             this.scTabFilm.TabIndex = 17;
             // 
@@ -726,7 +725,6 @@
             // 
             // panelEdit
             // 
-            this.panelEdit.Controls.Add(this.checkedListBox1);
             this.panelEdit.Controls.Add(this.btnMoveDown);
             this.panelEdit.Controls.Add(this.btnMoveUp);
             this.panelEdit.Controls.Add(this.btnRemoveGroup);
@@ -760,7 +758,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 579);
+            this.panelEdit.Size = new System.Drawing.Size(368, 543);
             this.panelEdit.TabIndex = 10;
             // 
             // cBoxCountry
@@ -811,7 +809,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(264, 292);
+            this.btnSave.Location = new System.Drawing.Point(264, 481);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 23);
             this.btnSave.TabIndex = 47;
@@ -824,7 +822,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(264, 321);
+            this.btnCancel.Location = new System.Drawing.Point(264, 511);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -1003,7 +1001,7 @@
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(71, 292);
+            this.btnNew.Location = new System.Drawing.Point(267, 444);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -1025,7 +1023,7 @@
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 579);
+            this.panelFind.Size = new System.Drawing.Size(368, 543);
             this.panelFind.TabIndex = 0;
             // 
             // btnFindReset
@@ -1137,7 +1135,7 @@
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 579);
+            this.panelView.Size = new System.Drawing.Size(368, 543);
             this.panelView.TabIndex = 10;
             // 
             // btnPlay
@@ -1145,7 +1143,7 @@
             this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
             this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 553);
+            this.btnPlay.Location = new System.Drawing.Point(5, 517);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(111, 23);
             this.btnPlay.TabIndex = 6;
@@ -1387,7 +1385,7 @@
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1117, 613);
+            this.scMain.Size = new System.Drawing.Size(1117, 577);
             this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
@@ -1513,19 +1511,11 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(237, 491);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 49);
-            this.checkedListBox1.TabIndex = 59;
-            // 
             // btnMoveDown
             // 
             this.btnMoveDown.BackColor = System.Drawing.Color.LightGray;
             this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveDown.Location = new System.Drawing.Point(131, 546);
+            this.btnMoveDown.Location = new System.Drawing.Point(103, 511);
             this.btnMoveDown.Name = "btnMoveDown";
             this.btnMoveDown.Size = new System.Drawing.Size(68, 24);
             this.btnMoveDown.TabIndex = 58;
@@ -1537,7 +1527,7 @@
             // 
             this.btnMoveUp.BackColor = System.Drawing.Color.LightGray;
             this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveUp.Location = new System.Drawing.Point(58, 546);
+            this.btnMoveUp.Location = new System.Drawing.Point(103, 481);
             this.btnMoveUp.Name = "btnMoveUp";
             this.btnMoveUp.Size = new System.Drawing.Size(68, 24);
             this.btnMoveUp.TabIndex = 57;
@@ -1549,7 +1539,7 @@
             // 
             this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemoveGroup.Location = new System.Drawing.Point(207, 432);
+            this.btnRemoveGroup.Location = new System.Drawing.Point(205, 384);
             this.btnRemoveGroup.Name = "btnRemoveGroup";
             this.btnRemoveGroup.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveGroup.TabIndex = 53;
@@ -1561,7 +1551,7 @@
             // 
             this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnAddGroup.Location = new System.Drawing.Point(207, 404);
+            this.btnAddGroup.Location = new System.Drawing.Point(205, 356);
             this.btnAddGroup.Name = "btnAddGroup";
             this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
             this.btnAddGroup.TabIndex = 52;
@@ -1571,7 +1561,7 @@
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(234, 347);
+            this.label6.Location = new System.Drawing.Point(232, 299);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 23);
             this.label6.TabIndex = 56;
@@ -1580,14 +1570,14 @@
             // 
             // chkRightFelds
             // 
-            this.chkRightFelds.Location = new System.Drawing.Point(238, 371);
+            this.chkRightFelds.Location = new System.Drawing.Point(235, 323);
             this.chkRightFelds.Name = "chkRightFelds";
-            this.chkRightFelds.Size = new System.Drawing.Size(122, 95);
+            this.chkRightFelds.Size = new System.Drawing.Size(115, 95);
             this.chkRightFelds.TabIndex = 55;
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(58, 347);
+            this.label7.Location = new System.Drawing.Point(71, 299);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 23);
             this.label7.TabIndex = 54;
@@ -1601,9 +1591,9 @@
             "123",
             "44",
             "555"});
-            this.chkLeftFelds.Location = new System.Drawing.Point(58, 371);
+            this.chkLeftFelds.Location = new System.Drawing.Point(71, 323);
             this.chkLeftFelds.Name = "chkLeftFelds";
-            this.chkLeftFelds.Size = new System.Drawing.Size(141, 169);
+            this.chkLeftFelds.Size = new System.Drawing.Size(124, 154);
             this.chkLeftFelds.TabIndex = 51;
             // 
             // panelActEditTitle
@@ -1675,7 +1665,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1117, 684);
+            this.ClientSize = new System.Drawing.Size(1117, 648);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.toolMainMenu);
@@ -1863,7 +1853,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colActFIO;
         private System.Windows.Forms.DataGridViewTextBoxColumn colActlifetime;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.Button btnMoveDown;
         private System.Windows.Forms.Button btnMoveUp;
         private System.Windows.Forms.Button btnRemoveGroup;
