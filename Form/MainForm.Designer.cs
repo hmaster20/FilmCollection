@@ -143,9 +143,6 @@
             this.tabActors = new System.Windows.Forms.TabPage();
             this.scTabActors = new System.Windows.Forms.SplitContainer();
             this.dgvTableActors = new System.Windows.Forms.DataGridView();
-            this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActlifetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
@@ -184,6 +181,19 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActlifetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -211,12 +221,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panelActEditTitle.SuspendLayout();
+            this.tabWriter.SuspendLayout();
             this.tabImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -544,13 +556,13 @@
             // btnOptions
             // 
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(138, 22);
+            this.btnOptions.Size = new System.Drawing.Size(152, 22);
             this.btnOptions.Text = "Параметры";
             // 
             // btnActors
             // 
             this.btnActors.Name = "btnActors";
-            this.btnActors.Size = new System.Drawing.Size(138, 22);
+            this.btnActors.Size = new System.Drawing.Size(152, 22);
             this.btnActors.Text = "Актеры";
             this.btnActors.Click += new System.EventHandler(this.btnActors_Click);
             // 
@@ -1411,24 +1423,6 @@
             this.dgvTableActors.Size = new System.Drawing.Size(435, 516);
             this.dgvTableActors.TabIndex = 0;
             // 
-            // colActFIO
-            // 
-            this.colActFIO.HeaderText = "Ф.И.О.";
-            this.colActFIO.Name = "colActFIO";
-            this.colActFIO.ReadOnly = true;
-            // 
-            // colActlifetime
-            // 
-            this.colActlifetime.HeaderText = "Время жизни";
-            this.colActlifetime.Name = "colActlifetime";
-            this.colActlifetime.ReadOnly = true;
-            // 
-            // colCountry
-            // 
-            this.colCountry.HeaderText = "Страна";
-            this.colCountry.Name = "colCountry";
-            this.colCountry.ReadOnly = true;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
@@ -1476,9 +1470,12 @@
             // 
             // panelActEditTitle
             // 
+            this.panelActEditTitle.Controls.Add(this.checkBox1);
             this.panelActEditTitle.Controls.Add(this.listBox2);
             this.panelActEditTitle.Controls.Add(this.listBox1);
             this.panelActEditTitle.Controls.Add(this.cBoxCountryActor);
+            this.panelActEditTitle.Controls.Add(this.maskedTextBox3);
+            this.panelActEditTitle.Controls.Add(this.maskedTextBox2);
             this.panelActEditTitle.Controls.Add(this.maskedTextBox1);
             this.panelActEditTitle.Controls.Add(this.btnSaveActor);
             this.panelActEditTitle.Controls.Add(this.btnCancelActor);
@@ -1486,6 +1483,9 @@
             this.panelActEditTitle.Controls.Add(this.tbFIO);
             this.panelActEditTitle.Controls.Add(this.label6);
             this.panelActEditTitle.Controls.Add(this.label10);
+            this.panelActEditTitle.Controls.Add(this.label13);
+            this.panelActEditTitle.Controls.Add(this.label12);
+            this.panelActEditTitle.Controls.Add(this.label11);
             this.panelActEditTitle.Controls.Add(this.label7);
             this.panelActEditTitle.Controls.Add(this.label9);
             this.panelActEditTitle.Controls.Add(this.btnNewActor);
@@ -1507,9 +1507,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(77, 83);
+            this.listBox1.Location = new System.Drawing.Point(77, 213);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(279, 212);
+            this.listBox1.Size = new System.Drawing.Size(279, 82);
             this.listBox1.TabIndex = 60;
             // 
             // cBoxCountryActor
@@ -1637,13 +1637,16 @@
             // 
             // tabWriter
             // 
+            this.tabWriter.BackColor = System.Drawing.SystemColors.Control;
+            this.tabWriter.Controls.Add(this.panel2);
+            this.tabWriter.Controls.Add(this.panel4);
+            this.tabWriter.Controls.Add(this.panel3);
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
             this.tabWriter.Name = "tabWriter";
             this.tabWriter.Padding = new System.Windows.Forms.Padding(3);
             this.tabWriter.Size = new System.Drawing.Size(914, 551);
             this.tabWriter.TabIndex = 1;
             this.tabWriter.Text = "Редактор";
-            this.tabWriter.UseVisualStyleBackColor = true;
             // 
             // tabImage
             // 
@@ -1811,6 +1814,130 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(503, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(6, 545);
+            this.panel2.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.Control;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.splitter1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(908, 545);
+            this.panel3.TabIndex = 1;
+            // 
+            // splitter1
+            // 
+            this.splitter1.BackColor = System.Drawing.SystemColors.Window;
+            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitter1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(15, 543);
+            this.splitter1.TabIndex = 0;
+            this.splitter1.TabStop = false;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.Control;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(500, 545);
+            this.panel4.TabIndex = 1;
+            // 
+            // colActFIO
+            // 
+            this.colActFIO.DataPropertyName = "FIO";
+            this.colActFIO.HeaderText = "Ф.И.О.";
+            this.colActFIO.Name = "colActFIO";
+            this.colActFIO.ReadOnly = true;
+            // 
+            // colActlifetime
+            // 
+            this.colActlifetime.HeaderText = "Время жизни";
+            this.colActlifetime.Name = "colActlifetime";
+            this.colActlifetime.ReadOnly = true;
+            // 
+            // colCountry
+            // 
+            this.colCountry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colCountry.DataPropertyName = "CountryString";
+            this.colCountry.HeaderText = "Страна";
+            this.colCountry.Name = "colCountry";
+            this.colCountry.ReadOnly = true;
+            this.colCountry.Width = 68;
+            // 
+            // maskedTextBox2
+            // 
+            this.maskedTextBox2.Location = new System.Drawing.Point(204, 82);
+            this.maskedTextBox2.Mask = "00.00.0000";
+            this.maskedTextBox2.Name = "maskedTextBox2";
+            this.maskedTextBox2.Size = new System.Drawing.Size(131, 20);
+            this.maskedTextBox2.TabIndex = 58;
+            this.maskedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maskedTextBox2.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.maskedTextBox2.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(341, 85);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(61, 17);
+            this.checkBox1.TabIndex = 61;
+            this.checkBox1.Text = "Живой";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // maskedTextBox3
+            // 
+            this.maskedTextBox3.Location = new System.Drawing.Point(96, 82);
+            this.maskedTextBox3.Mask = "00.00.0000";
+            this.maskedTextBox3.Name = "maskedTextBox3";
+            this.maskedTextBox3.Size = new System.Drawing.Size(77, 20);
+            this.maskedTextBox3.TabIndex = 58;
+            this.maskedTextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maskedTextBox3.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.maskedTextBox3.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 85);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 13);
+            this.label11.TabIndex = 53;
+            this.label11.Text = "Годы жизни:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(80, 85);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(13, 13);
+            this.label12.TabIndex = 53;
+            this.label12.Text = "с";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(179, 85);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(19, 13);
+            this.label13.TabIndex = 53;
+            this.label13.Text = "по";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1863,6 +1990,7 @@
             this.menuStrip1.PerformLayout();
             this.panelActEditTitle.ResumeLayout(false);
             this.panelActEditTitle.PerformLayout();
+            this.tabWriter.ResumeLayout(false);
             this.tabImage.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
@@ -1870,6 +1998,7 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2001,9 +2130,6 @@
         private System.Windows.Forms.TabPage tabActors;
         private System.Windows.Forms.SplitContainer scTabActors;
         private System.Windows.Forms.DataGridView dgvTableActors;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colActFIO;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colActlifetime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
         private System.Windows.Forms.Button btnMoveDown;
         private System.Windows.Forms.Button btnMoveUp;
         private System.Windows.Forms.Button btnRemoveGroup;
@@ -2031,6 +2157,19 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnNewActor;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActFIO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActlifetime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
     }
 }
 
