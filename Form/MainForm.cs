@@ -424,7 +424,7 @@ namespace FilmCollection
 
         private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
         {
-            NewRecord();
+            NewRecord_Dialog();
         }
 
         private void EditRec_Click(object sender, EventArgs e)                 // Изменение записи
@@ -573,42 +573,16 @@ namespace FilmCollection
                 tbfName.Text = record.Name;
                 tbfDesc.Text = record.Description;
                 tbfYear.Text = Convert.ToString(record.Year);
-                //tbfCountry.Text = record.Country;
 
                 // Панель редактирования
                 tbName.Text = record.Name;
-                //tbYear.Text = record.Year;
                 mtbYear.Text = Convert.ToString(record.Year);
-                //tbCountry.Text = record.Country;
                 numericTime.Value = record.Time;
                 tbDescription.Text = record.Description;
                 tbFileName.Text = record.FileName;
 
-
-                //genre = (GenreVideo)cBoxGenre.SelectedIndex;
-                //Enum.GetValues(typeof(GenreVideo));
-                // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
-
                 cBoxTypeVideo.SelectedIndex = ((int)record.Category);
-
-                //switch (record.Category)
-                //{
-                //    case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
-                //    case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
-                //    case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
-                //    case CategoryVideo.Unknown: cBoxTypeVideo.SelectedIndex = 3; break;
-                //}
-
                 cBoxGenre.SelectedIndex = ((int)record.GenreVideo);
-
-                //switch (record.GenreVideo)
-                //{
-                //    case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
-                //    case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
-                //    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
-                //    case GenreVideo.Unknown: cBoxGenre.SelectedIndex = 3; break;
-                //}
-
                 cBoxCountry.SelectedIndex = ((int)record.Country);
             }
         }
@@ -634,8 +608,6 @@ namespace FilmCollection
             tscbSort.SelectedIndex = -1;
 
             tbName.Text = "";
-            //tbYear.Text = "";
-            //tbCountry.Text = "";
             numericTime.Value = 0;
             tbDescription.Text = "";
             tbFileName.Text = "";
@@ -687,7 +659,7 @@ namespace FilmCollection
 
         private void btnNew_Click(object sender, EventArgs e)    // Создание элемента
         {
-            NewRecord();
+            NewRecord_Dialog();
         }
 
         private void btnSave_Click(object sender, EventArgs e)   // Сохранение нового или измененного элемента
@@ -700,7 +672,7 @@ namespace FilmCollection
             CancelRecord();
         }
 
-        private void NewRecord()
+        private void NewRecord_Dialog()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = _videoCollection.Options.Source;
@@ -708,54 +680,55 @@ namespace FilmCollection
             fileDialog.Filter = "Все файлы (*.*)|*.*";
             fileDialog.RestoreDirectory = true;
 
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            if (fileDialog.ShowDialog() == DialogResult.OK) NewRecord(fileDialog.FileName);
+        }
+        
+        private void NewRecord(string FileName)
+        {
+            FileInfo fInfo = new FileInfo(FileName);
+            string strFilePath = fInfo.DirectoryName;
+            if (!strFilePath.StartsWith(_videoCollection.Options.Source))
             {
-                FileInfo fInfo = new FileInfo(fileDialog.FileName);
-                string strFilePath = fInfo.DirectoryName;
+                MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Options.Source);
+                return; // Выходим из метода
+            }
 
-                if (!strFilePath.StartsWith(_videoCollection.Options.Source))
+            Record record = new Record();
+            record.FileName = fInfo.Name;
+            record.Path = fInfo.DirectoryName;
+
+            foreach (Record item in _videoCollection.VideoList)
+            {
+                if (item.Equals(record))
                 {
-                    MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Options.Source);
+                    MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
                     return; // Выходим из метода
                 }
-
-                Record record = new Record();
-                record.FileName = fInfo.Name;
-                record.Path = fInfo.DirectoryName;
-
-                foreach (Record item in _videoCollection.VideoList)
-                {
-                    if (item.Equals(record))
-                    {
-                        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
-                        return; // Выходим из метода
-                    }
-                }
-
-                // Заполняем поля
-                tbName.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
-                //tbYear.Text = "";
-                //tbCountry.Text = "";
-                numericTime.Value = 0;
-                tbDescription.Text = "";
-                tbFileName.Text = fInfo.Name;
-                cBoxGenre.SelectedIndex = -1;
-                cBoxTypeVideo.SelectedIndex = -1;
-                cBoxCountry.SelectedIndex = -1;
-
-                fsInfo = fInfo;             // если все хорошо, то передаем объект
-
-                panelEdit.BringToFront();   // показываем панель редактирования
-
-                dgvTableRec.Enabled = false;   // блокировка таблицы
-                treeFolder.Enabled = false; // блокировка дерева
-
-                panelEdit_Button_Unlock();          // разблокировка кнопок
-
-                FileNameDisabled();
             }
-        }
 
+            // Заполняем поля
+            tbName.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
+            //tbYear.Text = "";
+            //tbCountry.Text = "";
+            numericTime.Value = 0;
+            tbDescription.Text = "";
+            tbFileName.Text = fInfo.Name;
+            cBoxGenre.SelectedIndex = -1;
+            cBoxTypeVideo.SelectedIndex = -1;
+            cBoxCountry.SelectedIndex = -1;
+
+            fsInfo = fInfo;             // если все хорошо, то передаем объект
+
+            panelEdit.BringToFront();   // показываем панель редактирования
+
+            dgvTableRec.Enabled = false;   // блокировка таблицы
+            treeFolder.Enabled = false; // блокировка дерева
+
+            panelEdit_Button_Unlock();          // разблокировка кнопок
+
+            FileNameDisabled();
+        }
+        
         private void SaveRecord()
         {
             GenreVideo genre;
@@ -763,97 +736,72 @@ namespace FilmCollection
             Country_Rus country;
             char[] charsToTrim = { '.' };
 
-            // cbRace.DataSource = Enum.GetValues(typeof(Races));
-            // genre = Enum.GetValues(typeof(cBoxGenre.SelectedIndex));
-
-            genre = (GenreVideo)cBoxGenre.SelectedIndex;
-
-            //switch (cBoxGenre.SelectedIndex)
-            //{
-            //    case 0: genre = GenreVideo.Action; break;
-            //    case 1: genre = GenreVideo.Vestern; break;
-            //    case 2: genre = GenreVideo.Comedy; break;
-            //    case 3: genre = GenreVideo.Unknown; break;
-            //    default: genre = GenreVideo.Unknown; break;
-            //}
-
-            category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
-
-            //switch (cBoxTypeVideo.SelectedIndex)
-            //{
-            //    case 0: category = CategoryVideo.Film; break;
-            //    case 1: category = CategoryVideo.Series; break;
-            //    case 2: category = CategoryVideo.Cartoon; break;
-            //    case 3: category = CategoryVideo.Unknown; break;
-            //    default: category = CategoryVideo.Unknown; break;
-            //}
-
-            category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
-
             country = (Country_Rus)cBoxCountry.SelectedIndex;
-            
+            genre = (GenreVideo)cBoxGenre.SelectedIndex;
+            category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
 
-            if (fsInfo != null) // если новый объект
+            if (fsInfo != null) 
+                SaveRecord_New(genre, category, country, charsToTrim);      // если новый объект
+            else    
+                SaveRecord_Select(genre, category, country, charsToTrim);   // если выбранный объект 
+
+            panelEdit_Lock();    // блокировка панели
+        }
+
+        private void SaveRecord_Select(GenreVideo genre, CategoryVideo category, Country_Rus country, char[] charsToTrim)
+        {
+            Record record = GetSelectedRecord();
+            if (record != null)
             {
-                Record record = new Record();
-
-                record.FileName = fsInfo.Name;
-                record.Path = fsInfo.DirectoryName;
-                record.DirName = fsInfo.Directory.Name;
-                record.Extension = fsInfo.Extension.Trim(charsToTrim);
                 record.Name = tbName.Text;
-                //record.Year = Convert.ToInt32(tbYear.Text);
                 record.Year = Convert.ToInt32(mtbYear.Text);
-                //record.Country = tbCountry.Text;
                 record.Country = country;
                 record.Time = (int)numericTime.Value;
                 record.Category = category;
                 record.GenreVideo = genre;
                 record.Description = tbDescription.Text;
-
-                _videoCollection.Add(record);
-                _videoCollection.Save();
-
-                fsInfo = null;
-            }
-            else    // если выбранный объект 
-            {
-                Record record = GetSelectedRecord();
-                if (record != null)
+                if (record.FileName != tbFileName.Text)
                 {
-                    record.Name = tbName.Text;
-                    //record.Year = tbYear.Text;
-                    record.Year = Convert.ToInt32(mtbYear.Text);
-                    //record.Country = tbCountry.Text;
-                    record.Country = country;
-                    record.Time = (int)numericTime.Value;
-                    record.Category = category;
-                    record.GenreVideo = genre;
-                    record.Description = tbDescription.Text;
-                    if (record.FileName != tbFileName.Text)
-                    {
-                        // System.IO.File.Move("oldfilename", "newfilename");
-                        File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
-                                  record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
-                        record.FileName = tbFileName.Text;
-                        record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
-                    }
-                    else
-                    {
-                        record.FileName = tbFileName.Text;
-                    }
-
-                    _videoCollection.Save();
+                    File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
+                              record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
+                    record.FileName = tbFileName.Text;
+                    record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
                 }
+                else
+                {
+                    record.FileName = tbFileName.Text;
+                }
+
+                _videoCollection.Save();
             }
-            panelEdit_Lock();    // блокировка панели
+        }
+
+        private void SaveRecord_New(GenreVideo genre, CategoryVideo category, Country_Rus country, char[] charsToTrim)
+        {
+            Record record = new Record();
+
+            record.FileName = fsInfo.Name;
+            record.Path = fsInfo.DirectoryName;
+            record.DirName = fsInfo.Directory.Name;
+            record.Extension = fsInfo.Extension.Trim(charsToTrim);
+            record.Name = tbName.Text;
+            record.Year = Convert.ToInt32(mtbYear.Text);
+            record.Country = country;
+            record.Time = (int)numericTime.Value;
+            record.Category = category;
+            record.GenreVideo = genre;
+            record.Description = tbDescription.Text;
+
+            _videoCollection.Add(record);
+            _videoCollection.Save();
+
+            fsInfo = null;
         }
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
         {
-            //if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Red;   // подсветка редактируемой строки в таблице
-            //if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Aquamarine;   // зеленый
-            if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Gold;   // подсветка редактируемой строки в таблице
+            //if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Gold;   // подсветка редактируемой строки в таблице
+            if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Salmon;
             panelEdit_Button_Unlock();  // разблокировка кнопок
             dgvTableRec.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
@@ -1372,7 +1320,7 @@ namespace FilmCollection
         #endregion
 
 
-    
+
 
 
         #region Обработка постеров
@@ -1466,13 +1414,13 @@ namespace FilmCollection
             //Actors form = new Actors();
             //if (form.ShowDialog() == DialogResult.OK)
             //{
-                // _videoCollection.Add(form.Record);
-                // _videoCollection.Save();
-                // RefreshTables();
-           // }
+            // _videoCollection.Add(form.Record);
+            // _videoCollection.Save();
+            // RefreshTables();
+            // }
         }
 
-  
+
 
 
 
