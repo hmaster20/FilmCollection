@@ -8,6 +8,11 @@ namespace FilmCollection
 {
     public class Actor
     {
+        public Actor()
+        {
+            VideoID = new List<int>();     // Создание списка ID
+        }
+
         public string FIO { get; set; }     // Ф.И.О.
 
         public int LifeTime { get; set; }   // Период жизни
@@ -41,5 +46,30 @@ namespace FilmCollection
         #endregion
 
 
+        #region Список ID фильмов
+
+        private List<int> _videoID;     // Объявление ID фильмов
+        public List<int> VideoID
+        {
+            get { return _videoID; }
+            set { _videoID = value; }
+        }
+
+        public void Add(int id)
+        {
+            VideoID.Add(id);
+        }
+
+        public void Remove(int id)
+        {
+            VideoID.Remove(id);
+        }
+
+        public void ClearID()
+        {
+            VideoID.Clear();
+        }
+
+        #endregion
     }
 }
