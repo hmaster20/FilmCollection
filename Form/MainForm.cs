@@ -35,7 +35,9 @@ namespace FilmCollection
             InitializeComponent();                  // Создание и отрисовка элементов
             this.MinimumSize = new Size(800, 600);  // Установка минимального размера формы
 
-            dgvTableRec.AutoGenerateColumns = false;   // Отключение автоматического заполнения таблицы
+            dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
+            dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
+
             dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона
             dgvTableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
 
@@ -532,6 +534,11 @@ namespace FilmCollection
                 default: break;
             }
             RefreshTable(filtered);
+
+
+            List<Actor> filteredAct = _videoCollection.ActorList;
+            dgvTableActors.DataSource = null;
+            dgvTableActors.DataSource = filteredAct;
         }
 
         private void RefreshTable(List<Record> filtered)
@@ -1649,6 +1656,28 @@ namespace FilmCollection
 
             _videoCollection.Add(actor);
             _videoCollection.Save();
+            PepareRefresh();
+        }
+
+        private void maskedTextBox2_Validating(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                maskedTextBox2.Mask = "";
+                maskedTextBox2.Text = "По настоящее время";
+                maskedTextBox2.Enabled = false;
+            }
+            else
+            {
+                maskedTextBox2.Enabled = true;
+                maskedTextBox2.Text = "";
+                maskedTextBox2.Mask = "00.00.0000";
+            }
         }
     }
 }
