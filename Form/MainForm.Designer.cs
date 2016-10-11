@@ -87,6 +87,14 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
+            this.btnMoveDown = new System.Windows.Forms.Button();
+            this.btnMoveUp = new System.Windows.Forms.Button();
+            this.btnRemoveGroup = new System.Windows.Forms.Button();
+            this.btnAddGroup = new System.Windows.Forms.Button();
+            this.lblActorsSelect = new System.Windows.Forms.Label();
+            this.chkActorSelect = new System.Windows.Forms.ListBox();
+            this.lblActorsAll = new System.Windows.Forms.Label();
+            this.chkActorList = new System.Windows.Forms.CheckedListBox();
             this.cBoxCountry = new System.Windows.Forms.ComboBox();
             this.mtbYear = new System.Windows.Forms.MaskedTextBox();
             this.panelEditTitle = new System.Windows.Forms.Panel();
@@ -138,6 +146,25 @@
             this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colActlifetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
+            this.panelActEditTitle = new System.Windows.Forms.Panel();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.cBoxCountryActor = new System.Windows.Forms.ComboBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.btnSaveActor = new System.Windows.Forms.Button();
+            this.btnCancelActor = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbFIO = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnNewActor = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabWriter = new System.Windows.Forms.TabPage();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.btnDownloadPic = new System.Windows.Forms.Button();
@@ -157,20 +184,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.btnMoveDown = new System.Windows.Forms.Button();
-            this.btnMoveUp = new System.Windows.Forms.Button();
-            this.btnRemoveGroup = new System.Windows.Forms.Button();
-            this.btnAddGroup = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.chkRightFelds = new System.Windows.Forms.ListBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.chkLeftFelds = new System.Windows.Forms.CheckedListBox();
-            this.panelActEditTitle = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -196,14 +209,14 @@
             this.scTabActors.Panel2.SuspendLayout();
             this.scTabActors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
+            this.menuStrip1.SuspendLayout();
+            this.panelActEditTitle.SuspendLayout();
             this.tabImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
-            this.panelActEditTitle.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -729,10 +742,10 @@
             this.panelEdit.Controls.Add(this.btnMoveUp);
             this.panelEdit.Controls.Add(this.btnRemoveGroup);
             this.panelEdit.Controls.Add(this.btnAddGroup);
-            this.panelEdit.Controls.Add(this.label6);
-            this.panelEdit.Controls.Add(this.chkRightFelds);
-            this.panelEdit.Controls.Add(this.label7);
-            this.panelEdit.Controls.Add(this.chkLeftFelds);
+            this.panelEdit.Controls.Add(this.lblActorsSelect);
+            this.panelEdit.Controls.Add(this.chkActorSelect);
+            this.panelEdit.Controls.Add(this.lblActorsAll);
+            this.panelEdit.Controls.Add(this.chkActorList);
             this.panelEdit.Controls.Add(this.cBoxCountry);
             this.panelEdit.Controls.Add(this.mtbYear);
             this.panelEdit.Controls.Add(this.panelEditTitle);
@@ -760,6 +773,87 @@
             this.panelEdit.Name = "panelEdit";
             this.panelEdit.Size = new System.Drawing.Size(368, 543);
             this.panelEdit.TabIndex = 10;
+            // 
+            // btnMoveDown
+            // 
+            this.btnMoveDown.BackColor = System.Drawing.Color.LightGray;
+            this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnMoveDown.Location = new System.Drawing.Point(13, 453);
+            this.btnMoveDown.Name = "btnMoveDown";
+            this.btnMoveDown.Size = new System.Drawing.Size(50, 24);
+            this.btnMoveDown.TabIndex = 58;
+            this.btnMoveDown.Text = "Вниз";
+            this.btnMoveDown.UseVisualStyleBackColor = false;
+            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
+            // 
+            // btnMoveUp
+            // 
+            this.btnMoveUp.BackColor = System.Drawing.Color.LightGray;
+            this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnMoveUp.Location = new System.Drawing.Point(13, 423);
+            this.btnMoveUp.Name = "btnMoveUp";
+            this.btnMoveUp.Size = new System.Drawing.Size(50, 24);
+            this.btnMoveUp.TabIndex = 57;
+            this.btnMoveUp.Text = "Вверх";
+            this.btnMoveUp.UseVisualStyleBackColor = false;
+            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
+            // 
+            // btnRemoveGroup
+            // 
+            this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
+            this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRemoveGroup.Location = new System.Drawing.Point(205, 368);
+            this.btnRemoveGroup.Name = "btnRemoveGroup";
+            this.btnRemoveGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveGroup.TabIndex = 53;
+            this.btnRemoveGroup.Text = "<";
+            this.btnRemoveGroup.UseVisualStyleBackColor = false;
+            this.btnRemoveGroup.Click += new System.EventHandler(this.btnRemoveGroup_Click);
+            // 
+            // btnAddGroup
+            // 
+            this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
+            this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnAddGroup.Location = new System.Drawing.Point(205, 338);
+            this.btnAddGroup.Name = "btnAddGroup";
+            this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnAddGroup.TabIndex = 52;
+            this.btnAddGroup.Text = ">";
+            this.btnAddGroup.UseVisualStyleBackColor = false;
+            this.btnAddGroup.Click += new System.EventHandler(this.btnAddGroup_Click);
+            // 
+            // lblActorsSelect
+            // 
+            this.lblActorsSelect.Location = new System.Drawing.Point(232, 299);
+            this.lblActorsSelect.Name = "lblActorsSelect";
+            this.lblActorsSelect.Size = new System.Drawing.Size(132, 23);
+            this.lblActorsSelect.TabIndex = 56;
+            this.lblActorsSelect.Text = "Снимались в фильме:";
+            this.lblActorsSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkActorSelect
+            // 
+            this.chkActorSelect.Location = new System.Drawing.Point(235, 323);
+            this.chkActorSelect.Name = "chkActorSelect";
+            this.chkActorSelect.Size = new System.Drawing.Size(115, 95);
+            this.chkActorSelect.TabIndex = 55;
+            // 
+            // lblActorsAll
+            // 
+            this.lblActorsAll.Location = new System.Drawing.Point(71, 299);
+            this.lblActorsAll.Name = "lblActorsAll";
+            this.lblActorsAll.Size = new System.Drawing.Size(100, 23);
+            this.lblActorsAll.TabIndex = 54;
+            this.lblActorsAll.Text = "Список актеров:";
+            this.lblActorsAll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkActorList
+            // 
+            this.chkActorList.CheckOnClick = true;
+            this.chkActorList.Location = new System.Drawing.Point(71, 323);
+            this.chkActorList.Name = "chkActorList";
+            this.chkActorList.Size = new System.Drawing.Size(128, 154);
+            this.chkActorList.TabIndex = 51;
             // 
             // cBoxCountry
             // 
@@ -822,7 +916,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(264, 511);
+            this.btnCancel.Location = new System.Drawing.Point(264, 510);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -1001,7 +1095,7 @@
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(267, 444);
+            this.btnNew.Location = new System.Drawing.Point(99, 511);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -1271,7 +1365,7 @@
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
             this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(914, 587);
+            this.tabActors.Size = new System.Drawing.Size(914, 551);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1293,7 +1387,7 @@
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelActEditTitle);
-            this.scTabActors.Size = new System.Drawing.Size(908, 581);
+            this.scTabActors.Size = new System.Drawing.Size(908, 545);
             this.scTabActors.SplitterDistance = 437;
             this.scTabActors.TabIndex = 1;
             // 
@@ -1314,7 +1408,7 @@
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(435, 552);
+            this.dgvTableActors.Size = new System.Drawing.Size(435, 516);
             this.dgvTableActors.TabIndex = 0;
             // 
             // colActFIO
@@ -1335,12 +1429,218 @@
             this.colCountry.Name = "colCountry";
             this.colCountry.ReadOnly = true;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripComboBox1,
+            this.toolStripComboBox2});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(435, 27);
+            this.menuStrip1.TabIndex = 25;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = global::FilmCollection.Properties.Resources.resetFiltr;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 23);
+            this.toolStripMenuItem1.Text = "Сброс фильтра";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "Все",
+            "Фильмы",
+            "Мульты",
+            "Сериалы"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            // 
+            // toolStripComboBox2
+            // 
+            this.toolStripComboBox2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox2.Items.AddRange(new object[] {
+            "По именам",
+            "По времени",
+            "По году",
+            "По категориям",
+            "По каталогу"});
+            this.toolStripComboBox2.Name = "toolStripComboBox2";
+            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
+            // 
+            // panelActEditTitle
+            // 
+            this.panelActEditTitle.Controls.Add(this.listBox2);
+            this.panelActEditTitle.Controls.Add(this.listBox1);
+            this.panelActEditTitle.Controls.Add(this.cBoxCountryActor);
+            this.panelActEditTitle.Controls.Add(this.maskedTextBox1);
+            this.panelActEditTitle.Controls.Add(this.btnSaveActor);
+            this.panelActEditTitle.Controls.Add(this.btnCancelActor);
+            this.panelActEditTitle.Controls.Add(this.textBox2);
+            this.panelActEditTitle.Controls.Add(this.tbFIO);
+            this.panelActEditTitle.Controls.Add(this.label6);
+            this.panelActEditTitle.Controls.Add(this.label10);
+            this.panelActEditTitle.Controls.Add(this.label7);
+            this.panelActEditTitle.Controls.Add(this.label9);
+            this.panelActEditTitle.Controls.Add(this.btnNewActor);
+            this.panelActEditTitle.Controls.Add(this.label8);
+            this.panelActEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelActEditTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelActEditTitle.Name = "panelActEditTitle";
+            this.panelActEditTitle.Size = new System.Drawing.Size(465, 543);
+            this.panelActEditTitle.TabIndex = 0;
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(76, 354);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(279, 69);
+            this.listBox2.TabIndex = 60;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(77, 83);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(279, 212);
+            this.listBox1.TabIndex = 60;
+            // 
+            // cBoxCountryActor
+            // 
+            this.cBoxCountryActor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBoxCountryActor.FormattingEnabled = true;
+            this.cBoxCountryActor.Location = new System.Drawing.Point(192, 56);
+            this.cBoxCountryActor.Name = "cBoxCountryActor";
+            this.cBoxCountryActor.Size = new System.Drawing.Size(164, 21);
+            this.cBoxCountryActor.TabIndex = 59;
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(77, 56);
+            this.maskedTextBox1.Mask = "0000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(57, 20);
+            this.maskedTextBox1.TabIndex = 58;
+            this.maskedTextBox1.Text = "2016";
+            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maskedTextBox1.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            // 
+            // btnSaveActor
+            // 
+            this.btnSaveActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveActor.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnSaveActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveActor.Location = new System.Drawing.Point(270, 470);
+            this.btnSaveActor.Name = "btnSaveActor";
+            this.btnSaveActor.Size = new System.Drawing.Size(86, 23);
+            this.btnSaveActor.TabIndex = 57;
+            this.btnSaveActor.Text = "Сохранить";
+            this.btnSaveActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveActor.UseVisualStyleBackColor = true;
+            this.btnSaveActor.Click += new System.EventHandler(this.btnSaveActor_Click);
+            // 
+            // btnCancelActor
+            // 
+            this.btnCancelActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelActor.Location = new System.Drawing.Point(270, 499);
+            this.btnCancelActor.Name = "btnCancelActor";
+            this.btnCancelActor.Size = new System.Drawing.Size(86, 23);
+            this.btnCancelActor.TabIndex = 56;
+            this.btnCancelActor.Text = "Отмена";
+            this.btnCancelActor.UseVisualStyleBackColor = true;
+            this.btnCancelActor.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(76, 328);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(279, 20);
+            this.textBox2.TabIndex = 55;
+            // 
+            // tbFIO
+            // 
+            this.tbFIO.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFIO.Location = new System.Drawing.Point(77, 27);
+            this.tbFIO.Name = "tbFIO";
+            this.tbFIO.Size = new System.Drawing.Size(279, 20);
+            this.tbFIO.TabIndex = 55;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(143, 59);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.TabIndex = 54;
+            this.label6.Text = "Страна";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(74, 312);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(160, 13);
+            this.label10.TabIndex = 53;
+            this.label10.Text = "Введите названия для поиска";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(16, 59);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(25, 13);
+            this.label7.TabIndex = 53;
+            this.label7.Text = "Год";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(11, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.TabIndex = 52;
+            this.label9.Text = "Ф.И.О.";
+            // 
+            // btnNewActor
+            // 
+            this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
+            this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewActor.Location = new System.Drawing.Point(77, 485);
+            this.btnNewActor.Name = "btnNewActor";
+            this.btnNewActor.Size = new System.Drawing.Size(81, 23);
+            this.btnNewActor.TabIndex = 51;
+            this.btnNewActor.Text = "Добавить";
+            this.btnNewActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNewActor.UseVisualStyleBackColor = true;
+            this.btnNewActor.Click += new System.EventHandler(this.btnNewActor_Click);
+            // 
+            // label8
+            // 
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(465, 27);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Панель редактирования";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tabWriter
             // 
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
             this.tabWriter.Name = "tabWriter";
             this.tabWriter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWriter.Size = new System.Drawing.Size(914, 440);
+            this.tabWriter.Size = new System.Drawing.Size(914, 551);
             this.tabWriter.TabIndex = 1;
             this.tabWriter.Text = "Редактор";
             this.tabWriter.UseVisualStyleBackColor = true;
@@ -1350,7 +1650,7 @@
             this.tabImage.Controls.Add(this.btnDownloadPic);
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
-            this.tabImage.Size = new System.Drawing.Size(914, 440);
+            this.tabImage.Size = new System.Drawing.Size(914, 551);
             this.tabImage.TabIndex = 2;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
@@ -1511,156 +1811,6 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // btnMoveDown
-            // 
-            this.btnMoveDown.BackColor = System.Drawing.Color.LightGray;
-            this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveDown.Location = new System.Drawing.Point(103, 511);
-            this.btnMoveDown.Name = "btnMoveDown";
-            this.btnMoveDown.Size = new System.Drawing.Size(68, 24);
-            this.btnMoveDown.TabIndex = 58;
-            this.btnMoveDown.Text = "Down";
-            this.btnMoveDown.UseVisualStyleBackColor = false;
-            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
-            // 
-            // btnMoveUp
-            // 
-            this.btnMoveUp.BackColor = System.Drawing.Color.LightGray;
-            this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveUp.Location = new System.Drawing.Point(103, 481);
-            this.btnMoveUp.Name = "btnMoveUp";
-            this.btnMoveUp.Size = new System.Drawing.Size(68, 24);
-            this.btnMoveUp.TabIndex = 57;
-            this.btnMoveUp.Text = "Up";
-            this.btnMoveUp.UseVisualStyleBackColor = false;
-            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
-            // 
-            // btnRemoveGroup
-            // 
-            this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
-            this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemoveGroup.Location = new System.Drawing.Point(205, 384);
-            this.btnRemoveGroup.Name = "btnRemoveGroup";
-            this.btnRemoveGroup.Size = new System.Drawing.Size(24, 24);
-            this.btnRemoveGroup.TabIndex = 53;
-            this.btnRemoveGroup.Text = "<";
-            this.btnRemoveGroup.UseVisualStyleBackColor = false;
-            this.btnRemoveGroup.Click += new System.EventHandler(this.btnRemoveGroup_Click);
-            // 
-            // btnAddGroup
-            // 
-            this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
-            this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnAddGroup.Location = new System.Drawing.Point(205, 356);
-            this.btnAddGroup.Name = "btnAddGroup";
-            this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
-            this.btnAddGroup.TabIndex = 52;
-            this.btnAddGroup.Text = ">";
-            this.btnAddGroup.UseVisualStyleBackColor = false;
-            this.btnAddGroup.Click += new System.EventHandler(this.btnAddGroup_Click);
-            // 
-            // label6
-            // 
-            this.label6.Location = new System.Drawing.Point(232, 299);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 23);
-            this.label6.TabIndex = 56;
-            this.label6.Text = "Section(Group By):";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // chkRightFelds
-            // 
-            this.chkRightFelds.Location = new System.Drawing.Point(235, 323);
-            this.chkRightFelds.Name = "chkRightFelds";
-            this.chkRightFelds.Size = new System.Drawing.Size(115, 95);
-            this.chkRightFelds.TabIndex = 55;
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(71, 299);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 23);
-            this.label7.TabIndex = 54;
-            this.label7.Text = "Report Fields:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // chkLeftFelds
-            // 
-            this.chkLeftFelds.CheckOnClick = true;
-            this.chkLeftFelds.Items.AddRange(new object[] {
-            "123",
-            "44",
-            "555"});
-            this.chkLeftFelds.Location = new System.Drawing.Point(71, 323);
-            this.chkLeftFelds.Name = "chkLeftFelds";
-            this.chkLeftFelds.Size = new System.Drawing.Size(124, 154);
-            this.chkLeftFelds.TabIndex = 51;
-            // 
-            // panelActEditTitle
-            // 
-            this.panelActEditTitle.Controls.Add(this.label8);
-            this.panelActEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelActEditTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelActEditTitle.Name = "panelActEditTitle";
-            this.panelActEditTitle.Size = new System.Drawing.Size(465, 579);
-            this.panelActEditTitle.TabIndex = 0;
-            // 
-            // label8
-            // 
-            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(0, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(465, 27);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Панель редактирования";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripComboBox1,
-            this.toolStripComboBox2});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(435, 27);
-            this.menuStrip1.TabIndex = 25;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::FilmCollection.Properties.Resources.resetFiltr;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 23);
-            this.toolStripMenuItem1.Text = "Сброс фильтра";
-            // 
-            // toolStripComboBox1
-            // 
-            this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox1.Items.AddRange(new object[] {
-            "Все",
-            "Фильмы",
-            "Мульты",
-            "Сериалы"});
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
-            // 
-            // toolStripComboBox2
-            // 
-            this.toolStripComboBox2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox2.Items.AddRange(new object[] {
-            "По именам",
-            "По времени",
-            "По году",
-            "По категориям",
-            "По каталогу"});
-            this.toolStripComboBox2.Name = "toolStripComboBox2";
-            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1709,6 +1859,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).EndInit();
             this.scTabActors.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.panelActEditTitle.ResumeLayout(false);
+            this.panelActEditTitle.PerformLayout();
             this.tabImage.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
@@ -1716,9 +1870,6 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
-            this.panelActEditTitle.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1857,16 +2008,29 @@
         private System.Windows.Forms.Button btnMoveUp;
         private System.Windows.Forms.Button btnRemoveGroup;
         private System.Windows.Forms.Button btnAddGroup;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ListBox chkRightFelds;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckedListBox chkLeftFelds;
+        private System.Windows.Forms.Label lblActorsSelect;
+        private System.Windows.Forms.ListBox chkActorSelect;
+        private System.Windows.Forms.Label lblActorsAll;
+        private System.Windows.Forms.CheckedListBox chkActorList;
         private System.Windows.Forms.Panel panelActEditTitle;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ComboBox cBoxCountryActor;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.Button btnSaveActor;
+        private System.Windows.Forms.Button btnCancelActor;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbFIO;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnNewActor;
     }
 }
 
