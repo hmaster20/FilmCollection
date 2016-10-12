@@ -158,7 +158,6 @@
             this.tbFIO = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -185,15 +184,16 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActlifetime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskDateOfDeath = new System.Windows.Forms.MaskedTextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
+            this.maskDateOfBirth = new System.Windows.Forms.MaskedTextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.colActFIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDateOfBirth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDateOfDeath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1411,7 +1411,8 @@
             this.dgvTableActors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTableActors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colActFIO,
-            this.colActlifetime,
+            this.colDateOfBirth,
+            this.colDateOfDeath,
             this.colCountry});
             this.dgvTableActors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTableActors.Location = new System.Drawing.Point(0, 27);
@@ -1474,8 +1475,8 @@
             this.panelActEditTitle.Controls.Add(this.listBox2);
             this.panelActEditTitle.Controls.Add(this.listBox1);
             this.panelActEditTitle.Controls.Add(this.cBoxCountryActor);
-            this.panelActEditTitle.Controls.Add(this.maskedTextBox3);
-            this.panelActEditTitle.Controls.Add(this.maskedTextBox2);
+            this.panelActEditTitle.Controls.Add(this.maskDateOfBirth);
+            this.panelActEditTitle.Controls.Add(this.maskDateOfDeath);
             this.panelActEditTitle.Controls.Add(this.maskedTextBox1);
             this.panelActEditTitle.Controls.Add(this.btnSaveActor);
             this.panelActEditTitle.Controls.Add(this.btnCancelActor);
@@ -1486,7 +1487,6 @@
             this.panelActEditTitle.Controls.Add(this.label13);
             this.panelActEditTitle.Controls.Add(this.label12);
             this.panelActEditTitle.Controls.Add(this.label11);
-            this.panelActEditTitle.Controls.Add(this.label7);
             this.panelActEditTitle.Controls.Add(this.label9);
             this.panelActEditTitle.Controls.Add(this.btnNewActor);
             this.panelActEditTitle.Controls.Add(this.label8);
@@ -1507,9 +1507,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(77, 213);
+            this.listBox1.Location = new System.Drawing.Point(77, 161);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(279, 82);
+            this.listBox1.Size = new System.Drawing.Size(279, 134);
             this.listBox1.TabIndex = 60;
             // 
             // cBoxCountryActor
@@ -1592,15 +1592,6 @@
             this.label10.Size = new System.Drawing.Size(160, 13);
             this.label10.TabIndex = 53;
             this.label10.Text = "Введите названия для поиска";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 59);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(25, 13);
-            this.label7.TabIndex = 53;
-            this.label7.Text = "Год";
             // 
             // label9
             // 
@@ -1856,38 +1847,16 @@
             this.panel4.Size = new System.Drawing.Size(500, 545);
             this.panel4.TabIndex = 1;
             // 
-            // colActFIO
+            // maskDateOfDeath
             // 
-            this.colActFIO.DataPropertyName = "FIO";
-            this.colActFIO.HeaderText = "Ф.И.О.";
-            this.colActFIO.Name = "colActFIO";
-            this.colActFIO.ReadOnly = true;
-            // 
-            // colActlifetime
-            // 
-            this.colActlifetime.HeaderText = "Время жизни";
-            this.colActlifetime.Name = "colActlifetime";
-            this.colActlifetime.ReadOnly = true;
-            // 
-            // colCountry
-            // 
-            this.colCountry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.colCountry.DataPropertyName = "CountryString";
-            this.colCountry.HeaderText = "Страна";
-            this.colCountry.Name = "colCountry";
-            this.colCountry.ReadOnly = true;
-            this.colCountry.Width = 68;
-            // 
-            // maskedTextBox2
-            // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(204, 82);
-            this.maskedTextBox2.Mask = "00.00.0000";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(131, 20);
-            this.maskedTextBox2.TabIndex = 58;
-            this.maskedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox2.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.maskedTextBox2.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
+            this.maskDateOfDeath.Location = new System.Drawing.Point(204, 82);
+            this.maskDateOfDeath.Mask = "00.00.0000";
+            this.maskDateOfDeath.Name = "maskDateOfDeath";
+            this.maskDateOfDeath.Size = new System.Drawing.Size(131, 20);
+            this.maskDateOfDeath.TabIndex = 58;
+            this.maskDateOfDeath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maskDateOfDeath.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.maskDateOfDeath.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
             // 
             // checkBox1
             // 
@@ -1900,16 +1869,15 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // maskedTextBox3
+            // maskDateOfBirth
             // 
-            this.maskedTextBox3.Location = new System.Drawing.Point(96, 82);
-            this.maskedTextBox3.Mask = "00.00.0000";
-            this.maskedTextBox3.Name = "maskedTextBox3";
-            this.maskedTextBox3.Size = new System.Drawing.Size(77, 20);
-            this.maskedTextBox3.TabIndex = 58;
-            this.maskedTextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskedTextBox3.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.maskedTextBox3.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
+            this.maskDateOfBirth.Location = new System.Drawing.Point(96, 82);
+            this.maskDateOfBirth.Mask = "00.00.0000";
+            this.maskDateOfBirth.Name = "maskDateOfBirth";
+            this.maskDateOfBirth.Size = new System.Drawing.Size(77, 20);
+            this.maskDateOfBirth.TabIndex = 58;
+            this.maskDateOfBirth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maskDateOfBirth.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
             // 
             // label11
             // 
@@ -1937,6 +1905,36 @@
             this.label13.Size = new System.Drawing.Size(19, 13);
             this.label13.TabIndex = 53;
             this.label13.Text = "по";
+            // 
+            // colActFIO
+            // 
+            this.colActFIO.DataPropertyName = "FIO";
+            this.colActFIO.HeaderText = "Ф.И.О.";
+            this.colActFIO.Name = "colActFIO";
+            this.colActFIO.ReadOnly = true;
+            // 
+            // colDateOfBirth
+            // 
+            this.colDateOfBirth.DataPropertyName = "DateOfBirth";
+            this.colDateOfBirth.HeaderText = "Дата рождения";
+            this.colDateOfBirth.Name = "colDateOfBirth";
+            this.colDateOfBirth.ReadOnly = true;
+            // 
+            // colDateOfDeath
+            // 
+            this.colDateOfDeath.DataPropertyName = "DateOfDeath";
+            this.colDateOfDeath.HeaderText = "Дата смерти";
+            this.colDateOfDeath.Name = "colDateOfDeath";
+            this.colDateOfDeath.ReadOnly = true;
+            // 
+            // colCountry
+            // 
+            this.colCountry.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colCountry.DataPropertyName = "CountryString";
+            this.colCountry.HeaderText = "Страна";
+            this.colCountry.Name = "colCountry";
+            this.colCountry.ReadOnly = true;
+            this.colCountry.Width = 68;
             // 
             // MainForm
             // 
@@ -2154,22 +2152,22 @@
         private System.Windows.Forms.TextBox tbFIO;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnNewActor;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colActFIO;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colActlifetime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox maskDateOfDeath;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
+        private System.Windows.Forms.MaskedTextBox maskDateOfBirth;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colActFIO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDateOfBirth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDateOfDeath;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
     }
 }
 
