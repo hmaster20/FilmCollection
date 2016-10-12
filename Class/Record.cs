@@ -40,12 +40,22 @@ namespace FilmCollection
 
 
         #region Обработка Жанра
-        private GenreVideo _genreVideo = GenreVideo.Unknown;   // Жанр
+        private GenreVideo _genreVideo;   // Жанр
         [XmlIgnore]
         public GenreVideo GenreVideo
         {
             get { return _genreVideo; }
-            set { _genreVideo = value; }
+            set {
+                _genreVideo = (value < 0) ? GenreVideo.Unknown : value;
+                //if (value < 0)
+                //{
+                //    _genreVideo  = GenreVideo.Unknown;                  
+                //}
+                //else
+                //{
+                //    _genreVideo = value;
+                //}
+            }
         }
 
         public string GenreString         //используется для вывода значения в таблицу
