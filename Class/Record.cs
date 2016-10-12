@@ -6,6 +6,15 @@ namespace FilmCollection
 {
     public class Record
     {
+        public bool Visible { get; set; }     // Видимость записи
+
+        private int _id = -1;
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         public string Name { get; set; }        // Название Фильма
 
         private int _year;                      // Год выпуска
@@ -15,11 +24,11 @@ namespace FilmCollection
             set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
         }
 
-        private int _time = 0;                  // Время (в минутах)
+        private int _time;                      // Время (в минутах)
         public int Time
         {
             get { return _time; }
-            set { _time = value; }
+            set { _time = (value < 0) ? 0 : value; }
         }
 
         private string _description = "";       // Описание файла (сюжет)
@@ -39,23 +48,14 @@ namespace FilmCollection
 
 
 
+
         #region Обработка Жанра
         private GenreVideo _genreVideo;   // Жанр
         [XmlIgnore]
         public GenreVideo GenreVideo
         {
             get { return _genreVideo; }
-            set {
-                _genreVideo = (value < 0) ? GenreVideo.Unknown : value;
-                //if (value < 0)
-                //{
-                //    _genreVideo  = GenreVideo.Unknown;                  
-                //}
-                //else
-                //{
-                //    _genreVideo = value;
-                //}
-            }
+            set { _genreVideo = (value < 0) ? GenreVideo.Unknown : value; }
         }
 
         public string GenreString         //используется для вывода значения в таблицу
@@ -70,15 +70,7 @@ namespace FilmCollection
             return _genretype.ToString();
 
             // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
-            //return (GenreVideo) genretype = Enum.GetValues(typeof(GenreVideo));
-            //switch (genretype)
-            //{
-            //    case GenreVideo.Action: return "Боевик";
-            //    case GenreVideo.Vestern: return "Вестерн";
-            //    case GenreVideo.Comedy: return "Комедия";
-            //    case GenreVideo.Unknown: return "Прочее";
-            //    default: return "Прочее";
-            //}
+            //return (GenreVideo) genretype = Enum.GetValues(typeof(GenreVideo));   
         }
 
         public static GenreVideo StringToGenre(string type)
@@ -99,12 +91,12 @@ namespace FilmCollection
 
 
         #region Обработка Категории
-        private CategoryVideo _category = CategoryVideo.Unknown;   // Категория
+        private CategoryVideo _category;   // Категория
         [XmlIgnore]
         public CategoryVideo Category
         {
             get { return _category; }
-            set { _category = value; }
+            set { _category = (value < 0) ? CategoryVideo.Unknown : value; }
         }
 
         public string CategoryString
@@ -128,12 +120,12 @@ namespace FilmCollection
 
 
         #region Обработка Страны
-        private Country_Rus _country = Country_Rus.Россия;   // Страна
+        private Country_Rus _country;   // Страна
         [XmlIgnore]
         public Country_Rus Country
         {
             get { return _country; }
-            set { _country = value; }
+            set { _country = (value < 0) ? Country_Rus.Россия : value; }
         }
 
         public string CountryString
