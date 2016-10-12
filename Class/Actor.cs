@@ -15,7 +15,9 @@ namespace FilmCollection
 
         public string FIO { get; set; }     // Ф.И.О.
 
-        public string LifeTime { get; set; }   // Период жизни
+        public string DateOfBirth { get; set; }   // дата рождения
+        public string DateOfDeath { get; set; }   // дата смерти
+        
 
         #region Обработка Страны
         private Country_Rus _country = Country_Rus.Россия;   // Страна
