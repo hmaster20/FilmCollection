@@ -425,7 +425,19 @@ namespace FilmCollection
 
         private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
         {
-            NewRecord_Dialog();
+            if (isRecTab()) NewRecord_Dialog();
+            else NewActor();
+        }
+
+        private bool isRecTab()
+        {
+            if (tabControl2.SelectedIndex == 0) return true;
+            return false;
+        }
+
+        private void NewActor()
+        {
+            MessageBox.Show("Test");
         }
 
         private void EditRec_Click(object sender, EventArgs e)                 // Изменение записи
@@ -435,14 +447,41 @@ namespace FilmCollection
 
         private void DeleteRec_Click(object sender, EventArgs e)
         {
+            if (isRecTab())
+            {
+                DeleteRec();
+            }
+            else
+            {
+                DeleteActor();
+            }
+        }
+
+        private void DeleteRec()
+        {
             Record record = GetSelectedRecord();
             DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + record.Name + "\" ?",
                                                   "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialog == DialogResult.Yes)
             {
                 _videoCollection.Remove(record);
-                dgvTableRec.ClearSelection();
                 _videoCollection.Save();
+                dgvTableRec.ClearSelection();
+                PepareRefresh();
+            }
+        }
+
+        private void DeleteActor()
+        {
+          Actor act = GetSelectedActor();
+
+            DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + act.FIO + "\" ?",
+                                                  "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                _videoCollection.Remove(act);
+                _videoCollection.Save();
+                dgvTableRec.ClearSelection();
                 PepareRefresh();
             }
         }
@@ -468,16 +507,44 @@ namespace FilmCollection
             }
         }
 
-        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)    // Проверка селекта строки перед открытием меню
+        private DataGridView GetDgv()
         {
-            //contextMenu.Items[4].Enabled = false;
-            TabMenu.Enabled = false;    // Блокировка меню
+            if (tabControl2.SelectedIndex == 0) return dgvTableRec; // Выбрана вкладка Фильмы
+            return dgvTableActors;                                  // Выбрана вкладка Актеры
+        }
 
-            DataGridView dgv = dgvTableRec;
-            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+        private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка селекта строки перед открытием меню
+        {   //contextMenu.Items[4].Enabled = false;
+
+            TabMenu.Enabled = false;    // Блокировка меню
+            DataGridView dgv = GetDgv();
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
+        }
+
+        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+        {
+            FindNextButton_Lock();
+            if (e.Button == MouseButtons.Right)
             {
-                //contextMenu.Items[4].Enabled = true;
-                TabMenu.Enabled = true; // Разблокировка меню
+                try { GetMenuDgv(e); }
+                catch (Exception Ex) { MessageBox.Show(Ex.Message); }
+            }
+        }
+
+        private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex > -1 && e.RowIndex > -1)
+            {
+                GetDgv().CurrentCell = GetDgv().Rows[e.RowIndex].Cells[e.ColumnIndex];
+                GetDgv().Rows[e.RowIndex].Selected = true;
+                GetDgv().Focus();
+                GetDgv().ContextMenuStrip = TabMenu;
+                //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+            }
+            else
+            {
+                dgvTableRec.ContextMenuStrip = null;
+                dgvTableRec.ClearSelection();
             }
         }
 
@@ -538,6 +605,10 @@ namespace FilmCollection
             List<Actor> filteredAct = _videoCollection.ActorList;
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
+            foreach (Actor item in _videoCollection.ActorList)
+            {
+                chkActorList.Items.Add(item.FIO);
+            }
         }
 
         private void RefreshTable(List<Record> filtered)
@@ -604,6 +675,18 @@ namespace FilmCollection
             return null;
         }
 
+        private Actor GetSelectedActor()  // получение выбранной записи в dgvTableActor
+        {
+            DataGridView dgv = dgvTableActors;
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            {
+                Actor act = null;
+                if (dgv.SelectedRows[0].DataBoundItem is Actor) act = dgv.SelectedRows[0].DataBoundItem as Actor;
+                if (act != null) return act;
+            }
+            return null;
+        }
+
         private void ResetFilter_Click(object sender, EventArgs e)
         {
             PepareRefresh();
@@ -619,54 +702,6 @@ namespace FilmCollection
             cBoxGenre.SelectedIndex = -1;
             cBoxTypeVideo.SelectedIndex = -1;
             cBoxCountry.SelectedIndex = -1;
-        }
-
-        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
-        {
-            FindNextButton_Lock();    //блокировка кнопки поиска следующего элемента
-
-            if (e.Button == MouseButtons.Right)
-            {
-                try
-                {
-                    if (tabControl2.SelectedIndex == 0) // Фильмы
-                    {
-                        if (e.ColumnIndex > -1 && e.RowIndex > -1)
-                        {
-                            dgvTableRec.CurrentCell = dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                            dgvTableRec.Rows[e.RowIndex].Selected = true;
-                            dgvTableRec.Focus();
-                            dgvTableRec.ContextMenuStrip = TabMenu;
-                            //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
-                        }
-                        else
-                        {
-                            dgvTableRec.ContextMenuStrip = null;
-                            dgvTableRec.ClearSelection();
-                        }
-                    }
-
-                    if (tabControl2.SelectedIndex == 1) // Актеры
-                    {
-                        if (e.ColumnIndex > -1 && e.RowIndex > -1)
-                        {
-                            dgvTableActors.CurrentCell = dgvTableActors.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                            dgvTableActors.Rows[e.RowIndex].Selected = true;
-                            dgvTableActors.Focus();
-                            dgvTableActors.ContextMenuStrip = TabMenu;
-                        }
-                        else
-                        {
-                            dgvTableActors.ContextMenuStrip = null;
-                            dgvTableActors.ClearSelection();
-                        }
-                    }
-                }
-                catch (Exception Ex)
-                {
-                    MessageBox.Show(Ex.Message);
-                }
-            }
         }
 
 
@@ -928,7 +963,7 @@ namespace FilmCollection
             FindNextButton_Lock();
         }
 
-        private void FindNextButton_Lock()
+        private void FindNextButton_Lock()  //блокировка кнопки поиска следующего элемента
         {
             FindCount = 0;
             btnFindNext.Enabled = false;
