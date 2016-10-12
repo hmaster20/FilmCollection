@@ -1423,6 +1423,7 @@
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTableActors.Size = new System.Drawing.Size(435, 516);
             this.dgvTableActors.TabIndex = 0;
+            this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             // 
             // menuStrip1
             // 

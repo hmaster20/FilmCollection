@@ -527,8 +527,7 @@ namespace FilmCollection
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByTime); break;
-                case 2: break;
-                //case 2: filtered.Sort(Record.CompareByYear); break;
+                case 2: filtered.Sort(Record.CompareByYear); break;
                 case 3: filtered.Sort(Record.CompareByCategory); break;
                 case 4: filtered.Sort(Record.CompareByCatalog); break;
                 default: break;
@@ -630,18 +629,37 @@ namespace FilmCollection
             {
                 try
                 {
-                    if (e.ColumnIndex > -1 && e.RowIndex > -1)
+                    if (tabControl2.SelectedIndex == 0) // Фильмы
                     {
-                        dgvTableRec.CurrentCell = dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                        dgvTableRec.Rows[e.RowIndex].Selected = true;
-                        dgvTableRec.Focus();
-                        dgvTableRec.ContextMenuStrip = TabMenu;
-                        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+                        if (e.ColumnIndex > -1 && e.RowIndex > -1)
+                        {
+                            dgvTableRec.CurrentCell = dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                            dgvTableRec.Rows[e.RowIndex].Selected = true;
+                            dgvTableRec.Focus();
+                            dgvTableRec.ContextMenuStrip = TabMenu;
+                            //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+                        }
+                        else
+                        {
+                            dgvTableRec.ContextMenuStrip = null;
+                            dgvTableRec.ClearSelection();
+                        }
                     }
-                    else
+
+                    if (tabControl2.SelectedIndex == 1) // Актеры
                     {
-                        dgvTableRec.ContextMenuStrip = null;
-                        dgvTableRec.ClearSelection();
+                        if (e.ColumnIndex > -1 && e.RowIndex > -1)
+                        {
+                            dgvTableActors.CurrentCell = dgvTableActors.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                            dgvTableActors.Rows[e.RowIndex].Selected = true;
+                            dgvTableActors.Focus();
+                            dgvTableActors.ContextMenuStrip = TabMenu;
+                        }
+                        else
+                        {
+                            dgvTableActors.ContextMenuStrip = null;
+                            dgvTableActors.ClearSelection();
+                        }
                     }
                 }
                 catch (Exception Ex)
@@ -688,7 +706,7 @@ namespace FilmCollection
 
             if (fileDialog.ShowDialog() == DialogResult.OK) NewRecord(fileDialog.FileName);
         }
-        
+
         private void NewRecord(string FileName)
         {
             FileInfo fInfo = new FileInfo(FileName);
@@ -734,7 +752,7 @@ namespace FilmCollection
 
             FileNameDisabled();
         }
-        
+
         private void SaveRecord()
         {
             GenreVideo genre;
@@ -746,9 +764,9 @@ namespace FilmCollection
             genre = (GenreVideo)cBoxGenre.SelectedIndex;
             category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
 
-            if (fsInfo != null) 
+            if (fsInfo != null)
                 SaveRecord_New(genre, category, country, charsToTrim);      // если новый объект
-            else    
+            else
                 SaveRecord_Select(genre, category, country, charsToTrim);   // если выбранный объект 
 
             panelEdit_Lock();    // блокировка панели
@@ -1632,7 +1650,7 @@ namespace FilmCollection
             Actor actor = new Actor();
             actor.FIO = tbFIO.Text;
             //actor.LifeTime = "";
-            
+
 
 
             //foreach (Record item in _videoCollection.VideoList)
