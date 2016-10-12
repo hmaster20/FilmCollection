@@ -146,12 +146,7 @@ namespace FilmCollection
         #endregion
 
 
-
-
-
-
-
-
+        #region Сравнения
 
         public bool Equals(Record rec)
         {
@@ -212,6 +207,14 @@ namespace FilmCollection
             return (int)((b.Time - a.Time) * 100);
         }
 
+        public static int CompareByYear(Record a, Record b)
+        {
+            if (a.Year == b.Year)
+                return CompareByName(a, b);
+            return (a.Year - b.Year);
+        }
+
+
         //public static int CompareByYear(Record a, Record b)     // Сравнение по году
         //{
         //    if (a.Year != "" && b.Year != "")
@@ -243,5 +246,6 @@ namespace FilmCollection
         //        return CompareByName(a, b);
         //    return (int)((b.UserScore - a.UserScore) * 100);
         //}
+        #endregion
     }
 }
