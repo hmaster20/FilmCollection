@@ -1631,7 +1631,7 @@ namespace FilmCollection
         {
             Actor actor = new Actor();
             actor.FIO = tbFIO.Text;
-            actor.LifeTime = "";
+            //actor.LifeTime = "";
             
 
 
@@ -1650,8 +1650,43 @@ namespace FilmCollection
             Country_Rus country = (Country_Rus)cBoxCountry.SelectedIndex;
             Actor actor = new Actor();
 
+
+            string[] dateComponents = maskDateOfBirth.Text.Split(',');
+            string month = dateComponents[0].Trim();
+            string day = dateComponents[1].Trim();
+            string year = dateComponents[2].Trim();
+            MessageBox.Show(month + "/" + day + "/" + year);
+
+            //maskDateOfBirth.
+            // \d{ 2}/\d{ 2}/\d{ 4}
+            //  00/00/0000
+
+            //string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
+            //Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+
+            //    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
+            //    {
+            //        i++;
+            //        dgvSelected.Add(row.Cells[cell].RowIndex);
+            //        row.Selected = true;
+            //        //break; //Требуется для выбора одно строки
+            //    }
+
+            // string pattern = @"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b";
+            //Regex regex = new Regex(@"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
+            Regex regex = new Regex(@"\b([0-2][0-9][0-1][0-9]1[8-9][0-9][0-9])");
+            Match match = regex.Match(maskDateOfBirth.Text);
+            if (match.Success)
+            {
+                // Console.WriteLine(match.Value);
+                MessageBox.Show(match.Value);
+            }
+
+
             actor.FIO = tbFIO.Text;
-            actor.LifeTime = "";
+            actor.DateOfBirth = maskDateOfBirth.Text;
+            actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = country;
 
             _videoCollection.Add(actor);
@@ -1668,15 +1703,15 @@ namespace FilmCollection
         {
             if (checkBox1.Checked)
             {
-                maskedTextBox2.Mask = "";
-                maskedTextBox2.Text = "По настоящее время";
-                maskedTextBox2.Enabled = false;
+                maskDateOfDeath.Mask = "";
+                maskDateOfDeath.Text = "По настоящее время";
+                maskDateOfDeath.Enabled = false;
             }
             else
             {
-                maskedTextBox2.Enabled = true;
-                maskedTextBox2.Text = "";
-                maskedTextBox2.Mask = "00.00.0000";
+                maskDateOfDeath.Enabled = true;
+                maskDateOfDeath.Text = "";
+                maskDateOfDeath.Mask = "00.00.0000";
             }
         }
     }
