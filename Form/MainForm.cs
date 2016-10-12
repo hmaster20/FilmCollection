@@ -509,8 +509,9 @@ namespace FilmCollection
 
         private DataGridView GetDgv()
         {
-            if (tabControl2.SelectedIndex == 0) return dgvTableRec; // Выбрана вкладка Фильмы
-            return dgvTableActors;                                  // Выбрана вкладка Актеры
+            return (tabControl2.SelectedIndex == 0) ? dgvTableRec : dgvTableActors;
+            //if (tabControl2.SelectedIndex == 0) return dgvTableRec; // Выбрана вкладка Фильмы
+            //return dgvTableActors;                                  // Выбрана вкладка Актеры
         }
 
         private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка селекта строки перед открытием меню
@@ -605,6 +606,8 @@ namespace FilmCollection
             List<Actor> filteredAct = _videoCollection.ActorList;
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
+
+            chkActorList.Items.Clear();
             foreach (Actor item in _videoCollection.ActorList)
             {
                 chkActorList.Items.Add(item.FIO);
@@ -699,9 +702,11 @@ namespace FilmCollection
             numericTime.Value = 0;
             tbDescription.Text = "";
             tbFileName.Text = "";
-            cBoxGenre.SelectedIndex = -1;
-            cBoxTypeVideo.SelectedIndex = -1;
-            cBoxCountry.SelectedIndex = -1;
+
+            panelView.BringToFront();   // Отображение панели описания
+            //cBoxGenre.SelectedIndex = 0;
+            //cBoxTypeVideo.SelectedIndex = 0;
+            //cBoxCountry.SelectedIndex = 0;
         }
 
 
@@ -794,7 +799,7 @@ namespace FilmCollection
             CategoryVideo category;
             Country_Rus country;
             char[] charsToTrim = { '.' };
-
+            
             country = (Country_Rus)cBoxCountry.SelectedIndex;
             genre = (GenreVideo)cBoxGenre.SelectedIndex;
             category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
