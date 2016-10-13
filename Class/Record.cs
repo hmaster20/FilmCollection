@@ -6,14 +6,9 @@ namespace FilmCollection
 {
     public class Record
     {
-        public bool Visible { get; set; }     // Видимость записи
+        public bool Visible { get; set; }       // Видимость записи
 
-        private int _id = -1;
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
+        public int Id { get; set; }             // Идентификатор
 
         public string Name { get; set; }        // Название Фильма
 
