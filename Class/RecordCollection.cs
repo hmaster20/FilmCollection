@@ -14,16 +14,25 @@ namespace FilmCollection
             ActorList = new List<Actor>();      // Создание списка актеров
         }
 
-        public int RecordID { get; set; }      // Идентификатор
-
+        public int RecordID { get; set; }      // Идентификатор фильмов
         public int getRecordID()
         {
             return ++RecordID;
         }
-
         public void clearRecordID()
         {
             RecordID = 0;
+        }
+
+
+        public int ActorID { get; set; }      // Идентификатор актеров
+        public int getActorID()
+        {
+            return ++ActorID;
+        }
+        public void clearActorID()
+        {
+            ActorID = 0;
         }
 
 
