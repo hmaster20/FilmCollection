@@ -10,7 +10,9 @@ namespace FilmCollection
         public static string BaseName { get { return fileName; } }
 
         public string Source { get; set; }          // Путь к корневой папке
-        
+
+        public int ID { get; set; }
+
         public int scMainSplitter { get; set; }     // Сохранение параметров сплиттеров
         public int scTabFilmSplitter { get; set; }
 
