@@ -14,31 +14,16 @@ namespace FilmCollection
             ActorList = new List<Actor>();      // Создание списка актеров
         }
 
-        // private int _currentID = 0;
-        private int _currentID ;
-        public int CurrentID
-        {
-            get
-            {
-               // _currentID = _options.ID;
-                return _currentID;
-            }
+        public int RecordID { get; set; }      // Идентификатор
 
-            set
-            {
-                _currentID = value;
-            }
+        public int getRecordID()
+        {
+            return ++RecordID;
         }
 
-        public int getID()
+        public void clearRecordID()
         {
-            //_options.ID = ++CurrentID;
-            return ++CurrentID;
-        }
-
-        public void clearID()
-        {
-            _options.ID = CurrentID = 0;
+            RecordID = 0;
         }
 
 
