@@ -8,7 +8,7 @@ namespace FilmCollection
     {
         public bool Visible { get; set; }       // Видимость записи
 
-        public int Id { get; set; }             // Идентификатор
+        public int Id { get; set; }             // Уникальный идентификатор
 
         public string Name { get; set; }        // Название Фильма
 
