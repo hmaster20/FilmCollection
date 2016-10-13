@@ -1742,6 +1742,7 @@ namespace FilmCollection
             Country_Rus country = (Country_Rus)cBoxCountry.SelectedIndex;
             Actor actor = new Actor();
 
+            actor.Id = _videoCollection.getActorID();
 
             string[] dateComponents = maskDateOfBirth.Text.Split(',');
             string month = dateComponents[0].Trim();
