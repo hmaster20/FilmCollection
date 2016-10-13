@@ -13,6 +13,8 @@ namespace FilmCollection
             VideoID = new List<int>();     // Создание списка ID
         }
 
+        public int Id { get; set; }         // Уникальный идентификатор
+
         public string FIO { get; set; }     // Ф.И.О.
 
         public string DateOfBirth { get; set; }   // дата рождения
