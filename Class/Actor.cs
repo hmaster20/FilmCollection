@@ -17,15 +17,15 @@ namespace FilmCollection
 
         public string DateOfBirth { get; set; }   // дата рождения
         public string DateOfDeath { get; set; }   // дата смерти
-        
+
 
         #region Обработка Страны
-        private Country_Rus _country = Country_Rus.Россия;   // Страна
+        private Country_Rus _country;   // Страна
         [XmlIgnore]
         public Country_Rus Country
         {
             get { return _country; }
-            set { _country = value; }
+            set { _country = (value < 0) ? Country_Rus.Россия : value; }
         }
 
         public string CountryString
