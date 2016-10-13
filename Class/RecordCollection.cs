@@ -14,6 +14,33 @@ namespace FilmCollection
             ActorList = new List<Actor>();      // Создание списка актеров
         }
 
+        // private int _currentID = 0;
+        private int _currentID ;
+        public int CurrentID
+        {
+            get
+            {
+               // _currentID = _options.ID;
+                return _currentID;
+            }
+
+            set
+            {
+                _currentID = value;
+            }
+        }
+
+        public int getID()
+        {
+            //_options.ID = ++CurrentID;
+            return ++CurrentID;
+        }
+
+        public void clearID()
+        {
+            _options.ID = CurrentID = 0;
+        }
+
 
         private RecordOptions _options = new RecordOptions();   // Параметры настройки
         [XmlElement]
@@ -25,27 +52,51 @@ namespace FilmCollection
 
         #region Список фильмов
 
-        private List<Record> _videoList;                        // Объявление списка
+        private List<Record> _videoList;            // Объявление списка
         public List<Record> VideoList
         {
             get { return _videoList; }
             set { _videoList = value; }
-        } 
+        }
 
-        public void Add(Record record)                          // Добавление записи
+        public void Add(Record record)              // Добавление записи
         {
             VideoList.Add(record);
         }
 
-        public void Remove(Record record)                       // Удаление записи
+        public void Remove(Record record)           // Удаление записи
         {
             VideoList.Remove(record);
         }
-        
-        public void ClearVideo()                                     // Очистить коллекцию
+
+        public void ClearVideo()                    // Очистить коллекцию
         {
             VideoList.Clear();
         }
+
+        //void max()
+        //{
+        //    int maxAge = FindMaxAge(VideoList);
+
+        //    //VideoList.Find();
+        //}
+
+        //private int FindMaxAge(List<Record> list)
+        //{
+        //    if (list.Count == 0)
+        //    {
+        //        throw new InvalidOperationException("Empty list");
+        //    }
+        //    int maxAge = int.MinValue;
+        //    foreach (Record type in list)
+        //    {
+        //        if (type.Id > maxAge)
+        //        {
+        //            maxAge = type.Id;
+        //        }
+        //    }
+        //    return maxAge;
+        //}
 
         #endregion
 
@@ -58,6 +109,8 @@ namespace FilmCollection
             get { return _actorList; }
             set { _actorList = value; }
         }
+
+
 
         public void Add(Actor actor)                          // Добавление актера
         {
