@@ -206,6 +206,7 @@ namespace FilmCollection
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
                 File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                _videoCollection.clearID();
                 _videoCollection.ClearVideo();  // очищаем коллекцию
                 treeFolder.Nodes.Clear();       // очищаем иерархию
                 dgvTableRec.ClearSelection();   // выключаем селекты таблицы
@@ -246,9 +247,36 @@ namespace FilmCollection
                     return;
                 }
 
-                WorkerCB.RunWorkerAsync(directory);
+                //DirectoryInfo directory = (DirectoryInfo)e.Argument;
+
+                if (directory.Exists)
+                {
+                    int count = 0;
+                    _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
+                    char[] charsToTrim = { '.' };
+                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                    {
+                        count++;
+                        //WorkerCB.ReportProgress(count);
+
+                        record = new Record();
+
+                        record.Id = _videoCollection.getID();
+                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                        record.FileName = file.Name;                            // полное название файла (film.avi)
+                        record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
+                        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                        record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                                // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                        _videoCollection.Add(record);
+                    }
+                }
+
+               // WorkerCB.RunWorkerAsync(directory);
 
                 _videoCollection.Save();
+
+                MessageBox.Show(_videoCollection.VideoList.Count.ToString());
 
                 FormLoad();
             }
@@ -385,8 +413,8 @@ namespace FilmCollection
 
         private void WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогресс бара
             MessageBox.Show(_videoCollection.VideoList.Count.ToString());
+            // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогресс бара
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)  // Тело потока
@@ -405,6 +433,7 @@ namespace FilmCollection
 
                     record = new Record();
 
+                    record.Id = _videoCollection.getID();
                     record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
                     record.FileName = file.Name;                            // полное название файла (film.avi)
                     record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
@@ -744,7 +773,8 @@ namespace FilmCollection
             fileDialog.Filter = "Все файлы (*.*)|*.*";
             fileDialog.RestoreDirectory = true;
 
-            if (fileDialog.ShowDialog() == DialogResult.OK) NewRecord(fileDialog.FileName);
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+                NewRecord(fileDialog.FileName);
         }
 
         private void NewRecord(string FileName)
@@ -844,6 +874,7 @@ namespace FilmCollection
         {
             Record record = new Record();
 
+            record.Id = _videoCollection.getID();
             record.FileName = fsInfo.Name;
             record.Path = fsInfo.DirectoryName;
             record.DirName = fsInfo.Directory.Name;
@@ -1008,9 +1039,12 @@ namespace FilmCollection
                 }
                 if (i == 0)
                     MessageBox.Show("Элементов не найдено!");
-                else
+                if (i > 0)
                 {
                     FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                }
+                if (i > 1)
+                {                    
                     btnFindNext.Enabled = true;
                 }
             }
@@ -1771,6 +1805,12 @@ namespace FilmCollection
                 maskDateOfDeath.Text = "";
                 maskDateOfDeath.Mask = "00.00.0000";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(Guid.NewGuid().ToString());
+
         }
     }
 }
