@@ -206,7 +206,7 @@ namespace FilmCollection
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
                 File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                _videoCollection.clearID();
+                _videoCollection.clearRecordID();
                 _videoCollection.ClearVideo();  // очищаем коллекцию
                 treeFolder.Nodes.Clear();       // очищаем иерархию
                 dgvTableRec.ClearSelection();   // выключаем селекты таблицы
@@ -261,7 +261,7 @@ namespace FilmCollection
 
                         record = new Record();
 
-                        record.Id = _videoCollection.getID();
+                        record.Id = _videoCollection.getRecordID();
                         record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
                         record.FileName = file.Name;                            // полное название файла (film.avi)
                         record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
@@ -433,7 +433,7 @@ namespace FilmCollection
 
                     record = new Record();
 
-                    record.Id = _videoCollection.getID();
+                    record.Id = _videoCollection.getRecordID();
                     record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
                     record.FileName = file.Name;                            // полное название файла (film.avi)
                     record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
@@ -874,7 +874,7 @@ namespace FilmCollection
         {
             Record record = new Record();
 
-            record.Id = _videoCollection.getID();
+            record.Id = _videoCollection.getRecordID();
             record.FileName = fsInfo.Name;
             record.Path = fsInfo.DirectoryName;
             record.DirName = fsInfo.Directory.Name;
