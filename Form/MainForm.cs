@@ -272,7 +272,7 @@ namespace FilmCollection
                     }
                 }
 
-               // WorkerCB.RunWorkerAsync(directory);
+                // WorkerCB.RunWorkerAsync(directory);
 
                 _videoCollection.Save();
 
@@ -502,7 +502,7 @@ namespace FilmCollection
 
         private void DeleteActor()
         {
-          Actor act = GetSelectedActor();
+            Actor act = GetSelectedActor();
 
             DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + act.FIO + "\" ?",
                                                   "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -829,7 +829,7 @@ namespace FilmCollection
             CategoryVideo category;
             Country_Rus country;
             char[] charsToTrim = { '.' };
-            
+
             country = (Country_Rus)cBoxCountry.SelectedIndex;
             genre = (GenreVideo)cBoxGenre.SelectedIndex;
             category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
@@ -1044,7 +1044,7 @@ namespace FilmCollection
                     FindStatusLabel.Text = "Найдено " + i + " элементов.";
                 }
                 if (i > 1)
-                {                    
+                {
                     btnFindNext.Enabled = true;
                 }
             }
@@ -1743,12 +1743,19 @@ namespace FilmCollection
             Actor actor = new Actor();
 
             actor.Id = _videoCollection.getActorID();
+            try
+            {
+                string[] dateComponents = maskDateOfBirth.Text.Split('.');
+                string month = dateComponents[0].Trim();
+                string day = dateComponents[1].Trim();
+                string year = dateComponents[2].Trim();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-            string[] dateComponents = maskDateOfBirth.Text.Split(',');
-            string month = dateComponents[0].Trim();
-            string day = dateComponents[1].Trim();
-            string year = dateComponents[2].Trim();
-            MessageBox.Show(month + "/" + day + "/" + year);
+            //MessageBox.Show(month + "/" + day + "/" + year);
 
             //maskDateOfBirth.
             // \d{ 2}/\d{ 2}/\d{ 4}
@@ -1766,15 +1773,13 @@ namespace FilmCollection
             //        //break; //Требуется для выбора одно строки
             //    }
 
-            // string pattern = @"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b";
-            //Regex regex = new Regex(@"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)");
-            Regex regex = new Regex(@"\b([0-2][0-9][0-1][0-9]1[8-9][0-9][0-9])");
-            Match match = regex.Match(maskDateOfBirth.Text);
-            if (match.Success)
-            {
-                // Console.WriteLine(match.Value);
-                MessageBox.Show(match.Value);
-            }
+            //Regex regex = new Regex(@"\b([0-2][0-9][0-1][0-9]1[8-9][0-9][0-9])");
+            //Match match = regex.Match(maskDateOfBirth.Text);
+            //if (match.Success)
+            //{
+            //    // Console.WriteLine(match.Value);
+            //    MessageBox.Show(match.Value);
+            //}
 
 
             actor.FIO = tbFIO.Text;
@@ -1812,6 +1817,94 @@ namespace FilmCollection
         {
             MessageBox.Show(Guid.NewGuid().ToString());
 
+        }
+
+        private void tbFilmFind_TextChanged(object sender, EventArgs e)
+        {
+            listView1.Columns.Add("ProductName", 100);
+            //listView2.Columns.Add("ProductName", 100);
+            //listView1.Columns.Add("123123", 100);
+
+            int cell = 0;
+
+            //     Find(tbFilmFind.Text);// поиск по названию
+
+            listBox2.Items.Clear();
+
+            try
+            {
+                string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
+                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+               // dgvTableRec.ClearSelection();
+               // dgvTableRec.MultiSelect = true;    // Требуется для выбора всех строк
+
+                int i = 0;
+
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
+                {
+                    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
+                    {
+                        i++;
+                        listBox2.Items.Add(row.Cells[cell].Value.ToString());
+
+                        Record record = null;
+                        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
+                        if (record != null) listView2_add(record.Name, record.Id);                
+                    }
+                }
+                if (i == 0)
+                {
+                    listBox2.Items.Clear();
+                   // MessageBox.Show("Элементов не найдено!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void listView2_add(string i, int y)
+        {
+            string[] arr = new string[2];
+            arr[0] = i;
+            arr[1] = y.ToString();
+
+            ListViewItem itm = new ListViewItem(arr);
+            listView2.Items.Add(itm);
+        }
+
+
+        private void listBox2_DoubleClick(object sender, EventArgs e)
+        {
+            listBox1.Items.Add(listBox2.SelectedItem);
+            //listView1.Items.Add(listBox2.SelectedItem.ToString());
+
+            //string[] arr = new string[4];
+            //arr[0] = "product_1"; arr[1] = "100"; arr[2] = "10";
+
+            string[] arr = new string[2];
+            arr[0] = listBox2.SelectedItem.ToString();
+            arr[1] = "01";
+
+            ListViewItem itm = new ListViewItem(arr);
+            listView1.Items.Add(itm);
+
+
+            //listView1.Items[0].SubItems.Add("John Smith");
+            //listView1.Items[0].SubItems.Add("==========");
+            //listView1.Items[0].SubItems.Add(listBox2.SelectedItem.ToString());
+
+            //string[] row1 = { "s1", "s2", "s3" };
+            //listView1.Items.Add("Column1Text").SubItems.AddRange(row1);
+            //listView1.Items.Add("Column2Text").SubItems.AddRange(row1);
+
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            //MessageBox.Show(listView1.SelectedItems[0].SubItems[0].Text);
         }
     }
 }
