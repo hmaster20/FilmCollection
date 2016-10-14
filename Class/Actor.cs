@@ -75,5 +75,20 @@ namespace FilmCollection
         }
 
         #endregion
+
+
+        #region Сравнения
+
+        public bool Equals(Actor act)
+        {
+            if (act is Actor && act != null)
+            {
+                Actor temp = (Actor)act;
+                return (temp.FIO == this.FIO) ? true : false;
+            }
+            return false;
+        }
+
+        #endregion
     }
 }
