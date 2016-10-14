@@ -1723,6 +1723,19 @@ namespace FilmCollection
         {
             Actor actor = new Actor();
             actor.FIO = tbFIO.Text;
+
+
+
+            foreach (Actor item in _videoCollection.ActorList)
+            {
+                if (item.Equals(actor))
+                {
+                    MessageBox.Show(actor.FIO + " уже есть в списке актеров!");
+                    return; // Выходим из метода
+                }
+            }
+
+
             //actor.LifeTime = "";
 
 
@@ -1739,10 +1752,25 @@ namespace FilmCollection
 
         private void btnSaveActor_Click(object sender, EventArgs e)
         {
+
             Country_Rus country = (Country_Rus)cBoxCountry.SelectedIndex;
             Actor actor = new Actor();
+            actor.FIO = tbFIO.Text;
+            actor.DateOfBirth = maskDateOfBirth.Text;
+            actor.DateOfDeath = maskDateOfDeath.Text;
+            actor.Country = country;
+            
+            foreach (Actor item in _videoCollection.ActorList)
+            {
+                if (item.Equals(actor))
+                {
+                    MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
+                    return; // Выходим из метода
+                }
+            }
 
             actor.Id = _videoCollection.getActorID();
+
             try
             {
                 string[] dateComponents = maskDateOfBirth.Text.Split('.');
@@ -1782,10 +1810,6 @@ namespace FilmCollection
             //}
 
 
-            actor.FIO = tbFIO.Text;
-            actor.DateOfBirth = maskDateOfBirth.Text;
-            actor.DateOfDeath = maskDateOfDeath.Text;
-            actor.Country = country;
 
             _videoCollection.Add(actor);
             _videoCollection.Save();
@@ -1813,11 +1837,11 @@ namespace FilmCollection
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(Guid.NewGuid().ToString());
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    MessageBox.Show(Guid.NewGuid().ToString());
 
-        }
+        //}
 
         private void tbFilmFind_TextChanged(object sender, EventArgs e)
         {
