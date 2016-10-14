@@ -1821,43 +1821,34 @@ namespace FilmCollection
 
         private void tbFilmFind_TextChanged(object sender, EventArgs e)
         {
-            listView1.Columns.Add("ProductName", 100);
-            //listView2.Columns.Add("ProductName", 100);
-            //listView1.Columns.Add("123123", 100);
-
             int cell = 0;
-
-            //     Find(tbFilmFind.Text);// поиск по названию
-
-            listBox2.Items.Clear();
+            listView2.Items.Clear();
+            //listBox2.Items.Clear();
 
             try
             {
                 string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
                 Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-               // dgvTableRec.ClearSelection();
-               // dgvTableRec.MultiSelect = true;    // Требуется для выбора всех строк
-
-                int i = 0;
+                //int i = 0;
 
                 foreach (DataGridViewRow row in dgvTableRec.Rows)
                 {
                     if (regex.IsMatch(row.Cells[cell].Value.ToString()))
                     {
-                        i++;
-                        listBox2.Items.Add(row.Cells[cell].Value.ToString());
+                       // i++;
+                       // listBox2.Items.Add(row.Cells[cell].Value.ToString());
 
                         Record record = null;
                         if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
                         if (record != null) listView2_add(record.Name, record.Id);                
                     }
                 }
-                if (i == 0)
-                {
-                    listBox2.Items.Clear();
-                   // MessageBox.Show("Элементов не найдено!");
-                }
+                //if (i == 0)
+                //{
+                //    listBox2.Items.Clear();
+                //   // MessageBox.Show("Элементов не найдено!");
+                //}
             }
             catch (Exception ex)
             {
