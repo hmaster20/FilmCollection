@@ -1759,7 +1759,7 @@ namespace FilmCollection
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = country;
-            
+
             foreach (Actor item in _videoCollection.ActorList)
             {
                 if (item.Equals(actor))
@@ -1845,34 +1845,22 @@ namespace FilmCollection
 
         private void tbFilmFind_TextChanged(object sender, EventArgs e)
         {
-            int cell = 0;
             listView2.Items.Clear();
-            //listBox2.Items.Clear();
 
             try
             {
                 string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
                 Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-                //int i = 0;
-
                 foreach (DataGridViewRow row in dgvTableRec.Rows)
                 {
-                    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
+                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
                     {
-                       // i++;
-                       // listBox2.Items.Add(row.Cells[cell].Value.ToString());
-
                         Record record = null;
                         if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
-                        if (record != null) listView2_add(record.Name, record.Id);                
+                        if (record != null) listView2_add(record.Name, record.Id);
                     }
                 }
-                //if (i == 0)
-                //{
-                //    listBox2.Items.Clear();
-                //   // MessageBox.Show("Элементов не найдено!");
-                //}
             }
             catch (Exception ex)
             {
@@ -1880,11 +1868,11 @@ namespace FilmCollection
             }
         }
 
-        private void listView2_add(string i, int y)
+        private void listView2_add(string name, int id)
         {
             string[] arr = new string[2];
-            arr[0] = i;
-            arr[1] = y.ToString();
+            arr[0] = name;
+            arr[1] = id.ToString();
 
             ListViewItem itm = new ListViewItem(arr);
             listView2.Items.Add(itm);
