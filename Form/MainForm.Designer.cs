@@ -199,6 +199,7 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1521,6 +1522,7 @@
             this.panelActEditTitle.Controls.Add(this.tbFilmFind);
             this.panelActEditTitle.Controls.Add(this.tbFIO);
             this.panelActEditTitle.Controls.Add(this.label6);
+            this.panelActEditTitle.Controls.Add(this.label14);
             this.panelActEditTitle.Controls.Add(this.label10);
             this.panelActEditTitle.Controls.Add(this.label13);
             this.panelActEditTitle.Controls.Add(this.label12);
@@ -1550,9 +1552,9 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(94, 313);
+            this.listBox2.Location = new System.Drawing.Point(14, 357);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(279, 69);
+            this.listBox2.Size = new System.Drawing.Size(60, 69);
             this.listBox2.TabIndex = 60;
             this.listBox2.DoubleClick += new System.EventHandler(this.listBox2_DoubleClick);
             // 
@@ -1966,9 +1968,9 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(95, 388);
+            this.listView1.Location = new System.Drawing.Point(14, 432);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(278, 76);
+            this.listView1.Size = new System.Drawing.Size(60, 32);
             this.listView1.TabIndex = 62;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -1979,11 +1981,11 @@
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView2.Location = new System.Drawing.Point(6, 186);
+            this.listView2.Location = new System.Drawing.Point(94, 326);
             this.listView2.MultiSelect = false;
             this.listView2.Name = "listView2";
             this.listView2.ShowGroups = false;
-            this.listView2.Size = new System.Drawing.Size(387, 76);
+            this.listView2.Size = new System.Drawing.Size(279, 108);
             this.listView2.TabIndex = 62;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -1993,6 +1995,15 @@
             // 
             this.columnHeader1.Text = "";
             this.columnHeader1.Width = 200;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(92, 310);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(137, 13);
+            this.label14.TabIndex = 53;
+            this.label14.Text = "Кликом выберите записи";
             // 
             // MainForm
             // 
@@ -2231,6 +2242,7 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Label label14;
     }
 }
 
