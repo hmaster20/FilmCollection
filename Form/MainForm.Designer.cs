@@ -152,6 +152,9 @@
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.panelActEditTitle = new System.Windows.Forms.Panel();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listView1 = new System.Windows.Forms.ListView();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -164,6 +167,7 @@
             this.tbFilmFind = new System.Windows.Forms.TextBox();
             this.tbFIO = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -173,11 +177,6 @@
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabWriter = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.btnDownloadPic = new System.Windows.Forms.Button();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
@@ -196,10 +195,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -227,8 +222,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panelActEditTitle.SuspendLayout();
-            this.tabWriter.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.tabImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
@@ -1392,6 +1385,8 @@
             // 
             this.scTabActors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scTabActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scTabActors.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.scTabActors.IsSplitterFixed = true;
             this.scTabActors.Location = new System.Drawing.Point(3, 3);
             this.scTabActors.Name = "scTabActors";
             // 
@@ -1537,6 +1532,36 @@
             this.panelActEditTitle.Size = new System.Drawing.Size(465, 543);
             this.panelActEditTitle.TabIndex = 0;
             // 
+            // listView2
+            // 
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView2.Location = new System.Drawing.Point(94, 326);
+            this.listView2.MultiSelect = false;
+            this.listView2.Name = "listView2";
+            this.listView2.ShowGroups = false;
+            this.listView2.Size = new System.Drawing.Size(279, 108);
+            this.listView2.TabIndex = 62;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            this.listView2.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 200;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(14, 432);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(60, 32);
+            this.listView1.TabIndex = 62;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -1656,6 +1681,15 @@
             this.label6.TabIndex = 54;
             this.label6.Text = "Страна";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(92, 310);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(137, 13);
+            this.label14.TabIndex = 53;
+            this.label14.Text = "Кликом выберите записи";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -1737,68 +1771,12 @@
             // tabWriter
             // 
             this.tabWriter.BackColor = System.Drawing.SystemColors.Control;
-            this.tabWriter.Controls.Add(this.panel2);
-            this.tabWriter.Controls.Add(this.panel4);
-            this.tabWriter.Controls.Add(this.panel3);
             this.tabWriter.Location = new System.Drawing.Point(4, 22);
             this.tabWriter.Name = "tabWriter";
             this.tabWriter.Padding = new System.Windows.Forms.Padding(3);
             this.tabWriter.Size = new System.Drawing.Size(914, 551);
             this.tabWriter.TabIndex = 1;
             this.tabWriter.Text = "Редактор";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(503, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(6, 545);
-            this.panel2.TabIndex = 0;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.SystemColors.Control;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(500, 545);
-            this.panel4.TabIndex = 1;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.SystemColors.Control;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.splitter1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(908, 545);
-            this.panel3.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(691, 86);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // splitter1
-            // 
-            this.splitter1.BackColor = System.Drawing.SystemColors.Window;
-            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitter1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Margin = new System.Windows.Forms.Padding(0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(15, 543);
-            this.splitter1.TabIndex = 0;
-            this.splitter1.TabStop = false;
             // 
             // tabImage
             // 
@@ -1966,45 +1944,6 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(14, 432);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(60, 32);
-            this.listView1.TabIndex = 62;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
-            // 
-            // listView2
-            // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView2.Location = new System.Drawing.Point(94, 326);
-            this.listView2.MultiSelect = false;
-            this.listView2.Name = "listView2";
-            this.listView2.ShowGroups = false;
-            this.listView2.Size = new System.Drawing.Size(279, 108);
-            this.listView2.TabIndex = 62;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
-            this.listView2.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 200;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(92, 310);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(137, 13);
-            this.label14.TabIndex = 53;
-            this.label14.Text = "Кликом выберите записи";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2057,8 +1996,6 @@
             this.menuStrip1.PerformLayout();
             this.panelActEditTitle.ResumeLayout(false);
             this.panelActEditTitle.PerformLayout();
-            this.tabWriter.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
             this.tabImage.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
@@ -2223,10 +2160,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnNewActor;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.MaskedTextBox maskDateOfDeath;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.MaskedTextBox maskDateOfBirth;
@@ -2238,7 +2171,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDateOfDeath;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ColumnHeader columnHeader1;
