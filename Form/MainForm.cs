@@ -1858,7 +1858,7 @@ namespace FilmCollection
                     {
                         Record record = null;
                         if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
-                        if (record != null) listView2_add(record.Name, record.Id);
+                        if (record != null) listView2_add(record.Name, record.Year, record.Id);
                     }
                 }
             }
@@ -1868,11 +1868,12 @@ namespace FilmCollection
             }
         }
 
-        private void listView2_add(string name, int id)
+        private void listView2_add(string name, int year, int id)
         {
-            string[] arr = new string[2];
+            string[] arr = new string[3];
             arr[0] = name;
-            arr[1] = id.ToString();
+            arr[1] = year.ToString();
+            arr[2] = id.ToString();
 
             ListViewItem itm = new ListViewItem(arr);
             listView2.Items.Add(itm);
@@ -1881,33 +1882,45 @@ namespace FilmCollection
 
         private void listBox2_DoubleClick(object sender, EventArgs e)
         {
-            listBox1.Items.Add(listBox2.SelectedItem);
-            //listView1.Items.Add(listBox2.SelectedItem.ToString());
+            //listBox1.Items.Add(listBox2.SelectedItem);
+            ////listView1.Items.Add(listBox2.SelectedItem.ToString());
 
-            //string[] arr = new string[4];
-            //arr[0] = "product_1"; arr[1] = "100"; arr[2] = "10";
+            ////string[] arr = new string[4];
+            ////arr[0] = "product_1"; arr[1] = "100"; arr[2] = "10";
 
-            string[] arr = new string[2];
-            arr[0] = listBox2.SelectedItem.ToString();
-            arr[1] = "01";
+            //string[] arr = new string[2];
+            //arr[0] = listBox2.SelectedItem.ToString();
+            //arr[1] = "01";
 
-            ListViewItem itm = new ListViewItem(arr);
-            listView1.Items.Add(itm);
+            //ListViewItem itm = new ListViewItem(arr);
+            //listView1.Items.Add(itm);
 
 
-            //listView1.Items[0].SubItems.Add("John Smith");
-            //listView1.Items[0].SubItems.Add("==========");
-            //listView1.Items[0].SubItems.Add(listBox2.SelectedItem.ToString());
+            ////listView1.Items[0].SubItems.Add("John Smith");
+            ////listView1.Items[0].SubItems.Add("==========");
+            ////listView1.Items[0].SubItems.Add(listBox2.SelectedItem.ToString());
 
-            //string[] row1 = { "s1", "s2", "s3" };
-            //listView1.Items.Add("Column1Text").SubItems.AddRange(row1);
-            //listView1.Items.Add("Column2Text").SubItems.AddRange(row1);
+            ////string[] row1 = { "s1", "s2", "s3" };
+            ////listView1.Items.Add("Column1Text").SubItems.AddRange(row1);
+            ////listView1.Items.Add("Column2Text").SubItems.AddRange(row1);
 
         }
 
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
-            //MessageBox.Show(listView1.SelectedItems[0].SubItems[0].Text);
+            // MessageBox.Show(listView1.SelectedItems[0].SubItems[0].Text);
+            
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var item = listView1.SelectedItems[0];
+                //rest of your logic
+            }
+            
+            var selectedItems = listView1.SelectedItems;
+            foreach (ListViewItem selectedItem in selectedItems)
+            {
+                //Treatment
+            }
         }
     }
 }
