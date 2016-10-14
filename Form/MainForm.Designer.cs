@@ -153,7 +153,7 @@
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.panelActEditTitle = new System.Windows.Forms.Panel();
             this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colSelectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.cBoxCountryActor = new System.Windows.Forms.ComboBox();
             this.maskDateOfBirth = new System.Windows.Forms.MaskedTextBox();
@@ -191,9 +191,11 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gActAbout = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.colSelectYear = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colYear = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1386,6 +1388,8 @@
             // 
             this.scTabActors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scTabActors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scTabActors.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.scTabActors.IsSplitterFixed = true;
             this.scTabActors.Location = new System.Drawing.Point(3, 3);
             this.scTabActors.Name = "scTabActors";
             // 
@@ -1517,22 +1521,24 @@
             // listView2
             // 
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.colSelectName,
+            this.colSelectYear});
+            this.listView2.FullRowSelect = true;
             this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView2.Location = new System.Drawing.Point(73, 152);
+            this.listView2.Location = new System.Drawing.Point(15, 152);
             this.listView2.MultiSelect = false;
             this.listView2.Name = "listView2";
             this.listView2.ShowGroups = false;
-            this.listView2.Size = new System.Drawing.Size(279, 42);
+            this.listView2.Size = new System.Drawing.Size(364, 108);
             this.listView2.TabIndex = 62;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
             this.listView2.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
-            // columnHeader1
+            // colSelectName
             // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 200;
+            this.colSelectName.Text = "";
+            this.colSelectName.Width = 275;
             // 
             // checkBox1
             // 
@@ -1581,7 +1587,7 @@
             this.btnSaveActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveActor.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSaveActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveActor.Location = new System.Drawing.Point(309, 457);
+            this.btnSaveActor.Location = new System.Drawing.Point(294, 473);
             this.btnSaveActor.Name = "btnSaveActor";
             this.btnSaveActor.Size = new System.Drawing.Size(86, 23);
             this.btnSaveActor.TabIndex = 57;
@@ -1593,7 +1599,7 @@
             // btnCancelActor
             // 
             this.btnCancelActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelActor.Location = new System.Drawing.Point(309, 486);
+            this.btnCancelActor.Location = new System.Drawing.Point(294, 502);
             this.btnCancelActor.Name = "btnCancelActor";
             this.btnCancelActor.Size = new System.Drawing.Size(86, 23);
             this.btnCancelActor.TabIndex = 56;
@@ -1603,9 +1609,9 @@
             // 
             // tbFilmFind
             // 
-            this.tbFilmFind.Location = new System.Drawing.Point(62, 113);
+            this.tbFilmFind.Location = new System.Drawing.Point(15, 113);
             this.tbFilmFind.Name = "tbFilmFind";
-            this.tbFilmFind.Size = new System.Drawing.Size(279, 20);
+            this.tbFilmFind.Size = new System.Drawing.Size(364, 20);
             this.tbFilmFind.TabIndex = 55;
             this.tbFilmFind.TextChanged += new System.EventHandler(this.tbFilmFind_TextChanged);
             // 
@@ -1628,7 +1634,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(70, 136);
+            this.label14.Location = new System.Drawing.Point(12, 136);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(137, 13);
             this.label14.TabIndex = 53;
@@ -1637,7 +1643,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(95, 97);
+            this.label10.Location = new System.Drawing.Point(116, 97);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(160, 13);
             this.label10.TabIndex = 53;
@@ -1683,7 +1689,7 @@
             // 
             this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewActor.Location = new System.Drawing.Point(106, 457);
+            this.btnNewActor.Location = new System.Drawing.Point(46, 477);
             this.btnNewActor.Name = "btnNewActor";
             this.btnNewActor.Size = new System.Drawing.Size(81, 23);
             this.btnNewActor.TabIndex = 51;
@@ -1882,7 +1888,8 @@
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
+            this.colName,
+            this.colYear});
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listView1.Location = new System.Drawing.Point(15, 19);
             this.listView1.MultiSelect = false;
@@ -1892,12 +1899,11 @@
             this.listView1.TabIndex = 62;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
             // 
-            // columnHeader2
+            // colName
             // 
-            this.columnHeader2.Text = "";
-            this.columnHeader2.Width = 200;
+            this.colName.Text = "";
+            this.colName.Width = 200;
             // 
             // gActAbout
             // 
@@ -1911,6 +1917,7 @@
             this.gActAbout.Controls.Add(this.label11);
             this.gActAbout.Controls.Add(this.label12);
             this.gActAbout.Controls.Add(this.label13);
+            this.gActAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gActAbout.Location = new System.Drawing.Point(20, 30);
             this.gActAbout.Name = "gActAbout";
             this.gActAbout.Size = new System.Drawing.Size(391, 126);
@@ -1931,6 +1938,11 @@
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фильмография";
+            // 
+            // colSelectYear
+            // 
+            this.colSelectYear.Text = "";
+            this.colSelectYear.Width = 45;
             // 
             // MainForm
             // 
@@ -2159,12 +2171,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDateOfDeath;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
         private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader colSelectName;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.GroupBox gActAbout;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ColumnHeader colSelectYear;
+        private System.Windows.Forms.ColumnHeader colYear;
     }
 }
 
