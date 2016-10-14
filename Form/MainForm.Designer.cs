@@ -86,6 +86,16 @@
             this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
+            this.panelFind = new System.Windows.Forms.Panel();
+            this.btnFindReset = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbFind = new System.Windows.Forms.TextBox();
+            this.btnFindNext = new System.Windows.Forms.Button();
+            this.btnFind = new System.Windows.Forms.Button();
+            this.cbTypeFind = new System.Windows.Forms.ComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
@@ -118,16 +128,6 @@
             this.lblYear = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.btnNew = new System.Windows.Forms.Button();
-            this.panelFind = new System.Windows.Forms.Panel();
-            this.btnFindReset = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbFind = new System.Windows.Forms.TextBox();
-            this.btnFindNext = new System.Windows.Forms.Button();
-            this.btnFind = new System.Windows.Forms.Button();
-            this.cbTypeFind = new System.Windows.Forms.ComboBox();
             this.panelView = new System.Windows.Forms.Panel();
             this.btnPlay = new System.Windows.Forms.Button();
             this.lblRecDescription = new System.Windows.Forms.Label();
@@ -161,7 +161,7 @@
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.btnSaveActor = new System.Windows.Forms.Button();
             this.btnCancelActor = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbFilmFind = new System.Windows.Forms.TextBox();
             this.tbFIO = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -196,6 +196,9 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -208,11 +211,11 @@
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
             this.menudgvTable.SuspendLayout();
+            this.panelFind.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).BeginInit();
-            this.panelFind.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panelView.SuspendLayout();
             this.panelTitle.SuspendLayout();
             this.tabActors.SuspendLayout();
@@ -750,6 +753,116 @@
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
+            // panelFind
+            // 
+            this.panelFind.Controls.Add(this.btnFindReset);
+            this.panelFind.Controls.Add(this.label3);
+            this.panelFind.Controls.Add(this.label2);
+            this.panelFind.Controls.Add(this.panel1);
+            this.panelFind.Controls.Add(this.tbFind);
+            this.panelFind.Controls.Add(this.btnFindNext);
+            this.panelFind.Controls.Add(this.btnFind);
+            this.panelFind.Controls.Add(this.cbTypeFind);
+            this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFind.Location = new System.Drawing.Point(0, 0);
+            this.panelFind.Name = "panelFind";
+            this.panelFind.Size = new System.Drawing.Size(368, 543);
+            this.panelFind.TabIndex = 0;
+            // 
+            // btnFindReset
+            // 
+            this.btnFindReset.Location = new System.Drawing.Point(59, 136);
+            this.btnFindReset.Name = "btnFindReset";
+            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
+            this.btnFindReset.TabIndex = 18;
+            this.btnFindReset.Text = "Сброс";
+            this.btnFindReset.UseVisualStyleBackColor = true;
+            this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(22, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Критерий поиска";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Строка поиска";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(368, 27);
+            this.panel1.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(368, 27);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Панель поиска";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbFind
+            // 
+            this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFind.Location = new System.Drawing.Point(22, 59);
+            this.tbFind.Name = "tbFind";
+            this.tbFind.Size = new System.Drawing.Size(328, 20);
+            this.tbFind.TabIndex = 15;
+            // 
+            // btnFindNext
+            // 
+            this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFindNext.Enabled = false;
+            this.btnFindNext.Location = new System.Drawing.Point(227, 136);
+            this.btnFindNext.Name = "btnFindNext";
+            this.btnFindNext.Size = new System.Drawing.Size(123, 23);
+            this.btnFindNext.TabIndex = 14;
+            this.btnFindNext.Text = "Найти следующее";
+            this.btnFindNext.UseVisualStyleBackColor = true;
+            this.btnFindNext.Click += new System.EventHandler(this.btnFindNext_Click);
+            // 
+            // btnFind
+            // 
+            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFind.Enabled = false;
+            this.btnFind.Location = new System.Drawing.Point(227, 107);
+            this.btnFind.Name = "btnFind";
+            this.btnFind.Size = new System.Drawing.Size(123, 23);
+            this.btnFind.TabIndex = 14;
+            this.btnFind.Text = "Найти все";
+            this.btnFind.UseVisualStyleBackColor = true;
+            this.btnFind.Click += new System.EventHandler(this.Find_Click);
+            // 
+            // cbTypeFind
+            // 
+            this.cbTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTypeFind.FormattingEnabled = true;
+            this.cbTypeFind.Items.AddRange(new object[] {
+            "Название",
+            "Год"});
+            this.cbTypeFind.Location = new System.Drawing.Point(22, 107);
+            this.cbTypeFind.Name = "cbTypeFind";
+            this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
+            this.cbTypeFind.TabIndex = 13;
+            this.cbTypeFind.SelectedIndexChanged += new System.EventHandler(this.cbTypeFind_SelectedIndexChanged);
+            // 
             // panelEdit
             // 
             this.panelEdit.Controls.Add(this.btnMoveDown);
@@ -1118,116 +1231,6 @@
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // panelFind
-            // 
-            this.panelFind.Controls.Add(this.btnFindReset);
-            this.panelFind.Controls.Add(this.label3);
-            this.panelFind.Controls.Add(this.label2);
-            this.panelFind.Controls.Add(this.panel1);
-            this.panelFind.Controls.Add(this.tbFind);
-            this.panelFind.Controls.Add(this.btnFindNext);
-            this.panelFind.Controls.Add(this.btnFind);
-            this.panelFind.Controls.Add(this.cbTypeFind);
-            this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFind.Location = new System.Drawing.Point(0, 0);
-            this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 543);
-            this.panelFind.TabIndex = 0;
-            // 
-            // btnFindReset
-            // 
-            this.btnFindReset.Location = new System.Drawing.Point(59, 136);
-            this.btnFindReset.Name = "btnFindReset";
-            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
-            this.btnFindReset.TabIndex = 18;
-            this.btnFindReset.Text = "Сброс";
-            this.btnFindReset.UseVisualStyleBackColor = true;
-            this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 91);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Критерий поиска";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Строка поиска";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(368, 27);
-            this.panel1.TabIndex = 16;
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(368, 27);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Панель поиска";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tbFind
-            // 
-            this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFind.Location = new System.Drawing.Point(22, 59);
-            this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(328, 20);
-            this.tbFind.TabIndex = 15;
-            // 
-            // btnFindNext
-            // 
-            this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFindNext.Enabled = false;
-            this.btnFindNext.Location = new System.Drawing.Point(227, 136);
-            this.btnFindNext.Name = "btnFindNext";
-            this.btnFindNext.Size = new System.Drawing.Size(123, 23);
-            this.btnFindNext.TabIndex = 14;
-            this.btnFindNext.Text = "Найти следующее";
-            this.btnFindNext.UseVisualStyleBackColor = true;
-            this.btnFindNext.Click += new System.EventHandler(this.btnFindNext_Click);
-            // 
-            // btnFind
-            // 
-            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Enabled = false;
-            this.btnFind.Location = new System.Drawing.Point(227, 107);
-            this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(123, 23);
-            this.btnFind.TabIndex = 14;
-            this.btnFind.Text = "Найти все";
-            this.btnFind.UseVisualStyleBackColor = true;
-            this.btnFind.Click += new System.EventHandler(this.Find_Click);
-            // 
-            // cbTypeFind
-            // 
-            this.cbTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTypeFind.FormattingEnabled = true;
-            this.cbTypeFind.Items.AddRange(new object[] {
-            "Название",
-            "Год"});
-            this.cbTypeFind.Location = new System.Drawing.Point(22, 107);
-            this.cbTypeFind.Name = "cbTypeFind";
-            this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
-            this.cbTypeFind.TabIndex = 13;
-            this.cbTypeFind.SelectedIndexChanged += new System.EventHandler(this.cbTypeFind_SelectedIndexChanged);
-            // 
             // panelView
             // 
             this.panelView.Controls.Add(this.btnPlay);
@@ -1504,6 +1507,8 @@
             // 
             // panelActEditTitle
             // 
+            this.panelActEditTitle.Controls.Add(this.listView2);
+            this.panelActEditTitle.Controls.Add(this.listView1);
             this.panelActEditTitle.Controls.Add(this.checkBox1);
             this.panelActEditTitle.Controls.Add(this.listBox2);
             this.panelActEditTitle.Controls.Add(this.listBox1);
@@ -1513,7 +1518,7 @@
             this.panelActEditTitle.Controls.Add(this.maskedTextBox1);
             this.panelActEditTitle.Controls.Add(this.btnSaveActor);
             this.panelActEditTitle.Controls.Add(this.btnCancelActor);
-            this.panelActEditTitle.Controls.Add(this.textBox2);
+            this.panelActEditTitle.Controls.Add(this.tbFilmFind);
             this.panelActEditTitle.Controls.Add(this.tbFIO);
             this.panelActEditTitle.Controls.Add(this.label6);
             this.panelActEditTitle.Controls.Add(this.label10);
@@ -1549,6 +1554,7 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(279, 69);
             this.listBox2.TabIndex = 60;
+            this.listBox2.DoubleClick += new System.EventHandler(this.listBox2_DoubleClick);
             // 
             // listBox1
             // 
@@ -1570,7 +1576,7 @@
             // maskDateOfBirth
             // 
             this.maskDateOfBirth.Location = new System.Drawing.Point(95, 85);
-            this.maskDateOfBirth.Mask = "00.00.0000";
+            this.maskDateOfBirth.Mask = "00/00/0000";
             this.maskDateOfBirth.Name = "maskDateOfBirth";
             this.maskDateOfBirth.Size = new System.Drawing.Size(74, 20);
             this.maskDateOfBirth.TabIndex = 58;
@@ -1580,7 +1586,7 @@
             // maskDateOfDeath
             // 
             this.maskDateOfDeath.Location = new System.Drawing.Point(199, 86);
-            this.maskDateOfDeath.Mask = "00.00.0000";
+            this.maskDateOfDeath.Mask = "00/00/0000";
             this.maskDateOfDeath.Name = "maskDateOfDeath";
             this.maskDateOfDeath.Size = new System.Drawing.Size(121, 20);
             this.maskDateOfDeath.TabIndex = 58;
@@ -1624,12 +1630,13 @@
             this.btnCancelActor.UseVisualStyleBackColor = true;
             this.btnCancelActor.Visible = false;
             // 
-            // textBox2
+            // tbFilmFind
             // 
-            this.textBox2.Location = new System.Drawing.Point(94, 287);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(279, 20);
-            this.textBox2.TabIndex = 55;
+            this.tbFilmFind.Location = new System.Drawing.Point(94, 287);
+            this.tbFilmFind.Name = "tbFilmFind";
+            this.tbFilmFind.Size = new System.Drawing.Size(279, 20);
+            this.tbFilmFind.TabIndex = 55;
+            this.tbFilmFind.TextChanged += new System.EventHandler(this.tbFilmFind_TextChanged);
             // 
             // tbFIO
             // 
@@ -1957,6 +1964,36 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(95, 388);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(278, 76);
+            this.listView1.TabIndex = 62;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            // 
+            // listView2
+            // 
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView2.Location = new System.Drawing.Point(6, 186);
+            this.listView2.MultiSelect = false;
+            this.listView2.Name = "listView2";
+            this.listView2.ShowGroups = false;
+            this.listView2.Size = new System.Drawing.Size(387, 76);
+            this.listView2.TabIndex = 62;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            this.listView2.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 200;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1988,13 +2025,13 @@
             this.scTabFilm.ResumeLayout(false);
             this.menudgvTable.ResumeLayout(false);
             this.menudgvTable.PerformLayout();
+            this.panelFind.ResumeLayout(false);
+            this.panelFind.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.panelEdit.ResumeLayout(false);
             this.panelEdit.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).EndInit();
-            this.panelFind.ResumeLayout(false);
-            this.panelFind.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
             this.panelTitle.ResumeLayout(false);
@@ -2169,7 +2206,7 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Button btnSaveActor;
         private System.Windows.Forms.Button btnCancelActor;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbFilmFind;
         private System.Windows.Forms.TextBox tbFIO;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label10;
@@ -2191,6 +2228,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 
