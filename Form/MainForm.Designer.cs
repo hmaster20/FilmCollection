@@ -663,6 +663,7 @@
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(922, 577);
             this.tabControl2.TabIndex = 11;
+            this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.SelectActor_Info);
             this.tabControl2.Click += new System.EventHandler(this.tabControl_ResetFindStatus_Click);
             // 
             // tabFilm
@@ -694,8 +695,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
+            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(908, 545);
@@ -1409,6 +1410,9 @@
             // 
             // dgvTableActors
             // 
+            this.dgvTableActors.AllowUserToAddRows = false;
+            this.dgvTableActors.AllowUserToDeleteRows = false;
+            this.dgvTableActors.AllowUserToResizeRows = false;
             this.dgvTableActors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTableActors.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvTableActors.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -1428,6 +1432,7 @@
             this.dgvTableActors.Size = new System.Drawing.Size(477, 516);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
+            this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
             // 
             // colActFIO
             // 
@@ -1527,7 +1532,7 @@
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Location = new System.Drawing.Point(20, 165);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(391, 276);
+            this.groupBox1.Size = new System.Drawing.Size(391, 302);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фильмография";
@@ -1537,12 +1542,13 @@
             this.listViewFilm.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colName,
             this.colYear});
+            this.listViewFilm.FullRowSelect = true;
             this.listViewFilm.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewFilm.Location = new System.Drawing.Point(15, 19);
             this.listViewFilm.MultiSelect = false;
             this.listViewFilm.Name = "listViewFilm";
             this.listViewFilm.ShowGroups = false;
-            this.listViewFilm.Size = new System.Drawing.Size(364, 65);
+            this.listViewFilm.Size = new System.Drawing.Size(364, 137);
             this.listViewFilm.TabIndex = 62;
             this.listViewFilm.UseCompatibleStateImageBehavior = false;
             this.listViewFilm.View = System.Windows.Forms.View.Details;
@@ -1551,12 +1557,17 @@
             // colName
             // 
             this.colName.Text = "";
-            this.colName.Width = 200;
+            this.colName.Width = 275;
+            // 
+            // colYear
+            // 
+            this.colYear.Text = "";
+            this.colYear.Width = 45;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(116, 97);
+            this.label10.Location = new System.Drawing.Point(116, 159);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(160, 13);
             this.label10.TabIndex = 53;
@@ -1569,11 +1580,11 @@
             this.colSelectYear});
             this.lvSelectRecord.FullRowSelect = true;
             this.lvSelectRecord.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvSelectRecord.Location = new System.Drawing.Point(15, 152);
+            this.lvSelectRecord.Location = new System.Drawing.Point(15, 214);
             this.lvSelectRecord.MultiSelect = false;
             this.lvSelectRecord.Name = "lvSelectRecord";
             this.lvSelectRecord.ShowGroups = false;
-            this.lvSelectRecord.Size = new System.Drawing.Size(364, 108);
+            this.lvSelectRecord.Size = new System.Drawing.Size(364, 75);
             this.lvSelectRecord.TabIndex = 62;
             this.lvSelectRecord.UseCompatibleStateImageBehavior = false;
             this.lvSelectRecord.View = System.Windows.Forms.View.Details;
@@ -1591,7 +1602,7 @@
             // 
             // tbFilmFind
             // 
-            this.tbFilmFind.Location = new System.Drawing.Point(15, 113);
+            this.tbFilmFind.Location = new System.Drawing.Point(15, 175);
             this.tbFilmFind.Name = "tbFilmFind";
             this.tbFilmFind.Size = new System.Drawing.Size(364, 20);
             this.tbFilmFind.TabIndex = 55;
@@ -1600,7 +1611,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 136);
+            this.label14.Location = new System.Drawing.Point(12, 198);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(137, 13);
             this.label14.TabIndex = 53;
@@ -1662,7 +1673,6 @@
             this.maskDateOfBirth.Size = new System.Drawing.Size(74, 20);
             this.maskDateOfBirth.TabIndex = 58;
             this.maskDateOfBirth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskDateOfBirth.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
             // 
             // label9
             // 
@@ -1682,7 +1692,6 @@
             this.maskDateOfDeath.TabIndex = 58;
             this.maskDateOfDeath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskDateOfDeath.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.maskDateOfDeath.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
             // 
             // label6
             // 
@@ -1725,7 +1734,7 @@
             this.btnSaveActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveActor.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSaveActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveActor.Location = new System.Drawing.Point(294, 473);
+            this.btnSaveActor.Location = new System.Drawing.Point(294, 481);
             this.btnSaveActor.Name = "btnSaveActor";
             this.btnSaveActor.Size = new System.Drawing.Size(86, 23);
             this.btnSaveActor.TabIndex = 57;
@@ -1737,7 +1746,7 @@
             // btnCancelActor
             // 
             this.btnCancelActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelActor.Location = new System.Drawing.Point(294, 502);
+            this.btnCancelActor.Location = new System.Drawing.Point(294, 510);
             this.btnCancelActor.Name = "btnCancelActor";
             this.btnCancelActor.Size = new System.Drawing.Size(86, 23);
             this.btnCancelActor.TabIndex = 56;
@@ -1749,7 +1758,7 @@
             // 
             this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewActor.Location = new System.Drawing.Point(46, 477);
+            this.btnNewActor.Location = new System.Drawing.Point(46, 491);
             this.btnNewActor.Name = "btnNewActor";
             this.btnNewActor.Size = new System.Drawing.Size(81, 23);
             this.btnNewActor.TabIndex = 51;
