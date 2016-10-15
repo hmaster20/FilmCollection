@@ -707,6 +707,100 @@ namespace FilmCollection
             return null;
         }
 
+        private void SelectActor_Info(object sender, EventArgs e)  // Отражение информации в карточке актеров
+        {
+            // Предоставляет данные выбранной записи
+            Actor act = GetSelectedActor();
+            if (act != null)
+            {
+                //// Панель описания
+                //tbfName.Text = record.Name;
+                //tbfDesc.Text = record.Description;
+                //tbfYear.Text = Convert.ToString(record.Year);
+
+                // Панель редактирования
+                tbFIO.Text = act.FIO;
+                maskDateOfBirth.Text = act.DateOfBirth;
+                maskDateOfDeath.Text = act.DateOfDeath;
+                cBoxCountryActor.SelectedIndex = ((int)act.Country);
+
+                listViewFilm.Items.Clear();
+
+                try
+                {
+                    //List<Record> filtered = _videoCollection.VideoList;
+                    foreach (int recID in act.VideoID)
+                    {
+                        //filtered = filtered.FindAll(v => v.Id == item);
+
+                        foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
+                        {
+
+                            string[] arr = new string[3];
+                            arr[0] = item.Name;
+                            arr[1] = item.Year.ToString();
+                            arr[2] = item.Id.ToString();
+
+                            ListViewItem itm = new ListViewItem(arr);
+
+                            listViewFilm.Items.Add(itm);
+                        }
+
+
+                        // string[] arr = new string[3];
+                        //arr[0] = filtered[0].Name;
+                        // arr[1] = filtered[0].Year.ToString();
+                        // arr[2] = filtered[0].Id.ToString();
+
+                        // ListViewItem itm = new ListViewItem(arr);
+
+                        //listViewFilm.Items.Add(itm);
+
+                        // listViewFilm.Items.Add(string.Format("{0} | {1}", filtered[0].Name, filtered[0].Year.ToString()));
+
+                        //listViewFilm.Items.Add("234",3);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+
+       
+
+
+
+                //listViewFilm.DataBindings.Add(filtered);
+
+                // ListViewItem[] lItem = MyList.Select(X => new ListViewItem(new String[] { i++.ToString() }.Concat(X).ToArray())).ToArray();
+                // listView1.Items.AddRange(lItem);
+
+
+                //string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
+                //Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+                //foreach (DataGridViewRow row in dgvTableRec.Rows)
+                //{
+                //    if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                //    {
+                //        Record record = null;
+                //        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
+                //        if (record != null) lvSelectRecord_add(record.Name, record.Year, record.Id);
+                //    }
+                //}
+
+
+                //foreach (ListViewItem eachItem in listViewFilm.Items)
+                //{
+                //    act.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
+                //}
+
+
+            }
+        }
+
+
         private Actor GetSelectedActor()  // получение выбранной записи в dgvTableActor
         {
             DataGridView dgv = dgvTableActors;
@@ -1721,33 +1815,14 @@ namespace FilmCollection
 
         private void btnNewActor_Click(object sender, EventArgs e)
         {
-            Actor actor = new Actor();
-            actor.FIO = tbFIO.Text;
-
-
-
-            foreach (Actor item in _videoCollection.ActorList)
-            {
-                if (item.Equals(actor))
-                {
-                    MessageBox.Show(actor.FIO + " уже есть в списке актеров!");
-                    return; // Выходим из метода
-                }
-            }
-
-
-            //actor.LifeTime = "";
-
-
-
-            //foreach (Record item in _videoCollection.VideoList)
-            //{
-            //    if (item.Equals(record))
-            //    {
-            //        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
-            //        return; // Выходим из метода
-            //    }
-            //}
+            tbFIO.Text = "";
+            maskDateOfBirth.Text = "";
+            maskDateOfDeath.Text = "";
+            checkBox1.Checked = false;
+            cBoxCountry.SelectedIndex = 0;
+            tbFilmFind.Text = "";
+            listViewFilm.Clear();
+            lvSelectRecord.Items.Clear();
         }
 
         private void btnSaveActor_Click(object sender, EventArgs e)
@@ -1756,74 +1831,40 @@ namespace FilmCollection
             Country_Rus country = (Country_Rus)cBoxCountry.SelectedIndex;
             Actor actor = new Actor();
             actor.FIO = tbFIO.Text;
-            actor.DateOfBirth = maskDateOfBirth.Text;
-            actor.DateOfDeath = maskDateOfDeath.Text;
-            actor.Country = country;
-
             foreach (Actor item in _videoCollection.ActorList)
             {
                 if (item.Equals(actor))
                 {
                     MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
-                    return; // Выходим из метода
+                    return; // Выходим
                 }
             }
 
-            actor.Id = _videoCollection.getActorID();
-
-            try
-            {
-                string[] dateComponents = maskDateOfBirth.Text.Split('.');
-                string month = dateComponents[0].Trim();
-                string day = dateComponents[1].Trim();
-                string year = dateComponents[2].Trim();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            //MessageBox.Show(month + "/" + day + "/" + year);
-
-            //maskDateOfBirth.
-            // \d{ 2}/\d{ 2}/\d{ 4}
-            //  00/00/0000
-
-            //string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
-            //Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
-
-
-            //    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
-            //    {
-            //        i++;
-            //        dgvSelected.Add(row.Cells[cell].RowIndex);
-            //        row.Selected = true;
-            //        //break; //Требуется для выбора одно строки
-            //    }
-
-            //Regex regex = new Regex(@"\b([0-2][0-9][0-1][0-9]1[8-9][0-9][0-9])");
-            //Match match = regex.Match(maskDateOfBirth.Text);
-            //if (match.Success)
+            //try
             //{
-            //    // Console.WriteLine(match.Value);
-            //    MessageBox.Show(match.Value);
+            //    string[] dateComponents = maskDateOfBirth.Text.Split('.');
+            //    string month = dateComponents[0].Trim();
+            //    string day = dateComponents[1].Trim();
+            //    string year = dateComponents[2].Trim();
             //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
+            actor.DateOfBirth = maskDateOfBirth.Text;
+            actor.DateOfDeath = maskDateOfDeath.Text;
+            actor.Country = country;
+            actor.Id = _videoCollection.getActorID();
 
             foreach (ListViewItem eachItem in listViewFilm.Items)
             {
                 actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
             }
 
-            
-
             _videoCollection.Add(actor);
             _videoCollection.Save();
             PepareRefresh();
-        }
-
-        private void maskedTextBox2_Validating(object sender, CancelEventArgs e)
-        {
-
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -1879,31 +1920,16 @@ namespace FilmCollection
             lvSelectRecord.Items.Add(itm);
         }
 
-
         private void lvSelectRecord_DoubleClick(object sender, EventArgs e)
         {
-            //MessageBox.Show(lvSelectRecord.SelectedItems[0].SubItems[0].Text);
-
-            //if (lvSelectRecord.SelectedItems.Count > 0)
-            //{
-            //    var item = lvSelectRecord.SelectedItems[0];
-            //}
-
-            //var selectedItems = lvSelectRecord.SelectedItems;
-            //foreach (ListViewItem selectedItem in selectedItems)
-            //{
-            //}
-
             if (lvSelectRecord.SelectedItems.Count > 0)
             {
                 foreach (ListViewItem item in lvSelectRecord.SelectedItems)
                 {
                     listViewFilm.Items.Add((ListViewItem)item.Clone());
-
                 }
             }
         }
-
 
         private void listViewFilm_DoubleClick(object sender, EventArgs e)
         {
@@ -1914,3 +1940,45 @@ namespace FilmCollection
         }
     }
 }
+
+
+
+
+//MessageBox.Show(lvSelectRecord.SelectedItems[0].SubItems[0].Text);
+
+//if (lvSelectRecord.SelectedItems.Count > 0)
+//{
+//    var item = lvSelectRecord.SelectedItems[0];
+//}
+
+//var selectedItems = lvSelectRecord.SelectedItems;
+//foreach (ListViewItem selectedItem in selectedItems)
+//{
+//}
+
+
+//MessageBox.Show(month + "/" + day + "/" + year);
+
+//maskDateOfBirth.
+// \d{ 2}/\d{ 2}/\d{ 4}
+//  00/00/0000
+
+//string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
+//Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+
+//    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
+//    {
+//        i++;
+//        dgvSelected.Add(row.Cells[cell].RowIndex);
+//        row.Selected = true;
+//        //break; //Требуется для выбора одно строки
+//    }
+
+//Regex regex = new Regex(@"\b([0-2][0-9][0-1][0-9]1[8-9][0-9][0-9])");
+//Match match = regex.Match(maskDateOfBirth.Text);
+//if (match.Success)
+//{
+//    // Console.WriteLine(match.Value);
+//    MessageBox.Show(match.Value);
+//}
