@@ -1809,7 +1809,12 @@ namespace FilmCollection
             //    MessageBox.Show(match.Value);
             //}
 
+            foreach (ListViewItem eachItem in listViewFilm.Items)
+            {
+                actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
+            }
 
+            
 
             _videoCollection.Add(actor);
             _videoCollection.Save();
@@ -1833,15 +1838,10 @@ namespace FilmCollection
             {
                 maskDateOfDeath.Enabled = true;
                 maskDateOfDeath.Text = "";
-                maskDateOfDeath.Mask = "00.00.0000";
+                maskDateOfDeath.Mask = "00/00/0000";
             }
         }
 
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    MessageBox.Show(Guid.NewGuid().ToString());
-
-        //}
 
         private void tbFilmFind_TextChanged(object sender, EventArgs e)
         {
@@ -1880,32 +1880,6 @@ namespace FilmCollection
         }
 
 
-        //private void listBox2_DoubleClick(object sender, EventArgs e)
-        //{
-        //    //listBox1.Items.Add(listBox2.SelectedItem);
-        //    ////listView1.Items.Add(listBox2.SelectedItem.ToString());
-
-        //    ////string[] arr = new string[4];
-        //    ////arr[0] = "product_1"; arr[1] = "100"; arr[2] = "10";
-
-        //    //string[] arr = new string[2];
-        //    //arr[0] = listBox2.SelectedItem.ToString();
-        //    //arr[1] = "01";
-
-        //    //ListViewItem itm = new ListViewItem(arr);
-        //    //listView1.Items.Add(itm);
-
-
-        //    ////listView1.Items[0].SubItems.Add("John Smith");
-        //    ////listView1.Items[0].SubItems.Add("==========");
-        //    ////listView1.Items[0].SubItems.Add(listBox2.SelectedItem.ToString());
-
-        //    ////string[] row1 = { "s1", "s2", "s3" };
-        //    ////listView1.Items.Add("Column1Text").SubItems.AddRange(row1);
-        //    ////listView1.Items.Add("Column2Text").SubItems.AddRange(row1);
-
-        //}
-
         private void lvSelectRecord_DoubleClick(object sender, EventArgs e)
         {
             //MessageBox.Show(lvSelectRecord.SelectedItems[0].SubItems[0].Text);
@@ -1925,6 +1899,7 @@ namespace FilmCollection
                 foreach (ListViewItem item in lvSelectRecord.SelectedItems)
                 {
                     listViewFilm.Items.Add((ListViewItem)item.Clone());
+
                 }
             }
         }
