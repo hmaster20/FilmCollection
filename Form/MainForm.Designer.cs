@@ -1691,7 +1691,6 @@
             this.maskDateOfDeath.Size = new System.Drawing.Size(121, 20);
             this.maskDateOfDeath.TabIndex = 58;
             this.maskDateOfDeath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.maskDateOfDeath.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
             // 
             // label6
             // 
