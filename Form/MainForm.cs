@@ -1819,7 +1819,7 @@ namespace FilmCollection
             maskDateOfBirth.Text = "";
             maskDateOfDeath.Text = "";
             checkBox1.Checked = false;
-            cBoxCountry.SelectedIndex = 0;
+            cBoxCountryActor.SelectedIndex = -1;
             tbFilmFind.Text = "";
             listViewFilm.Clear();
             lvSelectRecord.Items.Clear();
@@ -1828,7 +1828,7 @@ namespace FilmCollection
         private void btnSaveActor_Click(object sender, EventArgs e)
         {
 
-            Country_Rus country = (Country_Rus)cBoxCountry.SelectedIndex;
+            Country_Rus country = (Country_Rus)cBoxCountryActor.SelectedIndex;
             Actor actor = new Actor();
             actor.FIO = tbFIO.Text;
             foreach (Actor item in _videoCollection.ActorList)
