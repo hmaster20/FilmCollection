@@ -152,23 +152,29 @@
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.panelActEditTitle = new System.Windows.Forms.Panel();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listViewFilm = new System.Windows.Forms.ListView();
+            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colYear = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label10 = new System.Windows.Forms.Label();
+            this.lvSelectRecord = new System.Windows.Forms.ListView();
             this.colSelectName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colSelectYear = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tbFilmFind = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.gActAbout = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.cBoxCountryActor = new System.Windows.Forms.ComboBox();
+            this.tbFIO = new System.Windows.Forms.TextBox();
             this.maskDateOfBirth = new System.Windows.Forms.MaskedTextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.maskDateOfDeath = new System.Windows.Forms.MaskedTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.btnSaveActor = new System.Windows.Forms.Button();
             this.btnCancelActor = new System.Windows.Forms.Button();
-            this.tbFilmFind = new System.Windows.Forms.TextBox();
-            this.tbFIO = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabWriter = new System.Windows.Forms.TabPage();
@@ -190,12 +196,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.gActAbout = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.colSelectYear = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colYear = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -223,14 +223,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panelActEditTitle.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.gActAbout.SuspendLayout();
             this.tabImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
-            this.gActAbout.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -1518,27 +1518,113 @@
             this.panelActEditTitle.Size = new System.Drawing.Size(423, 543);
             this.panelActEditTitle.TabIndex = 0;
             // 
-            // listView2
+            // groupBox1
             // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.groupBox1.Controls.Add(this.listViewFilm);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.lvSelectRecord);
+            this.groupBox1.Controls.Add(this.tbFilmFind);
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Location = new System.Drawing.Point(20, 165);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(391, 276);
+            this.groupBox1.TabIndex = 64;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Фильмография";
+            // 
+            // listViewFilm
+            // 
+            this.listViewFilm.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colName,
+            this.colYear});
+            this.listViewFilm.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewFilm.Location = new System.Drawing.Point(15, 19);
+            this.listViewFilm.MultiSelect = false;
+            this.listViewFilm.Name = "listViewFilm";
+            this.listViewFilm.ShowGroups = false;
+            this.listViewFilm.Size = new System.Drawing.Size(364, 65);
+            this.listViewFilm.TabIndex = 62;
+            this.listViewFilm.UseCompatibleStateImageBehavior = false;
+            this.listViewFilm.View = System.Windows.Forms.View.Details;
+            this.listViewFilm.DoubleClick += new System.EventHandler(this.listViewFilm_DoubleClick);
+            // 
+            // colName
+            // 
+            this.colName.Text = "";
+            this.colName.Width = 200;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(116, 97);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(160, 13);
+            this.label10.TabIndex = 53;
+            this.label10.Text = "Введите названия для поиска";
+            // 
+            // lvSelectRecord
+            // 
+            this.lvSelectRecord.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colSelectName,
             this.colSelectYear});
-            this.listView2.FullRowSelect = true;
-            this.listView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView2.Location = new System.Drawing.Point(15, 152);
-            this.listView2.MultiSelect = false;
-            this.listView2.Name = "listView2";
-            this.listView2.ShowGroups = false;
-            this.listView2.Size = new System.Drawing.Size(364, 108);
-            this.listView2.TabIndex = 62;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
-            this.listView2.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            this.lvSelectRecord.FullRowSelect = true;
+            this.lvSelectRecord.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lvSelectRecord.Location = new System.Drawing.Point(15, 152);
+            this.lvSelectRecord.MultiSelect = false;
+            this.lvSelectRecord.Name = "lvSelectRecord";
+            this.lvSelectRecord.ShowGroups = false;
+            this.lvSelectRecord.Size = new System.Drawing.Size(364, 108);
+            this.lvSelectRecord.TabIndex = 62;
+            this.lvSelectRecord.UseCompatibleStateImageBehavior = false;
+            this.lvSelectRecord.View = System.Windows.Forms.View.Details;
+            this.lvSelectRecord.DoubleClick += new System.EventHandler(this.lvSelectRecord_DoubleClick);
             // 
             // colSelectName
             // 
             this.colSelectName.Text = "";
             this.colSelectName.Width = 275;
+            // 
+            // colSelectYear
+            // 
+            this.colSelectYear.Text = "";
+            this.colSelectYear.Width = 45;
+            // 
+            // tbFilmFind
+            // 
+            this.tbFilmFind.Location = new System.Drawing.Point(15, 113);
+            this.tbFilmFind.Name = "tbFilmFind";
+            this.tbFilmFind.Size = new System.Drawing.Size(364, 20);
+            this.tbFilmFind.TabIndex = 55;
+            this.tbFilmFind.TextChanged += new System.EventHandler(this.tbFilmFind_TextChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(12, 136);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(137, 13);
+            this.label14.TabIndex = 53;
+            this.label14.Text = "Кликом выберите записи";
+            // 
+            // gActAbout
+            // 
+            this.gActAbout.Controls.Add(this.checkBox1);
+            this.gActAbout.Controls.Add(this.cBoxCountryActor);
+            this.gActAbout.Controls.Add(this.tbFIO);
+            this.gActAbout.Controls.Add(this.maskDateOfBirth);
+            this.gActAbout.Controls.Add(this.label9);
+            this.gActAbout.Controls.Add(this.maskDateOfDeath);
+            this.gActAbout.Controls.Add(this.label6);
+            this.gActAbout.Controls.Add(this.label11);
+            this.gActAbout.Controls.Add(this.label12);
+            this.gActAbout.Controls.Add(this.label13);
+            this.gActAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gActAbout.Location = new System.Drawing.Point(20, 30);
+            this.gActAbout.Name = "gActAbout";
+            this.gActAbout.Size = new System.Drawing.Size(391, 126);
+            this.gActAbout.TabIndex = 63;
+            this.gActAbout.TabStop = false;
+            this.gActAbout.Text = "Информация об актере";
             // 
             // checkBox1
             // 
@@ -1561,6 +1647,13 @@
             this.cBoxCountryActor.Size = new System.Drawing.Size(281, 21);
             this.cBoxCountryActor.TabIndex = 59;
             // 
+            // tbFIO
+            // 
+            this.tbFIO.Location = new System.Drawing.Point(98, 23);
+            this.tbFIO.Name = "tbFIO";
+            this.tbFIO.Size = new System.Drawing.Size(279, 20);
+            this.tbFIO.TabIndex = 55;
+            // 
             // maskDateOfBirth
             // 
             this.maskDateOfBirth.Location = new System.Drawing.Point(98, 56);
@@ -1570,6 +1663,15 @@
             this.maskDateOfBirth.TabIndex = 58;
             this.maskDateOfBirth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskDateOfBirth.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(49, 26);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.TabIndex = 52;
+            this.label9.Text = "Ф.И.О.";
             // 
             // maskDateOfDeath
             // 
@@ -1581,6 +1683,42 @@
             this.maskDateOfDeath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.maskDateOfDeath.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
             this.maskDateOfDeath.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBox2_Validating);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(49, 93);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.TabIndex = 54;
+            this.label6.Text = "Страна";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 59);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 13);
+            this.label11.TabIndex = 53;
+            this.label11.Text = "Годы жизни:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(85, 59);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(13, 13);
+            this.label12.TabIndex = 53;
+            this.label12.Text = "с";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(177, 59);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(19, 13);
+            this.label13.TabIndex = 53;
+            this.label13.Text = "по";
             // 
             // btnSaveActor
             // 
@@ -1606,84 +1744,6 @@
             this.btnCancelActor.Text = "Отмена";
             this.btnCancelActor.UseVisualStyleBackColor = true;
             this.btnCancelActor.Visible = false;
-            // 
-            // tbFilmFind
-            // 
-            this.tbFilmFind.Location = new System.Drawing.Point(15, 113);
-            this.tbFilmFind.Name = "tbFilmFind";
-            this.tbFilmFind.Size = new System.Drawing.Size(364, 20);
-            this.tbFilmFind.TabIndex = 55;
-            this.tbFilmFind.TextChanged += new System.EventHandler(this.tbFilmFind_TextChanged);
-            // 
-            // tbFIO
-            // 
-            this.tbFIO.Location = new System.Drawing.Point(98, 23);
-            this.tbFIO.Name = "tbFIO";
-            this.tbFIO.Size = new System.Drawing.Size(279, 20);
-            this.tbFIO.TabIndex = 55;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(49, 93);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 13);
-            this.label6.TabIndex = 54;
-            this.label6.Text = "Страна";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 136);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(137, 13);
-            this.label14.TabIndex = 53;
-            this.label14.Text = "Кликом выберите записи";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(116, 97);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(160, 13);
-            this.label10.TabIndex = 53;
-            this.label10.Text = "Введите названия для поиска";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(177, 59);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(19, 13);
-            this.label13.TabIndex = 53;
-            this.label13.Text = "по";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(85, 59);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(13, 13);
-            this.label12.TabIndex = 53;
-            this.label12.Text = "с";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 59);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(71, 13);
-            this.label11.TabIndex = 53;
-            this.label11.Text = "Годы жизни:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(49, 26);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 13);
-            this.label9.TabIndex = 52;
-            this.label9.Text = "Ф.И.О.";
             // 
             // btnNewActor
             // 
@@ -1885,65 +1945,6 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colName,
-            this.colYear});
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.Location = new System.Drawing.Point(15, 19);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.ShowGroups = false;
-            this.listView1.Size = new System.Drawing.Size(364, 65);
-            this.listView1.TabIndex = 62;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // colName
-            // 
-            this.colName.Text = "";
-            this.colName.Width = 200;
-            // 
-            // gActAbout
-            // 
-            this.gActAbout.Controls.Add(this.checkBox1);
-            this.gActAbout.Controls.Add(this.cBoxCountryActor);
-            this.gActAbout.Controls.Add(this.tbFIO);
-            this.gActAbout.Controls.Add(this.maskDateOfBirth);
-            this.gActAbout.Controls.Add(this.label9);
-            this.gActAbout.Controls.Add(this.maskDateOfDeath);
-            this.gActAbout.Controls.Add(this.label6);
-            this.gActAbout.Controls.Add(this.label11);
-            this.gActAbout.Controls.Add(this.label12);
-            this.gActAbout.Controls.Add(this.label13);
-            this.gActAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gActAbout.Location = new System.Drawing.Point(20, 30);
-            this.gActAbout.Name = "gActAbout";
-            this.gActAbout.Size = new System.Drawing.Size(391, 126);
-            this.gActAbout.TabIndex = 63;
-            this.gActAbout.TabStop = false;
-            this.gActAbout.Text = "Информация об актере";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.listView1);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.listView2);
-            this.groupBox1.Controls.Add(this.tbFilmFind);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Location = new System.Drawing.Point(20, 165);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(391, 276);
-            this.groupBox1.TabIndex = 64;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Фильмография";
-            // 
-            // colSelectYear
-            // 
-            this.colSelectYear.Text = "";
-            this.colSelectYear.Width = 45;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1995,6 +1996,10 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panelActEditTitle.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.gActAbout.ResumeLayout(false);
+            this.gActAbout.PerformLayout();
             this.tabImage.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
@@ -2002,10 +2007,6 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
-            this.gActAbout.ResumeLayout(false);
-            this.gActAbout.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2170,10 +2171,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDateOfBirth;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDateOfDeath;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCountry;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ListView lvSelectRecord;
         private System.Windows.Forms.ColumnHeader colSelectName;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewFilm;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.GroupBox gActAbout;
         private System.Windows.Forms.GroupBox groupBox1;
