@@ -643,11 +643,23 @@ namespace FilmCollection
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
 
-            //chkActorList.Items.Clear();
-            //foreach (Actor item in _videoCollection.ActorList)
-            //{
-            //    chkActorList.Items.Add(item.FIO);
-            //}
+            // список актеров
+                 chkActorList.Items.Clear();
+            foreach (Actor item in _videoCollection.ActorList)
+            {
+                //chkActorList.Items.Add(item.FIO);
+                chkActorList.Items.AddRange( new object[] {  "Item 3, column 2"});
+
+                //string[] arr = new string[2];
+                //arr[0] = item.FIO;
+                //arr[1] = item.Id.ToString();
+
+                //ListBox itm = new ListBox(arr);
+                //chkActorList.Items.Add(itm);
+
+
+
+            }
         }
 
         private void RefreshTable(List<Record> filtered)
@@ -699,6 +711,38 @@ namespace FilmCollection
                 cBoxTypeVideo.SelectedIndex = ((int)record.Category);
                 cBoxGenre.SelectedIndex = ((int)record.GenreVideo);
                 cBoxCountry.SelectedIndex = ((int)record.Country);
+
+                // поиск актеров по id
+                chkActorSelect.Items.Clear();
+
+                try
+                {
+                    foreach (int actorID in record.ActorID)
+                    {
+                        foreach (var item in _videoCollection.ActorList.FindAll(v => v.Id == actorID))
+                        {
+
+                            chkActorSelect.Items.Add(item.FIO);
+
+                            //string[] arr = new string[3];
+                            //arr[0] = item.Name;
+                            //arr[1] = item.Year.ToString();
+                            //arr[2] = item.Id.ToString();
+
+                            //ListViewItem itm = new ListViewItem(arr);
+
+                            //listViewFilm.Items.Add(itm);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+
+
+
             }
         }
 
@@ -857,11 +901,11 @@ namespace FilmCollection
             }
 
 
-            chkActorList.Items.Clear();
-            foreach (Actor item in _videoCollection.ActorList)
-            {
-                chkActorList.Items.Add(item.FIO);
-            }
+            //chkActorList.Items.Clear();
+            //foreach (Actor item in _videoCollection.ActorList)
+            //{
+            //    chkActorList.Items.Add(item.FIO);
+            //}
 
             // Заполняем поля
             tbName.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
@@ -929,6 +973,11 @@ namespace FilmCollection
                     record.FileName = tbFileName.Text;
                 }
 
+                foreach (int _actorID in chkActorSelect.Items)
+                {
+                    record.ActorID.Add(_actorID);
+                }
+
                 _videoCollection.Save();
             }
         }
@@ -949,6 +998,11 @@ namespace FilmCollection
             record.Category = category;
             record.GenreVideo = genre;
             record.Description = tbDescription.Text;
+
+            foreach (int _actorID in chkActorSelect.Items)
+            {
+                record.ActorID.Add(_actorID);
+            }
 
             _videoCollection.Add(record);
             _videoCollection.Save();
