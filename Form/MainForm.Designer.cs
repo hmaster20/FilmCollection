@@ -976,6 +976,7 @@
             // 
             this.chkActorList.CheckOnClick = true;
             this.chkActorList.Location = new System.Drawing.Point(71, 323);
+            this.chkActorList.MultiColumn = true;
             this.chkActorList.Name = "chkActorList";
             this.chkActorList.Size = new System.Drawing.Size(128, 154);
             this.chkActorList.TabIndex = 51;
