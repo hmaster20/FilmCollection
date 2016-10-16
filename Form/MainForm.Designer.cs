@@ -149,7 +149,7 @@
             this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.tscCountryFilter = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.panelActEditTitle = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -1469,7 +1469,7 @@
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.toolStripComboBox1,
+            this.tscCountryFilter,
             this.toolStripComboBox2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -1483,29 +1483,23 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 23);
             this.toolStripMenuItem1.Text = "Сброс фильтра";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
-            // toolStripComboBox1
+            // tscCountryFilter
             // 
-            this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox1.Items.AddRange(new object[] {
-            "Все",
-            "Фильмы",
-            "Мульты",
-            "Сериалы"});
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            this.tscCountryFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tscCountryFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tscCountryFilter.Name = "tscCountryFilter";
+            this.tscCountryFilter.Size = new System.Drawing.Size(121, 23);
+            this.tscCountryFilter.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
             // toolStripComboBox2
             // 
             this.toolStripComboBox2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox2.Items.AddRange(new object[] {
-            "По именам",
-            "По времени",
-            "По году",
-            "По категориям",
-            "По каталогу"});
+            "По Ф.И.О.",
+            "По стране"});
             this.toolStripComboBox2.Name = "toolStripComboBox2";
             this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
             // 
@@ -2158,7 +2152,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox tscCountryFilter;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
         private System.Windows.Forms.ComboBox cBoxCountryActor;
         private System.Windows.Forms.Button btnSaveActor;
