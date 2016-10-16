@@ -56,6 +56,7 @@ namespace FilmCollection
             {
                 cBoxCountry.Items.Add(item);
                 cBoxCountryActor.Items.Add(item);
+                tscCountryFilter.Items.Add(item);
             }
 
             WorkerCB = new BackgroundWorker();
@@ -587,6 +588,7 @@ namespace FilmCollection
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
         {
             dgvTableRec.ClearSelection();
+            dgvTableActors.ClearSelection();
             PepareRefresh();
         }
 
@@ -633,14 +635,19 @@ namespace FilmCollection
 
 
             List<Actor> filteredAct = _videoCollection.ActorList;
+            if (tscCountryFilter.SelectedIndex > -1)
+            {
+                filteredAct = filteredAct.FindAll(v => v.Country == (Country_Rus)tscCountryFilter.SelectedIndex);
+            }    
+
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
 
-            chkActorList.Items.Clear();
-            foreach (Actor item in _videoCollection.ActorList)
-            {
-                chkActorList.Items.Add(item.FIO);
-            }
+            //chkActorList.Items.Clear();
+            //foreach (Actor item in _videoCollection.ActorList)
+            //{
+            //    chkActorList.Items.Add(item.FIO);
+            //}
         }
 
         private void RefreshTable(List<Record> filtered)
@@ -721,6 +728,7 @@ namespace FilmCollection
                 // Панель редактирования
                 tbFIO.Text = act.FIO;
                 maskDateOfBirth.Text = act.DateOfBirth;
+                maskDateOfDeath.Mask = "";
                 maskDateOfDeath.Text = act.DateOfDeath;
                 cBoxCountryActor.SelectedIndex = ((int)act.Country);
 
@@ -728,14 +736,10 @@ namespace FilmCollection
 
                 try
                 {
-                    //List<Record> filtered = _videoCollection.VideoList;
                     foreach (int recID in act.VideoID)
                     {
-                        //filtered = filtered.FindAll(v => v.Id == item);
-
                         foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
                         {
-
                             string[] arr = new string[3];
                             arr[0] = item.Name;
                             arr[1] = item.Year.ToString();
@@ -745,58 +749,12 @@ namespace FilmCollection
 
                             listViewFilm.Items.Add(itm);
                         }
-
-
-                        // string[] arr = new string[3];
-                        //arr[0] = filtered[0].Name;
-                        // arr[1] = filtered[0].Year.ToString();
-                        // arr[2] = filtered[0].Id.ToString();
-
-                        // ListViewItem itm = new ListViewItem(arr);
-
-                        //listViewFilm.Items.Add(itm);
-
-                        // listViewFilm.Items.Add(string.Format("{0} | {1}", filtered[0].Name, filtered[0].Year.ToString()));
-
-                        //listViewFilm.Items.Add("234",3);
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-
-
-       
-
-
-
-                //listViewFilm.DataBindings.Add(filtered);
-
-                // ListViewItem[] lItem = MyList.Select(X => new ListViewItem(new String[] { i++.ToString() }.Concat(X).ToArray())).ToArray();
-                // listView1.Items.AddRange(lItem);
-
-
-                //string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
-                //Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
-
-                //foreach (DataGridViewRow row in dgvTableRec.Rows)
-                //{
-                //    if (regex.IsMatch(row.Cells[0].Value.ToString()))
-                //    {
-                //        Record record = null;
-                //        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
-                //        if (record != null) lvSelectRecord_add(record.Name, record.Year, record.Id);
-                //    }
-                //}
-
-
-                //foreach (ListViewItem eachItem in listViewFilm.Items)
-                //{
-                //    act.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
-                //}
-
-
             }
         }
 
@@ -817,9 +775,13 @@ namespace FilmCollection
         {
             PepareRefresh();
             dgvTableRec.ClearSelection(); // сброс селекта
+            dgvTableActors.ClearSelection();
 
             tscbTypeFilter.SelectedIndex = 0;
             tscbSort.SelectedIndex = -1;
+
+            tscCountryFilter.SelectedIndex = -1;
+
 
             tbName.Text = "";
             numericTime.Value = 0;
@@ -892,6 +854,13 @@ namespace FilmCollection
                     MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
                     return; // Выходим из метода
                 }
+            }
+
+
+            chkActorList.Items.Clear();
+            foreach (Actor item in _videoCollection.ActorList)
+            {
+                chkActorList.Items.Add(item.FIO);
             }
 
             // Заполняем поля
@@ -1817,7 +1786,7 @@ namespace FilmCollection
         {
             tbFIO.Text = "";
             maskDateOfBirth.Text = "";
-            maskDateOfDeath.Text = "";
+            maskDateofDeath_true();
             checkBox1.Checked = false;
             cBoxCountryActor.SelectedIndex = -1;
             tbFilmFind.Text = "";
@@ -1877,12 +1846,16 @@ namespace FilmCollection
             }
             else
             {
-                maskDateOfDeath.Enabled = true;
-                maskDateOfDeath.Text = "";
-                maskDateOfDeath.Mask = "00/00/0000";
+                maskDateofDeath_true();
             }
         }
 
+        private void maskDateofDeath_true()
+        {
+            maskDateOfDeath.Enabled = true;
+            maskDateOfDeath.Text = "";
+            maskDateOfDeath.Mask = "00/00/0000";
+        }
 
         private void tbFilmFind_TextChanged(object sender, EventArgs e)
         {
