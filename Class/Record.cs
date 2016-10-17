@@ -7,6 +7,10 @@ namespace FilmCollection
 {
     public class Record
     {
+        public Record()
+        {
+            ActorID = new List<int>();          // Создание списка ID
+        }
         public bool Visible { get; set; }       // Видимость записи
 
         public int Id { get; set; }             // Уникальный идентификатор
