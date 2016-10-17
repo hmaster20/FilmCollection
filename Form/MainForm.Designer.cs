@@ -566,7 +566,6 @@
             this.btnActors.Name = "btnActors";
             this.btnActors.Size = new System.Drawing.Size(138, 22);
             this.btnActors.Text = "Актеры";
-            this.btnActors.Click += new System.EventHandler(this.btnActors_Click);
             // 
             // btnHelp
             // 
@@ -823,7 +822,7 @@
             this.btnRemoveGroup.TabIndex = 53;
             this.btnRemoveGroup.Text = "<";
             this.btnRemoveGroup.UseVisualStyleBackColor = false;
-            this.btnRemoveGroup.Click += new System.EventHandler(this.btnRemoveGroup_Click);
+            this.btnRemoveGroup.Click += new System.EventHandler(this.btnRemove_SelectActor_Click);
             // 
             // btnAddGroup
             // 
@@ -835,7 +834,7 @@
             this.btnAddGroup.TabIndex = 52;
             this.btnAddGroup.Text = ">";
             this.btnAddGroup.UseVisualStyleBackColor = false;
-            this.btnAddGroup.Click += new System.EventHandler(this.btnAddGroup_Click);
+            this.btnAddGroup.Click += new System.EventHandler(this.btnAdd_SelectActor_Click);
             // 
             // lblActorsSelect
             // 
