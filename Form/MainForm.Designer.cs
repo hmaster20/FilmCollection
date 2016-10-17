@@ -177,7 +177,6 @@
             this.btnCancelActor = new System.Windows.Forms.Button();
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.tabWriter = new System.Windows.Forms.TabPage();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.btnDownloadPic = new System.Windows.Forms.Button();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
@@ -654,7 +653,6 @@
             // 
             this.tabControl2.Controls.Add(this.tabFilm);
             this.tabControl2.Controls.Add(this.tabActors);
-            this.tabControl2.Controls.Add(this.tabWriter);
             this.tabControl2.Controls.Add(this.tabImage);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
@@ -746,6 +744,7 @@
             "По названию",
             "По каталогу",
             "По году",
+            "По стране",
             "По категориям",
             "По времени"});
             this.tscbSort.Name = "tscbSort";
@@ -1774,16 +1773,6 @@
             this.label8.Text = "Панель редактирования";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tabWriter
-            // 
-            this.tabWriter.BackColor = System.Drawing.SystemColors.Control;
-            this.tabWriter.Location = new System.Drawing.Point(4, 22);
-            this.tabWriter.Name = "tabWriter";
-            this.tabWriter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWriter.Size = new System.Drawing.Size(914, 551);
-            this.tabWriter.TabIndex = 1;
-            this.tabWriter.Text = "Редактор";
-            // 
             // tabImage
             // 
             this.tabImage.Controls.Add(this.btnDownloadPic);
@@ -2024,7 +2013,6 @@
         private System.Windows.Forms.TreeView treeFolder;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabFilm;
-        private System.Windows.Forms.TabPage tabWriter;
         private System.Windows.Forms.ToolStripMenuItem MenuFile;
         private System.Windows.Forms.ToolStripMenuItem btnCreateBase;
         private System.Windows.Forms.ToolStripMenuItem btnHelp;
