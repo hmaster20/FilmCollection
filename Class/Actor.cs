@@ -20,6 +20,10 @@ namespace FilmCollection
         public string DateOfBirth { get; set; }   // дата рождения
         public string DateOfDeath { get; set; }   // дата смерти
 
+        public override string ToString()
+        {
+            return FIO;
+        }
 
         #region Обработка Страны
         private Country_Rus _country;   // Страна
