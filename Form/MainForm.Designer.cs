@@ -975,6 +975,7 @@
             // chkActorList
             // 
             this.chkActorList.CheckOnClick = true;
+            this.chkActorList.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.chkActorList.Location = new System.Drawing.Point(71, 323);
             this.chkActorList.MultiColumn = true;
             this.chkActorList.Name = "chkActorList";
