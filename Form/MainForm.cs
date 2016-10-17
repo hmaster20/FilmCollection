@@ -1629,35 +1629,7 @@ namespace FilmCollection
 
         #region Обработка актеров
 
-        private void btnActors_Click(object sender, EventArgs e)
-        {
-            //Actors form = new Actors();
-            //if (form.ShowDialog() == DialogResult.OK)
-            //{
-            // _videoCollection.Add(form.Record);
-            // _videoCollection.Save();
-            // RefreshTables();
-            // }
-        }
-
-
-
-
-
-        private void LoadFields()
-        {
-            //chkLeftFelds.Items.Clear();
-            //cmbChangeOnField.Items.Clear();
-            //cmbValueField.Items.Clear();
-            //cmbValueField.Items.Add("COUNT");
-            //foreach (DataColumn dc in dataSet.Tables[0].Columns)
-            //{
-            //    chkLeftFelds.Items.Add(dc.ColumnName);
-            //    cmbChangeOnField.Items.Add(dc.ColumnName);
-            //    cmbValueField.Items.Add(dc.ColumnName);
-            //}
-        }
-
+        
         private void btnMoveUp_Click(object sender, System.EventArgs e)
         {
             int index = chkActorList.SelectedIndices[0];
@@ -1712,7 +1684,7 @@ namespace FilmCollection
         }
 
 
-        private void btnAddGroup_Click(object sender, EventArgs e)
+        private void btnAdd_SelectActor_Click(object sender, EventArgs e)
         {
             if (chkActorList.CheckedItems.Count > 0)
             {
@@ -1725,136 +1697,17 @@ namespace FilmCollection
                 }
                 UserModifiedChanged(sender, e);
             }
-
-
-            //if (chkActorList.SelectedItems.Count > 0)
-            //{
-            //    foreach (var item in chkActorList.SelectedItems)
-            //    {
-            //        chkActorSelect.Items.Add(item);
-            //    }
-            //}
-
-            //if (chkActorList.SelectedItems.Count > 0)
-            //{
-            //    if (!chkActorSelect.Items.Contains(chkActorList.SelectedItems[0].ToString()))
-            //    {
-            //        // chkRightFelds.Items.Add(chkLeftFelds.SelectedItems[0].ToString());
-            //        // CreateSectionProps(chkLeftFelds.SelectedItems[0].ToString());
-            //        //chkLeftFelds.CheckedItems.OfType<string>().ToList().ForEach(chkRightFelds.Items.Add());
-
-            //        foreach (var item in chkActorList.CheckedItems.OfType<string>().ToList())
-            //        {
-            //            if (!chkActorSelect.Items.Contains(item))
-            //            {
-            //                chkActorSelect.Items.Add(item);
-            //            }
-            //        }
-
-            //        //var items = new System.Collections.ArrayList(chkLeftFelds.SelectedItems);
-
-            //        //foreach (var item in items)
-            //        //{
-            //        //    chkRightFelds.Items.Add(item);
-            //        //   // listbox.Items.remove(item);
-
-            //        //}
-
-
-            //    }
-            //}
         }
 
-        private void btnRemoveGroup_Click(object sender, System.EventArgs e)
+        private void btnRemove_SelectActor_Click(object sender, System.EventArgs e)
         {
-
-
             if (chkActorSelect.SelectedItems.Count > 0)
             {
                 chkActorSelect.Items.Remove(chkActorSelect.SelectedItem);
-                //string secName = chkActorSelect.SelectedItems[0].ToString();
-                // chkActorSelect.Items.Remove(chkActorSelect.SelectedItems[0]);
-                //УБРАТЬ check
-                // chkLeftFelds.ch// chkLeftFelds.Items.IndexOf(chkRightFelds.SelectedItems[0])
-                //sectionProps.Remove(secName);
+                UserModifiedChanged(sender, e);
             }
         }
 
-
-        private void chkLstFields_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            // SaveFieldAttributes(selectedField);
-            if (chkActorList.SelectedItems.Count > 0)
-            {
-                //LoadFieldAttributes(chkLstFields.SelectedItems[0].ToString());
-            }
-        }
-
-        private void lstGroupBy_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            //SaveSectionAttributes(selectedSection);
-            if (chkActorSelect.SelectedItems.Count > 0)
-            {
-                LoadSectionAttributes(chkActorSelect.SelectedItems[0].ToString());
-            }
-        }
-
-
-        private void SaveFieldAttributes(string fieldName)
-        {
-            //if (fieldProps[fieldName] != null)
-            //{
-            //    Field field = (Field)fieldProps[fieldName];
-            //    field.FieldName = lblColumnName.Text;
-            //    field.HeaderName = txtHeaderText.Text;
-            //    field.HeaderBackColor = pnlHBG.BackColor;
-            //    field.BackColor = pnlBG.BackColor;
-            //    field.Width = int.Parse(txtWidth.Text);
-            //    field.Alignment = (cmbAlignment.Text == "RIGHT") ? ALIGN.RIGHT : (cmbAlignment.Text == "CENTER") ? ALIGN.CENTER : ALIGN.LEFT;
-            //    field.isTotalField = chkTotalField.Checked;
-            //}
-        }
-
-        private void LoadSectionAttributes(string sectionName)
-        {
-            //if (sectionProps[sectionName] != null)
-            //{
-            //    Section section = (Section)sectionProps[sectionName];
-            //    lblSectionName.Text = sectionName;
-            //    txtTitlePrefix.Text = section.TitlePrefix;
-            //    pnlSecBGColor.BackColor = section.BackColor;
-            //    chkGradient.Checked = section.GradientBackground;
-            //    chkTotalRow.Checked = section.IncludeTotal;
-            //    chkChart.Checked = section.IncludeChart;
-            //    chkChartAtBottom.Checked = section.ChartShowAtBottom;
-            //    chkBorder.Checked = section.ChartShowBorder;
-            //    if (section.IncludeChart)
-            //    {
-            //        grpChartProps.Enabled = true;
-            //        txtChartTitle.Text = section.ChartTitle;
-            //        cmbChangeOnField.Text = section.ChartChangeOnField;
-            //        cmbValueField.Text = section.ChartValueField == "" ? "COUNT" : section.ChartValueField;
-            //        txtLabelText.Text = section.ChartLabelHeader;
-            //        txtPercentageText.Text = section.ChartPercentageHeader;
-            //        txtValueText.Text = section.ChartValueHeader;
-            //    }
-            //    else
-            //    {
-            //        grpChartProps.Enabled = false;
-            //        txtChartTitle.Text = "";
-            //        cmbChangeOnField.Text = "";
-            //        cmbValueField.Text = "";
-            //        txtLabelText.Text = "";
-            //        txtPercentageText.Text = "";
-            //        txtValueText.Text = "";
-            //    }
-            //}
-            //selectedSection = sectionName;
-        }
-
-
-
-        #endregion
 
         private void btnNewActor_Click(object sender, EventArgs e)
         {
@@ -1985,6 +1838,9 @@ namespace FilmCollection
                 listViewFilm.Items.Remove(eachItem);
             }
         }
+
+        #endregion
+
 
 
     }
