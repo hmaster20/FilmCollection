@@ -206,6 +206,11 @@ namespace FilmCollection
             return string.Compare(a.DirName, b.DirName);
         }
 
+        public static int CompareByCountry(Record a, Record b)  // Сравнение по стране
+        {
+            return string.Compare(a.CountryString, b.CountryString);
+        }
+
         public static int CompareByCategory(Record a, Record b) // Сравнение по категории
         {
             if (a.Category == b.Category)
