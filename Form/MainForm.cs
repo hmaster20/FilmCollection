@@ -133,21 +133,21 @@ namespace FilmCollection
 
         private void LoadFormVisualEffect()
         {
-            #region Восстановление состояния главной формы
-            string switch_on = _videoCollection.Options.FormState;
-            switch (switch_on)
-            {
-                case "Normal": WindowState = FormWindowState.Normal; break;
-                case "Minimized": WindowState = FormWindowState.Minimized; break;
-                case "Maximized": WindowState = FormWindowState.Maximized; break;
-                default: WindowState = FormWindowState.Maximized; break;
-            }
-            #endregion
+            //#region Восстановление состояния главной формы
+            //string switch_on = _videoCollection.Options.FormState;
+            //switch (switch_on)
+            //{
+            //    case "Normal": WindowState = FormWindowState.Normal; break;
+            //    case "Minimized": WindowState = FormWindowState.Minimized; break;
+            //    case "Maximized": WindowState = FormWindowState.Maximized; break;
+            //    default: WindowState = FormWindowState.Maximized; break;
+            //}
+            //#endregion
 
-            #region Восстановление состояния сплиттеров
-            scMain.SplitterDistance = _videoCollection.Options.scMainSplitter;
-            scTabFilm.SplitterDistance = _videoCollection.Options.scTabFilmSplitter;
-            #endregion
+            //#region Восстановление состояния сплиттеров
+            //scMain.SplitterDistance = _videoCollection.Options.scMainSplitter;
+            //scTabFilm.SplitterDistance = _videoCollection.Options.scTabFilmSplitter;
+            //#endregion
 
             //#region Восстановление состояния ширины колонок
             //DataGridViewColumnCollection columns = dgvTable.Columns;
@@ -625,10 +625,11 @@ namespace FilmCollection
             switch (switch_sort)  // Сортировка по столбцам
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
-                case 1: filtered.Sort(Record.CompareByTime); break;
+                case 1: filtered.Sort(Record.CompareByCatalog); break;
                 case 2: filtered.Sort(Record.CompareByYear); break;
+                    // по стране
                 case 3: filtered.Sort(Record.CompareByCategory); break;
-                case 4: filtered.Sort(Record.CompareByCatalog); break;
+                case 4: filtered.Sort(Record.CompareByTime); break;
                 default: break;
             }
             RefreshTable(filtered);
@@ -648,17 +649,6 @@ namespace FilmCollection
             foreach (Actor item in _videoCollection.ActorList)
             {
                 chkActorList.Items.Add(item);
-                //chkActorList.Items.AddRange( new object[] {  "Item 3, column 2"});
-
-                //string[] arr = new string[2];
-                //arr[0] = item.FIO;
-                //arr[1] = item.Id.ToString();
-
-                //ListBox itm = new ListBox(arr);
-                //chkActorList.Items.Add(itm);
-
-
-
             }
         }
 
