@@ -681,6 +681,8 @@
             this.scTabFilm.BackColor = System.Drawing.SystemColors.Control;
             this.scTabFilm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.scTabFilm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scTabFilm.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.scTabFilm.IsSplitterFixed = true;
             this.scTabFilm.Location = new System.Drawing.Point(3, 3);
             this.scTabFilm.Name = "scTabFilm";
             // 
@@ -741,11 +743,11 @@
             this.tscbSort.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tscbSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tscbSort.Items.AddRange(new object[] {
-            "По именам",
-            "По времени",
+            "По названию",
+            "По каталогу",
             "По году",
             "По категориям",
-            "По каталогу"});
+            "По времени"});
             this.tscbSort.Name = "tscbSort";
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
@@ -919,7 +921,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(264, 481);
+            this.btnSave.Location = new System.Drawing.Point(253, 481);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 23);
             this.btnSave.TabIndex = 47;
@@ -932,7 +934,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(264, 510);
+            this.btnCancel.Location = new System.Drawing.Point(253, 510);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -989,7 +991,7 @@
             0,
             0});
             this.numericTime.Name = "numericTime";
-            this.numericTime.Size = new System.Drawing.Size(203, 20);
+            this.numericTime.Size = new System.Drawing.Size(100, 20);
             this.numericTime.TabIndex = 32;
             this.numericTime.Enter += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -1047,7 +1049,7 @@
             // lblTimeMin
             // 
             this.lblTimeMin.AutoSize = true;
-            this.lblTimeMin.Location = new System.Drawing.Point(280, 154);
+            this.lblTimeMin.Location = new System.Drawing.Point(177, 154);
             this.lblTimeMin.Name = "lblTimeMin";
             this.lblTimeMin.Size = new System.Drawing.Size(37, 13);
             this.lblTimeMin.TabIndex = 24;
@@ -1111,7 +1113,7 @@
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(99, 511);
+            this.btnNew.Location = new System.Drawing.Point(95, 510);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
