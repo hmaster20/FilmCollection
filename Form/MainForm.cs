@@ -627,9 +627,9 @@ namespace FilmCollection
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByCatalog); break;
                 case 2: filtered.Sort(Record.CompareByYear); break;
-                    // по стране
-                case 3: filtered.Sort(Record.CompareByCategory); break;
-                case 4: filtered.Sort(Record.CompareByTime); break;
+                case 3: filtered.Sort(Record.CompareByCountry); break;
+                case 4: filtered.Sort(Record.CompareByCategory); break;
+                case 5: filtered.Sort(Record.CompareByTime); break;
                 default: break;
             }
             RefreshTable(filtered);
