@@ -973,10 +973,7 @@ namespace FilmCollection
                     record.FileName = tbFileName.Text;
                 }
 
-                foreach (int _actorID in chkActorSelect.Items)
-                {
-                    record.ActorID.Add(_actorID);
-                }
+                GetActorID(record);
 
                 _videoCollection.Save();
             }
@@ -999,19 +996,23 @@ namespace FilmCollection
             record.GenreVideo = genre;
             record.Description = tbDescription.Text;
 
+            GetActorID(record);
+
+            _videoCollection.Add(record);
+            _videoCollection.Save();
+
+            fsInfo = null;
+        }
+
+        private void GetActorID(Record record)
+        {
             foreach (Actor _actorID in chkActorSelect.Items)
             {
                 if (_actorID != null)
                 {
                     record.ActorID.Add(_actorID.Id);
                 }
-              
             }
-
-            _videoCollection.Add(record);
-            _videoCollection.Save();
-
-            fsInfo = null;
         }
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
@@ -1711,7 +1712,7 @@ namespace FilmCollection
         }
 
 
-        private void btnAddGroup_Click(object sender, System.EventArgs e)
+        private void btnAddGroup_Click(object sender, EventArgs e)
         {
             if (chkActorList.CheckedItems.Count > 0)
             {
@@ -1722,7 +1723,9 @@ namespace FilmCollection
                         chkActorSelect.Items.Add(item);
                     }
                 }
+                UserModifiedChanged(sender, e);
             }
+
 
             //if (chkActorList.SelectedItems.Count > 0)
             //{
@@ -1983,7 +1986,7 @@ namespace FilmCollection
             }
         }
 
-  
+
     }
 }
 
