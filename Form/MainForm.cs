@@ -638,17 +638,17 @@ namespace FilmCollection
             if (tscCountryFilter.SelectedIndex > -1)
             {
                 filteredAct = filteredAct.FindAll(v => v.Country == (Country_Rus)tscCountryFilter.SelectedIndex);
-            }    
+            }
 
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
 
             // список актеров
-                 chkActorList.Items.Clear();
+            chkActorList.Items.Clear();
             foreach (Actor item in _videoCollection.ActorList)
             {
-                //chkActorList.Items.Add(item.FIO);
-                chkActorList.Items.AddRange( new object[] {  "Item 3, column 2"});
+                chkActorList.Items.Add(item);
+                //chkActorList.Items.AddRange( new object[] {  "Item 3, column 2"});
 
                 //string[] arr = new string[2];
                 //arr[0] = item.FIO;
@@ -722,7 +722,7 @@ namespace FilmCollection
                         foreach (var item in _videoCollection.ActorList.FindAll(v => v.Id == actorID))
                         {
 
-                            chkActorSelect.Items.Add(item.FIO);
+                            chkActorSelect.Items.Add(item);
 
                             //string[] arr = new string[3];
                             //arr[0] = item.Name;
@@ -999,9 +999,13 @@ namespace FilmCollection
             record.GenreVideo = genre;
             record.Description = tbDescription.Text;
 
-            foreach (int _actorID in chkActorSelect.Items)
+            foreach (Actor _actorID in chkActorSelect.Items)
             {
-                record.ActorID.Add(_actorID);
+                if (_actorID != null)
+                {
+                    record.ActorID.Add(_actorID.Id);
+                }
+              
             }
 
             _videoCollection.Add(record);
@@ -1709,53 +1713,70 @@ namespace FilmCollection
 
         private void btnAddGroup_Click(object sender, System.EventArgs e)
         {
-            if (chkActorList.SelectedItems.Count > 0)
+            if (chkActorList.CheckedItems.Count > 0)
             {
-                if (!chkActorSelect.Items.Contains(chkActorList.SelectedItems[0].ToString()))
+                foreach (var item in chkActorList.CheckedItems)
                 {
-                    // chkRightFelds.Items.Add(chkLeftFelds.SelectedItems[0].ToString());
-                    // CreateSectionProps(chkLeftFelds.SelectedItems[0].ToString());
-
-
-                    //chkLeftFelds.CheckedItems.OfType<string>().ToList().ForEach(chkRightFelds.Items.Add());
-                    foreach (var item in chkActorList.CheckedItems.OfType<string>().ToList())
+                    if (!chkActorSelect.Items.Contains(item))
                     {
-                        if (!chkActorSelect.Items.Contains(item))
-                        {
-                            chkActorSelect.Items.Add(item);
-                        }
+                        chkActorSelect.Items.Add(item);
                     }
-
-                    //var items = new System.Collections.ArrayList(chkLeftFelds.SelectedItems);
-
-                    //foreach (var item in items)
-                    //{
-                    //    chkRightFelds.Items.Add(item);
-                    //   // listbox.Items.remove(item);
-
-                    //}
-
-
                 }
             }
+
+            //if (chkActorList.SelectedItems.Count > 0)
+            //{
+            //    foreach (var item in chkActorList.SelectedItems)
+            //    {
+            //        chkActorSelect.Items.Add(item);
+            //    }
+            //}
+
+            //if (chkActorList.SelectedItems.Count > 0)
+            //{
+            //    if (!chkActorSelect.Items.Contains(chkActorList.SelectedItems[0].ToString()))
+            //    {
+            //        // chkRightFelds.Items.Add(chkLeftFelds.SelectedItems[0].ToString());
+            //        // CreateSectionProps(chkLeftFelds.SelectedItems[0].ToString());
+            //        //chkLeftFelds.CheckedItems.OfType<string>().ToList().ForEach(chkRightFelds.Items.Add());
+
+            //        foreach (var item in chkActorList.CheckedItems.OfType<string>().ToList())
+            //        {
+            //            if (!chkActorSelect.Items.Contains(item))
+            //            {
+            //                chkActorSelect.Items.Add(item);
+            //            }
+            //        }
+
+            //        //var items = new System.Collections.ArrayList(chkLeftFelds.SelectedItems);
+
+            //        //foreach (var item in items)
+            //        //{
+            //        //    chkRightFelds.Items.Add(item);
+            //        //   // listbox.Items.remove(item);
+
+            //        //}
+
+
+            //    }
+            //}
         }
 
         private void btnRemoveGroup_Click(object sender, System.EventArgs e)
         {
+
+
             if (chkActorSelect.SelectedItems.Count > 0)
             {
-                string secName = chkActorSelect.SelectedItems[0].ToString();
-                chkActorSelect.Items.Remove(chkActorSelect.SelectedItems[0]);
+                chkActorSelect.Items.Remove(chkActorSelect.SelectedItem);
+                //string secName = chkActorSelect.SelectedItems[0].ToString();
+                // chkActorSelect.Items.Remove(chkActorSelect.SelectedItems[0]);
                 //УБРАТЬ check
                 // chkLeftFelds.ch// chkLeftFelds.Items.IndexOf(chkRightFelds.SelectedItems[0])
                 //sectionProps.Remove(secName);
-
-
-
-
-
             }
         }
+
 
         private void chkLstFields_SelectedIndexChanged(object sender, System.EventArgs e)
         {
@@ -1775,10 +1796,6 @@ namespace FilmCollection
             }
         }
 
-        private void CreateSectionProps(string groupByColumnName)
-        {
-            //sectionProps.Add(groupByColumnName, new Section(groupByColumnName, ""));
-        }
 
         private void SaveFieldAttributes(string fieldName)
         {
@@ -1965,6 +1982,8 @@ namespace FilmCollection
                 listViewFilm.Items.Remove(eachItem);
             }
         }
+
+  
     }
 }
 
