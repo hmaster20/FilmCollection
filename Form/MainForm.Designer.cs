@@ -178,6 +178,9 @@
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
+            this.tbResult = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.graberLink = new System.Windows.Forms.Button();
             this.btnDownloadPic = new System.Windows.Forms.Button();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
@@ -195,6 +198,8 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.graberHTML = new System.Windows.Forms.Button();
+            this.textBoxWeb = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1646,7 +1651,7 @@
             this.checkBox1.TabIndex = 61;
             this.checkBox1.Text = "Жив";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkLive_CheckedChanged);
             // 
             // cBoxCountryActor
             // 
@@ -1778,6 +1783,11 @@
             // 
             // tabImage
             // 
+            this.tabImage.Controls.Add(this.textBoxWeb);
+            this.tabImage.Controls.Add(this.tbResult);
+            this.tabImage.Controls.Add(this.textBox1);
+            this.tabImage.Controls.Add(this.graberHTML);
+            this.tabImage.Controls.Add(this.graberLink);
             this.tabImage.Controls.Add(this.btnDownloadPic);
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
@@ -1786,9 +1796,35 @@
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
             // 
+            // tbResult
+            // 
+            this.tbResult.Location = new System.Drawing.Point(176, 61);
+            this.tbResult.Multiline = true;
+            this.tbResult.Name = "tbResult";
+            this.tbResult.Size = new System.Drawing.Size(288, 116);
+            this.tbResult.TabIndex = 2;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(176, 35);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(288, 20);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.Text = "полевые+огни";
+            // 
+            // graberLink
+            // 
+            this.graberLink.Location = new System.Drawing.Point(489, 33);
+            this.graberLink.Name = "graberLink";
+            this.graberLink.Size = new System.Drawing.Size(93, 23);
+            this.graberLink.TabIndex = 1;
+            this.graberLink.Text = "Грабить";
+            this.graberLink.UseVisualStyleBackColor = true;
+            this.graberLink.Click += new System.EventHandler(this.graber_Click);
+            // 
             // btnDownloadPic
             // 
-            this.btnDownloadPic.Location = new System.Drawing.Point(632, 95);
+            this.btnDownloadPic.Location = new System.Drawing.Point(60, 24);
             this.btnDownloadPic.Name = "btnDownloadPic";
             this.btnDownloadPic.Size = new System.Drawing.Size(93, 40);
             this.btnDownloadPic.TabIndex = 0;
@@ -1942,6 +1978,24 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // graberHTML
+            // 
+            this.graberHTML.Location = new System.Drawing.Point(588, 33);
+            this.graberHTML.Name = "graberHTML";
+            this.graberHTML.Size = new System.Drawing.Size(93, 23);
+            this.graberHTML.TabIndex = 1;
+            this.graberHTML.Text = "Грабить";
+            this.graberHTML.UseVisualStyleBackColor = true;
+            this.graberHTML.Click += new System.EventHandler(this.graberHTML_Click);
+            // 
+            // textBoxWeb
+            // 
+            this.textBoxWeb.Location = new System.Drawing.Point(14, 192);
+            this.textBoxWeb.Multiline = true;
+            this.textBoxWeb.Name = "textBoxWeb";
+            this.textBoxWeb.Size = new System.Drawing.Size(883, 346);
+            this.textBoxWeb.TabIndex = 2;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1998,6 +2052,7 @@
             this.gActAbout.ResumeLayout(false);
             this.gActAbout.PerformLayout();
             this.tabImage.ResumeLayout(false);
+            this.tabImage.PerformLayout();
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
@@ -2176,6 +2231,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ColumnHeader colSelectYear;
         private System.Windows.Forms.ColumnHeader colYear;
+        private System.Windows.Forms.Button graberLink;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbResult;
+        private System.Windows.Forms.Button graberHTML;
+        private System.Windows.Forms.TextBox textBoxWeb;
     }
 }
 
