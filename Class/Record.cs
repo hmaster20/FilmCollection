@@ -206,9 +206,21 @@ namespace FilmCollection
             return string.Compare(a.DirName, b.DirName);
         }
 
+        public static int CompareByYear(Record a, Record b)
+        {
+            if (a.Year == b.Year)
+                return CompareByName(a, b);
+            return (a.Year - b.Year);
+        }
+
         public static int CompareByCountry(Record a, Record b)  // Сравнение по стране
         {
             return string.Compare(a.CountryString, b.CountryString);
+        }
+
+        public static int CompareByGenre(Record a, Record b) // Сравнение по жанру
+        {
+            return string.Compare(a.GenreString, b.GenreString);
         }
 
         public static int CompareByCategory(Record a, Record b) // Сравнение по категории
@@ -241,13 +253,11 @@ namespace FilmCollection
             return (int)((b.Time - a.Time) * 100);
         }
 
-        public static int CompareByYear(Record a, Record b)
+        public static int CompareByFileName(Record a, Record b) // Сравнение по файлу
         {
-            if (a.Year == b.Year)
-                return CompareByName(a, b);
-            return (a.Year - b.Year);
-        }
-
+            return string.Compare(a.FileName, b.FileName);
+        }            
+        
 
         //public static int CompareByYear(Record a, Record b)     // Сравнение по году
         //{
@@ -266,20 +276,6 @@ namespace FilmCollection
         //    return CompareByName(a, b);
         //}
 
-
-        //public static int CompareByScore(Record a, Record b)
-        //{
-        //    if (a.Score == b.Score)
-        //        return CompareByName(a, b);
-        //    return (int)((b.Score - a.Score) * 100);
-        //}
-
-        //public static int CompareByUserScore(VideoRecord a, VideoRecord b)
-        //{
-        //    if (a.UserScore == b.UserScore)
-        //        return CompareByName(a, b);
-        //    return (int)((b.UserScore - a.UserScore) * 100);
-        //}
-        #endregion
+         #endregion
     }
 }
