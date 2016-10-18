@@ -597,7 +597,18 @@ namespace FilmCollection
             PepareRefresh("", false);
         }
 
+        private void PepareRefresh(int column)
+        {
+            PepareRefresh("", false, column);
+        }
+
         private void PepareRefresh(string nodeName, bool flag)
+        {
+            PepareRefresh(nodeName, flag, -1);
+        }
+
+
+        private void PepareRefresh(string nodeName, bool flag, int column)
         {
             List<Record> filtered = _videoCollection.VideoList;
 
@@ -611,8 +622,18 @@ namespace FilmCollection
                     filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
                 }
 
+            filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
 
-            int switch_filter = tscbTypeFilter.SelectedIndex;
+            Sort(filtered, tscbSort.SelectedIndex);
+            if (column > -1) Sort(filtered, column);
+
+            RefreshTable(filtered);
+
+            Sort_Actor();
+        }
+
+        private static List<Record> Filter(List<Record> filtered, int switch_filter)
+        {
             switch (switch_filter)  // фильтр по категориям
             {
                 case 1: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film); break;
@@ -621,20 +642,29 @@ namespace FilmCollection
                 default: break;
             }
 
-            int switch_sort = tscbSort.SelectedIndex;
+            return filtered;
+        }
+
+        private static void Sort(List<Record> filtered, int switch_sort)
+        {
             switch (switch_sort)  // Сортировка по столбцам
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByCatalog); break;
                 case 2: filtered.Sort(Record.CompareByYear); break;
                 case 3: filtered.Sort(Record.CompareByCountry); break;
-                case 4: filtered.Sort(Record.CompareByCategory); break;
-                case 5: filtered.Sort(Record.CompareByTime); break;
+                case 4: filtered.Sort(Record.CompareByGenre); break;
+                case 5: filtered.Sort(Record.CompareByCategory); break;
+                case 6: filtered.Sort(Record.CompareByTime); break;
+                case 7: filtered.Sort(Record.CompareByFileName); break;
                 default: break;
             }
-            RefreshTable(filtered);
+        }
 
 
+
+        private void Sort_Actor()
+        {
             List<Actor> filteredAct = _videoCollection.ActorList;
             if (tscCountryFilter.SelectedIndex > -1)
             {
@@ -1619,7 +1649,7 @@ namespace FilmCollection
 
         #region Обработка актеров
 
-        
+
         private void btnMoveUp_Click(object sender, System.EventArgs e)
         {
             int index = chkActorList.SelectedIndices[0];
@@ -1829,10 +1859,14 @@ namespace FilmCollection
             }
         }
 
+
+
         #endregion
 
-
-
+        private void dgvTableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            PepareRefresh(e.ColumnIndex);
+        }
     }
 }
 
