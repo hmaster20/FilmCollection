@@ -1921,7 +1921,7 @@ namespace FilmCollection
                         {
                             PicSave = subStrings[y];
                             break;
-                        }                      
+                        }
                     }
                 }
 
@@ -1960,14 +1960,14 @@ namespace FilmCollection
         private void DownloadPic(string PicWeb, string PicSave)
         {
             string remoteFileUrl = PicWeb;
-            string localFileName = PicSave+".jpg";
+            string localFileName = PicSave + ".jpg";
 
             if (PicWeb.Contains("http"))
             {
                 using (WebClient webClient = new WebClient())
                     webClient.DownloadFile(remoteFileUrl, localFileName);
             }
-            
+
 
         }
 
@@ -2000,6 +2000,7 @@ namespace FilmCollection
 
         private void graberINFO(object sender, EventArgs e)
         {
+          // textBox1.Text = "спрут";
             GetMetaInfo_i("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
         }
 
@@ -2021,11 +2022,11 @@ namespace FilmCollection
                     if (subStrings[y] == "<a href=")
                     {
                         ++y;
-                       // if (subStrings[y].Contains("http"))
-                       // {
-                            Link_txt = subStrings[y];
-                            break;
-                       // }
+                        // if (subStrings[y].Contains("http"))
+                        // {
+                        Link_txt = subStrings[y];
+                        break;
+                        // }
                     }
                 }
 
@@ -2038,15 +2039,32 @@ namespace FilmCollection
             }
         }
 
-        // <div class="movieabout__info__descr__txt" itemprop="description">
-        // <p>Осень 1944 года, японцы отступают с&nbsp;Филиппин.Высший командный состав&nbsp;уже эвакуирован, а&nbsp;обычная пехота просто брошена умирать на&nbsp;чужой земле&nbsp;— без&nbsp;оружия, пищи и&nbsp;медикаментов.Простой рядовой Тамура(Эйдзи Фунакоси) из-за&nbsp;болезни остается на&nbsp;острове Лейте, а&nbsp;теперь его выгоняют из госпиталя, потому что&nbsp;лекарств на&nbsp;всех все равно не&nbsp;хватит.В&nbsp;настолько жестких&nbsp;— если не&nbsp;сказать жестоких&nbsp;— условиях люди теряют человеческий облик, начинают убивать и&nbsp;даже занимаются каннибализмом.Тамура пытается выжить, не&nbsp;изменив своим принципам.Кинофильм «Полевые огни»&nbsp;— экранизация романа «Огни на&nbsp;равнине» Сехэя Ооки.</p></div>
+        /* <div class="movieabout__info__descr__txt" itemprop="description">
+         <p>Осень 1944 года, японцы отступают с&nbsp;Филиппин.Высший командный состав&nbsp;уже эвакуирован, а&nbsp;обычная пехота 
+        просто брошена умирать на&nbsp;чужой земле&nbsp;— без&nbsp;оружия, пищи и&nbsp;медикаментов.Простой рядовой Тамура(Эйдзи Фунакоси) из-за&nbsp;
+        болезни остается на&nbsp;острове Лейте, а&nbsp;теперь его выгоняют из госпиталя, потому что&nbsp;лекарств на&nbsp;всех все равно не&nbsp;
+         хватит.В&nbsp;настолько жестких&nbsp;— если не&nbsp;сказать жестоких&nbsp;— условиях люди теряют человеческий облик, начинают убивать и&nbsp;даже 
+         занимаются каннибализмом.Тамура пытается выжить, не&nbsp;изменив своим принципам.Кинофильм «Полевые огни»&nbsp;— экранизация романа 
+        «Огни на&nbsp;равнине» Сехэя Ооки.</p></div>          
+        
+             <div class="movieabout__info__descr__txt" itemprop="description"><p>В&nbsp;сицилийский город на&nbsp;место убитого начальника криминальной полиции Аугусто Маринео назначен комиссар Коррадо Каттани. Каттани приезжает со&nbsp;своей женой Эльзой и&nbsp;12-летней дочерью Паолой. Расследуя убийство, Каттани обнаруживает, что&nbsp;персоны, занимающие видное положение в&nbsp;городе, связаны с&nbsp;наркомафией. Комиссар начинает непримиримую борьбу с&nbsp;сицилийской мафией и&nbsp;коррупцией в&nbsp;высших эшелонах власти. Это ставит под удар не&nbsp;только семью Каттани, но&nbsp;и&nbsp;жизнь самого комиссара.</p>
+             <p>Итальянский актер Микеле Плачидо стал суперзвездой благодаря роли бесстрашного и&nbsp;неподкупного комиссара Каттани. В&nbsp;1984 году сериал «Спрут» получил награду «Лучший фильм» на&nbsp;итальянском международном фестивале телевизионных фильмов. «Спрут»&nbsp;— по&nbsp;сей день самый успешный сериал в&nbsp;Италии. На&nbsp;русском языке вышло несколько романов «Спрут» в&nbsp;переводе Г. Д. Богемского. Интересно, что&nbsp;последние два романа (Спрут 5 и&nbsp;6) были им написаны на&nbsp;основе просмотра фильма, так как итальянские романы
+             перестали выходить.</p></div>
+
+            <div class="movieabout__info__descr__tx
+
+             */
+
         private void GetMetaInfo_i_txt(string link)
         {
+            textBoxWeb.Text = "";
+
             string sourcestring = GetHtmlPageText(link);
             //textBoxWeb.Text += sourcestring;
 
             MatchCollection mc = Regex.Matches(sourcestring,
-                @"(<div class=\""movieabout__info__descr__txt.*?.*?>.*</p></div>)", RegexOptions.IgnoreCase);
+                @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+            // @"(<div class=\""movieabout__info__descr.*?.*?>.*</p></div>)", RegexOptions.IgnoreCase);
 
             foreach (Match m in mc)
             {
@@ -2055,10 +2073,20 @@ namespace FilmCollection
                 str = Regex.Replace(str, "&mdash;", "-");
                 str = Regex.Replace(str, "&laquo;", "\"");
                 str = Regex.Replace(str, "&raquo;", "\"");
+                try
+                {
+                    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));
+                    str = str.Remove(0, str.LastIndexOf("<p>") + 3);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }                
+
                 textBoxWeb.Text += str;
             }
         }
-   
+
 
 
 
