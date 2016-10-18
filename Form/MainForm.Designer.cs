@@ -260,6 +260,7 @@
             this.dgvTableRec.Size = new System.Drawing.Size(532, 532);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
+            this.dgvTableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableRec_ColumnHeaderMouseClick);
             this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
             // 
             // cmnName
@@ -745,8 +746,10 @@
             "По каталогу",
             "По году",
             "По стране",
-            "По категориям",
-            "По времени"});
+            "По жанру",
+            "По категории",
+            "По времени",
+            "По файлу"});
             this.tscbSort.Name = "tscbSort";
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
@@ -1382,7 +1385,7 @@
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
             this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(914, 551);
+            this.tabActors.Size = new System.Drawing.Size(914, 567);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1406,7 +1409,7 @@
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelActEditTitle);
-            this.scTabActors.Size = new System.Drawing.Size(908, 545);
+            this.scTabActors.Size = new System.Drawing.Size(908, 561);
             this.scTabActors.SplitterDistance = 479;
             this.scTabActors.TabIndex = 1;
             // 
@@ -1431,7 +1434,7 @@
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(477, 516);
+            this.dgvTableActors.Size = new System.Drawing.Size(477, 532);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
@@ -1516,7 +1519,7 @@
             this.panelActEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelActEditTitle.Location = new System.Drawing.Point(0, 0);
             this.panelActEditTitle.Name = "panelActEditTitle";
-            this.panelActEditTitle.Size = new System.Drawing.Size(423, 543);
+            this.panelActEditTitle.Size = new System.Drawing.Size(423, 559);
             this.panelActEditTitle.TabIndex = 0;
             // 
             // groupBox1
@@ -1778,7 +1781,7 @@
             this.tabImage.Controls.Add(this.btnDownloadPic);
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
-            this.tabImage.Size = new System.Drawing.Size(914, 551);
+            this.tabImage.Size = new System.Drawing.Size(914, 567);
             this.tabImage.TabIndex = 2;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
