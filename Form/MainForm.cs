@@ -1970,7 +1970,116 @@ namespace FilmCollection
             
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
+        // https://afisha.mail.ru + /cinema/movies/730486_polevye_ogni/
+
+        private void graberINFO(object sender, EventArgs e)
+        {
+            GetMetaInfo_i("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
+        }
+
+        private void GetMetaInfo_i(string web, string name)
+        {
+            string sourcestring = GetHtmlPageText(web);
+            // textBoxWeb.Text += sourcestring;
+
+            //MatchCollection mc = Regex.Matches(sourcestring, @"(<a href=.*?>.*?</a>)", RegexOptions.IgnoreCase);
+            MatchCollection mc = Regex.Matches(sourcestring, @"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
+
+            for (int i = 0; i < mc.Count; i++)
+            {
+                tbResult.AppendText(mc[i].ToString() + "\r\n");
+                string Link_txt = "";
+                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                for (int y = 0; y < subStrings.Length; y++)
+                {
+                    if (subStrings[y] == "<a href=")
+                    {
+                        ++y;
+                       // if (subStrings[y].Contains("http"))
+                       // {
+                            Link_txt = subStrings[y];
+                            break;
+                       // }
+                    }
+                }
+
+                if (Link_txt != "")
+                {
+                    tbResult.AppendText("ссылка на фильм = " + Link_txt);
+                    GetMetaInfo_i_txt("https://afisha.mail.ru" + Link_txt);
+                    return;
+                }
+            }
+        }
+
+        // <div class="movieabout__info__descr__txt" itemprop="description">
+        // <p>Осень 1944 года, японцы отступают с&nbsp;Филиппин.Высший командный состав&nbsp;уже эвакуирован, а&nbsp;обычная пехота просто брошена умирать на&nbsp;чужой земле&nbsp;— без&nbsp;оружия, пищи и&nbsp;медикаментов.Простой рядовой Тамура(Эйдзи Фунакоси) из-за&nbsp;болезни остается на&nbsp;острове Лейте, а&nbsp;теперь его выгоняют из госпиталя, потому что&nbsp;лекарств на&nbsp;всех все равно не&nbsp;хватит.В&nbsp;настолько жестких&nbsp;— если не&nbsp;сказать жестоких&nbsp;— условиях люди теряют человеческий облик, начинают убивать и&nbsp;даже занимаются каннибализмом.Тамура пытается выжить, не&nbsp;изменив своим принципам.Кинофильм «Полевые огни»&nbsp;— экранизация романа «Огни на&nbsp;равнине» Сехэя Ооки.</p></div>
+        private void GetMetaInfo_i_txt(string link)
+        {
+            string sourcestring = GetHtmlPageText(link);
+            //textBoxWeb.Text += sourcestring;
+
+            MatchCollection mc = Regex.Matches(sourcestring,
+                @"(<div class=\""movieabout__info__descr__txt.*?.*?>.*</p></div>)", RegexOptions.IgnoreCase);
+
+            foreach (Match m in mc)
+            {
+                string str = m.ToString();
+                str = Regex.Replace(str, "&nbsp;", " ");
+                str = Regex.Replace(str, "&mdash;", "-");
+                str = Regex.Replace(str, "&laquo;", "\"");
+                str = Regex.Replace(str, "&raquo;", "\"");
+                textBoxWeb.Text += str;
+            }
+        }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
 }
 
 
