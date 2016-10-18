@@ -10,6 +10,7 @@ using System.Xml;
 using System.Linq;
 using System.Net;
 using System.Collections;
+using System.Xml.Linq;
 
 namespace FilmCollection
 {
@@ -592,6 +593,11 @@ namespace FilmCollection
             PepareRefresh();
         }
 
+        private void dgvTableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
+        {
+            PepareRefresh(e.ColumnIndex);
+        }
+
         private void PepareRefresh()
         {
             PepareRefresh("", false);
@@ -606,7 +612,6 @@ namespace FilmCollection
         {
             PepareRefresh(nodeName, flag, -1);
         }
-
 
         private void PepareRefresh(string nodeName, bool flag, int column)
         {
@@ -632,22 +637,21 @@ namespace FilmCollection
             Sort_Actor();
         }
 
-        private static List<Record> Filter(List<Record> filtered, int switch_filter)
+        private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
         {
-            switch (switch_filter)  // фильтр по категориям
+            switch (switch_filter)
             {
                 case 1: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film); break;
                 case 2: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Cartoon); break;
                 case 3: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Series); break;
                 default: break;
             }
-
             return filtered;
         }
 
-        private static void Sort(List<Record> filtered, int switch_sort)
+        private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
         {
-            switch (switch_sort)  // Сортировка по столбцам
+            switch (switch_sort)
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByCatalog); break;
@@ -660,8 +664,6 @@ namespace FilmCollection
                 default: break;
             }
         }
-
-
 
         private void Sort_Actor()
         {
@@ -821,7 +823,6 @@ namespace FilmCollection
                 }
             }
         }
-
 
         private Actor GetSelectedActor()  // получение выбранной записи в dgvTableActor
         {
@@ -1560,6 +1561,219 @@ namespace FilmCollection
         #endregion
 
 
+        #region Обработка актеров
+
+        private void btnMoveUp_Click(object sender, System.EventArgs e)
+        {
+            int index = chkActorList.SelectedIndices[0];
+            if (index != 0)
+            {
+                ArrayList list = new ArrayList();
+                CheckedListBox cb = new CheckedListBox();
+                cb.Items.AddRange(chkActorList.Items);
+                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
+                {
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
+                }
+                list.AddRange(chkActorList.Items);
+                ArrayList newlist = new ArrayList(list);
+                newlist[index] = list[index - 1];
+                newlist[index - 1] = list[index];
+                chkActorList.Items.Clear();
+                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                for (int i = 0; i < cb.CheckedItems.Count; i++)
+                {
+                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                }
+                chkActorList.SelectedItem = chkActorList.Items[index - 1];
+            }
+        }
+
+        private void btnMoveDown_Click(object sender, System.EventArgs e)
+        {
+            int index = chkActorList.SelectedIndices[0];
+            if (index != chkActorList.Items.Count - 1)
+            {
+                CheckedListBox cb = new CheckedListBox();
+                cb.Items.AddRange(chkActorList.Items);
+                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
+                {
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
+                }
+                ArrayList list = new ArrayList();
+                list.AddRange(chkActorList.Items);
+                ArrayList newlist = new ArrayList(list);
+                newlist[index] = list[index + 1];
+                newlist[index + 1] = list[index];
+                chkActorList.Items.Clear();
+                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                for (int i = 0; i < cb.CheckedItems.Count; i++)
+                {
+                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                }
+                chkActorList.SelectedItem = chkActorList.Items[index + 1];
+            }
+        }
+
+
+        private void btnAdd_SelectActor_Click(object sender, EventArgs e)
+        {
+            if (chkActorList.CheckedItems.Count > 0)
+            {
+                foreach (var item in chkActorList.CheckedItems)
+                {
+                    if (!chkActorSelect.Items.Contains(item))
+                    {
+                        chkActorSelect.Items.Add(item);
+                    }
+                }
+                UserModifiedChanged(sender, e);
+            }
+        }
+
+        private void btnRemove_SelectActor_Click(object sender, System.EventArgs e)
+        {
+            if (chkActorSelect.SelectedItems.Count > 0)
+            {
+                chkActorSelect.Items.Remove(chkActorSelect.SelectedItem);
+                UserModifiedChanged(sender, e);
+            }
+        }
+
+        private void btnNewActor_Click(object sender, EventArgs e)
+        {
+            tbFIO.Text = "";
+            maskDateOfBirth.Text = "";
+            maskDateofDeath_RecoveryState();
+            checkBox1.Checked = false;
+            cBoxCountryActor.SelectedIndex = -1;
+            tbFilmFind.Text = "";
+            listViewFilm.Clear();
+            lvSelectRecord.Items.Clear();
+        }
+
+        private void btnSaveActor_Click(object sender, EventArgs e)
+        {
+
+            Country_Rus country = (Country_Rus)cBoxCountryActor.SelectedIndex;
+            Actor actor = new Actor();
+            actor.FIO = tbFIO.Text;
+            foreach (Actor item in _videoCollection.ActorList)
+            {
+                if (item.Equals(actor))
+                {
+                    MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
+                    return; // Выходим
+                }
+            }
+
+            //try
+            //{
+            //    string[] dateComponents = maskDateOfBirth.Text.Split('.');
+            //    string month = dateComponents[0].Trim();
+            //    string day = dateComponents[1].Trim();
+            //    string year = dateComponents[2].Trim();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
+            actor.DateOfBirth = maskDateOfBirth.Text;
+            actor.DateOfDeath = maskDateOfDeath.Text;
+            actor.Country = country;
+            actor.Id = _videoCollection.getActorID();
+
+            foreach (ListViewItem eachItem in listViewFilm.Items)
+            {
+                actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
+            }
+
+            _videoCollection.Add(actor);
+            _videoCollection.Save();
+            PepareRefresh();
+        }
+
+        private void checkLive_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                maskDateOfDeath.Mask = "";
+                maskDateOfDeath.Text = "По настоящее время";
+                maskDateOfDeath.Enabled = false;
+            }
+            else
+            {
+                maskDateofDeath_RecoveryState();
+            }
+        }
+
+        private void maskDateofDeath_RecoveryState()
+        {
+            maskDateOfDeath.Enabled = true;
+            maskDateOfDeath.Text = "";
+            maskDateOfDeath.Mask = "00/00/0000";
+        }
+
+        private void tbFilmFind_TextChanged(object sender, EventArgs e)
+        {
+            lvSelectRecord.Items.Clear();
+
+            try
+            {
+                string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
+                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
+                {
+                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                    {
+                        Record record = null;
+                        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
+                        if (record != null) lvSelectRecord_add(record.Name, record.Year, record.Id);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void lvSelectRecord_add(string name, int year, int id)
+        {
+            string[] arr = new string[3];
+            arr[0] = name;
+            arr[1] = year.ToString();
+            arr[2] = id.ToString();
+
+            ListViewItem itm = new ListViewItem(arr);
+            lvSelectRecord.Items.Add(itm);
+        }
+
+        private void lvSelectRecord_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvSelectRecord.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem item in lvSelectRecord.SelectedItems)
+                {
+                    listViewFilm.Items.Add((ListViewItem)item.Clone());
+                }
+            }
+        }
+
+        private void listViewFilm_DoubleClick(object sender, EventArgs e)
+        {
+            foreach (ListViewItem eachItem in listViewFilm.SelectedItems)
+            {
+                listViewFilm.Items.Remove(eachItem);
+            }
+        }
+
+
+        #endregion
+
+
 
 
 
@@ -1636,236 +1850,125 @@ namespace FilmCollection
         }
 
 
+
+
+
         // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
         // <a href = "/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
+
         // https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/
         // https://afisha.mail.ru
         // https://pic.afisha.mail.ru/7087157/
         #endregion
 
-
-
-
-
-        #region Обработка актеров
-
-
-        private void btnMoveUp_Click(object sender, System.EventArgs e)
+        private void graber_Click(object sender, EventArgs e)
         {
-            int index = chkActorList.SelectedIndices[0];
-            if (index != 0)
+            GetMetaInfo("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
+        }
+
+        private void GetMetaInfo(string web)
+        {
+            string sourcestring = GetHtmlPageText(web);
+            MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta.property=\""og:image\"".[^\>]*>)", RegexOptions.IgnoreCase);
+            foreach (Match m in mc)
             {
-                ArrayList list = new ArrayList();
-                CheckedListBox cb = new CheckedListBox();
-                cb.Items.AddRange(chkActorList.Items);
-                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
-                {
-                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
-                }
-                list.AddRange(chkActorList.Items);
-                ArrayList newlist = new ArrayList(list);
-                newlist[index] = list[index - 1];
-                newlist[index - 1] = list[index];
-                chkActorList.Items.Clear();
-                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
-                for (int i = 0; i < cb.CheckedItems.Count; i++)
-                {
-                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
-                }
-                chkActorList.SelectedItem = chkActorList.Items[index - 1];
+                //tbResult.Text += m.ToString();
+                tbResult.AppendText(m.ToString() + "\r\n");
+
+                string myString = m.ToString();
+                string[] subStrings = myString.Split('"');
+                //tbResult.Text += "content = " + subStrings[3];
+                tbResult.AppendText("content = " + subStrings[3]);
+
+
+                //(m.ToString()     ||   < meta property = "og:image" content = "https://pic.afisha.mail.ru/share/event/730486/?20160916210443.1" />
+                // subStrings[3])   ||   content = https://pic.afisha.mail.ru/share/event/730486/?20160916210443.1
+
+
             }
         }
 
 
-        private void btnMoveDown_Click(object sender, System.EventArgs e)
+
+        // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
+        // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
+
+        private void graberHTML_Click(object sender, EventArgs e)
         {
-            int index = chkActorList.SelectedIndices[0];
-            if (index != chkActorList.Items.Count - 1)
-            {
-                CheckedListBox cb = new CheckedListBox();
-                cb.Items.AddRange(chkActorList.Items);
-                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
-                {
-                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
-                }
-                ArrayList list = new ArrayList();
-                list.AddRange(chkActorList.Items);
-                ArrayList newlist = new ArrayList(list);
-                newlist[index] = list[index + 1];
-                newlist[index + 1] = list[index];
-                chkActorList.Items.Clear();
-                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
-                for (int i = 0; i < cb.CheckedItems.Count; i++)
-                {
-                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
-                }
-                chkActorList.SelectedItem = chkActorList.Items[index + 1];
-            }
+            GetMetaInfoHTML("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
         }
 
-
-        private void btnAdd_SelectActor_Click(object sender, EventArgs e)
+        private void GetMetaInfoHTML(string web, string name)
         {
-            if (chkActorList.CheckedItems.Count > 0)
+            string sourcestring = GetHtmlPageText(web);
+            // textBoxWeb.Text += sourcestring;
+            //MatchCollection mc = Regex.Matches(sourcestring, "href=\"(.*)\"", RegexOptions.IgnoreCase);
+            //MatchCollection mc = Regex.Matches(sourcestring, "<a[\\s]+[^>]*?href[\\s]?=[\\s\\\"\']+(?<href>.*?)[\\\"\\']+.*?>(?<class>[^<]+|.*?)?<\\/a>", RegexOptions.IgnoreCase);
+            //MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?>.*?</a>)", RegexOptions.IgnoreCase);
+            MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
+
+            for (int i = 0; i < mc.Count; i++)
             {
-                foreach (var item in chkActorList.CheckedItems)
+                tbResult.AppendText(mc[i].ToString() + "\r\n");
+                string PicSave = "";
+                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                for (int y = 0; y < subStrings.Length; y++)
                 {
-                    if (!chkActorSelect.Items.Contains(item))
+                    if (subStrings[y] == "background-image:url")
                     {
-                        chkActorSelect.Items.Add(item);
+                        ++y;
+                        if (subStrings[y].Contains("http"))
+                        {
+                            PicSave = subStrings[y];
+                            break;
+                        }                      
                     }
                 }
-                UserModifiedChanged(sender, e);
-            }
-        }
 
-        private void btnRemove_SelectActor_Click(object sender, System.EventArgs e)
-        {
-            if (chkActorSelect.SelectedItems.Count > 0)
-            {
-                chkActorSelect.Items.Remove(chkActorSelect.SelectedItem);
-                UserModifiedChanged(sender, e);
-            }
-        }
-
-
-        private void btnNewActor_Click(object sender, EventArgs e)
-        {
-            tbFIO.Text = "";
-            maskDateOfBirth.Text = "";
-            maskDateofDeath_true();
-            checkBox1.Checked = false;
-            cBoxCountryActor.SelectedIndex = -1;
-            tbFilmFind.Text = "";
-            listViewFilm.Clear();
-            lvSelectRecord.Items.Clear();
-        }
-
-        private void btnSaveActor_Click(object sender, EventArgs e)
-        {
-
-            Country_Rus country = (Country_Rus)cBoxCountryActor.SelectedIndex;
-            Actor actor = new Actor();
-            actor.FIO = tbFIO.Text;
-            foreach (Actor item in _videoCollection.ActorList)
-            {
-                if (item.Equals(actor))
+                if (PicSave != "")
                 {
-                    MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
-                    return; // Выходим
+                    tbResult.AppendText("pic = " + PicSave);
+                    DownloadPic(PicSave, name);
+                    return;
                 }
             }
 
-            //try
+            //foreach (Match m in mc)
             //{
-            //    string[] dateComponents = maskDateOfBirth.Text.Split('.');
-            //    string month = dateComponents[0].Trim();
-            //    string day = dateComponents[1].Trim();
-            //    string year = dateComponents[2].Trim();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
+            //    tbResult.AppendText(m.ToString() + "\r\n");
+            //    string PicSave ="";
+            //    string[] subStrings = m.ToString().Split('"', '(', ')');
+            //    for (int i = 0; i < subStrings.Length; i++)
+            //    {
+            //        if (subStrings[i] == "background-image:url") 
+            //        {
+            //            ++i;
+            //            PicSave = subStrings[i];
+            //            break;
+            //        }
+            //    }
+
+            //    if (PicSave != "")
+            //    {
+            //        tbResult.AppendText("pic = " + PicSave);
+            //        DownloadPic(PicSave, name);
+            //    }              
             //}
 
-            actor.DateOfBirth = maskDateOfBirth.Text;
-            actor.DateOfDeath = maskDateOfDeath.Text;
-            actor.Country = country;
-            actor.Id = _videoCollection.getActorID();
-
-            foreach (ListViewItem eachItem in listViewFilm.Items)
-            {
-                actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
-            }
-
-            _videoCollection.Add(actor);
-            _videoCollection.Save();
-            PepareRefresh();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void DownloadPic(string PicWeb, string PicSave)
         {
-            if (checkBox1.Checked)
+            string remoteFileUrl = PicWeb;
+            string localFileName = PicSave+".jpg";
+
+            if (PicWeb.Contains("http"))
             {
-                maskDateOfDeath.Mask = "";
-                maskDateOfDeath.Text = "По настоящее время";
-                maskDateOfDeath.Enabled = false;
+                using (WebClient webClient = new WebClient())
+                    webClient.DownloadFile(remoteFileUrl, localFileName);
             }
-            else
-            {
-                maskDateofDeath_true();
-            }
-        }
+            
 
-        private void maskDateofDeath_true()
-        {
-            maskDateOfDeath.Enabled = true;
-            maskDateOfDeath.Text = "";
-            maskDateOfDeath.Mask = "00/00/0000";
-        }
-
-        private void tbFilmFind_TextChanged(object sender, EventArgs e)
-        {
-            lvSelectRecord.Items.Clear();
-
-            try
-            {
-                string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
-                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
-
-                foreach (DataGridViewRow row in dgvTableRec.Rows)
-                {
-                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
-                    {
-                        Record record = null;
-                        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
-                        if (record != null) lvSelectRecord_add(record.Name, record.Year, record.Id);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void lvSelectRecord_add(string name, int year, int id)
-        {
-            string[] arr = new string[3];
-            arr[0] = name;
-            arr[1] = year.ToString();
-            arr[2] = id.ToString();
-
-            ListViewItem itm = new ListViewItem(arr);
-            lvSelectRecord.Items.Add(itm);
-        }
-
-        private void lvSelectRecord_DoubleClick(object sender, EventArgs e)
-        {
-            if (lvSelectRecord.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem item in lvSelectRecord.SelectedItems)
-                {
-                    listViewFilm.Items.Add((ListViewItem)item.Clone());
-                }
-            }
-        }
-
-        private void listViewFilm_DoubleClick(object sender, EventArgs e)
-        {
-            foreach (ListViewItem eachItem in listViewFilm.SelectedItems)
-            {
-                listViewFilm.Items.Remove(eachItem);
-            }
-        }
-
-
-
-        #endregion
-
-        private void dgvTableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            PepareRefresh(e.ColumnIndex);
         }
     }
 }
