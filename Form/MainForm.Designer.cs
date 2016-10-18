@@ -701,9 +701,9 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
-            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(908, 561);
             this.scTabFilm.SplitterDistance = 534;
@@ -1288,7 +1288,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(120, 52);
+            this.label5.Location = new System.Drawing.Point(122, 52);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 17);
             this.label5.TabIndex = 3;
@@ -1335,10 +1335,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfCountry.Location = new System.Drawing.Point(180, 53);
+            this.tbfCountry.Location = new System.Drawing.Point(186, 53);
             this.tbfCountry.Name = "tbfCountry";
             this.tbfCountry.ReadOnly = true;
-            this.tbfCountry.Size = new System.Drawing.Size(170, 16);
+            this.tbfCountry.Size = new System.Drawing.Size(164, 16);
             this.tbfCountry.TabIndex = 7;
             // 
             // tbfYear
@@ -1347,7 +1347,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfYear.Location = new System.Drawing.Point(41, 53);
+            this.tbfYear.Location = new System.Drawing.Point(50, 53);
             this.tbfYear.Name = "tbfYear";
             this.tbfYear.ReadOnly = true;
             this.tbfYear.Size = new System.Drawing.Size(75, 16);
@@ -1359,10 +1359,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfName.Location = new System.Drawing.Point(82, 29);
+            this.tbfName.Location = new System.Drawing.Point(88, 29);
             this.tbfName.Name = "tbfName";
             this.tbfName.ReadOnly = true;
-            this.tbfName.Size = new System.Drawing.Size(282, 16);
+            this.tbfName.Size = new System.Drawing.Size(276, 16);
             this.tbfName.TabIndex = 7;
             // 
             // panelTitle
