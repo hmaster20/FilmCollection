@@ -178,8 +178,10 @@
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
+            this.textBoxWeb = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.graberHTML = new System.Windows.Forms.Button();
             this.graberLink = new System.Windows.Forms.Button();
             this.btnDownloadPic = new System.Windows.Forms.Button();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
@@ -198,8 +200,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.graberHTML = new System.Windows.Forms.Button();
-            this.textBoxWeb = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1786,6 +1787,7 @@
             this.tabImage.Controls.Add(this.textBoxWeb);
             this.tabImage.Controls.Add(this.tbResult);
             this.tabImage.Controls.Add(this.textBox1);
+            this.tabImage.Controls.Add(this.button1);
             this.tabImage.Controls.Add(this.graberHTML);
             this.tabImage.Controls.Add(this.graberLink);
             this.tabImage.Controls.Add(this.btnDownloadPic);
@@ -1795,6 +1797,14 @@
             this.tabImage.TabIndex = 2;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
+            // 
+            // textBoxWeb
+            // 
+            this.textBoxWeb.Location = new System.Drawing.Point(14, 192);
+            this.textBoxWeb.Multiline = true;
+            this.textBoxWeb.Name = "textBoxWeb";
+            this.textBoxWeb.Size = new System.Drawing.Size(883, 346);
+            this.textBoxWeb.TabIndex = 2;
             // 
             // tbResult
             // 
@@ -1811,6 +1821,16 @@
             this.textBox1.Size = new System.Drawing.Size(288, 20);
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = "полевые+огни";
+            // 
+            // graberHTML
+            // 
+            this.graberHTML.Location = new System.Drawing.Point(588, 33);
+            this.graberHTML.Name = "graberHTML";
+            this.graberHTML.Size = new System.Drawing.Size(93, 23);
+            this.graberHTML.TabIndex = 1;
+            this.graberHTML.Text = "Грабить";
+            this.graberHTML.UseVisualStyleBackColor = true;
+            this.graberHTML.Click += new System.EventHandler(this.graberHTML_Click);
             // 
             // graberLink
             // 
@@ -1978,23 +1998,15 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // graberHTML
+            // button1
             // 
-            this.graberHTML.Location = new System.Drawing.Point(588, 33);
-            this.graberHTML.Name = "graberHTML";
-            this.graberHTML.Size = new System.Drawing.Size(93, 23);
-            this.graberHTML.TabIndex = 1;
-            this.graberHTML.Text = "Грабить";
-            this.graberHTML.UseVisualStyleBackColor = true;
-            this.graberHTML.Click += new System.EventHandler(this.graberHTML_Click);
-            // 
-            // textBoxWeb
-            // 
-            this.textBoxWeb.Location = new System.Drawing.Point(14, 192);
-            this.textBoxWeb.Multiline = true;
-            this.textBoxWeb.Name = "textBoxWeb";
-            this.textBoxWeb.Size = new System.Drawing.Size(883, 346);
-            this.textBoxWeb.TabIndex = 2;
+            this.button1.Location = new System.Drawing.Point(687, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Грабить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.graberINFO);
             // 
             // MainForm
             // 
@@ -2236,6 +2248,7 @@
         private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.Button graberHTML;
         private System.Windows.Forms.TextBox textBoxWeb;
+        private System.Windows.Forms.Button button1;
     }
 }
 
