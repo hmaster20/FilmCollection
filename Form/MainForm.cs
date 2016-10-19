@@ -737,24 +737,9 @@ namespace FilmCollection
                         pbImage.Image = image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero);
                     else
                         pbImage.Image = image;
-                    //scMain.Panel1Collapsed = false;
-                    //scMain.SplitterDistance = pbImage.Image.Height;
                 }
                 else
                     pbImage.Image = null;
-
-                //// int indexRow = dgv_films.CurrentRow.Index;
-                //pbImage.SizeMode = PictureBoxSizeMode.StretchImage;
-                //pbImage.Image = Collection.Movies[indexRow].Poster;
-
-                //try
-                //{
-                //    if (f.Picture_Type != null)
-                //    {
-                //        Image a = new Bitmap(Environment.CurrentDirectory + "\\Image" + "\\" + f.Title + f.Picture_Type);
-                //        f.Poster = a;
-                //    }
-                //}
 
                 // Панель редактирования
                 tbName.Text = record.Name;
