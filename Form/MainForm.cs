@@ -712,11 +712,7 @@ namespace FilmCollection
                 }
         }
 
-        private string GetFilename(string name)
-        {
-            return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-        }
-
+  
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
             // Предоставляет данные выбранной записи
@@ -768,11 +764,12 @@ namespace FilmCollection
                 {
                     MessageBox.Show(ex.Message);
                 }
-
-
-
-
             }
+        }
+
+        private string GetFilename(string name)
+        {
+            return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
         }
 
         private void GetPic(Record record)
