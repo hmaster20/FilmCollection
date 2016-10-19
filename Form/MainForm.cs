@@ -712,6 +712,11 @@ namespace FilmCollection
                 }
         }
 
+        private string GetFilename(string name)
+        {
+            return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
+        }
+
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
             // Предоставляет данные выбранной записи
@@ -722,6 +727,34 @@ namespace FilmCollection
                 tbfName.Text = record.Name;
                 tbfDesc.Text = record.Description;
                 tbfYear.Text = Convert.ToString(record.Year);
+
+
+                string filename = GetFilename(record.Name);
+                if (File.Exists(filename))
+                {
+                    Image image = Image.FromFile(filename);
+                    if (image.Height > 300)
+                        pbImage.Image = image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero);
+                    else
+                        pbImage.Image = image;
+                    //scMain.Panel1Collapsed = false;
+                    //scMain.SplitterDistance = pbImage.Image.Height;
+                }
+                else
+                    pbImage.Image = null;
+
+                //// int indexRow = dgv_films.CurrentRow.Index;
+                //pbImage.SizeMode = PictureBoxSizeMode.StretchImage;
+                //pbImage.Image = Collection.Movies[indexRow].Poster;
+
+                //try
+                //{
+                //    if (f.Picture_Type != null)
+                //    {
+                //        Image a = new Bitmap(Environment.CurrentDirectory + "\\Image" + "\\" + f.Title + f.Picture_Type);
+                //        f.Poster = a;
+                //    }
+                //}
 
                 // Панель редактирования
                 tbName.Text = record.Name;
