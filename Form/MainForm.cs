@@ -728,18 +728,7 @@ namespace FilmCollection
                 tbfDesc.Text = record.Description;
                 tbfYear.Text = Convert.ToString(record.Year);
 
-
-                string filename = GetFilename(record.Name);
-                if (File.Exists(filename))
-                {
-                    Image image = Image.FromFile(filename);
-                    if (image.Height > 300)
-                        pbImage.Image = image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero);
-                    else
-                        pbImage.Image = image;
-                }
-                else
-                    pbImage.Image = null;
+                GetPic(record);
 
                 // Панель редактирования
                 tbName.Text = record.Name;
@@ -784,6 +773,21 @@ namespace FilmCollection
 
 
             }
+        }
+
+        private void GetPic(Record record)
+        {
+            string filename = GetFilename(record.Name);
+            if (File.Exists(filename))
+            {
+                Image image = Image.FromFile(filename);
+                if (image.Height > 300)
+                    pbImage.Image = image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero);
+                else
+                    pbImage.Image = image;
+            }
+            else
+                pbImage.Image = null;
         }
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
@@ -2018,7 +2022,7 @@ namespace FilmCollection
 
         private void graberINFO(object sender, EventArgs e)
         {
-          // textBox1.Text = "спрут";
+            // textBox1.Text = "спрут";
             GetMetaInfo_i("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
         }
 
@@ -2099,7 +2103,7 @@ namespace FilmCollection
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                }                
+                }
 
                 textBoxWeb.Text += str;
             }
