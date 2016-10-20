@@ -712,7 +712,7 @@ namespace FilmCollection
                 }
         }
 
-  
+
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
             // Предоставляет данные выбранной записи
@@ -1796,64 +1796,15 @@ namespace FilmCollection
 
 
 
+
+
+
+
+
+
+
+
         #region Обработка постеров
-        private void DownloadPic_Click(object sender, EventArgs e)
-        {
-            string remoteFileUrl = @"https://pic.afisha.mail.ru/share/event/730486/?20160916210443.1";
-            string localFileName = "someImage.jpg";
-
-            //using (WebClient webClient = new WebClient())
-            WebClient webClient = new WebClient();
-            webClient.DownloadFile(remoteFileUrl, localFileName);
-
-            //byte[] data;
-            //using (WebClient client = new WebClient())
-            //{
-            //    data = client.DownloadData("http://testsite.com/web/abc.jpg");
-            //}
-            //File.WriteAllBytes(@"c:\images\xyz.jpg", data);
-        }
-
-        static void Mains()
-        {
-            GetMetaInfo();
-            Console.WriteLine("!!!");
-            //string ii = GetHtmlPageText("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
-            // Console.WriteLine(ii);
-            Console.ReadKey();
-        }
-
-        //<meta property="og:image" content="
-
-        //получение meta тэга
-        static void GetMetaInfo()
-        {
-            string sourcestring = GetHtmlPageText("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
-            //var tags = Regex.Matches(myHtmlText, @"(?<tag>\<meta[^\>]*>)", RegexOptions.IgnoreCase);
-            //MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta[^\>]*>)", RegexOptions.IgnoreCase);
-            //Regex metaTag = new Regex(@"<meta name=\"(.+?)\" content=\"(.+?)\">");
-            //MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta property\""(.+?)\"">)", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-            MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta.property=\""og:image\"".[^\>]*>)", RegexOptions.IgnoreCase);
-            //MatchCollection mc = re.Matches(sourcestring);
-            //int mIdx = 0;
-            foreach (Match m in mc)
-            {
-                Console.WriteLine(m.ToString());
-                //for (int gIdx = 0; gIdx < m.Groups.Count; gIdx++)
-                //{
-                //    Console.WriteLine("[{0}][{1}] = {2}", mIdx, re.GetGroupNames()[gIdx], m.Groups[gIdx].Value);
-                //}
-                //mIdx++;
-                Console.WriteLine("====================");
-                string myString = m.ToString();
-                string[] subStrings = myString.Split('"');
-                Console.WriteLine("content = " + subStrings[3]);
-                //foreach (string str in subStrings)
-                //{
-                //    Console.WriteLine(str);
-                //}
-            }
-        }
 
         //получение веб-страницы
         public static string GetHtmlPageText(string url)
@@ -1869,67 +1820,25 @@ namespace FilmCollection
         }
 
 
+        #region Получение постера
 
-
-
-        // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
-        // <a href = "/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
-
-        // https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/
-        // https://afisha.mail.ru
-        // https://pic.afisha.mail.ru/7087157/
-        #endregion
-
-        private void graber_Click(object sender, EventArgs e)
-        {
-            GetMetaInfo("https://afisha.mail.ru/cinema/movies/730486_polevye_ogni/");
-        }
-
-        private void GetMetaInfo(string web)
-        {
-            string sourcestring = GetHtmlPageText(web);
-            MatchCollection mc = Regex.Matches(sourcestring, @"(?<tag>\<meta.property=\""og:image\"".[^\>]*>)", RegexOptions.IgnoreCase);
-            foreach (Match m in mc)
-            {
-                //tbResult.Text += m.ToString();
-                tbResult.AppendText(m.ToString() + "\r\n");
-
-                string myString = m.ToString();
-                string[] subStrings = myString.Split('"');
-                //tbResult.Text += "content = " + subStrings[3];
-                tbResult.AppendText("content = " + subStrings[3]);
-
-
-                //(m.ToString()     ||   < meta property = "og:image" content = "https://pic.afisha.mail.ru/share/event/730486/?20160916210443.1" />
-                // subStrings[3])   ||   content = https://pic.afisha.mail.ru/share/event/730486/?20160916210443.1
-
-
-            }
-        }
-
-
-
-        // https://afisha.mail.ru/search/?q=полевые+огни&region_id=70
+        // afisha.mail.ru/search/?q=полевые+огни&region_id=70
         // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
 
-        private void graberHTML_Click(object sender, EventArgs e)
+        private void graber_Pic_Click(object sender, EventArgs e)
         {
-            GetMetaInfoHTML("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
+            ParseForPic("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
         }
 
-        private void GetMetaInfoHTML(string web, string name)
+        private void ParseForPic(string web, string name)
         {
             string sourcestring = GetHtmlPageText(web);
-            // textBoxWeb.Text += sourcestring;
-            //MatchCollection mc = Regex.Matches(sourcestring, "href=\"(.*)\"", RegexOptions.IgnoreCase);
-            //MatchCollection mc = Regex.Matches(sourcestring, "<a[\\s]+[^>]*?href[\\s]?=[\\s\\\"\']+(?<href>.*?)[\\\"\\']+.*?>(?<class>[^<]+|.*?)?<\\/a>", RegexOptions.IgnoreCase);
-            //MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?>.*?</a>)", RegexOptions.IgnoreCase);
             MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
 
             for (int i = 0; i < mc.Count; i++)
             {
                 tbResult.AppendText(mc[i].ToString() + "\r\n");
-                string PicSave = "";
+                string PicWeb = "";
                 string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                 for (int y = 0; y < subStrings.Length; y++)
                 {
@@ -1938,60 +1847,46 @@ namespace FilmCollection
                         ++y;
                         if (subStrings[y].Contains("http"))
                         {
-                            PicSave = subStrings[y];
+                            PicWeb = subStrings[y];
                             break;
                         }
                     }
                 }
 
-                if (PicSave != "")
+                if (PicWeb != "")
                 {
-                    tbResult.AppendText("pic = " + PicSave);
-                    DownloadPic(PicSave, name);
+                    tbResult.Text = "";
+                    tbResult.AppendText("pic = " + PicWeb);
+                    DownloadPic(PicWeb, name);
                     return;
                 }
             }
-
-            //foreach (Match m in mc)
-            //{
-            //    tbResult.AppendText(m.ToString() + "\r\n");
-            //    string PicSave ="";
-            //    string[] subStrings = m.ToString().Split('"', '(', ')');
-            //    for (int i = 0; i < subStrings.Length; i++)
-            //    {
-            //        if (subStrings[i] == "background-image:url") 
-            //        {
-            //            ++i;
-            //            PicSave = subStrings[i];
-            //            break;
-            //        }
-            //    }
-
-            //    if (PicSave != "")
-            //    {
-            //        tbResult.AppendText("pic = " + PicSave);
-            //        DownloadPic(PicSave, name);
-            //    }              
-            //}
-
         }
 
-        private void DownloadPic(string PicWeb, string PicSave)
+        private void DownloadPic(string PicWeb, string Pic)
         {
-            string remoteFileUrl = PicWeb;
-            string localFileName = PicSave + ".jpg";
+            //string remoteFileUrl = PicWeb;
+            //string localFileName = PicSave + ".jpg";
+           // string localFileName = GetFilename(Pic);
 
             if (PicWeb.Contains("http"))
             {
                 using (WebClient webClient = new WebClient())
-                    webClient.DownloadFile(remoteFileUrl, localFileName);
+                    webClient.DownloadFile(PicWeb, GetFilename(Pic));
             }
-
-
         }
 
 
 
+        //private string GetFilename(string name)
+        //{
+        //    return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
+        //}
+
+
+
+
+        #endregion
 
 
 
@@ -2009,27 +1904,22 @@ namespace FilmCollection
 
 
 
-
-
-
-
+        #region Получение описания
 
         // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
-        // https://afisha.mail.ru + /cinema/movies/730486_polevye_ogni/
+        // afisha.mail.ru + /cinema/movies/730486_polevye_ogni/
+        // <div class="movieabout__info__descr__txt" itemprop="description"><p>Осень 1944 года, японцы отступают с&nbsp;Филиппин.ине».</p></div>          
 
         private void graberINFO(object sender, EventArgs e)
         {
-            // textBox1.Text = "спрут";
             GetMetaInfo_i("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
         }
 
         private void GetMetaInfo_i(string web, string name)
         {
             string sourcestring = GetHtmlPageText(web);
-            // textBoxWeb.Text += sourcestring;
-
-            //MatchCollection mc = Regex.Matches(sourcestring, @"(<a href=.*?>.*?</a>)", RegexOptions.IgnoreCase);
-            MatchCollection mc = Regex.Matches(sourcestring, @"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
+            MatchCollection mc = Regex.Matches(sourcestring, 
+                                            @"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
 
             for (int i = 0; i < mc.Count; i++)
             {
@@ -2041,11 +1931,8 @@ namespace FilmCollection
                     if (subStrings[y] == "<a href=")
                     {
                         ++y;
-                        // if (subStrings[y].Contains("http"))
-                        // {
                         Link_txt = subStrings[y];
                         break;
-                        // }
                     }
                 }
 
@@ -2058,33 +1945,16 @@ namespace FilmCollection
             }
         }
 
-        /* <div class="movieabout__info__descr__txt" itemprop="description">
-         <p>Осень 1944 года, японцы отступают с&nbsp;Филиппин.Высший командный состав&nbsp;уже эвакуирован, а&nbsp;обычная пехота 
-        просто брошена умирать на&nbsp;чужой земле&nbsp;— без&nbsp;оружия, пищи и&nbsp;медикаментов.Простой рядовой Тамура(Эйдзи Фунакоси) из-за&nbsp;
-        болезни остается на&nbsp;острове Лейте, а&nbsp;теперь его выгоняют из госпиталя, потому что&nbsp;лекарств на&nbsp;всех все равно не&nbsp;
-         хватит.В&nbsp;настолько жестких&nbsp;— если не&nbsp;сказать жестоких&nbsp;— условиях люди теряют человеческий облик, начинают убивать и&nbsp;даже 
-         занимаются каннибализмом.Тамура пытается выжить, не&nbsp;изменив своим принципам.Кинофильм «Полевые огни»&nbsp;— экранизация романа 
-        «Огни на&nbsp;равнине» Сехэя Ооки.</p></div>          
-        
-             <div class="movieabout__info__descr__txt" itemprop="description"><p>В&nbsp;сицилийский город на&nbsp;место убитого начальника криминальной полиции Аугусто Маринео назначен комиссар Коррадо Каттани. Каттани приезжает со&nbsp;своей женой Эльзой и&nbsp;12-летней дочерью Паолой. Расследуя убийство, Каттани обнаруживает, что&nbsp;персоны, занимающие видное положение в&nbsp;городе, связаны с&nbsp;наркомафией. Комиссар начинает непримиримую борьбу с&nbsp;сицилийской мафией и&nbsp;коррупцией в&nbsp;высших эшелонах власти. Это ставит под удар не&nbsp;только семью Каттани, но&nbsp;и&nbsp;жизнь самого комиссара.</p>
-             <p>Итальянский актер Микеле Плачидо стал суперзвездой благодаря роли бесстрашного и&nbsp;неподкупного комиссара Каттани. В&nbsp;1984 году сериал «Спрут» получил награду «Лучший фильм» на&nbsp;итальянском международном фестивале телевизионных фильмов. «Спрут»&nbsp;— по&nbsp;сей день самый успешный сериал в&nbsp;Италии. На&nbsp;русском языке вышло несколько романов «Спрут» в&nbsp;переводе Г. Д. Богемского. Интересно, что&nbsp;последние два романа (Спрут 5 и&nbsp;6) были им написаны на&nbsp;основе просмотра фильма, так как итальянские романы
-             перестали выходить.</p></div>
 
-            <div class="movieabout__info__descr__tx
-
-             */
 
         private void GetMetaInfo_i_txt(string link)
         {
             textBoxWeb.Text = "";
-
             string sourcestring = GetHtmlPageText(link);
-            //textBoxWeb.Text += sourcestring;
-
+            
             MatchCollection mc = Regex.Matches(sourcestring,
-                @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
-            // @"(<div class=\""movieabout__info__descr.*?.*?>.*</p></div>)", RegexOptions.IgnoreCase);
-
+                                            @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+            
             foreach (Match m in mc)
             {
                 string str = m.ToString();
@@ -2107,21 +1977,19 @@ namespace FilmCollection
         }
 
 
+        #endregion
 
 
 
+        #endregion
 
 
 
+        // Ограбление 
+        private void tsGraber_Click(object sender, EventArgs e)
+        {
 
-
-
-
-
-
-
-
-
+        }
 
 
 
