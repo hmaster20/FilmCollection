@@ -1882,15 +1882,25 @@ namespace FilmCollection
             {
                 if (PicWeb.Contains("http"))
                 {
+                    string TempPath = Path.Combine(Path.GetTempPath(), "" + Pic + ".jpg");
+
                     using (WebClient webClient = new WebClient())
-                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
+                    {
+                        webClient.DownloadFile(PicWeb, TempPath);
+                    }
+                    File.Copy(TempPath, GetFilename(Pic), true);
+
+                    //  webClient.DownloadFile(PicWeb, GetFilename(Pic));
                 }
             }
             catch (Exception Ex)
             {
-                MessageBox.Show(Ex.Message);
+                MessageBox.Show(Ex.Message + " Скачать изображение не удалось!");
             }
-      
+            // string result = Path.GetTempPath();
+            //MessageBox.Show(Path.GetTempPath());
+            //return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
+            
         }
 
    
