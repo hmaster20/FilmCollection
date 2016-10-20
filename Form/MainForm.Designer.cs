@@ -180,13 +180,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.tabGrab = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
             this.textBoxWeb = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.graberHTML = new System.Windows.Forms.Button();
-            this.btnDownloadPic = new System.Windows.Forms.Button();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -1808,28 +1805,16 @@
             // 
             // tabGrab
             // 
-            this.tabGrab.Controls.Add(this.button2);
             this.tabGrab.Controls.Add(this.textBoxWeb);
             this.tabGrab.Controls.Add(this.tbResult);
             this.tabGrab.Controls.Add(this.textBox1);
-            this.tabGrab.Controls.Add(this.button1);
             this.tabGrab.Controls.Add(this.graberHTML);
-            this.tabGrab.Controls.Add(this.btnDownloadPic);
             this.tabGrab.Location = new System.Drawing.Point(4, 22);
             this.tabGrab.Name = "tabGrab";
             this.tabGrab.Size = new System.Drawing.Size(914, 567);
             this.tabGrab.TabIndex = 2;
             this.tabGrab.Text = "Захват";
             this.tabGrab.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(572, 87);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(162, 68);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Захват";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // textBoxWeb
             // 
@@ -1855,34 +1840,15 @@
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = "полевые+огни";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(687, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Грабить";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.graberINFO);
-            // 
             // graberHTML
             // 
-            this.graberHTML.Location = new System.Drawing.Point(588, 33);
+            this.graberHTML.Location = new System.Drawing.Point(567, 32);
             this.graberHTML.Name = "graberHTML";
             this.graberHTML.Size = new System.Drawing.Size(93, 23);
             this.graberHTML.TabIndex = 1;
-            this.graberHTML.Text = "Грабить Image";
+            this.graberHTML.Text = "Грабить";
             this.graberHTML.UseVisualStyleBackColor = true;
             this.graberHTML.Click += new System.EventHandler(this.graber_Pic_Click);
-            // 
-            // btnDownloadPic
-            // 
-            this.btnDownloadPic.Location = new System.Drawing.Point(66, 35);
-            this.btnDownloadPic.Name = "btnDownloadPic";
-            this.btnDownloadPic.Size = new System.Drawing.Size(93, 40);
-            this.btnDownloadPic.TabIndex = 0;
-            this.btnDownloadPic.Text = "Загрузка Изображения";
-            this.btnDownloadPic.UseVisualStyleBackColor = true;
             // 
             // timerLoad
             // 
@@ -2201,7 +2167,6 @@
         private System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
         private System.Windows.Forms.Button btnFindReset;
         private System.Windows.Forms.TabPage tabGrab;
-        private System.Windows.Forms.Button btnDownloadPic;
         private System.Windows.Forms.ContextMenuStrip TreeMenu;
         private System.Windows.Forms.ToolStripMenuItem сCollapseAll;
         private System.Windows.Forms.ToolStripMenuItem сExpandAll;
@@ -2287,12 +2252,10 @@
         private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.Button graberHTML;
         private System.Windows.Forms.TextBox textBoxWeb;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pbImage;
         private System.Windows.Forms.ToolStripButton tsGraber;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.TabPage tabImage;
-        private System.Windows.Forms.Button button2;
     }
 }
 
