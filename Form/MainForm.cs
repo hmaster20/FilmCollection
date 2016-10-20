@@ -1820,19 +1820,28 @@ namespace FilmCollection
         }
 
 
-        #region Получение постера
+        //выполнение поиска
+        private void graber_Pic_Click(object sender, EventArgs e)
+        {
+            power("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
+            //ParseForInfo("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
+        }
+
+
+        private void power(string web, string name)
+        {
+            ParseForPic(GetHtmlPageText(web), name);
+            ParseForInfo(GetHtmlPageText(web), name);
+        }
+
 
         // afisha.mail.ru/search/?q=полевые+огни&region_id=70
         // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
 
-        private void graber_Pic_Click(object sender, EventArgs e)
+        //private void ParseForPic(string web, string name)
+        private void ParseForPic(string sourcestring, string name)
         {
-            ParseForPic("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
-        }
-
-        private void ParseForPic(string web, string name)
-        {
-            string sourcestring = GetHtmlPageText(web);
+            tbResult.Text = "";
             MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
 
             for (int i = 0; i < mc.Count; i++)
@@ -1854,8 +1863,7 @@ namespace FilmCollection
                 }
 
                 if (PicWeb != "")
-                {
-                    tbResult.Text = "";
+                {                   
                     tbResult.AppendText("pic = " + PicWeb);
                     DownloadPic(PicWeb, name);
                     return;
@@ -1865,10 +1873,6 @@ namespace FilmCollection
 
         private void DownloadPic(string PicWeb, string Pic)
         {
-            //string remoteFileUrl = PicWeb;
-            //string localFileName = PicSave + ".jpg";
-           // string localFileName = GetFilename(Pic);
-
             if (PicWeb.Contains("http"))
             {
                 using (WebClient webClient = new WebClient())
@@ -1876,49 +1880,15 @@ namespace FilmCollection
             }
         }
 
-
-
-        //private string GetFilename(string name)
-        //{
-        //    return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-        //}
-
-
-
-
-        #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #region Получение описания
+   
 
         // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
         // afisha.mail.ru + /cinema/movies/730486_polevye_ogni/
         // <div class="movieabout__info__descr__txt" itemprop="description"><p>Осень 1944 года, японцы отступают с&nbsp;Филиппин.ине».</p></div>          
 
-        private void graberINFO(object sender, EventArgs e)
+        private void ParseForInfo(string sourcestring, string name)
         {
-            GetMetaInfo_i("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
-        }
-
-        private void GetMetaInfo_i(string web, string name)
-        {
-            string sourcestring = GetHtmlPageText(web);
-            MatchCollection mc = Regex.Matches(sourcestring, 
+            MatchCollection mc = Regex.Matches(sourcestring,
                                             @"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
 
             for (int i = 0; i < mc.Count; i++)
@@ -1939,22 +1909,20 @@ namespace FilmCollection
                 if (Link_txt != "")
                 {
                     tbResult.AppendText("ссылка на фильм = " + Link_txt);
-                    GetMetaInfo_i_txt("https://afisha.mail.ru" + Link_txt);
+                    GetInfo("https://afisha.mail.ru" + Link_txt);
                     return;
                 }
             }
         }
 
-
-
-        private void GetMetaInfo_i_txt(string link)
+        private void GetInfo(string link)
         {
             textBoxWeb.Text = "";
             string sourcestring = GetHtmlPageText(link);
-            
+
             MatchCollection mc = Regex.Matches(sourcestring,
                                             @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
-            
+
             foreach (Match m in mc)
             {
                 string str = m.ToString();
@@ -1962,6 +1930,9 @@ namespace FilmCollection
                 str = Regex.Replace(str, "&mdash;", "-");
                 str = Regex.Replace(str, "&laquo;", "\"");
                 str = Regex.Replace(str, "&raquo;", "\"");
+                str = Regex.Replace(str, "<span>", "");
+                str = Regex.Replace(str, "</span>", "");
+
                 try
                 {
                     str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));
@@ -1975,10 +1946,7 @@ namespace FilmCollection
                 textBoxWeb.Text += str;
             }
         }
-
-
-        #endregion
-
+        
 
 
         #endregion
@@ -1991,8 +1959,7 @@ namespace FilmCollection
 
         }
 
-
-
+   
     }
 
 }
