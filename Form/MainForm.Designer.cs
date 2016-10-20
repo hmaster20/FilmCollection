@@ -202,6 +202,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.graberAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1805,6 +1806,7 @@
             // 
             // tabGrab
             // 
+            this.tabGrab.Controls.Add(this.graberAll);
             this.tabGrab.Controls.Add(this.textBoxWeb);
             this.tabGrab.Controls.Add(this.tbResult);
             this.tabGrab.Controls.Add(this.textBox1);
@@ -1821,31 +1823,31 @@
             this.textBoxWeb.Location = new System.Drawing.Point(14, 192);
             this.textBoxWeb.Multiline = true;
             this.textBoxWeb.Name = "textBoxWeb";
-            this.textBoxWeb.Size = new System.Drawing.Size(883, 346);
-            this.textBoxWeb.TabIndex = 2;
+            this.textBoxWeb.Size = new System.Drawing.Size(288, 236);
+            this.textBoxWeb.TabIndex = 3;
             // 
             // tbResult
             // 
-            this.tbResult.Location = new System.Drawing.Point(176, 61);
+            this.tbResult.Location = new System.Drawing.Point(14, 41);
             this.tbResult.Multiline = true;
             this.tbResult.Name = "tbResult";
-            this.tbResult.Size = new System.Drawing.Size(288, 116);
+            this.tbResult.Size = new System.Drawing.Size(288, 132);
             this.tbResult.TabIndex = 2;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(176, 35);
+            this.textBox1.Location = new System.Drawing.Point(14, 15);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(288, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBox1.TabIndex = 1;
             this.textBox1.Text = "полевые+огни";
             // 
             // graberHTML
             // 
-            this.graberHTML.Location = new System.Drawing.Point(567, 32);
+            this.graberHTML.Location = new System.Drawing.Point(308, 13);
             this.graberHTML.Name = "graberHTML";
             this.graberHTML.Size = new System.Drawing.Size(93, 23);
-            this.graberHTML.TabIndex = 1;
+            this.graberHTML.TabIndex = 4;
             this.graberHTML.Text = "Грабить";
             this.graberHTML.UseVisualStyleBackColor = true;
             this.graberHTML.Click += new System.EventHandler(this.graber_Pic_Click);
@@ -2011,6 +2013,16 @@
             this.toolinfo.AutoPopDelay = 5000;
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
+            // 
+            // graberAll
+            // 
+            this.graberAll.Location = new System.Drawing.Point(427, 13);
+            this.graberAll.Name = "graberAll";
+            this.graberAll.Size = new System.Drawing.Size(97, 22);
+            this.graberAll.TabIndex = 5;
+            this.graberAll.Text = "Ограбление";
+            this.graberAll.UseVisualStyleBackColor = true;
+            this.graberAll.Click += new System.EventHandler(this.graberAll_Click);
             // 
             // MainForm
             // 
@@ -2255,6 +2267,7 @@
         private System.Windows.Forms.ToolStripButton tsGraber;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.TabPage tabImage;
+        private System.Windows.Forms.Button graberAll;
     }
 }
 
