@@ -1878,11 +1878,19 @@ namespace FilmCollection
 
         private void DownloadPic(string PicWeb, string Pic)
         {
-            if (PicWeb.Contains("http"))
+            try
             {
-                using (WebClient webClient = new WebClient())
-                    webClient.DownloadFile(PicWeb, GetFilename(Pic));
+                if (PicWeb.Contains("http"))
+                {
+                    using (WebClient webClient = new WebClient())
+                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
+                }
             }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+            }
+      
         }
 
    
