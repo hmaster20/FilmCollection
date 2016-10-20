@@ -1885,10 +1885,13 @@ namespace FilmCollection
                     string TempPath = Path.Combine(Path.GetTempPath(), "" + Pic + ".jpg");
 
                     using (WebClient webClient = new WebClient())
-                    {
-                        webClient.DownloadFile(PicWeb, TempPath);
-                    }
-                    File.Copy(TempPath, GetFilename(Pic), true);
+                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
+                    //{
+                    //    webClient.DownloadFile(PicWeb, TempPath);
+                    //}
+                    //File.Copy(TempPath, GetFilename(Pic), true);
+
+
 
                     //  webClient.DownloadFile(PicWeb, GetFilename(Pic));
                 }
