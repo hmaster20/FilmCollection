@@ -1958,7 +1958,6 @@
             this.tsGraber.Name = "tsGraber";
             this.tsGraber.Size = new System.Drawing.Size(23, 22);
             this.tsGraber.Text = "toolStripButton1";
-            this.tsGraber.Click += new System.EventHandler(this.tsGraber_Click);
             // 
             // toolStripSeparator7
             // 
