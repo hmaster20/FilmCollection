@@ -179,12 +179,13 @@
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
+            this.tabGrab = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.textBoxWeb = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.graberHTML = new System.Windows.Forms.Button();
-            this.graberLink = new System.Windows.Forms.Button();
             this.btnDownloadPic = new System.Windows.Forms.Button();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
@@ -196,6 +197,8 @@
             this.tsBackupDB = new System.Windows.Forms.ToolStripButton();
             this.tsRecoveryDB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsGraber = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
@@ -232,7 +235,7 @@
             this.panelActEditTitle.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gActAbout.SuspendLayout();
-            this.tabImage.SuspendLayout();
+            this.tabGrab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
@@ -663,6 +666,7 @@
             this.tabControl2.Controls.Add(this.tabFilm);
             this.tabControl2.Controls.Add(this.tabActors);
             this.tabControl2.Controls.Add(this.tabImage);
+            this.tabControl2.Controls.Add(this.tabGrab);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
@@ -1795,19 +1799,37 @@
             // 
             // tabImage
             // 
-            this.tabImage.Controls.Add(this.textBoxWeb);
-            this.tabImage.Controls.Add(this.tbResult);
-            this.tabImage.Controls.Add(this.textBox1);
-            this.tabImage.Controls.Add(this.button1);
-            this.tabImage.Controls.Add(this.graberHTML);
-            this.tabImage.Controls.Add(this.graberLink);
-            this.tabImage.Controls.Add(this.btnDownloadPic);
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
             this.tabImage.Size = new System.Drawing.Size(914, 567);
-            this.tabImage.TabIndex = 2;
+            this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
+            // 
+            // tabGrab
+            // 
+            this.tabGrab.Controls.Add(this.button2);
+            this.tabGrab.Controls.Add(this.textBoxWeb);
+            this.tabGrab.Controls.Add(this.tbResult);
+            this.tabGrab.Controls.Add(this.textBox1);
+            this.tabGrab.Controls.Add(this.button1);
+            this.tabGrab.Controls.Add(this.graberHTML);
+            this.tabGrab.Controls.Add(this.btnDownloadPic);
+            this.tabGrab.Location = new System.Drawing.Point(4, 22);
+            this.tabGrab.Name = "tabGrab";
+            this.tabGrab.Size = new System.Drawing.Size(914, 567);
+            this.tabGrab.TabIndex = 2;
+            this.tabGrab.Text = "Захват";
+            this.tabGrab.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(572, 87);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(162, 68);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Захват";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // textBoxWeb
             // 
@@ -1849,29 +1871,18 @@
             this.graberHTML.Name = "graberHTML";
             this.graberHTML.Size = new System.Drawing.Size(93, 23);
             this.graberHTML.TabIndex = 1;
-            this.graberHTML.Text = "Грабить";
+            this.graberHTML.Text = "Грабить Image";
             this.graberHTML.UseVisualStyleBackColor = true;
-            this.graberHTML.Click += new System.EventHandler(this.graberHTML_Click);
-            // 
-            // graberLink
-            // 
-            this.graberLink.Location = new System.Drawing.Point(489, 33);
-            this.graberLink.Name = "graberLink";
-            this.graberLink.Size = new System.Drawing.Size(93, 23);
-            this.graberLink.TabIndex = 1;
-            this.graberLink.Text = "Грабить";
-            this.graberLink.UseVisualStyleBackColor = true;
-            this.graberLink.Click += new System.EventHandler(this.graber_Click);
+            this.graberHTML.Click += new System.EventHandler(this.graber_Pic_Click);
             // 
             // btnDownloadPic
             // 
-            this.btnDownloadPic.Location = new System.Drawing.Point(60, 24);
+            this.btnDownloadPic.Location = new System.Drawing.Point(66, 35);
             this.btnDownloadPic.Name = "btnDownloadPic";
             this.btnDownloadPic.Size = new System.Drawing.Size(93, 40);
             this.btnDownloadPic.TabIndex = 0;
             this.btnDownloadPic.Text = "Загрузка Изображения";
             this.btnDownloadPic.UseVisualStyleBackColor = true;
-            this.btnDownloadPic.Click += new System.EventHandler(this.DownloadPic_Click);
             // 
             // timerLoad
             // 
@@ -1910,6 +1921,8 @@
             this.tsBackupDB,
             this.tsRecoveryDB,
             this.toolStripSeparator6,
+            this.tsGraber,
+            this.toolStripSeparator7,
             this.toolStripButton3,
             this.toolStripButton4,
             this.toolStripButton5,
@@ -1970,6 +1983,21 @@
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsGraber
+            // 
+            this.tsGraber.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsGraber.Image = global::FilmCollection.Properties.Resources.grabber;
+            this.tsGraber.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsGraber.Name = "tsGraber";
+            this.tsGraber.Size = new System.Drawing.Size(23, 22);
+            this.tsGraber.Text = "toolStripButton1";
+            this.tsGraber.Click += new System.EventHandler(this.tsGraber_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButton3
             // 
@@ -2075,8 +2103,8 @@
             this.groupBox1.PerformLayout();
             this.gActAbout.ResumeLayout(false);
             this.gActAbout.PerformLayout();
-            this.tabImage.ResumeLayout(false);
-            this.tabImage.PerformLayout();
+            this.tabGrab.ResumeLayout(false);
+            this.tabGrab.PerformLayout();
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
@@ -2172,7 +2200,7 @@
         private System.Windows.Forms.Button btnFindNext;
         private System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
         private System.Windows.Forms.Button btnFindReset;
-        private System.Windows.Forms.TabPage tabImage;
+        private System.Windows.Forms.TabPage tabGrab;
         private System.Windows.Forms.Button btnDownloadPic;
         private System.Windows.Forms.ContextMenuStrip TreeMenu;
         private System.Windows.Forms.ToolStripMenuItem сCollapseAll;
@@ -2255,13 +2283,16 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ColumnHeader colSelectYear;
         private System.Windows.Forms.ColumnHeader colYear;
-        private System.Windows.Forms.Button graberLink;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.Button graberHTML;
         private System.Windows.Forms.TextBox textBoxWeb;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pbImage;
+        private System.Windows.Forms.ToolStripButton tsGraber;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.TabPage tabImage;
+        private System.Windows.Forms.Button button2;
     }
 }
 
