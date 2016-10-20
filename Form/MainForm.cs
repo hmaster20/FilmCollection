@@ -1820,10 +1820,16 @@ namespace FilmCollection
         }
 
 
-        //выполнение поиска
         private void graber_Pic_Click(object sender, EventArgs e)
         {
-            power("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
+            FindCinema(textBox1.Text);      
+        }
+
+
+        //выполнение поиска
+        private void FindCinema(string text)
+        {
+            power("https://afisha.mail.ru/search/?q=" + text, text);
         }
 
 
@@ -1945,14 +1951,22 @@ namespace FilmCollection
                 textBoxWeb.Text += str;
             }
         }
-        
+
+
+
+
 
 
         #endregion
 
-
-
-   
+        private void graberAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < _videoCollection.ActorList.Count; i++)
+            {
+                FindCinema(_videoCollection.VideoList[i].Name);                
+            }
+           
+        }
     }
 
 }
