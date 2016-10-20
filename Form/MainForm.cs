@@ -1824,7 +1824,6 @@ namespace FilmCollection
         private void graber_Pic_Click(object sender, EventArgs e)
         {
             power("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
-            //ParseForInfo("https://afisha.mail.ru/search/?q=" + textBox1.Text, textBox1.Text);
         }
 
 
@@ -1952,12 +1951,6 @@ namespace FilmCollection
         #endregion
 
 
-
-        // Ограбление 
-        private void tsGraber_Click(object sender, EventArgs e)
-        {
-
-        }
 
    
     }
