@@ -2147,20 +2147,6 @@ namespace FilmCollection
 
 
 
-
-//MessageBox.Show(lvSelectRecord.SelectedItems[0].SubItems[0].Text);
-
-//if (lvSelectRecord.SelectedItems.Count > 0)
-//{
-//    var item = lvSelectRecord.SelectedItems[0];
-//}
-
-//var selectedItems = lvSelectRecord.SelectedItems;
-//foreach (ListViewItem selectedItem in selectedItems)
-//{
-//}
-
-
 //MessageBox.Show(month + "/" + day + "/" + year);
 
 //maskDateOfBirth.
