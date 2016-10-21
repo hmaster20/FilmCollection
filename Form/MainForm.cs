@@ -1822,7 +1822,7 @@ namespace FilmCollection
 
         private void graber_Pic_Click(object sender, EventArgs e)
         {
-            FindCinema(textBox1.Text);      
+            FindCinema(textBox1.Text);
         }
 
 
@@ -1868,7 +1868,7 @@ namespace FilmCollection
                 }
 
                 if (PicWeb != "")
-                {                   
+                {
                     tbResult.AppendText("pic = " + PicWeb);
                     DownloadPic(PicWeb, name);
                     return;
@@ -1903,10 +1903,10 @@ namespace FilmCollection
             // string result = Path.GetTempPath();
             //MessageBox.Show(Path.GetTempPath());
             //return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-            
+
         }
 
-   
+
 
         // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
         // afisha.mail.ru + /cinema/movies/730486_polevye_ogni/
@@ -2004,10 +2004,152 @@ namespace FilmCollection
 
                 string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
                 output = output.Trim(); //убираем пробелы вначале и конце
-                FindCinema(output);
+                WebQuery(output, _videoCollection.VideoList[i]);
             }
-           
+
         }
+
+
+        //выполнение поиска
+        private void WebQuery(string text, Record rec)
+        {
+            string web = "https://afisha.mail.ru/search/?q=" + text;
+            string name = text;
+
+            GetPic(GetHtmlPageText(web), name, rec);
+            GetText(GetHtmlPageText(web), name, rec);
+
+        }
+
+
+        private void GetPic(string sourcestring, string name, Record rec)
+        {
+            tbResult.Text = "";
+            MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
+
+            for (int i = 0; i < mc.Count; i++)
+            {
+                tbResult.AppendText(mc[i].ToString() + "\r\n");
+                string PicWeb = "";
+                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                for (int y = 0; y < subStrings.Length; y++)
+                {
+                    if (subStrings[y] == "background-image:url")
+                    {
+                        ++y;
+                        if (subStrings[y].Contains("http"))
+                        {
+                            PicWeb = subStrings[y];
+                            break;
+                        }
+                    }
+                }
+
+                if (PicWeb != "")
+                {
+                    tbResult.AppendText("pic = " + PicWeb);
+                    DownPic(PicWeb, name);
+                    rec.Pic = name + ".jpg";
+                    return;
+                }
+            }
+        }
+
+        private void DownPic(string PicWeb, string Pic)
+        {
+            try
+            {
+                if (PicWeb.Contains("http"))
+                {
+                    using (WebClient webClient = new WebClient())
+                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
+                }
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message);
+            }
+        }
+
+
+        private void GetText(string sourcestring, string name, Record rec)
+        {
+            MatchCollection mc = Regex.Matches(sourcestring,
+                                            @"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
+
+            for (int i = 0; i < mc.Count; i++)
+            {
+                tbResult.AppendText(mc[i].ToString() + "\r\n");
+                string Link_txt = "";
+                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                for (int y = 0; y < subStrings.Length; y++)
+                {
+                    if (subStrings[y] == "<a href=")
+                    {
+                        ++y;
+                        Link_txt = subStrings[y];
+                        break;
+                    }
+                }
+
+                if (Link_txt != "")
+                {
+                    tbResult.AppendText("ссылка на фильм = " + Link_txt);
+                    DownInfo("https://afisha.mail.ru" + Link_txt, rec);
+                    return;
+                }
+            }
+        }
+
+        private void DownInfo(string link, Record rec)
+        {
+            textBoxWeb.Text = "";
+            string sourcestring = GetHtmlPageText(link);
+
+            MatchCollection mc = Regex.Matches(sourcestring,
+                                            @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+
+            foreach (Match m in mc)
+            {
+                string str = m.ToString();
+                str = Regex.Replace(str, "&nbsp;", " ");
+                str = Regex.Replace(str, "&mdash;", "-");
+                str = Regex.Replace(str, "&laquo;", "\"");
+                str = Regex.Replace(str, "&raquo;", "\"");
+                str = Regex.Replace(str, "<span>", "");
+                str = Regex.Replace(str, "</span>", "");
+
+                try
+                {
+                    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));
+                    str = str.Remove(0, str.LastIndexOf("<p>") + 3);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                rec.Description = str;
+                textBoxWeb.Text += str;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 }
