@@ -2002,14 +2002,10 @@ namespace FilmCollection
 
                 //удаление всех латинских букв, цифр, подчеркивания, точки, скобок
                 //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
-                //MessageBox.Show(output);
 
                 // Удаление всех латинских букв, цифр, подчеркивания, точки, скобок
                 //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
 
-                //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"([a-zA-Z+) (\d+)", string.Empty);
-
-                //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"\d{4}", string.Empty);
 
                 string output2 = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z_.()]", string.Empty);
                 string output = Regex.Replace(output2, @"[0-9]{4}", string.Empty);
