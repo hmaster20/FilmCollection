@@ -1982,7 +1982,8 @@ namespace FilmCollection
 
         private void graberAll_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < _videoCollection.ActorList.Count; i++)
+            //for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            for (int i = 0; i < 10; i++)
             {
                 //Regex my_reg = new Regex("[0-9]+");
                 // string out_string = my_reg.Replace(_videoCollection.VideoList[i].Name, "");
@@ -1990,11 +1991,19 @@ namespace FilmCollection
                 //FindCinema(_videoCollection.VideoList[i].Name)
                 //s = Regex.Replace(s, "[^0-9.]", "");
 
-
+                // удалить все цифры
                 //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-]", string.Empty);
-                var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-.]", string.Empty);
-                MessageBox.Show(output);
+                //vудалить все цифры и точки
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-.]", string.Empty);
+                //vудалить все что не цифры и не буквы, кроме тире
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[^a-zA-Z0-9 -]", string.Empty);
 
+                //удаление всех латинских букв, цифр, подчеркивания, точки, скобок
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
+                //MessageBox.Show(output);
+
+                string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
+                FindCinema(output);
             }
            
         }
