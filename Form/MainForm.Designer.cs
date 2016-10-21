@@ -205,6 +205,17 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.textBox2 = new FilmCollection.MyTextBox();
+            this.cRenameFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.panelFolder = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -241,6 +252,7 @@
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
+            this.panelFolder.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -619,9 +631,11 @@
             this.toolStripSeparator2,
             this.cExpandSelectNode,
             this.toolStripSeparator3,
-            this.cShowSelcetNodeAllFiles});
+            this.cShowSelcetNodeAllFiles,
+            this.toolStripSeparator8,
+            this.cRenameFolder});
             this.TreeMenu.Name = "contextTreeMenu";
-            this.TreeMenu.Size = new System.Drawing.Size(268, 104);
+            this.TreeMenu.Size = new System.Drawing.Size(268, 132);
             // 
             // сCollapseAll
             // 
@@ -707,8 +721,9 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(966, 593);
@@ -1406,7 +1421,7 @@
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
             this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(914, 599);
+            this.tabActors.Size = new System.Drawing.Size(972, 599);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1430,8 +1445,8 @@
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelActEditTitle);
-            this.scTabActors.Size = new System.Drawing.Size(908, 593);
-            this.scTabActors.SplitterDistance = 479;
+            this.scTabActors.Size = new System.Drawing.Size(966, 593);
+            this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
             // 
             // dgvTableActors
@@ -1455,7 +1470,7 @@
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(477, 564);
+            this.dgvTableActors.Size = new System.Drawing.Size(535, 564);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
@@ -1499,7 +1514,7 @@
             this.toolStripComboBox2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(477, 27);
+            this.menuStrip1.Size = new System.Drawing.Size(535, 27);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1801,7 +1816,7 @@
             // 
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
-            this.tabImage.Size = new System.Drawing.Size(914, 599);
+            this.tabImage.Size = new System.Drawing.Size(972, 599);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
@@ -1816,7 +1831,7 @@
             this.tabGrab.Controls.Add(this.graberHTML);
             this.tabGrab.Location = new System.Drawing.Point(4, 22);
             this.tabGrab.Name = "tabGrab";
-            this.tabGrab.Size = new System.Drawing.Size(914, 599);
+            this.tabGrab.Size = new System.Drawing.Size(972, 599);
             this.tabGrab.TabIndex = 2;
             this.tabGrab.Text = "Захват";
             this.tabGrab.UseVisualStyleBackColor = true;
@@ -2046,6 +2061,113 @@
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 6;
             // 
+            // cRenameFolder
+            // 
+            this.cRenameFolder.Name = "cRenameFolder";
+            this.cRenameFolder.Size = new System.Drawing.Size(267, 22);
+            this.cRenameFolder.Text = "Переименовать";
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(264, 6);
+            // 
+            // panelFolder
+            // 
+            this.panelFolder.Controls.Add(this.button1);
+            this.panelFolder.Controls.Add(this.button2);
+            this.panelFolder.Controls.Add(this.button3);
+            this.panelFolder.Controls.Add(this.label17);
+            this.panelFolder.Controls.Add(this.label16);
+            this.panelFolder.Controls.Add(this.textBox4);
+            this.panelFolder.Controls.Add(this.textBox3);
+            this.panelFolder.Controls.Add(this.label7);
+            this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFolder.Location = new System.Drawing.Point(0, 0);
+            this.panelFolder.Name = "panelFolder";
+            this.panelFolder.Size = new System.Drawing.Size(368, 591);
+            this.panelFolder.TabIndex = 59;
+            // 
+            // label7
+            // 
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(368, 27);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Панель изменения каталога";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(28, 107);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(311, 20);
+            this.textBox3.TabIndex = 3;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(29, 88);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(188, 13);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "Укажите новое название каталога:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(29, 43);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 13);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Текущий каталог:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(28, 62);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(311, 20);
+            this.textBox4.TabIndex = 3;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Image = global::FilmCollection.Properties.Resources.save;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(253, 165);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(86, 23);
+            this.button1.TabIndex = 60;
+            this.button1.Text = "Сохранить";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(253, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.TabIndex = 59;
+            this.button2.Text = "Отмена";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.Image = global::FilmCollection.Properties.Resources.add;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(28, 180);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(81, 23);
+            this.button3.TabIndex = 58;
+            this.button3.Text = "Добавить";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2110,6 +2232,8 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
+            this.panelFolder.ResumeLayout(false);
+            this.panelFolder.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2292,6 +2416,17 @@
         private System.Windows.Forms.Button graberAll;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private MyTextBox textBox2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem cRenameFolder;
+        private System.Windows.Forms.Panel panelFolder;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label7;
     }
 }
 
