@@ -1984,7 +1984,17 @@ namespace FilmCollection
         {
             for (int i = 0; i < _videoCollection.ActorList.Count; i++)
             {
-                FindCinema(_videoCollection.VideoList[i].Name);                
+                //Regex my_reg = new Regex("[0-9]+");
+                // string out_string = my_reg.Replace(_videoCollection.VideoList[i].Name, "");
+
+                //FindCinema(_videoCollection.VideoList[i].Name)
+                //s = Regex.Replace(s, "[^0-9.]", "");
+
+
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-]", string.Empty);
+                var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-.]", string.Empty);
+                MessageBox.Show(output);
+
             }
            
         }
