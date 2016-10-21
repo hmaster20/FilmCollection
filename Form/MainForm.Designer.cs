@@ -202,7 +202,9 @@
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.textBox2 = new FilmCollection.MyTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -259,7 +261,6 @@
             this.cmnCategoryString,
             this.cmnTime,
             this.cmnFileName});
-            this.dgvTableRec.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTableRec.Location = new System.Drawing.Point(0, 27);
             this.dgvTableRec.MultiSelect = false;
             this.dgvTableRec.Name = "dgvTableRec";
@@ -1404,7 +1405,7 @@
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
             this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(914, 567);
+            this.tabActors.Size = new System.Drawing.Size(914, 599);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1428,7 +1429,7 @@
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelActEditTitle);
-            this.scTabActors.Size = new System.Drawing.Size(908, 561);
+            this.scTabActors.Size = new System.Drawing.Size(908, 593);
             this.scTabActors.SplitterDistance = 479;
             this.scTabActors.TabIndex = 1;
             // 
@@ -1453,7 +1454,7 @@
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(477, 532);
+            this.dgvTableActors.Size = new System.Drawing.Size(477, 564);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
@@ -1538,7 +1539,7 @@
             this.panelActEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelActEditTitle.Location = new System.Drawing.Point(0, 0);
             this.panelActEditTitle.Name = "panelActEditTitle";
-            this.panelActEditTitle.Size = new System.Drawing.Size(423, 559);
+            this.panelActEditTitle.Size = new System.Drawing.Size(423, 591);
             this.panelActEditTitle.TabIndex = 0;
             // 
             // groupBox1
@@ -1799,13 +1800,14 @@
             // 
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
-            this.tabImage.Size = new System.Drawing.Size(914, 567);
+            this.tabImage.Size = new System.Drawing.Size(914, 599);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
             // 
             // tabGrab
             // 
+            this.tabGrab.Controls.Add(this.textBox2);
             this.tabGrab.Controls.Add(this.graberAll);
             this.tabGrab.Controls.Add(this.textBoxWeb);
             this.tabGrab.Controls.Add(this.tbResult);
@@ -1813,7 +1815,7 @@
             this.tabGrab.Controls.Add(this.graberHTML);
             this.tabGrab.Location = new System.Drawing.Point(4, 22);
             this.tabGrab.Name = "tabGrab";
-            this.tabGrab.Size = new System.Drawing.Size(914, 567);
+            this.tabGrab.Size = new System.Drawing.Size(914, 599);
             this.tabGrab.TabIndex = 2;
             this.tabGrab.Text = "Захват";
             this.tabGrab.UseVisualStyleBackColor = true;
@@ -1905,7 +1907,8 @@
             this.toolStripButton4,
             this.toolStripButton5,
             this.toolStripSeparator5,
-            this.tsFind});
+            this.tsFind,
+            this.toolStripTextBox1});
             this.toolMainMenu.Location = new System.Drawing.Point(0, 24);
             this.toolMainMenu.Name = "toolMainMenu";
             this.toolMainMenu.Size = new System.Drawing.Size(1117, 25);
@@ -2018,11 +2021,29 @@
             this.tsFind.Text = "Найти";
             this.tsFind.Click += new System.EventHandler(this.cFind_Click);
             // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.AutoSize = false;
+            this.toolStripTextBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.toolStripTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 20);
+            this.toolStripTextBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            // 
             // toolinfo
             // 
             this.toolinfo.AutoPopDelay = 5000;
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(396, 124);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
             // 
             // MainForm
             // 
@@ -2268,6 +2289,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.TabPage tabImage;
         private System.Windows.Forms.Button graberAll;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private MyTextBox textBox2;
     }
 }
 
