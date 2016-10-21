@@ -180,6 +180,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.tabGrab = new System.Windows.Forms.TabPage();
+            this.graberAll = new System.Windows.Forms.Button();
             this.textBoxWeb = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -202,7 +203,6 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.graberAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -266,7 +266,7 @@
             this.dgvTableRec.ReadOnly = true;
             this.dgvTableRec.RowHeadersVisible = false;
             this.dgvTableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableRec.Size = new System.Drawing.Size(532, 532);
+            this.dgvTableRec.Size = new System.Drawing.Size(532, 564);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableRec_ColumnHeaderMouseClick);
@@ -422,7 +422,7 @@
             this.tssLabel,
             this.tsProgressBar,
             this.FindStatusLabel});
-            this.statusLine.Location = new System.Drawing.Point(0, 642);
+            this.statusLine.Location = new System.Drawing.Point(0, 674);
             this.statusLine.Name = "statusLine";
             this.statusLine.Size = new System.Drawing.Size(1117, 22);
             this.statusLine.TabIndex = 18;
@@ -605,7 +605,7 @@
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
-            this.treeFolder.Size = new System.Drawing.Size(191, 593);
+            this.treeFolder.Size = new System.Drawing.Size(191, 625);
             this.treeFolder.TabIndex = 22;
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
             // 
@@ -669,7 +669,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(922, 593);
+            this.tabControl2.Size = new System.Drawing.Size(922, 625);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.SelectActor_Info);
             this.tabControl2.Click += new System.EventHandler(this.tabControl_ResetFindStatus_Click);
@@ -680,7 +680,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(914, 567);
+            this.tabFilm.Size = new System.Drawing.Size(914, 599);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -709,7 +709,7 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(908, 561);
+            this.scTabFilm.Size = new System.Drawing.Size(908, 593);
             this.scTabFilm.SplitterDistance = 534;
             this.scTabFilm.TabIndex = 17;
             // 
@@ -780,12 +780,12 @@
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 559);
+            this.panelView.Size = new System.Drawing.Size(368, 591);
             this.panelView.TabIndex = 10;
             // 
             // pbImage
             // 
-            this.pbImage.Location = new System.Drawing.Point(182, 299);
+            this.pbImage.Location = new System.Drawing.Point(192, 56);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(158, 238);
             this.pbImage.TabIndex = 9;
@@ -796,7 +796,7 @@
             this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
             this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 533);
+            this.btnPlay.Location = new System.Drawing.Point(5, 565);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(111, 23);
             this.btnPlay.TabIndex = 6;
@@ -810,7 +810,7 @@
             this.lblRecDescription.AutoSize = true;
             this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecDescription.Location = new System.Drawing.Point(2, 76);
+            this.lblRecDescription.Location = new System.Drawing.Point(8, 279);
             this.lblRecDescription.Name = "lblRecDescription";
             this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
             this.lblRecDescription.TabIndex = 4;
@@ -821,7 +821,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(122, 52);
+            this.label5.Location = new System.Drawing.Point(10, 75);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 17);
             this.label5.TabIndex = 3;
@@ -832,7 +832,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(7, 53);
+            this.label4.Location = new System.Drawing.Point(9, 53);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 17);
             this.label4.TabIndex = 3;
@@ -855,11 +855,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfDesc.Location = new System.Drawing.Point(88, 76);
+            this.tbfDesc.Location = new System.Drawing.Point(16, 299);
             this.tbfDesc.Multiline = true;
             this.tbfDesc.Name = "tbfDesc";
             this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.Size = new System.Drawing.Size(277, 335);
+            this.tbfDesc.Size = new System.Drawing.Size(334, 260);
             this.tbfDesc.TabIndex = 8;
             // 
             // tbfCountry
@@ -868,7 +868,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfCountry.Location = new System.Drawing.Point(186, 53);
+            this.tbfCountry.Location = new System.Drawing.Point(13, 95);
             this.tbfCountry.Name = "tbfCountry";
             this.tbfCountry.ReadOnly = true;
             this.tbfCountry.Size = new System.Drawing.Size(164, 16);
@@ -953,7 +953,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 559);
+            this.panelEdit.Size = new System.Drawing.Size(368, 591);
             this.panelEdit.TabIndex = 10;
             // 
             // btnMoveDown
@@ -1301,7 +1301,7 @@
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 559);
+            this.panelFind.Size = new System.Drawing.Size(368, 591);
             this.panelFind.TabIndex = 0;
             // 
             // btnFindReset
@@ -1818,6 +1818,16 @@
             this.tabGrab.Text = "Захват";
             this.tabGrab.UseVisualStyleBackColor = true;
             // 
+            // graberAll
+            // 
+            this.graberAll.Location = new System.Drawing.Point(427, 13);
+            this.graberAll.Name = "graberAll";
+            this.graberAll.Size = new System.Drawing.Size(97, 22);
+            this.graberAll.TabIndex = 5;
+            this.graberAll.Text = "Ограбление";
+            this.graberAll.UseVisualStyleBackColor = true;
+            this.graberAll.Click += new System.EventHandler(this.graberAll_Click);
+            // 
             // textBoxWeb
             // 
             this.textBoxWeb.Location = new System.Drawing.Point(14, 192);
@@ -1872,7 +1882,7 @@
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1117, 593);
+            this.scMain.Size = new System.Drawing.Size(1117, 625);
             this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
@@ -2014,21 +2024,11 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // graberAll
-            // 
-            this.graberAll.Location = new System.Drawing.Point(427, 13);
-            this.graberAll.Name = "graberAll";
-            this.graberAll.Size = new System.Drawing.Size(97, 22);
-            this.graberAll.TabIndex = 5;
-            this.graberAll.Text = "Ограбление";
-            this.graberAll.UseVisualStyleBackColor = true;
-            this.graberAll.Click += new System.EventHandler(this.graberAll_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1117, 664);
+            this.ClientSize = new System.Drawing.Size(1117, 696);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.toolMainMenu);
