@@ -2004,12 +2004,21 @@ namespace FilmCollection
                 //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
                 //MessageBox.Show(output);
 
-                string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
+                // Удаление всех латинских букв, цифр, подчеркивания, точки, скобок
+                //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
+
+                //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"([a-zA-Z+) (\d+)", string.Empty);
+
+                //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"\d{4}", string.Empty);
+
+                string output2 = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z_.()]", string.Empty);
+                string output = Regex.Replace(output2, @"[0-9]{4}", string.Empty);
                 output = output.Trim(); //убираем пробелы вначале и конце
-                if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
-                {
-                    WebQuery(output, _videoCollection.VideoList[i]);
-                }
+                MessageBox.Show(output);
+                //if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
+                //{
+                //    WebQuery(output, _videoCollection.VideoList[i]);
+                //}
             }
 
         }
@@ -2143,7 +2152,6 @@ namespace FilmCollection
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //var hdc = GetWindowDC(this.Handle);
             //Graphics graphics = Graphics.FromHdc(hdc);
             ////Color borderColor = Color.Blue;
             //Color borderColor = Color.Red;
@@ -2157,13 +2165,6 @@ namespace FilmCollection
             rect.Inflate(1, 1); // border thickness
             ControlPaint.DrawBorder(e.Graphics, rect, Color.Silver, ButtonBorderStyle.Solid);
 
-            //// голубой цвет
-            ////System.Drawing.Rectangle rect = new Rectangle(TextBox1.Location.X, TextBox1.Location.Y, TextBox1.ClientSize.Width, TextBox1.ClientSize.Height);
-            //Rectangle rect = new Rectangle(1, 1, 20, 3);
-            //rect.Inflate(1, 1); // border thickness
-            //ControlPaint.DrawBorder(e.Graphics, rect, Color.DeepSkyBlue, ButtonBorderStyle.Solid);
-
-
 
             //// серый
             //base.OnPaint(e);
@@ -2175,10 +2176,6 @@ namespace FilmCollection
             //TextRenderer.DrawText(e.Graphics, Text, this.Font, textRec, this.ForeColor, this.BackColor, TextFormatFlags.Default);
 
 
-            ////if (focus)
-            //if (toolStripTextBox1.Focused)
-            //     {
-            //    //MessageBox.Show("Test");
             //    toolStripTextBox1.BorderStyle = BorderStyle.None;
             //    //Pen p = new Pen(Color.Red);
             //    Pen p = new Pen(SystemColors.ControlDark, 5);
@@ -2191,14 +2188,6 @@ namespace FilmCollection
             //    //                             toolMainMenu.Location.Y - variance,
             //    //                             toolStripTextBox1.Width + variance,
             //    //                             toolStripTextBox1.Height + variance));
-            //}
-            //// else
-            ////  {
-            //// toolStripTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            ////  }
-
-
-
         }
 
 
