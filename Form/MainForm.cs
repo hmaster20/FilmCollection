@@ -1983,7 +1983,7 @@ namespace FilmCollection
         private void graberAll_Click(object sender, EventArgs e)
         {
             //for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 15; i++)
             {
                 //Regex my_reg = new Regex("[0-9]+");
                 // string out_string = my_reg.Replace(_videoCollection.VideoList[i].Name, "");
@@ -2003,6 +2003,7 @@ namespace FilmCollection
                 //MessageBox.Show(output);
 
                 string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
+                output = output.Trim(); //убираем пробелы вначале и конце
                 FindCinema(output);
             }
            
