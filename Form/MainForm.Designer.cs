@@ -261,13 +261,14 @@
             this.cmnCategoryString,
             this.cmnTime,
             this.cmnFileName});
+            this.dgvTableRec.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTableRec.Location = new System.Drawing.Point(0, 27);
             this.dgvTableRec.MultiSelect = false;
             this.dgvTableRec.Name = "dgvTableRec";
             this.dgvTableRec.ReadOnly = true;
             this.dgvTableRec.RowHeadersVisible = false;
             this.dgvTableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableRec.Size = new System.Drawing.Size(532, 564);
+            this.dgvTableRec.Size = new System.Drawing.Size(590, 564);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableRec_ColumnHeaderMouseClick);
@@ -425,7 +426,7 @@
             this.FindStatusLabel});
             this.statusLine.Location = new System.Drawing.Point(0, 674);
             this.statusLine.Name = "statusLine";
-            this.statusLine.Size = new System.Drawing.Size(1117, 22);
+            this.statusLine.Size = new System.Drawing.Size(1175, 22);
             this.statusLine.TabIndex = 18;
             this.statusLine.Text = "statusStrip1";
             // 
@@ -458,7 +459,7 @@
             this.btnHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1117, 24);
+            this.mainMenu.Size = new System.Drawing.Size(1175, 24);
             this.mainMenu.TabIndex = 10;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -670,7 +671,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(922, 625);
+            this.tabControl2.Size = new System.Drawing.Size(980, 625);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.SelectActor_Info);
             this.tabControl2.Click += new System.EventHandler(this.tabControl_ResetFindStatus_Click);
@@ -681,7 +682,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(914, 599);
+            this.tabFilm.Size = new System.Drawing.Size(972, 599);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -710,8 +711,8 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(908, 593);
-            this.scTabFilm.SplitterDistance = 534;
+            this.scTabFilm.Size = new System.Drawing.Size(966, 593);
+            this.scTabFilm.SplitterDistance = 592;
             this.scTabFilm.TabIndex = 17;
             // 
             // menudgvTable
@@ -723,7 +724,7 @@
             this.tscbSort});
             this.menudgvTable.Location = new System.Drawing.Point(0, 0);
             this.menudgvTable.Name = "menudgvTable";
-            this.menudgvTable.Size = new System.Drawing.Size(532, 27);
+            this.menudgvTable.Size = new System.Drawing.Size(590, 27);
             this.menudgvTable.TabIndex = 23;
             this.menudgvTable.Text = "menuStrip1";
             // 
@@ -1884,7 +1885,7 @@
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1117, 625);
+            this.scMain.Size = new System.Drawing.Size(1175, 625);
             this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
@@ -1911,7 +1912,7 @@
             this.toolStripTextBox1});
             this.toolMainMenu.Location = new System.Drawing.Point(0, 24);
             this.toolMainMenu.Name = "toolMainMenu";
-            this.toolMainMenu.Size = new System.Drawing.Size(1117, 25);
+            this.toolMainMenu.Size = new System.Drawing.Size(1175, 25);
             this.toolMainMenu.TabIndex = 26;
             this.toolMainMenu.Text = "toolStrip1";
             // 
@@ -2049,7 +2050,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1117, 696);
+            this.ClientSize = new System.Drawing.Size(1175, 696);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.toolMainMenu);
