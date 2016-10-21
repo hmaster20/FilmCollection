@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Collections;
 using System.Xml.Linq;
+using System.Runtime.InteropServices;
 
 namespace FilmCollection
 {
@@ -2008,7 +2009,7 @@ namespace FilmCollection
                 if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
                 {
                     WebQuery(output, _videoCollection.VideoList[i]);
-                }             
+                }
             }
 
         }
@@ -2138,6 +2139,69 @@ namespace FilmCollection
                 textBoxWeb.Text += str;
             }
         }
+
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            //var hdc = GetWindowDC(this.Handle);
+            //Graphics graphics = Graphics.FromHdc(hdc);
+            ////Color borderColor = Color.Blue;
+            //Color borderColor = Color.Red;
+            //Rectangle rectangle = new Rectangle(1, 1, 20, 5);
+            //ControlPaint.DrawBorder(graphics, rectangle, borderColor, ButtonBorderStyle.Solid);
+
+
+            // голубой цвет
+            //System.Drawing.Rectangle rect = new Rectangle(TextBox1.Location.X, TextBox1.Location.Y, TextBox1.ClientSize.Width, TextBox1.ClientSize.Height);
+            Rectangle rect = new Rectangle(1, 1, 145, 18);
+            rect.Inflate(1, 1); // border thickness
+            ControlPaint.DrawBorder(e.Graphics, rect, Color.Silver, ButtonBorderStyle.Solid);
+
+            //// голубой цвет
+            ////System.Drawing.Rectangle rect = new Rectangle(TextBox1.Location.X, TextBox1.Location.Y, TextBox1.ClientSize.Width, TextBox1.ClientSize.Height);
+            //Rectangle rect = new Rectangle(1, 1, 20, 3);
+            //rect.Inflate(1, 1); // border thickness
+            //ControlPaint.DrawBorder(e.Graphics, rect, Color.DeepSkyBlue, ButtonBorderStyle.Solid);
+
+
+
+            //// серый
+            //base.OnPaint(e);
+            //Pen penBorder = new Pen(Color.Gray, 1);
+            //Rectangle rectBorder = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            //e.Graphics.DrawRectangle(penBorder, rectBorder);
+
+            //Rectangle textRec = new Rectangle(e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            //TextRenderer.DrawText(e.Graphics, Text, this.Font, textRec, this.ForeColor, this.BackColor, TextFormatFlags.Default);
+
+
+            ////if (focus)
+            //if (toolStripTextBox1.Focused)
+            //     {
+            //    //MessageBox.Show("Test");
+            //    toolStripTextBox1.BorderStyle = BorderStyle.None;
+            //    //Pen p = new Pen(Color.Red);
+            //    Pen p = new Pen(SystemColors.ControlDark, 5);
+            //    Graphics g = e.Graphics;
+            //    int variance = 3;
+            //    //g.DrawRectangle(p, new Rectangle(20,-5,25,40));
+            //    g.DrawRectangle(p, new Rectangle(20, -15, 129, 90));
+
+            //    //g.DrawRectangle(p, new Rectangle(toolMainMenu.Location.X + 5 - variance,
+            //    //                             toolMainMenu.Location.Y - variance,
+            //    //                             toolStripTextBox1.Width + variance,
+            //    //                             toolStripTextBox1.Height + variance));
+            //}
+            //// else
+            ////  {
+            //// toolStripTextBox1.BorderStyle = BorderStyle.FixedSingle;
+            ////  }
+
+
+
+        }
+
+
 
 
 
