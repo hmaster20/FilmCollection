@@ -774,7 +774,8 @@ namespace FilmCollection
 
         private void GetPic(Record record)
         {
-            string filename = GetFilename(record.Name);
+            //string filename = GetFilename(record.Name);
+            string filename = GetFilename(record.Pic);
             if (File.Exists(filename))
             {
                 Image image = Image.FromFile(filename);
@@ -2049,7 +2050,8 @@ namespace FilmCollection
                 {
                     tbResult.AppendText("pic = " + PicWeb);
                     DownPic(PicWeb, name);
-                    rec.Pic = name + ".jpg";
+                    //rec.Pic = name + ".jpg";
+                    rec.Pic = name;
                     return;
                 }
             }
