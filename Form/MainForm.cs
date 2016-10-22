@@ -115,6 +115,7 @@ namespace FilmCollection
         private void Form_Tooltip()     // Всплывающая подсказка
         {
             toolinfo.SetToolTip(btnFileNameEdit, "Разблокировать для переименования файла");
+            //toolinfo.SetToolTip(, "Панель быстрого поиска по названию");
         }
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -624,7 +625,7 @@ namespace FilmCollection
                     filtered = filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
                 }
                 else
-                {
+                {//развернуть все
                     filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
                 }
 
@@ -1241,7 +1242,16 @@ namespace FilmCollection
         private void Play_Click(object sender, EventArgs e)  // запуск файла
         {
             Record record = GetSelectedRecord();
-            Process.Start(record.Path + Path.DirectorySeparatorChar + record.FileName);
+            string _file = (record.Path + Path.DirectorySeparatorChar + record.FileName);
+            if (File.Exists(_file))
+            {
+                Process.Start(_file);
+            }
+            else
+            {
+                MessageBox.Show("Отсутствует файл: " + _file);
+            }
+
         }
 
         #endregion
@@ -1543,6 +1553,7 @@ namespace FilmCollection
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
             PepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
+            textBox4.Text = e.Node.Text;
         }
 
         private void treeFolder_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -2186,10 +2197,60 @@ namespace FilmCollection
             //    //                             toolStripTextBox1.Height + variance));
         }
 
+        private void cRenameFolder_Click(object sender, EventArgs e)
+        {
+            panelFolder.BringToFront();
+        }
 
 
 
+        private void toolStripTextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    string regReplace = toolStripTextBox1.Text.Replace("*", "");
+                    Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
+                    dgvTableRec.ClearSelection();
+                    dgvTableRec.MultiSelect = true;
+
+                    foreach (DataGridViewRow row in dgvTableRec.Rows)
+                    {
+                        if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                        {
+                            //dgvSelected.Add(row.Cells[0].RowIndex);
+                            //row.Selected = true;
+
+
+
+                            //запомнили
+                            int f = 0;
+                            f = row.Cells[0].RowIndex;
+                            ////выделили
+                            //dgvTableRec.ClearSelection();
+                            //dgvTableRec.Rows[f].Selected = true;
+                            ////скролим
+                            //dgvTableRec.FirstDisplayedScrollingRowIndex = f;
+
+                            if (f < dgvTableRec.RowCount)
+                            {
+                                dgvTableRec.ClearSelection();
+                                dgvTableRec.Rows[f].Selected = true;
+                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;
+                                dgvTableRec.Update();
+                            }
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
     }
 
 }
