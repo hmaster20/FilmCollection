@@ -270,7 +270,16 @@ namespace FilmCollection
                         string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
                         string name_2 = Regex.Replace(name_1, @"[a-zA-Z_.()]", string.Empty);                           // название без символов
                         string name_f = Regex.Replace(name_2, @"[0-9]{4}", string.Empty);                               // название без года
-                        record.Name = name_f.Trim();                                                                    // название без пробелов вначале и конце
+                        name_f = name_f.Trim();                                                                    // название без пробелов вначале и конце
+                        if (name_f != "")
+                        {
+                            record.Name = name_f;
+                        }
+                        else
+                        {
+                            record.Name = name_1;
+                        }
+                       
 
                         record.Id = _videoCollection.getRecordID();
                         record.FileName = file.Name;                            // полное название файла (film.avi)
