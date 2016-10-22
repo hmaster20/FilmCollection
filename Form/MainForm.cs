@@ -265,8 +265,14 @@ namespace FilmCollection
 
                         record = new Record();
 
+                        //record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+
+                        string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
+                        string name_2 = Regex.Replace(name_1, @"[a-zA-Z_.()]", string.Empty);                           // название без символов
+                        string name_f = Regex.Replace(name_2, @"[0-9]{4}", string.Empty);                               // название без года
+                        record.Name = name_f.Trim();                                                                    // название без пробелов вначале и конце
+
                         record.Id = _videoCollection.getRecordID();
-                        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
                         record.FileName = file.Name;                            // полное название файла (film.avi)
                         record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
                         record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
@@ -2141,6 +2147,8 @@ namespace FilmCollection
                 str = Regex.Replace(str, "&raquo;", "\"");
                 str = Regex.Replace(str, "<span>", "");
                 str = Regex.Replace(str, "</span>", "");
+                str = Regex.Replace(str, "<br/>", "");
+                str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
 
                 try
                 {
