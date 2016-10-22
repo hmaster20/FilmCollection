@@ -1251,7 +1251,6 @@ namespace FilmCollection
             {
                 MessageBox.Show("Отсутствует файл: " + _file);
             }
-
         }
 
         #endregion
@@ -1971,6 +1970,8 @@ namespace FilmCollection
                 str = Regex.Replace(str, "&raquo;", "\"");
                 str = Regex.Replace(str, "<span>", "");
                 str = Regex.Replace(str, "</span>", "");
+                str = Regex.Replace(str, "<br/>", "");
+                str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
 
                 try
                 {
