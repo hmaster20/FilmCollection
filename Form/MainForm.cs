@@ -400,13 +400,16 @@ namespace FilmCollection
         {
             foreach (Record rec in _videoCollection.VideoList)// проверяем, есть ли файл в коллекции
             {
-                if (rec.Equals(record)) 
+                if (rec.Equals(record))
                 {
+                    rec.Visible = true;
                     return true;    // если файл есть
                 }
             }
             return false;           // иначе файла нет файл есть
         }
+
+
 
         private void BackupBase()       // Резервная копия базы
         {
@@ -686,14 +689,20 @@ namespace FilmCollection
             List<Record> filtered = _videoCollection.VideoList;
 
             if (nodeName != "" && nodeName != "Фильмотека")
+            {
                 if (!flag)
                 {
-                    filtered = filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
+                    filtered = filtered.FindAll(v => v.Visible == true && v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
                 }
                 else
-                {//развернуть все
-                    filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
+                {   //развернуть все
+                    filtered = filtered.FindAll(v => v.Visible == true && v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
                 }
+            }
+            else
+            {   // при клике по "Фильмотека" отображаются все файлы кроме удаленных
+                filtered = filtered.FindAll(v => v.Visible == true);
+            }
 
             filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
 
