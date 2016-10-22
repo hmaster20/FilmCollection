@@ -157,6 +157,7 @@
     <Content Include="Resources\Exit.png" />
     <Content Include="Resources\FilmCollection.png" />
     <Content Include="Resources\find.png" />
+    <Content Include="Resources\Folder.png" />
     <Content Include="Resources\grabber.png" />
     <Content Include="Resources\help.png" />
     <Content Include="Resources\lock.png" />
