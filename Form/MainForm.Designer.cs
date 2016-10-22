@@ -204,7 +204,6 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.textBox2 = new FilmCollection.MyTextBox();
             this.cRenameFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.panelFolder = new System.Windows.Forms.Panel();
@@ -216,6 +215,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.textBox2 = new FilmCollection.MyTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -721,10 +721,10 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
-            this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(966, 593);
             this.scTabFilm.SplitterDistance = 592;
@@ -2045,6 +2045,8 @@
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Padding = new System.Windows.Forms.Padding(5);
             this.toolStripTextBox1.Size = new System.Drawing.Size(150, 20);
+            this.toolStripTextBox1.ToolTipText = "Панель быстрого поиска по названию";
+            this.toolStripTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox1_KeyDown);
             this.toolStripTextBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             // 
             // toolinfo
@@ -2053,19 +2055,12 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // textBox2
-            // 
-            this.textBox2.BorderColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(396, 124);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
-            // 
             // cRenameFolder
             // 
             this.cRenameFolder.Name = "cRenameFolder";
             this.cRenameFolder.Size = new System.Drawing.Size(267, 22);
             this.cRenameFolder.Text = "Переименовать";
+            this.cRenameFolder.Click += new System.EventHandler(this.cRenameFolder_Click);
             // 
             // toolStripSeparator8
             // 
@@ -2167,6 +2162,14 @@
             this.button3.Text = "Добавить";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(396, 124);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
             // 
             // MainForm
             // 
