@@ -40,11 +40,7 @@
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.cChange = new System.Windows.Forms.ToolStripMenuItem();
-            this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,22 +50,16 @@
             this.FindStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnCreateBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
             this.tS1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRecoveryBase = new System.Windows.Forms.ToolStripMenuItem();
             this.tS2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExportHTML = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReport = new System.Windows.Forms.ToolStripMenuItem();
             this.tS4 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.TreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -83,12 +73,9 @@
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.scTabFilm = new System.Windows.Forms.SplitContainer();
             this.menudgvTable = new System.Windows.Forms.MenuStrip();
-            this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelView = new System.Windows.Forms.Panel();
-            this.pbImage = new System.Windows.Forms.PictureBox();
-            this.btnPlay = new System.Windows.Forms.Button();
             this.lblRecDescription = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -112,10 +99,8 @@
             this.mtbYear = new System.Windows.Forms.MaskedTextBox();
             this.panelEditTitle = new System.Windows.Forms.Panel();
             this.lblEditTitle = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbFileName = new System.Windows.Forms.TextBox();
-            this.btnFileNameEdit = new System.Windows.Forms.Button();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
             this.numericTime = new System.Windows.Forms.NumericUpDown();
             this.cBoxGenre = new System.Windows.Forms.ComboBox();
@@ -130,7 +115,6 @@
             this.lblCountry = new System.Windows.Forms.Label();
             this.lblYear = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.btnNew = new System.Windows.Forms.Button();
             this.panelFind = new System.Windows.Forms.Panel();
             this.btnFindReset = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -149,7 +133,6 @@
             this.colDateOfDeath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tscCountryFilter = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.panelActEditTitle = new System.Windows.Forms.Panel();
@@ -174,9 +157,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.btnSaveActor = new System.Windows.Forms.Button();
             this.btnCancelActor = new System.Windows.Forms.Button();
-            this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.tabGrab = new System.Windows.Forms.TabPage();
@@ -189,19 +170,10 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolMainMenu = new System.Windows.Forms.ToolStrip();
-            this.tsCreateDB = new System.Windows.Forms.ToolStripButton();
-            this.tsUpdateDB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsBackupDB = new System.Windows.Forms.ToolStripButton();
-            this.tsRecoveryDB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsGraber = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.cRenameFolder = new System.Windows.Forms.ToolStripMenuItem();
@@ -212,10 +184,40 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.cOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox2 = new FilmCollection.MyTextBox();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnFileNameEdit = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSaveActor = new System.Windows.Forms.Button();
+            this.btnNewActor = new System.Windows.Forms.Button();
+            this.tsCreateDB = new System.Windows.Forms.ToolStripButton();
+            this.tsUpdateDB = new System.Windows.Forms.ToolStripButton();
+            this.tsBackupDB = new System.Windows.Forms.ToolStripButton();
+            this.tsRecoveryDB = new System.Windows.Forms.ToolStripButton();
+            this.tsGraber = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.tsFind = new System.Windows.Forms.ToolStripButton();
+            this.btnCreateBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRecoveryBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.cFind = new System.Windows.Forms.ToolStripMenuItem();
+            this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.cChange = new System.Windows.Forms.ToolStripMenuItem();
+            this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -229,7 +231,6 @@
             this.scTabFilm.SuspendLayout();
             this.menudgvTable.SuspendLayout();
             this.panelView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
@@ -253,6 +254,7 @@
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
             this.panelFolder.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -364,60 +366,30 @@
             this.cAdd,
             this.cChange,
             this.cDelete,
+            this.toolStripSeparator9,
+            this.cOpenFolder,
             this.toolStripSeparator1,
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(140, 148);
+            this.TabMenu.Size = new System.Drawing.Size(157, 198);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
-            // 
-            // cFind
-            // 
-            this.cFind.Image = global::FilmCollection.Properties.Resources.find;
-            this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(139, 22);
-            this.cFind.Text = "Найти";
-            this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(136, 6);
-            // 
-            // cAdd
-            // 
-            this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
-            this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(139, 22);
-            this.cAdd.Text = "Добавить";
-            this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
-            // 
-            // cChange
-            // 
-            this.cChange.Image = global::FilmCollection.Properties.Resources.change;
-            this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(139, 22);
-            this.cChange.Text = "Изменить";
-            this.cChange.Click += new System.EventHandler(this.EditRec_Click);
-            // 
-            // cDelete
-            // 
-            this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
-            this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(139, 22);
-            this.cDelete.Text = "Удалить";
-            this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
+            this.cSeparator3.Size = new System.Drawing.Size(153, 6);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
             this.toolStripSeparator1.Visible = false;
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.testToolStripMenuItem.Text = "Test Create";
             this.testToolStripMenuItem.Visible = false;
             this.testToolStripMenuItem.Click += new System.EventHandler(this.OLD_Add_rec);
@@ -425,7 +397,7 @@
             // testChangeToolStripMenuItem
             // 
             this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
-            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.testChangeToolStripMenuItem.Text = "Test Change";
             this.testChangeToolStripMenuItem.Visible = false;
             this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.OLD_Change_rec);
@@ -492,42 +464,10 @@
             this.MenuFile.Size = new System.Drawing.Size(48, 20);
             this.MenuFile.Text = "Файл";
             // 
-            // btnCreateBase
-            // 
-            this.btnCreateBase.Image = global::FilmCollection.Properties.Resources.db;
-            this.btnCreateBase.Name = "btnCreateBase";
-            this.btnCreateBase.Size = new System.Drawing.Size(187, 22);
-            this.btnCreateBase.Text = "Создать базу";
-            this.btnCreateBase.Click += new System.EventHandler(this.CreateBase_Click);
-            // 
-            // btnUpdateBase
-            // 
-            this.btnUpdateBase.Image = global::FilmCollection.Properties.Resources.dbRebuild;
-            this.btnUpdateBase.Name = "btnUpdateBase";
-            this.btnUpdateBase.Size = new System.Drawing.Size(187, 22);
-            this.btnUpdateBase.Text = "Обновить базу";
-            this.btnUpdateBase.Click += new System.EventHandler(this.UpdateBase_Click);
-            // 
             // tS1
             // 
             this.tS1.Name = "tS1";
             this.tS1.Size = new System.Drawing.Size(184, 6);
-            // 
-            // btnBackupBase
-            // 
-            this.btnBackupBase.Image = global::FilmCollection.Properties.Resources.dbBackup;
-            this.btnBackupBase.Name = "btnBackupBase";
-            this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
-            this.btnBackupBase.Text = "Создать копию базы";
-            this.btnBackupBase.Click += new System.EventHandler(this.BackupBase_Click);
-            // 
-            // btnRecoveryBase
-            // 
-            this.btnRecoveryBase.Image = global::FilmCollection.Properties.Resources.dbRecovery;
-            this.btnRecoveryBase.Name = "btnRecoveryBase";
-            this.btnRecoveryBase.Size = new System.Drawing.Size(187, 22);
-            this.btnRecoveryBase.Text = "Восстановить из...";
-            this.btnRecoveryBase.Click += new System.EventHandler(this.btnRecoveryBase_Click);
             // 
             // tS2
             // 
@@ -554,14 +494,6 @@
             // 
             this.tS4.Name = "tS4";
             this.tS4.Size = new System.Drawing.Size(184, 6);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Image = global::FilmCollection.Properties.Resources.Exit;
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(187, 22);
-            this.btnExit.Text = "Выход";
-            this.btnExit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // правкаToolStripMenuItem
             // 
@@ -598,14 +530,6 @@
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(65, 20);
             this.btnHelp.Text = "Справка";
-            // 
-            // btnAbout
-            // 
-            this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
-            this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(149, 22);
-            this.btnAbout.Text = "О программе";
-            this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
@@ -743,14 +667,6 @@
             this.menudgvTable.TabIndex = 23;
             this.menudgvTable.Text = "menuStrip1";
             // 
-            // menuResetFilter
-            // 
-            this.menuResetFilter.Image = global::FilmCollection.Properties.Resources.resetFiltr;
-            this.menuResetFilter.Name = "menuResetFilter";
-            this.menuResetFilter.Size = new System.Drawing.Size(120, 23);
-            this.menuResetFilter.Text = "Сброс фильтра";
-            this.menuResetFilter.Click += new System.EventHandler(this.ResetFilter_Click);
-            // 
             // tscbTypeFilter
             // 
             this.tscbTypeFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -799,28 +715,6 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(368, 591);
             this.panelView.TabIndex = 10;
-            // 
-            // pbImage
-            // 
-            this.pbImage.Location = new System.Drawing.Point(192, 56);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(158, 238);
-            this.pbImage.TabIndex = 9;
-            this.pbImage.TabStop = false;
-            // 
-            // btnPlay
-            // 
-            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
-            this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 565);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(111, 23);
-            this.btnPlay.TabIndex = 6;
-            this.btnPlay.Text = "Воспроизвести";
-            this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPlay.UseVisualStyleBackColor = true;
-            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
             // 
             // lblRecDescription
             // 
@@ -1099,21 +993,6 @@
             this.lblEditTitle.Text = "Панель редактирования";
             this.lblEditTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(253, 496);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(86, 23);
-            this.btnSave.TabIndex = 47;
-            this.btnSave.Text = "Сохранить";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Visible = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1136,20 +1015,6 @@
             this.tbFileName.Size = new System.Drawing.Size(250, 20);
             this.tbFileName.TabIndex = 44;
             this.tbFileName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // btnFileNameEdit
-            // 
-            this.btnFileNameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
-            this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 263);
-            this.btnFileNameEdit.Name = "btnFileNameEdit";
-            this.btnFileNameEdit.Size = new System.Drawing.Size(24, 25);
-            this.btnFileNameEdit.TabIndex = 43;
-            this.btnFileNameEdit.UseVisualStyleBackColor = true;
-            this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
             // 
             // cBoxTypeVideo
             // 
@@ -1291,19 +1156,6 @@
             this.lblName.Size = new System.Drawing.Size(60, 13);
             this.lblName.TabIndex = 19;
             this.lblName.Text = " Название";
-            // 
-            // btnNew
-            // 
-            this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
-            this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(95, 510);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(81, 23);
-            this.btnNew.TabIndex = 18;
-            this.btnNew.Text = "Добавить";
-            this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // panelFind
             // 
@@ -1517,14 +1369,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(535, 27);
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::FilmCollection.Properties.Resources.resetFiltr;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 23);
-            this.toolStripMenuItem1.Text = "Сброс фильтра";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
             // tscCountryFilter
             // 
@@ -1763,20 +1607,6 @@
             this.label13.TabIndex = 53;
             this.label13.Text = "по";
             // 
-            // btnSaveActor
-            // 
-            this.btnSaveActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveActor.Image = global::FilmCollection.Properties.Resources.save;
-            this.btnSaveActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveActor.Location = new System.Drawing.Point(294, 481);
-            this.btnSaveActor.Name = "btnSaveActor";
-            this.btnSaveActor.Size = new System.Drawing.Size(86, 23);
-            this.btnSaveActor.TabIndex = 57;
-            this.btnSaveActor.Text = "Сохранить";
-            this.btnSaveActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveActor.UseVisualStyleBackColor = true;
-            this.btnSaveActor.Click += new System.EventHandler(this.btnSaveActor_Click);
-            // 
             // btnCancelActor
             // 
             this.btnCancelActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1787,19 +1617,6 @@
             this.btnCancelActor.Text = "Отмена";
             this.btnCancelActor.UseVisualStyleBackColor = true;
             this.btnCancelActor.Visible = false;
-            // 
-            // btnNewActor
-            // 
-            this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
-            this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewActor.Location = new System.Drawing.Point(46, 491);
-            this.btnNewActor.Name = "btnNewActor";
-            this.btnNewActor.Size = new System.Drawing.Size(81, 23);
-            this.btnNewActor.TabIndex = 51;
-            this.btnNewActor.Text = "Добавить";
-            this.btnNewActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNewActor.UseVisualStyleBackColor = true;
-            this.btnNewActor.Click += new System.EventHandler(this.btnNewActor_Click);
             // 
             // label8
             // 
@@ -1931,111 +1748,25 @@
             this.toolMainMenu.TabIndex = 26;
             this.toolMainMenu.Text = "toolStrip1";
             // 
-            // tsCreateDB
-            // 
-            this.tsCreateDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsCreateDB.Image = global::FilmCollection.Properties.Resources.db;
-            this.tsCreateDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsCreateDB.Name = "tsCreateDB";
-            this.tsCreateDB.Size = new System.Drawing.Size(23, 22);
-            this.tsCreateDB.Text = "Создать базу";
-            this.tsCreateDB.Click += new System.EventHandler(this.CreateBase_Click);
-            // 
-            // tsUpdateDB
-            // 
-            this.tsUpdateDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsUpdateDB.Image = global::FilmCollection.Properties.Resources.dbRebuild;
-            this.tsUpdateDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsUpdateDB.Name = "tsUpdateDB";
-            this.tsUpdateDB.Size = new System.Drawing.Size(23, 22);
-            this.tsUpdateDB.Text = "Обновить базу";
-            this.tsUpdateDB.Click += new System.EventHandler(this.UpdateBase_Click);
-            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsBackupDB
-            // 
-            this.tsBackupDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsBackupDB.Image = global::FilmCollection.Properties.Resources.dbBackup;
-            this.tsBackupDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBackupDB.Name = "tsBackupDB";
-            this.tsBackupDB.Size = new System.Drawing.Size(23, 22);
-            this.tsBackupDB.Text = "Создать копию базы";
-            this.tsBackupDB.Click += new System.EventHandler(this.BackupBase_Click);
-            // 
-            // tsRecoveryDB
-            // 
-            this.tsRecoveryDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsRecoveryDB.Image = global::FilmCollection.Properties.Resources.dbRecovery;
-            this.tsRecoveryDB.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsRecoveryDB.Name = "tsRecoveryDB";
-            this.tsRecoveryDB.Size = new System.Drawing.Size(23, 22);
-            this.tsRecoveryDB.Text = "Восстановить из...";
-            this.tsRecoveryDB.Click += new System.EventHandler(this.btnRecoveryBase_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
-            // tsGraber
-            // 
-            this.tsGraber.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsGraber.Image = global::FilmCollection.Properties.Resources.grabber;
-            this.tsGraber.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsGraber.Name = "tsGraber";
-            this.tsGraber.Size = new System.Drawing.Size(23, 22);
-            this.tsGraber.Text = "toolStripButton1";
-            // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::FilmCollection.Properties.Resources.add;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "toolStripButton3";
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = global::FilmCollection.Properties.Resources.change;
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton4.Text = "toolStripButton4";
-            // 
-            // toolStripButton5
-            // 
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton5.Image = global::FilmCollection.Properties.Resources.del;
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton5.Text = "toolStripButton5";
-            // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsFind
-            // 
-            this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsFind.Image = global::FilmCollection.Properties.Resources.find;
-            this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsFind.Name = "tsFind";
-            this.tsFind.Size = new System.Drawing.Size(23, 22);
-            this.tsFind.Text = "Найти";
-            this.tsFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // toolStripTextBox1
             // 
@@ -2127,6 +1858,46 @@
             this.textBox4.Size = new System.Drawing.Size(311, 20);
             this.textBox4.TabIndex = 3;
             // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(253, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.TabIndex = 59;
+            this.button2.Text = "Отмена";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
+            // cOpenFolder
+            // 
+            this.cOpenFolder.Image = global::FilmCollection.Properties.Resources.Folder;
+            this.cOpenFolder.Name = "cOpenFolder";
+            this.cOpenFolder.Size = new System.Drawing.Size(156, 22);
+            this.cOpenFolder.Text = "Открыть папку";
+            this.cOpenFolder.Click += new System.EventHandler(this.cOpenFolder_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(396, 124);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(153, 6);
+            // 
+            // menuResetFilter
+            // 
+            this.menuResetFilter.Image = global::FilmCollection.Properties.Resources.resetFiltr;
+            this.menuResetFilter.Name = "menuResetFilter";
+            this.menuResetFilter.Size = new System.Drawing.Size(120, 23);
+            this.menuResetFilter.Text = "Сброс фильтра";
+            this.menuResetFilter.Click += new System.EventHandler(this.ResetFilter_Click);
+            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -2140,17 +1911,6 @@
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(253, 194);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 23);
-            this.button2.TabIndex = 59;
-            this.button2.Text = "Отмена";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
             // button3
             // 
             this.button3.Image = global::FilmCollection.Properties.Resources.add;
@@ -2163,13 +1923,270 @@
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // btnSave
             // 
-            this.textBox2.BorderColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(396, 124);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(253, 496);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(86, 23);
+            this.btnSave.TabIndex = 47;
+            this.btnSave.Text = "Сохранить";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Visible = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnFileNameEdit
+            // 
+            this.btnFileNameEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFileNameEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
+            this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 263);
+            this.btnFileNameEdit.Name = "btnFileNameEdit";
+            this.btnFileNameEdit.Size = new System.Drawing.Size(24, 25);
+            this.btnFileNameEdit.TabIndex = 43;
+            this.btnFileNameEdit.UseVisualStyleBackColor = true;
+            this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
+            // 
+            // btnNew
+            // 
+            this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
+            this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNew.Location = new System.Drawing.Point(95, 510);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(81, 23);
+            this.btnNew.TabIndex = 18;
+            this.btnNew.Text = "Добавить";
+            this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // pbImage
+            // 
+            this.pbImage.Location = new System.Drawing.Point(192, 56);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(158, 238);
+            this.pbImage.TabIndex = 9;
+            this.pbImage.TabStop = false;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
+            this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPlay.Location = new System.Drawing.Point(5, 565);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(111, 23);
+            this.btnPlay.TabIndex = 6;
+            this.btnPlay.Text = "Воспроизвести";
+            this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = global::FilmCollection.Properties.Resources.resetFiltr;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 23);
+            this.toolStripMenuItem1.Text = "Сброс фильтра";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ResetFilter_Click);
+            // 
+            // btnSaveActor
+            // 
+            this.btnSaveActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveActor.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnSaveActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveActor.Location = new System.Drawing.Point(294, 481);
+            this.btnSaveActor.Name = "btnSaveActor";
+            this.btnSaveActor.Size = new System.Drawing.Size(86, 23);
+            this.btnSaveActor.TabIndex = 57;
+            this.btnSaveActor.Text = "Сохранить";
+            this.btnSaveActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveActor.UseVisualStyleBackColor = true;
+            this.btnSaveActor.Click += new System.EventHandler(this.btnSaveActor_Click);
+            // 
+            // btnNewActor
+            // 
+            this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
+            this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewActor.Location = new System.Drawing.Point(46, 491);
+            this.btnNewActor.Name = "btnNewActor";
+            this.btnNewActor.Size = new System.Drawing.Size(81, 23);
+            this.btnNewActor.TabIndex = 51;
+            this.btnNewActor.Text = "Добавить";
+            this.btnNewActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNewActor.UseVisualStyleBackColor = true;
+            this.btnNewActor.Click += new System.EventHandler(this.btnNewActor_Click);
+            // 
+            // tsCreateDB
+            // 
+            this.tsCreateDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsCreateDB.Image = global::FilmCollection.Properties.Resources.db;
+            this.tsCreateDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsCreateDB.Name = "tsCreateDB";
+            this.tsCreateDB.Size = new System.Drawing.Size(23, 22);
+            this.tsCreateDB.Text = "Создать базу";
+            this.tsCreateDB.Click += new System.EventHandler(this.CreateBase_Click);
+            // 
+            // tsUpdateDB
+            // 
+            this.tsUpdateDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsUpdateDB.Image = global::FilmCollection.Properties.Resources.dbRebuild;
+            this.tsUpdateDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsUpdateDB.Name = "tsUpdateDB";
+            this.tsUpdateDB.Size = new System.Drawing.Size(23, 22);
+            this.tsUpdateDB.Text = "Обновить базу";
+            this.tsUpdateDB.Click += new System.EventHandler(this.UpdateBase_Click);
+            // 
+            // tsBackupDB
+            // 
+            this.tsBackupDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsBackupDB.Image = global::FilmCollection.Properties.Resources.dbBackup;
+            this.tsBackupDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBackupDB.Name = "tsBackupDB";
+            this.tsBackupDB.Size = new System.Drawing.Size(23, 22);
+            this.tsBackupDB.Text = "Создать копию базы";
+            this.tsBackupDB.Click += new System.EventHandler(this.BackupBase_Click);
+            // 
+            // tsRecoveryDB
+            // 
+            this.tsRecoveryDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsRecoveryDB.Image = global::FilmCollection.Properties.Resources.dbRecovery;
+            this.tsRecoveryDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsRecoveryDB.Name = "tsRecoveryDB";
+            this.tsRecoveryDB.Size = new System.Drawing.Size(23, 22);
+            this.tsRecoveryDB.Text = "Восстановить из...";
+            this.tsRecoveryDB.Click += new System.EventHandler(this.btnRecoveryBase_Click);
+            // 
+            // tsGraber
+            // 
+            this.tsGraber.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsGraber.Image = global::FilmCollection.Properties.Resources.grabber;
+            this.tsGraber.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsGraber.Name = "tsGraber";
+            this.tsGraber.Size = new System.Drawing.Size(23, 22);
+            this.tsGraber.Text = "toolStripButton1";
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = global::FilmCollection.Properties.Resources.add;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "toolStripButton3";
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = global::FilmCollection.Properties.Resources.change;
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton4.Text = "toolStripButton4";
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton5.Image = global::FilmCollection.Properties.Resources.del;
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton5.Text = "toolStripButton5";
+            // 
+            // tsFind
+            // 
+            this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsFind.Image = global::FilmCollection.Properties.Resources.find;
+            this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsFind.Name = "tsFind";
+            this.tsFind.Size = new System.Drawing.Size(23, 22);
+            this.tsFind.Text = "Найти";
+            this.tsFind.Click += new System.EventHandler(this.cFind_Click);
+            // 
+            // btnCreateBase
+            // 
+            this.btnCreateBase.Image = global::FilmCollection.Properties.Resources.db;
+            this.btnCreateBase.Name = "btnCreateBase";
+            this.btnCreateBase.Size = new System.Drawing.Size(187, 22);
+            this.btnCreateBase.Text = "Создать базу";
+            this.btnCreateBase.Click += new System.EventHandler(this.CreateBase_Click);
+            // 
+            // btnUpdateBase
+            // 
+            this.btnUpdateBase.Image = global::FilmCollection.Properties.Resources.dbRebuild;
+            this.btnUpdateBase.Name = "btnUpdateBase";
+            this.btnUpdateBase.Size = new System.Drawing.Size(187, 22);
+            this.btnUpdateBase.Text = "Обновить базу";
+            this.btnUpdateBase.Click += new System.EventHandler(this.UpdateBase_Click);
+            // 
+            // btnBackupBase
+            // 
+            this.btnBackupBase.Image = global::FilmCollection.Properties.Resources.dbBackup;
+            this.btnBackupBase.Name = "btnBackupBase";
+            this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
+            this.btnBackupBase.Text = "Создать копию базы";
+            this.btnBackupBase.Click += new System.EventHandler(this.BackupBase_Click);
+            // 
+            // btnRecoveryBase
+            // 
+            this.btnRecoveryBase.Image = global::FilmCollection.Properties.Resources.dbRecovery;
+            this.btnRecoveryBase.Name = "btnRecoveryBase";
+            this.btnRecoveryBase.Size = new System.Drawing.Size(187, 22);
+            this.btnRecoveryBase.Text = "Восстановить из...";
+            this.btnRecoveryBase.Click += new System.EventHandler(this.btnRecoveryBase_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Image = global::FilmCollection.Properties.Resources.Exit;
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(187, 22);
+            this.btnExit.Text = "Выход";
+            this.btnExit.Click += new System.EventHandler(this.Exit_Click);
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
+            this.btnAbout.Text = "О программе";
+            this.btnAbout.Click += new System.EventHandler(this.About_Click);
+            // 
+            // cFind
+            // 
+            this.cFind.Image = global::FilmCollection.Properties.Resources.find;
+            this.cFind.Name = "cFind";
+            this.cFind.Size = new System.Drawing.Size(156, 22);
+            this.cFind.Text = "Найти";
+            this.cFind.Click += new System.EventHandler(this.cFind_Click);
+            // 
+            // cAdd
+            // 
+            this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
+            this.cAdd.Name = "cAdd";
+            this.cAdd.Size = new System.Drawing.Size(156, 22);
+            this.cAdd.Text = "Добавить";
+            this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
+            // 
+            // cChange
+            // 
+            this.cChange.Image = global::FilmCollection.Properties.Resources.change;
+            this.cChange.Name = "cChange";
+            this.cChange.Size = new System.Drawing.Size(156, 22);
+            this.cChange.Text = "Изменить";
+            this.cChange.Click += new System.EventHandler(this.EditRec_Click);
+            // 
+            // cDelete
+            // 
+            this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
+            this.cDelete.Name = "cDelete";
+            this.cDelete.Size = new System.Drawing.Size(156, 22);
+            this.cDelete.Text = "Удалить";
+            this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // MainForm
             // 
@@ -2204,7 +2221,6 @@
             this.menudgvTable.PerformLayout();
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.panelTitle.ResumeLayout(false);
             this.panelEdit.ResumeLayout(false);
             this.panelEdit.PerformLayout();
@@ -2237,6 +2253,7 @@
             this.toolMainMenu.PerformLayout();
             this.panelFolder.ResumeLayout(false);
             this.panelFolder.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2430,6 +2447,8 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ToolStripMenuItem cOpenFolder;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
     }
 }
 
