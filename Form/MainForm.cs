@@ -280,6 +280,26 @@ namespace FilmCollection
                             record.Name = name_1;
                         }
 
+
+
+                        //// удалить все цифры
+                        ////var output = Regex.Replace(name_1, @"[\d+]", string.Empty);
+                        ////var output = Regex.Replace(name_1, @"\D", string.Empty);
+                        //var output = Regex.Replace(name_1, @"\D", string.Empty);
+                        //MessageBox.Show(output);
+
+                        ////выделяем только 4 идущие подряд цифры
+                        //foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
+                        //MessageBox.Show(m.Value);
+
+                        foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
+                            if (m.Value != "")
+                            {
+                                record.Year = Convert.ToInt32(m.Value);
+                            }
+
+                            
+
                         record.Visible = true;                                  // видимость файла
                         record.Id = _videoCollection.getRecordID();
                         record.FileName = file.Name;                            // полное название файла (film.avi)
