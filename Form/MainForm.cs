@@ -280,25 +280,13 @@ namespace FilmCollection
                             record.Name = name_1;
                         }
 
-
-
-                        //// удалить все цифры
-                        ////var output = Regex.Replace(name_1, @"[\d+]", string.Empty);
-                        ////var output = Regex.Replace(name_1, @"\D", string.Empty);
-                        //var output = Regex.Replace(name_1, @"\D", string.Empty);
-                        //MessageBox.Show(output);
-
-                        ////выделяем только 4 идущие подряд цифры
-                        //foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
-                        //MessageBox.Show(m.Value);
-
+                        //выделяем только 4 идущие подряд цифры
                         foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
                             if (m.Value != "")
                             {
                                 record.Year = Convert.ToInt32(m.Value);
                             }
 
-                            
 
                         record.Visible = true;                                  // видимость файла
                         record.Id = _videoCollection.getRecordID();
@@ -396,7 +384,31 @@ namespace FilmCollection
                         if (!RecordExist(record))
                         {
                             record.Visible = true;
-                            record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                            //record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
+                            
+
+                            string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
+                            string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);                               // название без года
+                            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.()]", string.Empty);                           // название без символов                       
+                            name_f = name_f.Trim();                                                                    // название без пробелов вначале и конце
+                            if (name_f != "")
+                            {
+                                record.Name = name_f;
+                            }
+                            else
+                            {
+                                record.Name = name_1;
+                            }
+
+                            //выделяем только 4 идущие подряд цифры
+                            foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
+                                if (m.Value != "")
+                                {
+                                    record.Year = Convert.ToInt32(m.Value);
+                                }
+
+
+
                             record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
                             record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
