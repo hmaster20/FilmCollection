@@ -186,7 +186,6 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.cOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox2 = new FilmCollection.MyTextBox();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
@@ -218,6 +217,7 @@
             this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cChange = new System.Windows.Forms.ToolStripMenuItem();
             this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox2 = new FilmCollection.MyTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -372,7 +372,7 @@
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(157, 198);
+            this.TabMenu.Size = new System.Drawing.Size(157, 176);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cSeparator3
@@ -1877,14 +1877,6 @@
             this.cOpenFolder.Text = "Открыть папку";
             this.cOpenFolder.Click += new System.EventHandler(this.cOpenFolder_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.BorderColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(396, 124);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
-            // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
@@ -2187,6 +2179,14 @@
             this.cDelete.Size = new System.Drawing.Size(156, 22);
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(396, 124);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
             // 
             // MainForm
             // 
