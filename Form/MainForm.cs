@@ -2269,6 +2269,27 @@ namespace FilmCollection
                 }
             }
         }
+
+        private void cOpenFolder_Click(object sender, EventArgs e)
+        {
+            Record record = GetSelectedRecord();
+            if (record != null)
+            {
+                string filePath = Path.Combine(record.Path, record.FileName);
+                if (!File.Exists(filePath))
+                {
+                    return;
+                }
+
+                // combine the arguments together
+                // it doesn't matter if there is a space after ','
+                string argument = "/select, \"" + filePath + "\"";
+
+                Process.Start("explorer.exe", argument);
+                //Process.Start("explorer.exe", record.Path);
+            }
+               
+        }
     }
 
 }
