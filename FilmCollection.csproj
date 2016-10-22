@@ -76,9 +76,6 @@
     <Compile Include="Class\BinSerializeHelper.cs" />
     <Compile Include="Class\Enum.cs" />
     <Compile Include="Class\RecordOptions.cs" />
-    <Compile Include="Class\test.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Class\MyTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
