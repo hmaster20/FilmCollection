@@ -270,7 +270,7 @@ namespace FilmCollection
 
                         string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
                         string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);                               // название без года
-                        string name_f = Regex.Replace(name_2, @"[a-zA-Z_.()]", string.Empty);                           // название без символов                       
+                        string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);                           // название без символов                       
                         name_f = name_f.Trim();                                                                    // название без пробелов вначале и конце
                         if (name_f != "")
                         {
@@ -390,7 +390,7 @@ namespace FilmCollection
 
                             string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
                             string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);                               // название без года
-                            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.()]", string.Empty);                           // название без символов                       
+                            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);                           // название без символов                       
                             name_f = name_f.Trim();                                                                    // название без пробелов вначале и конце
                             if (name_f != "")
                             {
