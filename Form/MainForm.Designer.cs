@@ -185,7 +185,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.tabGrab = new System.Windows.Forms.TabPage();
-            this.textBox2 = new FilmCollection.MyTextBox();
             this.graberAll = new System.Windows.Forms.Button();
             this.textBoxWeb = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
@@ -218,6 +217,8 @@
             this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox2 = new FilmCollection.MyTextBox();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1878,6 +1879,7 @@
             // 
             // tabGrab
             // 
+            this.tabGrab.Controls.Add(this.button4);
             this.tabGrab.Controls.Add(this.textBox2);
             this.tabGrab.Controls.Add(this.graberAll);
             this.tabGrab.Controls.Add(this.textBoxWeb);
@@ -1890,14 +1892,6 @@
             this.tabGrab.TabIndex = 2;
             this.tabGrab.Text = "Захват";
             this.tabGrab.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BorderColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(396, 124);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
             // 
             // graberAll
             // 
@@ -2188,6 +2182,24 @@
             this.cmnFileName.Name = "cmnFileName";
             this.cmnFileName.ReadOnly = true;
             // 
+            // textBox2
+            // 
+            this.textBox2.BorderColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(396, 124);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(622, 247);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2449,6 +2461,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.Button button4;
     }
 }
 
