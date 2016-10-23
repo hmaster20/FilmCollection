@@ -12,6 +12,7 @@ using System.Net;
 using System.Collections;
 using System.Xml.Linq;
 using System.Runtime.InteropServices;
+using Shell32;
 
 namespace FilmCollection
 {
@@ -385,7 +386,7 @@ namespace FilmCollection
                         {
                             record.Visible = true;
                             //record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-                            
+
 
                             string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
                             string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);                               // название без года
@@ -2381,6 +2382,38 @@ namespace FilmCollection
                 //Process.Start("explorer.exe", record.Path);
             }
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string filePath = @"C:\temp\TeST\new.1997.txt";
+
+            // get file attributes
+            FileAttributes fileAttributes = File.GetAttributes(filePath);
+            MessageBox.Show(fileAttributes.ToString());
+
+            var shell = new Shell();
+            //var folder = shell.NameSpace(@"filepath");
+            var folder = shell.NameSpace(@"X:\");
+            foreach (FolderItem2 item in folder.Items())
+            {
+                //if (item.Name == "filename")
+                if (item.Name == "123")
+                {
+                    MessageBox.Show("Test");
+                    ulong aaa = item.ExtendedProperty("System.Media.Duration") / 10000000;
+                    TimeSpan.FromSeconds((double)aaa);
+
+                   
+                        MessageBox.Show(TimeSpan.FromSeconds((double)aaa).ToString());
+                 
+
+                    //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
+                }
+            }
+
+            Marshal.ReleaseComObject(folder);
+            Marshal.ReleaseComObject(shell);
         }
     }
 
