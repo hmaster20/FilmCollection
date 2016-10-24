@@ -734,7 +734,7 @@ namespace FilmCollection
             }
             else
             {   // при клике по "Фильмотека" отображаются все файлы кроме удаленных
-                filtered = filtered.FindAll(v => v.Visible == true);
+                //filtered = filtered.FindAll(v => v.Visible == true);
             }
 
             filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
@@ -745,6 +745,7 @@ namespace FilmCollection
             RefreshTable(filtered);
 
             Sort_Actor();
+
         }
 
         private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
@@ -803,6 +804,22 @@ namespace FilmCollection
             {
                 dgvTableRec.DataSource = null;
                 dgvTableRec.DataSource = filtered;
+
+                if (dgvTableRec.RowCount > 0)
+                {
+                    foreach (DataGridViewRow row in dgvTableRec.Rows)
+                        if ((row.DataBoundItem as Record).Visible == false)
+                        {
+                            row.Selected = true;
+                            row.DefaultCellStyle.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            row.DefaultCellStyle.BackColor = Color.Green;
+                        }
+
+                    //dgvTableRec.Rows[3].DefaultCellStyle.BackColor = Color.Red;
+                } 
             }
             catch (Exception ex)
             {
@@ -2404,9 +2421,9 @@ namespace FilmCollection
                     ulong aaa = item.ExtendedProperty("System.Media.Duration") / 10000000;
                     TimeSpan.FromSeconds((double)aaa);
 
-                   
-                        MessageBox.Show(TimeSpan.FromSeconds((double)aaa).ToString());
-                 
+
+                    MessageBox.Show(TimeSpan.FromSeconds((double)aaa).ToString());
+
 
                     //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
                 }
@@ -2414,6 +2431,11 @@ namespace FilmCollection
 
             Marshal.ReleaseComObject(folder);
             Marshal.ReleaseComObject(shell);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            dgvTableRec.Rows[1].DefaultCellStyle.BackColor = Color.Yellow;
         }
     }
 
