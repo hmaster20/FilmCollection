@@ -2430,11 +2430,6 @@ namespace FilmCollection
             Marshal.ReleaseComObject(shell);
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            dgvTableRec.Rows[1].DefaultCellStyle.BackColor = Color.Yellow;
-        }
-
         private void btnCleanDB_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < _videoCollection.VideoList.Count; i++)
