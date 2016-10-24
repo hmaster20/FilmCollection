@@ -90,6 +90,20 @@
             this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
+            this.panelView = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.lblRecDescription = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblRecName = new System.Windows.Forms.Label();
+            this.tbfDesc = new System.Windows.Forms.TextBox();
+            this.tbfCountry = new System.Windows.Forms.TextBox();
+            this.tbfYear = new System.Windows.Forms.TextBox();
+            this.tbfName = new System.Windows.Forms.TextBox();
+            this.panelTitle = new System.Windows.Forms.Panel();
+            this.lblRecTitle = new System.Windows.Forms.Label();
             this.panelFind = new System.Windows.Forms.Panel();
             this.btnFindReset = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -141,19 +155,6 @@
             this.lblYear = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.btnNew = new System.Windows.Forms.Button();
-            this.panelView = new System.Windows.Forms.Panel();
-            this.pbImage = new System.Windows.Forms.PictureBox();
-            this.btnPlay = new System.Windows.Forms.Button();
-            this.lblRecDescription = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblRecName = new System.Windows.Forms.Label();
-            this.tbfDesc = new System.Windows.Forms.TextBox();
-            this.tbfCountry = new System.Windows.Forms.TextBox();
-            this.tbfYear = new System.Windows.Forms.TextBox();
-            this.tbfName = new System.Windows.Forms.TextBox();
-            this.panelTitle = new System.Windows.Forms.Panel();
-            this.lblRecTitle = new System.Windows.Forms.Label();
             this.tabActors = new System.Windows.Forms.TabPage();
             this.scTabActors = new System.Windows.Forms.SplitContainer();
             this.dgvTableActors = new System.Windows.Forms.DataGridView();
@@ -219,7 +220,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.button5 = new System.Windows.Forms.Button();
+            this.cbIsVisible = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -232,15 +233,15 @@
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
             this.menudgvTable.SuspendLayout();
+            this.panelView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            this.panelTitle.SuspendLayout();
             this.panelFind.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelFolder.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).BeginInit();
-            this.panelView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
-            this.panelTitle.SuspendLayout();
             this.tabActors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).BeginInit();
             this.scTabActors.Panel1.SuspendLayout();
@@ -745,6 +746,7 @@
             // scTabFilm.Panel1
             // 
             this.scTabFilm.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel1.Controls.Add(this.cbIsVisible);
             this.scTabFilm.Panel1.Controls.Add(this.dgvTableRec);
             this.scTabFilm.Panel1.Controls.Add(this.menudgvTable);
             this.scTabFilm.Panel1MinSize = 400;
@@ -811,6 +813,171 @@
             this.tscbSort.Name = "tscbSort";
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
+            // 
+            // panelView
+            // 
+            this.panelView.Controls.Add(this.button5);
+            this.panelView.Controls.Add(this.pbImage);
+            this.panelView.Controls.Add(this.btnPlay);
+            this.panelView.Controls.Add(this.lblRecDescription);
+            this.panelView.Controls.Add(this.label5);
+            this.panelView.Controls.Add(this.label4);
+            this.panelView.Controls.Add(this.lblRecName);
+            this.panelView.Controls.Add(this.tbfDesc);
+            this.panelView.Controls.Add(this.tbfCountry);
+            this.panelView.Controls.Add(this.tbfYear);
+            this.panelView.Controls.Add(this.tbfName);
+            this.panelView.Controls.Add(this.panelTitle);
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(0, 0);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(368, 591);
+            this.panelView.TabIndex = 10;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(55, 185);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // pbImage
+            // 
+            this.pbImage.Location = new System.Drawing.Point(192, 56);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(158, 238);
+            this.pbImage.TabIndex = 9;
+            this.pbImage.TabStop = false;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
+            this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPlay.Location = new System.Drawing.Point(5, 565);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(111, 23);
+            this.btnPlay.TabIndex = 6;
+            this.btnPlay.Text = "Воспроизвести";
+            this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
+            // 
+            // lblRecDescription
+            // 
+            this.lblRecDescription.AutoSize = true;
+            this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecDescription.Location = new System.Drawing.Point(8, 279);
+            this.lblRecDescription.Name = "lblRecDescription";
+            this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
+            this.lblRecDescription.TabIndex = 4;
+            this.lblRecDescription.Text = " Описание:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(10, 75);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 17);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Страна:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label4.Location = new System.Drawing.Point(9, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 17);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Год:";
+            // 
+            // lblRecName
+            // 
+            this.lblRecName.AutoSize = true;
+            this.lblRecName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecName.Location = new System.Drawing.Point(2, 29);
+            this.lblRecName.Name = "lblRecName";
+            this.lblRecName.Size = new System.Drawing.Size(80, 17);
+            this.lblRecName.TabIndex = 3;
+            this.lblRecName.Text = " Название:";
+            // 
+            // tbfDesc
+            // 
+            this.tbfDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfDesc.Location = new System.Drawing.Point(16, 299);
+            this.tbfDesc.Multiline = true;
+            this.tbfDesc.Name = "tbfDesc";
+            this.tbfDesc.ReadOnly = true;
+            this.tbfDesc.Size = new System.Drawing.Size(334, 260);
+            this.tbfDesc.TabIndex = 8;
+            // 
+            // tbfCountry
+            // 
+            this.tbfCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfCountry.Location = new System.Drawing.Point(13, 95);
+            this.tbfCountry.Name = "tbfCountry";
+            this.tbfCountry.ReadOnly = true;
+            this.tbfCountry.Size = new System.Drawing.Size(164, 16);
+            this.tbfCountry.TabIndex = 7;
+            // 
+            // tbfYear
+            // 
+            this.tbfYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfYear.Location = new System.Drawing.Point(50, 53);
+            this.tbfYear.Name = "tbfYear";
+            this.tbfYear.ReadOnly = true;
+            this.tbfYear.Size = new System.Drawing.Size(75, 16);
+            this.tbfYear.TabIndex = 7;
+            // 
+            // tbfName
+            // 
+            this.tbfName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfName.Location = new System.Drawing.Point(88, 29);
+            this.tbfName.Name = "tbfName";
+            this.tbfName.ReadOnly = true;
+            this.tbfName.Size = new System.Drawing.Size(276, 16);
+            this.tbfName.TabIndex = 7;
+            // 
+            // panelTitle
+            // 
+            this.panelTitle.Controls.Add(this.lblRecTitle);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(368, 27);
+            this.panelTitle.TabIndex = 7;
+            // 
+            // lblRecTitle
+            // 
+            this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblRecTitle.Name = "lblRecTitle";
+            this.lblRecTitle.Size = new System.Drawing.Size(368, 27);
+            this.lblRecTitle.TabIndex = 0;
+            this.lblRecTitle.Text = "Общие сведения";
+            this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelFind
             // 
@@ -1387,161 +1554,6 @@
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // panelView
-            // 
-            this.panelView.Controls.Add(this.button5);
-            this.panelView.Controls.Add(this.pbImage);
-            this.panelView.Controls.Add(this.btnPlay);
-            this.panelView.Controls.Add(this.lblRecDescription);
-            this.panelView.Controls.Add(this.label5);
-            this.panelView.Controls.Add(this.label4);
-            this.panelView.Controls.Add(this.lblRecName);
-            this.panelView.Controls.Add(this.tbfDesc);
-            this.panelView.Controls.Add(this.tbfCountry);
-            this.panelView.Controls.Add(this.tbfYear);
-            this.panelView.Controls.Add(this.tbfName);
-            this.panelView.Controls.Add(this.panelTitle);
-            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelView.Location = new System.Drawing.Point(0, 0);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 591);
-            this.panelView.TabIndex = 10;
-            // 
-            // pbImage
-            // 
-            this.pbImage.Location = new System.Drawing.Point(192, 56);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(158, 238);
-            this.pbImage.TabIndex = 9;
-            this.pbImage.TabStop = false;
-            // 
-            // btnPlay
-            // 
-            this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
-            this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 565);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(111, 23);
-            this.btnPlay.TabIndex = 6;
-            this.btnPlay.Text = "Воспроизвести";
-            this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPlay.UseVisualStyleBackColor = true;
-            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
-            // 
-            // lblRecDescription
-            // 
-            this.lblRecDescription.AutoSize = true;
-            this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecDescription.Location = new System.Drawing.Point(8, 279);
-            this.lblRecDescription.Name = "lblRecDescription";
-            this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
-            this.lblRecDescription.TabIndex = 4;
-            this.lblRecDescription.Text = " Описание:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(10, 75);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 17);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Страна:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(9, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 17);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Год:";
-            // 
-            // lblRecName
-            // 
-            this.lblRecName.AutoSize = true;
-            this.lblRecName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecName.Location = new System.Drawing.Point(2, 29);
-            this.lblRecName.Name = "lblRecName";
-            this.lblRecName.Size = new System.Drawing.Size(80, 17);
-            this.lblRecName.TabIndex = 3;
-            this.lblRecName.Text = " Название:";
-            // 
-            // tbfDesc
-            // 
-            this.tbfDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfDesc.Location = new System.Drawing.Point(16, 299);
-            this.tbfDesc.Multiline = true;
-            this.tbfDesc.Name = "tbfDesc";
-            this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.Size = new System.Drawing.Size(334, 260);
-            this.tbfDesc.TabIndex = 8;
-            // 
-            // tbfCountry
-            // 
-            this.tbfCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfCountry.Location = new System.Drawing.Point(13, 95);
-            this.tbfCountry.Name = "tbfCountry";
-            this.tbfCountry.ReadOnly = true;
-            this.tbfCountry.Size = new System.Drawing.Size(164, 16);
-            this.tbfCountry.TabIndex = 7;
-            // 
-            // tbfYear
-            // 
-            this.tbfYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfYear.Location = new System.Drawing.Point(50, 53);
-            this.tbfYear.Name = "tbfYear";
-            this.tbfYear.ReadOnly = true;
-            this.tbfYear.Size = new System.Drawing.Size(75, 16);
-            this.tbfYear.TabIndex = 7;
-            // 
-            // tbfName
-            // 
-            this.tbfName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfName.Location = new System.Drawing.Point(88, 29);
-            this.tbfName.Name = "tbfName";
-            this.tbfName.ReadOnly = true;
-            this.tbfName.Size = new System.Drawing.Size(276, 16);
-            this.tbfName.TabIndex = 7;
-            // 
-            // panelTitle
-            // 
-            this.panelTitle.Controls.Add(this.lblRecTitle);
-            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(368, 27);
-            this.panelTitle.TabIndex = 7;
-            // 
-            // lblRecTitle
-            // 
-            this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblRecTitle.Name = "lblRecTitle";
-            this.lblRecTitle.Size = new System.Drawing.Size(368, 27);
-            this.lblRecTitle.TabIndex = 0;
-            this.lblRecTitle.Text = "Общие сведения";
-            this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabActors
             // 
@@ -2202,15 +2214,16 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // button5
+            // cbIsVisible
             // 
-            this.button5.Location = new System.Drawing.Point(55, 185);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 10;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.cbIsVisible.AutoSize = true;
+            this.cbIsVisible.Location = new System.Drawing.Point(129, 5);
+            this.cbIsVisible.Name = "cbIsVisible";
+            this.cbIsVisible.Size = new System.Drawing.Size(133, 17);
+            this.cbIsVisible.TabIndex = 24;
+            this.cbIsVisible.Text = "Показать удаленные";
+            this.cbIsVisible.UseVisualStyleBackColor = true;
+            this.cbIsVisible.CheckStateChanged += new System.EventHandler(this.Filter);
             // 
             // MainForm
             // 
@@ -2243,6 +2256,10 @@
             this.scTabFilm.ResumeLayout(false);
             this.menudgvTable.ResumeLayout(false);
             this.menudgvTable.PerformLayout();
+            this.panelView.ResumeLayout(false);
+            this.panelView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            this.panelTitle.ResumeLayout(false);
             this.panelFind.ResumeLayout(false);
             this.panelFind.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -2252,10 +2269,6 @@
             this.panelEdit.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericTime)).EndInit();
-            this.panelView.ResumeLayout(false);
-            this.panelView.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
-            this.panelTitle.ResumeLayout(false);
             this.tabActors.ResumeLayout(false);
             this.scTabActors.Panel1.ResumeLayout(false);
             this.scTabActors.Panel1.PerformLayout();
@@ -2475,6 +2488,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.CheckBox cbIsVisible;
     }
 }
 
