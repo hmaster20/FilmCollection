@@ -259,7 +259,16 @@ namespace FilmCollection
                     int count = 0;
                     _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
-                    foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+
+                    //var ext = new List<string> { "jpg", "gif", "png" };
+                    //var myFiles = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories)
+                    //     .Where(s => ext.Contains(Path.GetExtension(s));
+                    
+                    List<string> ext = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg" };
+                    var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s.ToString())));
+
+                    //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                    foreach (FileInfo file in myFiles)
                     {
                         count++;
                         //WorkerCB.ReportProgress(count);
@@ -720,7 +729,7 @@ namespace FilmCollection
         private void PepareRefresh(string nodeName, bool flag, int column)
         {
             List<Record> filtered = _videoCollection.VideoList;
-          
+
             bool IsVisible = !cbIsVisible.Checked;   //отображать или нет с=удаленные файлы
 
             if (nodeName != "" && nodeName != "Фильмотека")
@@ -839,6 +848,8 @@ namespace FilmCollection
 
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
+            panelView.BringToFront();               // Отображение панели описания
+
             // Предоставляет данные выбранной записи
             Record record = GetSelectedRecord();
             if (record != null)
