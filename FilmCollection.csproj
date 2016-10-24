@@ -151,6 +151,7 @@
     <Content Include="Resources\change.png" />
     <Content Include="Resources\db.png" />
     <Content Include="Resources\dbBackup.png" />
+    <Content Include="Resources\dbClear.png" />
     <Content Include="Resources\dbRebuild.png" />
     <Content Include="Resources\dbRecovery.png" />
     <Content Include="Resources\del.png" />
