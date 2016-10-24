@@ -720,21 +720,23 @@ namespace FilmCollection
         private void PepareRefresh(string nodeName, bool flag, int column)
         {
             List<Record> filtered = _videoCollection.VideoList;
+          
+            bool IsVisible = cbIsVisible.Checked;   //отображать или нет с=удаленные файлы
 
             if (nodeName != "" && nodeName != "Фильмотека")
             {
                 if (!flag)
                 {
-                    filtered = filtered.FindAll(v => v.Visible == true && v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
+                    filtered = filtered.FindAll(v => v.Visible == IsVisible && v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
                 }
                 else
                 {   //развернуть все
-                    filtered = filtered.FindAll(v => v.Visible == true && v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
+                    filtered = filtered.FindAll(v => v.Visible == IsVisible && v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
                 }
             }
             else
             {   // при клике по "Фильмотека" отображаются все файлы кроме удаленных
-                filtered = filtered.FindAll(v => v.Visible == true);
+                filtered = filtered.FindAll(v => v.Visible == IsVisible);
             }
 
             filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
@@ -805,6 +807,7 @@ namespace FilmCollection
                 dgvTableRec.DataSource = null;
                 dgvTableRec.DataSource = filtered;
 
+                // отображаем другой шрифт и цвет для удаленных записей
                 if (dgvTableRec.RowCount > 0)
                 {
                     foreach (DataGridViewRow row in dgvTableRec.Rows)
