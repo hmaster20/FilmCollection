@@ -734,7 +734,7 @@ namespace FilmCollection
             }
             else
             {   // при клике по "Фильмотека" отображаются все файлы кроме удаленных
-                //filtered = filtered.FindAll(v => v.Visible == true);
+                filtered = filtered.FindAll(v => v.Visible == true);
             }
 
             filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
@@ -810,19 +810,10 @@ namespace FilmCollection
                     foreach (DataGridViewRow row in dgvTableRec.Rows)
                         if ((row.DataBoundItem as Record).Visible == false)
                         {
-                            row.Selected = true;
-                            //row.DefaultCellStyle.BackColor = Color.Silver;;
                             row.DefaultCellStyle.ForeColor = Color.Silver;
                             row.DefaultCellStyle.Font = new Font(dgvTableRec.Font, FontStyle.Strikeout);
-
                         }
-                        else
-                        {
-                            //row.DefaultCellStyle.BackColor = Color.Green;
-                        }
-
-                    //dgvTableRec.Rows[3].DefaultCellStyle.BackColor = Color.Red;
-                } 
+                }
             }
             catch (Exception ex)
             {
