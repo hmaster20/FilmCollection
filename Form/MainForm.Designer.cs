@@ -195,7 +195,6 @@
             this.tabImage = new System.Windows.Forms.TabPage();
             this.tabGrab = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
-            this.textBox2 = new FilmCollection.MyTextBox();
             this.graberAll = new System.Windows.Forms.Button();
             this.textBoxWeb = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
@@ -221,6 +220,9 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.cbIsVisible = new System.Windows.Forms.CheckBox();
+            this.textBox2 = new FilmCollection.MyTextBox();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCleanDB = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -593,7 +595,9 @@
             // 
             this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnOptions,
-            this.btnActors});
+            this.btnActors,
+            this.toolStripSeparator10,
+            this.btnCleanDB});
             this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
             this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.настройкаToolStripMenuItem.Text = "Настройка";
@@ -601,13 +605,13 @@
             // btnOptions
             // 
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(138, 22);
+            this.btnOptions.Size = new System.Drawing.Size(152, 22);
             this.btnOptions.Text = "Параметры";
             // 
             // btnActors
             // 
             this.btnActors.Name = "btnActors";
-            this.btnActors.Size = new System.Drawing.Size(138, 22);
+            this.btnActors.Size = new System.Drawing.Size(152, 22);
             this.btnActors.Text = "Актеры";
             // 
             // btnHelp
@@ -1987,14 +1991,6 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBox2
-            // 
-            this.textBox2.BorderColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(396, 124);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
-            // 
             // graberAll
             // 
             this.graberAll.Location = new System.Drawing.Point(427, 13);
@@ -2217,13 +2213,33 @@
             // cbIsVisible
             // 
             this.cbIsVisible.AutoSize = true;
-            this.cbIsVisible.Location = new System.Drawing.Point(129, 5);
+            this.cbIsVisible.Location = new System.Drawing.Point(129, 6);
             this.cbIsVisible.Name = "cbIsVisible";
-            this.cbIsVisible.Size = new System.Drawing.Size(133, 17);
+            this.cbIsVisible.Size = new System.Drawing.Size(171, 17);
             this.cbIsVisible.TabIndex = 24;
-            this.cbIsVisible.Text = "Показать удаленные";
+            this.cbIsVisible.Text = "Показать только удаленные";
             this.cbIsVisible.UseVisualStyleBackColor = true;
             this.cbIsVisible.CheckStateChanged += new System.EventHandler(this.Filter);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(396, 124);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(149, 6);
+            // 
+            // btnCleanDB
+            // 
+            this.btnCleanDB.Name = "btnCleanDB";
+            this.btnCleanDB.Size = new System.Drawing.Size(152, 22);
+            this.btnCleanDB.Text = "Очистка базы";
+            this.btnCleanDB.Click += new System.EventHandler(this.btnCleanDB_Click);
             // 
             // MainForm
             // 
@@ -2489,6 +2505,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.CheckBox cbIsVisible;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem btnCleanDB;
     }
 }
 
