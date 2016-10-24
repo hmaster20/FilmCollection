@@ -721,7 +721,7 @@ namespace FilmCollection
         {
             List<Record> filtered = _videoCollection.VideoList;
           
-            bool IsVisible = cbIsVisible.Checked;   //отображать или нет с=удаленные файлы
+            bool IsVisible = !cbIsVisible.Checked;   //отображать или нет с=удаленные файлы
 
             if (nodeName != "" && nodeName != "Фильмотека")
             {
@@ -2433,6 +2433,20 @@ namespace FilmCollection
         private void button5_Click(object sender, EventArgs e)
         {
             dgvTableRec.Rows[1].DefaultCellStyle.BackColor = Color.Yellow;
+        }
+
+        private void btnCleanDB_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            {
+                if (_videoCollection.VideoList[i].Visible == false)
+                {
+                    _videoCollection.Remove(_videoCollection.VideoList[i]);
+                }
+            }
+            _videoCollection.Save();
+            dgvTableRec.ClearSelection();
+            PepareRefresh();
         }
     }
 
