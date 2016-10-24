@@ -811,11 +811,14 @@ namespace FilmCollection
                         if ((row.DataBoundItem as Record).Visible == false)
                         {
                             row.Selected = true;
-                            row.DefaultCellStyle.BackColor = Color.Red;
+                            //row.DefaultCellStyle.BackColor = Color.Silver;;
+                            row.DefaultCellStyle.ForeColor = Color.Silver;
+                            row.DefaultCellStyle.Font = new Font(dgvTableRec.Font, FontStyle.Strikeout);
+
                         }
                         else
                         {
-                            row.DefaultCellStyle.BackColor = Color.Green;
+                            //row.DefaultCellStyle.BackColor = Color.Green;
                         }
 
                     //dgvTableRec.Rows[3].DefaultCellStyle.BackColor = Color.Red;
