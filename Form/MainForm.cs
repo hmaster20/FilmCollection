@@ -260,10 +260,6 @@ namespace FilmCollection
                     _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
 
-                    //var ext = new List<string> { "jpg", "gif", "png" };
-                    //var myFiles = Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories)
-                    //     .Where(s => ext.Contains(Path.GetExtension(s));
-                    
                     List<string> ext = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg" };
                     var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s.ToString())));
 
