@@ -21,15 +21,10 @@ namespace FilmCollection
         RecordCollection _videoCollection = new RecordCollection();     // Доступ к коллекции
         TreeViewColletion _treeViewColletion = new TreeViewColletion(); // Доступ к коллекции
 
-        Record record = null;       // Доступ к записи
         FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
 
         int FindCount { get; set; }                 // счетчик найденных строк
         public List<int> dgvSelected { get; set; }  // индексы найденных строк
-
-        BackgroundWorker WorkerCB;
-        public BackgroundWorker workeLoad;
-
 
         #region Главная форма (Main)
 
@@ -210,7 +205,6 @@ namespace FilmCollection
                 treeFolder.Nodes.Clear();       // очищаем иерархию
                 dgvTableRec.ClearSelection();   // выключаем селекты таблицы
                 PepareRefresh();                // сбрасываем старые значения таблицы
-
             }
             else // Если базы нет, то создаем пустой файл базы
             {
@@ -218,7 +212,6 @@ namespace FilmCollection
             }
 
             DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
-            string folderName = "";
 
             if (dialogStatus == DialogResult.OK)
             {
@@ -226,27 +219,25 @@ namespace FilmCollection
                 tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
                 tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
 
-                folderName = fbDialog.SelectedPath;         //Извлечение имени папки
+                string folderName = fbDialog.SelectedPath;         //Извлечение имени папки
 
-                DialogResult correct = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
+                DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                if (correct == DialogResult.Cancel) CreateBase();
-
+                if (CheckfolderName == DialogResult.Cancel) CreateBase();
 
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
 
                 if (directory.Exists)
                 {
                     _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
-                    char[] charsToTrim = { '.' };
 
                     List<string> ext = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".flv" };
                     var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s.ToString())));
 
                     foreach (FileInfo file in myFiles)
                         CreateRecordObject(file, null);
-
                 }
+
                 _videoCollection.Save();
                 MessageBox.Show(_videoCollection.VideoList.Count.ToString());
                 FormLoad();
@@ -268,18 +259,15 @@ namespace FilmCollection
                     if (directory.Exists)   // проверяем наличие папки коллекции
                     {
                         for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-                        {
                             _videoCollection.VideoList[i].Visible = false;
-                        }
 
                         foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                         {
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-
-                            // если файла нет в коллекции
-                            if (!RecordExist(record)) CreateRecordObject(file, record);
+                           
+                            if (!RecordExist(record)) CreateRecordObject(file, record); // если файла нет в коллекции, создаем
                         }
 
                         _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
@@ -333,8 +321,7 @@ namespace FilmCollection
             }
             return false;           // иначе файла нет файл есть
         }
-
-
+        
 
         private void BackupBase()       // Резервная копия базы
         {
@@ -345,10 +332,9 @@ namespace FilmCollection
                     string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
                         + Path.GetExtension(RecordOptions.BaseName);
+
                     File.Copy(RecordOptions.BaseName, FileBase);
-                    //File.Copy(RecordOptions.BaseName, Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                    //    + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
-                    //    + Path.GetExtension(RecordOptions.BaseName));
+
                     MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
                 }
                 catch (IOException copyError)
@@ -380,7 +366,7 @@ namespace FilmCollection
 
         private void btnRecoveryBase_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Текущая база будет удалена");            
         }
 
         private void btnReport_Click(object sender, EventArgs e)
