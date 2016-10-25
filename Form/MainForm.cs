@@ -271,7 +271,7 @@ namespace FilmCollection
 
                         _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
                         FormLoad();                 // и перегружаем главную форму
-                        MessageBox.Show("Сведения о файлах в каталоге" + directory + " обновлены!");
+                        MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
                     }
                     else
                         MessageBox.Show("Каталог " + directory + " не обнаружен!");
@@ -2112,7 +2112,7 @@ namespace FilmCollection
             Rectangle rect = new Rectangle(1, 1, 145, 18);
             rect.Inflate(1, 1); // border thickness
             ControlPaint.DrawBorder(e.Graphics, rect, Color.Silver, ButtonBorderStyle.Solid);
-            
+
             //base.OnPaint(e);
             //Pen penBorder = new Pen(Color.Gray, 1);
             //Rectangle rectBorder = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
@@ -2120,7 +2120,7 @@ namespace FilmCollection
 
             //Rectangle textRec = new Rectangle(e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             //TextRenderer.DrawText(e.Graphics, Text, this.Font, textRec, this.ForeColor, this.BackColor, TextFormatFlags.Default);
-            
+
             //    toolStripTextBox1.BorderStyle = BorderStyle.None;
             //    Pen p = new Pen(SystemColors.ControlDark, 5);
             //    Graphics g = e.Graphics;
@@ -2210,9 +2210,9 @@ namespace FilmCollection
                     MessageBox.Show("Test");
                     ulong aaa = item.ExtendedProperty("System.Media.Duration") / 10000000;
                     TimeSpan.FromSeconds((double)aaa);
-                    
+
                     MessageBox.Show(TimeSpan.FromSeconds((double)aaa).ToString());
-                    
+
                     //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
                 }
             }
@@ -2223,13 +2223,13 @@ namespace FilmCollection
 
         private void btnCleanDB_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            {
-                if (_videoCollection.VideoList[i].Visible == false)
-                {
-                    _videoCollection.Remove(_videoCollection.VideoList[i]);
-                }
-            }
+            //for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            //{
+            //    if (_videoCollection.VideoList[i].Visible == false) _videoCollection.Remove(_videoCollection.VideoList[i]);
+
+            //}
+
+            _videoCollection.Remove(_videoCollection.VideoList.Find(x => x.Visible == false));
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
             PepareRefresh();
