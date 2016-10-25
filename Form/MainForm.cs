@@ -86,7 +86,7 @@ namespace FilmCollection
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    BackupBase();       // на всякий случай 
+                    BackupBase();   // на всякий случай делаем бэкап
                     return;
                 }
 
@@ -105,7 +105,6 @@ namespace FilmCollection
         private void Form_Tooltip()     // Всплывающая подсказка
         {
             toolinfo.SetToolTip(btnFileNameEdit, "Разблокировать для переименования файла");
-            //toolinfo.SetToolTip(, "Панель быстрого поиска по названию");
         }
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -266,7 +265,7 @@ namespace FilmCollection
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                           
+
                             if (!RecordExist(record)) CreateRecordObject(file, record); // если файла нет в коллекции, создаем
                         }
 
@@ -321,7 +320,7 @@ namespace FilmCollection
             }
             return false;           // иначе файла нет файл есть
         }
-        
+
 
         private void BackupBase()       // Резервная копия базы
         {
@@ -366,7 +365,7 @@ namespace FilmCollection
 
         private void btnRecoveryBase_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Текущая база будет удалена");            
+            MessageBox.Show("Текущая база будет удалена");
         }
 
         private void btnReport_Click(object sender, EventArgs e)
@@ -478,8 +477,6 @@ namespace FilmCollection
         private DataGridView GetDgv()
         {
             return (tabControl2.SelectedIndex == 0) ? dgvTableRec : dgvTableActors;
-            //if (tabControl2.SelectedIndex == 0) return dgvTableRec; // Выбрана вкладка Фильмы
-            //return dgvTableActors;                                  // Выбрана вкладка Актеры
         }
 
         private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка селекта строки перед открытием меню
@@ -733,7 +730,6 @@ namespace FilmCollection
 
         private void GetPic(Record record)
         {
-            //string filename = GetFilename(record.Name);
             string filename = GetFilename(record.Pic);
             if (File.Exists(filename))
             {
@@ -1161,14 +1157,12 @@ namespace FilmCollection
                 }
                 if (i == 0)
                     MessageBox.Show("Элементов не найдено!");
+
                 if (i > 0)
-                {
                     FindStatusLabel.Text = "Найдено " + i + " элементов.";
-                }
+
                 if (i > 1)
-                {
                     btnFindNext.Enabled = true;
-                }
             }
             catch (Exception ex)
             {
@@ -2045,10 +2039,7 @@ namespace FilmCollection
                         webClient.DownloadFile(PicWeb, GetFilename(Pic));
                 }
             }
-            catch (Exception Ex)
-            {
-                MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message);
-            }
+            catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
         }
 
 
@@ -2119,21 +2110,10 @@ namespace FilmCollection
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //Graphics graphics = Graphics.FromHdc(hdc);
-            ////Color borderColor = Color.Blue;
-            //Color borderColor = Color.Red;
-            //Rectangle rectangle = new Rectangle(1, 1, 20, 5);
-            //ControlPaint.DrawBorder(graphics, rectangle, borderColor, ButtonBorderStyle.Solid);
-
-
-            // голубой цвет
-            //System.Drawing.Rectangle rect = new Rectangle(TextBox1.Location.X, TextBox1.Location.Y, TextBox1.ClientSize.Width, TextBox1.ClientSize.Height);
             Rectangle rect = new Rectangle(1, 1, 145, 18);
             rect.Inflate(1, 1); // border thickness
             ControlPaint.DrawBorder(e.Graphics, rect, Color.Silver, ButtonBorderStyle.Solid);
-
-
-            //// серый
+            
             //base.OnPaint(e);
             //Pen penBorder = new Pen(Color.Gray, 1);
             //Rectangle rectBorder = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
@@ -2141,20 +2121,11 @@ namespace FilmCollection
 
             //Rectangle textRec = new Rectangle(e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
             //TextRenderer.DrawText(e.Graphics, Text, this.Font, textRec, this.ForeColor, this.BackColor, TextFormatFlags.Default);
-
-
+            
             //    toolStripTextBox1.BorderStyle = BorderStyle.None;
-            //    //Pen p = new Pen(Color.Red);
             //    Pen p = new Pen(SystemColors.ControlDark, 5);
             //    Graphics g = e.Graphics;
-            //    int variance = 3;
-            //    //g.DrawRectangle(p, new Rectangle(20,-5,25,40));
             //    g.DrawRectangle(p, new Rectangle(20, -15, 129, 90));
-
-            //    //g.DrawRectangle(p, new Rectangle(toolMainMenu.Location.X + 5 - variance,
-            //    //                             toolMainMenu.Location.Y - variance,
-            //    //                             toolStripTextBox1.Width + variance,
-            //    //                             toolStripTextBox1.Height + variance));
         }
 
         private void cRenameFolder_Click(object sender, EventArgs e)
@@ -2164,13 +2135,13 @@ namespace FilmCollection
 
 
 
-        private void toolStripTextBox1_KeyDown(object sender, KeyEventArgs e)
+        private void tsFindbyName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 try
                 {
-                    string regReplace = toolStripTextBox1.Text.Replace("*", "");
+                    string regReplace = tsFindbyName.Text.Replace("*", "");
                     Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
                     dgvTableRec.ClearSelection();
@@ -2180,25 +2151,13 @@ namespace FilmCollection
                     {
                         if (regex.IsMatch(row.Cells[0].Value.ToString()))
                         {
-                            //dgvSelected.Add(row.Cells[0].RowIndex);
-                            //row.Selected = true;
-
-
-
-                            //запомнили
-                            int f = 0;
-                            f = row.Cells[0].RowIndex;
-                            ////выделили
-                            //dgvTableRec.ClearSelection();
-                            //dgvTableRec.Rows[f].Selected = true;
-                            ////скролим
-                            //dgvTableRec.FirstDisplayedScrollingRowIndex = f;
+                            int f = row.Cells[0].RowIndex;
 
                             if (f < dgvTableRec.RowCount)
                             {
                                 dgvTableRec.ClearSelection();
-                                dgvTableRec.Rows[f].Selected = true;
-                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;
+                                dgvTableRec.Rows[f].Selected = true;            // выделяем
+                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;// скролим
                                 dgvTableRec.Update();
                             }
                             break;
@@ -2252,11 +2211,9 @@ namespace FilmCollection
                     MessageBox.Show("Test");
                     ulong aaa = item.ExtendedProperty("System.Media.Duration") / 10000000;
                     TimeSpan.FromSeconds((double)aaa);
-
-
+                    
                     MessageBox.Show(TimeSpan.FromSeconds((double)aaa).ToString());
-
-
+                    
                     //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
                 }
             }
