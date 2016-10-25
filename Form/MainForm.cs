@@ -61,12 +61,6 @@ namespace FilmCollection
                 cBoxCountryActor.Items.Add(item);
                 tscCountryFilter.Items.Add(item);
             }
-
-            WorkerCB = new BackgroundWorker();
-            WorkerCB.DoWork += Worker_DoWork;                     // Здесь работает поток
-            WorkerCB.RunWorkerCompleted += WorkerCompleted;     // Здесь завершающая задачка в потоке
-            WorkerCB.ProgressChanged += WorkerProgressChanged;  // Здесь работает прогресс бар
-            WorkerCB.WorkerReportsProgress = true;              // Говорим что поток может передавать информацию о ходе своей работы
         }
 
         private void T_Tick(object sender, EventArgs e)     // таймер для селекта MainForm_Load
@@ -236,49 +230,25 @@ namespace FilmCollection
 
                 DialogResult correct = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                if (correct == DialogResult.Cancel)
-                {
-                    CreateBase();
-                }
+                if (correct == DialogResult.Cancel) CreateBase();
+
 
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-                try
-                {
-                    tsProgressBar.Maximum = directory.GetFiles("*", SearchOption.AllDirectories).Length;    // Получаем количество файлов
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    return;
-                }
-
-                //DirectoryInfo directory = (DirectoryInfo)e.Argument;
 
                 if (directory.Exists)
                 {
-                    //int count = 0;
                     _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
 
                     List<string> ext = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".flv" };
                     var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s.ToString())));
 
-                    //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                     foreach (FileInfo file in myFiles)
-                    {
-                        //count++;
-                        //WorkerCB.ReportProgress(count);
-
                         CreateRecordObject(file, null);
-                    }
+
                 }
-
-                // WorkerCB.RunWorkerAsync(directory);
-
                 _videoCollection.Save();
-
                 MessageBox.Show(_videoCollection.VideoList.Count.ToString());
-
                 FormLoad();
             }
         }
@@ -430,51 +400,6 @@ namespace FilmCollection
         }
 
         #endregion
-
-
-        #region Фоновый поток обработки коллекции файлов
-
-        private void WorkerProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            tsProgressBar.Value = e.ProgressPercentage;
-        }
-
-        private void WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            MessageBox.Show(_videoCollection.VideoList.Count.ToString());
-            // здесь выполняются завершающие (быстрые задачи), потому как влияют на работу прогресс бара
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)  // Тело потока
-        {
-            DirectoryInfo directory = (DirectoryInfo)e.Argument;
-
-            if (directory.Exists)
-            {
-                int count = 0;
-                _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
-                char[] charsToTrim = { '.' };
-                foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                {
-                    count++;
-                    WorkerCB.ReportProgress(count);
-
-                    record = new Record();
-
-                    record.Id = _videoCollection.getRecordID();
-                    record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-                    record.FileName = file.Name;                            // полное название файла (film.avi)
-                    record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                    record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                    record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                            // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                    _videoCollection.Add(record);
-                }
-            }
-        }
-
-        #endregion
-
 
         #region Обработка DataGridView
 
