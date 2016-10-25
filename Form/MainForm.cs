@@ -2228,8 +2228,12 @@ namespace FilmCollection
             //    if (_videoCollection.VideoList[i].Visible == false) _videoCollection.Remove(_videoCollection.VideoList[i]);
 
             //}
+            foreach (var item in _videoCollection.VideoList.FindAll(x => x.Visible == false))
+            {
+                _videoCollection.Remove(item);
+            }
 
-            _videoCollection.Remove(_videoCollection.VideoList.Find(x => x.Visible == false));
+            
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
             PepareRefresh();
