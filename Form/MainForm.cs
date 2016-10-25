@@ -256,7 +256,7 @@ namespace FilmCollection
 
                 if (directory.Exists)
                 {
-                    int count = 0;
+                    //int count = 0;
                     _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
                     char[] charsToTrim = { '.' };
 
@@ -266,42 +266,10 @@ namespace FilmCollection
                     //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                     foreach (FileInfo file in myFiles)
                     {
-                        count++;
+                        //count++;
                         //WorkerCB.ReportProgress(count);
 
-                        record = new Record();
-
-                        //record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-
-                        string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
-                        string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);                               // название без года
-                        string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);                           // название без символов                       
-                        name_f = name_f.Trim();                                                                    // название без пробелов вначале и конце
-                        if (name_f != "")
-                        {
-                            record.Name = name_f;
-                        }
-                        else
-                        {
-                            record.Name = name_1;
-                        }
-
-                        //выделяем только 4 идущие подряд цифры
-                        foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
-                            if (m.Value != "")
-                            {
-                                record.Year = Convert.ToInt32(m.Value);
-                            }
-
-
-                        record.Visible = true;                                  // видимость файла
-                        record.Id = _videoCollection.getRecordID();
-                        record.FileName = file.Name;                            // полное название файла (film.avi)
-                        record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                        record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                                // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                        _videoCollection.Add(record);
+                        CreateRecordObject(file, null);
                     }
                 }
 
@@ -334,32 +302,14 @@ namespace FilmCollection
                             _videoCollection.VideoList[i].Visible = false;
                         }
 
-                        char[] charsToTrim = { '.' };
                         foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                         {
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
-                            if (!RecordExist(record))   // если файла нет в коллекции
-                            {
-                                string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
-                                string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
-                                string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
-                                name_f = name_f.Trim();                         // название без пробелов вначале и конце
-                                record.Name = (name_f != "") ? name_f : name_1;
-
-                                //выделяем только 4 идущие подряд цифры
-                                foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
-                                    if (m.Value != "") record.Year = Convert.ToInt32(m.Value);
-
-                                record.Visible = true;
-                                record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                                record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                                        // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                                _videoCollection.Add(record);
-                            }
+                            // если файла нет в коллекции
+                            if (!RecordExist(record)) CreateRecordObject(file, record);
                         }
 
                         _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
@@ -372,6 +322,33 @@ namespace FilmCollection
                 catch (Exception ex)
                 { MessageBox.Show(ex.Message); }
             }
+        }
+
+        private void CreateRecordObject(FileInfo file, Record record)
+        {
+            if (record == null)
+            {
+                record = new Record();
+                record.FileName = file.Name;                            // полное название файла (film.avi)
+                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+            }
+
+            string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
+            string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
+            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
+            name_f = name_f.Trim();                         // название без пробелов вначале и конце
+            record.Name = (name_f != "") ? name_f : name_1;
+
+            //выделяем только 4 идущие подряд цифры
+            foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
+                if (m.Value != "") record.Year = Convert.ToInt32(m.Value);
+
+            record.Visible = true;
+            record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
+            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                    // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+            _videoCollection.Add(record);
         }
 
         private bool RecordExist(Record record)
