@@ -317,59 +317,18 @@ namespace FilmCollection
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            if (_videoCollection.Options.Source != "" && _videoCollection.Options.Source != null)  // Если есть информация о корневой папки коллекции
+            if (_videoCollection.Options.Source == "" && _videoCollection.Options.Source == null)  // Если есть информация о корневой папки коллекции
+            {
+                MessageBox.Show("Необходимо создать базу данных.");
+            }
+            else
             {
                 try
                 {
                     DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
 
-
-
-                    if (directory.Exists)   // проверяем существование заявленной папки коллекции
+                    if (directory.Exists)   // проверяем наличие папки коллекции
                     {
-                        //#region Формирование списка файлов в базе XML для использования при дальнейшей проверке. Нужно ли их добавлять.
-                        //List<string> FileNameList = new List<string>();                 // создаем пустой список типа string
-                        //XmlDocument doc = new XmlDocument();                            // создаем объект для доступа в XML документ
-                        //doc.Load(RecordOptions.BaseName);                               // загружаем файл базы
-                        //XmlNodeList nodeList = doc.GetElementsByTagName("FileName");    // передается название файла
-
-                        //foreach (XmlNode node in nodeList)
-                        //{
-                        //    FileNameList.Add(node.ChildNodes[0].Value);                 // Загружаем в список FileNameList имена файлов без путей
-                        //}
-                        //#endregion
-
-                        //for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-                        //{
-                        //    _videoCollection.VideoList[i].Visible = false;
-                        //}
-
-                        //char[] charsToTrim = { '.' };
-                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                        //{
-                        //    if (file.Name != FileNameList.Find(x => x.Contains(file.Name))) // если файла нет в списке FileNameList, то добавляем в базу
-                        //    {
-                        //        record = new Record();
-
-                        //        record.Visible = true;
-                        //        record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-                        //        record.FileName = file.Name;                            // полное название файла (film.avi)
-                        //        record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
-                        //        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                        //        record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                        //                                                                // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                        //        _videoCollection.Add(record);
-                        //    }
-                        //    else
-                        //    {
-                        //        record = new Record();
-                        //        record = _videoCollection.VideoList.Find(x => x.FileName == file.Name);
-                        //        record.Visible = true;
-                        //    }
-                        //}
-
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
                         for (int i = 0; i < _videoCollection.VideoList.Count; i++)
                         {
                             _videoCollection.VideoList[i].Visible = false;
@@ -382,34 +341,19 @@ namespace FilmCollection
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
-                            if (!RecordExist(record))
+                            if (!RecordExist(record))   // если файла нет в коллекции
                             {
-                                record.Visible = true;
-                                //record.Name = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length);  // название без расширения (film)
-
-
                                 string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
-                                string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);                               // название без года
-                                string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);                           // название без символов                       
-                                name_f = name_f.Trim();                                                                    // название без пробелов вначале и конце
-                                if (name_f != "")
-                                {
-                                    record.Name = name_f;
-                                }
-                                else
-                                {
-                                    record.Name = name_1;
-                                }
+                                string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
+                                string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
+                                name_f = name_f.Trim();                         // название без пробелов вначале и конце
+                                record.Name = (name_f != "") ? name_f : name_1;
 
                                 //выделяем только 4 идущие подряд цифры
                                 foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
-                                    if (m.Value != "")
-                                    {
-                                        record.Year = Convert.ToInt32(m.Value);
-                                    }
+                                    if (m.Value != "") record.Year = Convert.ToInt32(m.Value);
 
-
-
+                                record.Visible = true;
                                 record.Extension = file.Extension.Trim(charsToTrim);    // расширение файла (avi)
                                 record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
                                 record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
@@ -427,11 +371,7 @@ namespace FilmCollection
                 }
                 catch (Exception ex)
                 { MessageBox.Show(ex.Message); }
-
             }
-            else
-                MessageBox.Show("Необходимо создать базу данных.");
-
         }
 
         private bool RecordExist(Record record)
