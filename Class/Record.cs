@@ -55,7 +55,6 @@ namespace FilmCollection
 
 
 
-
         #region Обработка Жанра
         private GenreVideo _genreVideo;   // Жанр
         [XmlIgnore]

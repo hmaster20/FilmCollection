@@ -711,7 +711,6 @@ namespace FilmCollection
                             //arr[2] = item.Id.ToString();
 
                             //ListViewItem itm = new ListViewItem(arr);
-
                             //listViewFilm.Items.Add(itm);
                         }
                     }
