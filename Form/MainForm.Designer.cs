@@ -190,7 +190,6 @@
             this.cbIsVisible = new System.Windows.Forms.CheckBox();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCleanDB = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox2 = new FilmCollection.MyTextBox();
             this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.Button();
@@ -222,6 +221,7 @@
             this.cChange = new System.Windows.Forms.ToolStripMenuItem();
             this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.cOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox2 = new FilmCollection.MyTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -524,13 +524,13 @@
             // btnOptions
             // 
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(152, 22);
+            this.btnOptions.Size = new System.Drawing.Size(150, 22);
             this.btnOptions.Text = "Параметры";
             // 
             // btnActors
             // 
             this.btnActors.Name = "btnActors";
-            this.btnActors.Size = new System.Drawing.Size(152, 22);
+            this.btnActors.Size = new System.Drawing.Size(150, 22);
             this.btnActors.Text = "Актеры";
             // 
             // btnHelp
@@ -1906,23 +1906,15 @@
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(147, 6);
             // 
             // btnCleanDB
             // 
             this.btnCleanDB.Image = global::FilmCollection.Properties.Resources.dbClear;
             this.btnCleanDB.Name = "btnCleanDB";
-            this.btnCleanDB.Size = new System.Drawing.Size(152, 22);
+            this.btnCleanDB.Size = new System.Drawing.Size(150, 22);
             this.btnCleanDB.Text = "Очистка базы";
             this.btnCleanDB.Click += new System.EventHandler(this.btnCleanDB_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.BorderColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(396, 124);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
             // 
             // menuResetFilter
             // 
@@ -2047,7 +2039,7 @@
             // 
             this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewActor.Location = new System.Drawing.Point(46, 491);
+            this.btnNewActor.Location = new System.Drawing.Point(47, 481);
             this.btnNewActor.Name = "btnNewActor";
             this.btnNewActor.Size = new System.Drawing.Size(81, 23);
             this.btnNewActor.TabIndex = 51;
@@ -2229,6 +2221,14 @@
             this.cOpenFolder.Size = new System.Drawing.Size(156, 22);
             this.cOpenFolder.Text = "Открыть папку";
             this.cOpenFolder.Click += new System.EventHandler(this.cOpenFolder_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderColor = System.Drawing.Color.Blue;
+            this.textBox2.Location = new System.Drawing.Point(396, 124);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 6;
             // 
             // MainForm
             // 
