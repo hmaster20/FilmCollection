@@ -197,7 +197,6 @@
             this.tabImage = new System.Windows.Forms.TabPage();
             this.tabGrab = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
-            this.textBox2 = new FilmCollection.MyTextBox();
             this.graberAll = new System.Windows.Forms.Button();
             this.textBoxWeb = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
@@ -263,6 +262,7 @@
             // 
             // dgvTableRec
             // 
+            this.dgvTableRec.AllowDrop = true;
             this.dgvTableRec.AllowUserToAddRows = false;
             this.dgvTableRec.AllowUserToDeleteRows = false;
             this.dgvTableRec.AllowUserToResizeRows = false;
@@ -1980,7 +1980,6 @@
             // tabGrab
             // 
             this.tabGrab.Controls.Add(this.button4);
-            this.tabGrab.Controls.Add(this.textBox2);
             this.tabGrab.Controls.Add(this.graberAll);
             this.tabGrab.Controls.Add(this.textBoxWeb);
             this.tabGrab.Controls.Add(this.tbResult);
@@ -1995,21 +1994,13 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(622, 247);
+            this.button4.Location = new System.Drawing.Point(491, 241);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 7;
-            this.button4.Text = "button4";
+            this.button4.Text = "time";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.BorderColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(396, 124);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 6;
             // 
             // graberAll
             // 
@@ -2469,7 +2460,6 @@
         private System.Windows.Forms.TabPage tabImage;
         private System.Windows.Forms.Button graberAll;
         private System.Windows.Forms.ToolStripTextBox tsFindbyName;
-        private MyTextBox textBox2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem cRenameFolder;
         private System.Windows.Forms.Panel panelFolder;
