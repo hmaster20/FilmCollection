@@ -2238,6 +2238,11 @@ namespace FilmCollection
             dgvTableRec.ClearSelection();
             PepareRefresh();
         }
+
+        private void dgvTableRec_DragDrop(object sender, DragEventArgs e)
+        {
+
+        }
     }
 
 }
