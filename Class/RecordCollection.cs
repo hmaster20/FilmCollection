@@ -1,68 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using System.Windows.Forms;
 
 namespace FilmCollection
 {
 
     public class RecordCollection
     {
+        [XmlElement]
+        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
+
+
         public RecordCollection()               // Конструктор
         {
             VideoList = new List<Record>();     // Создание списка фильмов
             ActorList = new List<Actor>();      // Создание списка актеров
         }
-
+        
         public int RecordID { get; set; }      // Идентификатор фильмов
-        public int getRecordID() => ++RecordID; // return ++RecordID;   
-        public void clearRecordID() => RecordID = 0; //     RecordID = 0;
-
-
+        public int getRecordID() => ++RecordID;         // return ++RecordID;   
+        public void clearRecordID() => RecordID = 0;    // RecordID = 0;
+        
 
         public int ActorID { get; set; }      // Идентификатор актеров
-        public int getActorID()
-        {
-            return ++ActorID;
-        }
-        public void clearActorID()
-        {
-            ActorID = 0;
-        }
+        public int getActorID() => ++ActorID; // Идентификатор актеров  // return ++ActorID;
+        public void clearActorID() => ActorID = 0;     // ActorID = 0;
+        
 
 
-
-        [XmlElement]
-        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
- 
         #region Список фильмов
+        public List<Record> VideoList { get; set; } // Объявление списка
+        public void Add(Record record) => VideoList.Add(record);        // Добавление записи
+        public void Remove(Record record) => VideoList.Remove(record);  // Удаление записи  
+        public void ClearVideo() => VideoList.Clear();                  // Очистить коллекцию
 
-        private List<Record> _videoList;            // Объявление списка
-        public List<Record> VideoList
-        {
-            get { return _videoList; }
-            set { _videoList = value; }
-        }
-
-        public void Add(Record record)              // Добавление записи
-        {
-            VideoList.Add(record);
-        }
-
-        public void Remove(Record record)           // Удаление записи
-        {
-            VideoList.Remove(record);
-        }
-
-        public void ClearVideo()                    // Очистить коллекцию
-        {
-            VideoList.Clear();
-        }
 
         //void max()
         //{
         //    int maxAge = FindMaxAge(VideoList);
-
         //    //VideoList.Find();
         //}
 
@@ -88,30 +63,11 @@ namespace FilmCollection
 
         #region Список актеров
 
-        private List<Actor> _actorList;                        // Объявление списка
-        public List<Actor> ActorList
-        {
-            get { return _actorList; }
-            set { _actorList = value; }
-        }
-
-
-
-        public void Add(Actor actor)                          // Добавление актера
-        {
-            ActorList.Add(actor);
-        }
-
-        public void Remove(Actor actor)                       // Удаление актера
-        {
-            ActorList.Remove(actor);
-        }
-
-        public void ClearActor()                                     // Очистить коллекцию
-        {
-            ActorList.Clear();
-        }
-
+        public List<Actor> ActorList { get; set; } // Объявление списка        
+        public void Add(Actor actor) => ActorList.Add(actor);       // Добавление актера
+        public void Remove(Actor actor) => ActorList.Remove(actor); // Удаление актера
+        public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
+ 
         #endregion
 
 
