@@ -5,9 +5,8 @@ namespace FilmCollection
 {
     public class RecordOptions
     {
-        private static string fileName = "VideoList.xml";       // Файл базы коллекции
         [XmlIgnore]
-        public static string BaseName { get { return fileName; } }
+        public static string BaseName { get; } = "VideoList.xml";   // Файл базы коллекции // string BaseName = "VideoList.xml"
 
         public string Source { get; set; }          // Путь к корневой папке
 
