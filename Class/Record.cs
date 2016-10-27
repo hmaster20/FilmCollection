@@ -37,14 +37,9 @@ namespace FilmCollection
             get { return _description; }
             set { _description = value; }
         }
-
-        private string _pic = "";       
-        public string Pic
-        {
-            get { return _pic; }
-            set { _pic = value; }
-        }
-
+           
+        public string Pic { get; set; } = ""; 
+    
         public string FileName { get; set; }    // Название файла
 
         public string DirName { get; set; }     // Название папки в которой расположен файл
