@@ -291,7 +291,6 @@
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableRec_ColumnHeaderMouseClick);
             this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
-            this.dgvTableRec.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvTableRec_DragDrop);
             // 
             // cmnName
             // 
