@@ -2239,10 +2239,11 @@ namespace FilmCollection
             PepareRefresh();
         }
 
-        private void dgvTableRec_DragDrop(object sender, DragEventArgs e)
-        {
 
-        }
+
+
+
+   
     }
 
 }
