@@ -15,14 +15,9 @@ namespace FilmCollection
         }
 
         public int RecordID { get; set; }      // Идентификатор фильмов
-        public int getRecordID()
-        {
-            return ++RecordID;
-        }
-        public void clearRecordID()
-        {
-            RecordID = 0;
-        }
+        public int getRecordID() => ++RecordID; // return ++RecordID;   
+        public void clearRecordID() => RecordID = 0; //     RecordID = 0;
+
 
 
         public int ActorID { get; set; }      // Идентификатор актеров
@@ -36,14 +31,10 @@ namespace FilmCollection
         }
 
 
-        private RecordOptions _options = new RecordOptions();   // Параметры настройки
-        [XmlElement]
-        public RecordOptions Options
-        {
-            get { return _options; }
-            set { _options = value; }
-        }
 
+        [XmlElement]
+        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
+ 
         #region Список фильмов
 
         private List<Record> _videoList;            // Объявление списка
