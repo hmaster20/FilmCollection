@@ -398,8 +398,9 @@ namespace FilmCollection
 
         private bool isRecTab()
         {
-            if (tabControl2.SelectedIndex == 0) return true;
-            return false;
+            return (tabControl2.SelectedIndex == 0) ? true : false;
+            //if (tabControl2.SelectedIndex == 0) return true;
+            //return false;
         }
 
         private void NewActor()
@@ -532,20 +533,20 @@ namespace FilmCollection
             PepareRefresh(e.ColumnIndex);
         }
 
-        private void PepareRefresh()
-        {
-            PepareRefresh("", false);
-        }
+        private void PepareRefresh() => PepareRefresh("", false);
+        //{
+        //    PepareRefresh("", false);
+        //}
 
-        private void PepareRefresh(int column)
-        {
-            PepareRefresh("", false, column);
-        }
+        private void PepareRefresh(int column) => PepareRefresh("", false, column);
+        //{
+        //    PepareRefresh("", false, column);
+        //}
 
-        private void PepareRefresh(string nodeName, bool flag)
-        {
-            PepareRefresh(nodeName, flag, -1);
-        }
+        private void PepareRefresh(string nodeName, bool flag) => PepareRefresh(nodeName, flag, -1);
+        //{
+        //    PepareRefresh(nodeName, flag, -1);
+        //}
 
         private void PepareRefresh(string nodeName, bool flag, int column)
         {
@@ -582,14 +583,21 @@ namespace FilmCollection
 
         private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
         {
-            switch (switch_filter)
-            {
-                case 1: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film); break;
-                case 2: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Cartoon); break;
-                case 3: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Series); break;
-                default: break;
-            }
-            return filtered;
+            return filtered = (switch_filter != 0) ? filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1)) : filtered;
+
+            // if (switch_filter != 0) filtered = filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1));
+            // return filtered;
+
+            // filtered = filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter-1));
+
+            //switch (switch_filter)
+            //{
+            //    case 1: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film); break;
+            //    case 2: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Cartoon); break;
+            //    case 3: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Series); break;
+            //    default: break;
+            //}
+
         }
 
         private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
@@ -613,7 +621,7 @@ namespace FilmCollection
             List<Actor> filteredAct = _videoCollection.ActorList;
             if (tscCountryFilter.SelectedIndex > -1)
             {
-                filteredAct = filteredAct.FindAll(v => v.Country == (Country_Rus)tscCountryFilter.SelectedIndex);
+                filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tscCountryFilter.SelectedIndex);
             }
 
             dgvTableActors.DataSource = null;
@@ -722,10 +730,10 @@ namespace FilmCollection
             }
         }
 
-        private string GetFilename(string name)
-        {
-            return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-        }
+        private string GetFilename(string name) => Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
+        //{
+        //    return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
+        //}
 
         private void GetPic(Record record)
         {
@@ -845,20 +853,20 @@ namespace FilmCollection
             UserModifiedChanged(sender, e);
         }
 
-        private void btnNew_Click(object sender, EventArgs e)    // Создание элемента
-        {
-            NewRecord_Dialog();
-        }
+        private void btnNew_Click(object sender, EventArgs e) => NewRecord_Dialog(); // Создание элемента
+        //{
+        //    NewRecord_Dialog();
+        //}
 
-        private void btnSave_Click(object sender, EventArgs e)   // Сохранение нового или измененного элемента
-        {
-            SaveRecord();
-        }
+        private void btnSave_Click(object sender, EventArgs e) => SaveRecord();  // Сохранение нового или измененного элемента
+        //{
+        //    SaveRecord();
+        //}
 
-        private void btnCancel_Click(object sender, EventArgs e) // Отмена редактирования
-        {
-            CancelRecord();
-        }
+        private void btnCancel_Click(object sender, EventArgs e) => CancelRecord();// Отмена редактирования
+        //{
+        //    CancelRecord();
+        //}
 
         private void NewRecord_Dialog()
         {
@@ -1003,10 +1011,7 @@ namespace FilmCollection
         {
             foreach (Actor _actorID in chkActorSelect.Items)
             {
-                if (_actorID != null)
-                {
-                    record.ActorID.Add(_actorID.Id);
-                }
+                if (_actorID != null) record.ActorID.Add(_actorID.Id);
             }
         }
 
@@ -1024,27 +1029,24 @@ namespace FilmCollection
             btnFind.Enabled = true;
         }
 
-        private void btnFindNext_Click(object sender, EventArgs e)
-        {
-            FindNext();
-        }
+        private void btnFindNext_Click(object sender, EventArgs e) => FindNext();
+        //{
+        //    FindNext();
+        //}
 
-        private void tabControl_ResetFindStatus_Click(object sender, EventArgs e)
-        {
-            ResetFind();
-        }
+        private void tabControl_ResetFindStatus_Click(object sender, EventArgs e) => ResetFind();
+        //{
+        //    ResetFind();
+        //}
 
-        private void btnFindReset_Click(object sender, EventArgs e)
-        {
-            ResetFind();
-        }
+        private void btnFindReset_Click(object sender, EventArgs e) => ResetFind();
+        //{
+        //    ResetFind();
+        //}
 
         private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
         {
-            if (!mtbYear.MaskCompleted)
-            {
-                MessageBox.Show("Неверно указан год!");
-            }
+            if (!mtbYear.MaskCompleted) MessageBox.Show("Неверно указан год!");
         }
 
         #region Управление блокировками
@@ -1154,14 +1156,9 @@ namespace FilmCollection
                         //break; //Требуется для выбора одно строки
                     }
                 }
-                if (i == 0)
-                    MessageBox.Show("Элементов не найдено!");
-
-                if (i > 0)
-                    FindStatusLabel.Text = "Найдено " + i + " элементов.";
-
-                if (i > 1)
-                    btnFindNext.Enabled = true;
+                if (i == 0) MessageBox.Show("Элементов не найдено!");
+                if (i > 0) FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                if (i > 1) btnFindNext.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -2233,7 +2230,7 @@ namespace FilmCollection
                 _videoCollection.Remove(item);
             }
 
-            
+
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
             PepareRefresh();
@@ -2243,7 +2240,7 @@ namespace FilmCollection
 
 
 
-   
+
     }
 
 }
