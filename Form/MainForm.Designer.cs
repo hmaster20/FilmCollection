@@ -818,8 +818,8 @@
             this.tscbTypeFilter.Items.AddRange(new object[] {
             "Все",
             "Фильмы",
-            "Мульты",
-            "Сериалы"});
+            "Сериалы",
+            "Мульты"});
             this.tscbTypeFilter.Name = "tscbTypeFilter";
             this.tscbTypeFilter.Size = new System.Drawing.Size(121, 23);
             this.tscbTypeFilter.SelectedIndexChanged += new System.EventHandler(this.Filter);
