@@ -552,23 +552,57 @@ namespace FilmCollection
         {
             List<Record> filtered = _videoCollection.VideoList;
 
-            bool IsVisible = !cbIsVisible.Checked;   //отображать или нет с=удаленные файлы
+           // bool IsVisible = !cbIsVisible.Checked;   //отображать или нет удаленные файлы
+
+            filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
+
 
             if (nodeName != "" && nodeName != "Фильмотека")
             {
                 if (!flag)
                 {
-                    filtered = filtered.FindAll(v => v.Visible == IsVisible && v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
+                    filtered = filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
                 }
                 else
                 {   //развернуть все
-                    filtered = filtered.FindAll(v => v.Visible == IsVisible && v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
+                    filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
                 }
             }
-            else
-            {   // при клике по "Фильмотека" отображаются все файлы кроме удаленных
-                filtered = filtered.FindAll(v => v.Visible == IsVisible);
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //if (nodeName != "" && nodeName != "Фильмотека")
+            //{
+            //    if (!flag)
+            //    {
+            //        filtered = filtered.FindAll(v => v.Visible == IsVisible && 
+            //        v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
+            //    }
+            //    else
+            //    {   //развернуть все
+            //        filtered = filtered.FindAll(v => v.Visible == IsVisible && 
+            //        v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
+            //    }
+            //}
+            //else
+            //{   // при клике по "Фильмотека" отображаются все файлы кроме удаленных
+            //    filtered = filtered.FindAll(v => v.Visible == IsVisible);
+            //}
+
+
+
+
 
             filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
 
