@@ -534,104 +534,32 @@ namespace FilmCollection
         }
 
         private void PepareRefresh() => PepareRefresh("", false);
-        //{
-        //    PepareRefresh("", false);
-        //}
-
         private void PepareRefresh(int column) => PepareRefresh("", false, column);
-        //{
-        //    PepareRefresh("", false, column);
-        //}
-
         private void PepareRefresh(string nodeName, bool flag) => PepareRefresh(nodeName, flag, -1);
-        //{
-        //    PepareRefresh(nodeName, flag, -1);
-        //}
-
         private void PepareRefresh(string nodeName, bool flag, int column)
         {
             List<Record> filtered = _videoCollection.VideoList;
 
-           // bool IsVisible = !cbIsVisible.Checked;   //отображать или нет удаленные файлы
-
             filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
-
+            filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
 
             if (nodeName != "" && nodeName != "Фильмотека")
             {
-                if (!flag)
-                {
-                    filtered = filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
-                }
-                else
-                {   //развернуть все
-                    filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
-                }
+                filtered = (!flag)
+                            ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName)
+                            : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //if (nodeName != "" && nodeName != "Фильмотека")
-            //{
-            //    if (!flag)
-            //    {
-            //        filtered = filtered.FindAll(v => v.Visible == IsVisible && 
-            //        v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName);
-            //    }
-            //    else
-            //    {   //развернуть все
-            //        filtered = filtered.FindAll(v => v.Visible == IsVisible && 
-            //        v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
-            //    }
-            //}
-            //else
-            //{   // при клике по "Фильмотека" отображаются все файлы кроме удаленных
-            //    filtered = filtered.FindAll(v => v.Visible == IsVisible);
-            //}
-
-
-
-
-
-            filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
 
             Sort(filtered, tscbSort.SelectedIndex);
             if (column > -1) Sort(filtered, column);
 
             RefreshTable(filtered);
-
             Sort_Actor();
-
         }
 
         private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
         {
             return filtered = (switch_filter != 0) ? filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1)) : filtered;
-
-            // if (switch_filter != 0) filtered = filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1));
-            // return filtered;
-
-            // filtered = filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter-1));
-
-            //switch (switch_filter)
-            //{
-            //    case 1: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Film); break;
-            //    case 2: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Cartoon); break;
-            //    case 3: filtered = filtered.FindAll(v => v.Category == CategoryVideo.Series); break;
-            //    default: break;
-            //}
-
         }
 
         private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
