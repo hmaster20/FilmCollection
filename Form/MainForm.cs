@@ -10,7 +10,6 @@ using System.Xml;
 using System.Linq;
 using System.Net;
 using System.Collections;
-using System.Xml.Linq;
 using System.Runtime.InteropServices;
 using Shell32;
 
@@ -111,14 +110,12 @@ namespace FilmCollection
         {
             DialogResult dialog = MessageBox.Show("Вы уверены что хотите выйти из программы?",
                                                   "Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (dialog == DialogResult.Yes)
-            {
                 Application.ExitThread();
-            }
             else if (dialog == DialogResult.No)
-            {
                 e.Cancel = true;
-            }
+
             _videoCollection.Save();
             SaveFormVisualEffect();
         }
@@ -392,8 +389,10 @@ namespace FilmCollection
 
         private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
         {
-            if (isRecTab()) NewRecord_Dialog();
-            else NewActor();
+            if (isRecTab())
+                NewRecord_Dialog();
+            else
+                NewActor();
         }
 
         private bool isRecTab()
@@ -408,21 +407,16 @@ namespace FilmCollection
             MessageBox.Show("Test");
         }
 
-        private void EditRec_Click(object sender, EventArgs e)                 // Изменение записи
-        {
-            panelEdit.BringToFront();
-        }
+        private void EditRec_Click(object sender, EventArgs e) => panelEdit.BringToFront();     // Изменение записи
+        private void cFind_Click(object sender, EventArgs e) => panelFind.BringToFront();       // Поиск
+
 
         private void DeleteRec_Click(object sender, EventArgs e)
         {
             if (isRecTab())
-            {
                 DeleteRec();
-            }
             else
-            {
                 DeleteActor();
-            }
         }
 
         private void DeleteRec()
@@ -515,10 +509,7 @@ namespace FilmCollection
             }
         }
 
-        private void cFind_Click(object sender, EventArgs e)    // Поиск
-        {
-            panelFind.BringToFront();
-        }
+
         #endregion
 
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
@@ -536,6 +527,7 @@ namespace FilmCollection
         private void PepareRefresh() => PepareRefresh("", false);
         private void PepareRefresh(int column) => PepareRefresh("", false, column);
         private void PepareRefresh(string nodeName, bool flag) => PepareRefresh(nodeName, flag, -1);
+
         private void PepareRefresh(string nodeName, bool flag, int column)
         {
             List<Record> filtered = _videoCollection.VideoList;
@@ -591,10 +583,10 @@ namespace FilmCollection
 
             // список актеров
             chkActorList.Items.Clear();
+
             foreach (Actor item in _videoCollection.ActorList)
-            {
                 chkActorList.Items.Add(item);
-            }
+
         }
 
         private void RefreshTable(List<Record> filtered)
@@ -693,9 +685,6 @@ namespace FilmCollection
         }
 
         private string GetFilename(string name) => Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-        //{
-        //    return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-        //}
 
         private void GetPic(Record record)
         {
@@ -816,19 +805,11 @@ namespace FilmCollection
         }
 
         private void btnNew_Click(object sender, EventArgs e) => NewRecord_Dialog(); // Создание элемента
-        //{
-        //    NewRecord_Dialog();
-        //}
 
         private void btnSave_Click(object sender, EventArgs e) => SaveRecord();  // Сохранение нового или измененного элемента
-        //{
-        //    SaveRecord();
-        //}
 
         private void btnCancel_Click(object sender, EventArgs e) => CancelRecord();// Отмена редактирования
-        //{
-        //    CancelRecord();
-        //}
+
 
         private void NewRecord_Dialog()
         {
@@ -972,9 +953,8 @@ namespace FilmCollection
         private void GetActorID(Record record)
         {
             foreach (Actor _actorID in chkActorSelect.Items)
-            {
-                if (_actorID != null) record.ActorID.Add(_actorID.Id);
-            }
+                if (_actorID != null)
+                    record.ActorID.Add(_actorID.Id);
         }
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
@@ -992,23 +972,16 @@ namespace FilmCollection
         }
 
         private void btnFindNext_Click(object sender, EventArgs e) => FindNext();
-        //{
-        //    FindNext();
-        //}
 
         private void tabControl_ResetFindStatus_Click(object sender, EventArgs e) => ResetFind();
-        //{
-        //    ResetFind();
-        //}
 
         private void btnFindReset_Click(object sender, EventArgs e) => ResetFind();
-        //{
-        //    ResetFind();
-        //}
+
 
         private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
         {
-            if (!mtbYear.MaskCompleted) MessageBox.Show("Неверно указан год!");
+            if (!mtbYear.MaskCompleted)
+                MessageBox.Show("Неверно указан год!");
         }
 
         #region Управление блокировками
