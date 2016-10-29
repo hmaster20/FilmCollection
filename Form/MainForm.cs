@@ -482,15 +482,21 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
         }
 
-        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
-        {
-            FindNextButton_Lock();
-            if (e.Button == MouseButtons.Right)
-            {
-                try { GetMenuDgv(e); }
-                catch (Exception Ex) { MessageBox.Show(Ex.Message); }
-            }
-        }
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
         {
@@ -2171,7 +2177,38 @@ namespace FilmCollection
             PepareRefresh();
         }
 
+        private void treeFolder_DragDrop(object sender, DragEventArgs e)
+        {
+            Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
+            TreeNode destinationNode = treeFolder.GetNodeAt(pt);
+            TreeNode dragedNode = new TreeNode();
 
+            // dragedNode.Text = txt;
+            //if (destinationNode != null && dragedNode != null) // если дерево есть
+            //{
+            //    //destinationNode.Nodes.Add(dragedNode);
+            //    dataGridView3.Rows[CurrentRow2.Index].Cells[1].Value = destinationNode.Name;
+            //}
+        }
+
+        private void treeFolder_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+        {
+            try
+            {
+                FindNextButton_Lock();
+                if (e.Button == MouseButtons.Right) GetMenuDgv(e);
+                if (e.Button == MouseButtons.Left) dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+            }
+        }
 
 
 
