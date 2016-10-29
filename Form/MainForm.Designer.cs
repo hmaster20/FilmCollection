@@ -658,6 +658,8 @@
             this.treeFolder.Size = new System.Drawing.Size(191, 625);
             this.treeFolder.TabIndex = 22;
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
+            this.treeFolder.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragDrop);
+            this.treeFolder.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragEnter);
             // 
             // TreeMenu
             // 
