@@ -262,7 +262,6 @@
             // 
             // dgvTableRec
             // 
-            this.dgvTableRec.AllowDrop = true;
             this.dgvTableRec.AllowUserToAddRows = false;
             this.dgvTableRec.AllowUserToDeleteRows = false;
             this.dgvTableRec.AllowUserToResizeRows = false;
@@ -652,6 +651,7 @@
             // 
             // treeFolder
             // 
+            this.treeFolder.AllowDrop = true;
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
