@@ -1169,7 +1169,6 @@ namespace FilmCollection
                         if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
                         {
                             temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                            //if (temp.Length != 0) paths.Add(node.ChildNodes[0].Value.Substring(SourceLength + 1));
                             if (temp.Length != 0)
                             {
                                 string tt = node.ChildNodes[0].Value.Substring(SourceLength + 1);
@@ -1440,7 +1439,7 @@ namespace FilmCollection
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
             PepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
-            textBox4.Text = e.Node.Text;
+            textBox4.Text = e.Node.Text;                //  panelFolder
         }
 
         private void treeFolder_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -2183,13 +2182,42 @@ namespace FilmCollection
             TreeNode destinationNode = treeFolder.GetNodeAt(pt);
             TreeNode dragedNode = new TreeNode();
 
-            // dragedNode.Text = txt;
-            //if (destinationNode != null && dragedNode != null) // если дерево есть
-            //{
-            //    //destinationNode.Nodes.Add(dragedNode);
-            //    dataGridView3.Rows[CurrentRow2.Index].Cells[1].Value = destinationNode.Name;
-            //}
-        }
+       
+
+            Record record = GetSelectedRecord();
+            if (record != null)
+            {
+
+                // базовый путь, остальное иерархия
+                //string vs = _videoCollection.Options.Source;
+                //string d = destinationNode.Name.Trim('\\');
+                //string d2 = destinationNode.Text;
+                //string filePath = Path.Combine(vs, d);
+
+                //string put = _videoCollection.Options.Source + Path.DirectorySeparatorChar + destinationNode.Text;
+                //MessageBox.Show($"record.Path= {record.Path}, \nNode= {d}, \nNodeText= {d2}, \nSource= {vs}, \nпуть={filePath}, \nnewput={put}");
+
+                //string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.Name.Trim('\\'));
+                //MessageBox.Show(dirPath);
+
+                //string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
+                //MessageBox.Show(dirPath);
+
+
+                // MessageBox.Show(destinationNode.Index.ToString());
+                MessageBox.Show(destinationNode.FullPath);
+
+
+                //tbfName.Text = record.Name;
+            }
+
+                // dragedNode.Text = txt;
+                //if (destinationNode != null && dragedNode != null) // если дерево есть
+                //{
+                //    //destinationNode.Nodes.Add(dragedNode);
+                //    dataGridView3.Rows[CurrentRow2.Index].Cells[1].Value = destinationNode.Name;
+                //}
+            }
 
         private void treeFolder_DragEnter(object sender, DragEventArgs e)
         {
