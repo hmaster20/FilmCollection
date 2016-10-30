@@ -775,7 +775,6 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
-            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(966, 593);
             this.scTabFilm.SplitterDistance = 592;
@@ -845,6 +844,7 @@
             // 
             // panelView
             // 
+            this.panelView.Controls.Add(this.panelEdit);
             this.panelView.Controls.Add(this.pbImage);
             this.panelView.Controls.Add(this.btnPlay);
             this.panelView.Controls.Add(this.lblRecDescription);
@@ -1236,9 +1236,9 @@
             this.panelEdit.Controls.Add(this.lblName);
             this.panelEdit.Controls.Add(this.btnNew);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEdit.Location = new System.Drawing.Point(0, 0);
+            this.panelEdit.Location = new System.Drawing.Point(0, 27);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 591);
+            this.panelEdit.Size = new System.Drawing.Size(368, 564);
             this.panelEdit.TabIndex = 10;
             // 
             // btnMoveDown
