@@ -2203,12 +2203,35 @@ namespace FilmCollection
                 //string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
                 //MessageBox.Show(dirPath);
 
+                //if (destinationNode.FullPath != "Фильмотека")
+                //{
+                //    работаем
+                //}
 
                 // MessageBox.Show(destinationNode.Index.ToString());
-                MessageBox.Show(destinationNode.FullPath);
 
 
-                //tbfName.Text = record.Name;
+                try
+                {
+                    if (destinationNode.Level == 0 && destinationNode.Index == 0)
+                    { //если условие верно, то это главный узел - "Фильмотека"
+                      //MessageBox.Show(destinationNode.FullPath);
+                    }
+                    else
+                    {
+                        string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
+                        MessageBox.Show(dirPath);
+                        record.DirName = destinationNode.Text;
+                        record.Path = dirPath;
+                        _videoCollection.Save();
+                        PepareRefresh();
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                } 
             }
 
                 // dragedNode.Text = txt;
