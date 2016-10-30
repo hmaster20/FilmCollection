@@ -2173,6 +2173,8 @@ namespace FilmCollection
 
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
+           // treeFolder.Nodes.Clear();
+
             PepareRefresh();
         }
 
@@ -2220,10 +2222,19 @@ namespace FilmCollection
                     else
                     {
                         string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
-                        MessageBox.Show(dirPath);
+
+                        if (File.Exists(Path.Combine(record.Path, record.FileName)))
+                            if (Directory.Exists(dirPath))
+                            File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
+
                         record.DirName = destinationNode.Text;
                         record.Path = dirPath;
+
+
                         _videoCollection.Save();
+
+
+
                         PepareRefresh();
 
                     }
@@ -2253,7 +2264,22 @@ namespace FilmCollection
             {
                 FindNextButton_Lock();
                 if (e.Button == MouseButtons.Right) GetMenuDgv(e);
-                if (e.Button == MouseButtons.Left) dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                if (e.Button == MouseButtons.Left)
+                {
+                    DataGridView dgv = dgvTableRec;
+                    if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                        if (dgv.SelectedRows[0].Index == e.RowIndex)
+                        {
+                            dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                        }
+                        else
+                        {
+                           // MessageBox.Show("Сдвиг не соответствует селекту");
+                        }
+
+                   
+                }
+                    
             }
             catch (Exception Ex)
             {
