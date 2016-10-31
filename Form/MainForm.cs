@@ -35,8 +35,9 @@ namespace FilmCollection
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
 
-            dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона
-            dgvTableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста
+            dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
+            dgvTableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
+            dgvTableRec.Columns[7].DefaultCellStyle.SelectionForeColor = Color.Blue;    // цвет текста выбранной строки нужного столбца
 
             panelView.BringToFront();               // Отображение панели описания
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
@@ -611,11 +612,21 @@ namespace FilmCollection
                 if (dgvTableRec.RowCount > 0)
                 {
                     foreach (DataGridViewRow row in dgvTableRec.Rows)
+                    { 
                         if ((row.DataBoundItem as Record).Visible == false)
                         {
+                           
+                            //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Red;
                             row.DefaultCellStyle.ForeColor = Color.Silver;
                             row.DefaultCellStyle.Font = new Font(dgvTableRec.Font, FontStyle.Strikeout);
+
                         }
+                        if ((row.DataBoundItem as Record).Visible == true)
+                        {
+                            row.Cells[7].Style.ForeColor = Color.Blue;
+                        }
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -1130,6 +1141,11 @@ namespace FilmCollection
         #region Панель просмотра
 
         private void Play_Click(object sender, EventArgs e)  // запуск файла
+        {
+            PlayRecord();
+        }
+
+        private void PlayRecord()
         {
             Record record = GetSelectedRecord();
             string _file = (record.Path + Path.DirectorySeparatorChar + record.FileName);
@@ -2175,7 +2191,7 @@ namespace FilmCollection
 
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
-           // treeFolder.Nodes.Clear();
+            // treeFolder.Nodes.Clear();
 
             PepareRefresh();
         }
@@ -2186,7 +2202,7 @@ namespace FilmCollection
             TreeNode destinationNode = treeFolder.GetNodeAt(pt);
             TreeNode dragedNode = new TreeNode();
 
-       
+
 
             Record record = GetSelectedRecord();
             if (record != null)
@@ -2227,7 +2243,7 @@ namespace FilmCollection
 
                         if (File.Exists(Path.Combine(record.Path, record.FileName)))
                             if (Directory.Exists(dirPath))
-                            File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
+                                File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
 
                         record.DirName = destinationNode.Text;
                         record.Path = dirPath;
@@ -2244,16 +2260,16 @@ namespace FilmCollection
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                } 
+                }
             }
 
-                // dragedNode.Text = txt;
-                //if (destinationNode != null && dragedNode != null) // если дерево есть
-                //{
-                //    //destinationNode.Nodes.Add(dragedNode);
-                //    dataGridView3.Rows[CurrentRow2.Index].Cells[1].Value = destinationNode.Name;
-                //}
-            }
+            // dragedNode.Text = txt;
+            //if (destinationNode != null && dragedNode != null) // если дерево есть
+            //{
+            //    //destinationNode.Nodes.Add(dragedNode);
+            //    dataGridView3.Rows[CurrentRow2.Index].Cells[1].Value = destinationNode.Name;
+            //}
+        }
 
         private void treeFolder_DragEnter(object sender, DragEventArgs e)
         {
@@ -2266,39 +2282,39 @@ namespace FilmCollection
             {
                 FindNextButton_Lock();
                 if (e.Button == MouseButtons.Right) GetMenuDgv(e);
-                //if (e.Button == MouseButtons.Left)
-                //{
-                //    DataGridView dgv = dgvTableRec;
-                //    if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                //        if (dgv.SelectedRows[0].Index == e.RowIndex)
-                //        {
-                //            dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                //        }
-                //        else
-                //        {
-                //           // MessageBox.Show("Сдвиг не соответствует селекту");
-                //        }
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (e.ColumnIndex != 7)
+                    {
+                        DataGridView dgv = dgvTableRec;
+                        if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                            if (dgv.SelectedRows[0].Index == e.RowIndex)
+                            {
+                                dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                            }
+                            else
+                            {
+                                // MessageBox.Show("Сдвиг не соответствует селекту");
+                            }
+                    }
+                }
 
-                   
-                //}
-                    
             }
             catch (Exception Ex)
             {
                 MessageBox.Show(Ex.Message);
             }
         }
-
-
+        
 
 
         private void dgvTableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-           // if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == 7)
             {
-                MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                //MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                PlayRecord();
             }
-       
         }
 
 
@@ -2332,12 +2348,6 @@ namespace FilmCollection
             }
 
         }
-
-
-
-
-
-
 
 
     }
