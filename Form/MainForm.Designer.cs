@@ -195,6 +195,7 @@
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.tabGrab = new System.Windows.Forms.TabPage();
             this.button4 = new System.Windows.Forms.Button();
             this.graberAll = new System.Windows.Forms.Button();
@@ -221,7 +222,6 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.listView1 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -777,6 +777,7 @@
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2MinSize = 200;
@@ -848,7 +849,6 @@
             // 
             // panelView
             // 
-            this.panelView.Controls.Add(this.panelEdit);
             this.panelView.Controls.Add(this.pbImage);
             this.panelView.Controls.Add(this.btnPlay);
             this.panelView.Controls.Add(this.lblRecDescription);
@@ -899,9 +899,9 @@
             this.panelEdit.Controls.Add(this.lblName);
             this.panelEdit.Controls.Add(this.btnNew);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelEdit.Location = new System.Drawing.Point(0, 27);
+            this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 564);
+            this.panelEdit.Size = new System.Drawing.Size(368, 591);
             this.panelEdit.TabIndex = 10;
             // 
             // btnMoveDown
@@ -1984,6 +1984,14 @@
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(3, 3);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(724, 593);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // tabGrab
             // 
             this.tabGrab.Controls.Add(this.button4);
@@ -2227,14 +2235,6 @@
             this.toolinfo.AutoPopDelay = 5000;
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(3, 3);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(724, 593);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // MainForm
             // 
