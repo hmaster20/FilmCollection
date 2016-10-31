@@ -55,6 +55,7 @@ namespace FilmCollection
                 cBoxCountryActor.Items.Add(item);
                 tscCountryFilter.Items.Add(item);
             }
+
         }
 
         private void T_Tick(object sender, EventArgs e)     // таймер для селекта MainForm_Load
@@ -94,6 +95,7 @@ namespace FilmCollection
                     tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
                     PepareRefresh();
                     CreateTree();
+                    listCreate();
                 }
                 timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
             }
@@ -2264,21 +2266,21 @@ namespace FilmCollection
             {
                 FindNextButton_Lock();
                 if (e.Button == MouseButtons.Right) GetMenuDgv(e);
-                if (e.Button == MouseButtons.Left)
-                {
-                    DataGridView dgv = dgvTableRec;
-                    if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                        if (dgv.SelectedRows[0].Index == e.RowIndex)
-                        {
-                            dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                        }
-                        else
-                        {
-                           // MessageBox.Show("Сдвиг не соответствует селекту");
-                        }
+                //if (e.Button == MouseButtons.Left)
+                //{
+                //    DataGridView dgv = dgvTableRec;
+                //    if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                //        if (dgv.SelectedRows[0].Index == e.RowIndex)
+                //        {
+                //            dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                //        }
+                //        else
+                //        {
+                //           // MessageBox.Show("Сдвиг не соответствует селекту");
+                //        }
 
                    
-                }
+                //}
                     
             }
             catch (Exception Ex)
@@ -2286,6 +2288,54 @@ namespace FilmCollection
                 MessageBox.Show(Ex.Message);
             }
         }
+
+
+
+
+        private void dgvTableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+           // if (e.ColumnIndex == 3)
+            {
+                MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            }
+       
+        }
+
+
+
+
+
+        private void listCreate()
+        {
+            listView1.View = View.Details;
+            listView1.MultiSelect = false;
+            listView1.FullRowSelect = true;
+            listView1.Columns.Add("Название");
+            listView1.Columns.Add("Каталог");
+            listView1.Columns.Add("Год");
+            listView1.Columns.Add("Страна");
+            listView1.Columns.Add("Жанр");
+            listView1.Columns.Add("Категория");
+            listView1.Columns.Add("Время");
+            listView1.Columns.Add("Файл");
+            listView1.Items.Clear();
+            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            {
+                listView1.Items.Add(_videoCollection.VideoList[i].Name);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].DirName);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Year.ToString());
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CountryString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].GenreString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CategoryString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Time.ToString());
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].FileName);
+            }
+
+        }
+
+
+
+
 
 
 
