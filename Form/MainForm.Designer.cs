@@ -253,7 +253,6 @@
             this.panelActEditTitle.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gActAbout.SuspendLayout();
-            this.tabImage.SuspendLayout();
             this.tabGrab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
@@ -1976,7 +1975,6 @@
             // 
             // tabImage
             // 
-            this.tabImage.Controls.Add(this.listView1);
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
             this.tabImage.Size = new System.Drawing.Size(972, 599);
@@ -1986,14 +1984,15 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(3, 3);
+            this.listView1.Location = new System.Drawing.Point(14, 326);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(724, 593);
+            this.listView1.Size = new System.Drawing.Size(674, 270);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // tabGrab
             // 
+            this.tabGrab.Controls.Add(this.listView1);
             this.tabGrab.Controls.Add(this.button4);
             this.tabGrab.Controls.Add(this.graberAll);
             this.tabGrab.Controls.Add(this.textBoxWeb);
@@ -2029,10 +2028,10 @@
             // 
             // textBoxWeb
             // 
-            this.textBoxWeb.Location = new System.Drawing.Point(14, 192);
+            this.textBoxWeb.Location = new System.Drawing.Point(14, 179);
             this.textBoxWeb.Multiline = true;
             this.textBoxWeb.Name = "textBoxWeb";
-            this.textBoxWeb.Size = new System.Drawing.Size(288, 236);
+            this.textBoxWeb.Size = new System.Drawing.Size(288, 141);
             this.textBoxWeb.TabIndex = 3;
             // 
             // tbResult
@@ -2294,7 +2293,6 @@
             this.groupBox1.PerformLayout();
             this.gActAbout.ResumeLayout(false);
             this.gActAbout.PerformLayout();
-            this.tabImage.ResumeLayout(false);
             this.tabGrab.ResumeLayout(false);
             this.tabGrab.PerformLayout();
             this.scMain.Panel1.ResumeLayout(false);
