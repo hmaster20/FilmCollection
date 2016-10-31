@@ -2175,7 +2175,7 @@
             // 
             // cmnDirName
             // 
-            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.cmnDirName.DataPropertyName = "DirName";
             this.cmnDirName.HeaderText = "Каталог";
             this.cmnDirName.Name = "cmnDirName";
