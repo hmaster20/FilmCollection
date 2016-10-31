@@ -204,8 +204,6 @@
             this.tsBackupDB = new System.Windows.Forms.ToolStripButton();
             this.tsRecoveryDB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsGraber = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
@@ -310,7 +308,7 @@
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(208, 220);
+            this.TabMenu.Size = new System.Drawing.Size(208, 198);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
@@ -2023,8 +2021,6 @@
             this.tsBackupDB,
             this.tsRecoveryDB,
             this.toolStripSeparator6,
-            this.tsGraber,
-            this.toolStripSeparator7,
             this.toolStripButton3,
             this.toolStripButton4,
             this.toolStripButton5,
@@ -2086,20 +2082,6 @@
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsGraber
-            // 
-            this.tsGraber.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsGraber.Image = global::FilmCollection.Properties.Resources.grabber;
-            this.tsGraber.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsGraber.Name = "tsGraber";
-            this.tsGraber.Size = new System.Drawing.Size(23, 22);
-            this.tsGraber.Text = "toolStripButton1";
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripButton3
             // 
@@ -2232,6 +2214,7 @@
             // 
             // UpdateFIlmInfo
             // 
+            this.UpdateFIlmInfo.Image = global::FilmCollection.Properties.Resources.grabber;
             this.UpdateFIlmInfo.Name = "UpdateFIlmInfo";
             this.UpdateFIlmInfo.Size = new System.Drawing.Size(207, 22);
             this.UpdateFIlmInfo.Text = "Обновить информацию";
@@ -2475,8 +2458,6 @@
         private System.Windows.Forms.Button graberHTML;
         private System.Windows.Forms.TextBox textBoxWeb;
         private System.Windows.Forms.PictureBox pbImage;
-        private System.Windows.Forms.ToolStripButton tsGraber;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.TabPage tabImage;
         private System.Windows.Forms.Button graberAll;
         private System.Windows.Forms.ToolStripTextBox tsFindbyName;

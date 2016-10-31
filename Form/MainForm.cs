@@ -1902,7 +1902,7 @@ namespace FilmCollection
         private void graberAll_Click(object sender, EventArgs e)
         {
             //for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 5; i++)
             {
                 //Regex my_reg = new Regex("[0-9]+");
                 // string out_string = my_reg.Replace(_videoCollection.VideoList[i].Name, "");
@@ -2354,7 +2354,8 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
-                FindCinema(record.Name);    
+                WebQuery(record.Name, record);
+                //FindCinema(record.Name);    
             }
      
         }
