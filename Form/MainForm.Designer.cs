@@ -39,7 +39,6 @@
             this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.cOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusLine = new System.Windows.Forms.StatusStrip();
@@ -222,6 +221,8 @@
             this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UpdateFIlmInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -305,30 +306,31 @@
             this.toolStripSeparator9,
             this.cOpenFolder,
             this.toolStripSeparator1,
+            this.UpdateFIlmInfo,
             this.testToolStripMenuItem,
             this.testChangeToolStripMenuItem});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(157, 176);
+            this.TabMenu.Size = new System.Drawing.Size(208, 220);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
             // 
             this.cFind.Image = global::FilmCollection.Properties.Resources.find;
             this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(156, 22);
+            this.cFind.Size = new System.Drawing.Size(207, 22);
             this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSeparator3
             // 
             this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(153, 6);
+            this.cSeparator3.Size = new System.Drawing.Size(204, 6);
             // 
             // cAdd
             // 
             this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(156, 22);
+            this.cAdd.Size = new System.Drawing.Size(207, 22);
             this.cAdd.Text = "Добавить";
             this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
             // 
@@ -336,7 +338,7 @@
             // 
             this.cChange.Image = global::FilmCollection.Properties.Resources.change;
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(156, 22);
+            this.cChange.Size = new System.Drawing.Size(207, 22);
             this.cChange.Text = "Изменить";
             this.cChange.Click += new System.EventHandler(this.EditRec_Click);
             // 
@@ -344,33 +346,27 @@
             // 
             this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(156, 22);
+            this.cDelete.Size = new System.Drawing.Size(207, 22);
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(153, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(204, 6);
             // 
             // cOpenFolder
             // 
             this.cOpenFolder.Image = global::FilmCollection.Properties.Resources.Folder;
             this.cOpenFolder.Name = "cOpenFolder";
-            this.cOpenFolder.Size = new System.Drawing.Size(156, 22);
+            this.cOpenFolder.Size = new System.Drawing.Size(207, 22);
             this.cOpenFolder.Text = "Открыть папку";
             this.cOpenFolder.Click += new System.EventHandler(this.cOpenFolder_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
-            this.toolStripSeparator1.Visible = false;
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.testToolStripMenuItem.Text = "Test Create";
             this.testToolStripMenuItem.Visible = false;
             this.testToolStripMenuItem.Click += new System.EventHandler(this.OLD_Add_rec);
@@ -378,7 +374,7 @@
             // testChangeToolStripMenuItem
             // 
             this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
-            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.testChangeToolStripMenuItem.Text = "Test Change";
             this.testChangeToolStripMenuItem.Visible = false;
             this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.OLD_Change_rec);
@@ -1938,11 +1934,11 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(491, 241);
+            this.button4.Location = new System.Drawing.Point(553, 12);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 7;
-            this.button4.Text = "time";
+            this.button4.Text = "GetFilmTime";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -2175,12 +2171,11 @@
             // 
             // cmnDirName
             // 
-            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.cmnDirName.DataPropertyName = "DirName";
             this.cmnDirName.HeaderText = "Каталог";
             this.cmnDirName.Name = "cmnDirName";
             this.cmnDirName.ReadOnly = true;
-            this.cmnDirName.Width = 73;
             // 
             // cmnYear
             // 
@@ -2234,6 +2229,18 @@
             this.cmnFileName.HeaderText = "Файл";
             this.cmnFileName.Name = "cmnFileName";
             this.cmnFileName.ReadOnly = true;
+            // 
+            // UpdateFIlmInfo
+            // 
+            this.UpdateFIlmInfo.Name = "UpdateFIlmInfo";
+            this.UpdateFIlmInfo.Size = new System.Drawing.Size(207, 22);
+            this.UpdateFIlmInfo.Text = "Обновить информацию";
+            this.UpdateFIlmInfo.Click += new System.EventHandler(this.UpdateFIlmInfo_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(204, 6);
             // 
             // MainForm
             // 
@@ -2370,7 +2377,6 @@
         private System.Windows.Forms.OpenFileDialog FileDialog;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem testChangeToolStripMenuItem;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblRecTitle;
@@ -2500,6 +2506,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.ToolStripMenuItem UpdateFIlmInfo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

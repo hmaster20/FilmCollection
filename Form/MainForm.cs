@@ -80,10 +80,7 @@ namespace FilmCollection
         {
             if (File.Exists(RecordOptions.BaseName))    // Если база создана, то загружаем
             {
-                try
-                {
-                    _videoCollection = RecordCollection.Load();
-                }
+                try { _videoCollection = RecordCollection.Load(); }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
@@ -533,7 +530,7 @@ namespace FilmCollection
             if (e.Button == MouseButtons.Left)
             {
                 PepareRefresh(e.ColumnIndex);
-            }  
+            }
         }
 
         private void PepareRefresh() => PepareRefresh("", false);
@@ -615,10 +612,10 @@ namespace FilmCollection
                 if (dgvTableRec.RowCount > 0)
                 {
                     foreach (DataGridViewRow row in dgvTableRec.Rows)
-                    { 
+                    {
                         if ((row.DataBoundItem as Record).Visible == false)
                         {
-                           
+
                             //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Red;
                             row.DefaultCellStyle.ForeColor = Color.Silver;
                             row.DefaultCellStyle.Font = new Font(dgvTableRec.Font, FontStyle.Strikeout);
@@ -2308,7 +2305,7 @@ namespace FilmCollection
                 MessageBox.Show(Ex.Message);
             }
         }
-        
+
 
 
         private void dgvTableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -2352,7 +2349,15 @@ namespace FilmCollection
 
         }
 
-
+        private void UpdateFIlmInfo_Click(object sender, EventArgs e)
+        {
+            Record record = GetSelectedRecord();
+            if (record != null)
+            {
+                FindCinema(record.Name);    
+            }
+     
+        }
     }
 
 }
