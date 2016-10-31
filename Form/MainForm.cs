@@ -30,7 +30,7 @@ namespace FilmCollection
         public MainForm()                           //Конструктор формы
         {
             InitializeComponent();                  // Создание и отрисовка элементов
-            this.MinimumSize = new Size(800, 600);  // Установка минимального размера формы
+            this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
@@ -530,7 +530,10 @@ namespace FilmCollection
 
         private void dgvTableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
         {
-            PepareRefresh(e.ColumnIndex);
+            if (e.Button == MouseButtons.Left)
+            {
+                PepareRefresh(e.ColumnIndex);
+            }  
         }
 
         private void PepareRefresh() => PepareRefresh("", false);
