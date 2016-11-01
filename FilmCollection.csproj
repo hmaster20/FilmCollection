@@ -75,6 +75,7 @@
     <Compile Include="Class\Actor.cs" />
     <Compile Include="Class\BinSerializeHelper.cs" />
     <Compile Include="Class\Enum.cs" />
+    <Compile Include="Class\Media.cs" />
     <Compile Include="Class\RecordOptions.cs" />
     <Compile Include="Class\MyTextBox.cs">
       <SubType>Component</SubType>
