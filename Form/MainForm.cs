@@ -2190,14 +2190,17 @@ namespace FilmCollection
             {
                 _videoCollection.Remove(item);
             }
-
-
+            
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
-            // treeFolder.Nodes.Clear();
+            // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
 
             PepareRefresh();
         }
+
+
+        #region DragDrop DGV to TreeView
+
 
         private void treeFolder_DragDrop(object sender, DragEventArgs e)
         {
@@ -2205,35 +2208,9 @@ namespace FilmCollection
             TreeNode destinationNode = treeFolder.GetNodeAt(pt);
             TreeNode dragedNode = new TreeNode();
 
-
-
             Record record = GetSelectedRecord();
             if (record != null)
             {
-
-                // базовый путь, остальное иерархия
-                //string vs = _videoCollection.Options.Source;
-                //string d = destinationNode.Name.Trim('\\');
-                //string d2 = destinationNode.Text;
-                //string filePath = Path.Combine(vs, d);
-
-                //string put = _videoCollection.Options.Source + Path.DirectorySeparatorChar + destinationNode.Text;
-                //MessageBox.Show($"record.Path= {record.Path}, \nNode= {d}, \nNodeText= {d2}, \nSource= {vs}, \nпуть={filePath}, \nnewput={put}");
-
-                //string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.Name.Trim('\\'));
-                //MessageBox.Show(dirPath);
-
-                //string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
-                //MessageBox.Show(dirPath);
-
-                //if (destinationNode.FullPath != "Фильмотека")
-                //{
-                //    работаем
-                //}
-
-                // MessageBox.Show(destinationNode.Index.ToString());
-
-
                 try
                 {
                     if (destinationNode.Level == 0 && destinationNode.Index == 0)
@@ -2251,13 +2228,8 @@ namespace FilmCollection
                         record.DirName = destinationNode.Text;
                         record.Path = dirPath;
 
-
                         _videoCollection.Save();
-
-
-
                         PepareRefresh();
-
                     }
                 }
                 catch (Exception ex)
@@ -2265,13 +2237,6 @@ namespace FilmCollection
                     MessageBox.Show(ex.Message);
                 }
             }
-
-            // dragedNode.Text = txt;
-            //if (destinationNode != null && dragedNode != null) // если дерево есть
-            //{
-            //    //destinationNode.Nodes.Add(dragedNode);
-            //    dataGridView3.Rows[CurrentRow2.Index].Cells[1].Value = destinationNode.Name;
-            //}
         }
 
         private void treeFolder_DragEnter(object sender, DragEventArgs e)
@@ -2311,6 +2276,7 @@ namespace FilmCollection
 
 
 
+
         private void dgvTableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 7)
@@ -2320,37 +2286,14 @@ namespace FilmCollection
             }
         }
 
+        #endregion
 
 
 
 
-        private void listCreate()
-        {
-            listView1.View = View.Details;
-            listView1.MultiSelect = false;
-            listView1.FullRowSelect = true;
-            listView1.Columns.Add("Название");
-            listView1.Columns.Add("Каталог");
-            listView1.Columns.Add("Год");
-            listView1.Columns.Add("Страна");
-            listView1.Columns.Add("Жанр");
-            listView1.Columns.Add("Категория");
-            listView1.Columns.Add("Время");
-            listView1.Columns.Add("Файл");
-            listView1.Items.Clear();
-            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            {
-                listView1.Items.Add(_videoCollection.VideoList[i].Name);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].DirName);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Year.ToString());
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CountryString);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].GenreString);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CategoryString);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Time.ToString());
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].FileName);
-            }
 
-        }
+
+        #region обработка информации по одному фильму
 
         private void UpdateFIlmInfo_Click(object sender, EventArgs e)
         {
@@ -2389,25 +2332,17 @@ namespace FilmCollection
                 _videoCollection.Save();
                 PepareRefresh();
             }
-
-            // GetText(GetHtmlPageText(web), name, rec);
-
         }
 
 
         private bool GetPicM(string sourcestring, string name, Record rec)
         {
-            tbResult.Text = "";
-            //MatchCollection mc = Regex.Matches(sourcestring,@"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);  
             MatchCollection mc = Regex.Matches(sourcestring, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
-
             for (int i = 0; i < mc.Count; i++)
             {
-                tbResult.AppendText(mc[i].ToString() + "\r\n");
                 string PicWeb = "";
                 string Link_txt = "";
-                string[] subStrings = null;
-                subStrings = mc[i].ToString().Split('"', '(', ')');
+                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                 for (int y = 0; y < subStrings.Length; y++)
                 {
                     if (subStrings[y] == "background-image:url")
@@ -2424,13 +2359,11 @@ namespace FilmCollection
 
                 if (PicWeb != "" && Link_txt != "")
                 {
-                    //tbResult.AppendText("pic = " + PicWeb);
                     if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
                     {
                         DownPicM(PicWeb, name);
                         rec.Pic = name;
                     }
-                    //tbResult.AppendText("ссылка на фильм = " + Link_txt);
                     DownInfoM("https://afisha.mail.ru" + Link_txt, rec);
                     return true;
                 }
@@ -2454,8 +2387,6 @@ namespace FilmCollection
         public static bool StringIsValid(string str)
         {
             //return !string.IsNullOrEmpty(str) && !Regex.IsMatch(str, @"[^a-zA-z\d_]");
-            // return !string.IsNullOrEmpty(str);
-            //Regex.IsMatch(str, "^[А-Яа-я]+$");
             return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я]+$");
         }
 
@@ -2464,17 +2395,13 @@ namespace FilmCollection
             textBoxWeb.Text = "";
             string sourcestring = GetHtmlPageText(link);
 
-            MatchCollection mc = Regex.Matches(sourcestring,
-                                            @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+            MatchCollection mcCountries = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
 
-            MatchCollection mcYC = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
-            // { itemevent__head__info"><a href=" / series / all / sun / ">СССР</a>, <a href=" / series / all / bgr / ">Болгария</a><span class="
             bool flag = false;
-
-            foreach (Match m in mcYC)
+            foreach (Match m in mcCountries)
             {
-                MatchCollection mcYCmini = Regex.Matches(m.ToString(), "(>.*?<)", RegexOptions.IgnoreCase);
-                foreach (Match mm in mcYCmini)
+                MatchCollection mcCountry = Regex.Matches(m.ToString(), "(>.*?<)", RegexOptions.IgnoreCase);
+                foreach (Match mm in mcCountry)
                 {
                     string strt = mm.ToString();
                     strt = strt.Remove(0, strt.IndexOf('>') + 1);
@@ -2486,7 +2413,7 @@ namespace FilmCollection
                         {
                             rec.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
                             flag = true;
-                            break;
+                            break;// оставляем одну страну и выходим
                         }
                         catch (Exception ex)
                         {
@@ -2500,11 +2427,10 @@ namespace FilmCollection
                 }
             }
 
-
-            MatchCollection mcY = Regex.Matches(sourcestring, "(itemevent__head__sep.*?<a href=.*?>[0-9]{4})", RegexOptions.IgnoreCase);
+            MatchCollection mcYear = Regex.Matches(sourcestring, "(itemevent__head__sep.*?<a href=.*?>[0-9]{4})", RegexOptions.IgnoreCase);
 
             string year = "";
-            foreach (Match m in mcY)
+            foreach (Match m in mcYear)
             {
                 year = m.ToString();
                 year = year.Remove(0, m.Length - 4);
@@ -2515,16 +2441,10 @@ namespace FilmCollection
                 rec.Year = Convert.ToInt32(year);
             }
 
-            //string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
-            //string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
-            //name_f = name_f.Trim();                         // название без пробелов вначале и конце
-            //record.Name = (name_f != "") ? name_f : name_1;
+            MatchCollection mcDesc = Regex.Matches(sourcestring,
+                                @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
 
-            ////выделяем только 4 идущие подряд цифры
-            //foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
-
-
-            foreach (Match m in mc)
+            foreach (Match m in mcDesc)
             {
                 string str = m.ToString();
                 str = Regex.Replace(str, "&nbsp;", " ");
@@ -2551,6 +2471,7 @@ namespace FilmCollection
             }
         }
 
+        #endregion
 
 
 
@@ -2561,17 +2482,47 @@ namespace FilmCollection
 
 
 
+        private void listCreate()
+        {
+            listView1.View = View.Details;
+            listView1.MultiSelect = false;
+            listView1.FullRowSelect = true;
+            listView1.Columns.Add("Название");
+            listView1.Columns.Add("Каталог");
+            listView1.Columns.Add("Год");
+            listView1.Columns.Add("Страна");
+            listView1.Columns.Add("Жанр");
+            listView1.Columns.Add("Категория");
+            listView1.Columns.Add("Время");
+            listView1.Columns.Add("Файл");
+            listView1.Items.Clear();
+            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            {
+                listView1.Items.Add(_videoCollection.VideoList[i].Name);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].DirName);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Year.ToString());
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CountryString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].GenreString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CategoryString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Time.ToString());
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].FileName);
+            }
 
-
-
-
-
-
+        }
 
 
 
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 
