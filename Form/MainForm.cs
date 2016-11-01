@@ -1901,8 +1901,8 @@ namespace FilmCollection
 
         private void graberAll_Click(object sender, EventArgs e)
         {
-            //for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            //for (int i = 0; i < 5; i++)
             {
                 //Regex my_reg = new Regex("[0-9]+");
                 // string out_string = my_reg.Replace(_videoCollection.VideoList[i].Name, "");
@@ -1923,15 +1923,18 @@ namespace FilmCollection
                 // Удаление всех латинских букв, цифр, подчеркивания, точки, скобок
                 //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
 
-
+                /*
                 string output2 = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z_.()]", string.Empty);
                 string output = Regex.Replace(output2, @"[0-9]{4}", string.Empty);
                 output = output.Trim(); //убираем пробелы вначале и конце
                 MessageBox.Show(output);
-                //if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
-                //{
-                //    WebQuery(output, _videoCollection.VideoList[i]);
-                //}
+                */
+                string output = _videoCollection.VideoList[i].Name;
+
+                if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
+                {
+                    WebQuery(output, _videoCollection.VideoList[i]);
+                }
             }
 
         }
@@ -2357,7 +2360,7 @@ namespace FilmCollection
                 WebQ(record.Name, record);
                 //FindCinema(record.Name);    
             }
-     
+
         }
 
 
@@ -2381,59 +2384,58 @@ namespace FilmCollection
             string web = "https://afisha.mail.ru/search/?q=" + text;
             string name = text;
 
-            GetPicM(GetHtmlPageM(web), name, rec);
-            GetText(GetHtmlPageText(web), name, rec);
+            if (GetPicM(GetHtmlPageM(web), name, rec))
+            {
+                _videoCollection.Save();
+                PepareRefresh();
+            }
+
+            // GetText(GetHtmlPageText(web), name, rec);
 
         }
 
 
-        private void GetPicM(string sourcestring, string name, Record rec)
+        private bool GetPicM(string sourcestring, string name, Record rec)
         {
             tbResult.Text = "";
-            MatchCollection mc = Regex.Matches(sourcestring,@"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
-
+            //MatchCollection mc = Regex.Matches(sourcestring,@"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);  
+            MatchCollection mc = Regex.Matches(sourcestring, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
 
             for (int i = 0; i < mc.Count; i++)
             {
                 tbResult.AppendText(mc[i].ToString() + "\r\n");
                 string PicWeb = "";
                 string Link_txt = "";
-                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                string[] subStrings = null;
+                subStrings = mc[i].ToString().Split('"', '(', ')');
                 for (int y = 0; y < subStrings.Length; y++)
                 {
-                    if (subStrings[y] == "<a href=")
-                    {                     
-                        Link_txt = subStrings[(y+1)];
-                        //break;
-                    }
-
                     if (subStrings[y] == "background-image:url")
                     {
                         ++y;
                         if (subStrings[y].Contains("http"))
                         {
                             PicWeb = subStrings[y];
+                            Link_txt = subStrings[y - 5];
                             break;
                         }
                     }
-       
                 }
 
-                if (PicWeb != "")
+                if (PicWeb != "" && Link_txt != "")
                 {
-                    tbResult.AppendText("pic = " + PicWeb);
-                    DownPicM(PicWeb, name);
-                    //rec.Pic = name + ".jpg";
-                    rec.Pic = name;
-                    return;
-                }
-                if (Link_txt != "")
-                {
-                    tbResult.AppendText("ссылка на фильм = " + Link_txt);
+                    //tbResult.AppendText("pic = " + PicWeb);
+                    if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
+                    {
+                        DownPicM(PicWeb, name);
+                        rec.Pic = name;
+                    }
+                    //tbResult.AppendText("ссылка на фильм = " + Link_txt);
                     DownInfoM("https://afisha.mail.ru" + Link_txt, rec);
-                    return;
+                    return true;
                 }
             }
+            return false;
         }
 
         private void DownPicM(string PicWeb, string Pic)
@@ -2447,7 +2449,15 @@ namespace FilmCollection
                 }
             }
             catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
-        }   
+        }
+
+        public static bool StringIsValid(string str)
+        {
+            //return !string.IsNullOrEmpty(str) && !Regex.IsMatch(str, @"[^a-zA-z\d_]");
+            // return !string.IsNullOrEmpty(str);
+            //Regex.IsMatch(str, "^[А-Яа-я]+$");
+            return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я]+$");
+        }
 
         private void DownInfoM(string link, Record rec)
         {
@@ -2456,6 +2466,63 @@ namespace FilmCollection
 
             MatchCollection mc = Regex.Matches(sourcestring,
                                             @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+
+            MatchCollection mcYC = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
+            // { itemevent__head__info"><a href=" / series / all / sun / ">СССР</a>, <a href=" / series / all / bgr / ">Болгария</a><span class="
+            bool flag = false;
+
+            foreach (Match m in mcYC)
+            {
+                MatchCollection mcYCmini = Regex.Matches(m.ToString(), "(>.*?<)", RegexOptions.IgnoreCase);
+                foreach (Match mm in mcYCmini)
+                {
+                    string strt = mm.ToString();
+                    strt = strt.Remove(0, strt.IndexOf('>') + 1);
+                    strt = strt.Remove(strt.IndexOf('<'), 1);
+                    if (StringIsValid(strt))
+                    {
+                        //MessageBox.Show(strt); // может несколько стран
+                        try
+                        {
+                            rec.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
+                            flag = true;
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                }
+                if (flag)
+                {
+                    break;
+                }
+            }
+
+
+            MatchCollection mcY = Regex.Matches(sourcestring, "(itemevent__head__sep.*?<a href=.*?>[0-9]{4})", RegexOptions.IgnoreCase);
+
+            string year = "";
+            foreach (Match m in mcY)
+            {
+                year = m.ToString();
+                year = year.Remove(0, m.Length - 4);
+                break;
+            }
+            if (year != "")
+            {
+                rec.Year = Convert.ToInt32(year);
+            }
+
+            //string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
+            //string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
+            //name_f = name_f.Trim();                         // название без пробелов вначале и конце
+            //record.Name = (name_f != "") ? name_f : name_1;
+
+            ////выделяем только 4 идущие подряд цифры
+            //foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
+
 
             foreach (Match m in mc)
             {
@@ -2485,7 +2552,7 @@ namespace FilmCollection
         }
 
 
-   
+
 
 
 
