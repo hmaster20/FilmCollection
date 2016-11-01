@@ -2354,13 +2354,156 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
-                WebQuery(record.Name, record);
+                WebQ(record.Name, record);
                 //FindCinema(record.Name);    
             }
      
         }
-    }
 
+
+        //получение веб-страницы
+        public static string GetHtmlPageM(string url)
+        {
+            WebClient client = new WebClient();
+            using (Stream data = client.OpenRead(url))
+            {
+                using (StreamReader reader = new StreamReader(data))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+
+        //выполнение поиска
+        private void WebQ(string text, Record rec)
+        {
+            string web = "https://afisha.mail.ru/search/?q=" + text;
+            string name = text;
+
+            GetPicM(GetHtmlPageM(web), name, rec);
+            GetText(GetHtmlPageText(web), name, rec);
+
+        }
+
+
+        private void GetPicM(string sourcestring, string name, Record rec)
+        {
+            tbResult.Text = "";
+            MatchCollection mc = Regex.Matches(sourcestring,@"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
+
+
+            for (int i = 0; i < mc.Count; i++)
+            {
+                tbResult.AppendText(mc[i].ToString() + "\r\n");
+                string PicWeb = "";
+                string Link_txt = "";
+                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                for (int y = 0; y < subStrings.Length; y++)
+                {
+                    if (subStrings[y] == "<a href=")
+                    {                     
+                        Link_txt = subStrings[(y+1)];
+                        //break;
+                    }
+
+                    if (subStrings[y] == "background-image:url")
+                    {
+                        ++y;
+                        if (subStrings[y].Contains("http"))
+                        {
+                            PicWeb = subStrings[y];
+                            break;
+                        }
+                    }
+       
+                }
+
+                if (PicWeb != "")
+                {
+                    tbResult.AppendText("pic = " + PicWeb);
+                    DownPicM(PicWeb, name);
+                    //rec.Pic = name + ".jpg";
+                    rec.Pic = name;
+                    return;
+                }
+                if (Link_txt != "")
+                {
+                    tbResult.AppendText("ссылка на фильм = " + Link_txt);
+                    DownInfoM("https://afisha.mail.ru" + Link_txt, rec);
+                    return;
+                }
+            }
+        }
+
+        private void DownPicM(string PicWeb, string Pic)
+        {
+            try
+            {
+                if (PicWeb.Contains("http"))
+                {
+                    using (WebClient webClient = new WebClient())
+                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
+                }
+            }
+            catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
+        }   
+
+        private void DownInfoM(string link, Record rec)
+        {
+            textBoxWeb.Text = "";
+            string sourcestring = GetHtmlPageText(link);
+
+            MatchCollection mc = Regex.Matches(sourcestring,
+                                            @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+
+            foreach (Match m in mc)
+            {
+                string str = m.ToString();
+                str = Regex.Replace(str, "&nbsp;", " ");
+                str = Regex.Replace(str, "&mdash;", "-");
+                str = Regex.Replace(str, "&laquo;", "\"");
+                str = Regex.Replace(str, "&raquo;", "\"");
+                str = Regex.Replace(str, "<span>", "");
+                str = Regex.Replace(str, "</span>", "");
+                str = Regex.Replace(str, "<br/>", "");
+                str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
+
+                try
+                {
+                    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));
+                    str = str.Remove(0, str.LastIndexOf("<p>") + 3);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                rec.Description = str;
+                textBoxWeb.Text += str;
+            }
+        }
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 }
 
 
