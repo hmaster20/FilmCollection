@@ -93,7 +93,6 @@ namespace FilmCollection
                     tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
                     PepareRefresh();
                     CreateTree();
-                    listCreate();
                 }
                 timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
             }
@@ -537,8 +536,31 @@ namespace FilmCollection
         private void PepareRefresh(int column) => PepareRefresh("", false, column);
         private void PepareRefresh(string nodeName, bool flag) => PepareRefresh(nodeName, flag, -1);
 
+        public string LastNodeSelect;
+        public int LastNodeSelectCount;
+        public bool isLastNodeSelect = false;
+
+        private string chechNode(string nodeName)
+        {
+
+            if (!isLastNodeSelect && nodeName == "")
+            {
+                isLastNodeSelect = true;
+               // LastNodeSelectCount = 0;
+                return LastNodeSelect;
+            }
+            else
+            {
+                LastNodeSelect = nodeName;
+                isLastNodeSelect = false;
+            }
+            return LastNodeSelect;
+        }
+
         private void PepareRefresh(string nodeName, bool flag, int column)
         {
+            nodeName = chechNode(nodeName);
+
             List<Record> filtered = _videoCollection.VideoList;
 
             filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
@@ -1904,31 +1926,7 @@ namespace FilmCollection
             for (int i = 0; i < _videoCollection.VideoList.Count; i++)
             //for (int i = 0; i < 5; i++)
             {
-                //Regex my_reg = new Regex("[0-9]+");
-                // string out_string = my_reg.Replace(_videoCollection.VideoList[i].Name, "");
-
-                //FindCinema(_videoCollection.VideoList[i].Name)
-                //s = Regex.Replace(s, "[^0-9.]", "");
-
-                // удалить все цифры
-                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-]", string.Empty);
-                //vудалить все цифры и точки
-                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-.]", string.Empty);
-                //vудалить все что не цифры и не буквы, кроме тире
-                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[^a-zA-Z0-9 -]", string.Empty);
-
-                //удаление всех латинских букв, цифр, подчеркивания, точки, скобок
-                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
-
-                // Удаление всех латинских букв, цифр, подчеркивания, точки, скобок
-                //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
-
-                /*
-                string output2 = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z_.()]", string.Empty);
-                string output = Regex.Replace(output2, @"[0-9]{4}", string.Empty);
-                output = output.Trim(); //убираем пробелы вначале и конце
-                MessageBox.Show(output);
-                */
+ 
                 string output = _videoCollection.VideoList[i].Name;
 
                 if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
@@ -2181,16 +2179,10 @@ namespace FilmCollection
 
         private void btnCleanDB_Click(object sender, EventArgs e)
         {
-            //for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            //{
-            //    if (_videoCollection.VideoList[i].Visible == false) _videoCollection.Remove(_videoCollection.VideoList[i]);
-
-            //}
             foreach (var item in _videoCollection.VideoList.FindAll(x => x.Visible == false))
             {
                 _videoCollection.Remove(item);
-            }
-            
+            }            
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
             // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
@@ -2482,72 +2474,9 @@ namespace FilmCollection
 
 
 
-        private void listCreate()
-        {
-            listView1.View = View.Details;
-            listView1.MultiSelect = false;
-            listView1.FullRowSelect = true;
-            listView1.Columns.Add("Название");
-            listView1.Columns.Add("Каталог");
-            listView1.Columns.Add("Год");
-            listView1.Columns.Add("Страна");
-            listView1.Columns.Add("Жанр");
-            listView1.Columns.Add("Категория");
-            listView1.Columns.Add("Время");
-            listView1.Columns.Add("Файл");
-            listView1.Items.Clear();
-            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            {
-                listView1.Items.Add(_videoCollection.VideoList[i].Name);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].DirName);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Year.ToString());
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CountryString);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].GenreString);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CategoryString);
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Time.ToString());
-                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].FileName);
-            }
-
-        }
+  
 
 
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//MessageBox.Show(month + "/" + day + "/" + year);
-
-//maskDateOfBirth.
-// \d{ 2}/\d{ 2}/\d{ 4}
-//  00/00/0000
-
-//string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
-//Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
-
-
-//    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
-//    {
-//        i++;
-//        dgvSelected.Add(row.Cells[cell].RowIndex);
-//        row.Selected = true;
-//        //break; //Требуется для выбора одно строки
-//    }
-
-//Regex regex = new Regex(@"\b([0-2][0-9][0-1][0-9]1[8-9][0-9][0-9])");
-//Match match = regex.Match(maskDateOfBirth.Text);
-//if (match.Success)
-//{
-//    // Console.WriteLine(match.Value);
-//    MessageBox.Show(match.Value);
-//}
