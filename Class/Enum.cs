@@ -65,7 +65,8 @@ namespace FilmCollection
         Корея,
         КНР,
         Бразилия,
-        Австралия
+        Австралия,
+        СССР
     }
 
     class MyClass
