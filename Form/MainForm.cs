@@ -481,8 +481,7 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
         }
 
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+
 
 
 
@@ -528,7 +527,7 @@ namespace FilmCollection
         {
             if (e.Button == MouseButtons.Left)
             {
-                PrepareRefresh(e.ColumnIndex);
+                PrepareRefresh(false, e.ColumnIndex);
             }
         }
 
@@ -560,20 +559,28 @@ namespace FilmCollection
         public bool LastVisible;
 
 
+        //private void PrepareRefresh() => PrepareRefresh("", false);
+        //private void PrepareRefresh(int column) => PrepareRefresh("", false, column);
+        //private void PrepareRefresh(string nodeName, bool flag)
 
 
-
-        private void PrepareRefresh() => PrepareRefresh("", false);
-        private void PrepareRefresh(int column) => PrepareRefresh("", false, column);
+        private void PrepareRefresh() => PrepareRefresh(false, -1);
         private void PrepareRefresh(string nodeName, bool flag)
         {
-            PrepareRefresh(nodeName, flag, -1);
+            //PrepareRefresh(nodeName, flag, -1);
+            PrepareRefresh(flag, -1);
+            LastNode = nodeName;
         }
 
 
-        private void PrepareRefresh(string nodeName, bool flag, int column)
+
+        //private void PrepareRefresh(string nodeName, bool flag, int column)
+        private void PrepareRefresh(bool flag, int column)
         {
-            //nodeName = chechNode(nodeName);
+            string nodeName = (LastNode == null) ? "" : LastNode;
+
+            Record selected = GetSelectedRecord(); 
+           
 
             List<Record> filtered = _videoCollection.VideoList;
 
@@ -592,6 +599,8 @@ namespace FilmCollection
 
             RefreshTable(filtered);
             Sort_Actor();
+
+            if (selected != null) SelectRecord(dgvTableRec, selected);
         }
 
         private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
@@ -651,7 +660,6 @@ namespace FilmCollection
                     {
                         if ((row.DataBoundItem as Record).Visible == false)
                         {
-
                             //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.ForeColor = Color.Red;
                             row.DefaultCellStyle.ForeColor = Color.Silver;
                             row.DefaultCellStyle.Font = new Font(dgvTableRec.Font, FontStyle.Strikeout);
