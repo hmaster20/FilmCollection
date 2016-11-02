@@ -91,7 +91,7 @@ namespace FilmCollection
                 if (_videoCollection.VideoList.Count > 0)
                 {
                     tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
-                    PepareRefresh();
+                    PrepareRefresh();
                     CreateTree();
                 }
                 timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
@@ -199,7 +199,7 @@ namespace FilmCollection
                 _videoCollection.ClearVideo();  // очищаем коллекцию
                 treeFolder.Nodes.Clear();       // очищаем иерархию
                 dgvTableRec.ClearSelection();   // выключаем селекты таблицы
-                PepareRefresh();                // сбрасываем старые значения таблицы
+                PrepareRefresh();                // сбрасываем старые значения таблицы
             }
             else // Если базы нет, то создаем пустой файл базы
             {
@@ -428,7 +428,7 @@ namespace FilmCollection
                 _videoCollection.Remove(record);
                 _videoCollection.Save();
                 dgvTableRec.ClearSelection();
-                PepareRefresh();
+                PrepareRefresh();
             }
         }
 
@@ -443,7 +443,7 @@ namespace FilmCollection
                 _videoCollection.Remove(act);
                 _videoCollection.Save();
                 dgvTableRec.ClearSelection();
-                PepareRefresh();
+                PrepareRefresh();
             }
         }
 
@@ -454,7 +454,7 @@ namespace FilmCollection
             {
                 _videoCollection.Add(form.rec);
                 _videoCollection.Save();
-                PepareRefresh();
+                PrepareRefresh();
             }
         }
 
@@ -464,7 +464,7 @@ namespace FilmCollection
             if (new EditForm(record).ShowDialog() == DialogResult.OK)
             {
                 _videoCollection.Save();
-                PepareRefresh();      //Должно быть обновление вместо фильтра
+                PrepareRefresh();      //Должно быть обновление вместо фильтра
             }
         }
 
@@ -521,7 +521,7 @@ namespace FilmCollection
         {
             dgvTableRec.ClearSelection();
             dgvTableActors.ClearSelection();
-            PepareRefresh();
+            PrepareRefresh();
         }
 
         private void dgvTableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
@@ -532,34 +532,48 @@ namespace FilmCollection
             }
         }
 
-        private void PepareRefresh() => PepareRefresh("", false);
-        private void PrepareRefresh(int column) => PepareRefresh("", false, column);
-        private void PepareRefresh(string nodeName, bool flag) => PepareRefresh(nodeName, flag, -1);
 
-        public string LastNodeSelect;
-        public int LastNodeSelectCount;
-        public bool isLastNodeSelect = false;
+        //public string LastNodeSelect;
+        //public int LastNodeSelectCount;
+        //public bool isLastNodeSelect = false;
 
-        private string chechNode(string nodeName)   //проверка и восстановление последней выбранной ноды
+        //private string chechNode(string nodeName)   //проверка и восстановление последней выбранной ноды
+        //{
+        //    // добавить восстановление физического селекта ноды
+        //    if (!isLastNodeSelect && nodeName == "")
+        //    {
+        //        isLastNodeSelect = true;
+        //        // LastNodeSelectCount = 0;
+        //        return LastNodeSelect;
+        //    }
+        //    else
+        //    {
+        //        LastNodeSelect = nodeName;
+        //        isLastNodeSelect = false;
+        //    }
+        //    return LastNodeSelect;
+        //}
+
+        public string LastNode;
+        public int LastIndexSort;
+        public int LastIndexTypeFilter;
+        public bool LastVisible;
+
+
+
+
+
+        private void PrepareRefresh() => PrepareRefresh("", false);
+        private void PrepareRefresh(int column) => PrepareRefresh("", false, column);
+        private void PrepareRefresh(string nodeName, bool flag)
         {
-            // добавить восстановление физического селекта ноды
-            if (!isLastNodeSelect && nodeName == "")
-            {
-                isLastNodeSelect = true;
-                // LastNodeSelectCount = 0;
-                return LastNodeSelect;
-            }
-            else
-            {
-                LastNodeSelect = nodeName;
-                isLastNodeSelect = false;
-            }
-            return LastNodeSelect;
+            PrepareRefresh(nodeName, flag, -1);
         }
+       
 
-        private void PepareRefresh(string nodeName, bool flag, int column)
+        private void PrepareRefresh(string nodeName, bool flag, int column)
         {
-            nodeName = chechNode(nodeName);
+            //nodeName = chechNode(nodeName);
 
             List<Record> filtered = _videoCollection.VideoList;
 
@@ -812,7 +826,7 @@ namespace FilmCollection
 
         private void ResetFilter_Click(object sender, EventArgs e)
         {
-            PepareRefresh();
+            PrepareRefresh();
             dgvTableRec.ClearSelection(); // сброс селекта
             dgvTableActors.ClearSelection();
 
@@ -1043,7 +1057,7 @@ namespace FilmCollection
             dgvTableRec.Enabled = true;     // Разблокировка таблицы
             dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Восстановления цвета селектора таблицы
 
-            PepareRefresh();  // перезагрузка таблицы
+            PrepareRefresh();  // перезагрузка таблицы
 
             FileNameEnabled();
 
@@ -1478,7 +1492,7 @@ namespace FilmCollection
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
-            PepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
+            PrepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
             textBox4.Text = e.Node.Text;                //  panelFolder
         }
 
@@ -1511,7 +1525,7 @@ namespace FilmCollection
 
         private void cShowSelcetNodeAllFiles_Click(object sender, EventArgs e)
         {
-            PepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды
+            PrepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды
         }
 
 
@@ -1649,7 +1663,7 @@ namespace FilmCollection
 
             _videoCollection.Add(actor);
             _videoCollection.Save();
-            PepareRefresh();
+            PrepareRefresh();
         }
 
         private void checkLive_CheckedChanged(object sender, EventArgs e)
@@ -2068,20 +2082,8 @@ namespace FilmCollection
             Rectangle rect = new Rectangle(1, 1, 145, 18);
             rect.Inflate(1, 1); // border thickness
             ControlPaint.DrawBorder(e.Graphics, rect, Color.Silver, ButtonBorderStyle.Solid);
-
-            //base.OnPaint(e);
-            //Pen penBorder = new Pen(Color.Gray, 1);
-            //Rectangle rectBorder = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            //e.Graphics.DrawRectangle(penBorder, rectBorder);
-
-            //Rectangle textRec = new Rectangle(e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
-            //TextRenderer.DrawText(e.Graphics, Text, this.Font, textRec, this.ForeColor, this.BackColor, TextFormatFlags.Default);
-
-            //    toolStripTextBox1.BorderStyle = BorderStyle.None;
-            //    Pen p = new Pen(SystemColors.ControlDark, 5);
-            //    Graphics g = e.Graphics;
-            //    g.DrawRectangle(p, new Rectangle(20, -15, 129, 90));
         }
+
 
         private void cRenameFolder_Click(object sender, EventArgs e)
         {
@@ -2126,6 +2128,7 @@ namespace FilmCollection
             }
         }
 
+
         private void cOpenFolder_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
@@ -2137,10 +2140,7 @@ namespace FilmCollection
                     return;
                 }
 
-                // combine the arguments together
-                // it doesn't matter if there is a space after ','
                 string argument = "/select, \"" + filePath + "\"";
-
                 Process.Start("explorer.exe", argument);
                 //Process.Start("explorer.exe", record.Path);
             }
@@ -2187,7 +2187,7 @@ namespace FilmCollection
             dgvTableRec.ClearSelection();
             // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
 
-            PepareRefresh();
+            PrepareRefresh();
         }
 
 
@@ -2221,7 +2221,7 @@ namespace FilmCollection
                         record.Path = dirPath;
 
                         _videoCollection.Save();
-                        PepareRefresh();
+                        PrepareRefresh();
                     }
                 }
                 catch (Exception ex)
@@ -2322,7 +2322,7 @@ namespace FilmCollection
             if (GetPicM(GetHtmlPageM(web), name, rec))
             {
                 _videoCollection.Save();
-                PepareRefresh();
+                PrepareRefresh();
             }
         }
 
@@ -2401,13 +2401,13 @@ namespace FilmCollection
                     if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
                     {
                         //File.Delete(GetFilename(rec.Pic));
-                   
+
                         DownPicM(strts, rec.Name);
                         rec.Pic = rec.Name;
                     }
                     break;
-                    
-                }            
+
+                }
             }
 
 
