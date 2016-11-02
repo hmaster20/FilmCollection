@@ -873,6 +873,7 @@
             // 
             // pbImage
             // 
+            this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbImage.Location = new System.Drawing.Point(154, 49);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(202, 301);
@@ -1588,7 +1589,7 @@
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
             this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(972, 599);
+            this.tabActors.Size = new System.Drawing.Size(972, 659);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1612,7 +1613,7 @@
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelActEditTitle);
-            this.scTabActors.Size = new System.Drawing.Size(966, 593);
+            this.scTabActors.Size = new System.Drawing.Size(966, 653);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
             // 
@@ -1637,7 +1638,7 @@
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(535, 564);
+            this.dgvTableActors.Size = new System.Drawing.Size(535, 624);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
@@ -1722,7 +1723,7 @@
             this.panelActEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelActEditTitle.Location = new System.Drawing.Point(0, 0);
             this.panelActEditTitle.Name = "panelActEditTitle";
-            this.panelActEditTitle.Size = new System.Drawing.Size(423, 591);
+            this.panelActEditTitle.Size = new System.Drawing.Size(423, 651);
             this.panelActEditTitle.TabIndex = 0;
             // 
             // groupBox1
@@ -1983,7 +1984,7 @@
             // 
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
-            this.tabImage.Size = new System.Drawing.Size(972, 599);
+            this.tabImage.Size = new System.Drawing.Size(972, 659);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
@@ -1999,7 +2000,7 @@
             this.tabGrab.Controls.Add(this.graberHTML);
             this.tabGrab.Location = new System.Drawing.Point(4, 22);
             this.tabGrab.Name = "tabGrab";
-            this.tabGrab.Size = new System.Drawing.Size(972, 599);
+            this.tabGrab.Size = new System.Drawing.Size(972, 659);
             this.tabGrab.TabIndex = 2;
             this.tabGrab.Text = "Захват";
             this.tabGrab.UseVisualStyleBackColor = true;
