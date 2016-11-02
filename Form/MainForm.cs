@@ -528,25 +528,25 @@ namespace FilmCollection
         {
             if (e.Button == MouseButtons.Left)
             {
-                PepareRefresh(e.ColumnIndex);
+                PrepareRefresh(e.ColumnIndex);
             }
         }
 
         private void PepareRefresh() => PepareRefresh("", false);
-        private void PepareRefresh(int column) => PepareRefresh("", false, column);
+        private void PrepareRefresh(int column) => PepareRefresh("", false, column);
         private void PepareRefresh(string nodeName, bool flag) => PepareRefresh(nodeName, flag, -1);
 
         public string LastNodeSelect;
         public int LastNodeSelectCount;
         public bool isLastNodeSelect = false;
 
-        private string chechNode(string nodeName)
+        private string chechNode(string nodeName)   //проверка и восстановление последней выбранной ноды
         {
-
+            // добавить восстановление физического селекта ноды
             if (!isLastNodeSelect && nodeName == "")
             {
                 isLastNodeSelect = true;
-               // LastNodeSelectCount = 0;
+                // LastNodeSelectCount = 0;
                 return LastNodeSelect;
             }
             else
@@ -1926,7 +1926,7 @@ namespace FilmCollection
             for (int i = 0; i < _videoCollection.VideoList.Count; i++)
             //for (int i = 0; i < 5; i++)
             {
- 
+
                 string output = _videoCollection.VideoList[i].Name;
 
                 if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
@@ -2182,7 +2182,7 @@ namespace FilmCollection
             foreach (var item in _videoCollection.VideoList.FindAll(x => x.Visible == false))
             {
                 _videoCollection.Remove(item);
-            }            
+            }
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
             // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
@@ -2351,11 +2351,11 @@ namespace FilmCollection
 
                 if (PicWeb != "" && Link_txt != "")
                 {
-                    if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
-                    {
-                        DownPicM(PicWeb, name);
-                        rec.Pic = name;
-                    }
+                    //if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
+                    //{
+                    //    DownPicM(PicWeb, name);
+                    //    rec.Pic = name;
+                    //}
                     DownInfoM("https://afisha.mail.ru" + Link_txt, rec);
                     return true;
                 }
@@ -2367,7 +2367,8 @@ namespace FilmCollection
         {
             try
             {
-                if (PicWeb.Contains("http"))
+                //if (PicWeb.Contains("http"))
+                if (PicWeb.StartsWith("http"))
                 {
                     using (WebClient webClient = new WebClient())
                         webClient.DownloadFile(PicWeb, GetFilename(Pic));
@@ -2386,6 +2387,32 @@ namespace FilmCollection
         {
             textBoxWeb.Text = "";
             string sourcestring = GetHtmlPageText(link);
+
+            MatchCollection mcPics3 = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
+
+            foreach (Match mPic in mcPics3)
+            {
+                string strts = mPic.ToString();
+                strts = strts.Remove(0, strts.IndexOf('"') + 1);
+                strts = strts.Remove(strts.IndexOf('"'), strts.Length - strts.IndexOf('"'));
+                if (strts != "")
+                {
+                    //MessageBox.Show(strts);
+                    if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
+                    {
+                        //File.Delete(GetFilename(rec.Pic));
+                   
+                        DownPicM(strts, rec.Name);
+                        rec.Pic = rec.Name;
+                    }
+                    break;
+                    
+                }            
+            }
+
+
+
+
 
             MatchCollection mcCountries = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
 
@@ -2433,8 +2460,7 @@ namespace FilmCollection
                 rec.Year = Convert.ToInt32(year);
             }
 
-            MatchCollection mcDesc = Regex.Matches(sourcestring,
-                                @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+            MatchCollection mcDesc = Regex.Matches(sourcestring, @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
 
             foreach (Match m in mcDesc)
             {
@@ -2474,7 +2500,7 @@ namespace FilmCollection
 
 
 
-  
+
 
 
 
