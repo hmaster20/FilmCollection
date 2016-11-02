@@ -569,7 +569,7 @@ namespace FilmCollection
         {
             PrepareRefresh(nodeName, flag, -1);
         }
-       
+
 
         private void PrepareRefresh(string nodeName, bool flag, int column)
         {
@@ -739,18 +739,24 @@ namespace FilmCollection
             }
         }
 
-        private string GetFilename(string name) => Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
+        private string GetFilename(string name)
+        {
+            return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
+        }
 
         private void GetPic(Record record)
         {
-            string filename = GetFilename(record.Pic);
+            string filename;
+            filename = (record.Pic == "")
+                ? GetFilename("noPic")
+                : GetFilename(record.Pic);
+
             if (File.Exists(filename))
             {
                 Image image = Image.FromFile(filename);
-                if (image.Height > 300)
-                    pbImage.Image = image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero);
-                else
-                    pbImage.Image = image;
+                pbImage.Image = (image.Height > 300)
+                    ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
+                    : image;
             }
             else
                 pbImage.Image = null;
