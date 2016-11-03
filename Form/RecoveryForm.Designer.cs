@@ -37,7 +37,7 @@
             // btnEditCancel
             // 
             this.btnEditCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnEditCancel.Location = new System.Drawing.Point(205, 241);
+            this.btnEditCancel.Location = new System.Drawing.Point(205, 270);
             this.btnEditCancel.Name = "btnEditCancel";
             this.btnEditCancel.Size = new System.Drawing.Size(75, 23);
             this.btnEditCancel.TabIndex = 3;
@@ -48,7 +48,7 @@
             // 
             this.btnEditOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnEditOk.Image = global::FilmCollection.Properties.Resources.attention;
-            this.btnEditOk.Location = new System.Drawing.Point(35, 241);
+            this.btnEditOk.Location = new System.Drawing.Point(12, 270);
             this.btnEditOk.Name = "btnEditOk";
             this.btnEditOk.Size = new System.Drawing.Size(92, 23);
             this.btnEditOk.TabIndex = 2;
@@ -70,7 +70,7 @@
             // 
             this.listView1.Location = new System.Drawing.Point(15, 25);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(300, 186);
+            this.listView1.Size = new System.Drawing.Size(265, 212);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
@@ -79,7 +79,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(327, 286);
+            this.ClientSize = new System.Drawing.Size(302, 305);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnEditCancel);
