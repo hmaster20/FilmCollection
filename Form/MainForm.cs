@@ -323,7 +323,7 @@ namespace FilmCollection
             }
             return false;           // иначе файла нет файл есть
         }
-        
+
         private void BackupBase()       // Резервная копия базы
         {
             if (File.Exists(RecordOptions.BaseName)) // если есть, что бэкапить...
@@ -560,7 +560,7 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
         }
 
-        
+
 
 
 
@@ -1811,6 +1811,7 @@ namespace FilmCollection
                 string filePath = Path.Combine(record.Path, record.FileName);
                 if (!File.Exists(filePath))
                 {
+                    MessageBox.Show("Файл \"" + filePath + "\" не найден!");
                     return;
                 }
 
@@ -1824,35 +1825,7 @@ namespace FilmCollection
 
 
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            string filePath = @"C:\temp\TeST\new.1997.txt";
 
-            // get file attributes
-            FileAttributes fileAttributes = File.GetAttributes(filePath);
-            MessageBox.Show(fileAttributes.ToString());
-
-            var shell = new Shell();
-            //var folder = shell.NameSpace(@"filepath");
-            var folder = shell.NameSpace(@"X:\");
-            foreach (FolderItem2 item in folder.Items())
-            {
-                //if (item.Name == "filename")
-                if (item.Name == "123")
-                {
-                    MessageBox.Show("Test");
-                    ulong aaa = item.ExtendedProperty("System.Media.Duration") / 10000000;
-                    TimeSpan.FromSeconds((double)aaa);
-
-                    MessageBox.Show(TimeSpan.FromSeconds((double)aaa).ToString());
-
-                    //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
-                }
-            }
-
-            Marshal.ReleaseComObject(folder);
-            Marshal.ReleaseComObject(shell);
-        }
 
 
 
@@ -1947,7 +1920,7 @@ namespace FilmCollection
         #endregion
 
 
-        
+
 
 
 
@@ -2152,7 +2125,7 @@ namespace FilmCollection
                 rec.Description = str;
             }
         }
-                #endregion
+        #endregion
 
 
 
@@ -2160,5 +2133,76 @@ namespace FilmCollection
 
 
 
+
+
+
+
+        private void GetTime()
+        {
+            Record record = GetSelectedRecord();
+            if (record != null)
+            {
+                //// string filePath = @"C:\temp\TeST\new.1997.txt";
+                //string filePath = Path.Combine(record.Path, record.FileName);
+
+                //// получение атрибутов типа архивный, только для чтения и т.д.
+                //FileAttributes fileAttributes = File.GetAttributes(filePath);
+                //MessageBox.Show(fileAttributes.ToString());
+
+
+                //var shell = new Shell();
+
+                ////var folder = shell.NameSpace(@"filepath");
+                // var folder = shell.NameSpace(@"X:\");
+                //foreach (FolderItem2 item in folder.Items())
+                //{
+                //    //if (item.Name == "filename")
+                //    if (item.Name == "123")
+                //    {
+                //        MessageBox.Show("Test");
+                //        ulong aaa = item.ExtendedProperty("System.Media.Duration") / 10000000;
+                //        TimeSpan.FromSeconds((double)aaa);
+
+                //        MessageBox.Show(TimeSpan.FromSeconds((double)aaa).ToString());
+
+                //        //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
+                //    }
+                //}
+
+                string filename = record.FileName.Remove(record.FileName.LastIndexOf(record.Extension)-1, record.Extension.Length+1);
+
+                var shell = new Shell();
+                var folder = shell.NameSpace(record.Path);
+                foreach (FolderItem2 item in folder.Items())
+                {
+                    if (item.Name == filename)
+                    {
+                        var aaa = item.ExtendedProperty("System.Media.Duration");
+                        if (aaa == null)
+                        {
+                            MessageBox.Show("Получить время воспроизведения невозможно!");
+                        }
+                        else
+                        {
+                          
+
+                            ulong bbb = aaa / 10000000;
+                            //MessageBox.Show(TimeSpan.FromSeconds((double)bbb).ToString());
+                            mtbTime.Text = TimeSpan.FromSeconds((double)bbb).ToString();
+                        }
+
+                        //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
+                    }
+                }
+                
+                Marshal.ReleaseComObject(folder);
+                Marshal.ReleaseComObject(shell);
+            }
+        }
+
+        private void btnGetTime_Click(object sender, EventArgs e)
+        {
+            GetTime();
+        }
     }
 }
