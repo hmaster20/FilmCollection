@@ -163,3 +163,22 @@
             //{
             //    MessageBox.Show(ex.Message);
             //}
+
+
+
+
+			//DirectoryInfo directory = new DirectoryInfo(Directory.GetCurrentDirectory());
+            //FileInfo[] files = directory.GetFiles("VideoList_*.xml", SearchOption.AllDirectories);
+
+            //for (int i = 0; i < files.Length; i++)
+            //{
+            //    // listView1.Items.Add(files[i].Name).BackColor = (files[i].Length > 2) ? Color.Green : Color.Red;
+            //    // listView1.Items.Add(files[i].Name).Font = new Font(listView1.Font, FontStyle.Strikeout);
+
+            //    if (files[i].Length < 2)
+            //    {
+            //        listView1.Items.Add(files[i].Name).Font = new Font(listView1.Font, FontStyle.Strikeout);
+            //        continue;
+            //    }
+            //    listView1.Items.Add(files[i].Name);
+            //}
