@@ -148,8 +148,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FC.ico" />
+    <Content Include="Pics\noPic.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\add.png" />
     <Content Include="Resources\change.png" />
+    <Content Include="Resources\collapse.png" />
     <Content Include="Resources\db.png" />
     <Content Include="Resources\dbBackup.png" />
     <Content Include="Resources\dbClear.png" />
@@ -157,15 +161,20 @@
     <Content Include="Resources\dbRecovery.png" />
     <Content Include="Resources\del.png" />
     <Content Include="Resources\Exit.png" />
+    <Content Include="Resources\ExitV2.png" />
+    <Content Include="Resources\expand.png" />
+    <Content Include="Resources\expandNode.png" />
     <Content Include="Resources\FilmCollection.png" />
     <Content Include="Resources\find.png" />
     <Content Include="Resources\Folder.png" />
+    <Content Include="Resources\FolderEdit.png" />
     <Content Include="Resources\grabber.png" />
     <Content Include="Resources\help.png" />
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\play.png" />
     <Content Include="Resources\resetFiltr.png" />
     <Content Include="Resources\save.png" />
+    <Content Include="Resources\viewfiles.png" />
     <Content Include="Описание\Разработка.txt" />
   </ItemGroup>
   <ItemGroup>
