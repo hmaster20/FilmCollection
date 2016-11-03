@@ -218,6 +218,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.mtbTime = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -880,6 +881,7 @@
             this.panelEdit.Controls.Add(this.lblActorsAll);
             this.panelEdit.Controls.Add(this.chkActorList);
             this.panelEdit.Controls.Add(this.cBoxCountry);
+            this.panelEdit.Controls.Add(this.mtbTime);
             this.panelEdit.Controls.Add(this.mtbYear);
             this.panelEdit.Controls.Add(this.panelEditTitle);
             this.panelEdit.Controls.Add(this.btnSave);
@@ -915,6 +917,7 @@
             this.btnGetTime.TabIndex = 59;
             this.btnGetTime.Text = "GetTime";
             this.btnGetTime.UseVisualStyleBackColor = true;
+            this.btnGetTime.Click += new System.EventHandler(this.btnGetTime_Click);
             // 
             // btnMoveDown
             // 
@@ -1117,7 +1120,7 @@
             0,
             0});
             this.numericTime.Name = "numericTime";
-            this.numericTime.Size = new System.Drawing.Size(100, 20);
+            this.numericTime.Size = new System.Drawing.Size(45, 20);
             this.numericTime.TabIndex = 32;
             this.numericTime.Enter += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -1175,7 +1178,7 @@
             // lblTimeMin
             // 
             this.lblTimeMin.AutoSize = true;
-            this.lblTimeMin.Location = new System.Drawing.Point(177, 154);
+            this.lblTimeMin.Location = new System.Drawing.Point(122, 154);
             this.lblTimeMin.Name = "lblTimeMin";
             this.lblTimeMin.Size = new System.Drawing.Size(37, 13);
             this.lblTimeMin.TabIndex = 24;
@@ -2195,6 +2198,19 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // mtbTime
+            // 
+            this.mtbTime.Location = new System.Drawing.Point(165, 151);
+            this.mtbTime.Mask = "00:00:00";
+            this.mtbTime.Name = "mtbTime";
+            this.mtbTime.Size = new System.Drawing.Size(75, 20);
+            this.mtbTime.TabIndex = 49;
+            this.mtbTime.Text = "000000";
+            this.mtbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbTime.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtbTime.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.mtbTime.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2454,6 +2470,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem UpdateCatalogInfo;
         private System.Windows.Forms.Button btnGetTime;
+        private System.Windows.Forms.MaskedTextBox mtbTime;
     }
 }
 
