@@ -149,3 +149,17 @@
             //    Pen p = new Pen(SystemColors.ControlDark, 5);
             //    Graphics g = e.Graphics;
             //    g.DrawRectangle(p, new Rectangle(20, -15, 129, 90));
+
+
+
+			//try
+            //{
+            //    string[] dateComponents = maskDateOfBirth.Text.Split('.');
+            //    string month = dateComponents[0].Trim();
+            //    string day = dateComponents[1].Trim();
+            //    string year = dateComponents[2].Trim();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
