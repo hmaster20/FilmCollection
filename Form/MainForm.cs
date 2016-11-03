@@ -59,6 +59,13 @@ namespace FilmCollection
 
         }
 
+        private void Form1_Paint(object sender, PaintEventArgs e)   // отрисовка рамки вокруг tsFindbyName
+        {
+            Rectangle rect = new Rectangle(1, 1, 145, 18);
+            rect.Inflate(1, 1); // border thickness
+            ControlPaint.DrawBorder(e.Graphics, rect, Color.Silver, ButtonBorderStyle.Solid);
+        }
+
         private void T_Tick(object sender, EventArgs e)     // таймер для селекта MainForm_Load
         {
             timerLoad.Enabled = false;
@@ -316,8 +323,7 @@ namespace FilmCollection
             }
             return false;           // иначе файла нет файл есть
         }
-
-
+        
         private void BackupBase()       // Резервная копия базы
         {
             if (File.Exists(RecordOptions.BaseName)) // если есть, что бэкапить...
@@ -337,6 +343,37 @@ namespace FilmCollection
                     MessageBox.Show(copyError.Message);
                 }
             }
+        }
+
+        private void RecoveryBase()
+        {
+            RecoveryForm form = new RecoveryForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                // создаем бэкап запоротой базы
+                string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                    + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
+                    + Path.GetExtension(RecordOptions.BaseName);
+
+                File.Copy(RecordOptions.BaseName, BadFileBase);
+                File.Copy(form.recoverBase, RecordOptions.BaseName, true);
+
+                MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
+
+                PrepareRefresh();
+            }
+        }
+
+        private void CleanBase()   // очистка базы путем удаления старый видео файлов
+        {
+            foreach (var item in _videoCollection.VideoList.FindAll(x => x.Visible == false))
+            {
+                _videoCollection.Remove(item);
+            }
+            _videoCollection.Save();
+            dgvTableRec.ClearSelection();
+            // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
+            PrepareRefresh();
         }
 
         #endregion
@@ -359,9 +396,14 @@ namespace FilmCollection
             BackupBase();
         }
 
-        private void btnRecoveryBase_Click(object sender, EventArgs e)
+        private void RecoveryBase_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Текущая база будет удалена");
+            RecoveryBase();
+        }
+
+        private void CleanBase_Click(object sender, EventArgs e)
+        {
+            CleanBase();
         }
 
         private void btnReport_Click(object sender, EventArgs e)
@@ -408,6 +450,42 @@ namespace FilmCollection
 
         private void EditRec_Click(object sender, EventArgs e) => panelEdit.BringToFront();     // Изменение записи
         private void cFind_Click(object sender, EventArgs e) => panelFind.BringToFront();       // Поиск
+
+        private void tsFindbyName_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    string regReplace = tsFindbyName.Text.Replace("*", "");
+                    Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+                    dgvTableRec.ClearSelection();
+                    dgvTableRec.MultiSelect = true;
+
+                    foreach (DataGridViewRow row in dgvTableRec.Rows)
+                    {
+                        if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                        {
+                            int f = row.Cells[0].RowIndex;
+                            if (f < dgvTableRec.RowCount)
+                            {
+                                dgvTableRec.ClearSelection();
+                                dgvTableRec.Rows[f].Selected = true;            // выделяем
+                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;// скролим
+                                dgvTableRec.Update();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
 
 
         private void DeleteRec_Click(object sender, EventArgs e)
@@ -481,17 +559,7 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
         }
 
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
 
@@ -532,37 +600,10 @@ namespace FilmCollection
         }
 
 
-        //public string LastNodeSelect;
-        //public int LastNodeSelectCount;
-        //public bool isLastNodeSelect = false;
-
-        //private string chechNode(string nodeName)   //проверка и восстановление последней выбранной ноды
-        //{
-        //    // добавить восстановление физического селекта ноды
-        //    if (!isLastNodeSelect && nodeName == "")
-        //    {
-        //        isLastNodeSelect = true;
-        //        // LastNodeSelectCount = 0;
-        //        return LastNodeSelect;
-        //    }
-        //    else
-        //    {
-        //        LastNodeSelect = nodeName;
-        //        isLastNodeSelect = false;
-        //    }
-        //    return LastNodeSelect;
-        //}
-
         public string LastNode;
         public int LastIndexSort;
         public int LastIndexTypeFilter;
         public bool LastVisible;
-
-
-        //private void PrepareRefresh() => PrepareRefresh("", false);
-        //private void PrepareRefresh(int column) => PrepareRefresh("", false, column);
-        //private void PrepareRefresh(string nodeName, bool flag)
-
 
         private void PrepareRefresh() => PrepareRefresh(false, -1);
         private void PrepareRefresh(string nodeName, bool flag)
@@ -573,15 +614,12 @@ namespace FilmCollection
 
         }
 
-
-
-        //private void PrepareRefresh(string nodeName, bool flag, int column)
         private void PrepareRefresh(bool flag, int column)
         {
             string nodeName = (LastNode == null) ? "" : LastNode;
 
-            Record selected = GetSelectedRecord(); 
-           
+            Record selected = GetSelectedRecord();
+
 
             List<Record> filtered = _videoCollection.VideoList;
 
@@ -1641,7 +1679,6 @@ namespace FilmCollection
 
         private void btnSaveActor_Click(object sender, EventArgs e)
         {
-
             Country_Rus country = (Country_Rus)cBoxCountryActor.SelectedIndex;
             Actor actor = new Actor();
             actor.FIO = tbFIO.Text;
@@ -1653,19 +1690,6 @@ namespace FilmCollection
                     return; // Выходим
                 }
             }
-
-            //try
-            //{
-            //    string[] dateComponents = maskDateOfBirth.Text.Split('.');
-            //    string month = dateComponents[0].Trim();
-            //    string day = dateComponents[1].Trim();
-            //    string year = dateComponents[2].Trim();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = country;
@@ -1769,337 +1793,6 @@ namespace FilmCollection
 
 
 
-
-
-
-        #region Обработка постеров
-
-        //получение веб-страницы
-        public static string GetHtmlPageText(string url)
-        {
-            WebClient client = new WebClient();
-            using (Stream data = client.OpenRead(url))
-            {
-                using (StreamReader reader = new StreamReader(data))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-        }
-
-
-        private void graber_Pic_Click(object sender, EventArgs e)
-        {
-            FindCinema(textBox1.Text);
-        }
-
-
-        //выполнение поиска
-        private void FindCinema(string text)
-        {
-            power("https://afisha.mail.ru/search/?q=" + text, text);
-        }
-
-
-        private void power(string web, string name)
-        {
-            ParseForPic(GetHtmlPageText(web), name);
-            ParseForInfo(GetHtmlPageText(web), name);
-        }
-
-
-        // afisha.mail.ru/search/?q=полевые+огни&region_id=70
-        // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
-
-        //private void ParseForPic(string web, string name)
-        private void ParseForPic(string sourcestring, string name)
-        {
-            tbResult.Text = "";
-            MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
-
-            for (int i = 0; i < mc.Count; i++)
-            {
-                tbResult.AppendText(mc[i].ToString() + "\r\n");
-                string PicWeb = "";
-                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
-                for (int y = 0; y < subStrings.Length; y++)
-                {
-                    if (subStrings[y] == "background-image:url")
-                    {
-                        ++y;
-                        if (subStrings[y].Contains("http"))
-                        {
-                            PicWeb = subStrings[y];
-                            break;
-                        }
-                    }
-                }
-
-                if (PicWeb != "")
-                {
-                    tbResult.AppendText("pic = " + PicWeb);
-                    DownloadPic(PicWeb, name);
-                    return;
-                }
-            }
-        }
-
-        private void DownloadPic(string PicWeb, string Pic)
-        {
-            try
-            {
-                if (PicWeb.Contains("http"))
-                {
-                    string TempPath = Path.Combine(Path.GetTempPath(), "" + Pic + ".jpg");
-
-                    using (WebClient webClient = new WebClient())
-                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
-                    //{
-                    //    webClient.DownloadFile(PicWeb, TempPath);
-                    //}
-                    //File.Copy(TempPath, GetFilename(Pic), true);
-
-
-
-                    //  webClient.DownloadFile(PicWeb, GetFilename(Pic));
-                }
-            }
-            catch (Exception Ex)
-            {
-                MessageBox.Show(Ex.Message + " Скачать изображение не удалось!");
-            }
-            // string result = Path.GetTempPath();
-            //MessageBox.Show(Path.GetTempPath());
-            //return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-
-        }
-
-
-
-        // <a href="/cinema/movies/730486_polevye_ogni/" class="searchitem__item__pic__img" style="background-image:url(https://pic.afisha.mail.ru/7087162/)"></a>
-        // afisha.mail.ru + /cinema/movies/730486_polevye_ogni/
-        // <div class="movieabout__info__descr__txt" itemprop="description"><p>Осень 1944 года, японцы отступают с&nbsp;Филиппин.ине».</p></div>          
-
-        private void ParseForInfo(string sourcestring, string name)
-        {
-            MatchCollection mc = Regex.Matches(sourcestring,
-                                            @"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
-
-            for (int i = 0; i < mc.Count; i++)
-            {
-                tbResult.AppendText(mc[i].ToString() + "\r\n");
-                string Link_txt = "";
-                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
-                for (int y = 0; y < subStrings.Length; y++)
-                {
-                    if (subStrings[y] == "<a href=")
-                    {
-                        ++y;
-                        Link_txt = subStrings[y];
-                        break;
-                    }
-                }
-
-                if (Link_txt != "")
-                {
-                    tbResult.AppendText("ссылка на фильм = " + Link_txt);
-                    GetInfo("https://afisha.mail.ru" + Link_txt);
-                    return;
-                }
-            }
-        }
-
-        private void GetInfo(string link)
-        {
-            textBoxWeb.Text = "";
-            string sourcestring = GetHtmlPageText(link);
-
-            MatchCollection mc = Regex.Matches(sourcestring,
-                                            @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
-
-            foreach (Match m in mc)
-            {
-                string str = m.ToString();
-                str = Regex.Replace(str, "&nbsp;", " ");
-                str = Regex.Replace(str, "&mdash;", "-");
-                str = Regex.Replace(str, "&laquo;", "\"");
-                str = Regex.Replace(str, "&raquo;", "\"");
-                str = Regex.Replace(str, "<span>", "");
-                str = Regex.Replace(str, "</span>", "");
-                str = Regex.Replace(str, "<br/>", "");
-                str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
-
-                try
-                {
-                    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));
-                    str = str.Remove(0, str.LastIndexOf("<p>") + 3);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-                textBoxWeb.Text += str;
-            }
-        }
-
-
-
-
-
-
-        #endregion
-
-        private void graberAll_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            //for (int i = 0; i < 5; i++)
-            {
-
-                string output = _videoCollection.VideoList[i].Name;
-
-                if (_videoCollection.VideoList[i].Pic == "" && _videoCollection.VideoList[i].Description == "")
-                {
-                    WebQuery(output, _videoCollection.VideoList[i]);
-                }
-            }
-
-        }
-
-
-        //выполнение поиска
-        private void WebQuery(string text, Record rec)
-        {
-            string web = "https://afisha.mail.ru/search/?q=" + text;
-            string name = text;
-
-            GetPic(GetHtmlPageText(web), name, rec);
-            GetText(GetHtmlPageText(web), name, rec);
-
-        }
-
-
-        private void GetPic(string sourcestring, string name, Record rec)
-        {
-            tbResult.Text = "";
-            MatchCollection mc = Regex.Matches(sourcestring, @"(<a href.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
-
-            for (int i = 0; i < mc.Count; i++)
-            {
-                tbResult.AppendText(mc[i].ToString() + "\r\n");
-                string PicWeb = "";
-                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
-                for (int y = 0; y < subStrings.Length; y++)
-                {
-                    if (subStrings[y] == "background-image:url")
-                    {
-                        ++y;
-                        if (subStrings[y].Contains("http"))
-                        {
-                            PicWeb = subStrings[y];
-                            break;
-                        }
-                    }
-                }
-
-                if (PicWeb != "")
-                {
-                    tbResult.AppendText("pic = " + PicWeb);
-                    DownPic(PicWeb, name);
-                    //rec.Pic = name + ".jpg";
-                    rec.Pic = name;
-                    return;
-                }
-            }
-        }
-
-        private void DownPic(string PicWeb, string Pic)
-        {
-            try
-            {
-                if (PicWeb.Contains("http"))
-                {
-                    using (WebClient webClient = new WebClient())
-                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
-                }
-            }
-            catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
-        }
-
-
-        private void GetText(string sourcestring, string name, Record rec)
-        {
-            MatchCollection mc = Regex.Matches(sourcestring,
-                                            @"(<a href=.*?searchitem__item__pic__img.*?>.*?</a>)", RegexOptions.IgnoreCase);
-
-            for (int i = 0; i < mc.Count; i++)
-            {
-                tbResult.AppendText(mc[i].ToString() + "\r\n");
-                string Link_txt = "";
-                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
-                for (int y = 0; y < subStrings.Length; y++)
-                {
-                    if (subStrings[y] == "<a href=")
-                    {
-                        ++y;
-                        Link_txt = subStrings[y];
-                        break;
-                    }
-                }
-
-                if (Link_txt != "")
-                {
-                    tbResult.AppendText("ссылка на фильм = " + Link_txt);
-                    DownInfo("https://afisha.mail.ru" + Link_txt, rec);
-                    return;
-                }
-            }
-        }
-
-        private void DownInfo(string link, Record rec)
-        {
-            textBoxWeb.Text = "";
-            string sourcestring = GetHtmlPageText(link);
-
-            MatchCollection mc = Regex.Matches(sourcestring,
-                                            @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
-
-            foreach (Match m in mc)
-            {
-                string str = m.ToString();
-                str = Regex.Replace(str, "&nbsp;", " ");
-                str = Regex.Replace(str, "&mdash;", "-");
-                str = Regex.Replace(str, "&laquo;", "\"");
-                str = Regex.Replace(str, "&raquo;", "\"");
-                str = Regex.Replace(str, "<span>", "");
-                str = Regex.Replace(str, "</span>", "");
-                str = Regex.Replace(str, "<br/>", "");
-                str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
-
-                try
-                {
-                    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));
-                    str = str.Remove(0, str.LastIndexOf("<p>") + 3);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-                rec.Description = str;
-                textBoxWeb.Text += str;
-            }
-        }
-
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            Rectangle rect = new Rectangle(1, 1, 145, 18);
-            rect.Inflate(1, 1); // border thickness
-            ControlPaint.DrawBorder(e.Graphics, rect, Color.Silver, ButtonBorderStyle.Solid);
-        }
-
-
         private void cRenameFolder_Click(object sender, EventArgs e)
         {
             panelFolder.BringToFront();
@@ -2107,41 +1800,6 @@ namespace FilmCollection
 
 
 
-        private void tsFindbyName_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                try
-                {
-                    string regReplace = tsFindbyName.Text.Replace("*", "");
-                    Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
-
-                    dgvTableRec.ClearSelection();
-                    dgvTableRec.MultiSelect = true;
-
-                    foreach (DataGridViewRow row in dgvTableRec.Rows)
-                    {
-                        if (regex.IsMatch(row.Cells[0].Value.ToString()))
-                        {
-                            int f = row.Cells[0].RowIndex;
-
-                            if (f < dgvTableRec.RowCount)
-                            {
-                                dgvTableRec.ClearSelection();
-                                dgvTableRec.Rows[f].Selected = true;            // выделяем
-                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;// скролим
-                                dgvTableRec.Update();
-                            }
-                            break;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
 
 
         private void cOpenFolder_Click(object sender, EventArgs e)
@@ -2159,8 +1817,11 @@ namespace FilmCollection
                 Process.Start("explorer.exe", argument);
                 //Process.Start("explorer.exe", record.Path);
             }
-
         }
+
+
+
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -2192,18 +1853,7 @@ namespace FilmCollection
             Marshal.ReleaseComObject(shell);
         }
 
-        private void btnCleanDB_Click(object sender, EventArgs e)
-        {
-            foreach (var item in _videoCollection.VideoList.FindAll(x => x.Visible == false))
-            {
-                _videoCollection.Remove(item);
-            }
-            _videoCollection.Save();
-            dgvTableRec.ClearSelection();
-            // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
 
-            PrepareRefresh();
-        }
 
 
         #region DragDrop DGV to TreeView
@@ -2296,7 +1946,7 @@ namespace FilmCollection
         #endregion
 
 
-
+        
 
 
 
@@ -2400,9 +2050,9 @@ namespace FilmCollection
 
         private void DownInfoM(string link, Record rec)
         {
-            textBoxWeb.Text = "";
-            string sourcestring = GetHtmlPageText(link);
+            string sourcestring = GetHtmlPageM(link);
 
+            // Обработка картинки
             MatchCollection mcPics3 = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
 
             foreach (Match mPic in mcPics3)
@@ -2425,10 +2075,7 @@ namespace FilmCollection
                 }
             }
 
-
-
-
-
+            // Обработка страны
             MatchCollection mcCountries = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
 
             bool flag = false;
@@ -2461,6 +2108,7 @@ namespace FilmCollection
                 }
             }
 
+            // Обработка года
             MatchCollection mcYear = Regex.Matches(sourcestring, "(itemevent__head__sep.*?<a href=.*?>[0-9]{4})", RegexOptions.IgnoreCase);
 
             string year = "";
@@ -2475,6 +2123,7 @@ namespace FilmCollection
                 rec.Year = Convert.ToInt32(year);
             }
 
+            // Обработка описания
             MatchCollection mcDesc = Regex.Matches(sourcestring, @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
 
             foreach (Match m in mcDesc)
@@ -2500,18 +2149,9 @@ namespace FilmCollection
                 }
 
                 rec.Description = str;
-                textBoxWeb.Text += str;
             }
         }
-
-        #endregion
-
-
-
-
-
-
-
+                #endregion
 
 
 
