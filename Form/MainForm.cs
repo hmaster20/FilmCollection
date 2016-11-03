@@ -568,8 +568,9 @@ namespace FilmCollection
         private void PrepareRefresh(string nodeName, bool flag)
         {
             //PrepareRefresh(nodeName, flag, -1);
-            PrepareRefresh(flag, -1);
             LastNode = nodeName;
+            PrepareRefresh(flag, -1);
+
         }
 
 
