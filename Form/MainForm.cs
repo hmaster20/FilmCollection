@@ -356,11 +356,12 @@ namespace FilmCollection
                     + Path.GetExtension(RecordOptions.BaseName);
 
                 File.Copy(RecordOptions.BaseName, BadFileBase);
+
                 File.Copy(form.recoverBase, RecordOptions.BaseName, true);
 
                 MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
 
-                PrepareRefresh();
+                FormLoad();
             }
         }
 
