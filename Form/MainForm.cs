@@ -256,7 +256,7 @@ namespace FilmCollection
             {
                 try
                 {
-                    if (_videoCollection.Options.Source ==null)
+                    if (_videoCollection.Options.Source == null)
                     {
                         MessageBox.Show("Файл базы испорчен!");
                         return;
@@ -1032,9 +1032,9 @@ namespace FilmCollection
                     record.TimeVideoSpan = TimeSpan.Parse("0");
                 }
 
-  
 
-       
+
+
 
 
                 //if (TimeSpan.Parse(mtbTime.Text) <= TimeSpan.MaxValue)
@@ -1138,7 +1138,7 @@ namespace FilmCollection
             if (!mtbYear.MaskCompleted)
                 MessageBox.Show("Неверно указан год!");
             if (!mtbTime.MaskCompleted)
-            { 
+            {
                 MessageBox.Show("Неверно указано время!");
                 mtbTime.Focus();
             }
@@ -1980,46 +1980,29 @@ namespace FilmCollection
         private void UpdateFIlmInfo_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
-            if (record != null)
-            {
-                WebQ(record.Name, record);
-                //FindCinema(record.Name);    
-            }
-
+            if (record != null) GetMediaInfo(record.Name, record);
         }
 
-
-        //получение веб-страницы
-        public static string GetHtmlPageM(string url)
+        private void GetMediaInfo(string text, Record rec)      //выполнение поиска
         {
-            WebClient client = new WebClient();
-            using (Stream data = client.OpenRead(url))
-            {
-                using (StreamReader reader = new StreamReader(data))
-                {
-                    return reader.ReadToEnd();
-                }
-            }
-        }
-
-
-        //выполнение поиска
-        private void WebQ(string text, Record rec)
-        {
-            string web = "https://afisha.mail.ru/search/?q=" + text;
-            string name = text;
-
-            if (GetPicM(GetHtmlPageM(web), name, rec))
+            if (GetInfo(GetHtml("https://afisha.mail.ru/search/?q=" + text), text, rec))
             {
                 _videoCollection.Save();
                 PrepareRefresh();
             }
         }
 
-
-        private bool GetPicM(string sourcestring, string name, Record rec)
+        public static string GetHtml(string url)       //получение веб-страницы
         {
-            MatchCollection mc = Regex.Matches(sourcestring, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
+            WebClient client = new WebClient();
+            using (Stream data = client.OpenRead(url))
+            using (StreamReader reader = new StreamReader(data))
+                return reader.ReadToEnd();
+        }
+
+        private bool GetInfo(string htmlPage, string name, Record rec)
+        {
+            MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
             for (int i = 0; i < mc.Count; i++)
             {
                 string PicWeb = "";
@@ -2039,7 +2022,7 @@ namespace FilmCollection
                     }
                 }
 
-                if (PicWeb != "" && Link_txt != "")
+                if (PicWeb != "" && Link_txt != "") // для более полного соответствия искомому фильму
                 {
                     //if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
                     //{
@@ -2053,7 +2036,7 @@ namespace FilmCollection
             return false;
         }
 
-        private void DownPicM(string PicWeb, string Pic)
+        private void DownloadPic(string PicWeb, string Pic)
         {
             try
             {
@@ -2075,26 +2058,21 @@ namespace FilmCollection
 
         private void DownInfoM(string link, Record rec)
         {
-            string sourcestring = GetHtmlPageM(link);
+            string sourcestring = GetHtml(link);
 
             // Обработка картинки
-            MatchCollection mcPics3 = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
+            MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
 
-            foreach (Match mPic in mcPics3)
+            foreach (Match Pic in Pics)
             {
-                string strts = mPic.ToString();
-                strts = strts.Remove(0, strts.IndexOf('"') + 1);
-                strts = strts.Remove(strts.IndexOf('"'), strts.Length - strts.IndexOf('"'));
-                if (strts != "")
+                string PicPath = Pic.ToString();
+                PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
+                PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
+                if (PicPath != "")
                 {
-                    //MessageBox.Show(strts);
-                    if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
-                    {
-                        //File.Delete(GetFilename(rec.Pic));
-
-                        DownPicM(strts, rec.Name);
-                        rec.Pic = rec.Name;
-                    }
+                    if (File.Exists(GetFilename(rec.Pic))) File.Delete(GetFilename(rec.Pic));
+                    DownloadPic(PicPath, rec.Name);
+                    rec.Pic = rec.Name;
                     break;
 
                 }
@@ -2220,7 +2198,7 @@ namespace FilmCollection
                 //    }
                 //}
 
-                string filename = record.FileName.Remove(record.FileName.LastIndexOf(record.Extension)-1, record.Extension.Length+1);
+                string filename = record.FileName.Remove(record.FileName.LastIndexOf(record.Extension) - 1, record.Extension.Length + 1);
 
                 var shell = new Shell();
                 var folder = shell.NameSpace(record.Path);
@@ -2234,7 +2212,7 @@ namespace FilmCollection
                             MessageBox.Show("Получить время воспроизведения невозможно!");
                         }
                         else
-                        {   
+                        {
                             ulong bbb = aaa / 10000000;
                             //MessageBox.Show(TimeSpan.FromSeconds((double)bbb).ToString());
                             mtbTime.Text = TimeSpan.FromSeconds((double)bbb).ToString();
@@ -2243,7 +2221,7 @@ namespace FilmCollection
                         //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
                     }
                 }
-                
+
                 Marshal.ReleaseComObject(folder);
                 Marshal.ReleaseComObject(shell);
             }
@@ -2264,6 +2242,6 @@ namespace FilmCollection
             //}
         }
 
-     
+
     }
 }
