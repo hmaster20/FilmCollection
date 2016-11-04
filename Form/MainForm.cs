@@ -256,6 +256,11 @@ namespace FilmCollection
             {
                 try
                 {
+                    if (_videoCollection.Options.Source ==null)
+                    {
+                        MessageBox.Show("Файл базы испорчен!");
+                        return;
+                    }
                     DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
 
                     if (directory.Exists)   // проверяем наличие папки коллекции
@@ -744,15 +749,18 @@ namespace FilmCollection
                 tbfName.Text = record.Name;
                 tbfDesc.Text = record.Description;
                 tbfYear.Text = Convert.ToString(record.Year);
+                tbfCountry.Text = record.CountryString;
 
                 GetPic(record);
 
                 // Панель редактирования
                 tbName.Text = record.Name;
                 mtbYear.Text = Convert.ToString(record.Year);
-                numericTime.Value = record.Time;
+                //numericTime.Value = record.Time;
                 tbDescription.Text = record.Description;
                 tbFileName.Text = record.FileName;
+                // mtbTime.Text = record.TimeVideo;
+                mtbTime.Text = record.TimeVideoSpan.ToString();
 
                 cBoxTypeVideo.SelectedIndex = ((int)record.Category);
                 cBoxGenre.SelectedIndex = ((int)record.GenreVideo);
@@ -891,7 +899,7 @@ namespace FilmCollection
 
 
             tbName.Text = "";
-            numericTime.Value = 0;
+            //numericTime.Value = 0;
             tbDescription.Text = "";
             tbFileName.Text = "";
 
@@ -966,7 +974,7 @@ namespace FilmCollection
             tbName.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
             //tbYear.Text = "";
             //tbCountry.Text = "";
-            numericTime.Value = 0;
+            //numericTime.Value = 0;
             tbDescription.Text = "";
             tbFileName.Text = fInfo.Name;
             cBoxGenre.SelectedIndex = -1;
@@ -1012,7 +1020,34 @@ namespace FilmCollection
                 record.Name = tbName.Text;
                 record.Year = Convert.ToInt32(mtbYear.Text);
                 record.Country = country;
-                record.Time = (int)numericTime.Value;
+                //record.Time = (int)numericTime.Value;
+                // record.TimeVideo = mtbTime.Text;
+                try
+                {
+                    record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text);
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    return;
+                }
+
+  
+
+       
+
+
+                //if (TimeSpan.Parse(mtbTime.Text) <= TimeSpan.MaxValue)
+                //{
+                //    record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text);
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Время указано неверно!");
+                //}
+                //record.TimeVideoSpan = Convert.ToDateTime(mtbTime.Text);
+
+
                 record.Category = category;
                 record.GenreVideo = genre;
                 record.Description = tbDescription.Text;
@@ -1046,7 +1081,7 @@ namespace FilmCollection
             record.Name = tbName.Text;
             record.Year = Convert.ToInt32(mtbYear.Text);
             record.Country = country;
-            record.Time = (int)numericTime.Value;
+            //record.Time = (int)numericTime.Value;
             record.Category = category;
             record.GenreVideo = genre;
             record.Description = tbDescription.Text;
@@ -1091,6 +1126,11 @@ namespace FilmCollection
         {
             if (!mtbYear.MaskCompleted)
                 MessageBox.Show("Неверно указан год!");
+            if (!mtbTime.MaskCompleted)
+            { 
+                MessageBox.Show("Неверно указано время!");
+                mtbTime.Focus();
+            }
         }
 
         #region Управление блокировками
@@ -2183,9 +2223,7 @@ namespace FilmCollection
                             MessageBox.Show("Получить время воспроизведения невозможно!");
                         }
                         else
-                        {
-                          
-
+                        {   
                             ulong bbb = aaa / 10000000;
                             //MessageBox.Show(TimeSpan.FromSeconds((double)bbb).ToString());
                             mtbTime.Text = TimeSpan.FromSeconds((double)bbb).ToString();
@@ -2203,6 +2241,16 @@ namespace FilmCollection
         private void btnGetTime_Click(object sender, EventArgs e)
         {
             GetTime();
+        }
+
+        private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
+            //if (formatter != null)
+            //{
+            //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
+            //    e.FormattingApplied = true;
+            //}
         }
     }
 }
