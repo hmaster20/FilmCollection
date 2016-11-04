@@ -1029,7 +1029,7 @@ namespace FilmCollection
                 catch (Exception Ex)
                 {
                     MessageBox.Show(Ex.Message);
-                    return;
+                    record.TimeVideoSpan = TimeSpan.Parse("0");
                 }
 
   
@@ -1103,12 +1103,23 @@ namespace FilmCollection
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
         {
+            Modified();
+        }
+
+        private void mtbTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            Modified();
+        }
+
+        private void Modified()
+        {
             //if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Gold;   // подсветка редактируемой строки в таблице
             if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Salmon;
             panelEdit_Button_Unlock();  // разблокировка кнопок
             dgvTableRec.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
         }
+
 
         private void cbTypeFind_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2252,5 +2263,7 @@ namespace FilmCollection
             //    e.FormattingApplied = true;
             //}
         }
+
+     
     }
 }
