@@ -31,15 +31,17 @@ namespace FilmCollection
             set { _time = (value < 0) ? 0 : value; }
         }
 
+
+
         private string _description = "";       // Описание файла (сюжет)
         public string Description
         {
             get { return _description; }
             set { _description = value; }
         }
-           
-        public string Pic { get; set; } = ""; 
-    
+
+        public string Pic { get; set; } = "";
+
         public string FileName { get; set; }    // Название файла
 
         public string DirName { get; set; }     // Название папки в которой расположен файл
@@ -47,6 +49,84 @@ namespace FilmCollection
         public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
 
         public string Path { get; set; }        // Путь к файлу
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // public string TimeVideo { get; set; } = "";
+        //public TimeSpan TimeVideoSpan
+        //{
+        //    get
+        //    {
+        //        System.Windows.Forms.MessageBox.Show(TimeVideoSpanT(TimeVideo).ToString());
+        //        return TimeVideoSpanT(TimeVideo);
+        //    }
+
+        //    set
+        //    {   timeVideoSpan = value;    }
+        //}
+
+        //public static TimeSpan TimeVideoSpanT(string sss)
+        //{
+        //    if (sss == null || sss == "")
+        //        return TimeSpan.Parse("0");
+        //    else
+        //        return TimeSpan.Parse(sss);
+        //}
+
+        /// <summary>
+        /// /////////////////////////////////////////////////////////////
+        /// </summary>
+        /// 
+
+        private TimeSpan _timeVideoSpan;
+
+        [XmlIgnore]
+        public TimeSpan TimeVideoSpan
+        {
+            get { return _timeVideoSpan; }
+            set { _timeVideoSpan = value; }
+        }
+
+        public string TimeString         //используется для вывода значения в таблицу
+        {
+            get { return TimeVideoSpan.ToString(); }
+            set { TimeVideoSpan = TimeSpan.Parse(value); }
+        }
+
+        /////////////////////////////////////////////////////////////////////////
+
+        //private DateTime _timeVideoSpan;
+
+        //[XmlIgnore]
+        //public DateTime TimeVideoSpan
+        //{
+        //    get { return _timeVideoSpan; }
+        //    set { _timeVideoSpan = value; }
+        //}
+
+        //public string TimeString         //используется для вывода значения в таблицу
+        //{
+        //    get { return TimeVideoSpan.ToString(); }
+        //    set { TimeVideoSpan = Convert.ToDateTime(value); }
+        //}
+
+
+
+
+
 
 
 
@@ -158,6 +238,8 @@ namespace FilmCollection
             set { _actorID = value; }
         }
 
+
+
         public void Add(int id)
         {
             ActorID.Add(id);
@@ -257,8 +339,8 @@ namespace FilmCollection
         public static int CompareByFileName(Record a, Record b) // Сравнение по файлу
         {
             return string.Compare(a.FileName, b.FileName);
-        }            
-        
+        }
+
 
         //public static int CompareByYear(Record a, Record b)     // Сравнение по году
         //{
@@ -277,6 +359,6 @@ namespace FilmCollection
         //    return CompareByName(a, b);
         //}
 
-         #endregion
+        #endregion
     }
 }
