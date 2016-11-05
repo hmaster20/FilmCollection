@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 
@@ -42,21 +40,26 @@ namespace FilmCollection
             {
                 string[] subStrings = files[i].ToString().Split('_');
 
-                if (subStrings.Length == 4)
+                if (cbBadBase.Checked)
                 {
-                    //MessageBox.Show("Test");
+                  //  if (files[i].Length < 2 || subStrings.Length == 4) continue;
+                  //ошиюка при добавлении в лист
                 }
-                //if (subStrings[4].Contains("BAD"))
-                //{
-                //   // continue;
-                //}
 
                 // Дата файла
                 if (files[i].Length < 2 || subStrings.Length == 4)
-                    listView1.Items.Add(subStrings[1]).Font = new Font(listView1.Font, FontStyle.Strikeout);
+                {
+                    //listView1.Items.Add(subStrings[1]).Font = new Font(listView1.Font, FontStyle.Strikeout);
+                    ListViewItem li = new ListViewItem();
+                    li.ForeColor = Color.Gray;
+                    li.Font = new Font(listView1.Font, FontStyle.Strikeout);
+                    li.Text = subStrings[1];
+                    listView1.Items.Add(li);
+                }
                 else
                     listView1.Items.Add(subStrings[1]);
                 //listView1.Items[i].SubItems.Add(subStrings[1]);
+
 
                 // Время создания файла
                 if (subStrings.Length == 4)
@@ -113,6 +116,12 @@ namespace FilmCollection
             ListViewItem selItem = listView1.SelectedItems[0];
 
             recoverBase = ("VideoList_" + selItem.SubItems[0].Text + "_" + selItem.SubItems[1].Text + ".xml");
+        }
+
+        private void cbBadBase_CheckedChanged(object sender, EventArgs e)
+        {
+            listView1.Clear();
+            LoadBase();
         }
     }
 }

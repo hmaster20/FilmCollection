@@ -85,6 +85,8 @@
             this.cbBadBase.TabIndex = 6;
             this.cbBadBase.Text = "Отобразить испорченые базы";
             this.cbBadBase.UseVisualStyleBackColor = true;
+            this.cbBadBase.Visible = false;
+            this.cbBadBase.CheckedChanged += new System.EventHandler(this.cbBadBase_CheckedChanged);
             // 
             // RecoveryForm
             // 
