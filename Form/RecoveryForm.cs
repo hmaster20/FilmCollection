@@ -49,7 +49,7 @@ namespace FilmCollection
 
                 if (Size <= 1024) _size = Size.ToString() + " Байт";
                 else if (Size > 1024 && Size <= 1024 * 1024) _size = (Math.Round((float)Size / 1024)).ToString() + " КБ";
-                else if (Size > 1024 * 1024) _size = Math.Round(((double)Size / 1024), 1).ToString() + " МБ";
+                else if (Size > 1024 * 1024) _size = Math.Round(((double)Size / (1024 * 1024)), 1).ToString() + " МБ";
 
                 listView1.Items[i].SubItems.Add(_size);
             }
