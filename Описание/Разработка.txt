@@ -1,5 +1,6 @@
 ﻿Направления для разработки:
 1.Главное:
+- исправить механизм отображения баз при убирании из списка сторонних баз.
 - исправить проблему очистки дерева при очистке базы
 - отдельный класс для фильмов
 - получения инфы о фильме и сериале - кнопка
@@ -181,4 +182,37 @@
             //        continue;
             //    }
             //    listView1.Items.Add(files[i].Name);
+            //}
+
+
+
+
+
+
+
+			
+            //IEnumerable<FileInfo> Bases = directory.GetFiles("VideoList_*.xml").Where(f => !f.Name.Contains("BAD"));
+            //int BaseCount = Bases.Count();
+
+            //for (int i = 0; i < BaseCount; i++)
+            //{
+            //    string[] subStrings = files[i].ToString().Split('_');
+
+            //    // Дата файла
+            //    if (files[i].Length < 2)
+            //        listView1.Items.Add(subStrings[1]).Font = new Font(listView1.Font, FontStyle.Strikeout);
+            //    else
+            //        listView1.Items.Add(subStrings[1]);
+            //    //listView1.Items[i].SubItems.Add(subStrings[1]);
+
+            //    // Время создания файла
+            //    listView1.Items[i].SubItems.Add(subStrings[2].Remove(subStrings[2].Length - 4, 4));
+
+            //    // Размер файла базы
+            //    long Size = files[i].Length;
+            //    string _size = "";
+            //    if (Size <= 1024) _size = Size.ToString() + " Байт";
+            //    else if (Size > 1024 && Size <= 1024 * 1024) _size = (Math.Round((float)Size / 1024)).ToString() + " КБ";
+            //    else if (Size > 1024 * 1024) _size = Math.Round(((double)Size / (1024 * 1024)), 1).ToString() + " МБ";
+            //    listView1.Items[i].SubItems.Add(_size);
             //}
