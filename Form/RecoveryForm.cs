@@ -48,19 +48,8 @@ namespace FilmCollection
                 string _size = "";
 
                 if (Size <= 1024) _size = Size.ToString() + " Байт";
-                else if (Size > 1024 && Size <= 1024 * 1024)
-                {
-                    //double aa =(double)Size / 1024;
-                    //aa = Math.Round(aa, 1);
-
-                    //double aa = Math.Round(((double)Size / 1024), 1);
-                    _size = Math.Round(((double)Size / 1024), 1).ToString();
-
-                    //_size = (Math.Round((float)Size / 1024)).ToString() + " КБ";
-
-                } 
-                else if (Size > 1024 * 1024) _size = (Size / (1024 * 1024)).ToString() + " МБ";
-                // в мегабайтах оркугление до 1 знака
+                else if (Size > 1024 && Size <= 1024 * 1024) _size = (Math.Round((float)Size / 1024)).ToString() + " КБ";
+                else if (Size > 1024 * 1024) _size = Math.Round(((double)Size / 1024), 1).ToString() + " МБ";
 
                 listView1.Items[i].SubItems.Add(_size);
             }
@@ -70,7 +59,7 @@ namespace FilmCollection
         {
             ListViewItem selItem = listView1.SelectedItems[0];
 
-            recoverBase =("VideoList_" + selItem.SubItems[0].Text+ "_" + selItem.SubItems[1].Text + ".xml");
+            recoverBase = ("VideoList_" + selItem.SubItems[0].Text + "_" + selItem.SubItems[1].Text + ".xml");
         }
     }
 }
