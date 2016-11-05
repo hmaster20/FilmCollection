@@ -32,6 +32,7 @@
             this.btnEditOk = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.cbBadBase = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnEditCancel
@@ -75,11 +76,22 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
             // 
+            // cbBadBase
+            // 
+            this.cbBadBase.AutoSize = true;
+            this.cbBadBase.Location = new System.Drawing.Point(15, 243);
+            this.cbBadBase.Name = "cbBadBase";
+            this.cbBadBase.Size = new System.Drawing.Size(179, 17);
+            this.cbBadBase.TabIndex = 6;
+            this.cbBadBase.Text = "Отобразить испорченые базы";
+            this.cbBadBase.UseVisualStyleBackColor = true;
+            // 
             // RecoveryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(302, 305);
+            this.Controls.Add(this.cbBadBase);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnEditCancel);
@@ -101,5 +113,6 @@
         private System.Windows.Forms.Button btnEditOk;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.CheckBox cbBadBase;
     }
 }
