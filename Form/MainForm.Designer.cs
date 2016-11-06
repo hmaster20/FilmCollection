@@ -283,7 +283,6 @@
             this.dgvTableRec.Size = new System.Drawing.Size(590, 624);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTableRec_CellContentDoubleClick);
-            this.dgvTableRec.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvTableRec_CellFormatting);
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableRec_ColumnHeaderMouseClick);
             this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
