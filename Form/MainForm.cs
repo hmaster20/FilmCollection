@@ -34,6 +34,7 @@ namespace FilmCollection
 
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
+            dataGridView1.AutoGenerateColumns = false;
 
             dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
             dgvTableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
@@ -55,6 +56,11 @@ namespace FilmCollection
                 cBoxCountry.Items.Add(item);
                 cBoxCountryActor.Items.Add(item);
                 tscCountryFilter.Items.Add(item);
+            }
+
+            if (_videoCollection.MediaList.Count == 0)
+            {
+                _videoCollection.MediaList.Add(new Media() { Name = "", Description = "", Id = 0, Year = 2000 });
             }
 
         }
@@ -217,9 +223,9 @@ namespace FilmCollection
 
             if (dialogStatus == DialogResult.OK)
             {
-                tsProgressBar.Visible = true;
-                tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
-                tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
+                //tsProgressBar.Visible = true;
+                //tsProgressBar.ForeColor = Color.FromArgb(255, 0, 0);
+                //tsProgressBar.BackColor = Color.FromArgb(150, 0, 0);
 
                 string folderName = fbDialog.SelectedPath;         //Извлечение имени папки
 
@@ -629,6 +635,84 @@ namespace FilmCollection
 
             List<Record> filtered = _videoCollection.VideoList;
 
+            // var mergedList = _videoCollection.VideoList.Union(_videoCollection.MediaList).ToList();
+
+            //var mergedLists = _videoCollection.VideoList.Concat(_videoCollection.MediaList)
+
+            // var result = list1.Union(list2).OrderBy(x => x.Elevation).ToList();
+
+            //var unitedList = (from com in _videoCollection.VideoList
+            //                  join w in _videoCollection.MediaList on com.linkID equals w.Id 
+            //                  into // t in sel from t.DefaultIfEmpty()
+            //          select new ClientStatus()
+            //          {
+            //              ClientStatusId = com.ClientStatusId,
+            //              ClientStatusName = com.ClientStatusName,
+            //              ClientId = sel.ClientId,
+            //              Vat = sel.Vat,
+            //              SexId = sel.SexId
+            //          }).ToList();
+
+            //var result = from pl in players
+            //             join t in teams on pl.Team equals t.Name
+            //             select new { Name = pl.Name, Team = pl.Team, Country = t.Country };
+
+            //var filtereds = from vL in _videoCollection.VideoList
+            //                join mL in _videoCollection.MediaList 
+            //                                                       on vL.linkID equals mL.Id
+            //                select new { Name = vL.Name, Country = vL.CountryString, Year = mL.Year };
+
+            //var filtereds = from mL in _videoCollection.MediaList
+            //                join vL in _videoCollection.VideoList
+            //                                                       on mL.Id equals vL.linkID
+            //                select new { Name = vL.Name, Country = vL.CountryString, Year = mL.Year };
+
+            //var filtereds = (from vL in _videoCollection.VideoList
+            //                 join mL in _videoCollection.MediaList
+            //                                                        on vL.linkID equals mL.Id
+            //                 select new { Name = vL.Name, Country = mL.CountryString, Year = mL.Year }).Distinct();
+
+            //var filtereds = from vL in _videoCollection.VideoList
+            //                join mL in _videoCollection.MediaList
+            //                                                       on vL.linkID equals mL.Id
+            //                select new
+            //                {
+            //                    Название = vL.Name,
+            //                    Каталог = vL.DirName,
+            //                    yy = mL.Year,
+            //                    Страна = mL.CountryString,
+            //                    Жанр = vL.GenreString,
+            //                    Категория = vL.CategoryString,
+            //                    Время = vL.TimeString,
+            //                    Файл = vL.FileName
+            //                };
+
+            var filtereds = from vL in _videoCollection.VideoList
+                            join mL in _videoCollection.MediaList
+                                                                   on vL.linkID equals mL.Id
+                            select new
+                            {
+                                Name = vL.Name,
+                                DirName = vL.DirName,
+                                Year = mL.Year,
+                                Country = mL.CountryString,
+                                Genre = vL.GenreString,
+                                Категория = vL.CategoryString,
+                                Время = vL.TimeString,
+                                FileName = vL.FileName
+                            };
+
+
+            dataGridView1.DataSource = null;
+
+            IEnumerable<object> list = filtereds.ToList();
+            dataGridView1.DataSource = list;
+            //dataGridView1.DataSource = filtereds.ToList();
+            // dataGridView1.DataSource = filtereds.AsDataView();
+
+
+
+
             filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
             filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
 
@@ -642,7 +726,7 @@ namespace FilmCollection
             Sort(filtered, tscbSort.SelectedIndex);
             if (column > -1) Sort(filtered, column);
 
-            RefreshTable(filtered);
+            RefreshTable(filtered, list);
             Sort_Actor();
 
             if (selected != null) SelectRecord(dgvTableRec, selected);
@@ -660,7 +744,7 @@ namespace FilmCollection
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByCatalog); break;
                 //case 2: filtered.Sort(Record.CompareByYear); break;
-                case 3: filtered.Sort(Record.CompareByCountry); break;
+                //case 3: filtered.Sort(Record.CompareByCountry); break;
                 case 4: filtered.Sort(Record.CompareByGenre); break;
                 case 5: filtered.Sort(Record.CompareByCategory); break;
                 //case 6: filtered.Sort(Record.CompareByTime); break;
@@ -688,7 +772,7 @@ namespace FilmCollection
 
         }
 
-        private void RefreshTable(List<Record> filtered)
+        private void RefreshTable(List<Record> filtered, IEnumerable<object> list)
         {
             Record selected = GetSelectedRecord();  // получение выбранной строки
             if (selected != null) SelectRecord(dgvTableRec, selected);
@@ -696,7 +780,8 @@ namespace FilmCollection
             try
             {
                 dgvTableRec.DataSource = null;
-                dgvTableRec.DataSource = filtered;
+                //dgvTableRec.DataSource = filtered;
+                dgvTableRec.DataSource = list;
 
                 // отображаем другой шрифт и цвет для удаленных записей
                 if (dgvTableRec.RowCount > 0)
@@ -745,17 +830,22 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
+                Media _media = _videoCollection.MediaList.FindLast(x => x.Id == record.linkID);
                 // Панель описания
                 tbfName.Text = record.Name;
+                tbfDesc.Text = _media.Description;
+                tbfYear.Text = Convert.ToString(_media.Year);
+                tbfCountry.Text = _media.CountryString;
+
                 //tbfDesc.Text = record.Description;
                 //tbfYear.Text = Convert.ToString(record.Year);
-                tbfCountry.Text = record.CountryString;
+                //tbfCountry.Text = record.CountryString;
 
-                GetPic(record);
+                GetPic(_media);
 
                 // Панель редактирования
                 tbName.Text = record.Name;
-               // mtbYear.Text = Convert.ToString(record.Year);
+                // mtbYear.Text = Convert.ToString(record.Year);
                 //numericTime.Value = record.Time;
                 //tbDescription.Text = record.Description;
                 tbFileName.Text = record.FileName;
@@ -764,7 +854,7 @@ namespace FilmCollection
 
                 cBoxTypeVideo.SelectedIndex = ((int)record.Category);
                 cBoxGenre.SelectedIndex = ((int)record.GenreVideo);
-                cBoxCountry.SelectedIndex = ((int)record.Country);
+                // cBoxCountry.SelectedIndex = ((int)record.Country);
 
                 // поиск актеров по id
                 chkActorSelect.Items.Clear();
@@ -816,6 +906,24 @@ namespace FilmCollection
             //}
             //else
             //    pbImage.Image = null;
+        }
+
+        private void GetPic(Media _media)
+        {
+            string filename;
+            filename = (_media.Pic == "")
+                ? GetFilename("noPic")
+                : GetFilename(_media.Pic);
+
+            if (File.Exists(filename))
+            {
+                Image image = Image.FromFile(filename);
+                pbImage.Image = (image.Height > 300)
+                    ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
+                    : image;
+            }
+            else
+                pbImage.Image = null;
         }
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
@@ -1019,7 +1127,7 @@ namespace FilmCollection
             {
                 record.Name = tbName.Text;
                 //record.Year = Convert.ToInt32(mtbYear.Text);
-                record.Country = country;
+                // record.Country = country;
                 //record.Time = (int)numericTime.Value;
                 // record.TimeVideo = mtbTime.Text;
                 try
@@ -1080,7 +1188,7 @@ namespace FilmCollection
             record.Extension = fsInfo.Extension.Trim(charsToTrim);
             record.Name = tbName.Text;
             //record.Year = Convert.ToInt32(mtbYear.Text);
-            record.Country = country;
+            // record.Country = country;
             //record.Time = (int)numericTime.Value;
             record.Category = category;
             record.GenreVideo = genre;
@@ -1980,12 +2088,41 @@ namespace FilmCollection
         private void UpdateFIlmInfo_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
-            if (record != null) GetMediaInfo(record.Name, record);
+            // if (record != null) GetMediaInfo(record.Name, record);
+
+            int MediaID = 0;
+            if (record.linkID != 0)
+            {
+                MediaID = record.linkID;
+            }
+            else
+            {
+                if (_videoCollection.MediaList.Exists(x => x.Name == record.Name))
+                {
+                    MediaID = (_videoCollection.MediaList.Find(x => x.Name == record.Name)).Id;
+                }
+            }
+            //record.Id = _videoCollection.getRecordID();
+            GetMediaInfo(record.Name, record, MediaID);
         }
 
-        private void GetMediaInfo(string text, Record rec)      //выполнение поиска
+        private void GetMediaInfo(string text, Record rec, int mID)      //выполнение поиска
         {
-            if (GetInfo(GetHtml("https://afisha.mail.ru/search/?q=" + text), text, rec))
+            Media media = new Media();
+            if (mID == 0)
+            {
+                media.Id = _videoCollection.getMediaID();
+                _videoCollection.Add(media);
+            }
+            else
+            {
+                media = _videoCollection.MediaList.FindLast(m => m.Id == mID);
+            }
+            MessageBox.Show(_videoCollection.MediaID.ToString());
+            media.Name = rec.Name;
+            rec.linkID = media.Id;
+
+            if (GetInfo(GetHtml("https://afisha.mail.ru/search/?q=" + text), text, media))
             {
                 _videoCollection.Save();
                 PrepareRefresh();
@@ -2000,7 +2137,7 @@ namespace FilmCollection
                 return reader.ReadToEnd();
         }
 
-        private bool GetInfo(string htmlPage, string name, Record rec)
+        private bool GetInfo(string htmlPage, string name, Media media)
         {
             MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
             for (int i = 0; i < mc.Count; i++)
@@ -2029,25 +2166,11 @@ namespace FilmCollection
                     //    DownPicM(PicWeb, name);
                     //    rec.Pic = name;
                     //}
-                    DownInfoM("https://afisha.mail.ru" + Link_txt, rec);
+                    DownInfoM("https://afisha.mail.ru" + Link_txt, media);
                     return true;
                 }
             }
             return false;
-        }
-
-        private void DownloadPic(string PicWeb, string Pic)
-        {
-            try
-            {
-                //if (PicWeb.Contains("http"))
-                if (PicWeb.StartsWith("http"))
-                {
-                    using (WebClient webClient = new WebClient())
-                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
-                }
-            }
-            catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
         }
 
         public static bool StringIsValid(string str)
@@ -2056,26 +2179,9 @@ namespace FilmCollection
             return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я]+$");
         }
 
-        private void DownInfoM(string link, Record rec)
+        private void DownInfoM(string link, Media media)
         {
             string sourcestring = GetHtml(link);
-
-            // Обработка картинки
-            MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
-
-            //foreach (Match Pic in Pics)
-            //{
-            //    string PicPath = Pic.ToString();
-            //    PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
-            //    PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
-            //    if (PicPath != "")
-            //    {
-            //        if (File.Exists(GetFilename(rec.Pic))) File.Delete(GetFilename(rec.Pic));
-            //        DownloadPic(PicPath, rec.Name);
-            //        rec.Pic = rec.Name;
-            //        break;
-            //    }
-            //}
 
             // Обработка страны
             MatchCollection mcCountries = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
@@ -2094,7 +2200,7 @@ namespace FilmCollection
                         //MessageBox.Show(strt); // может несколько стран
                         try
                         {
-                            rec.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
+                            media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
                             flag = true;
                             break;// оставляем одну страну и выходим
                         }
@@ -2122,7 +2228,7 @@ namespace FilmCollection
             }
             if (year != "")
             {
-                //rec.Year = Convert.ToInt32(year);
+                media.Year = Convert.ToInt32(year);
             }
 
             // Обработка описания
@@ -2150,9 +2256,44 @@ namespace FilmCollection
                     MessageBox.Show(ex.Message);
                 }
 
-                //rec.Description = str;
+                media.Description = str;
+            }
+
+
+            // Обработка картинки
+            MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
+
+            foreach (Match Pic in Pics)
+            {
+                string PicPath = Pic.ToString();
+                PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
+                PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
+                if (PicPath != "")
+                {
+                    if (File.Exists(GetFilename(media.Pic))) File.Delete(GetFilename(media.Pic));
+                    DownloadPic(PicPath, media.Name);
+                    media.Pic = media.Name;
+                    break;
+                }
             }
         }
+
+        private void DownloadPic(string PicWeb, string Pic)
+        {
+            try
+            {
+                //if (PicWeb.Contains("http"))
+                if (PicWeb.StartsWith("http"))
+                {
+                    using (WebClient webClient = new WebClient())
+                        webClient.DownloadFile(PicWeb, GetFilename(Pic));
+                }
+            }
+            catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
+        }
+
+
+
         #endregion
 
 
