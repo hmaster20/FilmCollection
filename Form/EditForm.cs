@@ -51,8 +51,8 @@ namespace FilmCollection
             tbName.Text = record.Name;
            // tbYear.Text = record.Year;
            // tbCountry.Text = record.Country;
-            numericTime.Value = record.Time;
-            tbDescription.Text = record.Description;
+           // numericTime.Value = record.Time;
+           // tbDescription.Text = record.Description;
             tbFileName.Text = record.FileName;
 
             switch (record.Category)
@@ -100,10 +100,10 @@ namespace FilmCollection
             rec.Name = tbName.Text;
            // rec.Year = tbYear.Text;
            // rec.Country = tbCountry.Text;
-            rec.Time = (int)numericTime.Value;
+           // rec.Time = (int)numericTime.Value;
             rec.Category = category;
             rec.GenreVideo = genre;
-            rec.Description = tbDescription.Text;
+           // rec.Description = tbDescription.Text;
 
             DialogResult = DialogResult.OK;
         }
