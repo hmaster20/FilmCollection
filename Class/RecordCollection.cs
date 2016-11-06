@@ -7,28 +7,42 @@ namespace FilmCollection
 
     public class RecordCollection
     {
-        [XmlElement]
-        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
-
-
         public RecordCollection()               // Конструктор
         {
             VideoList = new List<Record>();     // Создание списка фильмов
             ActorList = new List<Actor>();      // Создание списка актеров
+            MediaList = new List<Media>() { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
         }
-        
-        public int RecordID { get; set; }      // Идентификатор фильмов
-        public int getRecordID() => ++RecordID;         // return ++RecordID;   
-        public void clearRecordID() => RecordID = 0;    // RecordID = 0;
-        
 
-        public int ActorID { get; set; }      // Идентификатор актеров
-        public int getActorID() => ++ActorID; // Идентификатор актеров  // return ++ActorID;
-        public void clearActorID() => ActorID = 0;     // ActorID = 0;
-        
+        [XmlElement]
+        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
 
 
-        #region Список фильмов
+
+
+
+        #region Список мультимедиа (База)
+
+        public int MediaID { get; set; }      // Идентификатор
+        public int getMediaID() => ++MediaID;         // Генерация идентификатора
+        public void clearMediaID() => MediaID = 0;    // обнуление идентификатора
+
+
+        public List<Media> MediaList { get; set; } // Объявление списка        
+        public void Add(Media media) => MediaList.Add(media);       // Добавление
+        public void Remove(Media media) => MediaList.Remove(media); // Удаление
+        public void ClearMedia() => MediaList.Clear();              // Очистить
+
+        #endregion
+
+
+
+        #region Список файлов
+
+        //public int RecordID { get; set; }      // Идентификатор фильмов
+        //public int getRecordID() => ++RecordID;         // Генерация идентификатора  //return ++RecordID;   
+        //public void clearRecordID() => RecordID = 0;    // обнуление идентификатора  // RecordID = 0;
+
         public List<Record> VideoList { get; set; } // Объявление списка
         public void Add(Record record) => VideoList.Add(record);        // Добавление записи
         public void Remove(Record record) => VideoList.Remove(record);  // Удаление записи  
@@ -57,17 +71,21 @@ namespace FilmCollection
         //    }
         //    return maxAge;
         //}
-
         #endregion
 
 
-        #region Список актеров
+        #region Актеры
 
+        public int ActorID { get; set; }      // Идентификатор актеров
+        public int getActorID() => ++ActorID; // Генерация идентификатора  // return ++ActorID;
+        public void clearActorID() => ActorID = 0;  // обнуление идентификатора
+
+        // Список актеров
         public List<Actor> ActorList { get; set; } // Объявление списка        
         public void Add(Actor actor) => ActorList.Add(actor);       // Добавление актера
         public void Remove(Actor actor) => ActorList.Remove(actor); // Удаление актера
         public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
- 
+
         #endregion
 
 
