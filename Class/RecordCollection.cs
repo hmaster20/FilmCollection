@@ -11,7 +11,7 @@ namespace FilmCollection
         {
             VideoList = new List<Record>();     // Создание списка фильмов
             ActorList = new List<Actor>();      // Создание списка актеров
-            MediaList = new List<Media>() { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
+            MediaList = new List<Media>();// { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
         }
 
         [XmlElement]
