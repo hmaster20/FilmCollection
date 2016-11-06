@@ -202,7 +202,7 @@ namespace FilmCollection
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
                 File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                _videoCollection.clearRecordID();
+                //_videoCollection.clearRecordID();
                 _videoCollection.ClearVideo();  // очищаем коллекцию
                 treeFolder.Nodes.Clear();       // очищаем иерархию
                 dgvTableRec.ClearSelection();   // выключаем селекты таблицы
@@ -304,9 +304,9 @@ namespace FilmCollection
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
             record.Name = (name_f != "") ? name_f : name_1;
 
-            //выделяем только 4 идущие подряд цифры
-            foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
-                if (m.Value != "") record.Year = Convert.ToInt32(m.Value);
+            ////выделяем только 4 идущие подряд цифры
+            //foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
+            //    if (m.Value != "") record.Year = Convert.ToInt32(m.Value);
 
             record.Visible = true;
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
@@ -659,11 +659,11 @@ namespace FilmCollection
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByCatalog); break;
-                case 2: filtered.Sort(Record.CompareByYear); break;
+                //case 2: filtered.Sort(Record.CompareByYear); break;
                 case 3: filtered.Sort(Record.CompareByCountry); break;
                 case 4: filtered.Sort(Record.CompareByGenre); break;
                 case 5: filtered.Sort(Record.CompareByCategory); break;
-                case 6: filtered.Sort(Record.CompareByTime); break;
+                //case 6: filtered.Sort(Record.CompareByTime); break;
                 case 7: filtered.Sort(Record.CompareByFileName); break;
                 default: break;
             }
@@ -747,17 +747,17 @@ namespace FilmCollection
             {
                 // Панель описания
                 tbfName.Text = record.Name;
-                tbfDesc.Text = record.Description;
-                tbfYear.Text = Convert.ToString(record.Year);
+                //tbfDesc.Text = record.Description;
+                //tbfYear.Text = Convert.ToString(record.Year);
                 tbfCountry.Text = record.CountryString;
 
                 GetPic(record);
 
                 // Панель редактирования
                 tbName.Text = record.Name;
-                mtbYear.Text = Convert.ToString(record.Year);
+               // mtbYear.Text = Convert.ToString(record.Year);
                 //numericTime.Value = record.Time;
-                tbDescription.Text = record.Description;
+                //tbDescription.Text = record.Description;
                 tbFileName.Text = record.FileName;
                 // mtbTime.Text = record.TimeVideo;
                 mtbTime.Text = record.TimeVideoSpan.ToString();
@@ -769,29 +769,29 @@ namespace FilmCollection
                 // поиск актеров по id
                 chkActorSelect.Items.Clear();
 
-                try
-                {
-                    foreach (int actorID in record.ActorID)
-                    {
-                        foreach (var item in _videoCollection.ActorList.FindAll(v => v.Id == actorID))
-                        {
+                //try
+                //{
+                //    foreach (int actorID in record.ActorID)
+                //    {
+                //        foreach (var item in _videoCollection.ActorList.FindAll(v => v.Id == actorID))
+                //        {
 
-                            chkActorSelect.Items.Add(item);
+                //            chkActorSelect.Items.Add(item);
 
-                            //string[] arr = new string[3];
-                            //arr[0] = item.Name;
-                            //arr[1] = item.Year.ToString();
-                            //arr[2] = item.Id.ToString();
+                //            //string[] arr = new string[3];
+                //            //arr[0] = item.Name;
+                //            //arr[1] = item.Year.ToString();
+                //            //arr[2] = item.Id.ToString();
 
-                            //ListViewItem itm = new ListViewItem(arr);
-                            //listViewFilm.Items.Add(itm);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                //            //ListViewItem itm = new ListViewItem(arr);
+                //            //listViewFilm.Items.Add(itm);
+                //        }
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message);
+                //}
             }
         }
 
@@ -802,20 +802,20 @@ namespace FilmCollection
 
         private void GetPic(Record record)
         {
-            string filename;
-            filename = (record.Pic == "")
-                ? GetFilename("noPic")
-                : GetFilename(record.Pic);
+            //string filename;
+            //filename = (record.Pic == "")
+            //    ? GetFilename("noPic")
+            //    : GetFilename(record.Pic);
 
-            if (File.Exists(filename))
-            {
-                Image image = Image.FromFile(filename);
-                pbImage.Image = (image.Height > 300)
-                    ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
-                    : image;
-            }
-            else
-                pbImage.Image = null;
+            //if (File.Exists(filename))
+            //{
+            //    Image image = Image.FromFile(filename);
+            //    pbImage.Image = (image.Height > 300)
+            //        ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
+            //        : image;
+            //}
+            //else
+            //    pbImage.Image = null;
         }
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
@@ -850,27 +850,27 @@ namespace FilmCollection
 
                 listViewFilm.Items.Clear();
 
-                try
-                {
-                    foreach (int recID in act.VideoID)
-                    {
-                        foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
-                        {
-                            string[] arr = new string[3];
-                            arr[0] = item.Name;
-                            arr[1] = item.Year.ToString();
-                            arr[2] = item.Id.ToString();
+                //try
+                //{
+                //    foreach (int recID in act.VideoID)
+                //    {
+                //        foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
+                //        {
+                //            string[] arr = new string[3];
+                //            arr[0] = item.Name;
+                //            arr[1] = item.Year.ToString();
+                //            arr[2] = item.Id.ToString();
 
-                            ListViewItem itm = new ListViewItem(arr);
+                //            ListViewItem itm = new ListViewItem(arr);
 
-                            listViewFilm.Items.Add(itm);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                //            listViewFilm.Items.Add(itm);
+                //        }
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message);
+                //}
             }
         }
 
@@ -1018,7 +1018,7 @@ namespace FilmCollection
             if (record != null)
             {
                 record.Name = tbName.Text;
-                record.Year = Convert.ToInt32(mtbYear.Text);
+                //record.Year = Convert.ToInt32(mtbYear.Text);
                 record.Country = country;
                 //record.Time = (int)numericTime.Value;
                 // record.TimeVideo = mtbTime.Text;
@@ -1050,7 +1050,7 @@ namespace FilmCollection
 
                 record.Category = category;
                 record.GenreVideo = genre;
-                record.Description = tbDescription.Text;
+                //record.Description = tbDescription.Text;
                 if (record.FileName != tbFileName.Text)
                 {
                     File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
@@ -1073,18 +1073,18 @@ namespace FilmCollection
         {
             Record record = new Record();
 
-            record.Id = _videoCollection.getRecordID();
+            //record.Id = _videoCollection.getRecordID();
             record.FileName = fsInfo.Name;
             record.Path = fsInfo.DirectoryName;
             record.DirName = fsInfo.Directory.Name;
             record.Extension = fsInfo.Extension.Trim(charsToTrim);
             record.Name = tbName.Text;
-            record.Year = Convert.ToInt32(mtbYear.Text);
+            //record.Year = Convert.ToInt32(mtbYear.Text);
             record.Country = country;
             //record.Time = (int)numericTime.Value;
             record.Category = category;
             record.GenreVideo = genre;
-            record.Description = tbDescription.Text;
+            //record.Description = tbDescription.Text;
 
             GetActorID(record);
 
@@ -1096,9 +1096,9 @@ namespace FilmCollection
 
         private void GetActorID(Record record)
         {
-            foreach (Actor _actorID in chkActorSelect.Items)
-                if (_actorID != null)
-                    record.ActorID.Add(_actorID.Id);
+            //foreach (Actor _actorID in chkActorSelect.Items)
+            //    if (_actorID != null)
+            //        record.ActorID.Add(_actorID.Id);
         }
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
@@ -1782,25 +1782,25 @@ namespace FilmCollection
         {
             lvSelectRecord.Items.Clear();
 
-            try
-            {
-                string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
-                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+            //try
+            //{
+            //    string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
+            //    Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-                foreach (DataGridViewRow row in dgvTableRec.Rows)
-                {
-                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
-                    {
-                        Record record = null;
-                        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
-                        if (record != null) lvSelectRecord_add(record.Name, record.Year, record.Id);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //    foreach (DataGridViewRow row in dgvTableRec.Rows)
+            //    {
+            //        if (regex.IsMatch(row.Cells[0].Value.ToString()))
+            //        {
+            //            Record record = null;
+            //            if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
+            //            if (record != null) lvSelectRecord_add(record.Name, record.Year, record.Id);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void lvSelectRecord_add(string name, int year, int id)
@@ -2063,20 +2063,19 @@ namespace FilmCollection
             // Обработка картинки
             MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
 
-            foreach (Match Pic in Pics)
-            {
-                string PicPath = Pic.ToString();
-                PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
-                PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
-                if (PicPath != "")
-                {
-                    if (File.Exists(GetFilename(rec.Pic))) File.Delete(GetFilename(rec.Pic));
-                    DownloadPic(PicPath, rec.Name);
-                    rec.Pic = rec.Name;
-                    break;
-
-                }
-            }
+            //foreach (Match Pic in Pics)
+            //{
+            //    string PicPath = Pic.ToString();
+            //    PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
+            //    PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
+            //    if (PicPath != "")
+            //    {
+            //        if (File.Exists(GetFilename(rec.Pic))) File.Delete(GetFilename(rec.Pic));
+            //        DownloadPic(PicPath, rec.Name);
+            //        rec.Pic = rec.Name;
+            //        break;
+            //    }
+            //}
 
             // Обработка страны
             MatchCollection mcCountries = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
@@ -2123,7 +2122,7 @@ namespace FilmCollection
             }
             if (year != "")
             {
-                rec.Year = Convert.ToInt32(year);
+                //rec.Year = Convert.ToInt32(year);
             }
 
             // Обработка описания
@@ -2151,7 +2150,7 @@ namespace FilmCollection
                     MessageBox.Show(ex.Message);
                 }
 
-                rec.Description = str;
+                //rec.Description = str;
             }
         }
         #endregion
@@ -2232,15 +2231,15 @@ namespace FilmCollection
             GetTime();
         }
 
-        private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
-            //if (formatter != null)
-            //{
-            //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
-            //    e.FormattingApplied = true;
-            //}
-        }
+        //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        //{
+        //    //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
+        //    //if (formatter != null)
+        //    //{
+        //    //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
+        //    //    e.FormattingApplied = true;
+        //    //}
+        //}
 
 
     }
