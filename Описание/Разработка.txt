@@ -217,3 +217,103 @@
             //    else if (Size > 1024 * 1024) _size = Math.Round(((double)Size / (1024 * 1024)), 1).ToString() + " МБ";
             //    listView1.Items[i].SubItems.Add(_size);
             //}
+
+
+
+
+=================================================================================================================================================
+
+
+
+
+			
+
+//public Record()
+//{
+//    //ActorID = new List<int>();          // Создание списка ID
+//}
+
+// public int Id { get; set; }             // Уникальный идентификатор
+
+
+//private int _year;                      // Год выпуска
+//public int Year
+//{
+//    get { return _year; }
+//    set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
+//}
+
+
+//private int _time;                      // Время (в минутах)
+//public int Time
+//{
+//    get { return _time; }
+//    set { _time = (value < 0) ? 0 : value; }
+//}
+
+// public string Description { get; set; } = ""; // Описание файла (сюжет)        
+// public string Pic { get; set; } = "";
+
+
+//#region Список ID актеров
+
+//private List<int> _actorID;     // Объявление ID актеров
+//public List<int> ActorID
+//{
+//    get { return _actorID; }
+//    set { _actorID = value; }
+//}
+
+
+//public void Add(int id)
+//{
+//    ActorID.Add(id);
+//}
+
+//public void Remove(int id)
+//{
+//    ActorID.Remove(id);
+//}
+
+//public void ClearID()
+//{
+//    ActorID.Clear();
+//}
+
+//#endregion
+
+
+
+//public static int CompareByYear(Record a, Record b)
+//{
+//    if (a.Year == b.Year)
+//        return CompareByName(a, b);
+//    return (a.Year - b.Year);
+//}
+
+
+
+//public static int CompareByYear(Record a, Record b)     // Сравнение по году
+//{
+//    if (a.Year != "" && b.Year != "")
+//    {
+//        string aYearString = a.Year.Substring(0, 4);
+//        string bYearString = b.Year.Substring(0, 4);
+
+//        if (aYearString == bYearString)
+//            return CompareByName(a, b);
+//        int aYear = 0;
+//        int bYear = 0;
+//        if (int.TryParse(aYearString, out aYear) && int.TryParse(bYearString, out bYear))
+//            return (int)((bYear - aYear) * 100);
+//    }
+//    return CompareByName(a, b);
+//}
+
+
+//public static int CompareByTime(Record a, Record b)     // Сравнение по времени записи
+//{
+//    if (a.Time == b.Time)
+//        return CompareByName(a, b);
+//    return (int)((b.Time - a.Time) * 100);
+//}
