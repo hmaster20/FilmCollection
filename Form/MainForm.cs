@@ -34,7 +34,6 @@ namespace FilmCollection
 
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
-            dataGridView1.AutoGenerateColumns = false;
 
             dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
             dgvTableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
@@ -699,14 +698,18 @@ namespace FilmCollection
                                 Genre = vL.GenreString,
                                 Категория = vL.CategoryString,
                                 Время = vL.TimeString,
-                                FileName = vL.FileName
+                                FileName = vL.FileName,
+                                MediaID = mL.Id
                             };
 
-
-            dataGridView1.DataSource = null;
+            //dataGridView1.DataSource = null;
 
             IEnumerable<object> list = filtereds.ToList();
-            dataGridView1.DataSource = list;
+
+
+            //List<Record> list = filtereds.ToList();
+
+            //dataGridView1.DataSource = list;
             //dataGridView1.DataSource = filtereds.ToList();
             // dataGridView1.DataSource = filtereds.AsDataView();
 
@@ -824,6 +827,7 @@ namespace FilmCollection
 
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
+            
             panelView.BringToFront();               // Отображение панели описания
 
             // Предоставляет данные выбранной записи
@@ -934,6 +938,12 @@ namespace FilmCollection
                 Record record = null;
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
                 if (record != null) return record;
+                List<string> nnn = new List<string>(); 
+                foreach (var item in dgv.SelectedRows[0].Cells)
+                {
+                    nnn.Add(item.ToString());
+                }
+                    
             }
             return null;
         }
