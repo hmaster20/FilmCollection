@@ -12,12 +12,6 @@ namespace FilmCollection
             ActorID = new List<int>();          // Создание списка ID актеров, играющих в картине
         }
 
-        //public Media(string _name, int _id, string _desc, int _year)
-        //{
-        
-
-        //}
-
         public string Name { get; set; }        // Название произведения
 
         public int Id { get; set; }             // Уникальный идентификатор (возможно заменить на GUID ?)
