@@ -9,14 +9,22 @@ namespace FilmCollection
     {
         public RecordCollection()               // Конструктор
         {
-            VideoList = new List<Record>();     // Создание списка фильмов
-            ActorList = new List<Actor>();      // Создание списка актеров
-            MediaList = new List<Media>();// { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
+            VideoList = new List<Record>();         // Создание списка фильмов
+            ActorList = new List<Actor>();          // Создание списка актеров
+            FileRecordList = new List<FileRecord>();
         }
+
+        // MediaList = new List<Media>();// { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
 
         [XmlElement]
         public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
 
+
+
+        public List<FileRecord> FileRecordList { get; set; } // Объявление списка        
+        public void Add(FileRecord _FileRecord) => FileRecordList.Add(_FileRecord);       // Добавление
+        public void Remove(FileRecord _FileRecord) => FileRecordList.Remove(_FileRecord); // Удаление
+        public void ClearMedia() => FileRecordList.Clear();              // Очистить
 
 
 
@@ -37,7 +45,7 @@ namespace FilmCollection
 
 
 
-        #region Список файлов
+        #region Список
 
         //public int RecordID { get; set; }      // Идентификатор фильмов
         //public int getRecordID() => ++RecordID;         // Генерация идентификатора  //return ++RecordID;   

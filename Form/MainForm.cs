@@ -616,16 +616,16 @@ namespace FilmCollection
         public int LastIndexTypeFilter;
         public bool LastVisible;
 
-        private void PrepareRefresh() => PrepareRefresh(false, -1);
+        //private void PrepareRefresh() => PrepareRefresh(false, -1);
         private void PrepareRefresh(string nodeName, bool flag)
         {
             //PrepareRefresh(nodeName, flag, -1);
             LastNode = nodeName;
-            PrepareRefresh(flag, -1);
+            PrepareRefresh(flag);
 
         }
 
-        private void PrepareRefresh(bool flag, int column)
+        private void PrepareRefresh(bool flag = false, int column = -1)
         {
             string nodeName = (LastNode == null) ? "" : LastNode;
 
@@ -634,42 +634,7 @@ namespace FilmCollection
 
             List<Record> filtered = _videoCollection.VideoList;
 
-            // var mergedList = _videoCollection.VideoList.Union(_videoCollection.MediaList).ToList();
 
-            //var mergedLists = _videoCollection.VideoList.Concat(_videoCollection.MediaList)
-
-            // var result = list1.Union(list2).OrderBy(x => x.Elevation).ToList();
-
-            //var unitedList = (from com in _videoCollection.VideoList
-            //                  join w in _videoCollection.MediaList on com.linkID equals w.Id 
-            //                  into // t in sel from t.DefaultIfEmpty()
-            //          select new ClientStatus()
-            //          {
-            //              ClientStatusId = com.ClientStatusId,
-            //              ClientStatusName = com.ClientStatusName,
-            //              ClientId = sel.ClientId,
-            //              Vat = sel.Vat,
-            //              SexId = sel.SexId
-            //          }).ToList();
-
-            //var result = from pl in players
-            //             join t in teams on pl.Team equals t.Name
-            //             select new { Name = pl.Name, Team = pl.Team, Country = t.Country };
-
-            //var filtereds = from vL in _videoCollection.VideoList
-            //                join mL in _videoCollection.MediaList 
-            //                                                       on vL.linkID equals mL.Id
-            //                select new { Name = vL.Name, Country = vL.CountryString, Year = mL.Year };
-
-            //var filtereds = from mL in _videoCollection.MediaList
-            //                join vL in _videoCollection.VideoList
-            //                                                       on mL.Id equals vL.linkID
-            //                select new { Name = vL.Name, Country = vL.CountryString, Year = mL.Year };
-
-            //var filtereds = (from vL in _videoCollection.VideoList
-            //                 join mL in _videoCollection.MediaList
-            //                                                        on vL.linkID equals mL.Id
-            //                 select new { Name = vL.Name, Country = mL.CountryString, Year = mL.Year }).Distinct();
 
             //var filtereds = from vL in _videoCollection.VideoList
             //                join mL in _videoCollection.MediaList
@@ -827,16 +792,16 @@ namespace FilmCollection
 
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
-            
+
             panelView.BringToFront();               // Отображение панели описания
 
             // Предоставляет данные выбранной записи
             Record record = GetSelectedRecord();
             if (record != null)
             {
-                Media _media = _videoCollection.MediaList.FindLast(x => x.Id == record.linkID);
+                Media _media = _videoCollection.MediaList.Find(x => x.Id == record.linkID);
                 // Панель описания
-                tbfName.Text = record.Name;
+                tbfName.Text = record._Media.Name;
                 tbfDesc.Text = _media.Description;
                 tbfYear.Text = Convert.ToString(_media.Year);
                 tbfCountry.Text = _media.CountryString;
@@ -938,12 +903,18 @@ namespace FilmCollection
                 Record record = null;
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
                 if (record != null) return record;
-                List<string> nnn = new List<string>(); 
-                foreach (var item in dgv.SelectedRows[0].Cells)
+
+
+                List<string> nnn = new List<string>();
+
+                foreach (DataGridViewTextBoxCell item in dgv.SelectedRows[0].Cells)
                 {
-                    nnn.Add(item.ToString());
+                    if (item != null)
+                    {
+                        nnn.Add(item.Value.ToString());
+                    }
                 }
-                    
+
             }
             return null;
         }
