@@ -9,9 +9,9 @@ namespace FilmCollection
     {
         public RecordCollection()               // Конструктор
         {
-            VideoList = new List<Record>();         // Создание списка фильмов
-            ActorList = new List<Actor>();          // Создание списка актеров
-            FileRecordList = new List<FileRecord>();
+            VideoList = new List<Record>();             // Создание списка фильмов
+            ActorList = new List<Actor>();              // Создание списка актеров
+            //FileRecordList = new List<FileRecord>();    // Создание смешанного списка Record & Media
         }
 
         // MediaList = new List<Media>();// { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
@@ -21,10 +21,13 @@ namespace FilmCollection
 
 
 
-        public List<FileRecord> FileRecordList { get; set; } // Объявление списка        
-        public void Add(FileRecord _FileRecord) => FileRecordList.Add(_FileRecord);       // Добавление
-        public void Remove(FileRecord _FileRecord) => FileRecordList.Remove(_FileRecord); // Удаление
-        public void ClearMedia() => FileRecordList.Clear();              // Очистить
+        //public List<FileRecord> FileRecordList { get; set; } // Объявление списка        
+        //public void Add(FileRecord _FileRecord) => FileRecordList.Add(_FileRecord);       // Добавление
+        //public void Remove(FileRecord _FileRecord) => FileRecordList.Remove(_FileRecord); // Удаление
+        //public void ClearMedia() => FileRecordList.Clear();              // Очистить
+
+
+
 
 
 
