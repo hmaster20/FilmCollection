@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Класс, содержащий информацию о произведениях: фильмы, мультфильмы и т.д.
+//
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
