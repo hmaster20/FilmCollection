@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Класс, описывающий актеров
+//
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
