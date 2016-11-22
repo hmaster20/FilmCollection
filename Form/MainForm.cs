@@ -801,7 +801,7 @@ namespace FilmCollection
             {
                 Media _media = _videoCollection.MediaList.Find(x => x.Id == record.linkID);
                 // Панель описания
-                tbfName.Text = record._Media.Name;
+                tbfName.Text = record.Name;
                 tbfDesc.Text = _media.Description;
                 tbfYear.Text = Convert.ToString(_media.Year);
                 tbfCountry.Text = _media.CountryString;
