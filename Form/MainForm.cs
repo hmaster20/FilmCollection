@@ -911,7 +911,11 @@ namespace FilmCollection
                 {
                     if (item != null)
                     {
-                        nnn.Add(item.Value.ToString());
+                        if (item.Value != null)
+                        {
+                            nnn.Add(item.Value.ToString());
+                        }
+                       
                     }
                 }
 
