@@ -7,13 +7,19 @@ namespace FilmCollection
 
     public class RecordCollection
     {
-        public RecordCollection()               // Конструктор
+        public RecordCollection()
         {
-            VideoList = new List<Record>();             // Создание списка фильмов
-            ActorList = new List<Actor>();              // Создание списка актеров
-            //FileRecordList = new List<FileRecord>();    // Создание смешанного списка Record & Media
+            ActorList = new List<Actor>();  // Создание списка актеров
             MediaList = new List<Media>();
+            CombineList = new List<Combine>();
+
+            //VideoList = new List<Record>();             // Создание списка фильмов
+            //FileRecordList = new List<FileRecord>();    // Создание смешанного списка Record & Media
         }
+
+        public List<Combine> CombineList { get; set; }
+
+
 
         // MediaList = new List<Media>();// { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
 
