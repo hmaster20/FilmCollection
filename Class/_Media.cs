@@ -31,6 +31,10 @@ namespace FilmCollection
 
         #region Список ID актеров
 
+        [XmlIgnore]
+        public List<Actor> alist { get; set; }
+
+
         private List<int> _actorID;     // Объявление ID актеров
         public List<int> ActorID
         {
