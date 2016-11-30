@@ -13,6 +13,7 @@ namespace FilmCollection
             VideoID = new List<int>();     // Создание списка ID
         }
 
+
         public int Id { get; set; }         // Уникальный идентификатор
 
         public string FIO { get; set; }     // Ф.И.О.
@@ -62,6 +63,9 @@ namespace FilmCollection
             get { return _videoID; }
             set { _videoID = value; }
         }
+
+        [XmlIgnore]
+        public List<Combine> mlist { get; set; }
 
         public void Add(int id)
         {
