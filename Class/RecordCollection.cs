@@ -126,6 +126,23 @@ namespace FilmCollection
                 throw new Exception(ex.Message);
                 //return new RecordCollection();
             }
+            Dictionary<int, Combine> medias = new Dictionary<int, Combine>();
+            foreach (var item in result.CombineList)
+            {
+                medias.Add(item.media.Id, item);
+            }
+            foreach (var actor in result.ActorList)
+            {
+                foreach (var videoID in actor.VideoID)
+                {
+                    if (medias.ContainsKey(videoID))
+                    {
+                        actor.mlist.Add(medias[videoID]);
+                        medias[videoID].media.alist.Add(actor);
+                    }
+                }
+            }
+            
             return result;
         }
 
