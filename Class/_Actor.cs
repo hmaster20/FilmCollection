@@ -26,6 +26,14 @@ namespace FilmCollection
             return FIO;
         }
 
+
+        // TEST ////////////////////////////////////
+        [XmlIgnore]
+        public List<Combine> comblist { get; set; }
+        // TEST ////////////////////////////////////
+
+
+
         #region Обработка Страны
         private Country_Rus _country;   // Страна
         [XmlIgnore]
@@ -54,7 +62,7 @@ namespace FilmCollection
         }
         #endregion
 
-
+        
         #region Список ID фильмов
 
         private List<int> _videoID;     // Объявление ID фильмов
@@ -63,9 +71,6 @@ namespace FilmCollection
             get { return _videoID; }
             set { _videoID = value; }
         }
-
-        [XmlIgnore]
-        public List<Combine> mlist { get; set; }
 
         public void Add(int id)
         {
