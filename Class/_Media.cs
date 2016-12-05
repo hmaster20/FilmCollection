@@ -11,7 +11,7 @@ namespace FilmCollection
     {
         public Media()
         {
-            ActorID = new List<int>();          // Создание списка ID актеров, играющих в картине
+            ActorListID = new List<int>();          // Создание списка ID актеров, играющих в картине
         }
 
         public string Name { get; set; }        // Название произведения
@@ -29,14 +29,17 @@ namespace FilmCollection
 
 
 
-        #region Список ID актеров
-
+        // TEST ////////////////////////////////////
         [XmlIgnore]
         public List<Actor> alist { get; set; }
+        // TEST ////////////////////////////////////
 
+
+
+        #region Список ID актеров
 
         private List<int> _actorID;     // Объявление ID актеров
-        public List<int> ActorID
+        public List<int> ActorListID
         {
             get { return _actorID; }
             set { _actorID = value; }
@@ -44,17 +47,17 @@ namespace FilmCollection
 
         public void Add(int id)
         {
-            ActorID.Add(id);
+            ActorListID.Add(id);
         }
 
         public void Remove(int id)
         {
-            ActorID.Remove(id);
+            ActorListID.Remove(id);
         }
 
         public void ClearID()
         {
-            ActorID.Clear();
+            ActorListID.Clear();
         }
 
         #endregion
