@@ -10,14 +10,26 @@ namespace FilmCollection
         public RecordCollection()
         {
             ActorList = new List<Actor>();  // Создание списка актеров
-            MediaList = new List<Media>();
+            //MediaList = new List<Media>();
             CombineList = new List<Combine>();
 
             //VideoList = new List<Record>();             // Создание списка фильмов
             //FileRecordList = new List<FileRecord>();    // Создание смешанного списка Record & Media
         }
 
+
+        public int MediaID { get; set; }            // нумератор
+        public int getMediaID() => ++MediaID;       // создание следующего номера
+        public void clearMediaID() => MediaID = 0;    // обнуление идентификатора
+
+
         public List<Combine> CombineList { get; set; }
+        public void Add(Combine cm) => CombineList.Add(cm);
+        public void Remove(Combine cm) => CombineList.Remove(cm);
+        public void ClearCombine() => CombineList.Clear();
+
+
+
 
 
 
@@ -26,30 +38,17 @@ namespace FilmCollection
         [XmlElement]
         public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
 
-
-
-        //public List<FileRecord> FileRecordList { get; set; } // Объявление списка        
-        //public void Add(FileRecord _FileRecord) => FileRecordList.Add(_FileRecord);       // Добавление
-        //public void Remove(FileRecord _FileRecord) => FileRecordList.Remove(_FileRecord); // Удаление
-        //public void ClearMedia() => FileRecordList.Clear();              // Очистить
-
-
-
-
-
-
-
         #region Список мультимедиа (База)
 
-        public int MediaID { get; set; }      // Идентификатор
-        public int getMediaID() => ++MediaID;         // Генерация идентификатора
-        public void clearMediaID() => MediaID = 0;    // обнуление идентификатора
+        //public int MediaID { get; set; }      // Идентификатор
+        //public int getMediaID() => ++MediaID;         // Генерация идентификатора
+        //public void clearMediaID() => MediaID = 0;    // обнуление идентификатора
 
 
-        public List<Media> MediaList { get; set; } // Объявление списка        
-        public void Add(Media media) => MediaList.Add(media);       // Добавление
-        public void Remove(Media media) => MediaList.Remove(media); // Удаление
-        public void ClearMedia() => MediaList.Clear();              // Очистить
+        //public List<Media> MediaList { get; set; } // Объявление списка        
+        //public void Add(Media media) => MediaList.Add(media);       // Добавление
+        //public void Remove(Media media) => MediaList.Remove(media); // Удаление
+        //public void ClearMedia() => MediaList.Clear();              // Очистить
 
         #endregion
 
@@ -64,7 +63,21 @@ namespace FilmCollection
         public List<Record> VideoList { get; set; } // Объявление списка
         public void Add(Record record) => VideoList.Add(record);        // Добавление записи
         public void Remove(Record record) => VideoList.Remove(record);  // Удаление записи  
-        public void ClearVideo() => VideoList.Clear();                  // Очистить коллекцию
+
+        public void ClearVideo()
+        {
+            try
+            {
+                VideoList.Clear();                  // Очистить коллекцию
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
 
 
         //void max()
@@ -107,6 +120,8 @@ namespace FilmCollection
         #endregion
 
 
+
+
         #region Сериализация
 
         public void Save()                                      // Сохранение
@@ -126,23 +141,28 @@ namespace FilmCollection
                 throw new Exception(ex.Message);
                 //return new RecordCollection();
             }
-            Dictionary<int, Combine> medias = new Dictionary<int, Combine>();
-            foreach (var item in result.CombineList)
+
+            Dictionary<int, Combine> _combine = new Dictionary<int, Combine>();
+            foreach (var com in result.CombineList)
             {
-                medias.Add(item.media.Id, item);
+                _combine.Add(com.media.Id, com);
+                foreach (var record in com.recordList)
+                {
+                    record.combineLink = com;
+                }
             }
             foreach (var actor in result.ActorList)
             {
                 foreach (var videoID in actor.VideoID)
                 {
-                    if (medias.ContainsKey(videoID))
+                    if (_combine.ContainsKey(videoID))
                     {
-                        actor.mlist.Add(medias[videoID]);
-                        medias[videoID].media.alist.Add(actor);
+                        actor.comblist.Add(_combine[videoID]);
+                        _combine[videoID].media.alist.Add(actor);
                     }
                 }
             }
-            
+
             return result;
         }
 
