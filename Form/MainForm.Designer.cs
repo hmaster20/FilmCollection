@@ -91,6 +91,7 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.scTabFilm = new System.Windows.Forms.SplitContainer();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cbIsVisible = new System.Windows.Forms.CheckBox();
             this.menudgvTable = new System.Windows.Forms.MenuStrip();
             this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
@@ -217,6 +218,10 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -228,6 +233,7 @@
             this.scTabFilm.Panel1.SuspendLayout();
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menudgvTable.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
@@ -787,6 +793,7 @@
             // scTabFilm.Panel1
             // 
             this.scTabFilm.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel1.Controls.Add(this.dataGridView1);
             this.scTabFilm.Panel1.Controls.Add(this.cbIsVisible);
             this.scTabFilm.Panel1.Controls.Add(this.dgvTableRec);
             this.scTabFilm.Panel1.Controls.Add(this.menudgvTable);
@@ -803,6 +810,19 @@
             this.scTabFilm.Size = new System.Drawing.Size(966, 653);
             this.scTabFilm.SplitterDistance = 592;
             this.scTabFilm.TabIndex = 17;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4});
+            this.dataGridView1.Location = new System.Drawing.Point(61, 88);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(510, 313);
+            this.dataGridView1.TabIndex = 25;
             // 
             // cbIsVisible
             // 
@@ -2181,6 +2201,30 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "mediaName";
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "FileName";
+            this.Column2.HeaderText = "Column2";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Name";
+            this.Column3.HeaderText = "Column3";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "Year";
+            this.Column4.HeaderText = "Column4";
+            this.Column4.Name = "Column4";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2210,6 +2254,7 @@
             this.scTabFilm.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).EndInit();
             this.scTabFilm.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menudgvTable.ResumeLayout(false);
             this.menudgvTable.PerformLayout();
             this.panelEdit.ResumeLayout(false);
@@ -2438,6 +2483,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }
 
