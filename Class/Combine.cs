@@ -10,17 +10,27 @@ namespace FilmCollection
     {
         public Combine()
         {
-            Record = new List<Record>();
+            recordList = new List<Record>();
+            media = new Media();
         }
 
         public Media media { get; set; }
-        public List<Record> Record { get; set; }
+        public List<Record> recordList { get; set; }
 
 
 
-        //public string FileName { get { return "test"; } }
 
-        //public string Name { get { return media.Name; } }
+
+        public string FileName { get { return "test"; } }
+        public string mediaName
+        {
+            get
+            {
+                if (media == null)
+                {
+                    return "";
+                }
+                return media.Name; } }
 
 
         // создаем количество файлов и меди поровну
