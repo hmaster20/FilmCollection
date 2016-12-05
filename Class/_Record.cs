@@ -23,7 +23,30 @@ namespace FilmCollection
         public string Path { get; set; }        // Путь к файлу
 
 
+        [XmlIgnore]
+        public Combine combineLink { get; set; }
 
+        public string mediaName
+        {
+            get
+            {
+                if (combineLink == null)
+                {
+                    return "";
+                }
+                return combineLink.mediaName; } }
+
+        public int Year
+        {
+            get
+            {
+                if (combineLink == null || combineLink.media ==null)
+                {
+                    return -1;
+                }
+                return combineLink.media.Year;
+            }
+        }
 
         #region Обработка времени
         private TimeSpan _timeVideoSpan;
