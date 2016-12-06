@@ -34,7 +34,6 @@ namespace FilmCollection
 
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
-            dataGridView1.AutoGenerateColumns = false;
 
 
             dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
@@ -668,7 +667,9 @@ namespace FilmCollection
 
             List<Record> rc = new List<Record>();
             _videoCollection.CombineList.ForEach(r => rc.AddRange(r.recordList));
-            dataGridView1.DataSource = rc;
+
+            dgvTableRec.DataSource = rc;
+            //dataGridView1.DataSource = rc;
 
 
 
@@ -747,10 +748,10 @@ namespace FilmCollection
             //if (selected != null) SelectRecord(dgvTableRec, selected);
         }
 
-        private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
-        {
-            return filtered = (switch_filter != 0) ? filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1)) : filtered;
-        }
+        //private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
+        //{
+        //   return filtered = (switch_filter != 0) ? filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1)) : filtered;
+        //}
 
         private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
         {
@@ -760,8 +761,8 @@ namespace FilmCollection
                 case 1: filtered.Sort(Record.CompareByCatalog); break;
                 //case 2: filtered.Sort(Record.CompareByYear); break;
                 //case 3: filtered.Sort(Record.CompareByCountry); break;
-                case 4: filtered.Sort(Record.CompareByGenre); break;
-                case 5: filtered.Sort(Record.CompareByCategory); break;
+                //case 4: filtered.Sort(Record.CompareByGenre); break;
+                //case 5: filtered.Sort(Record.CompareByCategory); break;
                 //case 6: filtered.Sort(Record.CompareByTime); break;
                 case 7: filtered.Sort(Record.CompareByFileName); break;
                 default: break;
@@ -870,8 +871,8 @@ namespace FilmCollection
                 // mtbTime.Text = record.TimeVideo;
                 mtbTime.Text = record.TimeVideoSpan.ToString();
 
-                cBoxTypeVideo.SelectedIndex = ((int)record.Category);
-                cBoxGenre.SelectedIndex = ((int)record.GenreVideo);
+                //cBoxTypeVideo.SelectedIndex = ((int)record.Category);
+                //cBoxGenre.SelectedIndex = ((int)record.GenreVideo);
                 // cBoxCountry.SelectedIndex = ((int)record.Country);
 
                 // поиск актеров по id
@@ -1190,8 +1191,8 @@ namespace FilmCollection
                 //record.TimeVideoSpan = Convert.ToDateTime(mtbTime.Text);
 
 
-                record.Category = category;
-                record.GenreVideo = genre;
+                //record.Category = category;
+               // record.GenreVideo = genre;
                 //record.Description = tbDescription.Text;
                 if (record.FileName != tbFileName.Text)
                 {
@@ -1224,8 +1225,8 @@ namespace FilmCollection
             //record.Year = Convert.ToInt32(mtbYear.Text);
             // record.Country = country;
             //record.Time = (int)numericTime.Value;
-            record.Category = category;
-            record.GenreVideo = genre;
+            //record.Category = category;
+            //record.GenreVideo = genre;
             //record.Description = tbDescription.Text;
 
             GetActorID(record);
@@ -1887,7 +1888,7 @@ namespace FilmCollection
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = country;
-            actor.Id = _videoCollection.getActorID();
+            actor.id = _videoCollection.getActorID();
 
             foreach (ListViewItem eachItem in listViewFilm.Items)
             {
