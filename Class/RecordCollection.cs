@@ -157,8 +157,8 @@ namespace FilmCollection
                 {
                     if (_combine.ContainsKey(videoID))
                     {
-                        actor.comblist.Add(_combine[videoID]);
-                        _combine[videoID].media.alist.Add(actor);
+                        actor.CombineList.Add(_combine[videoID]);
+                        _combine[videoID].media.ActorList.Add(actor);
                     }
                 }
             }
