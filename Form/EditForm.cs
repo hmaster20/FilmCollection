@@ -55,19 +55,19 @@ namespace FilmCollection
            // tbDescription.Text = record.Description;
             tbFileName.Text = record.FileName;
 
-            switch (record.Category)
-            {
-                case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
-                case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
-                case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
-            }
+            //switch (record.Category)
+            //{
+            //    case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
+            //    case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
+            //    case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
+            //}
 
-            switch (record.GenreVideo)
-            {
-                case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
-                case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
-                case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
-            }
+            //switch (record.GenreVideo)
+            //{
+            //    case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
+            //    case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
+            //    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
+            //}
 
         }
 
@@ -101,8 +101,8 @@ namespace FilmCollection
            // rec.Year = tbYear.Text;
            // rec.Country = tbCountry.Text;
            // rec.Time = (int)numericTime.Value;
-            rec.Category = category;
-            rec.GenreVideo = genre;
+            //rec.Category = category;
+            //rec.GenreVideo = genre;
            // rec.Description = tbDescription.Text;
 
             DialogResult = DialogResult.OK;
