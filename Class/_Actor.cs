@@ -1,5 +1,4 @@
-﻿// Класс, описывающий актеров
-//
+﻿// Информация об актерах
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -13,8 +12,7 @@ namespace FilmCollection
             VideoID = new List<int>();     // Создание списка ID
         }
 
-
-        public int Id { get; set; }         // Уникальный идентификатор
+        public int id { get; set; }         // Уникальный идентификатор
 
         public string FIO { get; set; }     // Ф.И.О.
 
@@ -27,10 +25,10 @@ namespace FilmCollection
         }
 
 
-        // TEST ////////////////////////////////////
+
         [XmlIgnore]
-        public List<Combine> comblist { get; set; }
-        // TEST ////////////////////////////////////
+        public List<Combine> CombineList { get; set; } // TEST
+
 
 
 
@@ -62,7 +60,7 @@ namespace FilmCollection
         }
         #endregion
 
-        
+
         #region Список ID фильмов
 
         private List<int> _videoID;     // Объявление ID фильмов
@@ -71,21 +69,9 @@ namespace FilmCollection
             get { return _videoID; }
             set { _videoID = value; }
         }
-
-        public void Add(int id)
-        {
-            VideoID.Add(id);
-        }
-
-        public void Remove(int id)
-        {
-            VideoID.Remove(id);
-        }
-
-        public void ClearID()
-        {
-            VideoID.Clear();
-        }
+        public void Add(int id) => VideoID.Add(id);
+        public void Remove(int id) => VideoID.Remove(id);
+        public void ClearID() => VideoID.Clear();
 
         #endregion
 
