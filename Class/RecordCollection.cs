@@ -9,18 +9,13 @@ namespace FilmCollection
     {
         public RecordCollection()
         {
-            ActorList = new List<Actor>();  // Создание списка актеров
-            //MediaList = new List<Media>();
-            CombineList = new List<Combine>();
-
-            //VideoList = new List<Record>();             // Создание списка фильмов
-            //FileRecordList = new List<FileRecord>();    // Создание смешанного списка Record & Media
+            ActorList = new List<Actor>();      // Создание списка актеров
+            CombineList = new List<Combine>();  // Создание смешанного списка Record & Media
         }
-
 
         public int MediaID { get; set; }            // нумератор
         public int getMediaID() => ++MediaID;       // создание следующего номера
-        public void clearMediaID() => MediaID = 0;    // обнуление идентификатора
+        public void ClearMediaID() => MediaID = 0;    // обнуление идентификатора
 
 
         public List<Combine> CombineList { get; set; }
@@ -29,7 +24,21 @@ namespace FilmCollection
         public void ClearCombine() => CombineList.Clear();
 
 
+        public void Clear()
+        {
+            try
+            {
+                ClearActor();
+                ClearCombine();
+                ClearMediaID();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
 
+
+        }
 
 
 
@@ -60,21 +69,20 @@ namespace FilmCollection
         //public int getRecordID() => ++RecordID;         // Генерация идентификатора  //return ++RecordID;   
         //public void clearRecordID() => RecordID = 0;    // обнуление идентификатора  // RecordID = 0;
 
-        public List<Record> VideoList { get; set; } // Объявление списка
-        public void Add(Record record) => VideoList.Add(record);        // Добавление записи
-        public void Remove(Record record) => VideoList.Remove(record);  // Удаление записи  
-
-        public void ClearVideo()
-        {
-            try
-            {
-                VideoList.Clear();                  // Очистить коллекцию
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-        }
+        //public List<Record> VideoList { get; set; } // Объявление списка
+        //public void Add(Record record) => VideoList.Add(record);        // Добавление записи
+        //public void Remove(Record record) => VideoList.Remove(record);  // Удаление записи  
+        //public void ClearVideo()
+        //{
+        //    try
+        //    {
+        //        VideoList.Clear();                  // Очистить коллекцию
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Windows.Forms.MessageBox.Show(ex.Message);
+        //    }
+        //}
 
 
 
