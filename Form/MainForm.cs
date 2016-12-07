@@ -324,7 +324,7 @@ namespace FilmCollection
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
             record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                    // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                                                                    // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
 
             record.combineLink = cm;
             cm.recordList.Add(record);
@@ -640,12 +640,11 @@ namespace FilmCollection
         }
 
 
-        public string LastNode;
-        public int LastIndexSort;
-        public int LastIndexTypeFilter;
-        public bool LastVisible;
+        public string LastNode { get; set; }
+        //public int LastIndexSort;
+        //public int LastIndexTypeFilter;
+        //public bool LastVisible;
 
-        //private void PrepareRefresh() => PrepareRefresh(false, -1);
         private void PrepareRefresh(string nodeName, bool flag)
         {
             //PrepareRefresh(nodeName, flag, -1);
@@ -659,96 +658,40 @@ namespace FilmCollection
             string nodeName = (LastNode == null) ? "" : LastNode;
 
             Record selected = GetSelectedRecord();
-            // List<Record> filtered = _videoCollection.VideoList;
 
+            // List<Record> filtered = _videoCollection.VideoList;
             //dataGridView1.DataSource = new List<Combine>(_videoCollection.CombineList);
 
             List<Record> rc = new List<Record>();
             _videoCollection.CombineList.ForEach(r => rc.AddRange(r.recordList));
             dgvTableRec.DataSource = rc;
-            //dataGridView1.DataSource = rc;
 
 
 
+            filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
 
+            filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
 
-            //dgvTableRec.DataSource = filt;
-            //dataGridView1.DataSource = filt.ToList();
+            if (nodeName != "" && nodeName != "Фильмотека")
+            {
+                filtered = (!flag)
+                            ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName)
+                            : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
+            }
 
+            Sort(filtered, tscbSort.SelectedIndex);
+            if (column > -1) Sort(filtered, column);
 
+            RefreshTable(filtered, list);
+            Sort_Actor();
 
-
-
-
-
-            //var filtereds = from vL in _videoCollection.VideoList
-            //                join mL in _videoCollection.MediaList
-            //                                                       on vL.linkID equals mL.Id
-            //                select new
-            //                {
-            //                    Название = vL.Name,
-            //                    Каталог = vL.DirName,
-            //                    yy = mL.Year,
-            //                    Страна = mL.CountryString,
-            //                    Жанр = vL.GenreString,
-            //                    Категория = vL.CategoryString,
-            //                    Время = vL.TimeString,
-            //                    Файл = vL.FileName
-            //                };
-
-            ////////////// var filtereds = from vL in _videoCollection.VideoList
-            //////////////                 join mL in _videoCollection.MediaList
-            //////////////                                                        on vL.linkID equals mL.Id
-            //////////////                 select new
-            //////////////                 {
-            //////////////                     Name = vL.Name,
-            //////////////                     DirName = vL.DirName,
-            //////////////                     Year = mL.Year,
-            //////////////                     Country = mL.CountryString,
-            //////////////                     Genre = vL.GenreString,
-            //////////////                     Категория = vL.CategoryString,
-            //////////////                     Время = vL.TimeString,
-            //////////////                     FileName = vL.FileName,
-            //////////////                     MediaID = mL.Id
-            //////////////                 };
-
-            //////////////IEnumerable<object> list = filtereds.ToList();
-
-
-            //dataGridView1.DataSource = null;
-
-            //List<Record> list = filtereds.ToList();
-
-            //dataGridView1.DataSource = list;
-            //dataGridView1.DataSource = filtereds.ToList();
-            // dataGridView1.DataSource = filtereds.AsDataView();
-
-
-
-
-            //// filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
-            //filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
-
-            //if (nodeName != "" && nodeName != "Фильмотека")
-            //{
-            //    filtered = (!flag)
-            //                ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName)
-            //                : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
-            //}
-
-            //Sort(filtered, tscbSort.SelectedIndex);
-            //if (column > -1) Sort(filtered, column);
-
-            //// RefreshTable(filtered, list);
-            //Sort_Actor();
-
-            //if (selected != null) SelectRecord(dgvTableRec, selected);
+            if (selected != null) SelectRecord(dgvTableRec, selected);
         }
 
-        //private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
-        //{
-        //   return filtered = (switch_filter != 0) ? filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1)) : filtered;
-        //}
+        private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
+        {
+            return filtered = (switch_filter != 0) ? filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1)) : filtered;
+        }
 
         private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
         {
@@ -756,11 +699,11 @@ namespace FilmCollection
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
                 case 1: filtered.Sort(Record.CompareByCatalog); break;
-                //case 2: filtered.Sort(Record.CompareByYear); break;
-                //case 3: filtered.Sort(Record.CompareByCountry); break;
-                //case 4: filtered.Sort(Record.CompareByGenre); break;
-                //case 5: filtered.Sort(Record.CompareByCategory); break;
-                //case 6: filtered.Sort(Record.CompareByTime); break;
+                case 2: filtered.Sort(Record.CompareByYear); break;
+                case 3: filtered.Sort(Record.CompareByCountry); break;
+                case 4: filtered.Sort(Record.CompareByGenre); break;
+                case 5: filtered.Sort(Record.CompareByCategory); break;
+                case 6: filtered.Sort(Record.CompareByTime); break;
                 case 7: filtered.Sort(Record.CompareByFileName); break;
                 default: break;
             }
