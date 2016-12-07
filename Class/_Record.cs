@@ -21,10 +21,15 @@ namespace FilmCollection
         [XmlIgnore]
         public Combine combineLink { get; set; }
         private bool check() { return (combineLink == null || combineLink.media == null) ? true : false; }
+        [XmlIgnore]
         public string mName { get { return (check()) ? "" : combineLink.media.Name; } }
+        [XmlIgnore]
         public string mCountry { get { return (check()) ? "" : combineLink.media.CountryString; } }
+        [XmlIgnore]
         public string mGenre { get { return (check()) ? "" : combineLink.media.GenreString; } }
+        [XmlIgnore]
         public string mCategory { get { return (check()) ? "" : combineLink.media.CategoryString; } }
+        [XmlIgnore]
         public int mYear { get { return (check()) ? -1 : combineLink.media.Year; } }
 
 
