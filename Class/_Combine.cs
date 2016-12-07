@@ -16,5 +16,14 @@ namespace FilmCollection
 
         public Media media { get; set; }                // создание объекта Media
         public List<Record> recordList { get; set; }    // хранение файлов принадлежащих Media
+
+
+        public void ClearOldRecord()    // удаление помеченных фильмов
+        {
+            foreach (var record in recordList.FindAll(x => x.Visible == false))
+                recordList.Remove(record);
+        }
+
+
     }
 }
