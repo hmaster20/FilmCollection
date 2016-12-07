@@ -35,7 +35,6 @@ namespace FilmCollection
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
 
-
             dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
             dgvTableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
             dgvTableRec.Columns[7].DefaultCellStyle.SelectionForeColor = Color.Blue;    // цвет текста выбранной строки нужного столбца
@@ -58,11 +57,7 @@ namespace FilmCollection
                 tscCountryFilter.Items.Add(item);
             }
 
-            //if (_videoCollection.MediaList.Count == 0)
-            //{
-            //    _videoCollection.MediaList.Add(new Media() { Name = "", Description = "", Id = 0, Year = 2000 });
-            //}
-
+            //if (_videoCollection.MediaList.Count == 0) _videoCollection.MediaList.Add(new Media() { Name = "", Description = "", Id = 0, Year = 2000 });      
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)   // отрисовка рамки вокруг tsFindbyName
@@ -101,10 +96,9 @@ namespace FilmCollection
                     return;
                 }
 
-                // if (_videoCollection.VideoList.Count > 0)
                 if (_videoCollection.CombineList.Count > 0)
                 {
-                    tssLabel.Text = "Коллекция из " + _videoCollection.VideoList.Count.ToString() + " элементов";
+                    tssLabel.Text = "Коллекция из " + _videoCollection.CombineList.Count.ToString() + " элементов";
                     PrepareRefresh();
                     CreateTree();
                 }
@@ -209,11 +203,10 @@ namespace FilmCollection
                                                       "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
                 File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                //_videoCollection.clearRecordID();
-                _videoCollection.ClearVideo();  // очищаем коллекцию
+                _videoCollection.Clear();       // очищаем коллекцию
                 treeFolder.Nodes.Clear();       // очищаем иерархию
                 dgvTableRec.ClearSelection();   // выключаем селекты таблицы
-                PrepareRefresh();                // сбрасываем старые значения таблицы
+                PrepareRefresh();               // сбрасываем старые значения таблицы
             }
             else // Если базы нет, то создаем пустой файл базы
             {
@@ -255,51 +248,65 @@ namespace FilmCollection
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            if (_videoCollection.Options.Source == "" && _videoCollection.Options.Source == null)  // Если есть информация о корневой папки коллекции
-            {
-                MessageBox.Show("Необходимо создать базу данных.");
-            }
-            else
-            {
-                try
-                {
-                    if (_videoCollection.Options.Source == null)
-                    {
-                        MessageBox.Show("Файл базы испорчен!");
-                        return;
-                    }
-                    DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
+            //if (_videoCollection.Options.Source == "" && _videoCollection.Options.Source == null)  // Если есть информация о корневой папки коллекции
+            //{
+            //    MessageBox.Show("Необходимо создать базу данных.");
+            //}
+            //else
+            //{
+            //    try
+            //    {
+            //        if (_videoCollection.Options.Source == null)
+            //        {
+            //            MessageBox.Show("Файл базы испорчен!");
+            //            return;
+            //        }
+            //        DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
 
-                    if (directory.Exists)   // проверяем наличие папки коллекции
-                    {
-                        for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-                            _videoCollection.VideoList[i].Visible = false;
+            //        if (directory.Exists)   // проверяем доступность каталога
+            //        {
+            //            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            //                _videoCollection.VideoList[i].Visible = false;
 
-                        foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                        {
-                            Record record = new Record();
-                            record.FileName = file.Name;                            // полное название файла (film.avi)
-                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+            //            foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+            //            {
+            //                Record record = new Record();
+            //                record.FileName = file.Name;                            // полное название файла (film.avi)
+            //                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
-                            if (!RecordExist(record)) CreateRecordObject(file, record); // если файла нет в коллекции, создаем
-                        }
+            //                if (!RecordExist(record)) CreateRecordObject(file, record); // если файла нет в коллекции, создаем
+            //            }
 
-                        _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
-                        FormLoad();                 // и перегружаем главную форму
-                        MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
-                    }
-                    else
-                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
-                }
-                catch (Exception ex)
-                { MessageBox.Show(ex.Message); }
-            }
+            //            _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
+            //            FormLoad();                 // и перегружаем главную форму
+            //            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+            //        }
+            //        else
+            //            MessageBox.Show("Каталог " + directory + " не обнаружен!");
+            //    }
+            //    catch (Exception ex)
+            //    { MessageBox.Show(ex.Message); }
+            //}
         }
+
+        //private bool RecordExist(Record record)
+        //{
+        //    foreach (Record rec in _videoCollection.VideoList)// проверяем, есть ли файл в коллекции
+        //    {
+        //        if (rec.Equals(record))
+        //        {
+        //            rec.Visible = true;
+        //            return true;    // если файл есть
+        //        }
+        //    }
+        //    return false;           // иначе файла нет файл есть
+        //}
+
 
         void CreateCombine(FileInfo file)
         {
             Combine cm = new Combine();
-            Record record = new Record();          
+            Record record = new Record();
 
             record.FileName = file.Name;        // полное название файла (film.avi)
             record.Path = file.DirectoryName;   // полный путь (C:\Folder)
@@ -311,7 +318,7 @@ namespace FilmCollection
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
 
             cm.media.Name = record.Name = (name_f != "") ? name_f : name_1;
-            record.linkID = cm.media.Id = _videoCollection.getMediaID(); 
+            record.linkID = cm.media.Id = _videoCollection.getMediaID();
 
             record.Visible = true;
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
@@ -324,46 +331,35 @@ namespace FilmCollection
             _videoCollection.Add(cm);
         }
 
+        // Не использовать!
+        //private void CreateRecordObject(FileInfo file, Record record)
+        //{
+        //    if (record == null)
+        //    {
+        //        record = new Record();
+        //        record.FileName = file.Name;                            // полное название файла (film.avi)
+        //        record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+        //    }
 
-        private void CreateRecordObject(FileInfo file, Record record)
-        {
-            if (record == null)
-            {
-                record = new Record();
-                record.FileName = file.Name;                            // полное название файла (film.avi)
-                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-            }
+        //    string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
+        //    string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
+        //    string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
+        //    name_f = name_f.Trim();                         // название без пробелов вначале и конце
+        //    record.Name = (name_f != "") ? name_f : name_1;
 
-            string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
-            string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
-            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
-            name_f = name_f.Trim();                         // название без пробелов вначале и конце
-            record.Name = (name_f != "") ? name_f : name_1;
+        //    ////выделяем только 4 идущие подряд цифры
+        //    //foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
+        //    //    if (m.Value != "") record.Year = Convert.ToInt32(m.Value);
 
-            ////выделяем только 4 идущие подряд цифры
-            //foreach (Match m in Regex.Matches(name_1, @"\b[\d]{4}\b"))
-            //    if (m.Value != "") record.Year = Convert.ToInt32(m.Value);
+        //    record.Visible = true;
+        //    record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
+        //    record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+        //    record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+        //                                                            // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+        //    _videoCollection.Add(record);
+        //}
 
-            record.Visible = true;
-            record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
-            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                    // if (-1 != file.DirectoryName.Substring(dlinna).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-            _videoCollection.Add(record);
-        }
 
-        private bool RecordExist(Record record)
-        {
-            foreach (Record rec in _videoCollection.VideoList)// проверяем, есть ли файл в коллекции
-            {
-                if (rec.Equals(record))
-                {
-                    rec.Visible = true;
-                    return true;    // если файл есть
-                }
-            }
-            return false;           // иначе файла нет файл есть
-        }
 
         private void BackupBase()       // Резервная копия базы
         {
@@ -406,12 +402,14 @@ namespace FilmCollection
             }
         }
 
-        private void CleanBase()   // очистка базы путем удаления старый видео файлов
+        private void CleanBase()   // очистка базы путем удаления старых файлов видео
         {
-            foreach (var item in _videoCollection.VideoList.FindAll(x => x.Visible == false))
+            foreach (var combine in _videoCollection.CombineList)
             {
-                _videoCollection.Remove(item);
+                combine.ClearOldRecord();
             }
+            // добавить очистку медиа файлов       
+
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
             // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
@@ -545,7 +543,7 @@ namespace FilmCollection
                                                   "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialog == DialogResult.Yes)
             {
-                _videoCollection.Remove(record);
+                //_videoCollection.Remove(record);
                 _videoCollection.Save();
                 dgvTableRec.ClearSelection();
                 PrepareRefresh();
@@ -572,7 +570,7 @@ namespace FilmCollection
             EditForm form = new EditForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                _videoCollection.Add(form.rec);
+                //_videoCollection.Add(form.rec);
                 _videoCollection.Save();
                 PrepareRefresh();
             }
@@ -662,12 +660,11 @@ namespace FilmCollection
 
             Record selected = GetSelectedRecord();
             // List<Record> filtered = _videoCollection.VideoList;
-            //List<Combine> filt = _videoCollection.CombineList;
+
             //dataGridView1.DataSource = new List<Combine>(_videoCollection.CombineList);
 
             List<Record> rc = new List<Record>();
             _videoCollection.CombineList.ForEach(r => rc.AddRange(r.recordList));
-
             dgvTableRec.DataSource = rc;
             //dataGridView1.DataSource = rc;
 
@@ -1097,14 +1094,14 @@ namespace FilmCollection
             record.FileName = fInfo.Name;
             record.Path = fInfo.DirectoryName;
 
-            foreach (Record item in _videoCollection.VideoList)
-            {
-                if (item.Equals(record))
-                {
-                    MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
-                    return; // Выходим из метода
-                }
-            }
+            //foreach (Record item in _videoCollection.VideoList)
+            //{
+            //    if (item.Equals(record))
+            //    {
+            //        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
+            //        return; // Выходим из метода
+            //    }
+            //}
 
 
             //chkActorList.Items.Clear();
@@ -1192,7 +1189,7 @@ namespace FilmCollection
 
 
                 //record.Category = category;
-               // record.GenreVideo = genre;
+                // record.GenreVideo = genre;
                 //record.Description = tbDescription.Text;
                 if (record.FileName != tbFileName.Text)
                 {
@@ -1231,7 +1228,7 @@ namespace FilmCollection
 
             GetActorID(record);
 
-            _videoCollection.Add(record);
+            //_videoCollection.Add(record);
             _videoCollection.Save();
 
             fsInfo = null;
@@ -2151,7 +2148,7 @@ namespace FilmCollection
             }
             else
             {
-               // media = _videoCollection.MediaList.FindLast(m => m.Id == mID);
+                // media = _videoCollection.MediaList.FindLast(m => m.Id == mID);
             }
             //MessageBox.Show(_videoCollection.MediaID.ToString());
             media.Name = rec.Name;
