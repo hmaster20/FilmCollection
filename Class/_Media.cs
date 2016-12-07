@@ -10,7 +10,7 @@ namespace FilmCollection
     {
         public Media()
         {
-            ActorListID = new List<int>();          // Создание списка ID актеров, играющих в картине
+            ActorListID = new List<int>();      // Создание списка ID актеров, играющих в картине
         }
 
         public string Name { get; set; }        // Название произведения
@@ -76,12 +76,6 @@ namespace FilmCollection
         #endregion
 
 
-
-
-
-
-
-
         #region Обработка Жанра
         private GenreVideo _genreVideo;   // Жанр
         [XmlIgnore]
@@ -101,9 +95,6 @@ namespace FilmCollection
         {
             GenreVideo_Rus _genretype = (GenreVideo_Rus)((int)genretype);
             return _genretype.ToString();
-
-            // GenreVideo genretype = (GenreVideo)cBoxTypeVideo.SelectedIndex;
-            //return (GenreVideo) genretype = Enum.GetValues(typeof(GenreVideo));   
         }
 
         public static GenreVideo StringToGenre(string type)
@@ -182,43 +173,7 @@ namespace FilmCollection
 
 
 
-        //public static int CompareByCountry(Record a, Record b)  // Сравнение по стране
-        //{
-        //    return string.Compare(a.CountryString, b.CountryString);
-        //}
-
-        public static int CompareByName(Media a, Media b)     // Сравнение по названию
-        {
-            return string.Compare(a.Name, b.Name);
-        }
-
-        public static int CompareByGenre(Media a, Media b) // Сравнение по жанру
-        {
-            return string.Compare(a.GenreString, b.GenreString);
-        }
-
-        public static int CompareByCategory(Media a, Media b) // Сравнение по категории
-        {
-            if (a.Category == b.Category)
-                return CompareByName(a, b);
-            if (a.Category == CategoryVideo.Film)
-                return -1;
-            if (b.Category == CategoryVideo.Film)
-                return 1;
-            if (a.Category == CategoryVideo.Cartoon)
-                return -1;
-            if (b.Category == CategoryVideo.Cartoon)
-                return 1;
-            if (a.Category == CategoryVideo.Series)
-                return -1;
-            if (b.Category == CategoryVideo.Series)
-                return 1;
-            if (a.Category == CategoryVideo.Unknown)
-                return -1;
-            if (b.Category == CategoryVideo.Unknown)
-                return 1;
-            return 0;
-        }
+    
 
 
     }
