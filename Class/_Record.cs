@@ -34,8 +34,8 @@ namespace FilmCollection
 
 
 
-      
-            
+
+
 
 
         // информация служит для получения доп. информации при построении таблицы
@@ -91,12 +91,75 @@ namespace FilmCollection
         public static int CompareByCatalog(Record a, Record b)  // Сравнение по каталогу
         {
             return string.Compare(a.DirName, b.DirName);
-        } 
+        }
+
+        public static int CompareByYear(Record a, Record b)
+        {
+            if (a.mYear == b.mYear)
+                return CompareByName(a, b);
+            return (a.mYear - b.mYear);
+        }
+
+        public static int CompareByCountry(Record a, Record b)  // Сравнение по стране
+        {
+            return string.Compare(a.mCountry, b.mCountry);
+        }
+
+        public static int CompareByGenre(Record a, Record b) // Сравнение по жанру
+        {
+            return string.Compare(a.mGenre, b.mGenre);
+        }
+
+        public static int CompareByCategory(Record a, Record b) // Сравнение по категории
+        {
+            if (a.mCategory == b.mCategory)
+                return CompareByName(a, b);
+            if (a.mCategory == CategoryVideo.Film.ToString())
+                return -1;
+            if (b.mCategory == CategoryVideo.Film.ToString())
+                return 1;
+            if (a.mCategory == CategoryVideo.Cartoon.ToString())
+                return -1;
+            if (b.mCategory == CategoryVideo.Cartoon.ToString())
+                return 1;
+            if (a.mCategory == CategoryVideo.Series.ToString())
+                return -1;
+            if (b.mCategory == CategoryVideo.Series.ToString())
+                return 1;
+            if (a.mCategory == CategoryVideo.Unknown.ToString())
+                return -1;
+            if (b.mCategory == CategoryVideo.Unknown.ToString())
+                return 1;
+            return 0;
+        }
+
+        public static int CompareByTime(Record a, Record b)     // Сравнение по времени записи
+        {
+            if (a.TimeVideoSpan >= b.TimeVideoSpan)
+                return 1;
+            else if (a.TimeVideoSpan <= b.TimeVideoSpan)
+                return -1;
+            else
+                return 0;
+        }
 
         public static int CompareByFileName(Record a, Record b) // Сравнение по файлу
         {
             return string.Compare(a.FileName, b.FileName);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         #endregion
