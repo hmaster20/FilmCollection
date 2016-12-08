@@ -24,6 +24,10 @@ namespace FilmCollection
         [XmlIgnore]
         public string mName { get { return (check()) ? "" : combineLink.media.Name; } }
         [XmlIgnore]
+        public string mDescription { get { return (check()) ? "" : combineLink.media.Description; } }
+        [XmlIgnore]
+        public string mPic { get { return (check()) ? "" : combineLink.media.Pic; } }
+        [XmlIgnore]
         public string mCountry { get { return (check()) ? "" : combineLink.media.CountryString; } }
         [XmlIgnore]
         public string mGenre { get { return (check()) ? "" : combineLink.media.GenreString; } }
@@ -32,11 +36,7 @@ namespace FilmCollection
         [XmlIgnore]
         public int mYear { get { return (check()) ? -1 : combineLink.media.Year; } }
 
-
-
-
-
-
+        
 
         // информация служит для получения доп. информации при построении таблицы
 
@@ -147,20 +147,6 @@ namespace FilmCollection
         {
             return string.Compare(a.FileName, b.FileName);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         #endregion
 
