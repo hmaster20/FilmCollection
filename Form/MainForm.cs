@@ -599,10 +599,7 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
         }
 
-
-
-
-
+        
 
         private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
         {
@@ -639,11 +636,7 @@ namespace FilmCollection
             }
         }
 
-
         public string LastNode { get; set; }
-        //public int LastIndexSort;
-        //public int LastIndexTypeFilter;
-        //public bool LastVisible;
 
         private void PrepareRefresh(string nodeName, bool flag)
         {
@@ -952,7 +945,7 @@ namespace FilmCollection
             //cBoxTypeVideo.SelectedIndex = 0;
             //cBoxCountry.SelectedIndex = 0;
         }
-        
+
         #endregion
 
 
@@ -1910,9 +1903,7 @@ namespace FilmCollection
             }
         }
 
-
-
-
+        
 
 
 
@@ -2018,44 +2009,13 @@ namespace FilmCollection
         private void UpdateFIlmInfo_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
-            // if (record != null) GetMediaInfo(record.Name, record);
-
-            int MediaID = 0;
-            if (record.linkID != 0)
+            if (record != null)
             {
-                MediaID = record.linkID;
-            }
-            else
-            {
-                //if (_videoCollection.MediaList.Exists(x => x.Name == record.Name))
-                //{
-                //    MediaID = (_videoCollection.MediaList.Find(x => x.Name == record.Name)).Id;
-                //}
-            }
-            //record.Id = _videoCollection.getRecordID();
-            GetMediaInfo(record.Name, record, MediaID);
-        }
-
-        private void GetMediaInfo(string text, Record rec, int mID)      //выполнение поиска
-        {
-            Media media = new Media();
-            if (mID == 0)
-            {
-                //media.Id = _videoCollection.getMediaID();
-                //_videoCollection.Add(media);
-            }
-            else
-            {
-                // media = _videoCollection.MediaList.FindLast(m => m.Id == mID);
-            }
-            //MessageBox.Show(_videoCollection.MediaID.ToString());
-            media.Name = rec.Name;
-            rec.linkID = media.Id;
-
-            if (GetInfo(GetHtml("https://afisha.mail.ru/search/?q=" + text), text, media))
-            {
-                _videoCollection.Save();
-                PrepareRefresh();
+                if (GetInfo(record.combineLink.media))
+                {
+                    _videoCollection.Save();
+                    PrepareRefresh();
+                }
             }
         }
 
@@ -2067,8 +2027,10 @@ namespace FilmCollection
                 return reader.ReadToEnd();
         }
 
-        private bool GetInfo(string htmlPage, string name, Media media)
+        private bool GetInfo(Media media)
         {
+            string htmlPage = GetHtml("https://afisha.mail.ru/search/?q=" + media.Name);
+
             MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
             for (int i = 0; i < mc.Count; i++)
             {
@@ -2091,11 +2053,6 @@ namespace FilmCollection
 
                 if (PicWeb != "" && Link_txt != "") // для более полного соответствия искомому фильму
                 {
-                    //if (!File.Exists(GetFilename(rec.Pic))) // если файл есть то ничего не делаем
-                    //{
-                    //    DownPicM(PicWeb, name);
-                    //    rec.Pic = name;
-                    //}
                     DownInfoM("https://afisha.mail.ru" + Link_txt, media);
                     return true;
                 }
@@ -2212,8 +2169,7 @@ namespace FilmCollection
         {
             try
             {
-                //if (PicWeb.Contains("http"))
-                if (PicWeb.StartsWith("http"))
+                if (PicWeb.StartsWith("http"))                //if (PicWeb.Contains("http"))
                 {
                     using (WebClient webClient = new WebClient())
                         webClient.DownloadFile(PicWeb, GetFilename(Pic));
@@ -2221,9 +2177,7 @@ namespace FilmCollection
             }
             catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
         }
-
-
-
+        
         #endregion
 
 
