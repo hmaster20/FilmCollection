@@ -647,10 +647,8 @@ namespace FilmCollection
 
         private void PrepareRefresh(string nodeName, bool flag)
         {
-            //PrepareRefresh(nodeName, flag, -1);
             LastNode = nodeName;
             PrepareRefresh(flag);
-
         }
 
         private void PrepareRefresh(bool flag = false, int column = -1)
@@ -662,15 +660,15 @@ namespace FilmCollection
             // List<Record> filtered = _videoCollection.VideoList;
             //dataGridView1.DataSource = new List<Combine>(_videoCollection.CombineList);
 
-            List<Record> rc = new List<Record>();
-            _videoCollection.CombineList.ForEach(r => rc.AddRange(r.recordList));
-            dgvTableRec.DataSource = rc;
-
-
+            List<Record> filtered = new List<Record>();
+            _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+            dgvTableRec.DataSource = filtered;
 
             filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
 
-            filtered = Filter(filtered, tscbTypeFilter.SelectedIndex);
+            filtered = (tscbTypeFilter.SelectedIndex != 0)  // фильтрация по типу: Фильм, Мультфильм..
+                ? filtered.FindAll(v => v.mCategory == ((CategoryVideo_Rus)(tscbTypeFilter.SelectedIndex - 1)).ToString())
+                : filtered;
 
             if (nodeName != "" && nodeName != "Фильмотека")
             {
@@ -682,16 +680,12 @@ namespace FilmCollection
             Sort(filtered, tscbSort.SelectedIndex);
             if (column > -1) Sort(filtered, column);
 
-            RefreshTable(filtered, list);
+            RefreshTable(filtered);
             Sort_Actor();
 
             if (selected != null) SelectRecord(dgvTableRec, selected);
         }
 
-        private static List<Record> Filter(List<Record> filtered, int switch_filter)    // фильтр по категориям
-        {
-            return filtered = (switch_filter != 0) ? filtered.FindAll(v => v.Category == (CategoryVideo)(switch_filter - 1)) : filtered;
-        }
 
         private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
         {
@@ -725,10 +719,9 @@ namespace FilmCollection
 
             foreach (Actor item in _videoCollection.ActorList)
                 chkActorList.Items.Add(item);
-
         }
 
-        private void RefreshTable(List<Record> filtered, IEnumerable<object> list)
+        private void RefreshTable(List<Record> filtered)
         {
             Record selected = GetSelectedRecord();  // получение выбранной строки
             if (selected != null) SelectRecord(dgvTableRec, selected);
@@ -736,8 +729,7 @@ namespace FilmCollection
             try
             {
                 dgvTableRec.DataSource = null;
-                //dgvTableRec.DataSource = filtered;
-                dgvTableRec.DataSource = list;
+                dgvTableRec.DataSource = filtered;
 
                 // отображаем другой шрифт и цвет для удаленных записей
                 if (dgvTableRec.RowCount > 0)
@@ -752,17 +744,11 @@ namespace FilmCollection
 
                         }
                         if ((row.DataBoundItem as Record).Visible == true)
-                        {
                             row.Cells[7].Style.ForeColor = Color.Blue;
-                        }
-
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void SelectRecord(DataGridView dgv, Record record)
@@ -780,7 +766,6 @@ namespace FilmCollection
 
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
-
             panelView.BringToFront();               // Отображение панели описания
 
             // Предоставляет данные выбранной записи
@@ -789,14 +774,12 @@ namespace FilmCollection
             {
                 //Media _media = _videoCollection.MediaList.Find(x => x.Id == record.linkID);
                 //// Панель описания
-                //tbfName.Text = record.Name;
-                //tbfDesc.Text = _media.Description;
-                //tbfYear.Text = Convert.ToString(_media.Year);
-                //tbfCountry.Text = _media.CountryString;
+                tbfName.Text = record.mName;
+                tbfDesc.Text = record.mDescription;
+                tbfYear.Text = Convert.ToString(record.mYear);
+                tbfCountry.Text = record.mCountry;
 
-                ////tbfDesc.Text = record.Description;
-                ////tbfYear.Text = Convert.ToString(record.Year);
-                ////tbfCountry.Text = record.CountryString;
+                GetPic(record.combineLink.media);
 
                 //GetPic(_media);
 
@@ -849,24 +832,6 @@ namespace FilmCollection
             return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
         }
 
-        private void GetPic(Record record)
-        {
-            //string filename;
-            //filename = (record.Pic == "")
-            //    ? GetFilename("noPic")
-            //    : GetFilename(record.Pic);
-
-            //if (File.Exists(filename))
-            //{
-            //    Image image = Image.FromFile(filename);
-            //    pbImage.Image = (image.Height > 300)
-            //        ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
-            //        : image;
-            //}
-            //else
-            //    pbImage.Image = null;
-        }
-
         private void GetPic(Media _media)
         {
             string filename;
@@ -894,7 +859,6 @@ namespace FilmCollection
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
                 if (record != null) return record;
 
-
                 List<string> nnn = new List<string>();
 
                 foreach (DataGridViewTextBoxCell item in dgv.SelectedRows[0].Cells)
@@ -902,10 +866,7 @@ namespace FilmCollection
                     if (item != null)
                     {
                         if (item.Value != null)
-                        {
                             nnn.Add(item.Value.ToString());
-                        }
-
                     }
                 }
 
@@ -991,8 +952,7 @@ namespace FilmCollection
             //cBoxTypeVideo.SelectedIndex = 0;
             //cBoxCountry.SelectedIndex = 0;
         }
-
-
+        
         #endregion
 
 
@@ -1114,11 +1074,6 @@ namespace FilmCollection
                     MessageBox.Show(Ex.Message);
                     record.TimeVideoSpan = TimeSpan.Parse("0");
                 }
-
-
-
-
-
 
                 //if (TimeSpan.Parse(mtbTime.Text) <= TimeSpan.MaxValue)
                 //{
