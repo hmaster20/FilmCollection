@@ -20,10 +20,15 @@ namespace FilmCollection
 
         public void ClearOldRecord()    // удаление помеченных фильмов
         {
-            foreach (var record in recordList.FindAll(x => x.Visible == false))
+            foreach (Record record in recordList.FindAll(x => x.Visible == false))
                 recordList.Remove(record);
         }
 
+        public void invisibleRecord()
+        {
+            foreach (Record record in recordList)
+                record.Visible = false;
+        }
 
     }
 }
