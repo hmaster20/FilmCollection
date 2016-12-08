@@ -18,7 +18,7 @@ namespace FilmCollection
         public List<Record> recordList { get; set; }    // хранение файлов принадлежащих Media
 
 
-        public void ClearOldRecord()    // удаление помеченных фильмов
+        public void DeleteOldRecord()    // удаление помеченных фильмов
         {
             foreach (Record record in recordList.FindAll(x => x.Visible == false))
                 recordList.Remove(record);
