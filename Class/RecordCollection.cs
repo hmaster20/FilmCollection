@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace FilmCollection
 {
@@ -32,17 +33,9 @@ namespace FilmCollection
                 ClearCombine();
                 ClearMediaID();
             }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
-
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-
-
-        // MediaList = new List<Media>();// { new Media() { Name = "", Description = "" , Id=0, Year=2000} };      // Создание списка мультимедиа (Базы)
 
         [XmlElement]
         public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
@@ -60,7 +53,6 @@ namespace FilmCollection
         //public void ClearMedia() => MediaList.Clear();              // Очистить
 
         #endregion
-
 
 
         #region Список
