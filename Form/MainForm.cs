@@ -261,16 +261,10 @@ namespace FilmCollection
                     }
                     DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
 
-
-                    List<Record> list = new List<Record>();
-                    _videoCollection.CombineList.ForEach(r => list.AddRange(r.recordList));
-
-
-
                     if (directory.Exists)   // проверяем доступность каталога
                     {
-                        foreach (var rec in list)
-                            rec.Visible = false;
+                        foreach (Combine item in _videoCollection.CombineList)
+                            item.invisibleRecord();
 
                         foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                         {
@@ -278,7 +272,7 @@ namespace FilmCollection
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
-                            if (!RecordExist(record)) CreateRecordObject(file, record); // если файла нет в коллекции, создаем
+                            if (!RecordExist(record)) CreateCombine(file); // если файла нет в коллекции, создаем
                         }
 
                         _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
@@ -293,19 +287,23 @@ namespace FilmCollection
             }
         }
 
+
         private bool RecordExist(Record record)
         {
-            foreach (Record rec in _videoCollection.VideoList)// проверяем, есть ли файл в коллекции
+            List<Record> list = new List<Record>();
+            _videoCollection.CombineList.ForEach(r => list.AddRange(r.recordList));
+
+            foreach (Record rec in list)    // проверка наличия файла
             {
                 if (rec.Equals(record))
                 {
-                    rec.Visible = true;
+                    _videoCollection.CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
                     return true;    // если файл есть
                 }
             }
             return false;           // иначе файла нет файл есть
         }
-
+        
 
         void CreateCombine(FileInfo file)
         {
