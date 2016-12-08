@@ -142,39 +142,5 @@ namespace FilmCollection
         }
         #endregion
 
-
-        //#region Обработка Страны
-        //private Country_Rus _country;   // Страна
-        //[XmlIgnore]
-        //public Country_Rus Country
-        //{
-        //    get { return _country; }
-        //    set { _country = (value < 0) ? Country_Rus.Россия : value; }
-        //}
-
-        //public string CountryString
-        //{
-        //    get { return CountryToString(Country); }
-        //    set { Country = StringToCountry(value); }
-        //}
-
-        //public static string CountryToString(Country_Rus country)
-        //{
-        //    Country_Rus _category = (Country_Rus)((int)country);
-        //    return _category.ToString();
-        //}
-
-        //public static Country_Rus StringToCountry(string country)
-        //{
-        //    Country_Rus _category = (Country_Rus)(Enum.Parse(typeof(Country_Rus), country));
-        //    return _category;
-        //}
-        //#endregion
-
-
-
-    
-
-
     }
 }
