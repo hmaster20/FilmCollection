@@ -248,59 +248,63 @@ namespace FilmCollection
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            //if (_videoCollection.Options.Source == "" && _videoCollection.Options.Source == null)  // Если есть информация о корневой папки коллекции
-            //{
-            //    MessageBox.Show("Необходимо создать базу данных.");
-            //}
-            //else
-            //{
-            //    try
-            //    {
-            //        if (_videoCollection.Options.Source == null)
-            //        {
-            //            MessageBox.Show("Файл базы испорчен!");
-            //            return;
-            //        }
-            //        DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
+            if (_videoCollection.Options.Source == "" && _videoCollection.Options.Source == null)  // Если есть информация о корневой папки коллекции
+                MessageBox.Show("Необходимо создать базу данных.");
+            else
+            {
+                try
+                {
+                    if (_videoCollection.Options.Source == null)
+                    {
+                        MessageBox.Show("Файл базы испорчен!");
+                        return;
+                    }
+                    DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
 
-            //        if (directory.Exists)   // проверяем доступность каталога
-            //        {
-            //            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
-            //                _videoCollection.VideoList[i].Visible = false;
 
-            //            foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-            //            {
-            //                Record record = new Record();
-            //                record.FileName = file.Name;                            // полное название файла (film.avi)
-            //                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                    List<Record> list = new List<Record>();
+                    _videoCollection.CombineList.ForEach(r => list.AddRange(r.recordList));
 
-            //                if (!RecordExist(record)) CreateRecordObject(file, record); // если файла нет в коллекции, создаем
-            //            }
 
-            //            _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
-            //            FormLoad();                 // и перегружаем главную форму
-            //            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
-            //        }
-            //        else
-            //            MessageBox.Show("Каталог " + directory + " не обнаружен!");
-            //    }
-            //    catch (Exception ex)
-            //    { MessageBox.Show(ex.Message); }
-            //}
+
+                    if (directory.Exists)   // проверяем доступность каталога
+                    {
+                        foreach (var rec in list)
+                            rec.Visible = false;
+
+                        foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                        {
+                            Record record = new Record();
+                            record.FileName = file.Name;                            // полное название файла (film.avi)
+                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+
+                            if (!RecordExist(record)) CreateRecordObject(file, record); // если файла нет в коллекции, создаем
+                        }
+
+                        _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
+                        FormLoad();                 // и перегружаем главную форму
+                        MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                    }
+                    else
+                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
+                }
+                catch (Exception ex)
+                { MessageBox.Show(ex.Message); }
+            }
         }
 
-        //private bool RecordExist(Record record)
-        //{
-        //    foreach (Record rec in _videoCollection.VideoList)// проверяем, есть ли файл в коллекции
-        //    {
-        //        if (rec.Equals(record))
-        //        {
-        //            rec.Visible = true;
-        //            return true;    // если файл есть
-        //        }
-        //    }
-        //    return false;           // иначе файла нет файл есть
-        //}
+        private bool RecordExist(Record record)
+        {
+            foreach (Record rec in _videoCollection.VideoList)// проверяем, есть ли файл в коллекции
+            {
+                if (rec.Equals(record))
+                {
+                    rec.Visible = true;
+                    return true;    // если файл есть
+                }
+            }
+            return false;           // иначе файла нет файл есть
+        }
 
 
         void CreateCombine(FileInfo file)
@@ -599,7 +603,7 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
         }
 
-        
+
 
         private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
         {
@@ -1903,7 +1907,7 @@ namespace FilmCollection
             }
         }
 
-        
+
 
 
 
@@ -2177,7 +2181,7 @@ namespace FilmCollection
             }
             catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
         }
-        
+
         #endregion
 
 
