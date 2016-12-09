@@ -129,7 +129,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.btnNew = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.pbImage = new System.Windows.Forms.PictureBox();
@@ -220,6 +219,8 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.gRecord = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -256,6 +257,7 @@
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
+            this.gRecord.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -873,25 +875,10 @@
             // panelEdit
             // 
             this.panelEdit.Controls.Add(this.gMedia);
-            this.panelEdit.Controls.Add(this.btnGetTime);
-            this.panelEdit.Controls.Add(this.btnMoveDown);
-            this.panelEdit.Controls.Add(this.btnMoveUp);
-            this.panelEdit.Controls.Add(this.btnRemoveGroup);
-            this.panelEdit.Controls.Add(this.btnAddGroup);
-            this.panelEdit.Controls.Add(this.lblActorsSelect);
-            this.panelEdit.Controls.Add(this.chkActorSelect);
-            this.panelEdit.Controls.Add(this.lblActorsAll);
-            this.panelEdit.Controls.Add(this.chkActorList);
-            this.panelEdit.Controls.Add(this.mtbTime);
             this.panelEdit.Controls.Add(this.panelEditTitle);
             this.panelEdit.Controls.Add(this.btnSave);
             this.panelEdit.Controls.Add(this.btnCancel);
-            this.panelEdit.Controls.Add(this.tbFileName);
-            this.panelEdit.Controls.Add(this.btnFileNameEdit);
-            this.panelEdit.Controls.Add(this.textBox1);
-            this.panelEdit.Controls.Add(this.lblFileName);
-            this.panelEdit.Controls.Add(this.lblTime);
-            this.panelEdit.Controls.Add(this.label15);
+            this.panelEdit.Controls.Add(this.gRecord);
             this.panelEdit.Controls.Add(this.btnNew);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
@@ -912,10 +899,18 @@
             this.gMedia.Controls.Add(this.tbName);
             this.gMedia.Controls.Add(this.cBoxCountry);
             this.gMedia.Controls.Add(this.lblGenre);
+            this.gMedia.Controls.Add(this.btnAddGroup);
+            this.gMedia.Controls.Add(this.btnRemoveGroup);
+            this.gMedia.Controls.Add(this.btnMoveUp);
+            this.gMedia.Controls.Add(this.btnMoveDown);
+            this.gMedia.Controls.Add(this.lblActorsAll);
+            this.gMedia.Controls.Add(this.lblActorsSelect);
+            this.gMedia.Controls.Add(this.chkActorSelect);
+            this.gMedia.Controls.Add(this.chkActorList);
             this.gMedia.Controls.Add(this.mtbYear);
-            this.gMedia.Location = new System.Drawing.Point(11, 27);
+            this.gMedia.Location = new System.Drawing.Point(8, 27);
             this.gMedia.Name = "gMedia";
-            this.gMedia.Size = new System.Drawing.Size(353, 235);
+            this.gMedia.Size = new System.Drawing.Size(353, 393);
             this.gMedia.TabIndex = 60;
             this.gMedia.TabStop = false;
             this.gMedia.Text = "Общая информация";
@@ -926,9 +921,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxTypeVideo.FormattingEnabled = true;
-            this.cBoxTypeVideo.Location = new System.Drawing.Point(67, 117);
+            this.cBoxTypeVideo.Location = new System.Drawing.Point(242, 84);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
-            this.cBoxTypeVideo.Size = new System.Drawing.Size(275, 21);
+            this.cBoxTypeVideo.Size = new System.Drawing.Size(100, 21);
             this.cBoxTypeVideo.TabIndex = 42;
             this.cBoxTypeVideo.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -938,9 +933,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxGenre.FormattingEnabled = true;
-            this.cBoxGenre.Location = new System.Drawing.Point(67, 87);
+            this.cBoxGenre.Location = new System.Drawing.Point(67, 84);
             this.cBoxGenre.Name = "cBoxGenre";
-            this.cBoxGenre.Size = new System.Drawing.Size(275, 21);
+            this.cBoxGenre.Size = new System.Drawing.Size(121, 21);
             this.cBoxGenre.TabIndex = 31;
             this.cBoxGenre.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -948,7 +943,7 @@
             // 
             this.tbDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDescription.Location = new System.Drawing.Point(67, 148);
+            this.tbDescription.Location = new System.Drawing.Point(67, 114);
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(275, 75);
@@ -958,7 +953,7 @@
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(9, 151);
+            this.lblDescription.Location = new System.Drawing.Point(9, 116);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(57, 13);
             this.lblDescription.TabIndex = 25;
@@ -976,7 +971,7 @@
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(133, 57);
+            this.lblCountry.Location = new System.Drawing.Point(134, 57);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(43, 13);
             this.lblCountry.TabIndex = 21;
@@ -985,7 +980,7 @@
             // labelTypeVideo
             // 
             this.labelTypeVideo.AutoSize = true;
-            this.labelTypeVideo.Location = new System.Drawing.Point(35, 121);
+            this.labelTypeVideo.Location = new System.Drawing.Point(212, 87);
             this.labelTypeVideo.Name = "labelTypeVideo";
             this.labelTypeVideo.Size = new System.Drawing.Size(26, 13);
             this.labelTypeVideo.TabIndex = 23;
@@ -994,7 +989,7 @@
             // lblYear
             // 
             this.lblYear.AutoSize = true;
-            this.lblYear.Location = new System.Drawing.Point(35, 59);
+            this.lblYear.Location = new System.Drawing.Point(35, 57);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(25, 13);
             this.lblYear.TabIndex = 20;
@@ -1023,7 +1018,7 @@
             // lblGenre
             // 
             this.lblGenre.AutoSize = true;
-            this.lblGenre.Location = new System.Drawing.Point(27, 91);
+            this.lblGenre.Location = new System.Drawing.Point(27, 88);
             this.lblGenre.Name = "lblGenre";
             this.lblGenre.Size = new System.Drawing.Size(36, 13);
             this.lblGenre.TabIndex = 22;
@@ -1044,7 +1039,7 @@
             // 
             // btnGetTime
             // 
-            this.btnGetTime.Location = new System.Drawing.Point(154, 326);
+            this.btnGetTime.Location = new System.Drawing.Point(151, 45);
             this.btnGetTime.Name = "btnGetTime";
             this.btnGetTime.Size = new System.Drawing.Size(196, 23);
             this.btnGetTime.TabIndex = 59;
@@ -1056,9 +1051,9 @@
             // 
             this.btnMoveDown.BackColor = System.Drawing.Color.LightGray;
             this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveDown.Location = new System.Drawing.Point(13, 545);
+            this.btnMoveDown.Location = new System.Drawing.Point(11, 358);
             this.btnMoveDown.Name = "btnMoveDown";
-            this.btnMoveDown.Size = new System.Drawing.Size(50, 24);
+            this.btnMoveDown.Size = new System.Drawing.Size(48, 24);
             this.btnMoveDown.TabIndex = 58;
             this.btnMoveDown.Text = "Вниз";
             this.btnMoveDown.UseVisualStyleBackColor = false;
@@ -1068,9 +1063,9 @@
             // 
             this.btnMoveUp.BackColor = System.Drawing.Color.LightGray;
             this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveUp.Location = new System.Drawing.Point(13, 515);
+            this.btnMoveUp.Location = new System.Drawing.Point(11, 328);
             this.btnMoveUp.Name = "btnMoveUp";
-            this.btnMoveUp.Size = new System.Drawing.Size(50, 24);
+            this.btnMoveUp.Size = new System.Drawing.Size(48, 24);
             this.btnMoveUp.TabIndex = 57;
             this.btnMoveUp.Text = "Вверх";
             this.btnMoveUp.UseVisualStyleBackColor = false;
@@ -1080,7 +1075,7 @@
             // 
             this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemoveGroup.Location = new System.Drawing.Point(205, 460);
+            this.btnRemoveGroup.Location = new System.Drawing.Point(197, 256);
             this.btnRemoveGroup.Name = "btnRemoveGroup";
             this.btnRemoveGroup.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveGroup.TabIndex = 53;
@@ -1092,7 +1087,7 @@
             // 
             this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnAddGroup.Location = new System.Drawing.Point(205, 430);
+            this.btnAddGroup.Location = new System.Drawing.Point(197, 226);
             this.btnAddGroup.Name = "btnAddGroup";
             this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
             this.btnAddGroup.TabIndex = 52;
@@ -1102,7 +1097,7 @@
             // 
             // lblActorsSelect
             // 
-            this.lblActorsSelect.Location = new System.Drawing.Point(232, 391);
+            this.lblActorsSelect.Location = new System.Drawing.Point(224, 190);
             this.lblActorsSelect.Name = "lblActorsSelect";
             this.lblActorsSelect.Size = new System.Drawing.Size(132, 23);
             this.lblActorsSelect.TabIndex = 56;
@@ -1111,16 +1106,16 @@
             // 
             // chkActorSelect
             // 
-            this.chkActorSelect.Location = new System.Drawing.Point(235, 415);
+            this.chkActorSelect.Location = new System.Drawing.Point(227, 213);
             this.chkActorSelect.Name = "chkActorSelect";
             this.chkActorSelect.Size = new System.Drawing.Size(115, 95);
             this.chkActorSelect.TabIndex = 55;
             // 
             // lblActorsAll
             // 
-            this.lblActorsAll.Location = new System.Drawing.Point(71, 391);
+            this.lblActorsAll.Location = new System.Drawing.Point(70, 190);
             this.lblActorsAll.Name = "lblActorsAll";
-            this.lblActorsAll.Size = new System.Drawing.Size(100, 23);
+            this.lblActorsAll.Size = new System.Drawing.Size(100, 22);
             this.lblActorsAll.TabIndex = 54;
             this.lblActorsAll.Text = "Список актеров:";
             this.lblActorsAll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1129,15 +1124,15 @@
             // 
             this.chkActorList.CheckOnClick = true;
             this.chkActorList.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.chkActorList.Location = new System.Drawing.Point(71, 415);
+            this.chkActorList.Location = new System.Drawing.Point(67, 213);
             this.chkActorList.MultiColumn = true;
             this.chkActorList.Name = "chkActorList";
-            this.chkActorList.Size = new System.Drawing.Size(128, 169);
+            this.chkActorList.Size = new System.Drawing.Size(124, 169);
             this.chkActorList.TabIndex = 51;
             // 
             // mtbTime
             // 
-            this.mtbTime.Location = new System.Drawing.Point(71, 328);
+            this.mtbTime.Location = new System.Drawing.Point(67, 48);
             this.mtbTime.Mask = "00:00:00";
             this.mtbTime.Name = "mtbTime";
             this.mtbTime.Size = new System.Drawing.Size(75, 20);
@@ -1172,7 +1167,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(253, 588);
+            this.btnSave.Location = new System.Drawing.Point(265, 583);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 23);
             this.btnSave.TabIndex = 47;
@@ -1185,7 +1180,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(253, 619);
+            this.btnCancel.Location = new System.Drawing.Point(265, 612);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -1199,9 +1194,9 @@
             this.tbFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFileName.Enabled = false;
-            this.tbFileName.Location = new System.Drawing.Point(71, 358);
+            this.tbFileName.Location = new System.Drawing.Point(67, 76);
             this.tbFileName.Name = "tbFileName";
-            this.tbFileName.Size = new System.Drawing.Size(250, 20);
+            this.tbFileName.Size = new System.Drawing.Size(246, 20);
             this.tbFileName.TabIndex = 44;
             this.tbFileName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -1212,7 +1207,7 @@
             this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
             this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
             this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 355);
+            this.btnFileNameEdit.Location = new System.Drawing.Point(319, 73);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
             this.btnFileNameEdit.Size = new System.Drawing.Size(24, 25);
             this.btnFileNameEdit.TabIndex = 43;
@@ -1223,7 +1218,7 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(71, 295);
+            this.textBox1.Location = new System.Drawing.Point(67, 19);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(279, 20);
             this.textBox1.TabIndex = 27;
@@ -1232,7 +1227,7 @@
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(7, 361);
+            this.lblFileName.Location = new System.Drawing.Point(3, 79);
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(64, 13);
             this.lblFileName.TabIndex = 26;
@@ -1241,26 +1236,17 @@
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(10, 330);
+            this.lblTime.Location = new System.Drawing.Point(22, 51);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(40, 13);
             this.lblTime.TabIndex = 24;
             this.lblTime.Text = "Время";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(11, 298);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(32, 13);
-            this.label15.TabIndex = 19;
-            this.label15.Text = "Трек";
-            // 
             // btnNew
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(95, 602);
+            this.btnNew.Location = new System.Drawing.Point(19, 612);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -2216,6 +2202,32 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // gRecord
+            // 
+            this.gRecord.Controls.Add(this.lblFileName);
+            this.gRecord.Controls.Add(this.mtbTime);
+            this.gRecord.Controls.Add(this.tbFileName);
+            this.gRecord.Controls.Add(this.btnFileNameEdit);
+            this.gRecord.Controls.Add(this.label15);
+            this.gRecord.Controls.Add(this.textBox1);
+            this.gRecord.Controls.Add(this.lblTime);
+            this.gRecord.Controls.Add(this.btnGetTime);
+            this.gRecord.Location = new System.Drawing.Point(8, 426);
+            this.gRecord.Name = "gRecord";
+            this.gRecord.Size = new System.Drawing.Size(353, 109);
+            this.gRecord.TabIndex = 61;
+            this.gRecord.TabStop = false;
+            this.gRecord.Text = "Информация о файле";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(5, 22);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(60, 13);
+            this.label15.TabIndex = 19;
+            this.label15.Text = " Название";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2248,7 +2260,6 @@
             this.menudgvTable.ResumeLayout(false);
             this.menudgvTable.PerformLayout();
             this.panelEdit.ResumeLayout(false);
-            this.panelEdit.PerformLayout();
             this.gMedia.ResumeLayout(false);
             this.gMedia.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
@@ -2281,6 +2292,8 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
+            this.gRecord.ResumeLayout(false);
+            this.gRecord.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2477,6 +2490,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.GroupBox gMedia;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox gRecord;
         private System.Windows.Forms.Label label15;
     }
 }
