@@ -31,6 +31,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dgvTableRec = new System.Windows.Forms.DataGridView();
+            this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCountryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnGenreString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cFind = new System.Windows.Forms.ToolStripMenuItem();
             this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -89,6 +97,19 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
+            this.gMedia = new System.Windows.Forms.GroupBox();
+            this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
+            this.cBoxGenre = new System.Windows.Forms.ComboBox();
+            this.tbDescription = new System.Windows.Forms.TextBox();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
+            this.lblCountry = new System.Windows.Forms.Label();
+            this.labelTypeVideo = new System.Windows.Forms.Label();
+            this.lblYear = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.cBoxCountry = new System.Windows.Forms.ComboBox();
+            this.lblGenre = new System.Windows.Forms.Label();
+            this.mtbYear = new System.Windows.Forms.MaskedTextBox();
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
@@ -98,27 +119,17 @@
             this.chkActorSelect = new System.Windows.Forms.ListBox();
             this.lblActorsAll = new System.Windows.Forms.Label();
             this.chkActorList = new System.Windows.Forms.CheckedListBox();
-            this.cBoxCountry = new System.Windows.Forms.ComboBox();
             this.mtbTime = new System.Windows.Forms.MaskedTextBox();
-            this.mtbYear = new System.Windows.Forms.MaskedTextBox();
             this.panelEditTitle = new System.Windows.Forms.Panel();
             this.lblEditTitle = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbFileName = new System.Windows.Forms.TextBox();
             this.btnFileNameEdit = new System.Windows.Forms.Button();
-            this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
-            this.cBoxGenre = new System.Windows.Forms.ComboBox();
-            this.tbDescription = new System.Windows.Forms.TextBox();
-            this.tbName = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
-            this.labelTypeVideo = new System.Windows.Forms.Label();
-            this.lblGenre = new System.Windows.Forms.Label();
-            this.lblCountry = new System.Windows.Forms.Label();
-            this.lblYear = new System.Windows.Forms.Label();
-            this.lblName = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.btnNew = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
             this.pbImage = new System.Windows.Forms.PictureBox();
@@ -209,14 +220,6 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnCountryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnGenreString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnCategoryString = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -230,6 +233,7 @@
             this.scTabFilm.SuspendLayout();
             this.menudgvTable.SuspendLayout();
             this.panelEdit.SuspendLayout();
+            this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             this.panelView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
@@ -286,6 +290,75 @@
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableRec_ColumnHeaderMouseClick);
             this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
+            // 
+            // cmnName
+            // 
+            this.cmnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cmnName.DataPropertyName = "mName";
+            this.cmnName.HeaderText = "Название";
+            this.cmnName.Name = "cmnName";
+            this.cmnName.ReadOnly = true;
+            // 
+            // cmnDirName
+            // 
+            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cmnDirName.DataPropertyName = "DirName";
+            this.cmnDirName.HeaderText = "Каталог";
+            this.cmnDirName.Name = "cmnDirName";
+            this.cmnDirName.ReadOnly = true;
+            // 
+            // cmnYear
+            // 
+            this.cmnYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cmnYear.DataPropertyName = "mYear";
+            this.cmnYear.HeaderText = "Год";
+            this.cmnYear.Name = "cmnYear";
+            this.cmnYear.ReadOnly = true;
+            this.cmnYear.Width = 60;
+            // 
+            // cmnCountryString
+            // 
+            this.cmnCountryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnCountryString.DataPropertyName = "mCountry";
+            this.cmnCountryString.HeaderText = "Страна";
+            this.cmnCountryString.Name = "cmnCountryString";
+            this.cmnCountryString.ReadOnly = true;
+            this.cmnCountryString.Width = 68;
+            // 
+            // cmnGenreString
+            // 
+            this.cmnGenreString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnGenreString.DataPropertyName = "mGenre";
+            this.cmnGenreString.HeaderText = "Жанр";
+            this.cmnGenreString.Name = "cmnGenreString";
+            this.cmnGenreString.ReadOnly = true;
+            this.cmnGenreString.Width = 61;
+            // 
+            // cmnCategoryString
+            // 
+            this.cmnCategoryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cmnCategoryString.DataPropertyName = "mCategory";
+            this.cmnCategoryString.HeaderText = "Категория";
+            this.cmnCategoryString.Name = "cmnCategoryString";
+            this.cmnCategoryString.ReadOnly = true;
+            this.cmnCategoryString.Width = 85;
+            // 
+            // cmnTime
+            // 
+            this.cmnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cmnTime.DataPropertyName = "TimeString";
+            this.cmnTime.HeaderText = "Время";
+            this.cmnTime.Name = "cmnTime";
+            this.cmnTime.ReadOnly = true;
+            this.cmnTime.Width = 50;
+            // 
+            // cmnFileName
+            // 
+            this.cmnFileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cmnFileName.DataPropertyName = "FileName";
+            this.cmnFileName.HeaderText = "Файл";
+            this.cmnFileName.Name = "cmnFileName";
+            this.cmnFileName.ReadOnly = true;
             // 
             // TabMenu
             // 
@@ -799,6 +872,7 @@
             // 
             // panelEdit
             // 
+            this.panelEdit.Controls.Add(this.gMedia);
             this.panelEdit.Controls.Add(this.btnGetTime);
             this.panelEdit.Controls.Add(this.btnMoveDown);
             this.panelEdit.Controls.Add(this.btnMoveUp);
@@ -808,26 +882,16 @@
             this.panelEdit.Controls.Add(this.chkActorSelect);
             this.panelEdit.Controls.Add(this.lblActorsAll);
             this.panelEdit.Controls.Add(this.chkActorList);
-            this.panelEdit.Controls.Add(this.cBoxCountry);
             this.panelEdit.Controls.Add(this.mtbTime);
-            this.panelEdit.Controls.Add(this.mtbYear);
             this.panelEdit.Controls.Add(this.panelEditTitle);
             this.panelEdit.Controls.Add(this.btnSave);
             this.panelEdit.Controls.Add(this.btnCancel);
             this.panelEdit.Controls.Add(this.tbFileName);
             this.panelEdit.Controls.Add(this.btnFileNameEdit);
-            this.panelEdit.Controls.Add(this.cBoxTypeVideo);
-            this.panelEdit.Controls.Add(this.cBoxGenre);
-            this.panelEdit.Controls.Add(this.tbDescription);
-            this.panelEdit.Controls.Add(this.tbName);
+            this.panelEdit.Controls.Add(this.textBox1);
             this.panelEdit.Controls.Add(this.lblFileName);
-            this.panelEdit.Controls.Add(this.lblDescription);
             this.panelEdit.Controls.Add(this.lblTime);
-            this.panelEdit.Controls.Add(this.labelTypeVideo);
-            this.panelEdit.Controls.Add(this.lblGenre);
-            this.panelEdit.Controls.Add(this.lblCountry);
-            this.panelEdit.Controls.Add(this.lblYear);
-            this.panelEdit.Controls.Add(this.lblName);
+            this.panelEdit.Controls.Add(this.label15);
             this.panelEdit.Controls.Add(this.btnNew);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
@@ -835,9 +899,152 @@
             this.panelEdit.Size = new System.Drawing.Size(368, 651);
             this.panelEdit.TabIndex = 10;
             // 
+            // gMedia
+            // 
+            this.gMedia.Controls.Add(this.cBoxTypeVideo);
+            this.gMedia.Controls.Add(this.cBoxGenre);
+            this.gMedia.Controls.Add(this.tbDescription);
+            this.gMedia.Controls.Add(this.lblDescription);
+            this.gMedia.Controls.Add(this.lblName);
+            this.gMedia.Controls.Add(this.lblCountry);
+            this.gMedia.Controls.Add(this.labelTypeVideo);
+            this.gMedia.Controls.Add(this.lblYear);
+            this.gMedia.Controls.Add(this.tbName);
+            this.gMedia.Controls.Add(this.cBoxCountry);
+            this.gMedia.Controls.Add(this.lblGenre);
+            this.gMedia.Controls.Add(this.mtbYear);
+            this.gMedia.Location = new System.Drawing.Point(11, 27);
+            this.gMedia.Name = "gMedia";
+            this.gMedia.Size = new System.Drawing.Size(353, 235);
+            this.gMedia.TabIndex = 60;
+            this.gMedia.TabStop = false;
+            this.gMedia.Text = "Общая информация";
+            // 
+            // cBoxTypeVideo
+            // 
+            this.cBoxTypeVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBoxTypeVideo.FormattingEnabled = true;
+            this.cBoxTypeVideo.Location = new System.Drawing.Point(67, 117);
+            this.cBoxTypeVideo.Name = "cBoxTypeVideo";
+            this.cBoxTypeVideo.Size = new System.Drawing.Size(275, 21);
+            this.cBoxTypeVideo.TabIndex = 42;
+            this.cBoxTypeVideo.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
+            // 
+            // cBoxGenre
+            // 
+            this.cBoxGenre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBoxGenre.FormattingEnabled = true;
+            this.cBoxGenre.Location = new System.Drawing.Point(67, 87);
+            this.cBoxGenre.Name = "cBoxGenre";
+            this.cBoxGenre.Size = new System.Drawing.Size(275, 21);
+            this.cBoxGenre.TabIndex = 31;
+            this.cBoxGenre.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
+            // 
+            // tbDescription
+            // 
+            this.tbDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbDescription.Location = new System.Drawing.Point(67, 148);
+            this.tbDescription.Multiline = true;
+            this.tbDescription.Name = "tbDescription";
+            this.tbDescription.Size = new System.Drawing.Size(275, 75);
+            this.tbDescription.TabIndex = 30;
+            this.tbDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(9, 151);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(57, 13);
+            this.lblDescription.TabIndex = 25;
+            this.lblDescription.Text = "Описание";
+            // 
+            // lblName
+            // 
+            this.lblName.AutoSize = true;
+            this.lblName.Location = new System.Drawing.Point(4, 28);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(60, 13);
+            this.lblName.TabIndex = 19;
+            this.lblName.Text = " Название";
+            // 
+            // lblCountry
+            // 
+            this.lblCountry.AutoSize = true;
+            this.lblCountry.Location = new System.Drawing.Point(133, 57);
+            this.lblCountry.Name = "lblCountry";
+            this.lblCountry.Size = new System.Drawing.Size(43, 13);
+            this.lblCountry.TabIndex = 21;
+            this.lblCountry.Text = "Страна";
+            // 
+            // labelTypeVideo
+            // 
+            this.labelTypeVideo.AutoSize = true;
+            this.labelTypeVideo.Location = new System.Drawing.Point(35, 121);
+            this.labelTypeVideo.Name = "labelTypeVideo";
+            this.labelTypeVideo.Size = new System.Drawing.Size(26, 13);
+            this.labelTypeVideo.TabIndex = 23;
+            this.labelTypeVideo.Text = "Тип";
+            // 
+            // lblYear
+            // 
+            this.lblYear.AutoSize = true;
+            this.lblYear.Location = new System.Drawing.Point(35, 59);
+            this.lblYear.Name = "lblYear";
+            this.lblYear.Size = new System.Drawing.Size(25, 13);
+            this.lblYear.TabIndex = 20;
+            this.lblYear.Text = "Год";
+            // 
+            // tbName
+            // 
+            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbName.Location = new System.Drawing.Point(67, 25);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(275, 20);
+            this.tbName.TabIndex = 27;
+            this.tbName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            // 
+            // cBoxCountry
+            // 
+            this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cBoxCountry.FormattingEnabled = true;
+            this.cBoxCountry.Location = new System.Drawing.Point(182, 54);
+            this.cBoxCountry.Name = "cBoxCountry";
+            this.cBoxCountry.Size = new System.Drawing.Size(160, 21);
+            this.cBoxCountry.TabIndex = 50;
+            this.cBoxCountry.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
+            // 
+            // lblGenre
+            // 
+            this.lblGenre.AutoSize = true;
+            this.lblGenre.Location = new System.Drawing.Point(27, 91);
+            this.lblGenre.Name = "lblGenre";
+            this.lblGenre.Size = new System.Drawing.Size(36, 13);
+            this.lblGenre.TabIndex = 22;
+            this.lblGenre.Text = "Жанр";
+            // 
+            // mtbYear
+            // 
+            this.mtbYear.Location = new System.Drawing.Point(67, 54);
+            this.mtbYear.Mask = "0000";
+            this.mtbYear.Name = "mtbYear";
+            this.mtbYear.Size = new System.Drawing.Size(57, 20);
+            this.mtbYear.TabIndex = 49;
+            this.mtbYear.Text = "2016";
+            this.mtbYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mtbYear.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtbYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbTime_KeyDown);
+            this.mtbYear.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
+            // 
             // btnGetTime
             // 
-            this.btnGetTime.Location = new System.Drawing.Point(154, 150);
+            this.btnGetTime.Location = new System.Drawing.Point(154, 326);
             this.btnGetTime.Name = "btnGetTime";
             this.btnGetTime.Size = new System.Drawing.Size(196, 23);
             this.btnGetTime.TabIndex = 59;
@@ -849,7 +1056,7 @@
             // 
             this.btnMoveDown.BackColor = System.Drawing.Color.LightGray;
             this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveDown.Location = new System.Drawing.Point(13, 453);
+            this.btnMoveDown.Location = new System.Drawing.Point(13, 545);
             this.btnMoveDown.Name = "btnMoveDown";
             this.btnMoveDown.Size = new System.Drawing.Size(50, 24);
             this.btnMoveDown.TabIndex = 58;
@@ -861,7 +1068,7 @@
             // 
             this.btnMoveUp.BackColor = System.Drawing.Color.LightGray;
             this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveUp.Location = new System.Drawing.Point(13, 423);
+            this.btnMoveUp.Location = new System.Drawing.Point(13, 515);
             this.btnMoveUp.Name = "btnMoveUp";
             this.btnMoveUp.Size = new System.Drawing.Size(50, 24);
             this.btnMoveUp.TabIndex = 57;
@@ -873,7 +1080,7 @@
             // 
             this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemoveGroup.Location = new System.Drawing.Point(205, 368);
+            this.btnRemoveGroup.Location = new System.Drawing.Point(205, 460);
             this.btnRemoveGroup.Name = "btnRemoveGroup";
             this.btnRemoveGroup.Size = new System.Drawing.Size(24, 24);
             this.btnRemoveGroup.TabIndex = 53;
@@ -885,7 +1092,7 @@
             // 
             this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnAddGroup.Location = new System.Drawing.Point(205, 338);
+            this.btnAddGroup.Location = new System.Drawing.Point(205, 430);
             this.btnAddGroup.Name = "btnAddGroup";
             this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
             this.btnAddGroup.TabIndex = 52;
@@ -895,7 +1102,7 @@
             // 
             // lblActorsSelect
             // 
-            this.lblActorsSelect.Location = new System.Drawing.Point(232, 299);
+            this.lblActorsSelect.Location = new System.Drawing.Point(232, 391);
             this.lblActorsSelect.Name = "lblActorsSelect";
             this.lblActorsSelect.Size = new System.Drawing.Size(132, 23);
             this.lblActorsSelect.TabIndex = 56;
@@ -904,14 +1111,14 @@
             // 
             // chkActorSelect
             // 
-            this.chkActorSelect.Location = new System.Drawing.Point(235, 323);
+            this.chkActorSelect.Location = new System.Drawing.Point(235, 415);
             this.chkActorSelect.Name = "chkActorSelect";
             this.chkActorSelect.Size = new System.Drawing.Size(115, 95);
             this.chkActorSelect.TabIndex = 55;
             // 
             // lblActorsAll
             // 
-            this.lblActorsAll.Location = new System.Drawing.Point(71, 299);
+            this.lblActorsAll.Location = new System.Drawing.Point(71, 391);
             this.lblActorsAll.Name = "lblActorsAll";
             this.lblActorsAll.Size = new System.Drawing.Size(100, 23);
             this.lblActorsAll.TabIndex = 54;
@@ -922,25 +1129,15 @@
             // 
             this.chkActorList.CheckOnClick = true;
             this.chkActorList.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.chkActorList.Location = new System.Drawing.Point(71, 323);
+            this.chkActorList.Location = new System.Drawing.Point(71, 415);
             this.chkActorList.MultiColumn = true;
             this.chkActorList.Name = "chkActorList";
             this.chkActorList.Size = new System.Drawing.Size(128, 169);
             this.chkActorList.TabIndex = 51;
             // 
-            // cBoxCountry
-            // 
-            this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cBoxCountry.FormattingEnabled = true;
-            this.cBoxCountry.Location = new System.Drawing.Point(186, 59);
-            this.cBoxCountry.Name = "cBoxCountry";
-            this.cBoxCountry.Size = new System.Drawing.Size(164, 21);
-            this.cBoxCountry.TabIndex = 50;
-            this.cBoxCountry.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
-            // 
             // mtbTime
             // 
-            this.mtbTime.Location = new System.Drawing.Point(71, 152);
+            this.mtbTime.Location = new System.Drawing.Point(71, 328);
             this.mtbTime.Mask = "00:00:00";
             this.mtbTime.Name = "mtbTime";
             this.mtbTime.Size = new System.Drawing.Size(75, 20);
@@ -949,19 +1146,6 @@
             this.mtbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbTime_KeyDown);
             this.mtbTime.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
-            // 
-            // mtbYear
-            // 
-            this.mtbYear.Location = new System.Drawing.Point(71, 59);
-            this.mtbYear.Mask = "0000";
-            this.mtbYear.Name = "mtbYear";
-            this.mtbYear.Size = new System.Drawing.Size(57, 20);
-            this.mtbYear.TabIndex = 49;
-            this.mtbYear.Text = "2016";
-            this.mtbYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.mtbYear.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.mtbYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbTime_KeyDown);
-            this.mtbYear.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
             // 
             // panelEditTitle
             // 
@@ -988,7 +1172,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(253, 496);
+            this.btnSave.Location = new System.Drawing.Point(253, 588);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 23);
             this.btnSave.TabIndex = 47;
@@ -1001,7 +1185,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(253, 527);
+            this.btnCancel.Location = new System.Drawing.Point(253, 619);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -1015,7 +1199,7 @@
             this.tbFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFileName.Enabled = false;
-            this.tbFileName.Location = new System.Drawing.Point(71, 266);
+            this.tbFileName.Location = new System.Drawing.Point(71, 358);
             this.tbFileName.Name = "tbFileName";
             this.tbFileName.Size = new System.Drawing.Size(250, 20);
             this.tbFileName.TabIndex = 44;
@@ -1028,135 +1212,55 @@
             this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
             this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
             this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 263);
+            this.btnFileNameEdit.Location = new System.Drawing.Point(326, 355);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
             this.btnFileNameEdit.Size = new System.Drawing.Size(24, 25);
             this.btnFileNameEdit.TabIndex = 43;
             this.btnFileNameEdit.UseVisualStyleBackColor = true;
             this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
             // 
-            // cBoxTypeVideo
+            // textBox1
             // 
-            this.cBoxTypeVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cBoxTypeVideo.FormattingEnabled = true;
-            this.cBoxTypeVideo.Location = new System.Drawing.Point(71, 122);
-            this.cBoxTypeVideo.Name = "cBoxTypeVideo";
-            this.cBoxTypeVideo.Size = new System.Drawing.Size(279, 21);
-            this.cBoxTypeVideo.TabIndex = 42;
-            this.cBoxTypeVideo.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // cBoxGenre
-            // 
-            this.cBoxGenre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cBoxGenre.FormattingEnabled = true;
-            this.cBoxGenre.Location = new System.Drawing.Point(71, 92);
-            this.cBoxGenre.Name = "cBoxGenre";
-            this.cBoxGenre.Size = new System.Drawing.Size(279, 21);
-            this.cBoxGenre.TabIndex = 31;
-            this.cBoxGenre.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // tbDescription
-            // 
-            this.tbDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDescription.Location = new System.Drawing.Point(71, 182);
-            this.tbDescription.Multiline = true;
-            this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(279, 75);
-            this.tbDescription.TabIndex = 30;
-            this.tbDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // tbName
-            // 
-            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbName.Location = new System.Drawing.Point(71, 30);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(279, 20);
-            this.tbName.TabIndex = 27;
-            this.tbName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.textBox1.Location = new System.Drawing.Point(71, 295);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(279, 20);
+            this.textBox1.TabIndex = 27;
+            this.textBox1.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(7, 269);
+            this.lblFileName.Location = new System.Drawing.Point(7, 361);
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(64, 13);
             this.lblFileName.TabIndex = 26;
             this.lblFileName.Text = "Имя файла";
             // 
-            // lblDescription
-            // 
-            this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(13, 185);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(57, 13);
-            this.lblDescription.TabIndex = 25;
-            this.lblDescription.Text = "Описание";
-            // 
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(10, 154);
+            this.lblTime.Location = new System.Drawing.Point(10, 330);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(40, 13);
             this.lblTime.TabIndex = 24;
             this.lblTime.Text = "Время";
             // 
-            // labelTypeVideo
+            // label15
             // 
-            this.labelTypeVideo.AutoSize = true;
-            this.labelTypeVideo.Location = new System.Drawing.Point(10, 125);
-            this.labelTypeVideo.Name = "labelTypeVideo";
-            this.labelTypeVideo.Size = new System.Drawing.Size(26, 13);
-            this.labelTypeVideo.TabIndex = 23;
-            this.labelTypeVideo.Text = "Тип";
-            // 
-            // lblGenre
-            // 
-            this.lblGenre.AutoSize = true;
-            this.lblGenre.Location = new System.Drawing.Point(10, 95);
-            this.lblGenre.Name = "lblGenre";
-            this.lblGenre.Size = new System.Drawing.Size(36, 13);
-            this.lblGenre.TabIndex = 22;
-            this.lblGenre.Text = "Жанр";
-            // 
-            // lblCountry
-            // 
-            this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(137, 62);
-            this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(43, 13);
-            this.lblCountry.TabIndex = 21;
-            this.lblCountry.Text = "Страна";
-            // 
-            // lblYear
-            // 
-            this.lblYear.AutoSize = true;
-            this.lblYear.Location = new System.Drawing.Point(10, 62);
-            this.lblYear.Name = "lblYear";
-            this.lblYear.Size = new System.Drawing.Size(25, 13);
-            this.lblYear.TabIndex = 20;
-            this.lblYear.Text = "Год";
-            // 
-            // lblName
-            // 
-            this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(5, 33);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(60, 13);
-            this.lblName.TabIndex = 19;
-            this.lblName.Text = " Название";
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(11, 298);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(32, 13);
+            this.label15.TabIndex = 19;
+            this.label15.Text = "Трек";
             // 
             // btnNew
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(95, 510);
+            this.btnNew.Location = new System.Drawing.Point(95, 602);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -2099,7 +2203,6 @@
             this.tsFindbyName.AutoSize = false;
             this.tsFindbyName.BackColor = System.Drawing.SystemColors.Window;
             this.tsFindbyName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tsFindbyName.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsFindbyName.Name = "tsFindbyName";
             this.tsFindbyName.Padding = new System.Windows.Forms.Padding(5);
             this.tsFindbyName.Size = new System.Drawing.Size(150, 20);
@@ -2112,75 +2215,6 @@
             this.toolinfo.AutoPopDelay = 5000;
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
-            // 
-            // cmnName
-            // 
-            this.cmnName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cmnName.DataPropertyName = "mName";
-            this.cmnName.HeaderText = "Название";
-            this.cmnName.Name = "cmnName";
-            this.cmnName.ReadOnly = true;
-            // 
-            // cmnDirName
-            // 
-            this.cmnDirName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cmnDirName.DataPropertyName = "DirName";
-            this.cmnDirName.HeaderText = "Каталог";
-            this.cmnDirName.Name = "cmnDirName";
-            this.cmnDirName.ReadOnly = true;
-            // 
-            // cmnYear
-            // 
-            this.cmnYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cmnYear.DataPropertyName = "mYear";
-            this.cmnYear.HeaderText = "Год";
-            this.cmnYear.Name = "cmnYear";
-            this.cmnYear.ReadOnly = true;
-            this.cmnYear.Width = 60;
-            // 
-            // cmnCountryString
-            // 
-            this.cmnCountryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnCountryString.DataPropertyName = "mCountry";
-            this.cmnCountryString.HeaderText = "Страна";
-            this.cmnCountryString.Name = "cmnCountryString";
-            this.cmnCountryString.ReadOnly = true;
-            this.cmnCountryString.Width = 68;
-            // 
-            // cmnGenreString
-            // 
-            this.cmnGenreString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnGenreString.DataPropertyName = "mGenre";
-            this.cmnGenreString.HeaderText = "Жанр";
-            this.cmnGenreString.Name = "cmnGenreString";
-            this.cmnGenreString.ReadOnly = true;
-            this.cmnGenreString.Width = 61;
-            // 
-            // cmnCategoryString
-            // 
-            this.cmnCategoryString.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.cmnCategoryString.DataPropertyName = "mCategory";
-            this.cmnCategoryString.HeaderText = "Категория";
-            this.cmnCategoryString.Name = "cmnCategoryString";
-            this.cmnCategoryString.ReadOnly = true;
-            this.cmnCategoryString.Width = 85;
-            // 
-            // cmnTime
-            // 
-            this.cmnTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cmnTime.DataPropertyName = "TimeString";
-            this.cmnTime.HeaderText = "Время";
-            this.cmnTime.Name = "cmnTime";
-            this.cmnTime.ReadOnly = true;
-            this.cmnTime.Width = 50;
-            // 
-            // cmnFileName
-            // 
-            this.cmnFileName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cmnFileName.DataPropertyName = "FileName";
-            this.cmnFileName.HeaderText = "Файл";
-            this.cmnFileName.Name = "cmnFileName";
-            this.cmnFileName.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -2215,6 +2249,8 @@
             this.menudgvTable.PerformLayout();
             this.panelEdit.ResumeLayout(false);
             this.panelEdit.PerformLayout();
+            this.gMedia.ResumeLayout(false);
+            this.gMedia.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
@@ -2439,6 +2475,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.GroupBox gMedia;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label15;
     }
 }
 
