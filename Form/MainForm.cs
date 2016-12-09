@@ -2219,6 +2219,11 @@ namespace FilmCollection
             GetTime();
         }
 
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         //{
         //    //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
