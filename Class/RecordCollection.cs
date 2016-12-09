@@ -142,23 +142,21 @@ namespace FilmCollection
                 //return new RecordCollection();
             }
 
-            Dictionary<int, Combine> _combine = new Dictionary<int, Combine>();
-            foreach (var com in result.CombineList)
-            {
-                _combine.Add(com.media.Id, com);
+            Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
+            foreach (Combine com in result.CombineList)
+            {   
+                combineDic.Add(com.media.Id, com);
                 foreach (var record in com.recordList)
-                {
-                    record.combineLink = com;
-                }
+                    record.combineLink = com;           // привязываем record.combineLink к родителю
             }
-            foreach (var actor in result.ActorList)
+            foreach (Actor actor in result.ActorList)
             {
-                foreach (var videoID in actor.VideoID)
+                foreach (int videoID in actor.VideoID)
                 {
-                    if (_combine.ContainsKey(videoID))
+                    if (combineDic.ContainsKey(videoID))
                     {
-                        actor.CombineList.Add(_combine[videoID]);
-                        _combine[videoID].media.ActorList.Add(actor);
+                        actor.CombineList.Add(combineDic[videoID]);
+                        combineDic[videoID].media.ActorList.Add(actor);
                     }
                 }
             }
