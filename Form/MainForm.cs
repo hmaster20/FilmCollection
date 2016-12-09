@@ -20,7 +20,7 @@ namespace FilmCollection
         RecordCollection _videoCollection = new RecordCollection();     // Доступ к коллекции
         TreeViewColletion _treeViewColletion = new TreeViewColletion(); // Доступ к коллекции
 
-        FileInfo fsInfo = null;     // Поле для нового файла, добавляемого в базу
+        FileInfo fsInfo { get; set; } = null;     // cdдля нового файла, добавляемого в базу
         int FindCount { get; set; }                 // счетчик найденных строк
         public List<int> dgvSelected { get; set; }  // индексы найденных строк
 
@@ -739,8 +739,24 @@ namespace FilmCollection
                 // поиск актеров по id
                 chkActorSelect.Items.Clear();
 
+                List<Actor> aList = record.combineLink.media.ActorList;
+                if (aList != null)
+                {
+                    foreach (var item in record.combineLink.media.ActorList)
+                    {
+                        chkActorSelect.Items.Add(item);
+                    }
+                }
+
+
+                //foreach (var item in record.combineLink.media.ActorList)
+                //{
+                //    chkActorSelect.Items.Add(item);
+                //}
+
                 //try
                 //{
+                //    //foreach (int actorID in record.combineLink.media.ActorListID)
                 //    foreach (int actorID in record.ActorID)
                 //    {
                 //        foreach (var item in _videoCollection.ActorList.FindAll(v => v.Id == actorID))
@@ -784,8 +800,7 @@ namespace FilmCollection
                     ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
                     : image;
             }
-            else
-                pbImage.Image = null;
+            else pbImage.Image = null;
         }
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
@@ -913,18 +928,9 @@ namespace FilmCollection
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = _videoCollection.Options.Source;
-            //openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            //fileDialog.Filter = "Все файлы (*.*)|*.*";
-            fileDialog.Filter = "Все файлы (*.*)|*.* | Видео ";
-
-            openFileDialog1.Filter = "JPG (*.jpg,*.jpeg)|*.jpg;*.jpeg|TIFF (*.tif,*.tiff)|*.tif;*.tiff"
-            //Image Files(*.BMP; *.JPG; *.GIF)| *.BMP; *.JPG; *.GIF | All files(*.*) | *.*
-            //{ ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".flv" };
-
+            fileDialog.Filter = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
             fileDialog.RestoreDirectory = true;
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
-                NewRecord(fileDialog.FileName);
+            if (fileDialog.ShowDialog() == DialogResult.OK) NewRecord(fileDialog.FileName);
         }
 
         private void NewRecord(string FileName)
@@ -1004,6 +1010,8 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
+                Combine cm = record.combineLink;
+
                 record.Name = tbName.Text;
                 //record.Year = Convert.ToInt32(mtbYear.Text);
                 // record.Country = country;
@@ -1030,9 +1038,11 @@ namespace FilmCollection
                 //record.TimeVideoSpan = Convert.ToDateTime(mtbTime.Text);
 
 
+                // отдельно назвать название трека и фильма название трека и фильма
                 //record.Category = category;
-                // record.GenreVideo = genre;
+                //record.GenreVideo = genre;
                 //record.Description = tbDescription.Text;
+
                 if (record.FileName != tbFileName.Text)
                 {
                     File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
@@ -1040,12 +1050,14 @@ namespace FilmCollection
                     record.FileName = tbFileName.Text;
                     record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
                 }
-                else
-                {
-                    record.FileName = tbFileName.Text;
-                }
+                else record.FileName = tbFileName.Text;
 
                 GetActorID(record);
+
+                
+
+                // обработать правильное сохранение
+              
 
                 _videoCollection.Save();
             }
