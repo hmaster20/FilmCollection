@@ -104,9 +104,9 @@
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblCountry = new System.Windows.Forms.Label();
-            this.labelTypeVideo = new System.Windows.Forms.Label();
+            this.lblTypeVideo = new System.Windows.Forms.Label();
             this.lblYear = new System.Windows.Forms.Label();
-            this.tbName = new System.Windows.Forms.TextBox();
+            this.tbNameMedia = new System.Windows.Forms.TextBox();
             this.cBoxCountry = new System.Windows.Forms.ComboBox();
             this.lblGenre = new System.Windows.Forms.Label();
             this.mtbYear = new System.Windows.Forms.MaskedTextBox();
@@ -126,7 +126,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbFileName = new System.Windows.Forms.TextBox();
             this.btnFileNameEdit = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbNameRecord = new System.Windows.Forms.TextBox();
             this.lblFileName = new System.Windows.Forms.Label();
             this.lblTime = new System.Windows.Forms.Label();
             this.btnNew = new System.Windows.Forms.Button();
@@ -220,7 +220,9 @@
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.gRecord = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lblNameR = new System.Windows.Forms.Label();
+            this.ChangeCatalogTypeVideo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -682,9 +684,11 @@
             this.toolStripSeparator8,
             this.cRenameFolder,
             this.toolStripSeparator7,
-            this.UpdateCatalogInfo});
+            this.UpdateCatalogInfo,
+            this.toolStripSeparator11,
+            this.ChangeCatalogTypeVideo});
             this.TreeMenu.Name = "contextTreeMenu";
-            this.TreeMenu.Size = new System.Drawing.Size(268, 160);
+            this.TreeMenu.Size = new System.Drawing.Size(351, 210);
             // 
             // сCollapseAll
             // 
@@ -752,6 +756,7 @@
             this.UpdateCatalogInfo.Name = "UpdateCatalogInfo";
             this.UpdateCatalogInfo.Size = new System.Drawing.Size(267, 22);
             this.UpdateCatalogInfo.Text = "Обновить информацию в каталоге";
+            this.UpdateCatalogInfo.Click += new System.EventHandler(this.UpdateCatalogInfo_Click);
             // 
             // tabControl2
             // 
@@ -890,15 +895,16 @@
             // 
             this.gMedia.Controls.Add(this.cBoxTypeVideo);
             this.gMedia.Controls.Add(this.cBoxGenre);
+            this.gMedia.Controls.Add(this.cBoxCountry);
             this.gMedia.Controls.Add(this.tbDescription);
+            this.gMedia.Controls.Add(this.mtbYear);
             this.gMedia.Controls.Add(this.lblDescription);
             this.gMedia.Controls.Add(this.lblName);
             this.gMedia.Controls.Add(this.lblCountry);
-            this.gMedia.Controls.Add(this.labelTypeVideo);
-            this.gMedia.Controls.Add(this.lblYear);
-            this.gMedia.Controls.Add(this.tbName);
-            this.gMedia.Controls.Add(this.cBoxCountry);
             this.gMedia.Controls.Add(this.lblGenre);
+            this.gMedia.Controls.Add(this.lblTypeVideo);
+            this.gMedia.Controls.Add(this.lblYear);
+            this.gMedia.Controls.Add(this.tbNameMedia);
             this.gMedia.Controls.Add(this.btnAddGroup);
             this.gMedia.Controls.Add(this.btnRemoveGroup);
             this.gMedia.Controls.Add(this.btnMoveUp);
@@ -907,7 +913,6 @@
             this.gMedia.Controls.Add(this.lblActorsSelect);
             this.gMedia.Controls.Add(this.chkActorSelect);
             this.gMedia.Controls.Add(this.chkActorList);
-            this.gMedia.Controls.Add(this.mtbYear);
             this.gMedia.Location = new System.Drawing.Point(8, 27);
             this.gMedia.Name = "gMedia";
             this.gMedia.Size = new System.Drawing.Size(353, 393);
@@ -971,20 +976,20 @@
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(134, 57);
+            this.lblCountry.Location = new System.Drawing.Point(143, 57);
             this.lblCountry.Name = "lblCountry";
             this.lblCountry.Size = new System.Drawing.Size(43, 13);
             this.lblCountry.TabIndex = 21;
             this.lblCountry.Text = "Страна";
             // 
-            // labelTypeVideo
+            // lblTypeVideo
             // 
-            this.labelTypeVideo.AutoSize = true;
-            this.labelTypeVideo.Location = new System.Drawing.Point(212, 87);
-            this.labelTypeVideo.Name = "labelTypeVideo";
-            this.labelTypeVideo.Size = new System.Drawing.Size(26, 13);
-            this.labelTypeVideo.TabIndex = 23;
-            this.labelTypeVideo.Text = "Тип";
+            this.lblTypeVideo.AutoSize = true;
+            this.lblTypeVideo.Location = new System.Drawing.Point(212, 87);
+            this.lblTypeVideo.Name = "lblTypeVideo";
+            this.lblTypeVideo.Size = new System.Drawing.Size(26, 13);
+            this.lblTypeVideo.TabIndex = 23;
+            this.lblTypeVideo.Text = "Тип";
             // 
             // lblYear
             // 
@@ -995,23 +1000,23 @@
             this.lblYear.TabIndex = 20;
             this.lblYear.Text = "Год";
             // 
-            // tbName
+            // tbNameMedia
             // 
-            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbNameMedia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbName.Location = new System.Drawing.Point(67, 25);
-            this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(275, 20);
-            this.tbName.TabIndex = 27;
-            this.tbName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.tbNameMedia.Location = new System.Drawing.Point(67, 25);
+            this.tbNameMedia.Name = "tbNameMedia";
+            this.tbNameMedia.Size = new System.Drawing.Size(275, 20);
+            this.tbNameMedia.TabIndex = 27;
+            this.tbNameMedia.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // cBoxCountry
             // 
             this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCountry.FormattingEnabled = true;
-            this.cBoxCountry.Location = new System.Drawing.Point(182, 54);
+            this.cBoxCountry.Location = new System.Drawing.Point(188, 54);
             this.cBoxCountry.Name = "cBoxCountry";
-            this.cBoxCountry.Size = new System.Drawing.Size(160, 21);
+            this.cBoxCountry.Size = new System.Drawing.Size(154, 21);
             this.cBoxCountry.TabIndex = 50;
             this.cBoxCountry.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -1039,7 +1044,7 @@
             // 
             // btnGetTime
             // 
-            this.btnGetTime.Location = new System.Drawing.Point(151, 45);
+            this.btnGetTime.Location = new System.Drawing.Point(151, 47);
             this.btnGetTime.Name = "btnGetTime";
             this.btnGetTime.Size = new System.Drawing.Size(196, 23);
             this.btnGetTime.TabIndex = 59;
@@ -1214,15 +1219,15 @@
             this.btnFileNameEdit.UseVisualStyleBackColor = true;
             this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
             // 
-            // textBox1
+            // tbNameRecord
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbNameRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(67, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(279, 20);
-            this.textBox1.TabIndex = 27;
-            this.textBox1.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
+            this.tbNameRecord.Location = new System.Drawing.Point(67, 19);
+            this.tbNameRecord.Name = "tbNameRecord";
+            this.tbNameRecord.Size = new System.Drawing.Size(279, 20);
+            this.tbNameRecord.TabIndex = 27;
+            this.tbNameRecord.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // lblFileName
             // 
@@ -2204,13 +2209,13 @@
             // 
             // gRecord
             // 
+            this.gRecord.Controls.Add(this.lblNameR);
+            this.gRecord.Controls.Add(this.lblTime);
             this.gRecord.Controls.Add(this.lblFileName);
             this.gRecord.Controls.Add(this.mtbTime);
             this.gRecord.Controls.Add(this.tbFileName);
             this.gRecord.Controls.Add(this.btnFileNameEdit);
-            this.gRecord.Controls.Add(this.label15);
-            this.gRecord.Controls.Add(this.textBox1);
-            this.gRecord.Controls.Add(this.lblTime);
+            this.gRecord.Controls.Add(this.tbNameRecord);
             this.gRecord.Controls.Add(this.btnGetTime);
             this.gRecord.Location = new System.Drawing.Point(8, 426);
             this.gRecord.Name = "gRecord";
@@ -2219,14 +2224,26 @@
             this.gRecord.TabStop = false;
             this.gRecord.Text = "Информация о файле";
             // 
-            // label15
+            // lblNameR
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(5, 22);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(60, 13);
-            this.label15.TabIndex = 19;
-            this.label15.Text = " Название";
+            this.lblNameR.AutoSize = true;
+            this.lblNameR.Location = new System.Drawing.Point(6, 22);
+            this.lblNameR.Name = "lblNameR";
+            this.lblNameR.Size = new System.Drawing.Size(60, 13);
+            this.lblNameR.TabIndex = 19;
+            this.lblNameR.Text = " Название";
+            // 
+            // ChangeCatalogTypeVideo
+            // 
+            this.ChangeCatalogTypeVideo.Name = "ChangeCatalogTypeVideo";
+            this.ChangeCatalogTypeVideo.Size = new System.Drawing.Size(350, 22);
+            this.ChangeCatalogTypeVideo.Text = "Сделать каталог сериалом на основе выбранного";
+            this.ChangeCatalogTypeVideo.Click += new System.EventHandler(this.ChangeCatalogTypeVideo_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(264, 6);
             // 
             // MainForm
             // 
@@ -2335,11 +2352,11 @@
         private System.Windows.Forms.ComboBox cBoxTypeVideo;
         private System.Windows.Forms.ComboBox cBoxGenre;
         private System.Windows.Forms.TextBox tbDescription;
-        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.TextBox tbNameMedia;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblTime;
-        private System.Windows.Forms.Label labelTypeVideo;
+        private System.Windows.Forms.Label lblTypeVideo;
         private System.Windows.Forms.Label lblGenre;
         private System.Windows.Forms.Label lblCountry;
         private System.Windows.Forms.Label lblYear;
@@ -2489,9 +2506,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.GroupBox gMedia;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbNameRecord;
         private System.Windows.Forms.GroupBox gRecord;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblNameR;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem ChangeCatalogTypeVideo;
     }
 }
 
