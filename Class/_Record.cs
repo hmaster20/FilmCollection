@@ -11,7 +11,7 @@ namespace FilmCollection
     {
         public bool Visible { get; set; }       // Видимость записи
         public string Name { get; set; }        // Название Фильма
-        public int linkID { get; set; } = 0;    // идентификатор MediaID
+        //public int linkID { get; set; } = 0;    // идентификатор MediaID
         public string FileName { get; set; }    // Название файла
         public string DirName { get; set; }     // Название папки в которой расположен файл
         public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
