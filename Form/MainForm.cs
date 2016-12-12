@@ -717,7 +717,7 @@ namespace FilmCollection
                 tbfYear.Text = Convert.ToString(record.mYear);
                 tbfCountry.Text = record.mCountry;
                 GetPic(record.combineLink.media);
-                //////////////////////////////////////////
+
                 // Панель редактирования
                 // Media
                 tbNameMedia.Text = record.combineLink.media.Name;
@@ -727,10 +727,10 @@ namespace FilmCollection
                 cBoxGenre.SelectedIndex = ((int)record.combineLink.media.GenreVideo);
                 cBoxCountry.SelectedIndex = ((int)record.combineLink.media.Country);
                 chkActorSelect.Items.Clear();
-                List<Actor> aList = record.combineLink.media.ActorList;
-                if (aList != null)
-                    foreach (var item in record.combineLink.media.ActorList)
-                        chkActorSelect.Items.Add(item);
+                if (record.combineLink.media.ActorListID != null)
+                    foreach (int ListID in record.combineLink.media.ActorListID)
+                        chkActorSelect.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
+
                 // Record
                 tbNameRecord.Text = record.Name;
                 mtbTime.Text = record.TimeVideoSpan.ToString();
@@ -772,14 +772,8 @@ namespace FilmCollection
                 List<string> nnn = new List<string>();
 
                 foreach (DataGridViewTextBoxCell item in dgv.SelectedRows[0].Cells)
-                {
-                    if (item != null)
-                    {
-                        if (item.Value != null)
-                            nnn.Add(item.Value.ToString());
-                    }
-                }
-
+                    if (item != null && item.Value != null)
+                        nnn.Add(item.Value.ToString());
             }
             return null;
         }
@@ -1711,25 +1705,25 @@ namespace FilmCollection
         {
             lvSelectRecord.Items.Clear();
 
-            //try
-            //{
-            //    string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
-            //    Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+            try
+            {
+                string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
+                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-            //    foreach (DataGridViewRow row in dgvTableRec.Rows)
-            //    {
-            //        if (regex.IsMatch(row.Cells[0].Value.ToString()))
-            //        {
-            //            Record record = null;
-            //            if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
-            //            if (record != null) lvSelectRecord_add(record.Name, record.Year, record.Id);
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
+                {
+                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                    {
+                        Record record = null;
+                        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
+                        if (record != null) lvSelectRecord_add(record.combineLink.media.Name, record.combineLink.media.Year, record.combineLink.media.Id);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void lvSelectRecord_add(string name, int year, int id)
