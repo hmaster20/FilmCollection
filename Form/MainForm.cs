@@ -2159,42 +2159,31 @@ namespace FilmCollection
         private void ChangeCatalogTypeVideo_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
-            Combine cmNew = new Combine();
-            cmNew.media = record.combineLink.media;
-
-            List<Record> filtered = new List<Record>();
-            _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
-
-            filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
-
-
-            foreach (Record rec in filtered)
+            if (record == null)
             {
-                // record.combineLink.recordList.Add(rec);   
-                cmNew.recordList.Add(rec);
+                MessageBox.Show("Выберите запись для создания сериала!");
             }
-
-            
-
-            foreach (Record rec in filtered)
+            else
             {
-                _videoCollection.CombineList.Remove(rec.combineLink);
+                Combine cmNew = new Combine();
+                cmNew.media = record.combineLink.media;
+                cmNew.media.Category = CategoryVideo.Series;
+
+                List<Record> filtered = new List<Record>();
+                _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+
+                filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
+
+                foreach (Record rec in filtered)
+                    cmNew.recordList.Add(rec);
+
+                foreach (Record rec in filtered)
+                    _videoCollection.CombineList.Remove(rec.combineLink);
+
+                _videoCollection.CombineList.Add(cmNew);
+                _videoCollection.Save();
+                PrepareRefresh(treeFolder.SelectedNode.FullPath, true);
             }
-            _videoCollection.CombineList.Add(cmNew);
-            _videoCollection.Save();
-            PrepareRefresh(treeFolder.SelectedNode.FullPath, true);
-
-
-            //foreach (Record rec in filtered)
-            //{
-            //    if (record.combineLink != rec.combineLink)
-            //    {
-            //        _videoCollection.CombineList.Remove(record.combineLink);
-            //     }
-            //}
-
-
-
         }
 
         private void UpdateCatalogInfo_Click(object sender, EventArgs e)
