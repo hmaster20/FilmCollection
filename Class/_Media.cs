@@ -11,6 +11,7 @@ namespace FilmCollection
         public Media()
         {
             ActorListID = new List<int>();      // Создание списка ID актеров, играющих в картине
+            ActorList = new List<Actor>();
         }
 
         public string Name { get; set; }        // Название произведения
