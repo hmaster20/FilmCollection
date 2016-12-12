@@ -313,7 +313,8 @@ namespace FilmCollection
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
 
             cm.media.Name = record.Name = (name_f != "") ? name_f : name_1;
-            record.linkID = cm.media.Id = _videoCollection.getMediaID();
+            // record.linkID = cm.media.Id = _videoCollection.getMediaID();
+            cm.media.Id = _videoCollection.getMediaID();
 
             record.Visible = true;
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
@@ -2158,29 +2159,40 @@ namespace FilmCollection
         private void ChangeCatalogTypeVideo_Click(object sender, EventArgs e)
         {
             Record record = GetSelectedRecord();
-
-            //  PrepareRefresh(treeFolder.SelectedNode.FullPath, true);  
+            Combine cmNew = new Combine();
+            cmNew.media = record.combineLink.media;
 
             List<Record> filtered = new List<Record>();
             _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
             filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
 
-            record.combineLink.recordList.Clear();
 
             foreach (Record rec in filtered)
             {
-                record.combineLink.recordList.Add(rec);    
+                // record.combineLink.recordList.Add(rec);   
+                cmNew.recordList.Add(rec);
             }
+
+            
 
             foreach (Record rec in filtered)
             {
-                if (record.combineLink != rec.combineLink)
-                {
-                    _videoCollection.CombineList.Remove(record.combineLink);
-                 }
+                _videoCollection.CombineList.Remove(rec.combineLink);
             }
-     
+            _videoCollection.CombineList.Add(cmNew);
+            _videoCollection.Save();
+            PrepareRefresh(treeFolder.SelectedNode.FullPath, true);
+
+
+            //foreach (Record rec in filtered)
+            //{
+            //    if (record.combineLink != rec.combineLink)
+            //    {
+            //        _videoCollection.CombineList.Remove(record.combineLink);
+            //     }
+            //}
+
 
 
         }
