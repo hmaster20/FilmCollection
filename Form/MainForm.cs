@@ -2170,8 +2170,19 @@ namespace FilmCollection
 
             foreach (Record rec in filtered)
             {
-                record.combineLink.recordList.Add(rec);
+                record.combineLink.recordList.Add(rec);    
             }
+
+            foreach (Record rec in filtered)
+            {
+                if (record.combineLink != rec.combineLink)
+                {
+                    _videoCollection.CombineList.Remove(record.combineLink);
+                 }
+            }
+     
+
+
         }
 
         private void UpdateCatalogInfo_Click(object sender, EventArgs e)
