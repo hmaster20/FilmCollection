@@ -10,6 +10,7 @@ namespace FilmCollection
         public Actor()
         {
             VideoID = new List<int>();     // Создание списка ID
+            CombineList = new List<Combine>();
         }
 
         public int id { get; set; }         // Уникальный идентификатор
