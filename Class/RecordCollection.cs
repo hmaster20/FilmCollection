@@ -135,31 +135,32 @@ namespace FilmCollection
             try
             {
                 result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
+
+                Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
+
+                foreach (Combine com in result.CombineList)
+                {
+                    combineDic.Add(com.media.Id, com);
+                    foreach (var record in com.recordList)
+                        record.combineLink = com;           // привязываем record.combineLink к родителю
+                }
+
+                foreach (Actor actor in result.ActorList)
+                    foreach (int videoID in actor.VideoID)
+                    {
+                        if (combineDic.ContainsKey(videoID))
+                        {
+                            actor.CombineList.Add(combineDic[videoID]);
+                            combineDic[videoID].media.ActorList.Add(actor);
+                        }
+                    }
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("Ошибка на этапе загрузки файла базы. " + ex.Message);
                 //return new RecordCollection();
             }
 
-            Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
-            foreach (Combine com in result.CombineList)
-            {   
-                combineDic.Add(com.media.Id, com);
-                foreach (var record in com.recordList)
-                    record.combineLink = com;           // привязываем record.combineLink к родителю
-            }
-            foreach (Actor actor in result.ActorList)
-            {
-                foreach (int videoID in actor.VideoID)
-                {
-                    if (combineDic.ContainsKey(videoID))
-                    {
-                        actor.CombineList.Add(combineDic[videoID]);
-                        combineDic[videoID].media.ActorList.Add(actor);
-                    }
-                }
-            }
 
             return result;
         }
