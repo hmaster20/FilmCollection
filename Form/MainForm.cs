@@ -785,9 +785,9 @@ namespace FilmCollection
             if (act != null)
             {
                 //// Панель описания
-                //tbfName.Text = record.Name;
-                //tbfDesc.Text = record.Description;
-                //tbfYear.Text = Convert.ToString(record.Year);
+                tbfName.Text = record.Name;
+                tbfDesc.Text = record.Description;
+                tbfYear.Text = Convert.ToString(record.Year);
 
                 // Панель редактирования
                 tbFIO.Text = act.FIO;
@@ -798,27 +798,27 @@ namespace FilmCollection
 
                 listViewFilm.Items.Clear();
 
-                //try
-                //{
-                //    foreach (int recID in act.VideoID)
-                //    {
-                //        foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
-                //        {
-                //            string[] arr = new string[3];
-                //            arr[0] = item.Name;
-                //            arr[1] = item.Year.ToString();
-                //            arr[2] = item.Id.ToString();
+                try
+                {
+                    foreach (int recID in act.VideoID)
+                    {
+                        foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
+                        {
+                            string[] arr = new string[3];
+                            arr[0] = item.Name;
+                            arr[1] = item.Year.ToString();
+                            arr[2] = item.Id.ToString();
 
-                //            ListViewItem itm = new ListViewItem(arr);
+                            ListViewItem itm = new ListViewItem(arr);
 
-                //            listViewFilm.Items.Add(itm);
-                //        }
-                //    }
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show(ex.Message);
-                //}
+                            listViewFilm.Items.Add(itm);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -1021,7 +1021,10 @@ namespace FilmCollection
         {
             foreach (Actor _actorID in chkActorSelect.Items)
                 if (_actorID != null)
+                { 
                     record.combineLink.media.ActorListID.Add(_actorID.id);
+                    _actorID.VideoID.Add(record.combineLink.media.Id);
+                }
         }
 
         private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
@@ -1673,6 +1676,7 @@ namespace FilmCollection
             foreach (ListViewItem eachItem in listViewFilm.Items)
             {
                 actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
+                _videoCollection.CombineList.FindLast(m => m.media.Id == Convert.ToInt32(eachItem.SubItems[2].Text)).media.ActorListID.Add(actor.id);
             }
 
             _videoCollection.Add(actor);
