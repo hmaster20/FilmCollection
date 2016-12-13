@@ -5,7 +5,6 @@ using System.Windows.Forms;
 
 namespace FilmCollection
 {
-
     public class RecordCollection
     {
         public RecordCollection()
@@ -43,8 +42,8 @@ namespace FilmCollection
 
         #region Актеры
 
-        public int ActorID { get; set; }      // Идентификатор актеров
-        public int getActorID() => ++ActorID; // Генерация идентификатора  // return ++ActorID;
+        public int ActorID { get; set; }    // Идентификатор актеров
+        public int getActorID() => ++ActorID;       // Генерация идентификатора  // return ++ActorID;
         public void clearActorID() => ActorID = 0;  // обнуление идентификатора
 
         // Список актеров
