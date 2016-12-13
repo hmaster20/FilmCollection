@@ -784,11 +784,8 @@ namespace FilmCollection
             Actor act = GetSelectedActor();
             if (act != null)
             {
-                //// Панель описания
-                tbfName.Text = record.Name;
-                tbfDesc.Text = record.Description;
-                tbfYear.Text = Convert.ToString(record.Year);
-
+                // Панель описания
+     
                 // Панель редактирования
                 tbFIO.Text = act.FIO;
                 maskDateOfBirth.Text = act.DateOfBirth;
@@ -802,12 +799,13 @@ namespace FilmCollection
                 {
                     foreach (int recID in act.VideoID)
                     {
-                        foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
+                        //foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
+                        foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                         {
                             string[] arr = new string[3];
-                            arr[0] = item.Name;
-                            arr[1] = item.Year.ToString();
-                            arr[2] = item.Id.ToString();
+                            arr[0] = com.media.Name;
+                            arr[1] = com.media.Year.ToString();
+                            arr[2] = com.media.Id.ToString();
 
                             ListViewItem itm = new ListViewItem(arr);
 
@@ -815,10 +813,7 @@ namespace FilmCollection
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
         }
 
@@ -1021,7 +1016,7 @@ namespace FilmCollection
         {
             foreach (Actor _actorID in chkActorSelect.Items)
                 if (_actorID != null)
-                { 
+                {
                     record.combineLink.media.ActorListID.Add(_actorID.id);
                     _actorID.VideoID.Add(record.combineLink.media.Id);
                 }
