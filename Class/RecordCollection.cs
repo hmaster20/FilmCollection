@@ -40,70 +40,6 @@ namespace FilmCollection
         [XmlElement]
         public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
 
-        #region Список мультимедиа (База)
-
-        //public int MediaID { get; set; }      // Идентификатор
-        //public int getMediaID() => ++MediaID;         // Генерация идентификатора
-        //public void clearMediaID() => MediaID = 0;    // обнуление идентификатора
-
-
-        //public List<Media> MediaList { get; set; } // Объявление списка        
-        //public void Add(Media media) => MediaList.Add(media);       // Добавление
-        //public void Remove(Media media) => MediaList.Remove(media); // Удаление
-        //public void ClearMedia() => MediaList.Clear();              // Очистить
-
-        #endregion
-
-
-        #region Список
-
-        //public int RecordID { get; set; }      // Идентификатор фильмов
-        //public int getRecordID() => ++RecordID;         // Генерация идентификатора  //return ++RecordID;   
-        //public void clearRecordID() => RecordID = 0;    // обнуление идентификатора  // RecordID = 0;
-
-        //public List<Record> VideoList { get; set; } // Объявление списка
-        //public void Add(Record record) => VideoList.Add(record);        // Добавление записи
-        //public void Remove(Record record) => VideoList.Remove(record);  // Удаление записи  
-        //public void ClearVideo()
-        //{
-        //    try
-        //    {
-        //        VideoList.Clear();                  // Очистить коллекцию
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Windows.Forms.MessageBox.Show(ex.Message);
-        //    }
-        //}
-
-
-
-
-
-        //void max()
-        //{
-        //    int maxAge = FindMaxAge(VideoList);
-        //    //VideoList.Find();
-        //}
-
-        //private int FindMaxAge(List<Record> list)
-        //{
-        //    if (list.Count == 0)
-        //    {
-        //        throw new InvalidOperationException("Empty list");
-        //    }
-        //    int maxAge = int.MinValue;
-        //    foreach (Record type in list)
-        //    {
-        //        if (type.Id > maxAge)
-        //        {
-        //            maxAge = type.Id;
-        //        }
-        //    }
-        //    return maxAge;
-        //}
-        #endregion
-
 
         #region Актеры
 
@@ -119,8 +55,7 @@ namespace FilmCollection
 
         #endregion
 
-
-
+        
 
         #region Сериализация
 
@@ -160,8 +95,6 @@ namespace FilmCollection
                 throw new Exception("Ошибка на этапе загрузки файла базы. " + ex.Message);
                 //return new RecordCollection();
             }
-
-
             return result;
         }
 
