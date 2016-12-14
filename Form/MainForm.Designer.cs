@@ -98,15 +98,6 @@
             this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
-            this.panelFolder = new System.Windows.Forms.Panel();
-            this.btnSaveFolder = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.panelView = new System.Windows.Forms.Panel();
             this.pbImage = new System.Windows.Forms.PictureBox();
             this.btnPlay = new System.Windows.Forms.Button();
@@ -120,6 +111,15 @@
             this.tbfName = new System.Windows.Forms.TextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
+            this.panelFolder = new System.Windows.Forms.Panel();
+            this.btnSaveFolder = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
@@ -191,9 +191,11 @@
             this.gActAbout = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.cBoxCountryActor = new System.Windows.Forms.ComboBox();
+            this.tbBIO = new System.Windows.Forms.TextBox();
             this.tbFIO = new System.Windows.Forms.TextBox();
             this.maskDateOfBirth = new System.Windows.Forms.MaskedTextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.maskDateOfDeath = new System.Windows.Forms.MaskedTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -203,6 +205,23 @@
             this.btnCancelActor = new System.Windows.Forms.Button();
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.panelViewAct = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.tabGrab = new System.Windows.Forms.TabPage();
             this.tabBase = new System.Windows.Forms.TabPage();
@@ -223,27 +242,8 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.label15 = new System.Windows.Forms.Label();
-            this.panelViewAct = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -256,10 +256,10 @@
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
             this.menudgvTable.SuspendLayout();
-            this.panelFolder.SuspendLayout();
             this.panelView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
+            this.panelFolder.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
@@ -276,14 +276,14 @@
             this.panelEditAct.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gActAbout.SuspendLayout();
+            this.panelViewAct.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
-            this.panelViewAct.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -913,103 +913,6 @@
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
-            // panelFolder
-            // 
-            this.panelFolder.Controls.Add(this.btnSaveFolder);
-            this.panelFolder.Controls.Add(this.button2);
-            this.panelFolder.Controls.Add(this.button3);
-            this.panelFolder.Controls.Add(this.label17);
-            this.panelFolder.Controls.Add(this.label16);
-            this.panelFolder.Controls.Add(this.textBox4);
-            this.panelFolder.Controls.Add(this.textBox3);
-            this.panelFolder.Controls.Add(this.label7);
-            this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFolder.Location = new System.Drawing.Point(0, 0);
-            this.panelFolder.Name = "panelFolder";
-            this.panelFolder.Size = new System.Drawing.Size(368, 651);
-            this.panelFolder.TabIndex = 59;
-            // 
-            // btnSaveFolder
-            // 
-            this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveFolder.Image = global::FilmCollection.Properties.Resources.save;
-            this.btnSaveFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveFolder.Location = new System.Drawing.Point(253, 165);
-            this.btnSaveFolder.Name = "btnSaveFolder";
-            this.btnSaveFolder.Size = new System.Drawing.Size(86, 23);
-            this.btnSaveFolder.TabIndex = 60;
-            this.btnSaveFolder.Text = "Сохранить";
-            this.btnSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveFolder.UseVisualStyleBackColor = true;
-            this.btnSaveFolder.Click += new System.EventHandler(this.btnSaveFolder_Click);
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(253, 194);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 23);
-            this.button2.TabIndex = 59;
-            this.button2.Text = "Отмена";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
-            // button3
-            // 
-            this.button3.Image = global::FilmCollection.Properties.Resources.add;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(28, 180);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 23);
-            this.button3.TabIndex = 58;
-            this.button3.Text = "Добавить";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(29, 43);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(98, 13);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "Текущий каталог:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(29, 88);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(188, 13);
-            this.label16.TabIndex = 4;
-            this.label16.Text = "Укажите новое название каталога:";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(28, 62);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(311, 20);
-            this.textBox4.TabIndex = 3;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(28, 107);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(311, 20);
-            this.textBox3.TabIndex = 3;
-            // 
-            // label7
-            // 
-            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(0, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(368, 27);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Панель изменения каталога";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // panelView
             // 
             this.panelView.Controls.Add(this.pbImage);
@@ -1164,6 +1067,103 @@
             this.lblRecTitle.TabIndex = 0;
             this.lblRecTitle.Text = "Общие сведения";
             this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelFolder
+            // 
+            this.panelFolder.Controls.Add(this.btnSaveFolder);
+            this.panelFolder.Controls.Add(this.button2);
+            this.panelFolder.Controls.Add(this.button3);
+            this.panelFolder.Controls.Add(this.label17);
+            this.panelFolder.Controls.Add(this.label16);
+            this.panelFolder.Controls.Add(this.textBox4);
+            this.panelFolder.Controls.Add(this.textBox3);
+            this.panelFolder.Controls.Add(this.label7);
+            this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFolder.Location = new System.Drawing.Point(0, 0);
+            this.panelFolder.Name = "panelFolder";
+            this.panelFolder.Size = new System.Drawing.Size(368, 651);
+            this.panelFolder.TabIndex = 59;
+            // 
+            // btnSaveFolder
+            // 
+            this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveFolder.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnSaveFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveFolder.Location = new System.Drawing.Point(253, 165);
+            this.btnSaveFolder.Name = "btnSaveFolder";
+            this.btnSaveFolder.Size = new System.Drawing.Size(86, 23);
+            this.btnSaveFolder.TabIndex = 60;
+            this.btnSaveFolder.Text = "Сохранить";
+            this.btnSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveFolder.UseVisualStyleBackColor = true;
+            this.btnSaveFolder.Click += new System.EventHandler(this.btnSaveFolder_Click);
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(253, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.TabIndex = 59;
+            this.button2.Text = "Отмена";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.Image = global::FilmCollection.Properties.Resources.add;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(28, 180);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(81, 23);
+            this.button3.TabIndex = 58;
+            this.button3.Text = "Добавить";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(29, 43);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 13);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Текущий каталог:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(29, 88);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(188, 13);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "Укажите новое название каталога:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(28, 62);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(311, 20);
+            this.textBox4.TabIndex = 3;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(28, 107);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(311, 20);
+            this.textBox3.TabIndex = 3;
+            // 
+            // label7
+            // 
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(368, 27);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Панель изменения каталога";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelEdit
             // 
@@ -1713,8 +1713,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 653);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
@@ -1926,7 +1926,7 @@
             // 
             this.gActAbout.Controls.Add(this.checkBox1);
             this.gActAbout.Controls.Add(this.cBoxCountryActor);
-            this.gActAbout.Controls.Add(this.textBox1);
+            this.gActAbout.Controls.Add(this.tbBIO);
             this.gActAbout.Controls.Add(this.tbFIO);
             this.gActAbout.Controls.Add(this.maskDateOfBirth);
             this.gActAbout.Controls.Add(this.label9);
@@ -1965,6 +1965,13 @@
             this.cBoxCountryActor.Size = new System.Drawing.Size(281, 21);
             this.cBoxCountryActor.TabIndex = 59;
             // 
+            // tbBIO
+            // 
+            this.tbBIO.Location = new System.Drawing.Point(98, 123);
+            this.tbBIO.Name = "tbBIO";
+            this.tbBIO.Size = new System.Drawing.Size(281, 20);
+            this.tbBIO.TabIndex = 55;
+            // 
             // tbFIO
             // 
             this.tbFIO.Location = new System.Drawing.Point(98, 23);
@@ -1989,6 +1996,15 @@
             this.label9.Size = new System.Drawing.Size(43, 13);
             this.label9.TabIndex = 52;
             this.label9.Text = "Ф.И.О.";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(32, 127);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(63, 13);
+            this.label15.TabIndex = 54;
+            this.label15.Text = "Биография";
             // 
             // maskDateOfDeath
             // 
@@ -2083,6 +2099,178 @@
             this.label8.TabIndex = 1;
             this.label8.Text = "Панель редактирования";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelViewAct
+            // 
+            this.panelViewAct.Controls.Add(this.groupBox2);
+            this.panelViewAct.Controls.Add(this.groupBox3);
+            this.panelViewAct.Controls.Add(this.label26);
+            this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelViewAct.Location = new System.Drawing.Point(0, 0);
+            this.panelViewAct.Name = "panelViewAct";
+            this.panelViewAct.Size = new System.Drawing.Size(423, 651);
+            this.panelViewAct.TabIndex = 1;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.listView1);
+            this.groupBox2.Location = new System.Drawing.Point(20, 198);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(391, 302);
+            this.groupBox2.TabIndex = 64;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Фильмография";
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listView1.FullRowSelect = true;
+            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listView1.Location = new System.Drawing.Point(15, 19);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.ShowGroups = false;
+            this.listView1.Size = new System.Drawing.Size(364, 261);
+            this.listView1.TabIndex = 62;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "";
+            this.columnHeader1.Width = 275;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "";
+            this.columnHeader2.Width = 45;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.linkLabel1);
+            this.groupBox3.Controls.Add(this.checkBox2);
+            this.groupBox3.Controls.Add(this.maskedTextBox1);
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.label21);
+            this.groupBox3.Controls.Add(this.maskedTextBox2);
+            this.groupBox3.Controls.Add(this.label22);
+            this.groupBox3.Controls.Add(this.label23);
+            this.groupBox3.Controls.Add(this.label24);
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Location = new System.Drawing.Point(20, 30);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(391, 157);
+            this.groupBox3.TabIndex = 63;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Информация об актере";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.linkLabel1.Location = new System.Drawing.Point(98, 123);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Padding = new System.Windows.Forms.Padding(3);
+            this.linkLabel1.Size = new System.Drawing.Size(281, 23);
+            this.linkLabel1.TabIndex = 65;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox2.Location = new System.Drawing.Point(327, 59);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(49, 17);
+            this.checkBox2.TabIndex = 61;
+            this.checkBox2.Text = "Жив";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(98, 56);
+            this.maskedTextBox1.Mask = "00/00/0000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(74, 20);
+            this.maskedTextBox1.TabIndex = 58;
+            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(49, 26);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(43, 13);
+            this.label20.TabIndex = 52;
+            this.label20.Text = "Ф.И.О.";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(32, 127);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(63, 13);
+            this.label21.TabIndex = 54;
+            this.label21.Text = "Биография";
+            // 
+            // maskedTextBox2
+            // 
+            this.maskedTextBox2.Location = new System.Drawing.Point(201, 57);
+            this.maskedTextBox2.Mask = "00/00/0000";
+            this.maskedTextBox2.Name = "maskedTextBox2";
+            this.maskedTextBox2.Size = new System.Drawing.Size(121, 20);
+            this.maskedTextBox2.TabIndex = 58;
+            this.maskedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(49, 93);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(43, 13);
+            this.label22.TabIndex = 54;
+            this.label22.Text = "Страна";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(12, 59);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(71, 13);
+            this.label23.TabIndex = 53;
+            this.label23.Text = "Годы жизни:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(85, 59);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(13, 13);
+            this.label24.TabIndex = 53;
+            this.label24.Text = "с";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(177, 59);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(19, 13);
+            this.label25.TabIndex = 53;
+            this.label25.Text = "по";
+            // 
+            // label26
+            // 
+            this.label26.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label26.Location = new System.Drawing.Point(0, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(423, 27);
+            this.label26.TabIndex = 1;
+            this.label26.Text = "Информация об актере";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tabImage
             // 
@@ -2273,210 +2461,29 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // label15
+            // textBox1
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(32, 127);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(63, 13);
-            this.label15.TabIndex = 54;
-            this.label15.Text = "Биография";
-            // 
-            // panelViewAct
-            // 
-            this.panelViewAct.Controls.Add(this.groupBox2);
-            this.panelViewAct.Controls.Add(this.groupBox3);
-            this.panelViewAct.Controls.Add(this.label26);
-            this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelViewAct.Location = new System.Drawing.Point(0, 0);
-            this.panelViewAct.Name = "panelViewAct";
-            this.panelViewAct.Size = new System.Drawing.Size(423, 651);
-            this.panelViewAct.TabIndex = 1;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.listView1);
-            this.groupBox2.Location = new System.Drawing.Point(20, 198);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(391, 302);
-            this.groupBox2.TabIndex = 64;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Фильмография";
-            // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listView1.FullRowSelect = true;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.Location = new System.Drawing.Point(15, 19);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.ShowGroups = false;
-            this.listView1.Size = new System.Drawing.Size(364, 261);
-            this.listView1.TabIndex = 62;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 275;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "";
-            this.columnHeader2.Width = 45;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.linkLabel1);
-            this.groupBox3.Controls.Add(this.checkBox2);
-            this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Controls.Add(this.maskedTextBox1);
-            this.groupBox3.Controls.Add(this.label20);
-            this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.maskedTextBox2);
-            this.groupBox3.Controls.Add(this.label22);
-            this.groupBox3.Controls.Add(this.label23);
-            this.groupBox3.Controls.Add(this.label24);
-            this.groupBox3.Controls.Add(this.label25);
-            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(20, 30);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(391, 157);
-            this.groupBox3.TabIndex = 63;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Информация об актере";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.linkLabel1.Location = new System.Drawing.Point(98, 123);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Padding = new System.Windows.Forms.Padding(3);
-            this.linkLabel1.Size = new System.Drawing.Size(281, 23);
-            this.linkLabel1.TabIndex = 65;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox2.Location = new System.Drawing.Point(327, 59);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(49, 17);
-            this.checkBox2.TabIndex = 61;
-            this.checkBox2.Text = "Жив";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(98, 90);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(281, 21);
-            this.comboBox1.TabIndex = 59;
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox1.Location = new System.Drawing.Point(98, 88);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(278, 23);
+            this.textBox1.TabIndex = 66;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(98, 23);
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox2.Location = new System.Drawing.Point(98, 22);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(279, 20);
-            this.textBox2.TabIndex = 55;
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(98, 56);
-            this.maskedTextBox1.Mask = "00/00/0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(74, 20);
-            this.maskedTextBox1.TabIndex = 58;
-            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(49, 26);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(43, 13);
-            this.label20.TabIndex = 52;
-            this.label20.Text = "Ф.И.О.";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(32, 127);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(63, 13);
-            this.label21.TabIndex = 54;
-            this.label21.Text = "Биография";
-            // 
-            // maskedTextBox2
-            // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(201, 57);
-            this.maskedTextBox2.Mask = "00/00/0000";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(121, 20);
-            this.maskedTextBox2.TabIndex = 58;
-            this.maskedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(49, 93);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(43, 13);
-            this.label22.TabIndex = 54;
-            this.label22.Text = "Страна";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(12, 59);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(71, 13);
-            this.label23.TabIndex = 53;
-            this.label23.Text = "Годы жизни:";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(85, 59);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(13, 13);
-            this.label24.TabIndex = 53;
-            this.label24.Text = "с";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(177, 59);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(19, 13);
-            this.label25.TabIndex = 53;
-            this.label25.Text = "по";
-            // 
-            // label26
-            // 
-            this.label26.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label26.Location = new System.Drawing.Point(0, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(423, 27);
-            this.label26.TabIndex = 1;
-            this.label26.Text = "Информация об актере";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(98, 123);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(281, 20);
-            this.textBox1.TabIndex = 55;
+            this.textBox2.Size = new System.Drawing.Size(278, 23);
+            this.textBox2.TabIndex = 66;
             // 
             // MainForm
             // 
@@ -2509,12 +2516,12 @@
             this.scTabFilm.ResumeLayout(false);
             this.menudgvTable.ResumeLayout(false);
             this.menudgvTable.PerformLayout();
-            this.panelFolder.ResumeLayout(false);
-            this.panelFolder.PerformLayout();
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.panelTitle.ResumeLayout(false);
+            this.panelFolder.ResumeLayout(false);
+            this.panelFolder.PerformLayout();
             this.panelEdit.ResumeLayout(false);
             this.gMedia.ResumeLayout(false);
             this.gMedia.PerformLayout();
@@ -2538,16 +2545,16 @@
             this.groupBox1.PerformLayout();
             this.gActAbout.ResumeLayout(false);
             this.gActAbout.PerformLayout();
+            this.panelViewAct.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
-            this.panelViewAct.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2757,8 +2764,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
@@ -2768,6 +2773,8 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox tbBIO;
+        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
     }
 }
