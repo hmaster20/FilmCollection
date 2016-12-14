@@ -780,14 +780,18 @@ namespace FilmCollection
 
         private void SelectActor_Info(object sender, EventArgs e)  // Отражение информации в карточке актеров
         {
+            panelViewAct.BringToFront();               // Отображение панели описания
             // Предоставляет данные выбранной записи
             Actor act = GetSelectedActor();
             if (act != null)
             {
                 // Панель описания
      
+
+
                 // Панель редактирования
                 tbFIO.Text = act.FIO;
+                tbBIO.Text = act.link;
                 maskDateOfBirth.Text = act.DateOfBirth;
                 maskDateOfDeath.Mask = "";
                 maskDateOfDeath.Text = act.DateOfDeath;
