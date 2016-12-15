@@ -427,7 +427,7 @@ namespace FilmCollection
 
         #region Контекстное меню для DataGridView
 
-        private void AddRec_Click(object sender, EventArgs e)                 // добавление новой записи
+        private void AddRec_Click(object sender, EventArgs e)           // добавление новой записи
         {
             if (isRecTab()) NewRecord_Dialog();
             else NewActor();
@@ -443,7 +443,12 @@ namespace FilmCollection
             MessageBox.Show("Test");
         }
 
-        private void EditRec_Click(object sender, EventArgs e) => panelEdit.BringToFront();     // Изменение записи
+        private void EditRec_Click(object sender, EventArgs e)          // Изменение записи
+        {
+            if (isRecTab()) panelEdit.BringToFront();
+            else panelEditAct.BringToFront();
+        }
+        
         private void cFind_Click(object sender, EventArgs e) => panelFind.BringToFront();       // Поиск
 
         private void tsFindbyName_KeyDown(object sender, KeyEventArgs e)
@@ -781,43 +786,47 @@ namespace FilmCollection
         private void SelectActor_Info(object sender, EventArgs e)  // Отражение информации в карточке актеров
         {
             panelViewAct.BringToFront();               // Отображение панели описания
-            // Предоставляет данные выбранной записи
-            Actor act = GetSelectedActor();
+            Actor act = GetSelectedActor();            // Предоставляет данные выбранной записи
             if (act != null)
             {
                 // Панель описания
-     
+                tbFIOv.Text = act.FIO;
+                linkBIOv.Text = act.link;
+                tbCountryAv.Text = act.CountryString;
+                maskDateOfBirthV.Text = act.DateOfBirth;
+                maskDateOfDeathV.Mask = "";
+                maskDateOfDeathV.Text = act.DateOfDeath;
 
 
-                // Панель редактирования
-                tbFIO.Text = act.FIO;
-                tbBIO.Text = act.link;
-                maskDateOfBirth.Text = act.DateOfBirth;
-                maskDateOfDeath.Mask = "";
-                maskDateOfDeath.Text = act.DateOfDeath;
-                cBoxCountryActor.SelectedIndex = ((int)act.Country);
+                //// Панель редактирования
+                //tbFIO.Text = act.FIO;
+                //tbBIO.Text = act.link;
+                //maskDateOfBirth.Text = act.DateOfBirth;
+                //maskDateOfDeath.Mask = "";
+                //maskDateOfDeath.Text = act.DateOfDeath;
+                //cBoxCountryActor.SelectedIndex = ((int)act.Country);
 
-                listViewFilm.Items.Clear();
+                //listViewFilm.Items.Clear();
 
-                try
-                {
-                    foreach (int recID in act.VideoID)
-                    {
-                        //foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
-                        foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
-                        {
-                            string[] arr = new string[3];
-                            arr[0] = com.media.Name;
-                            arr[1] = com.media.Year.ToString();
-                            arr[2] = com.media.Id.ToString();
+                //try
+                //{
+                //    foreach (int recID in act.VideoID)
+                //    {
+                //        //foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
+                //        foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
+                //        {
+                //            string[] arr = new string[3];
+                //            arr[0] = com.media.Name;
+                //            arr[1] = com.media.Year.ToString();
+                //            arr[2] = com.media.Id.ToString();
 
-                            ListViewItem itm = new ListViewItem(arr);
+                //            ListViewItem itm = new ListViewItem(arr);
 
-                            listViewFilm.Items.Add(itm);
-                        }
-                    }
-                }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                //            listViewFilm.Items.Add(itm);
+                //        }
+                //    }
+                //}
+                //catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
         }
 
