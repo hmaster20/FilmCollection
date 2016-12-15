@@ -438,12 +438,7 @@ namespace FilmCollection
             return (tabControl2.SelectedIndex == 0) ? true : false;
         }
 
-        private void NewActor()
-        {
-            MessageBox.Show("Test");
-        }
-
-        private void EditRec_Click(object sender, EventArgs e)          // Изменение записи
+         private void EditRec_Click(object sender, EventArgs e)          // Изменение записи
         {
             if (isRecTab()) panelEdit.BringToFront();
             else panelEditAct.BringToFront();
@@ -988,22 +983,14 @@ namespace FilmCollection
         private void SaveRecord_New(GenreVideo genre, CategoryVideo category, Country_Rus country, char[] charsToTrim)
         {
             Record record = new Record();
-
-            //record.Id = _videoCollection.getRecordID();
             record.FileName = fsInfo.Name;
             record.Path = fsInfo.DirectoryName;
             record.DirName = fsInfo.Directory.Name;
             record.Extension = fsInfo.Extension.Trim(charsToTrim);
-            record.Name = tbNameMedia.Text;
-            //record.Year = Convert.ToInt32(mtbYear.Text);
-            // record.Country = country;
-            //record.Time = (int)numericTime.Value;
-            //record.Category = category;
-            //record.GenreVideo = genre;
-            //record.Description = tbDescription.Text;
+            record.Name = tbNameMedia.Text; 
 
             GetActorID(record);
-
+            // Продумать как добавлять к имеющимся Media !!!!!!!!!
             //_videoCollection.Add(record);
             _videoCollection.Save();
 
@@ -1020,15 +1007,10 @@ namespace FilmCollection
                 }
         }
 
-        private void UserModifiedChanged(object sender, EventArgs e)    // Срабатывает при изменении любого поля
-        {
-            Modified();
-        }
+        private void UserModifiedChanged(object sender, EventArgs e) => Modified();   // Срабатывает при изменении любого поля
 
-        private void mtbTime_KeyDown(object sender, KeyEventArgs e)
-        {
-            Modified();
-        }
+        private void mtbTime_KeyDown(object sender, KeyEventArgs e) => Modified();
+   
 
         private void Modified()
         {
@@ -1047,7 +1029,7 @@ namespace FilmCollection
 
         private void btnFindNext_Click(object sender, EventArgs e) => FindNext();
 
-        private void tabControl_ResetFindStatus_Click(object sender, EventArgs e) => ResetFind();
+        private void tabControl_ChangeTab_Click(object sender, EventArgs e) => ResetFind();
 
         private void btnFindReset_Click(object sender, EventArgs e) => ResetFind();
 
@@ -1130,6 +1112,12 @@ namespace FilmCollection
             dgvSelected.Clear();
             dgvTableRec.ClearSelection();
             FindNextButton_Lock();
+            
+            
+            dgvTableActors.Enabled = true;  // Разблокировка таблиц при изменении панели
+            dgvTableActors.ClearSelection();
+            dgvTableRec.Enabled = true;
+            dgvTableRec.ClearSelection();
         }
 
         private void FindNextButton_Lock()  //блокировка кнопки поиска следующего элемента
@@ -1638,7 +1626,13 @@ namespace FilmCollection
 
         private void btnNewActor_Click(object sender, EventArgs e)
         {
+            NewActor();
+        }
+
+        private void NewActor()
+        {
             tbFIO.Text = "";
+            tbBIO.Text = "";
             maskDateOfBirth.Text = "";
             maskDateofDeath_RecoveryState();
             chLifeState.Checked = false;
@@ -1646,25 +1640,20 @@ namespace FilmCollection
             tbFilmFind.Text = "";
             listViewFilm.Clear();
             lvSelectRecord.Items.Clear();
-        }
+            panelEditAct.BringToFront();
+            dgvTableActors.Enabled = false;
+        }  
 
         private void btnSaveActor_Click(object sender, EventArgs e)
         {
-            Actor act = GetSelectedActor();            // Предоставляет данные выбранной записи
-            if (act != null)
-            {
-
-            }
-            else
-            {
-                SaveActor();
-            }
+            SaveActor();
         }
 
         private void SaveActor()
         {
-            Country_Rus country = (Country_Rus)cBoxCountryActor.SelectedIndex;
-            Actor actor = new Actor();
+            Actor actor = GetSelectedActor();
+            if (actor != null) actor = new Actor();
+
             actor.FIO = tbFIO.Text;
             foreach (Actor item in _videoCollection.ActorList)
             {
@@ -1676,7 +1665,7 @@ namespace FilmCollection
             }
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
-            actor.Country = country;
+            actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
             actor.id = _videoCollection.getActorID();
 
             foreach (ListViewItem eachItem in listViewFilm.Items)
@@ -1687,10 +1676,11 @@ namespace FilmCollection
 
             _videoCollection.Add(actor);
             _videoCollection.Save();
-            PrepareRefresh();
+            dgvTableActors.Enabled = true;
+            PrepareRefresh();   
         }
 
-    
+
 
         private void checkLive_CheckedChanged(object sender, EventArgs e)
         {
@@ -2199,6 +2189,11 @@ namespace FilmCollection
         private void btnSaveFolder_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancelActor_Click(object sender, EventArgs e)
+        {
+            dgvTableActors.Enabled = true;
         }
 
         //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
