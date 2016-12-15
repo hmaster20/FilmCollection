@@ -448,7 +448,7 @@ namespace FilmCollection
             if (isRecTab()) panelEdit.BringToFront();
             else panelEditAct.BringToFront();
         }
-        
+
         private void cFind_Click(object sender, EventArgs e) => panelFind.BringToFront();       // Поиск
 
         private void tsFindbyName_KeyDown(object sender, KeyEventArgs e)
@@ -797,36 +797,21 @@ namespace FilmCollection
                 maskDateOfDeathV.Mask = "";
                 maskDateOfDeathV.Text = act.DateOfDeath;
 
-
-                //// Панель редактирования
-                //tbFIO.Text = act.FIO;
-                //tbBIO.Text = act.link;
-                //maskDateOfBirth.Text = act.DateOfBirth;
-                //maskDateOfDeath.Mask = "";
-                //maskDateOfDeath.Text = act.DateOfDeath;
-                //cBoxCountryActor.SelectedIndex = ((int)act.Country);
-
-                //listViewFilm.Items.Clear();
-
-                //try
-                //{
-                //    foreach (int recID in act.VideoID)
-                //    {
-                //        //foreach (var item in _videoCollection.VideoList.FindAll(v => v.Id == recID))
-                //        foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
-                //        {
-                //            string[] arr = new string[3];
-                //            arr[0] = com.media.Name;
-                //            arr[1] = com.media.Year.ToString();
-                //            arr[2] = com.media.Id.ToString();
-
-                //            ListViewItem itm = new ListViewItem(arr);
-
-                //            listViewFilm.Items.Add(itm);
-                //        }
-                //    }
-                //}
-                //catch (Exception ex) { MessageBox.Show(ex.Message); }
+                // Панель редактирования
+                tbFIO.Text = act.FIO;
+                tbBIO.Text = act.link;
+                maskDateOfBirth.Text = act.DateOfBirth;
+                chLifeState.CheckState = (act.DateOfDeath == "По настоящее время") ? CheckState.Checked : CheckState.Unchecked;
+                maskDateOfDeath.Text = act.DateOfDeath;
+                cBoxCountryActor.SelectedIndex = ((int)act.Country);
+                listViewFilm.Items.Clear();
+                try
+                {
+                    foreach (int recID in act.VideoID)
+                        foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
+                            listViewFilm.Items.Add(new ListViewItem(new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
         }
 
@@ -1656,7 +1641,7 @@ namespace FilmCollection
             tbFIO.Text = "";
             maskDateOfBirth.Text = "";
             maskDateofDeath_RecoveryState();
-            checkBox1.Checked = false;
+            chLifeState.Checked = false;
             cBoxCountryActor.SelectedIndex = -1;
             tbFilmFind.Text = "";
             listViewFilm.Clear();
@@ -1664,6 +1649,19 @@ namespace FilmCollection
         }
 
         private void btnSaveActor_Click(object sender, EventArgs e)
+        {
+            Actor act = GetSelectedActor();            // Предоставляет данные выбранной записи
+            if (act != null)
+            {
+
+            }
+            else
+            {
+                SaveActor();
+            }
+        }
+
+        private void SaveActor()
         {
             Country_Rus country = (Country_Rus)cBoxCountryActor.SelectedIndex;
             Actor actor = new Actor();
@@ -1692,9 +1690,11 @@ namespace FilmCollection
             PrepareRefresh();
         }
 
+    
+
         private void checkLive_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (chLifeState.Checked)
             {
                 maskDateOfDeath.Mask = "";
                 maskDateOfDeath.Text = "По настоящее время";
@@ -1716,7 +1716,6 @@ namespace FilmCollection
         private void tbFilmFind_TextChanged(object sender, EventArgs e)
         {
             lvSelectRecord.Items.Clear();
-
             try
             {
                 string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
