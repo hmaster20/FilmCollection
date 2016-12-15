@@ -211,12 +211,11 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.linkBIOv = new System.Windows.Forms.LinkLabel();
+            this.maskDateOfBirthV = new System.Windows.Forms.MaskedTextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.maskDateOfDeathV = new System.Windows.Forms.MaskedTextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -242,8 +241,8 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbCountryAv = new System.Windows.Forms.TextBox();
+            this.tbFIOv = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -2149,14 +2148,13 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.linkLabel1);
-            this.groupBox3.Controls.Add(this.checkBox2);
-            this.groupBox3.Controls.Add(this.maskedTextBox1);
+            this.groupBox3.Controls.Add(this.tbFIOv);
+            this.groupBox3.Controls.Add(this.tbCountryAv);
+            this.groupBox3.Controls.Add(this.linkBIOv);
+            this.groupBox3.Controls.Add(this.maskDateOfBirthV);
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.maskedTextBox2);
+            this.groupBox3.Controls.Add(this.maskDateOfDeathV);
             this.groupBox3.Controls.Add(this.label22);
             this.groupBox3.Controls.Add(this.label23);
             this.groupBox3.Controls.Add(this.label24);
@@ -2169,75 +2167,68 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Информация об актере";
             // 
-            // linkLabel1
+            // linkBIOv
             // 
-            this.linkLabel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.linkLabel1.Location = new System.Drawing.Point(98, 123);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Padding = new System.Windows.Forms.Padding(3);
-            this.linkLabel1.Size = new System.Drawing.Size(281, 23);
-            this.linkLabel1.TabIndex = 65;
+            this.linkBIOv.Location = new System.Drawing.Point(98, 123);
+            this.linkBIOv.Name = "linkBIOv";
+            this.linkBIOv.Padding = new System.Windows.Forms.Padding(3);
+            this.linkBIOv.Size = new System.Drawing.Size(281, 23);
+            this.linkBIOv.TabIndex = 65;
             // 
-            // checkBox2
+            // maskDateOfBirthV
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox2.Location = new System.Drawing.Point(327, 59);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(49, 17);
-            this.checkBox2.TabIndex = 61;
-            this.checkBox2.Text = "Жив";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(98, 56);
-            this.maskedTextBox1.Mask = "00/00/0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(74, 20);
-            this.maskedTextBox1.TabIndex = 58;
-            this.maskedTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maskDateOfBirthV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.maskDateOfBirthV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskDateOfBirthV.Location = new System.Drawing.Point(108, 57);
+            this.maskDateOfBirthV.Mask = "00/00/0000";
+            this.maskDateOfBirthV.Name = "maskDateOfBirthV";
+            this.maskDateOfBirthV.ReadOnly = true;
+            this.maskDateOfBirthV.Size = new System.Drawing.Size(87, 16);
+            this.maskDateOfBirthV.TabIndex = 58;
+            this.maskDateOfBirthV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(49, 26);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(43, 13);
+            this.label20.Size = new System.Drawing.Size(46, 13);
             this.label20.TabIndex = 52;
-            this.label20.Text = "Ф.И.О.";
+            this.label20.Text = "Ф.И.О.:";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(32, 127);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(63, 13);
+            this.label21.Size = new System.Drawing.Size(66, 13);
             this.label21.TabIndex = 54;
-            this.label21.Text = "Биография";
+            this.label21.Text = "Биография:";
             // 
-            // maskedTextBox2
+            // maskDateOfDeathV
             // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(201, 57);
-            this.maskedTextBox2.Mask = "00/00/0000";
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(121, 20);
-            this.maskedTextBox2.TabIndex = 58;
-            this.maskedTextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.maskDateOfDeathV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.maskDateOfDeathV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskDateOfDeathV.Location = new System.Drawing.Point(227, 56);
+            this.maskDateOfDeathV.Mask = "00/00/0000";
+            this.maskDateOfDeathV.Name = "maskDateOfDeathV";
+            this.maskDateOfDeathV.ReadOnly = true;
+            this.maskDateOfDeathV.Size = new System.Drawing.Size(156, 16);
+            this.maskDateOfDeathV.TabIndex = 58;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(49, 93);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(43, 13);
+            this.label22.Size = new System.Drawing.Size(46, 13);
             this.label22.TabIndex = 54;
-            this.label22.Text = "Страна";
+            this.label22.Text = "Страна:";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(12, 59);
+            this.label23.Location = new System.Drawing.Point(22, 59);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(71, 13);
             this.label23.TabIndex = 53;
@@ -2246,7 +2237,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(85, 59);
+            this.label24.Location = new System.Drawing.Point(96, 59);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(13, 13);
             this.label24.TabIndex = 53;
@@ -2255,7 +2246,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(177, 59);
+            this.label25.Location = new System.Drawing.Point(200, 59);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(19, 13);
             this.label25.TabIndex = 53;
@@ -2461,29 +2452,29 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // textBox1
+            // tbCountryAv
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbCountryAv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(98, 88);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(278, 23);
-            this.textBox1.TabIndex = 66;
+            this.tbCountryAv.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbCountryAv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbCountryAv.Location = new System.Drawing.Point(98, 92);
+            this.tbCountryAv.Name = "tbCountryAv";
+            this.tbCountryAv.ReadOnly = true;
+            this.tbCountryAv.Size = new System.Drawing.Size(278, 16);
+            this.tbCountryAv.TabIndex = 66;
             // 
-            // textBox2
+            // tbFIOv
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbFIOv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(98, 22);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(278, 23);
-            this.textBox2.TabIndex = 66;
+            this.tbFIOv.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbFIOv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbFIOv.Location = new System.Drawing.Point(98, 24);
+            this.tbFIOv.Name = "tbFIOv";
+            this.tbFIOv.ReadOnly = true;
+            this.tbFIOv.Size = new System.Drawing.Size(278, 16);
+            this.tbFIOv.TabIndex = 66;
             // 
             // MainForm
             // 
@@ -2762,20 +2753,19 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.LinkLabel linkBIOv;
+        private System.Windows.Forms.MaskedTextBox maskDateOfBirthV;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.MaskedTextBox maskDateOfDeathV;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.TextBox tbBIO;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbFIOv;
+        private System.Windows.Forms.TextBox tbCountryAv;
     }
 }
 
