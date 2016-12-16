@@ -717,6 +717,11 @@ namespace FilmCollection
                 tbfYear.Text = Convert.ToString(record.mYear);
                 tbfCountry.Text = record.mCountry;
                 GetPic(record.combineLink.media);
+                lbActors.Items.Clear();
+                if (record.combineLink.media.ActorListID != null)
+                    foreach (int ListID in record.combineLink.media.ActorListID)
+                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
+                            lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
 
                 // Панель редактирования
                 // Media
@@ -729,7 +734,8 @@ namespace FilmCollection
                 chkActorSelect.Items.Clear();
                 if (record.combineLink.media.ActorListID != null)
                     foreach (int ListID in record.combineLink.media.ActorListID)
-                        chkActorSelect.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
+                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
+                            chkActorSelect.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
 
                 // Record
                 tbNameRecord.Text = record.Name;
@@ -791,6 +797,15 @@ namespace FilmCollection
                 maskDateOfBirthV.Text = act.DateOfBirth;
                 maskDateOfDeathV.Mask = "";
                 maskDateOfDeathV.Text = act.DateOfDeath;
+                listViewFilmV.Items.Clear();
+                try
+                {
+                    foreach (int recID in act.VideoID)
+                        foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
+                            listViewFilmV.Items.Add(new ListViewItem(new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+
 
                 // Панель редактирования
                 tbFIO.Text = act.FIO;
@@ -2218,6 +2233,51 @@ namespace FilmCollection
             //ProcessStartInfo sInfo = new ProcessStartInfo("http://www.google.com");
             //Process.Start(sInfo);
         }
+
+        private void lbActors_DoubleClick(object sender, EventArgs e)
+        {
+            tabControl2.SelectedTab = tabActors;
+            String searchValue = lbActors.SelectedItem.ToString();
+            int rowIndex = -1;
+            foreach (DataGridViewRow row in dgvTableActors.Rows)
+            {
+                if (row.Cells[0].Value.ToString().Equals(searchValue))
+                {
+                    rowIndex = row.Index;
+                    break;
+                }
+            }
+            if (rowIndex != -1) dgvTableActors.Rows[rowIndex].Selected = true;
+        }
+
+        private void listViewFilmV_DoubleClick(object sender, EventArgs e)
+        {
+            tabControl2.SelectedTab = tabFilm;
+            String searchValue = "";
+
+            if (listViewFilmV.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem item in listViewFilmV.SelectedItems)
+                {
+                    searchValue = item.Text;
+                    break;
+                }
+            }                       
+
+            int rowIndex = -1;
+            foreach (DataGridViewRow row in dgvTableRec.Rows)
+            {
+                if (row.Cells[0].Value.ToString().Equals(searchValue))
+                {
+                    rowIndex = row.Index;
+                    break;
+                }
+            }
+            if (rowIndex != -1) dgvTableRec.Rows[rowIndex].Selected = true;
+        }
+
+
+
 
         //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         //{
