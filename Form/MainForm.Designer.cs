@@ -1712,8 +1712,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 653);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
@@ -2198,6 +2198,7 @@
             this.linkBIOv.Padding = new System.Windows.Forms.Padding(3);
             this.linkBIOv.Size = new System.Drawing.Size(281, 23);
             this.linkBIOv.TabIndex = 65;
+            this.linkBIOv.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBIOv_LinkClicked);
             // 
             // maskDateOfBirthV
             // 
