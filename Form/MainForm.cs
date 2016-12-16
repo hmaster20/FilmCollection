@@ -942,30 +942,17 @@ namespace FilmCollection
 
         private void SaveRecord()
         {
-            GenreVideo genre;
-            CategoryVideo category;
-            Country_Rus country;
-            char[] charsToTrim = { '.' };
-
-            country = (Country_Rus)cBoxCountry.SelectedIndex;
-            genre = (GenreVideo)cBoxGenre.SelectedIndex;
-            category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
-
-            if (fsInfo != null)
-                SaveRecord_New(genre, category, country, charsToTrim);      // если новый объект
-            else
-                SaveRecord_Select(genre, category, country, charsToTrim);   // если выбранный объект 
-
+            if (fsInfo != null) SaveRecord_New(); else SaveRecord_Select();
             panelEdit_Lock();    // блокировка панели
         }
 
-        private void SaveRecord_Select(GenreVideo genre, CategoryVideo category, Country_Rus country, char[] charsToTrim)
+        private void SaveRecord_Select()
         {
+            char[] charsToTrim = { '.' };
             Record record = GetSelectedRecord();
             if (record != null)
             {
                 Combine cm = record.combineLink;
-
                 // Media
                 record.combineLink.media.Name = tbNameMedia.Text;
                 record.combineLink.media.Year = Convert.ToInt32(mtbYear.Text);
@@ -995,8 +982,9 @@ namespace FilmCollection
             }
         }
 
-        private void SaveRecord_New(GenreVideo genre, CategoryVideo category, Country_Rus country, char[] charsToTrim)
+        private void SaveRecord_New()
         {
+            char[] charsToTrim = { '.' };
             Record record = new Record();
             record.FileName = fsInfo.Name;
             record.Path = fsInfo.DirectoryName;
@@ -2262,7 +2250,7 @@ namespace FilmCollection
                     searchValue = item.Text;
                     break;
                 }
-            }                       
+            }
 
             int rowIndex = -1;
             foreach (DataGridViewRow row in dgvTableRec.Rows)
