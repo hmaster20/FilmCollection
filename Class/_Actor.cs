@@ -20,7 +20,7 @@ namespace FilmCollection
         public string DateOfBirth { get; set; }   // дата рождения
         public string DateOfDeath { get; set; }   // дата смерти
 
-        public string link { get; set; }            // ссылка на страницу с биографией
+        public string BIO { get; set; }            // ссылка на страницу с биографией
 
         public override string ToString()
         {
