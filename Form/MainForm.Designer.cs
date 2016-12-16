@@ -207,7 +207,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.panelViewAct = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewFilmV = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -243,6 +243,8 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.lbActors = new System.Windows.Forms.ListBox();
+            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -841,8 +843,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
@@ -1323,9 +1325,11 @@
             // 
             // panelView
             // 
+            this.panelView.Controls.Add(this.lbActors);
             this.panelView.Controls.Add(this.pbImage);
             this.panelView.Controls.Add(this.btnPlay);
             this.panelView.Controls.Add(this.lblRecDescription);
+            this.panelView.Controls.Add(this.label18);
             this.panelView.Controls.Add(this.label5);
             this.panelView.Controls.Add(this.label4);
             this.panelView.Controls.Add(this.lblRecName);
@@ -1426,6 +1430,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.tbfCountry.Location = new System.Drawing.Point(13, 95);
             this.tbfCountry.Name = "tbfCountry";
             this.tbfCountry.ReadOnly = true;
@@ -1438,6 +1443,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.tbfYear.Location = new System.Drawing.Point(44, 54);
             this.tbfYear.Name = "tbfYear";
             this.tbfYear.ReadOnly = true;
@@ -1712,8 +1718,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 653);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
@@ -2112,7 +2118,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listView1);
+            this.groupBox2.Controls.Add(this.listViewFilmV);
             this.groupBox2.Location = new System.Drawing.Point(20, 198);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(391, 302);
@@ -2120,21 +2126,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фильмография";
             // 
-            // listView1
+            // listViewFilmV
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewFilmV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.listView1.FullRowSelect = true;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listView1.Location = new System.Drawing.Point(15, 19);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.ShowGroups = false;
-            this.listView1.Size = new System.Drawing.Size(364, 261);
-            this.listView1.TabIndex = 62;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listViewFilmV.FullRowSelect = true;
+            this.listViewFilmV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewFilmV.Location = new System.Drawing.Point(15, 19);
+            this.listViewFilmV.MultiSelect = false;
+            this.listViewFilmV.Name = "listViewFilmV";
+            this.listViewFilmV.ShowGroups = false;
+            this.listViewFilmV.Size = new System.Drawing.Size(364, 261);
+            this.listViewFilmV.TabIndex = 62;
+            this.listViewFilmV.UseCompatibleStateImageBehavior = false;
+            this.listViewFilmV.View = System.Windows.Forms.View.Details;
+            this.listViewFilmV.DoubleClick += new System.EventHandler(this.listViewFilmV_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -2477,6 +2484,26 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // lbActors
+            // 
+            this.lbActors.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbActors.Location = new System.Drawing.Point(14, 134);
+            this.lbActors.Name = "lbActors";
+            this.lbActors.Size = new System.Drawing.Size(134, 104);
+            this.lbActors.TabIndex = 56;
+            this.lbActors.DoubleClick += new System.EventHandler(this.lbActors_DoubleClick);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label18.Location = new System.Drawing.Point(11, 115);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(121, 17);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Роли исполняют:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2750,7 +2777,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel panelViewAct;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewFilmV;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -2767,6 +2794,8 @@
         private System.Windows.Forms.TextBox tbBIO;
         private System.Windows.Forms.TextBox tbFIOv;
         private System.Windows.Forms.TextBox tbCountryAv;
+        private System.Windows.Forms.ListBox lbActors;
+        private System.Windows.Forms.Label label18;
     }
 }
 
