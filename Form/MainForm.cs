@@ -438,7 +438,7 @@ namespace FilmCollection
             return (tabControl2.SelectedIndex == 0) ? true : false;
         }
 
-         private void EditRec_Click(object sender, EventArgs e)          // Изменение записи
+        private void EditRec_Click(object sender, EventArgs e)          // Изменение записи
         {
             if (isRecTab()) panelEdit.BringToFront();
             else panelEditAct.BringToFront();
@@ -786,7 +786,7 @@ namespace FilmCollection
             {
                 // Панель описания
                 tbFIOv.Text = act.FIO;
-                linkBIOv.Text = act.link;
+                linkBIOv.Text = act.BIO;
                 tbCountryAv.Text = act.CountryString;
                 maskDateOfBirthV.Text = act.DateOfBirth;
                 maskDateOfDeathV.Mask = "";
@@ -794,7 +794,7 @@ namespace FilmCollection
 
                 // Панель редактирования
                 tbFIO.Text = act.FIO;
-                tbBIO.Text = act.link;
+                tbBIO.Text = act.BIO;
                 maskDateOfBirth.Text = act.DateOfBirth;
                 chLifeState.CheckState = (act.DateOfDeath == "По настоящее время") ? CheckState.Checked : CheckState.Unchecked;
                 maskDateOfDeath.Text = act.DateOfDeath;
@@ -987,7 +987,7 @@ namespace FilmCollection
             record.Path = fsInfo.DirectoryName;
             record.DirName = fsInfo.Directory.Name;
             record.Extension = fsInfo.Extension.Trim(charsToTrim);
-            record.Name = tbNameMedia.Text; 
+            record.Name = tbNameMedia.Text;
 
             GetActorID(record);
             // Продумать как добавлять к имеющимся Media !!!!!!!!!
@@ -1010,7 +1010,7 @@ namespace FilmCollection
         private void UserModifiedChanged(object sender, EventArgs e) => Modified();   // Срабатывает при изменении любого поля
 
         private void mtbTime_KeyDown(object sender, KeyEventArgs e) => Modified();
-   
+
 
         private void Modified()
         {
@@ -1112,12 +1112,11 @@ namespace FilmCollection
             dgvSelected.Clear();
             dgvTableRec.ClearSelection();
             FindNextButton_Lock();
-            
-            
-            dgvTableActors.Enabled = true;  // Разблокировка таблиц при изменении панели
-            dgvTableActors.ClearSelection();
-            dgvTableRec.Enabled = true;
-            dgvTableRec.ClearSelection();
+
+            dgvTableActors.Enabled = true;  // Разблокировка таблицы при изменении панели
+            dgvTableActors.ClearSelection();// Удаление фокуса
+            dgvTableRec.Enabled = true;     // Разблокировка таблицы при изменении панели
+            dgvTableRec.ClearSelection();   // Удаление фокуса
         }
 
         private void FindNextButton_Lock()  //блокировка кнопки поиска следующего элемента
@@ -1640,9 +1639,12 @@ namespace FilmCollection
             tbFilmFind.Text = "";
             listViewFilm.Clear();
             lvSelectRecord.Items.Clear();
+
+            dgvTableActors.Enabled = false;     // Блокировка таблицы при изменении панели
+            dgvTableActors.ClearSelection();    // Удаление фокуса
+
             panelEditAct.BringToFront();
-            dgvTableActors.Enabled = false;
-        }  
+        }
 
         private void btnSaveActor_Click(object sender, EventArgs e)
         {
@@ -1651,18 +1653,23 @@ namespace FilmCollection
 
         private void SaveActor()
         {
-            Actor actor = GetSelectedActor();
-            if (actor != null) actor = new Actor();
+            Actor actor;
+            Actor act = GetSelectedActor();
+            actor = (act == null) ? new Actor() : act;
 
             actor.FIO = tbFIO.Text;
-            foreach (Actor item in _videoCollection.ActorList)
-            {
-                if (item.Equals(actor))
+
+            if (act == null)
+                foreach (Actor item in _videoCollection.ActorList)
                 {
-                    MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
-                    return; // Выходим
+                    if (item.Equals(actor))
+                    {
+                        MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
+                        return; // Выходим
+                    }
                 }
-            }
+
+            actor.BIO = tbBIO.Text;
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
@@ -1674,10 +1681,18 @@ namespace FilmCollection
                 _videoCollection.CombineList.FindLast(m => m.media.Id == Convert.ToInt32(eachItem.SubItems[2].Text)).media.ActorListID.Add(actor.id);
             }
 
-            _videoCollection.Add(actor);
-            _videoCollection.Save();
+            if (act == null)
+            {
+                _videoCollection.Add(actor);
+                _videoCollection.Save();
+            }
+            else
+            {
+                _videoCollection.Save();
+            }
+
             dgvTableActors.Enabled = true;
-            PrepareRefresh();   
+            PrepareRefresh();
         }
 
 
@@ -2194,6 +2209,14 @@ namespace FilmCollection
         private void btnCancelActor_Click(object sender, EventArgs e)
         {
             dgvTableActors.Enabled = true;
+            panelViewAct.BringToFront();
+        }
+
+        private void linkBIOv_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(linkBIOv.Text);
+            //ProcessStartInfo sInfo = new ProcessStartInfo("http://www.google.com");
+            //Process.Start(sInfo);
         }
 
         //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
