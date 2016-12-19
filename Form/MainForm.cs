@@ -17,10 +17,10 @@ namespace FilmCollection
 {
     public partial class MainForm : Form
     {
-        RecordCollection _videoCollection = new RecordCollection();     // Доступ к коллекции
-        TreeViewColletion _treeViewColletion = new TreeViewColletion(); // Доступ к коллекции
+        RecordCollection _videoCollection { get; set; }     // Доступ к коллекции
+        TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
 
-        FileInfo fsInfo { get; set; } = null;     // cdдля нового файла, добавляемого в базу
+        FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
         int FindCount { get; set; }                 // счетчик найденных строк
         public List<int> dgvSelected { get; set; }  // индексы найденных строк
 
@@ -30,6 +30,9 @@ namespace FilmCollection
         {
             InitializeComponent();                  // Создание и отрисовка элементов
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
+
+            _videoCollection = new RecordCollection();      // Доступ к коллекции
+            _treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
 
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
@@ -87,6 +90,7 @@ namespace FilmCollection
         {
             if (File.Exists(RecordOptions.BaseName))    // Если база создана, то загружаем
             {
+                _videoCollection.Clear();
                 try { _videoCollection = RecordCollection.Load(); }
                 catch (Exception ex)
                 {
@@ -257,7 +261,7 @@ namespace FilmCollection
                     if (directory.Exists)   // проверяем доступность каталога
                     {
                         foreach (Combine _combine in _videoCollection.CombineList)
-                            _combine.invisibleRecord();
+                            _combine.invisibleRecord(); // скрываем файлы
 
                         foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
                         {
@@ -269,6 +273,7 @@ namespace FilmCollection
                         }
 
                         _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
+
                         FormLoad();                 // и перегружаем главную форму
                         MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
                     }
@@ -284,7 +289,7 @@ namespace FilmCollection
         private bool RecordExist(Record record)
         {
             List<Record> list = new List<Record>();
-            _videoCollection.CombineList.ForEach(r => list.AddRange(r.recordList));
+            _videoCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
 
             foreach (Record rec in list)    // проверка наличия файла
             {
@@ -889,6 +894,10 @@ namespace FilmCollection
 
         private void NewRecord(string FileName)
         {
+            string[] recList = new string[] { };
+
+
+
             FileInfo fInfo = new FileInfo(FileName);
             string strFilePath = fInfo.DirectoryName;
             if (!strFilePath.StartsWith(_videoCollection.Options.Source))
@@ -1517,6 +1526,7 @@ namespace FilmCollection
                 treeFolder.SelectedNode = treeFolder.GetNodeAt(e.X, e.Y);
                 if (treeFolder.SelectedNode != null) // && treeFolder.SelectedNode.Parent == null)
                 {
+                    TreeMenu.Items[11].Enabled = (treeFolder.SelectedNode.Text == "Фильмотека") ? false : true;
                     TreeMenu.Show(treeFolder, e.Location);
                 }
             }
@@ -2195,7 +2205,12 @@ namespace FilmCollection
 
                 _videoCollection.CombineList.Add(cmNew);
                 _videoCollection.Save();
-                PrepareRefresh(treeFolder.SelectedNode.FullPath, true);
+
+                string treeFolderPath = treeFolder.SelectedNode.FullPath;
+
+                FormLoad();
+
+                PrepareRefresh(treeFolderPath, true);
             }
         }
 
@@ -2225,44 +2240,39 @@ namespace FilmCollection
         private void lbActors_DoubleClick(object sender, EventArgs e)
         {
             tabControl2.SelectedTab = tabActors;
-            String searchValue = lbActors.SelectedItem.ToString();
-            int rowIndex = -1;
-            foreach (DataGridViewRow row in dgvTableActors.Rows)
+            if (lbActors.SelectedItem != null)
             {
-                if (row.Cells[0].Value.ToString().Equals(searchValue))
+                String searchValue = lbActors.SelectedItem.ToString();
+                int rowIndex = -1;
+                foreach (DataGridViewRow row in dgvTableActors.Rows)
                 {
-                    rowIndex = row.Index;
-                    break;
+                    if (row.Cells[0].Value.ToString().Equals(searchValue))
+                    {
+                        rowIndex = row.Index;
+                        break;
+                    }
                 }
+                if (rowIndex != -1) dgvTableActors.Rows[rowIndex].Selected = true;
             }
-            if (rowIndex != -1) dgvTableActors.Rows[rowIndex].Selected = true;
         }
 
         private void listViewFilmV_DoubleClick(object sender, EventArgs e)
         {
-            tabControl2.SelectedTab = tabFilm;
-            String searchValue = "";
-
-            if (listViewFilmV.SelectedItems.Count > 0)
+            if (listViewFilmV.SelectedItems[0].SubItems[0].Text != "")
             {
-                foreach (ListViewItem item in listViewFilmV.SelectedItems)
-                {
-                    searchValue = item.Text;
-                    break;
-                }
+                string searchValue = listViewFilmV.SelectedItems[0].SubItems[0].Text;
+                tabControl2.SelectedTab = tabFilm;
+                int rowIndex = -1;
+                DataGridViewRow row = dgvTableRec.Rows
+                    .Cast<DataGridViewRow>()
+                    .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
+                    .First();
+                rowIndex = row.Index;
+                if (rowIndex != -1) dgvTableRec.Rows[rowIndex].Selected = true;
             }
-
-            int rowIndex = -1;
-            foreach (DataGridViewRow row in dgvTableRec.Rows)
-            {
-                if (row.Cells[0].Value.ToString().Equals(searchValue))
-                {
-                    rowIndex = row.Index;
-                    break;
-                }
-            }
-            if (rowIndex != -1) dgvTableRec.Rows[rowIndex].Selected = true;
         }
+
+
 
 
 
