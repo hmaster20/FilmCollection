@@ -895,6 +895,12 @@ namespace FilmCollection
         private void NewRecord(string FileName)
         {
             string[] recList = new string[] { };
+            string[] recLists;
+           
+
+            List<string> list = new List<string>();
+            _videoCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
+
 
 
 
