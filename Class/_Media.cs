@@ -25,7 +25,22 @@ namespace FilmCollection
             get { return _year; }
             set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
         }
-        
+
+
+
+
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+
+
+
+
+
+
 
         [XmlIgnore]
         public List<Actor> ActorList { get; set; } // TEST
