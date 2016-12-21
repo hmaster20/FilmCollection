@@ -894,13 +894,16 @@ namespace FilmCollection
 
         private void NewRecord(string FileName)
         {
-          
-            foreach (var item in _videoCollection.CombineList) // для автопоиска
+            foreach (var item in _videoCollection.CombineList) // для авто поиска
                 comboBox1.Items.Add(item.media);
 
+            Combine cm;
+            if (comboBox1.SelectedItem != null)
+                if (_videoCollection.CombineList.Exists(m => m.media.Name == comboBox1.SelectedItem.ToString()))
+                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == comboBox1.SelectedItem.ToString());
 
-     
-            
+
+
 
 
             FileInfo fInfo = new FileInfo(FileName);
@@ -2276,6 +2279,8 @@ namespace FilmCollection
                 if (rowIndex != -1) dgvTableRec.Rows[rowIndex].Selected = true;
             }
         }
+
+
 
 
 
