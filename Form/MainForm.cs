@@ -894,14 +894,13 @@ namespace FilmCollection
 
         private void NewRecord(string FileName)
         {
-            string[] recList = new string[] { };
-            string[] recLists;
-           
-
-            List<string> list = new List<string>();
-            _videoCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
+          
+            foreach (var item in _videoCollection.CombineList) // для автопоиска
+                comboBox1.Items.Add(item.media);
 
 
+     
+            
 
 
             FileInfo fInfo = new FileInfo(FileName);
