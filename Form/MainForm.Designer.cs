@@ -100,7 +100,8 @@
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkNewRecord = new System.Windows.Forms.CheckBox();
+            this.cBoxNameMedia = new System.Windows.Forms.ComboBox();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
             this.cBoxGenre = new System.Windows.Forms.ComboBox();
             this.cBoxCountry = new System.Windows.Forms.ComboBox();
@@ -931,7 +932,8 @@
             // 
             // gMedia
             // 
-            this.gMedia.Controls.Add(this.comboBox1);
+            this.gMedia.Controls.Add(this.checkNewRecord);
+            this.gMedia.Controls.Add(this.cBoxNameMedia);
             this.gMedia.Controls.Add(this.cBoxTypeVideo);
             this.gMedia.Controls.Add(this.cBoxGenre);
             this.gMedia.Controls.Add(this.cBoxCountry);
@@ -959,15 +961,25 @@
             this.gMedia.TabStop = false;
             this.gMedia.Text = "Общая информация";
             // 
-            // comboBox1
+            // checkNewRecord
             // 
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(67, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(275, 21);
-            this.comboBox1.TabIndex = 59;
+            this.checkNewRecord.AutoSize = true;
+            this.checkNewRecord.Location = new System.Drawing.Point(285, 4);
+            this.checkNewRecord.Name = "checkNewRecord";
+            this.checkNewRecord.Size = new System.Drawing.Size(58, 17);
+            this.checkNewRecord.TabIndex = 60;
+            this.checkNewRecord.Text = "новый";
+            this.checkNewRecord.UseVisualStyleBackColor = true;
+            // 
+            // cBoxNameMedia
+            // 
+            this.cBoxNameMedia.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cBoxNameMedia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cBoxNameMedia.FormattingEnabled = true;
+            this.cBoxNameMedia.Location = new System.Drawing.Point(67, 2);
+            this.cBoxNameMedia.Name = "cBoxNameMedia";
+            this.cBoxNameMedia.Size = new System.Drawing.Size(213, 21);
+            this.cBoxNameMedia.TabIndex = 59;
             // 
             // cBoxTypeVideo
             // 
@@ -2808,7 +2820,8 @@
         private System.Windows.Forms.TextBox tbCountryAv;
         private System.Windows.Forms.ListBox lbActors;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cBoxNameMedia;
+        private System.Windows.Forms.CheckBox checkNewRecord;
     }
 }
 
