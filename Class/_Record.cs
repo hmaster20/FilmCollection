@@ -1,8 +1,5 @@
 ﻿// Информация о физических файлах
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace FilmCollection
@@ -11,13 +8,13 @@ namespace FilmCollection
     {
         public bool Visible { get; set; }       // Видимость записи
         public string Name { get; set; }        // Название Фильма
-        //public int linkID { get; set; } = 0;    // идентификатор MediaID
         public string FileName { get; set; }    // Название файла
         public string DirName { get; set; }     // Название папки в которой расположен файл
         public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
         public string Path { get; set; }        // Путь к файлу
 
 
+        #region Для отображения в таблице
         [XmlIgnore]
         public Combine combineLink { get; set; }
         private bool check() { return (combineLink == null || combineLink.media == null) ? true : false; }
@@ -35,13 +32,7 @@ namespace FilmCollection
         public string mCategory { get { return (check()) ? "" : combineLink.media.CategoryString; } }
         [XmlIgnore]
         public int mYear { get { return (check()) ? -1 : combineLink.media.Year; } }
-
-        
-
-        // информация служит для получения доп. информации при построении таблицы
-
-        // создаем количество файлов и меди поровну
-        // как только находим сериал, то создаем отдельный медиа и в него добавляем файлы, остальные медиа уничтожаем.
+        #endregion
 
 
         #region Обработка времени
