@@ -1,8 +1,6 @@
 ﻿// Класс для объединения Media (информации о фильме) и Record (самого файла видео)
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FilmCollection
 {
