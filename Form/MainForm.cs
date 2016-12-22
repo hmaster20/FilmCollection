@@ -319,7 +319,7 @@ namespace FilmCollection
 
             cm.media.Name = record.Name = (name_f != "") ? name_f : name_1;
             // record.linkID = cm.media.Id = _videoCollection.getMediaID();
-            cm.media.Id = _videoCollection.getMediaID();
+            cm.media.Id = _videoCollection.GetMediaID();
 
             record.Visible = true;
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
@@ -599,9 +599,23 @@ namespace FilmCollection
             PrepareRefresh(flag);
         }
 
+        string GetNode()
+        {
+            return (LastNode == null) ? "" : LastNode;
+        }
+
+        bool checkNode()
+        {
+            string nodeName = (GetNode());
+            if (nodeName != "" && nodeName != "Фильмотека")
+                return true;
+            return false;
+        }
+
+
         private void PrepareRefresh(bool flag = false, int column = -1)
         {
-            string nodeName = (LastNode == null) ? "" : LastNode;
+         
 
             Record selected = GetSelectedRecord();
 
@@ -618,11 +632,11 @@ namespace FilmCollection
                 ? filtered.FindAll(v => v.mCategory == ((CategoryVideo_Rus)(tscbTypeFilter.SelectedIndex - 1)).ToString())
                 : filtered;
 
-            if (nodeName != "" && nodeName != "Фильмотека")
+            if (checkNode())
             {
                 filtered = (!flag)
-                            ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName)
-                            : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + nodeName));
+                            ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                            : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode()));
             }
 
             Sort(filtered, tscbSort.SelectedIndex);
@@ -1557,7 +1571,7 @@ namespace FilmCollection
 
         private void cShowSelcetNodeAllFiles_Click(object sender, EventArgs e)
         {
-            PrepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды
+            PrepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды        
         }
 
 
@@ -1694,7 +1708,7 @@ namespace FilmCollection
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
-            actor.id = _videoCollection.getActorID();
+            actor.id = _videoCollection.GetActorID();
 
             foreach (ListViewItem eachItem in listViewFilm.Items)
             {
