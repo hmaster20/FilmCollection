@@ -7,22 +7,14 @@ namespace FilmCollection
 {
     public class RecordCollection
     {
+        [XmlElement]
+        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
+
         public RecordCollection()
         {
             ActorList = new List<Actor>();      // Создание списка актеров
             CombineList = new List<Combine>();  // Создание смешанного списка Record & Media
         }
-
-        public int MediaID { get; set; }            // нумератор
-        public int getMediaID() => ++MediaID;       // создание следующего номера
-        public void ClearMediaID() => MediaID = 0;    // обнуление идентификатора
-
-
-        public List<Combine> CombineList { get; set; }
-        public void Add(Combine cm) => CombineList.Add(cm);
-        public void Remove(Combine cm) => CombineList.Remove(cm);
-        public void ClearCombine() => CombineList.Clear();
-
 
         public void Clear()
         {
@@ -30,30 +22,38 @@ namespace FilmCollection
             {
                 ClearActor();
                 ClearCombine();
-                ClearMediaID();
+                ResetMediaID();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
+        
 
-        [XmlElement]
-        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
+        public List<Combine> CombineList { get; set; }
+        public void Add(Combine cm) => CombineList.Add(cm);
+        public void Remove(Combine cm) => CombineList.Remove(cm);
+        public void ClearCombine() => CombineList.Clear();
 
 
-        #region Актеры
 
-        public int ActorID { get; set; }    // Идентификатор актеров
-        public int getActorID() => ++ActorID;       // Генерация идентификатора  // return ++ActorID;
-        public void clearActorID() => ActorID = 0;  // обнуление идентификатора
+        private int MediaID { get; set; }               // нумератор
+        public int GetMediaID() => ++MediaID;           // создание следующего номера
+        public void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
 
-        // Список актеров
+
+
+        private int ActorID { get; set; }               // Идентификатор актеров
+        public int GetActorID() => ++ActorID;           // Генерация идентификатора  // return ++ActorID;
+        public void ResetActorID() => ActorID = 0;      // обнуление идентификатора
+
+
+
         public List<Actor> ActorList { get; set; } // Объявление списка        
         public void Add(Actor actor) => ActorList.Add(actor);       // Добавление актера
         public void Remove(Actor actor) => ActorList.Remove(actor); // Удаление актера
         public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
 
-        #endregion
-
+        
         
 
         #region Сериализация
