@@ -900,7 +900,8 @@ namespace FilmCollection
         private void NewRecord_Dialog()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = _videoCollection.Options.Source;
+            //fileDialog.InitialDirectory = _videoCollection.Options.Source;
+            fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
             fileDialog.Filter = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
             fileDialog.RestoreDirectory = true;
             if (fileDialog.ShowDialog() == DialogResult.OK) NewRecord(fileDialog.FileName);
