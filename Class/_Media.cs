@@ -8,10 +8,17 @@ namespace FilmCollection
 {
     public class Media
     {
+        [XmlIgnore]
+        public List<Actor> ActorList { get; set; }
+
         public Media()
         {
             ActorListID = new List<int>();      // Создание списка ID актеров, играющих в картине
             ActorList = new List<Actor>();
+        }
+        public override string ToString()
+        {
+            return Name;
         }
 
         public string Name { get; set; }        // Название произведения
@@ -26,26 +33,8 @@ namespace FilmCollection
             set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
         }
 
-
-
-
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
-
-
-
-
-
-
-
-        [XmlIgnore]
-        public List<Actor> ActorList { get; set; } // TEST
-
         
+
         #region Список ID актеров
 
         private List<int> _actorID;     // Объявление ID актеров
@@ -61,7 +50,7 @@ namespace FilmCollection
 
 
         #endregion
-        
+
 
         #region Обработка Страны
         private Country_Rus _country;   // Страна
