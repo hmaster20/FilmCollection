@@ -909,6 +909,9 @@ namespace FilmCollection
 
         private void NewRecord(string FileName)
         {
+            checkNewRecord.Checked = true;
+            cBoxNameMedia.Enabled = false;
+
             foreach (var item in _videoCollection.CombineList) // для авто поиска
                 cBoxNameMedia.Items.Add(item.media);
 
@@ -1666,7 +1669,6 @@ namespace FilmCollection
 
         private void NewActor()
         {
-            checkNewRecord.Checked = true;
             tbFIO.Text = "";
             tbBIO.Text = "";
             maskDateOfBirth.Text = "";
@@ -2296,7 +2298,19 @@ namespace FilmCollection
             }
         }
 
-       
+        private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkNewRecord.Checked)
+            {
+                cBoxNameMedia.Enabled = false;
+            }
+            else
+            {
+                cBoxNameMedia.Enabled = true;
+            }
+        }
+
+
 
 
 
