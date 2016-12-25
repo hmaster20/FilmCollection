@@ -970,6 +970,7 @@
             this.checkNewRecord.TabIndex = 60;
             this.checkNewRecord.Text = "новый";
             this.checkNewRecord.UseVisualStyleBackColor = true;
+            this.checkNewRecord.CheckedChanged += new System.EventHandler(this.checkNewRecord_CheckedChanged);
             // 
             // cBoxNameMedia
             // 
@@ -1370,6 +1371,7 @@
             // 
             // lbActors
             // 
+            this.lbActors.BackColor = System.Drawing.SystemColors.Control;
             this.lbActors.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lbActors.Location = new System.Drawing.Point(14, 134);
             this.lbActors.Name = "lbActors";
@@ -1762,8 +1764,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 653);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
