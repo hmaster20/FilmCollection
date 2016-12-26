@@ -615,7 +615,7 @@ namespace FilmCollection
 
         private void PrepareRefresh(bool flag = false, int column = -1)
         {
-         
+
 
             Record selected = GetSelectedRecord();
 
@@ -909,20 +909,11 @@ namespace FilmCollection
 
         private void NewRecord(string FileName)
         {
-            checkNewRecord.Checked = true;
-            cBoxNameMedia.Enabled = false;
-
-            foreach (var item in _videoCollection.CombineList) // для авто поиска
+            foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
                 cBoxNameMedia.Items.Add(item.media);
 
-            Combine cm;
-            if (cBoxNameMedia.SelectedItem != null)
-                if (_videoCollection.CombineList.Exists(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString()))
-                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString());
-
-
-
-
+            checkNewRecord.Checked = true;
+            cBoxNameMedia.Enabled = false;
 
             FileInfo fInfo = new FileInfo(FileName);
             string strFilePath = fInfo.DirectoryName;
@@ -945,18 +936,20 @@ namespace FilmCollection
             //    }
             //}
 
-
             //chkActorList.Items.Clear();
             //foreach (Actor item in _videoCollection.ActorList)
             //{
             //    chkActorList.Items.Add(item.FIO);
-            //}
+            //} 
 
             // Заполняем поля
+            cBoxNameMedia.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
             tbNameMedia.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
+            tbNameRecord.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
+
             //tbYear.Text = "";
             //tbCountry.Text = "";
-            //numericTime.Value = 0;
+
             tbDescription.Text = "";
             tbFileName.Text = fInfo.Name;
             cBoxGenre.SelectedIndex = -1;
@@ -967,8 +960,27 @@ namespace FilmCollection
 
             panelEdit.BringToFront();   // показываем панель редактирования
 
-            dgvTableRec.Enabled = false;   // блокировка таблицы
-            treeFolder.Enabled = false; // блокировка дерева
+            dgvTableRec.Enabled = false;    // блокировка таблицы
+            treeFolder.Enabled = false;     // блокировка дерева
+
+            //tabControl2.SelectedTab.    // 
+
+
+            //foreach (Control ctl in tabControl2.Controls) ctl.Enabled = false; // блокировка панелей. селекты работают.
+
+            // foreach (TabPage tab in tabControl2.TabPages)
+            // {
+            //     tab.Enabled = false;
+            // }
+            //tabControl2.TabPages[0] as TabPage).Enabled = true;
+
+            //if (tabControl2.TabCount - 1 == tabControl2.SelectedIndex)
+            //    return; // No more tabs to show!
+
+
+
+
+            // добавить блокировку tabControl2
 
             panelEdit_Button_Unlock();          // разблокировка кнопок
 
@@ -1019,6 +1031,24 @@ namespace FilmCollection
 
         private void SaveRecord_New()
         {
+            Combine cm = null;
+            if (cBoxNameMedia.SelectedItem != null)
+            {
+                if (_videoCollection.CombineList.Exists(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString()))
+                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString());
+            }
+            else
+            {
+                cm = new Combine();
+            }
+
+            cm.media.Name = cBoxNameMedia.Text;
+            cm.media.Year = Convert.ToInt32(mtbYear.Text);
+            cm.media.Description = tbDescription.Text;
+            cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
+            cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
+            cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
+
             char[] charsToTrim = { '.' };
             Record record = new Record();
             record.FileName = fsInfo.Name;
@@ -1027,13 +1057,31 @@ namespace FilmCollection
             record.Extension = fsInfo.Extension.Trim(charsToTrim);
             record.Name = tbNameMedia.Text;
 
+
+
             GetActorID(record);
-            // Продумать как добавлять к имеющимся Media !!!!!!!!!
-            //_videoCollection.Add(record);
+
+            cm.recordList.Add(record);
+            _videoCollection.Add(cm);
             _videoCollection.Save();
 
             fsInfo = null;
+
+            PrepareRefresh();
         }
+
+        private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkNewRecord.Checked)
+            {
+                cBoxNameMedia.Enabled = false;
+            }
+            else
+            {
+                cBoxNameMedia.Enabled = true;
+            }
+        }
+
 
         private void GetActorID(Record record)
         {
@@ -2298,24 +2346,22 @@ namespace FilmCollection
             }
         }
 
-        private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
+
+        private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
         {
-            if (checkNewRecord.Checked)
-            {
-                cBoxNameMedia.Enabled = false;
-            }
-            else
-            {
-                cBoxNameMedia.Enabled = true;
-            }
+            e.Cancel = !CheckAccess();
         }
 
+        private bool CheckAccess()
+        {
+            return true;
 
+            //throw new NotImplementedException();
+            // return true;//если доступ разрешен
+            // return false; //если доступ запрещен
+        }
 
-
-
-
-
+        
 
 
 
