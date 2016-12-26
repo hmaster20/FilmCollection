@@ -811,6 +811,7 @@
             this.tabControl2.Size = new System.Drawing.Size(980, 685);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.SelectActor_Info);
+            this.tabControl2.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl2_Selecting);
             this.tabControl2.Click += new System.EventHandler(this.tabControl_ChangeTab_Click);
             // 
             // tabFilm
