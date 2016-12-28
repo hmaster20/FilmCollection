@@ -113,7 +113,6 @@
             this.lblGenre = new System.Windows.Forms.Label();
             this.lblTypeVideo = new System.Windows.Forms.Label();
             this.lblYear = new System.Windows.Forms.Label();
-            this.tbNameMedia = new System.Windows.Forms.TextBox();
             this.btnAddGroup = new System.Windows.Forms.Button();
             this.btnRemoveGroup = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
@@ -946,7 +945,6 @@
             this.gMedia.Controls.Add(this.lblGenre);
             this.gMedia.Controls.Add(this.lblTypeVideo);
             this.gMedia.Controls.Add(this.lblYear);
-            this.gMedia.Controls.Add(this.tbNameMedia);
             this.gMedia.Controls.Add(this.btnAddGroup);
             this.gMedia.Controls.Add(this.btnRemoveGroup);
             this.gMedia.Controls.Add(this.btnMoveUp);
@@ -965,7 +963,7 @@
             // checkNewRecord
             // 
             this.checkNewRecord.AutoSize = true;
-            this.checkNewRecord.Location = new System.Drawing.Point(285, 4);
+            this.checkNewRecord.Location = new System.Drawing.Point(285, 27);
             this.checkNewRecord.Name = "checkNewRecord";
             this.checkNewRecord.Size = new System.Drawing.Size(58, 17);
             this.checkNewRecord.TabIndex = 60;
@@ -978,10 +976,12 @@
             this.cBoxNameMedia.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cBoxNameMedia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cBoxNameMedia.FormattingEnabled = true;
-            this.cBoxNameMedia.Location = new System.Drawing.Point(67, 2);
+            this.cBoxNameMedia.Location = new System.Drawing.Point(67, 24);
             this.cBoxNameMedia.Name = "cBoxNameMedia";
             this.cBoxNameMedia.Size = new System.Drawing.Size(213, 21);
             this.cBoxNameMedia.TabIndex = 59;
+            this.cBoxNameMedia.SelectedIndexChanged += new System.EventHandler(this.cBoxNameMedia_SelectedIndexChanged);
+            this.cBoxNameMedia.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
             // cBoxTypeVideo
             // 
@@ -1094,16 +1094,6 @@
             this.lblYear.Size = new System.Drawing.Size(25, 13);
             this.lblYear.TabIndex = 20;
             this.lblYear.Text = "Год";
-            // 
-            // tbNameMedia
-            // 
-            this.tbNameMedia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbNameMedia.Location = new System.Drawing.Point(67, 25);
-            this.tbNameMedia.Name = "tbNameMedia";
-            this.tbNameMedia.Size = new System.Drawing.Size(275, 20);
-            this.tbNameMedia.TabIndex = 27;
-            this.tbNameMedia.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // btnAddGroup
             // 
@@ -2518,6 +2508,7 @@
             this.tsFindbyName.AutoSize = false;
             this.tsFindbyName.BackColor = System.Drawing.SystemColors.Window;
             this.tsFindbyName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tsFindbyName.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsFindbyName.Name = "tsFindbyName";
             this.tsFindbyName.Padding = new System.Windows.Forms.Padding(5);
             this.tsFindbyName.Size = new System.Drawing.Size(150, 20);
@@ -2642,7 +2633,6 @@
         private System.Windows.Forms.ComboBox cBoxTypeVideo;
         private System.Windows.Forms.ComboBox cBoxGenre;
         private System.Windows.Forms.TextBox tbDescription;
-        private System.Windows.Forms.TextBox tbNameMedia;
         private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblTime;
