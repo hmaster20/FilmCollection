@@ -251,12 +251,7 @@ namespace FilmCollection
             _videoCollection.Save();
             //MessageBox.Show(_videoCollection.VideoList.Count.ToString());
             FormLoad();
-
         }
-
-
-
-
 
         private void UpdateBase()       // Добавить обновление базы
         {
@@ -759,7 +754,7 @@ namespace FilmCollection
 
                 // Панель редактирования
                 // Media
-                tbNameMedia.Text = record.combineLink.media.Name;
+                cBoxNameMedia.Text = record.combineLink.media.Name;
                 mtbYear.Text = Convert.ToString(record.combineLink.media.Year);
                 tbDescription.Text = record.combineLink.media.Description;
                 cBoxTypeVideo.SelectedIndex = ((int)record.combineLink.media.Category);
@@ -883,7 +878,7 @@ namespace FilmCollection
             tscCountryFilter.SelectedIndex = -1;
 
 
-            tbNameMedia.Text = "";
+            cBoxNameMedia.Text = "";
             //numericTime.Value = 0;
             tbDescription.Text = "";
             tbFileName.Text = "";
@@ -959,7 +954,6 @@ namespace FilmCollection
 
             // Заполняем поля
             cBoxNameMedia.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
-            tbNameMedia.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
             tbNameRecord.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
 
             //tbYear.Text = "";
@@ -1016,7 +1010,7 @@ namespace FilmCollection
             {
                 Combine cm = record.combineLink;
                 // Media
-                record.combineLink.media.Name = tbNameMedia.Text;
+                record.combineLink.media.Name = cBoxNameMedia.Text;
                 record.combineLink.media.Year = Convert.ToInt32(mtbYear.Text);
                 record.combineLink.media.Description = tbDescription.Text;
                 record.combineLink.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
@@ -1057,6 +1051,13 @@ namespace FilmCollection
                 cm = new Combine();
             }
 
+            if (cm.media.Id != 0 && (checkNewRecord.Checked == true))
+            {
+                MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
+                return;
+            }
+
+ 
             cm.media.Name = cBoxNameMedia.Text;
             cm.media.Year = Convert.ToInt32(mtbYear.Text);
             cm.media.Description = tbDescription.Text;
@@ -1070,7 +1071,7 @@ namespace FilmCollection
             record.Path = fsInfo.DirectoryName;
             record.DirName = fsInfo.Directory.Name;
             record.Extension = fsInfo.Extension.Trim(charsToTrim);
-            record.Name = tbNameMedia.Text;
+            record.Name = tbNameRecord.Text;// ПРОДУМАТЬ СХЕМУ ИМЕНОВАНИЯ !!!!!!!!!
 
             GetActorID(record);
 
@@ -1092,6 +1093,31 @@ namespace FilmCollection
             else
             {
                 cBoxNameMedia.Enabled = true;
+            }
+            UserModifiedChanged(sender, e);
+        }
+
+        private void cBoxNameMedia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Combine cm = null;
+            if (cBoxNameMedia.SelectedItem != null)
+            {
+                if (_videoCollection.CombineList.Exists(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString()))
+                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString());
+            }
+
+            if (cm != null)
+            {
+                mtbYear.Text = Convert.ToString(cm.media.Year);
+                tbDescription.Text = cm.media.Description;
+                cBoxTypeVideo.SelectedIndex = ((int)cm.media.Category);
+                cBoxGenre.SelectedIndex = ((int)cm.media.GenreVideo);
+                cBoxCountry.SelectedIndex = ((int)cm.media.Country);
+                chkActorSelect.Items.Clear();
+                if (cm.media.ActorListID != null)
+                    foreach (int ListID in cm.media.ActorListID)
+                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
+                            chkActorSelect.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
             }
         }
 
@@ -1154,7 +1180,6 @@ namespace FilmCollection
 
         private void panelEdit_Lock()    //Блокировка кнопок
         {
-            tbNameMedia.Modified = false;        // возвращаем назад статус изменения поля
             mtbYear.Modified = false;       // возвращаем назад статус изменения поля  
             tbDescription.Modified = false; // возвращаем назад статус изменения поля
 
@@ -2373,6 +2398,8 @@ namespace FilmCollection
             // return true;//если доступ разрешен
             // return false; //если доступ запрещен
         }
+
+
 
 
 
