@@ -982,6 +982,7 @@
             this.cbNameMedia.TabIndex = 59;
             this.cbNameMedia.SelectedIndexChanged += new System.EventHandler(this.cBoxNameMedia_SelectedIndexChanged);
             this.cbNameMedia.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
+            this.cbNameMedia.TextUpdate += new System.EventHandler(this.UserModifiedChanged);
             // 
             // cBoxTypeVideo
             // 
