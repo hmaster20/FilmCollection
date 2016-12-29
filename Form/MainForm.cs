@@ -946,8 +946,7 @@ namespace FilmCollection
                     chkActorList.Items.Add(item.FIO);
                 }
 
-                fsInfo = newFile;           // если все хорошо, то передаем объект
-    
+                fsInfo = newFile;           // если все хорошо, то передаем объект    
 
                 dgvTableRec.Enabled = false;    // блокировка таблицы
                 treeFolder.Enabled = false;     // блокировка дерева
@@ -990,14 +989,24 @@ namespace FilmCollection
             if (record != null)
             {
                 Combine cm = record.combineLink;
+                cm.media.Name = cbNameMedia.Text;
+                cm.media.Year = Convert.ToInt32(mtbYear.Text);
+                cm.media.Description = tbDescription.Text;
+                cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
+                cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
+                cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
+
                 // Media
-                record.combineLink.media.Name = cbNameMedia.Text;
-                record.combineLink.media.Year = Convert.ToInt32(mtbYear.Text);
-                record.combineLink.media.Description = tbDescription.Text;
-                record.combineLink.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
-                record.combineLink.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
-                record.combineLink.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
+                //record.combineLink.media.Name = cbNameMedia.Text;
+                //record.combineLink.media.Year = Convert.ToInt32(mtbYear.Text);
+                //record.combineLink.media.Description = tbDescription.Text;
+                //record.combineLink.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
+                //record.combineLink.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
+                //record.combineLink.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
+
+
                 GetActorID(record);
+
                 // Record
                 record.Name = tbNameRecord.Text;
                 try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
