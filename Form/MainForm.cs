@@ -236,7 +236,6 @@ namespace FilmCollection
             if (CheckfolderName == DialogResult.Cancel) NewBase();
 
             DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-
             if (directory.Exists)
             {
                 _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
@@ -754,7 +753,7 @@ namespace FilmCollection
 
                 // Панель редактирования
                 // Media
-                cBoxNameMedia.Text = record.combineLink.media.Name;
+                cbNameMedia.Text = record.combineLink.media.Name;
                 mtbYear.Text = Convert.ToString(record.combineLink.media.Year);
                 tbDescription.Text = record.combineLink.media.Description;
                 cBoxTypeVideo.SelectedIndex = ((int)record.combineLink.media.Category);
@@ -878,7 +877,7 @@ namespace FilmCollection
             tscCountryFilter.SelectedIndex = -1;
 
 
-            cBoxNameMedia.Text = "";
+            cbNameMedia.Text = "";
             //numericTime.Value = 0;
             tbDescription.Text = "";
             tbFileName.Text = "";
@@ -909,96 +908,78 @@ namespace FilmCollection
 
         private void NewRecord_Dialog()
         {
+            dgvTableRec.ClearSelection();   // сброс селекта таблицы
+
             OpenFileDialog fileDialog = new OpenFileDialog();
-            //fileDialog.InitialDirectory = _videoCollection.Options.Source;
             fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
             fileDialog.Filter = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
             fileDialog.RestoreDirectory = true;
-            if (fileDialog.ShowDialog() == DialogResult.OK) NewRecord(fileDialog.FileName);
-        }
 
-        private void NewRecord(string FileName)
-        {
-            foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
-                cBoxNameMedia.Items.Add(item.media);
-
-            checkNewRecord.Checked = true;
-            cBoxNameMedia.Enabled = false;
-
-            FileInfo fInfo = new FileInfo(FileName);
-            string strFilePath = fInfo.DirectoryName;
-            if (!strFilePath.StartsWith(_videoCollection.Options.Source))
+            if (fileDialog.ShowDialog() == DialogResult.OK)                 
             {
-                MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Options.Source);
-                return; // Выходим из метода
+                foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
+                    cbNameMedia.Items.Add(item.media);
+
+                checkNewRecord.Checked = true;  // новый фильм
+                cbNameMedia.Enabled = false;  // блокируем название
+
+                FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
+                if (!newFile.DirectoryName.StartsWith(_videoCollection.Options.Source))
+                {
+                    MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Options.Source);
+                    return; // Выходим из метода
+                }
+
+                // Заполняем поля
+                cbNameMedia.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
+                tbNameRecord.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
+                tbFileName.Text = newFile.Name;
+                tbDescription.Text = "";
+                mtbYear.Text = DateTime.Now.Year.ToString();
+                cBoxGenre.SelectedIndex = -1;
+                cBoxTypeVideo.SelectedIndex = -1;
+                cBoxCountry.SelectedIndex = -1;
+
+                chkActorList.Items.Clear();
+                foreach (Actor item in _videoCollection.ActorList)
+                {
+                    chkActorList.Items.Add(item.FIO);
+                }
+
+                fsInfo = newFile;           // если все хорошо, то передаем объект
+    
+
+                dgvTableRec.Enabled = false;    // блокировка таблицы
+                treeFolder.Enabled = false;     // блокировка дерева
+
+                panelEdit_Button_Unlock();          // разблокировка кнопок
+                FileNameDisabled();
+
+                panelEdit.BringToFront();   // Отображаем панель редактирования
+
+                // добавить блокировку tabControl2
+
+
+                //Record record = new Record();
+                //record.FileName = newFile.Name;
+                //record.Path = newFile.DirectoryName;
+
+                //foreach (Record item in _videoCollection.VideoList)
+                //{
+                //    if (item.Equals(record))
+                //    {
+                //        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
+                //        return; // Выходим из метода
+                //    }
+                //}
             }
-
-            Record record = new Record();
-            record.FileName = fInfo.Name;
-            record.Path = fInfo.DirectoryName;
-
-            //foreach (Record item in _videoCollection.VideoList)
-            //{
-            //    if (item.Equals(record))
-            //    {
-            //        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
-            //        return; // Выходим из метода
-            //    }
-            //}
-
-            //chkActorList.Items.Clear();
-            //foreach (Actor item in _videoCollection.ActorList)
-            //{
-            //    chkActorList.Items.Add(item.FIO);
-            //} 
-
-            // Заполняем поля
-            cBoxNameMedia.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
-            tbNameRecord.Text = fInfo.Name.Remove(fInfo.Name.LastIndexOf(fInfo.Extension), fInfo.Extension.Length);
-
-            //tbYear.Text = "";
-            //tbCountry.Text = "";
-
-            tbDescription.Text = "";
-            tbFileName.Text = fInfo.Name;
-            cBoxGenre.SelectedIndex = -1;
-            cBoxTypeVideo.SelectedIndex = -1;
-            cBoxCountry.SelectedIndex = -1;
-
-            fsInfo = fInfo;             // если все хорошо, то передаем объект
-
-            panelEdit.BringToFront();   // показываем панель редактирования
-
-            dgvTableRec.Enabled = false;    // блокировка таблицы
-            treeFolder.Enabled = false;     // блокировка дерева
-
-            //tabControl2.SelectedTab.    // 
-
-
-            //foreach (Control ctl in tabControl2.Controls) ctl.Enabled = false; // блокировка панелей. селекты работают.
-
-            // foreach (TabPage tab in tabControl2.TabPages)
-            // {
-            //     tab.Enabled = false;
-            // }
-            //tabControl2.TabPages[0] as TabPage).Enabled = true;
-
-            //if (tabControl2.TabCount - 1 == tabControl2.SelectedIndex)
-            //    return; // No more tabs to show!
-
-
-
-
-            // добавить блокировку tabControl2
-
-            panelEdit_Button_Unlock();          // разблокировка кнопок
-
-            FileNameDisabled();
         }
+
 
         private void SaveRecord()
         {
             if (fsInfo != null) SaveRecord_New(); else SaveRecord_Select();
+
             panelEdit_Lock();    // блокировка панели
         }
 
@@ -1010,7 +991,7 @@ namespace FilmCollection
             {
                 Combine cm = record.combineLink;
                 // Media
-                record.combineLink.media.Name = cBoxNameMedia.Text;
+                record.combineLink.media.Name = cbNameMedia.Text;
                 record.combineLink.media.Year = Convert.ToInt32(mtbYear.Text);
                 record.combineLink.media.Description = tbDescription.Text;
                 record.combineLink.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
@@ -1048,10 +1029,10 @@ namespace FilmCollection
              */
 
             Combine cm = null;
-            if (cBoxNameMedia.SelectedItem != null)
+            if (cbNameMedia.SelectedItem != null)
             {
-                if (_videoCollection.CombineList.Exists(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString()))
-                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString());
+                if (_videoCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
+                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
             }
             else
             {
@@ -1065,7 +1046,7 @@ namespace FilmCollection
             }
 
  
-            cm.media.Name = cBoxNameMedia.Text;
+            cm.media.Name = cbNameMedia.Text;
             cm.media.Year = Convert.ToInt32(mtbYear.Text);
             cm.media.Description = tbDescription.Text;
             cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
@@ -1095,11 +1076,11 @@ namespace FilmCollection
         {
             if (checkNewRecord.Checked)
             {
-                cBoxNameMedia.Enabled = false;
+                cbNameMedia.Enabled = false;
             }
             else
             {
-                cBoxNameMedia.Enabled = true;
+                cbNameMedia.Enabled = true;
             }
             UserModifiedChanged(sender, e);
         }
@@ -1107,10 +1088,10 @@ namespace FilmCollection
         private void cBoxNameMedia_SelectedIndexChanged(object sender, EventArgs e)
         {
             Combine cm = null;
-            if (cBoxNameMedia.SelectedItem != null)
+            if (cbNameMedia.SelectedItem != null)
             {
-                if (_videoCollection.CombineList.Exists(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString()))
-                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cBoxNameMedia.SelectedItem.ToString());
+                if (_videoCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
+                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
             }
 
             if (cm != null)
