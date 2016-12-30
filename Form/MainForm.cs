@@ -917,8 +917,8 @@ namespace FilmCollection
 
             if (fileDialog.ShowDialog() == DialogResult.OK)                 
             {
-                foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
-                    cbNameMedia.Items.Add(item.media);
+                //foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
+                //    cbNameMedia.Items.Add(item.media);
 
                 checkNewRecord.Checked = true;  // новый фильм
                 cbNameMedia.Enabled = false;  // блокируем название
@@ -1089,6 +1089,8 @@ namespace FilmCollection
             }
             else
             {
+                foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
+                    cbNameMedia.Items.Add(item.media);
                 cbNameMedia.Enabled = true;
             }
             UserModifiedChanged(sender, e);
@@ -1158,7 +1160,7 @@ namespace FilmCollection
 
         private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
         {
-            if (!mtbYear.MaskCompleted)
+              if (!mtbYear.MaskCompleted)
                 MessageBox.Show("Неверно указан год!");
             if (!mtbTime.MaskCompleted)
             {
@@ -2271,7 +2273,10 @@ namespace FilmCollection
                         {
                             ulong bbb = aaa / 10000000;
                             //MessageBox.Show(TimeSpan.FromSeconds((double)bbb).ToString());
+                            string oldvalue = mtbTime.Text;                      
                             mtbTime.Text = TimeSpan.FromSeconds((double)bbb).ToString();
+                            if (mtbTime.Text != oldvalue)
+                                Modified();
                         }
 
                         //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
@@ -2395,6 +2400,10 @@ namespace FilmCollection
             // return true;//если доступ разрешен
             // return false; //если доступ запрещен
         }
+
+  
+
+
 
 
 
