@@ -769,6 +769,7 @@ namespace FilmCollection
                 tbNameRecord.Text = record.Name;
                 mtbTime.Text = record.TimeVideoSpan.ToString();
                 tbFileName.Text = record.FileName;
+                tbFilePath.Text = (record.Path + Path.DirectorySeparatorChar + record.FileName);
             }
         }
 
@@ -987,7 +988,8 @@ namespace FilmCollection
             char[] charsToTrim = { '.' };
             Record record = GetSelectedRecord();
             if (record != null)
-            {
+            {                
+                // Media
                 Combine cm = record.combineLink;
                 cm.media.Name = cbNameMedia.Text;
                 cm.media.Year = Convert.ToInt32(mtbYear.Text);
@@ -995,15 +997,6 @@ namespace FilmCollection
                 cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
                 cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
                 cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
-
-                // Media
-                //record.combineLink.media.Name = cbNameMedia.Text;
-                //record.combineLink.media.Year = Convert.ToInt32(mtbYear.Text);
-                //record.combineLink.media.Description = tbDescription.Text;
-                //record.combineLink.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
-                //record.combineLink.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
-                //record.combineLink.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
-
 
                 GetActorID(record);
 
@@ -1023,7 +1016,7 @@ namespace FilmCollection
                     record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
                 }
                 else record.FileName = tbFileName.Text;
-                // Сохранение
+  
                 _videoCollection.Save();
             }
         }
@@ -2214,14 +2207,7 @@ namespace FilmCollection
 
         #endregion
 
-
-
-
-
-
-
-
-
+        
 
 
         private void GetTime()
@@ -2251,11 +2237,8 @@ namespace FilmCollection
                             if (mtbTime.Text != oldvalue)
                                 Modified();
                         }
-
-                        //Console.WriteLine(TimeSpan.FromSeconds(item.ExtendedProperty("System.Media.Duration") / 10000000));
                     }
                 }
-
                 Marshal.ReleaseComObject(folder);
                 Marshal.ReleaseComObject(shell);
             }
