@@ -314,7 +314,7 @@
             this.dgvTableRec.ReadOnly = true;
             this.dgvTableRec.RowHeadersVisible = false;
             this.dgvTableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableRec.Size = new System.Drawing.Size(590, 624);
+            this.dgvTableRec.Size = new System.Drawing.Size(590, 579);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTableRec_CellContentDoubleClick);
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
@@ -493,7 +493,7 @@
             this.tssLabel,
             this.tsProgressBar,
             this.FindStatusLabel});
-            this.statusLine.Location = new System.Drawing.Point(0, 734);
+            this.statusLine.Location = new System.Drawing.Point(0, 689);
             this.statusLine.Name = "statusLine";
             this.statusLine.Size = new System.Drawing.Size(1175, 22);
             this.statusLine.TabIndex = 18;
@@ -692,7 +692,7 @@
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
-            this.treeFolder.Size = new System.Drawing.Size(191, 685);
+            this.treeFolder.Size = new System.Drawing.Size(191, 640);
             this.treeFolder.TabIndex = 22;
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
             this.treeFolder.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragDrop);
@@ -807,7 +807,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(980, 685);
+            this.tabControl2.Size = new System.Drawing.Size(980, 640);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.SelectActor_Info);
             this.tabControl2.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl2_Selecting);
@@ -819,7 +819,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(972, 659);
+            this.tabFilm.Size = new System.Drawing.Size(972, 614);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -850,7 +850,7 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(966, 653);
+            this.scTabFilm.Size = new System.Drawing.Size(966, 608);
             this.scTabFilm.SplitterDistance = 592;
             this.scTabFilm.TabIndex = 17;
             // 
@@ -927,7 +927,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 651);
+            this.panelEdit.Size = new System.Drawing.Size(368, 606);
             this.panelEdit.TabIndex = 10;
             // 
             // gMedia
@@ -1203,7 +1203,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(265, 583);
+            this.btnSave.Location = new System.Drawing.Point(265, 545);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 23);
             this.btnSave.TabIndex = 47;
@@ -1216,7 +1216,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(265, 612);
+            this.btnCancel.Location = new System.Drawing.Point(265, 574);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -1279,7 +1279,6 @@
             this.mtbTime.Text = "000000";
             this.mtbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbTime_KeyDown);
-            this.mtbTime.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
             // 
             // tbFileName
             // 
@@ -1330,7 +1329,7 @@
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(19, 612);
+            this.btnNew.Location = new System.Drawing.Point(19, 545);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -1357,7 +1356,7 @@
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 651);
+            this.panelView.Size = new System.Drawing.Size(368, 606);
             this.panelView.TabIndex = 10;
             // 
             // lbActors
@@ -1384,7 +1383,7 @@
             this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
             this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 625);
+            this.btnPlay.Location = new System.Drawing.Point(5, 655);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(111, 23);
             this.btnPlay.TabIndex = 6;
@@ -1532,7 +1531,7 @@
             this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFolder.Location = new System.Drawing.Point(0, 0);
             this.panelFolder.Name = "panelFolder";
-            this.panelFolder.Size = new System.Drawing.Size(368, 651);
+            this.panelFolder.Size = new System.Drawing.Size(368, 606);
             this.panelFolder.TabIndex = 59;
             // 
             // btnSaveFolder
@@ -1629,7 +1628,7 @@
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 651);
+            this.panelFind.Size = new System.Drawing.Size(368, 606);
             this.panelFind.TabIndex = 0;
             // 
             // btnFindReset
@@ -1732,7 +1731,7 @@
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
             this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(972, 659);
+            this.tabActors.Size = new System.Drawing.Size(972, 614);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1757,7 +1756,7 @@
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
-            this.scTabActors.Size = new System.Drawing.Size(966, 653);
+            this.scTabActors.Size = new System.Drawing.Size(966, 608);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
             // 
@@ -1782,7 +1781,7 @@
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(535, 624);
+            this.dgvTableActors.Size = new System.Drawing.Size(535, 579);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
@@ -1867,7 +1866,7 @@
             this.panelEditAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEditAct.Location = new System.Drawing.Point(0, 0);
             this.panelEditAct.Name = "panelEditAct";
-            this.panelEditAct.Size = new System.Drawing.Size(423, 651);
+            this.panelEditAct.Size = new System.Drawing.Size(423, 606);
             this.panelEditAct.TabIndex = 0;
             // 
             // groupBox1
@@ -2150,7 +2149,7 @@
             this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelViewAct.Location = new System.Drawing.Point(0, 0);
             this.panelViewAct.Name = "panelViewAct";
-            this.panelViewAct.Size = new System.Drawing.Size(423, 651);
+            this.panelViewAct.Size = new System.Drawing.Size(423, 606);
             this.panelViewAct.TabIndex = 1;
             // 
             // groupBox2
@@ -2337,7 +2336,7 @@
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
             this.tabImage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabImage.Size = new System.Drawing.Size(972, 659);
+            this.tabImage.Size = new System.Drawing.Size(972, 614);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
@@ -2347,7 +2346,7 @@
             this.tabGrab.Location = new System.Drawing.Point(4, 22);
             this.tabGrab.Name = "tabGrab";
             this.tabGrab.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGrab.Size = new System.Drawing.Size(972, 659);
+            this.tabGrab.Size = new System.Drawing.Size(972, 614);
             this.tabGrab.TabIndex = 2;
             this.tabGrab.Text = "Захват";
             this.tabGrab.UseVisualStyleBackColor = true;
@@ -2357,7 +2356,7 @@
             this.tabBase.Location = new System.Drawing.Point(4, 22);
             this.tabBase.Name = "tabBase";
             this.tabBase.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBase.Size = new System.Drawing.Size(972, 659);
+            this.tabBase.Size = new System.Drawing.Size(972, 614);
             this.tabBase.TabIndex = 5;
             this.tabBase.Text = "База";
             this.tabBase.UseVisualStyleBackColor = true;
@@ -2382,7 +2381,7 @@
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1175, 685);
+            this.scMain.Size = new System.Drawing.Size(1175, 640);
             this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
@@ -2525,7 +2524,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1175, 756);
+            this.ClientSize = new System.Drawing.Size(1175, 711);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.toolMainMenu);
