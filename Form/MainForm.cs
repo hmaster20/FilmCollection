@@ -1018,6 +1018,8 @@ namespace FilmCollection
                 else record.FileName = tbFileName.Text;
   
                 _videoCollection.Save();
+
+                FormLoad();
             }
         }
 
@@ -1045,9 +1047,10 @@ namespace FilmCollection
             {
                 MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
                 return;
+
             }
 
- 
+            // Media
             cm.media.Name = cbNameMedia.Text;
             cm.media.Year = Convert.ToInt32(mtbYear.Text);
             cm.media.Description = tbDescription.Text;
@@ -1055,6 +1058,7 @@ namespace FilmCollection
             cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
             cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
 
+            // Record
             char[] charsToTrim = { '.' };
             Record record = new Record();
             record.FileName = fsInfo.Name;
