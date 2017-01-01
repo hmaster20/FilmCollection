@@ -979,7 +979,8 @@ namespace FilmCollection
         private void SaveRecord()
         {
             if (fsInfo != null)
-            {
+            {   // Создание нового фильма
+
                 /*
                  * если редактор новый выкл, редактирование текущего объекта.
                  * если редактор и новый вкл, вывести уведомление о попытке создания объекта нового объекта при условии что его еще нет
@@ -1000,9 +1001,9 @@ namespace FilmCollection
 
                 if (cm.media.Id != 0 && (checkNewRecord.Checked == true))
                 {
-                    MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
-                    return;
-
+                    MessageBox.Show(cm.media.Name + "уже существует!");
+                    //MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
+                    //return;
                 }
 
                 MediaGet(cm);
@@ -1018,12 +1019,19 @@ namespace FilmCollection
 
                 GetActorID(record);
 
-                cm.recordList.Add(record);
+                if (cm.recordList.Exists(v => v.Name == record.Name))
+                {
+                    MessageBox.Show("Файл уже есть в списке, добавление не требуется!");
+                }
+                else
+                {
+                    cm.recordList.Add(record);
+                }
+      
                 _videoCollection.Add(cm);
             }
             else
-            {
-                char[] charsToTrim = { '.' };
+            {   
                 Record record = GetSelectedRecord();
                 if (record != null)
                 {
@@ -1031,6 +1039,7 @@ namespace FilmCollection
                     MediaGet(cm);
 
                     // Record
+                    char[] charsToTrim = { '.' };
                     record.Name = tbNameRecord.Text;
                     try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
                     catch (Exception Ex)
