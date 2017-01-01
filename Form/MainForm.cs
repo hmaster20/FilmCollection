@@ -916,7 +916,7 @@ namespace FilmCollection
             fileDialog.Filter = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
             fileDialog.RestoreDirectory = true;
 
-            if (fileDialog.ShowDialog() == DialogResult.OK)                 
+            if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 //foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
                 //    cbNameMedia.Items.Add(item.media);
@@ -978,78 +978,89 @@ namespace FilmCollection
 
         private void SaveRecord()
         {
-            if (fsInfo != null) SaveRecord_New(); else SaveRecord_Select();
+            if (fsInfo != null)
+            {
+                /*
+                 * если редактор новый выкл, редактирование текущего объекта.
+                 * если редактор и новый вкл, вывести уведомление о попытке создания объекта нового объекта при условии что его еще нет
+                 * если создание нового объекта, новый вкл, попытка создания уникального объекта, если есть такой вывод сообщения об ошибке
+                 * если создание нового объекта, новый выкл, попытка добавления файла к текущему Media (сравниваем рекорды по имени)
+                 */
+
+                Combine cm = null;
+                if (cbNameMedia.SelectedItem != null)
+                {
+                    if (_videoCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
+                        cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
+                }
+                else
+                {
+                    cm = new Combine();
+                }
+
+                if (cm.media.Id != 0 && (checkNewRecord.Checked == true))
+                {
+                    MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
+                    return;
+
+                }
+
+                MediaGet(cm);
+
+                // Record
+                char[] charsToTrim = { '.' };
+                Record record = new Record();
+                record.FileName = fsInfo.Name;
+                record.Path = fsInfo.DirectoryName;
+                record.DirName = fsInfo.Directory.Name;
+                record.Extension = fsInfo.Extension.Trim(charsToTrim);
+                record.Name = tbNameRecord.Text;// ПРОДУМАТЬ СХЕМУ ИМЕНОВАНИЯ !!!!!!!!!
+
+                GetActorID(record);
+
+                cm.recordList.Add(record);
+                _videoCollection.Add(cm);
+            }
+            else
+            {
+                char[] charsToTrim = { '.' };
+                Record record = GetSelectedRecord();
+                if (record != null)
+                {
+                    Combine cm = record.combineLink;
+                    MediaGet(cm);
+
+                    // Record
+                    record.Name = tbNameRecord.Text;
+                    try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
+                    catch (Exception Ex)
+                    {
+                        MessageBox.Show(Ex.Message);
+                        record.TimeVideoSpan = TimeSpan.Parse("0");
+                    }
+                    if (record.FileName != tbFileName.Text)
+                    {
+                        File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
+                                  record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
+                        record.FileName = tbFileName.Text;
+                        record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
+                    }
+                    else record.FileName = tbFileName.Text;
+
+                    GetActorID(record);
+                }
+            }
+            _videoCollection.Save();
+
+            FormLoad();
+
+            fsInfo = null;
 
             panelEdit_Lock();    // блокировка панели
         }
 
-        private void SaveRecord_Select()
+        private void MediaGet(Combine cm)
         {
-            char[] charsToTrim = { '.' };
-            Record record = GetSelectedRecord();
-            if (record != null)
-            {                
-                // Media
-                Combine cm = record.combineLink;
-                cm.media.Name = cbNameMedia.Text;
-                cm.media.Year = Convert.ToInt32(mtbYear.Text);
-                cm.media.Description = tbDescription.Text;
-                cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
-                cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
-                cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
-
-                GetActorID(record);
-
-                // Record
-                record.Name = tbNameRecord.Text;
-                try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
-                catch (Exception Ex)
-                {
-                    MessageBox.Show(Ex.Message);
-                    record.TimeVideoSpan = TimeSpan.Parse("0");
-                }
-                if (record.FileName != tbFileName.Text)
-                {
-                    File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
-                              record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
-                    record.FileName = tbFileName.Text;
-                    record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
-                }
-                else record.FileName = tbFileName.Text;
-  
-                _videoCollection.Save();
-
-                FormLoad();
-            }
-        }
-
-        private void SaveRecord_New()
-        {
-            /*
-             * если редактор новый выкл, редактирование текущего объекта.
-             * если редактор и новый вкл, вывести уведомление о попытке создания объекта нового объекта при условии что его еще нет
-             * если создание нового объекта, новый вкл, попытка создания уникального объекта, если есть такой вывод сообщения об ошибке
-             * если создание нового объекта, новый выкл, попытка добавления файла к текущему Media (сравниваем рекорды по имени)
-             */
-
-            Combine cm = null;
-            if (cbNameMedia.SelectedItem != null)
-            {
-                if (_videoCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
-                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
-            }
-            else
-            {
-                cm = new Combine();
-            }
-
-            if (cm.media.Id != 0 && (checkNewRecord.Checked == true))
-            {
-                MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
-                return;
-
-            }
-
             // Media
             cm.media.Name = cbNameMedia.Text;
             cm.media.Year = Convert.ToInt32(mtbYear.Text);
@@ -1057,26 +1068,8 @@ namespace FilmCollection
             cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
             cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
             cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
-
-            // Record
-            char[] charsToTrim = { '.' };
-            Record record = new Record();
-            record.FileName = fsInfo.Name;
-            record.Path = fsInfo.DirectoryName;
-            record.DirName = fsInfo.Directory.Name;
-            record.Extension = fsInfo.Extension.Trim(charsToTrim);
-            record.Name = tbNameRecord.Text;// ПРОДУМАТЬ СХЕМУ ИМЕНОВАНИЯ !!!!!!!!!
-
-            GetActorID(record);
-
-            cm.recordList.Add(record);
-            _videoCollection.Add(cm);
-            _videoCollection.Save();
-
-            fsInfo = null;
-
-            FormLoad();
         }
+
 
         private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
         {
@@ -1157,7 +1150,7 @@ namespace FilmCollection
 
         private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
         {
-              if (!mtbYear.MaskCompleted)
+            if (!mtbYear.MaskCompleted)
                 MessageBox.Show("Неверно указан год!");
             if (!mtbTime.MaskCompleted)
             {
@@ -2211,7 +2204,7 @@ namespace FilmCollection
 
         #endregion
 
-        
+
 
 
         private void GetTime()
@@ -2236,7 +2229,7 @@ namespace FilmCollection
                         {
                             ulong bbb = aaa / 10000000;
                             //MessageBox.Show(TimeSpan.FromSeconds((double)bbb).ToString());
-                            string oldvalue = mtbTime.Text;                      
+                            string oldvalue = mtbTime.Text;
                             mtbTime.Text = TimeSpan.FromSeconds((double)bbb).ToString();
                             if (mtbTime.Text != oldvalue)
                                 Modified();
@@ -2361,7 +2354,7 @@ namespace FilmCollection
             // return false; //если доступ запрещен
         }
 
-  
+
 
 
 
