@@ -932,8 +932,9 @@ namespace FilmCollection
                 //foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
                 //    cbNameMedia.Items.Add(item.media);
 
-                checkNewRecord.Checked = true;  // новый фильм
-                cbNameMedia.Enabled = false;  // блокируем название
+                // checkNewRecord.Checked = true;  // выполняем привязку
+
+                NameBlock();
 
                 FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
                 if (!newFile.DirectoryName.StartsWith(_videoCollection.Options.Source))
@@ -985,29 +986,44 @@ namespace FilmCollection
                 //}
             }
         }
-
+        
 
         private void SaveRecord()
-        {
+        {  
+            Combine cm = null;
+            Record record = null;
+              
+            if (fsInfo != null) // Создание нового фильма
+            {   
+                cm = GetMedia();
+                record = CreateRecord(fsInfo);
+            }
+            else // редактирование имеющегося фильма
+            {
+                record = GetSelectedRecord();
+                if (record != null) cm = record.combineLink;
+            }
+
+            SaveToMedia(cm);
+            
+            record.Name = tbNameRecord.Text;
+            try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+                record.TimeVideoSpan = TimeSpan.Parse("0");
+            }
+            if (record.FileName != tbFileName.Text)
+            {
+                File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
+                          record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
+                record.FileName = tbFileName.Text;
+                record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim('.');
+            }
+            else record.FileName = tbFileName.Text;
+            
             if (fsInfo != null)
-            {   // Создание нового фильма
-                /*
-                 * если редактор новый выкл, редактирование текущего объекта.
-                 * если редактор и новый вкл, вывести уведомление о попытке создания объекта нового объекта при условии что его еще нет
-                 * если создание нового объекта, новый вкл, попытка создания уникального объекта, если есть такой вывод сообщения об ошибке
-                 * если создание нового объекта, новый выкл, попытка добавления файла к текущему Media (сравниваем рекорды по имени)
-                 */
-
-                Combine cm = GetMedia();
-
-
-
-
-                                
-                SaveToMedia(cm);
-                Record record = CreateRecord(fsInfo);
-                
-
+            {
                 if (cm.media.Id != 0 && checkNewRecord.Checked != true)
                 {
                     if (cm.recordList.Exists(v => v.Name == record.Name) || cm.recordList.Exists(v => v.FileName == record.FileName))
@@ -1019,35 +1035,9 @@ namespace FilmCollection
                 {
                     cm.recordList.Add(record);
                     _videoCollection.Add(cm);
-                }  
-            }
-            else // редактирование имеющегося фильма
-            {
-                Record record = GetSelectedRecord();
-                if (record != null)
-                {
-                    Combine cm = record.combineLink;
-                    SaveToMedia(cm);
-
-                    // Record
-                    record.Name = tbNameRecord.Text;
-                    try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
-                    catch (Exception Ex)
-                    {
-                        MessageBox.Show(Ex.Message);
-                        record.TimeVideoSpan = TimeSpan.Parse("0");
-                    }
-                    if (record.FileName != tbFileName.Text)
-                    {
-                        File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
-                                  record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
-                        record.FileName = tbFileName.Text;
-                        record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim('.');
-                    }
-                    else record.FileName = tbFileName.Text;
-
                 }
             }
+
             _videoCollection.Save();
 
             FormLoad();
@@ -1177,8 +1167,16 @@ namespace FilmCollection
             panelEdit_Lock();    // блокировка кнопок панели редактирования
         }
 
+        private void NameBlock()
+        {
+            checkNewRecord.CheckState = CheckState.Checked;  // выполняем привязку
+            cbNameMedia.Enabled = false;  // блокируем название
+        }
+
         private void panelEdit_Lock()    //Блокировка кнопок
         {
+            NameBlock();
+
             mtbYear.Modified = false;       // возвращаем назад статус изменения поля  
             tbDescription.Modified = false; // возвращаем назад статус изменения поля
 
