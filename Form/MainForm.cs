@@ -317,27 +317,24 @@ namespace FilmCollection
             Combine cm = new Combine();
             Record record = new Record();
 
-            record.FileName = file.Name;        // полное название файла (film.avi)
-            record.Path = file.DirectoryName;   // полный путь (C:\Folder)
-
-
             string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
             string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
             string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
-
-            cm.media.Name = record.Name = (name_f != "") ? name_f : name_1;
-            // record.linkID = cm.media.Id = _videoCollection.getMediaID();
-            cm.media.Id = _videoCollection.GetMediaID();
-
-            record.Visible = true;
+            
+            record.Name = (name_f != "") ? name_f : name_1;
+            record.combineLink = cm;
+            record.FileName = file.Name;        // полное название файла (film.avi)
+            record.Path = file.DirectoryName;   // полный путь (C:\Folder)
+            record.Visible = true;              // видимость
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
             record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
                                                                     // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-
-            record.combineLink = cm;
             cm.recordList.Add(record);
+            cm.media.Name = record.Name;
+            cm.media.Id = _videoCollection.GetMediaID();
+
             _videoCollection.Add(cm);
         }
 
@@ -988,16 +985,7 @@ namespace FilmCollection
                  * если создание нового объекта, новый выкл, попытка добавления файла к текущему Media (сравниваем рекорды по имени)
                  */
 
-                Combine cm = null;
-                if (cbNameMedia.SelectedItem != null)
-                {
-                    if (_videoCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
-                        cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
-                }
-                else
-                {
-                    cm = new Combine();
-                }
+                Combine cm = GetMedia();
 
                 if (cm.media.Id != 0 && (checkNewRecord.Checked == true))
                 {
@@ -1005,31 +993,22 @@ namespace FilmCollection
                     //MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
                     //return;
                 }
-
-                SaveToMedia(cm);
-
-                // Record
-                char[] charsToTrim = { '.' };
-                Record record = new Record();
-                record.FileName = fsInfo.Name;
-                record.Path = fsInfo.DirectoryName;
-                record.DirName = fsInfo.Directory.Name;
-                record.Extension = fsInfo.Extension.Trim(charsToTrim);
-                record.Name = tbNameRecord.Text;// ПРОДУМАТЬ СХЕМУ ИМЕНОВАНИЯ !!!!!!!!!
-
-
-                if (cm.recordList.Exists(v => v.Name == record.Name))
-                {
-                    MessageBox.Show("Файл уже есть в списке, добавление не требуется!");
-                }
                 else
                 {
-                    cm.recordList.Add(record);
+
                 }
+
+                SaveToMedia(cm);
+                Record record = SaveToRecord();
+
+                if (cm.recordList.Exists(v => v.Name == record.Name))
+                    MessageBox.Show("Файл уже есть в списке, добавление не требуется!");
+                else
+                    cm.recordList.Add(record);
 
                 _videoCollection.Add(cm);
             }
-            else
+            else // редактирование имеющегося фильма
             {
                 Record record = GetSelectedRecord();
                 if (record != null)
@@ -1066,9 +1045,24 @@ namespace FilmCollection
             panelEdit_Lock();    // блокировка панели
         }
 
+
+        private Combine GetMedia()
+        {
+            Combine cm = null;
+            if (cbNameMedia.SelectedItem != null)
+            {
+                if (_videoCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
+                    cm = _videoCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
+            }
+            else
+            {
+                cm = new Combine();
+            }
+            return cm;
+        }
+
         private void SaveToMedia(Combine cm)
         {
-            // Media
             cm.media.Name = cbNameMedia.Text;
             cm.media.Year = Convert.ToInt32(mtbYear.Text);
             cm.media.Description = tbDescription.Text;
@@ -1083,6 +1077,20 @@ namespace FilmCollection
                     _actorID.VideoID.Add(cm.media.Id);
                 }
         }
+
+        private Record SaveToRecord()
+        {
+            char[] charsToTrim = { '.' };
+            Record record = new Record();
+            record.FileName = fsInfo.Name;
+            record.Path = fsInfo.DirectoryName;
+            record.DirName = fsInfo.Directory.Name;
+            record.Extension = fsInfo.Extension.Trim(charsToTrim);
+            record.Name = tbNameRecord.Text;// ПРОДУМАТЬ СХЕМУ ИМЕНОВАНИЯ !!!!!!!!!
+            return record;
+        }
+
+
 
 
         private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
