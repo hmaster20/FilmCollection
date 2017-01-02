@@ -1006,7 +1006,7 @@ namespace FilmCollection
                     //return;
                 }
 
-                MediaGet(cm);
+                SaveToMedia(cm);
 
                 // Record
                 char[] charsToTrim = { '.' };
@@ -1017,7 +1017,6 @@ namespace FilmCollection
                 record.Extension = fsInfo.Extension.Trim(charsToTrim);
                 record.Name = tbNameRecord.Text;// ПРОДУМАТЬ СХЕМУ ИМЕНОВАНИЯ !!!!!!!!!
 
-                GetActorID(record);
 
                 if (cm.recordList.Exists(v => v.Name == record.Name))
                 {
@@ -1027,16 +1026,16 @@ namespace FilmCollection
                 {
                     cm.recordList.Add(record);
                 }
-      
+
                 _videoCollection.Add(cm);
             }
             else
-            {   
+            {
                 Record record = GetSelectedRecord();
                 if (record != null)
                 {
                     Combine cm = record.combineLink;
-                    MediaGet(cm);
+                    SaveToMedia(cm);
 
                     // Record
                     char[] charsToTrim = { '.' };
@@ -1056,7 +1055,6 @@ namespace FilmCollection
                     }
                     else record.FileName = tbFileName.Text;
 
-                    GetActorID(record);
                 }
             }
             _videoCollection.Save();
@@ -1068,7 +1066,7 @@ namespace FilmCollection
             panelEdit_Lock();    // блокировка панели
         }
 
-        private void MediaGet(Combine cm)
+        private void SaveToMedia(Combine cm)
         {
             // Media
             cm.media.Name = cbNameMedia.Text;
@@ -1077,6 +1075,13 @@ namespace FilmCollection
             cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
             cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
             cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
+
+            foreach (Actor _actorID in chkActorSelect.Items)
+                if (_actorID != null)
+                {
+                    cm.media.ActorListID.Add(_actorID.id);
+                    _actorID.VideoID.Add(cm.media.Id);
+                }
         }
 
 
@@ -1120,15 +1125,6 @@ namespace FilmCollection
         }
 
 
-        private void GetActorID(Record record)
-        {
-            foreach (Actor _actorID in chkActorSelect.Items)
-                if (_actorID != null)
-                {
-                    record.combineLink.media.ActorListID.Add(_actorID.id);
-                    _actorID.VideoID.Add(record.combineLink.media.Id);
-                }
-        }
 
         private void UserModifiedChanged(object sender, EventArgs e) => Modified();   // Срабатывает при изменении любого поля
 
