@@ -315,15 +315,23 @@ namespace FilmCollection
         void CreateCombine(FileInfo file)
         {
             Combine cm = new Combine();
+
+            Record record = CreateRecord(file);
+
+            record.combineLink = cm;
+            cm.recordList.Add(record);
+            cm.media.Name = record.Name;
+            cm.media.Id = _videoCollection.GetMediaID();
+
+            _videoCollection.Add(cm);
+        }
+
+        private static Record CreateRecord(FileInfo file)
+        {
             Record record = new Record();
 
-            string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
-            string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
-            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
-            name_f = name_f.Trim();                         // название без пробелов вначале и конце
-            
-            record.Name = (name_f != "") ? name_f : name_1;
-            record.combineLink = cm;
+            record.Name = getRecordName(file);
+
             record.FileName = file.Name;        // полное название файла (film.avi)
             record.Path = file.DirectoryName;   // полный путь (C:\Folder)
             record.Visible = true;              // видимость
@@ -331,12 +339,18 @@ namespace FilmCollection
             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
             record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
                                                                     // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-            cm.recordList.Add(record);
-            cm.media.Name = record.Name;
-            cm.media.Id = _videoCollection.GetMediaID();
-
-            _videoCollection.Add(cm);
+            return record;
         }
+
+        private static string getRecordName(FileInfo file)
+        {
+            string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
+            string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
+            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
+            name_f = name_f.Trim();                         // название без пробелов вначале и конце
+            return (name_f != "") ? name_f : name_1;
+        }
+
 
         private void BackupBase()       // Резервная копия базы
         {
@@ -977,7 +991,6 @@ namespace FilmCollection
         {
             if (fsInfo != null)
             {   // Создание нового фильма
-
                 /*
                  * если редактор новый выкл, редактирование текущего объекта.
                  * если редактор и новый вкл, вывести уведомление о попытке создания объекта нового объекта при условии что его еще нет
@@ -999,7 +1012,9 @@ namespace FilmCollection
                 }
 
                 SaveToMedia(cm);
-                Record record = SaveToRecord();
+                //Record record = SaveToRecord();
+                Record record = CreateRecord(fsInfo);
+
 
                 if (cm.recordList.Exists(v => v.Name == record.Name))
                     MessageBox.Show("Файл уже есть в списке, добавление не требуется!");
@@ -1077,21 +1092,6 @@ namespace FilmCollection
                     _actorID.VideoID.Add(cm.media.Id);
                 }
         }
-
-        private Record SaveToRecord()
-        {
-            char[] charsToTrim = { '.' };
-            Record record = new Record();
-            record.FileName = fsInfo.Name;
-            record.Path = fsInfo.DirectoryName;
-            record.DirName = fsInfo.Directory.Name;
-            record.Extension = fsInfo.Extension.Trim(charsToTrim);
-            record.Name = tbNameRecord.Text;// ПРОДУМАТЬ СХЕМУ ИМЕНОВАНИЯ !!!!!!!!!
-            return record;
-        }
-
-
-
 
         private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
         {
