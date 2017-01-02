@@ -1000,28 +1000,26 @@ namespace FilmCollection
 
                 Combine cm = GetMedia();
 
-                if (cm.media.Id != 0 && (checkNewRecord.Checked == true))
-                {
-                    MessageBox.Show(cm.media.Name + "уже существует!");
-                    //MessageBox.Show("Объект с таким именем уже существует! Укажите другое имя либо уберите галочку создания нового объекта.");
-                    //return;
-                }
-                else
-                {
 
-                }
 
+
+                                
                 SaveToMedia(cm);
-                //Record record = SaveToRecord();
                 Record record = CreateRecord(fsInfo);
+                
 
-
-                if (cm.recordList.Exists(v => v.Name == record.Name))
-                    MessageBox.Show("Файл уже есть в списке, добавление не требуется!");
+                if (cm.media.Id != 0 && checkNewRecord.Checked != true)
+                {
+                    if (cm.recordList.Exists(v => v.Name == record.Name) || cm.recordList.Exists(v => v.FileName == record.FileName))
+                        MessageBox.Show("Файл уже есть в списке, добавление не требуется!");
+                    else
+                        cm.recordList.Add(record);
+                }
                 else
+                {
                     cm.recordList.Add(record);
-
-                _videoCollection.Add(cm);
+                    _videoCollection.Add(cm);
+                }  
             }
             else // редактирование имеющегося фильма
             {
@@ -1032,7 +1030,6 @@ namespace FilmCollection
                     SaveToMedia(cm);
 
                     // Record
-                    char[] charsToTrim = { '.' };
                     record.Name = tbNameRecord.Text;
                     try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
                     catch (Exception Ex)
@@ -1045,7 +1042,7 @@ namespace FilmCollection
                         File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
                                   record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
                         record.FileName = tbFileName.Text;
-                        record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim(charsToTrim);
+                        record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim('.');
                     }
                     else record.FileName = tbFileName.Text;
 
