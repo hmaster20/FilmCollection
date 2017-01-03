@@ -283,7 +283,8 @@ namespace FilmCollection
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
-                            if (!RecordExist(record)) CreateCombine(file); // если файла нет в коллекции, создаем
+                            if (!RecordExist(record))
+                                CreateCombine(file); // если файла нет в коллекции, создаем     
                         }
 
                         _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
@@ -326,7 +327,8 @@ namespace FilmCollection
             record.combineLink = cm;
             cm.recordList.Add(record);
             cm.media.Name = record.Name;
-            cm.media.Id = _videoCollection.GetMediaID();
+            //cm.media.Id = _videoCollection.GetMediaID();
+            cm.media.Id = RecordCollection.GetMediaID();
 
             _videoCollection.Add(cm);
         }
@@ -1065,6 +1067,8 @@ namespace FilmCollection
             else
             {
                 cm = new Combine();
+                //cm.media.Id = _videoCollection.GetMediaID();
+                cm.media.Id = RecordCollection.GetMediaID();
             }
             return cm;
         }
@@ -2368,6 +2372,7 @@ namespace FilmCollection
             // return false; //если доступ запрещен
         }
 
+    
 
 
 
