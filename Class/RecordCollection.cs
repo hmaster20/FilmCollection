@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace FilmCollection
 {
@@ -27,7 +28,7 @@ namespace FilmCollection
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        
+
 
         public List<Combine> CombineList { get; set; }
         public void Add(Combine cm) => CombineList.Add(cm);
@@ -36,9 +37,12 @@ namespace FilmCollection
 
 
 
-        private int MediaID { get; set; }               // нумератор
-        public int GetMediaID() => ++MediaID;           // создание следующего номера
-        public void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
+        private static int MediaID { get; set; }               // нумератор
+        public static int GetMediaID() => ++MediaID;           // создание следующего номера
+        public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
+
+        public static void SetMediaID(int value) =>  MediaID = value;
+
 
 
 
@@ -53,8 +57,8 @@ namespace FilmCollection
         public void Remove(Actor actor) => ActorList.Remove(actor); // Удаление актера
         public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
 
-        
-        
+
+
 
         #region Сериализация
 
@@ -80,6 +84,7 @@ namespace FilmCollection
                 }
 
                 foreach (Actor actor in result.ActorList)
+                {
                     foreach (int videoID in actor.VideoID)
                     {
                         if (combineDic.ContainsKey(videoID))
@@ -88,6 +93,8 @@ namespace FilmCollection
                             combineDic[videoID].media.ActorList.Add(actor);
                         }
                     }
+                }              
+                SetMediaID(combineDic.Keys.Max());
             }
             catch (Exception ex)
             {
