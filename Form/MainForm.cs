@@ -24,6 +24,9 @@ namespace FilmCollection
         int FindCount { get; set; }                 // счетчик найденных строк
         public List<int> dgvSelected { get; set; }  // индексы найденных строк
 
+        string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
+        List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv" };
+
         #region Главная форма (Main)
 
         public MainForm()                           //Конструктор формы
@@ -58,8 +61,6 @@ namespace FilmCollection
                 cBoxCountryActor.Items.Add(item);
                 tscCountryFilter.Items.Add(item);
             }
-
-            //if (_videoCollection.MediaList.Count == 0) _videoCollection.MediaList.Add(new Media() { Name = "", Description = "", Id = 0, Year = 2000 });      
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)   // отрисовка рамки вокруг tsFindbyName
@@ -240,8 +241,8 @@ namespace FilmCollection
             {
                 _videoCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
 
-                List<string> ext = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".flv" };
-                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s.ToString())));
+                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
+                                          .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
 
                 foreach (FileInfo file in myFiles)
                     CreateCombine(file);
@@ -272,7 +273,11 @@ namespace FilmCollection
                         foreach (Combine _combine in _videoCollection.CombineList)
                             _combine.invisibleRecord(); // скрываем файлы
 
-                        foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
+                                                  .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
+
+                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                        foreach (FileInfo file in myFiles)
                         {
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
@@ -924,7 +929,8 @@ namespace FilmCollection
 
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
-            fileDialog.Filter = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
+            fileDialog.Filter = FormatOpen;
+            //fileDialog.Filter = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
             fileDialog.RestoreDirectory = true;
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
@@ -986,15 +992,15 @@ namespace FilmCollection
                 //}
             }
         }
-        
+
 
         private void SaveRecord()
-        {  
+        {
             Combine cm = null;
             Record record = null;
-              
+
             if (fsInfo != null) // Создание нового фильма
-            {   
+            {
                 cm = GetMedia();
                 record = CreateRecord(fsInfo);
             }
@@ -1005,7 +1011,7 @@ namespace FilmCollection
             }
 
             SaveToMedia(cm);
-            
+
             record.Name = tbNameRecord.Text;
             try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
             catch (Exception Ex)
@@ -1021,7 +1027,7 @@ namespace FilmCollection
                 record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim('.');
             }
             else record.FileName = tbFileName.Text;
-            
+
             if (fsInfo != null)
             {
                 if (cm.media.Id != 0 && checkNewRecord.Checked != true)
