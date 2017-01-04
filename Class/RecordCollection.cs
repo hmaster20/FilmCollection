@@ -40,7 +40,7 @@ namespace FilmCollection
         private static int MediaID { get; set; }               // нумератор
         public static int GetMediaID() => ++MediaID;           // создание следующего номера
         public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
-        public static void SetMediaID(int value) =>  MediaID = value;
+        public static void SetMediaID(int value) => MediaID = value;
 
 
 
@@ -82,6 +82,10 @@ namespace FilmCollection
                         record.combineLink = com;           // привязываем record.combineLink к родителю
                 }
 
+                Dictionary<int, Actor> actorDic = new Dictionary<int, Actor>();
+                result.ActorList.ForEach(act => actorDic.Add(act.id, act));
+
+
                 foreach (Actor actor in result.ActorList)
                 {
                     foreach (int videoID in actor.VideoID)
@@ -92,7 +96,7 @@ namespace FilmCollection
                             combineDic[videoID].media.ActorList.Add(actor);
                         }
                     }
-                }              
+                }
                 SetMediaID(combineDic.Keys.Max());
             }
             catch (Exception ex)
