@@ -27,8 +27,7 @@ namespace FilmCollection
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-
-
+        
 
         public List<Combine> CombineList { get; set; }
         public void Add(Combine cm) => CombineList.Add(cm);
@@ -36,35 +35,29 @@ namespace FilmCollection
         public void ClearCombine() => CombineList.Clear();
 
 
-
-        private static int MediaID { get; set; }               // нумератор
-        public static int GetMediaID() => ++MediaID;           // создание следующего номера
-        public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
-        public static void SetMediaID(int value) => MediaID = value;
-
-
-
-
-        private int ActorID { get; set; }               // Идентификатор актеров
-        public int GetActorID() => ++ActorID;           // Генерация идентификатора  // return ++ActorID;
-        public void ResetActorID() => ActorID = 0;      // обнуление идентификатора
-
-
-
-        public List<Actor> ActorList { get; set; } // Объявление списка        
+        public List<Actor> ActorList { get; set; }                  // Объявление списка        
         public void Add(Actor actor) => ActorList.Add(actor);       // Добавление актера
         public void Remove(Actor actor) => ActorList.Remove(actor); // Удаление актера
         public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
 
 
+        private static int MediaID { get; set; }               // Идентификатор Media
+        public static int GetMediaID() => ++MediaID;           // создание следующего номера
+        public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
+        public static void SetMediaID(int value) => MediaID = value;
+        
+
+        private static int ActorID { get; set; }               // Идентификатор актеров
+        public static int GetActorID() => ++ActorID;           // Генерация идентификатора  // return ++ActorID;
+        public static void ResetActorID() => ActorID = 0;      // обнуление идентификатора
+        public static void SetActorID(int value) => ActorID = value;
+
+        
 
 
         #region Сериализация
 
-        public void Save()                                      // Сохранение
-        {
-            XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
-        }
+        public void Save() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);    // Сохранение
 
         public static RecordCollection Load()                   // Загрузка
         {
@@ -83,11 +76,11 @@ namespace FilmCollection
                 }
 
                 Dictionary<int, Actor> actorDic = new Dictionary<int, Actor>();
-                result.ActorList.ForEach(act => actorDic.Add(act.id, act));
-
+                //result.ActorList.ForEach(act => actorDic.Add(act.id, act));  
 
                 foreach (Actor actor in result.ActorList)
                 {
+                    actorDic.Add(actor.id, actor);
                     foreach (int videoID in actor.VideoID)
                     {
                         if (combineDic.ContainsKey(videoID))
@@ -97,7 +90,10 @@ namespace FilmCollection
                         }
                     }
                 }
+
+                SetActorID(actorDic.Keys.Max());
                 SetMediaID(combineDic.Keys.Max());
+
             }
             catch (Exception ex)
             {
