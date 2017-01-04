@@ -241,9 +241,9 @@
             this.tsBackupDB = new System.Windows.Forms.ToolStripButton();
             this.tsRecoveryDB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.tsAdd = new System.Windows.Forms.ToolStripButton();
+            this.tsChange = new System.Windows.Forms.ToolStripButton();
+            this.tsRemove = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
@@ -2426,9 +2426,9 @@
             this.tsBackupDB,
             this.tsRecoveryDB,
             this.toolStripSeparator6,
-            this.toolStripButton3,
-            this.toolStripButton4,
-            this.toolStripButton5,
+            this.tsAdd,
+            this.tsChange,
+            this.tsRemove,
             this.toolStripSeparator5,
             this.tsFind,
             this.tsFindbyName});
@@ -2488,32 +2488,35 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton3
+            // tsAdd
             // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::FilmCollection.Properties.Resources.add;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "toolStripButton3";
+            this.tsAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsAdd.Image = global::FilmCollection.Properties.Resources.add;
+            this.tsAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsAdd.Name = "tsAdd";
+            this.tsAdd.Size = new System.Drawing.Size(23, 22);
+            this.tsAdd.Text = "Добавить";
+            this.tsAdd.Click += new System.EventHandler(this.AddRec_Click);
             // 
-            // toolStripButton4
+            // tsChange
             // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = global::FilmCollection.Properties.Resources.change;
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton4.Text = "toolStripButton4";
+            this.tsChange.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsChange.Image = global::FilmCollection.Properties.Resources.change;
+            this.tsChange.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsChange.Name = "tsChange";
+            this.tsChange.Size = new System.Drawing.Size(23, 22);
+            this.tsChange.Text = "Изменить";
+            this.tsChange.Click += new System.EventHandler(this.EditRec_Click);
             // 
-            // toolStripButton5
+            // tsRemove
             // 
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton5.Image = global::FilmCollection.Properties.Resources.del;
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton5.Text = "toolStripButton5";
+            this.tsRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsRemove.Image = global::FilmCollection.Properties.Resources.del;
+            this.tsRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsRemove.Name = "tsRemove";
+            this.tsRemove.Size = new System.Drawing.Size(23, 22);
+            this.tsRemove.Text = "Удалить";
+            this.tsRemove.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // toolStripSeparator5
             // 
@@ -2721,9 +2724,9 @@
         private System.Windows.Forms.ToolStripButton tsCreateDB;
         private System.Windows.Forms.ToolStripButton tsUpdateDB;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripButton tsAdd;
+        private System.Windows.Forms.ToolStripButton tsChange;
+        private System.Windows.Forms.ToolStripButton tsRemove;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton tsFind;
         private System.Windows.Forms.ToolTip toolinfo;
