@@ -17,23 +17,31 @@ namespace FilmCollection
 
         public string FIO { get; set; }     // Ф.И.О.
 
-        public string DateOfBirth { get; set; }   // дата рождения
-        public string DateOfDeath { get; set; }   // дата смерти
+        private string _dateOfBirth;        // дата рождения
+        public string DateOfBirth
+        {
+            get { return _dateOfBirth; }
+            set { _dateOfBirth = (value == "  .  .") ? "20.05.1984" : value; }
+        }
 
-        public string BIO { get; set; }            // ссылка на страницу с биографией
+        private string _dateOfDeath;        // дата смерти
+        public string DateOfDeath
+        {
+            get { return _dateOfDeath; }
+            set { _dateOfDeath = (value == "  .  .") ? "По настоящее время" : value; }
+        }
 
-        public override string ToString()
+        public string BIO { get; set; }     // ссылка на страницу с биографией
+
+        public override string ToString() 
         {
             return FIO;
         }
 
 
-
         [XmlIgnore]
         public List<Combine> CombineList { get; set; } // TEST
-
-
-
+        
 
         #region Обработка Страны
         private Country_Rus _country;   // Страна
