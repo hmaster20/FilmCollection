@@ -27,7 +27,7 @@ namespace FilmCollection
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-        
+
 
         public List<Combine> CombineList { get; set; }
         public void Add(Combine cm) => CombineList.Add(cm);
@@ -45,14 +45,14 @@ namespace FilmCollection
         public static int GetMediaID() => ++MediaID;           // создание следующего номера
         public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
         public static void SetMediaID(int value) => MediaID = value;
-        
+
 
         private static int ActorID { get; set; }               // Идентификатор актеров
         public static int GetActorID() => ++ActorID;           // Генерация идентификатора  // return ++ActorID;
         public static void ResetActorID() => ActorID = 0;      // обнуление идентификатора
         public static void SetActorID(int value) => ActorID = value;
 
-        
+
 
 
         #region Сериализация
@@ -91,8 +91,8 @@ namespace FilmCollection
                     }
                 }
 
-                SetActorID(actorDic.Keys.Max());
-                SetMediaID(combineDic.Keys.Max());
+                if (actorDic.Count > 0) SetActorID(actorDic.Keys.Max());
+                if (combineDic.Count > 0) SetMediaID(combineDic.Keys.Max());
 
             }
             catch (Exception ex)
