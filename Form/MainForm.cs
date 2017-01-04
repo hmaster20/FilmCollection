@@ -1805,7 +1805,7 @@ namespace FilmCollection
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
-            actor.id = _videoCollection.GetActorID();
+            actor.id = RecordCollection.GetActorID();
 
             foreach (ListViewItem eachItem in listViewFilm.Items)
             {
