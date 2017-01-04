@@ -40,7 +40,6 @@ namespace FilmCollection
         private static int MediaID { get; set; }               // нумератор
         public static int GetMediaID() => ++MediaID;           // создание следующего номера
         public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
-
         public static void SetMediaID(int value) =>  MediaID = value;
 
 
