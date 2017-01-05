@@ -229,8 +229,6 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
-            this.tabGrab = new System.Windows.Forms.TabPage();
-            this.tabBase = new System.Windows.Forms.TabPage();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -803,8 +801,6 @@
             this.tabControl2.Controls.Add(this.tabFilm);
             this.tabControl2.Controls.Add(this.tabActors);
             this.tabControl2.Controls.Add(this.tabImage);
-            this.tabControl2.Controls.Add(this.tabGrab);
-            this.tabControl2.Controls.Add(this.tabBase);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
@@ -2369,26 +2365,6 @@
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
             // 
-            // tabGrab
-            // 
-            this.tabGrab.Location = new System.Drawing.Point(4, 22);
-            this.tabGrab.Name = "tabGrab";
-            this.tabGrab.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGrab.Size = new System.Drawing.Size(972, 664);
-            this.tabGrab.TabIndex = 2;
-            this.tabGrab.Text = "Захват";
-            this.tabGrab.UseVisualStyleBackColor = true;
-            // 
-            // tabBase
-            // 
-            this.tabBase.Location = new System.Drawing.Point(4, 22);
-            this.tabBase.Name = "tabBase";
-            this.tabBase.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBase.Size = new System.Drawing.Size(972, 664);
-            this.tabBase.TabIndex = 5;
-            this.tabBase.Text = "База";
-            this.tabBase.UseVisualStyleBackColor = true;
-            // 
             // timerLoad
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
@@ -2707,7 +2683,6 @@
         private System.Windows.Forms.Button btnFindNext;
         private System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
         private System.Windows.Forms.Button btnFindReset;
-        private System.Windows.Forms.TabPage tabGrab;
         private System.Windows.Forms.ContextMenuStrip TreeMenu;
         private System.Windows.Forms.ToolStripMenuItem сCollapseAll;
         private System.Windows.Forms.ToolStripMenuItem сExpandAll;
@@ -2801,7 +2776,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnCleanDB;
         private System.Windows.Forms.ToolStripMenuItem UpdateFIlmInfo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.TabPage tabBase;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem UpdateCatalogInfo;
         private System.Windows.Forms.Button btnGetTime;
