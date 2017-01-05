@@ -24,8 +24,8 @@ namespace FilmCollection
         int FindCount { get; set; }                 // счетчик найденных строк
         public List<int> dgvSelected { get; set; }  // индексы найденных строк
 
-        string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
-        List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv" };
+        string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*";
+        List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx" };
 
         #region Главная форма (Main)
 
@@ -1677,58 +1677,6 @@ namespace FilmCollection
 
 
         #region Обработка актеров
-
-        private void btnMoveUp_Click(object sender, System.EventArgs e)
-        {
-            int index = chkActorList.SelectedIndices[0];
-            if (index != 0)
-            {
-                ArrayList list = new ArrayList();
-                CheckedListBox cb = new CheckedListBox();
-                cb.Items.AddRange(chkActorList.Items);
-                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
-                {
-                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
-                }
-                list.AddRange(chkActorList.Items);
-                ArrayList newlist = new ArrayList(list);
-                newlist[index] = list[index - 1];
-                newlist[index - 1] = list[index];
-                chkActorList.Items.Clear();
-                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
-                for (int i = 0; i < cb.CheckedItems.Count; i++)
-                {
-                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
-                }
-                chkActorList.SelectedItem = chkActorList.Items[index - 1];
-            }
-        }
-
-        private void btnMoveDown_Click(object sender, System.EventArgs e)
-        {
-            int index = chkActorList.SelectedIndices[0];
-            if (index != chkActorList.Items.Count - 1)
-            {
-                CheckedListBox cb = new CheckedListBox();
-                cb.Items.AddRange(chkActorList.Items);
-                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
-                {
-                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
-                }
-                ArrayList list = new ArrayList();
-                list.AddRange(chkActorList.Items);
-                ArrayList newlist = new ArrayList(list);
-                newlist[index] = list[index + 1];
-                newlist[index + 1] = list[index];
-                chkActorList.Items.Clear();
-                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
-                for (int i = 0; i < cb.CheckedItems.Count; i++)
-                {
-                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
-                }
-                chkActorList.SelectedItem = chkActorList.Items[index + 1];
-            }
-        }
 
 
         private void btnAdd_SelectActor_Click(object sender, EventArgs e)
