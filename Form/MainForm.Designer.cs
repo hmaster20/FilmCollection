@@ -115,8 +115,6 @@
             this.lblYear = new System.Windows.Forms.Label();
             this.btnAddGroup = new System.Windows.Forms.Button();
             this.btnRemoveGroup = new System.Windows.Forms.Button();
-            this.btnMoveUp = new System.Windows.Forms.Button();
-            this.btnMoveDown = new System.Windows.Forms.Button();
             this.lblActorsAll = new System.Windows.Forms.Label();
             this.lblActorsSelect = new System.Windows.Forms.Label();
             this.chkActorSelect = new System.Windows.Forms.ListBox();
@@ -314,7 +312,7 @@
             this.dgvTableRec.ReadOnly = true;
             this.dgvTableRec.RowHeadersVisible = false;
             this.dgvTableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableRec.Size = new System.Drawing.Size(590, 629);
+            this.dgvTableRec.Size = new System.Drawing.Size(590, 579);
             this.dgvTableRec.TabIndex = 12;
             this.dgvTableRec.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTableRec_CellContentDoubleClick);
             this.dgvTableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
@@ -493,7 +491,7 @@
             this.tssLabel,
             this.tsProgressBar,
             this.FindStatusLabel});
-            this.statusLine.Location = new System.Drawing.Point(0, 739);
+            this.statusLine.Location = new System.Drawing.Point(0, 689);
             this.statusLine.Name = "statusLine";
             this.statusLine.Size = new System.Drawing.Size(1175, 22);
             this.statusLine.TabIndex = 18;
@@ -692,7 +690,7 @@
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
-            this.treeFolder.Size = new System.Drawing.Size(191, 690);
+            this.treeFolder.Size = new System.Drawing.Size(191, 640);
             this.treeFolder.TabIndex = 22;
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
             this.treeFolder.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragDrop);
@@ -805,7 +803,7 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(980, 690);
+            this.tabControl2.Size = new System.Drawing.Size(980, 640);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.SelectActor_Info);
             this.tabControl2.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl2_Selecting);
@@ -817,7 +815,7 @@
             this.tabFilm.Location = new System.Drawing.Point(4, 22);
             this.tabFilm.Name = "tabFilm";
             this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(972, 664);
+            this.tabFilm.Size = new System.Drawing.Size(972, 614);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -848,7 +846,7 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(966, 658);
+            this.scTabFilm.Size = new System.Drawing.Size(966, 608);
             this.scTabFilm.SplitterDistance = 592;
             this.scTabFilm.TabIndex = 17;
             // 
@@ -925,7 +923,7 @@
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 656);
+            this.panelEdit.Size = new System.Drawing.Size(368, 606);
             this.panelEdit.TabIndex = 10;
             // 
             // gMedia
@@ -945,15 +943,13 @@
             this.gMedia.Controls.Add(this.lblYear);
             this.gMedia.Controls.Add(this.btnAddGroup);
             this.gMedia.Controls.Add(this.btnRemoveGroup);
-            this.gMedia.Controls.Add(this.btnMoveUp);
-            this.gMedia.Controls.Add(this.btnMoveDown);
             this.gMedia.Controls.Add(this.lblActorsAll);
             this.gMedia.Controls.Add(this.lblActorsSelect);
             this.gMedia.Controls.Add(this.chkActorSelect);
             this.gMedia.Controls.Add(this.chkActorList);
             this.gMedia.Location = new System.Drawing.Point(8, 27);
             this.gMedia.Name = "gMedia";
-            this.gMedia.Size = new System.Drawing.Size(353, 393);
+            this.gMedia.Size = new System.Drawing.Size(353, 363);
             this.gMedia.TabIndex = 60;
             this.gMedia.TabStop = false;
             this.gMedia.Text = "Общая информация";
@@ -1121,30 +1117,6 @@
             this.btnRemoveGroup.UseVisualStyleBackColor = false;
             this.btnRemoveGroup.Click += new System.EventHandler(this.btnRemove_SelectActor_Click);
             // 
-            // btnMoveUp
-            // 
-            this.btnMoveUp.BackColor = System.Drawing.Color.LightGray;
-            this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveUp.Location = new System.Drawing.Point(11, 328);
-            this.btnMoveUp.Name = "btnMoveUp";
-            this.btnMoveUp.Size = new System.Drawing.Size(48, 24);
-            this.btnMoveUp.TabIndex = 57;
-            this.btnMoveUp.Text = "Вверх";
-            this.btnMoveUp.UseVisualStyleBackColor = false;
-            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
-            // 
-            // btnMoveDown
-            // 
-            this.btnMoveDown.BackColor = System.Drawing.Color.LightGray;
-            this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnMoveDown.Location = new System.Drawing.Point(11, 358);
-            this.btnMoveDown.Name = "btnMoveDown";
-            this.btnMoveDown.Size = new System.Drawing.Size(48, 24);
-            this.btnMoveDown.TabIndex = 58;
-            this.btnMoveDown.Text = "Вниз";
-            this.btnMoveDown.UseVisualStyleBackColor = false;
-            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
-            // 
             // lblActorsAll
             // 
             this.lblActorsAll.Location = new System.Drawing.Point(70, 218);
@@ -1167,7 +1139,7 @@
             // 
             this.chkActorSelect.Location = new System.Drawing.Point(227, 241);
             this.chkActorSelect.Name = "chkActorSelect";
-            this.chkActorSelect.Size = new System.Drawing.Size(115, 95);
+            this.chkActorSelect.Size = new System.Drawing.Size(115, 108);
             this.chkActorSelect.TabIndex = 55;
             // 
             // chkActorList
@@ -1177,7 +1149,7 @@
             this.chkActorList.Location = new System.Drawing.Point(67, 241);
             this.chkActorList.MultiColumn = true;
             this.chkActorList.Name = "chkActorList";
-            this.chkActorList.Size = new System.Drawing.Size(124, 139);
+            this.chkActorList.Size = new System.Drawing.Size(124, 109);
             this.chkActorList.TabIndex = 51;
             // 
             // panelEditTitle
@@ -1205,7 +1177,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(265, 574);
+            this.btnSave.Location = new System.Drawing.Point(265, 544);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(86, 23);
             this.btnSave.TabIndex = 47;
@@ -1218,7 +1190,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(265, 603);
+            this.btnCancel.Location = new System.Drawing.Point(265, 573);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 46;
@@ -1239,7 +1211,7 @@
             this.gRecord.Controls.Add(this.tbFilePath);
             this.gRecord.Controls.Add(this.tbNameRecord);
             this.gRecord.Controls.Add(this.btnGetTime);
-            this.gRecord.Location = new System.Drawing.Point(8, 426);
+            this.gRecord.Location = new System.Drawing.Point(8, 396);
             this.gRecord.Name = "gRecord";
             this.gRecord.Size = new System.Drawing.Size(353, 139);
             this.gRecord.TabIndex = 61;
@@ -1353,7 +1325,7 @@
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(19, 574);
+            this.btnNew.Location = new System.Drawing.Point(19, 544);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(81, 23);
             this.btnNew.TabIndex = 18;
@@ -1380,7 +1352,7 @@
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 656);
+            this.panelView.Size = new System.Drawing.Size(368, 606);
             this.panelView.TabIndex = 10;
             // 
             // lbActors
@@ -1407,7 +1379,7 @@
             this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
             this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 705);
+            this.btnPlay.Location = new System.Drawing.Point(5, 655);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(111, 23);
             this.btnPlay.TabIndex = 6;
@@ -1555,7 +1527,7 @@
             this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFolder.Location = new System.Drawing.Point(0, 0);
             this.panelFolder.Name = "panelFolder";
-            this.panelFolder.Size = new System.Drawing.Size(368, 656);
+            this.panelFolder.Size = new System.Drawing.Size(368, 606);
             this.panelFolder.TabIndex = 59;
             // 
             // btnSaveFolder
@@ -1652,7 +1624,7 @@
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 656);
+            this.panelFind.Size = new System.Drawing.Size(368, 606);
             this.panelFind.TabIndex = 0;
             // 
             // btnFindReset
@@ -2385,7 +2357,7 @@
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1175, 690);
+            this.scMain.Size = new System.Drawing.Size(1175, 640);
             this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
@@ -2531,7 +2503,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1175, 761);
+            this.ClientSize = new System.Drawing.Size(1175, 711);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.toolMainMenu);
@@ -2713,8 +2685,6 @@
         private System.Windows.Forms.TabPage tabActors;
         private System.Windows.Forms.SplitContainer scTabActors;
         private System.Windows.Forms.DataGridView dgvTableActors;
-        private System.Windows.Forms.Button btnMoveDown;
-        private System.Windows.Forms.Button btnMoveUp;
         private System.Windows.Forms.Button btnRemoveGroup;
         private System.Windows.Forms.Button btnAddGroup;
         private System.Windows.Forms.Label lblActorsSelect;
