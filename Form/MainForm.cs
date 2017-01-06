@@ -76,15 +76,10 @@ namespace FilmCollection
             treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
-        private void Main_Load(object sender, EventArgs e)              // Загрузка формы
-        {
-            FormLoad();
-        }
+        private void Main_Load(object sender, EventArgs e) => FormLoad();         // Загрузка формы
 
-        private void Main_Close(object sender, FormClosingEventArgs e)  // Закрытие формы или выход
-        {
-            FormClose(e);
-        }
+        private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
+
 
         private void FormLoad()
         {
@@ -326,7 +321,6 @@ namespace FilmCollection
             record.combineLink = cm;
             cm.recordList.Add(record);
             cm.media.Name = record.Name;
-            //cm.media.Id = _videoCollection.GetMediaID();
             cm.media.Id = RecordCollection.GetMediaID();
 
             _videoCollection.Add(cm);
@@ -335,9 +329,7 @@ namespace FilmCollection
         private static Record CreateRecord(FileInfo file)
         {
             Record record = new Record();
-
             record.Name = getRecordName(file);
-
             record.FileName = file.Name;        // полное название файла (film.avi)
             record.Path = file.DirectoryName;   // полный путь (C:\Folder)
             record.Visible = true;              // видимость
@@ -395,15 +387,20 @@ namespace FilmCollection
 
         private void CleanBase()   // очистка базы путем удаления старых файлов видео
         {
-            foreach (var combine in _videoCollection.CombineList)
-                combine.DeleteOldRecord();
-
-            // добавить очистку медиа файлов       
+            for (int i = 0; i < _videoCollection.CombineList.Count; i++)
+            {
+                _videoCollection.CombineList[i].DeleteOldRecord();
+                if (_videoCollection.CombineList[i].recordList.Count ==0)
+                {
+                    _videoCollection.CombineList.Remove(_videoCollection.CombineList[i]);
+                }
+            }   
 
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
             // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
             PrepareRefresh();
+            MessageBox.Show("Очистка выполнена!");
         }
 
         #endregion
@@ -2319,7 +2316,7 @@ namespace FilmCollection
             // return false; //если доступ запрещен
         }
 
-    
+
 
 
 
