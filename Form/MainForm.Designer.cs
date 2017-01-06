@@ -67,7 +67,7 @@
             this.btnReport = new System.Windows.Forms.ToolStripMenuItem();
             this.tS4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuChange = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
@@ -521,7 +521,7 @@
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuFile,
-            this.правкаToolStripMenuItem,
+            this.MenuChange,
             this.настройкаToolStripMenuItem,
             this.btnHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
@@ -618,11 +618,11 @@
             this.btnExit.Text = "Выход";
             this.btnExit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // правкаToolStripMenuItem
+            // MenuChange
             // 
-            this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
-            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.правкаToolStripMenuItem.Text = "Правка";
+            this.MenuChange.Name = "MenuChange";
+            this.MenuChange.Size = new System.Drawing.Size(59, 20);
+            this.MenuChange.Text = "Правка";
             // 
             // настройкаToolStripMenuItem
             // 
@@ -1727,7 +1727,7 @@
             this.tabActors.Location = new System.Drawing.Point(4, 22);
             this.tabActors.Name = "tabActors";
             this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(972, 664);
+            this.tabActors.Size = new System.Drawing.Size(972, 614);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1752,7 +1752,7 @@
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
-            this.scTabActors.Size = new System.Drawing.Size(966, 658);
+            this.scTabActors.Size = new System.Drawing.Size(966, 608);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
             // 
@@ -1777,7 +1777,7 @@
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(535, 629);
+            this.dgvTableActors.Size = new System.Drawing.Size(535, 579);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTable_CellMouseDown);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
@@ -1862,7 +1862,7 @@
             this.panelEditAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEditAct.Location = new System.Drawing.Point(0, 0);
             this.panelEditAct.Name = "panelEditAct";
-            this.panelEditAct.Size = new System.Drawing.Size(423, 656);
+            this.panelEditAct.Size = new System.Drawing.Size(423, 606);
             this.panelEditAct.TabIndex = 0;
             // 
             // groupBox1
@@ -2145,7 +2145,7 @@
             this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelViewAct.Location = new System.Drawing.Point(0, 0);
             this.panelViewAct.Name = "panelViewAct";
-            this.panelViewAct.Size = new System.Drawing.Size(423, 656);
+            this.panelViewAct.Size = new System.Drawing.Size(423, 606);
             this.panelViewAct.TabIndex = 1;
             // 
             // groupBox2
@@ -2332,7 +2332,7 @@
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
             this.tabImage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabImage.Size = new System.Drawing.Size(972, 664);
+            this.tabImage.Size = new System.Drawing.Size(972, 614);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
@@ -2666,7 +2666,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbfCountry;
         private System.Windows.Forms.TextBox tbfYear;
-        private System.Windows.Forms.ToolStripMenuItem правкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuChange;
         private System.Windows.Forms.ToolStrip toolMainMenu;
         private System.Windows.Forms.ToolStripButton tsCreateDB;
         private System.Windows.Forms.ToolStripButton tsUpdateDB;
