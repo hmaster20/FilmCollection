@@ -60,6 +60,12 @@ namespace FilmCollection
                 cBoxCountryActor.Items.Add(item);
                 tscCountryFilter.Items.Add(item);
             }
+            MenuChange.Visible =
+            #if DEBUG
+                    true;
+            #else
+                    false;
+            #endif
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)   // отрисовка рамки вокруг tsFindbyName
