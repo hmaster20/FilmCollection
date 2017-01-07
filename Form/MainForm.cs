@@ -2180,15 +2180,43 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
+                Shell shl = new 
+                Folder folder = shl.NameSpace(fi.DirectoryName);
+                FolderItem item = folder.ParseName(fi.Name);
+
+                for (int i = 0; i < 150; i++)
+                {
+                    string dtlDesc = folder.GetDetailsOf(null, i);
+                    string dtlVal = folder.GetDetailsOf(item, i);
+
+                    if (dtlVal == null || dtlVal == "")
+                        continue;
+
+                 
+                    MessageBox.Show("Test" + dtlDesc + dtlVal);
+                }
+
+
                 string filename = record.FileName.Remove(record.FileName.LastIndexOf(record.Extension) - 1, record.Extension.Length + 1);
 
                 var shell = new Shell();
                 var folder = shell.NameSpace(record.Path);
-                foreach (FolderItem2 item in folder.Items())
+                foreach (FolderItem2 _file in folder.Items())
                 {
-                    if (item.Name == filename)
+                    if (_file.Name == filename)
                     {
-                        var aaa = item.ExtendedProperty("System.Media.Duration");
+                        //double nanoseconds;                        
+                        //double.TryParse(Convert.ToString(_file.ExtendedProperty("System.Media.Duration")), out nanoseconds);
+                        //if (nanoseconds > 0)
+                        //{
+                        //    string oldvalue = mtbTime.Text;
+                        //    mtbTime.Text = TimeSpan.FromSeconds(nanoseconds / 10000000).ToString();
+                        //    if (mtbTime.Text != oldvalue)
+                        //        Modified();
+                        //    break;
+                        //}
+
+                        var aaa = _file.ExtendedProperty("System.Media.Duration");
                         if (aaa == null)
                         {
                             MessageBox.Show("Получить время воспроизведения невозможно!");
