@@ -489,24 +489,58 @@ namespace FilmCollection
                     string regReplace = tsFindbyName.Text.Replace("*", "");
                     Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-                    dgvTableRec.ClearSelection();
-                    dgvTableRec.MultiSelect = true;
+                    if (isRecTab())
+                    {   // Фильмотека
 
-                    foreach (DataGridViewRow row in dgvTableRec.Rows)
-                    {
-                        if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                        dgvTableRec.ClearSelection();
+                        dgvTableRec.MultiSelect = true;
+
+                        foreach (DataGridViewRow row in dgvTableRec.Rows)
                         {
-                            int f = row.Cells[0].RowIndex;
-                            if (f < dgvTableRec.RowCount)
+                            if (regex.IsMatch(row.Cells[0].Value.ToString()))
                             {
-                                dgvTableRec.ClearSelection();
-                                dgvTableRec.Rows[f].Selected = true;            // выделяем
-                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;// прокручиваем
-                                dgvTableRec.Update();
+                                int f = row.Cells[0].RowIndex;
+                                if (f < dgvTableRec.RowCount)
+                                {
+                                    dgvTableRec.ClearSelection();
+                                    dgvTableRec.Rows[f].Selected = true;            // выделяем
+                                    dgvTableRec.FirstDisplayedScrollingRowIndex = f;// прокручиваем
+                                    dgvTableRec.Update();
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
+                    else
+                    {   // Актеры
+                        dgvTableActors.ClearSelection();
+                        dgvTableActors.MultiSelect = true;
+
+                        foreach (DataGridViewRow row in dgvTableActors.Rows)
+                        {
+                            if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                            {
+                                int f = row.Cells[0].RowIndex;
+                                if (f < dgvTableActors.RowCount)
+                                {
+                                    dgvTableActors.ClearSelection();
+                                    dgvTableActors.Rows[f].Selected = true;            // выделяем
+                                    dgvTableActors.FirstDisplayedScrollingRowIndex = f;// прокручиваем
+                                    dgvTableActors.Update();
+                                }
+                                break;
+                            }
+                        }
+
+                    }
+
+                    
+
+
+
+
+
+
                 }
             }
             catch (Exception ex)
@@ -1835,7 +1869,7 @@ namespace FilmCollection
         }
 
         #endregion
-        
+
 
         #region обработка информации по одному фильму
 
@@ -2044,7 +2078,7 @@ namespace FilmCollection
 
         #endregion
 
-        
+
         #region Обработка актеров
 
         private void btnCancelActor_Click(object sender, EventArgs e)
