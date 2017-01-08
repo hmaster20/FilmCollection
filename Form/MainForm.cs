@@ -60,11 +60,12 @@ namespace FilmCollection
                 cBoxCountryActor.Items.Add(item);
                 tscCountryFilter.Items.Add(item);
             }
+
             MenuChange.Visible =
 #if DEBUG
-                    true;
+            true;
 #else
-                    false;
+            false;
 #endif
         }
 
@@ -358,10 +359,10 @@ namespace FilmCollection
 
         private void BackupBase()       // Резервная копия базы
         {
-            if (File.Exists(RecordOptions.BaseName)) // если есть, что бэкапить...
+            if (File.Exists(RecordOptions.BaseName)) // если есть, что резервировать...
             {
                 try
-                {   // создаем бэкап
+                {   // создаем резервную копию
                     string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
                         + Path.GetExtension(RecordOptions.BaseName);
@@ -379,7 +380,7 @@ namespace FilmCollection
             RecoveryForm form = new RecoveryForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // создаем бэкап запоротой базы
+                // создаем копию испорченной базы
                 string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
                     + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
                     + Path.GetExtension(RecordOptions.BaseName);
@@ -457,7 +458,6 @@ namespace FilmCollection
 
         #endregion
 
-        #region Обработка DataGridView
 
         #region Контекстное меню для DataGridView
 
@@ -501,7 +501,7 @@ namespace FilmCollection
                             {
                                 dgvTableRec.ClearSelection();
                                 dgvTableRec.Rows[f].Selected = true;            // выделяем
-                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;// скролим
+                                dgvTableRec.FirstDisplayedScrollingRowIndex = f;// прокручиваем
                                 dgvTableRec.Update();
                             }
                             break;
@@ -515,7 +515,6 @@ namespace FilmCollection
             }
 
         }
-
 
         private void DeleteRec_Click(object sender, EventArgs e)
         {
@@ -586,8 +585,6 @@ namespace FilmCollection
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
         }
 
-
-
         private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
         {
             if (e.ColumnIndex > -1 && e.RowIndex > -1)
@@ -607,6 +604,9 @@ namespace FilmCollection
 
 
         #endregion
+
+
+        #region Обработка DataGridView
 
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
         {
@@ -640,7 +640,6 @@ namespace FilmCollection
                 return true;
             return false;
         }
-
 
         private void PrepareRefresh(bool flag = false, int column = -1)
         {
@@ -676,7 +675,6 @@ namespace FilmCollection
 
             if (selected != null) SelectRecord(dgvTableRec, selected);
         }
-
 
         private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
         {
@@ -751,7 +749,6 @@ namespace FilmCollection
                     break;
                 }
         }
-
 
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
@@ -909,6 +906,23 @@ namespace FilmCollection
             //cBoxCountry.SelectedIndex = 0;
         }
 
+        private void cOpenFolder_Click(object sender, EventArgs e)
+        {
+            Record record = GetSelectedRecord();
+            if (record != null)
+            {
+                string filePath = Path.Combine(record.Path, record.FileName);
+                if (!File.Exists(filePath))
+                {
+                    MessageBox.Show("Файл \"" + filePath + "\" не найден!");
+                    return;
+                }
+
+                string argument = "/select, \"" + filePath + "\"";
+                Process.Start("explorer.exe", argument);
+            }
+        }
+
         #endregion
 
 
@@ -925,7 +939,6 @@ namespace FilmCollection
         private void btnSave_Click(object sender, EventArgs e) => SaveRecord();  // Сохранение нового или измененного элемента
 
         private void btnCancel_Click(object sender, EventArgs e) => CancelRecord();// Отмена редактирования
-
 
         private void NewRecord_Dialog()
         {
@@ -991,7 +1004,6 @@ namespace FilmCollection
             }
         }
 
-
         private void SaveRecord()
         {
             Combine cm = null;
@@ -1050,7 +1062,6 @@ namespace FilmCollection
 
             panelEdit_Lock();    // блокировка панели
         }
-
 
         private Combine GetMedia()
         {
@@ -1124,12 +1135,9 @@ namespace FilmCollection
             }
         }
 
-
-
         private void UserModifiedChanged(object sender, EventArgs e) => Modified();   // Срабатывает при изменении любого поля
 
         private void mtbTime_KeyDown(object sender, KeyEventArgs e) => Modified();
-
 
         private void Modified()
         {
@@ -1138,7 +1146,6 @@ namespace FilmCollection
             dgvTableRec.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
         }
-
 
         private void cbTypeFind_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1151,7 +1158,6 @@ namespace FilmCollection
 
         private void btnFindReset_Click(object sender, EventArgs e) => ResetFind();
 
-
         private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
         {
             if (!mtbYear.MaskCompleted)
@@ -1162,6 +1168,7 @@ namespace FilmCollection
                 mtbTime.Focus();
             }
         }
+
 
         #region Управление блокировками
 
@@ -1328,6 +1335,48 @@ namespace FilmCollection
             else
             {
                 MessageBox.Show("Отсутствует файл: " + _file);
+            }
+        }
+
+        private void linkBIOv_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(linkBIOv.Text);
+            //ProcessStartInfo sInfo = new ProcessStartInfo("http://www.google.com");
+            //Process.Start(sInfo);
+        }
+
+        private void lbActors_DoubleClick(object sender, EventArgs e)
+        {
+            tabControl2.SelectedTab = tabActors;
+            if (lbActors.SelectedItem != null)
+            {
+                String searchValue = lbActors.SelectedItem.ToString();
+                int rowIndex = -1;
+                foreach (DataGridViewRow row in dgvTableActors.Rows)
+                {
+                    if (row.Cells[0].Value.ToString().Equals(searchValue))
+                    {
+                        rowIndex = row.Index;
+                        break;
+                    }
+                }
+                if (rowIndex != -1) dgvTableActors.Rows[rowIndex].Selected = true;
+            }
+        }
+
+        private void listViewFilmV_DoubleClick(object sender, EventArgs e)
+        {
+            if (listViewFilmV.SelectedItems[0].SubItems[0].Text != "")
+            {
+                string searchValue = listViewFilmV.SelectedItems[0].SubItems[0].Text;
+                tabControl2.SelectedTab = tabFilm;
+                int rowIndex = -1;
+                DataGridViewRow row = dgvTableRec.Rows
+                    .Cast<DataGridViewRow>()
+                    .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
+                    .First();
+                rowIndex = row.Index;
+                if (rowIndex != -1) dgvTableRec.Rows[rowIndex].Selected = true;
             }
         }
 
@@ -1625,7 +1674,6 @@ namespace FilmCollection
             }
         }
 
-
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
             PrepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
@@ -1656,210 +1704,50 @@ namespace FilmCollection
             PrepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды        
         }
 
-        #endregion
-
-
-        #region Обработка актеров
-
-
-        private void btnAdd_SelectActor_Click(object sender, EventArgs e)
-        {
-            if (chkActorList.CheckedItems.Count > 0)
-            {
-                foreach (var item in chkActorList.CheckedItems)
-                {
-                    if (!chkActorSelect.Items.Contains(item))
-                    {
-                        chkActorSelect.Items.Add(item);
-                    }
-                }
-                UserModifiedChanged(sender, e);
-            }
-        }
-
-        private void btnRemove_SelectActor_Click(object sender, System.EventArgs e)
-        {
-            if (chkActorSelect.SelectedItems.Count > 0)
-            {
-                chkActorSelect.Items.Remove(chkActorSelect.SelectedItem);
-                UserModifiedChanged(sender, e);
-            }
-        }
-
-        private void btnNewActor_Click(object sender, EventArgs e)
-        {
-            NewActor();
-        }
-
-        private void NewActor()
-        {
-            tbFIO.Text = "";
-            tbBIO.Text = "";
-            maskDateOfBirth.Text = "";
-            maskDateofDeath_RecoveryState();
-            chLifeState.Checked = false;
-            cBoxCountryActor.SelectedIndex = -1;
-            tbFilmFind.Text = "";
-            listViewFilm.Clear();
-            lvSelectRecord.Items.Clear();
-
-            dgvTableActors.Enabled = false;     // Блокировка таблицы при изменении панели
-            dgvTableActors.ClearSelection();    // Удаление фокуса
-
-            panelEditAct.BringToFront();
-        }
-
-        private void btnSaveActor_Click(object sender, EventArgs e) => SaveActor();
-
-        private void SaveActor()
-        {
-            Actor actor;
-            Actor act = GetSelectedActor();
-            actor = (act == null) ? new Actor() : act;
-
-            actor.FIO = tbFIO.Text;
-
-            if (act == null)
-                foreach (Actor item in _videoCollection.ActorList)
-                {
-                    if (item.Equals(actor))
-                    {
-                        MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
-                        return; // Выходим
-                    }
-                }
-
-            actor.BIO = tbBIO.Text;
-            actor.DateOfBirth = maskDateOfBirth.Text;
-            actor.DateOfDeath = maskDateOfDeath.Text;
-            actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
-            actor.id = RecordCollection.GetActorID();
-
-            foreach (ListViewItem eachItem in listViewFilm.Items)
-            {
-                actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
-                _videoCollection.CombineList.FindLast(m => m.media.Id == Convert.ToInt32(eachItem.SubItems[2].Text)).media.ActorListID.Add(actor.id);
-            }
-
-            if (act == null)
-            {
-                _videoCollection.Add(actor);
-                _videoCollection.Save();
-            }
-            else
-            {
-                _videoCollection.Save();
-            }
-
-            dgvTableActors.Enabled = true;
-            PrepareRefresh();
-        }
-
-
-
-        private void checkLive_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chLifeState.Checked)
-            {
-                maskDateOfDeath.Mask = "";
-                maskDateOfDeath.Text = "По настоящее время";
-                maskDateOfDeath.Enabled = false;
-            }
-            else
-            {
-                maskDateofDeath_RecoveryState();
-            }
-        }
-
-        private void maskDateofDeath_RecoveryState()
-        {
-            maskDateOfDeath.Enabled = true;
-            maskDateOfDeath.Text = "";
-            maskDateOfDeath.Mask = "00/00/0000";
-        }
-
-        private void tbFilmFind_TextChanged(object sender, EventArgs e)
-        {
-            lvSelectRecord.Items.Clear();
-            try
-            {
-                string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
-                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
-
-                foreach (DataGridViewRow row in dgvTableRec.Rows)
-                {
-                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
-                    {
-                        Record record = null;
-                        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
-                        if (record != null) lvSelectRecord_add(record.combineLink.media.Name, record.combineLink.media.Year, record.combineLink.media.Id);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void lvSelectRecord_add(string name, int year, int id)
-        {
-            string[] arr = new string[3];
-            arr[0] = name;
-            arr[1] = year.ToString();
-            arr[2] = id.ToString();
-
-            ListViewItem itm = new ListViewItem(arr);
-            lvSelectRecord.Items.Add(itm);
-        }
-
-        private void lvSelectRecord_DoubleClick(object sender, EventArgs e)
-        {
-            if (lvSelectRecord.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem item in lvSelectRecord.SelectedItems)
-                    listViewFilm.Items.Add((ListViewItem)item.Clone());
-            }
-        }
-
-        private void listViewFilm_DoubleClick(object sender, EventArgs e)
-        {
-            foreach (ListViewItem eachItem in listViewFilm.SelectedItems)
-                listViewFilm.Items.Remove(eachItem);
-        }
-
-
-        #endregion
-
-
-
-
         private void cRenameFolder_Click(object sender, EventArgs e) => panelFolder.BringToFront();
 
-
-
-        private void cOpenFolder_Click(object sender, EventArgs e)
+        private void ChangeCatalogTypeVideo_Click(object sender, EventArgs e)   // сделать каталог сериалом
         {
             Record record = GetSelectedRecord();
-            if (record != null)
+            if (record == null)
             {
-                string filePath = Path.Combine(record.Path, record.FileName);
-                if (!File.Exists(filePath))
-                {
-                    MessageBox.Show("Файл \"" + filePath + "\" не найден!");
-                    return;
-                }
+                MessageBox.Show("Выберите запись для создания сериала!");
+            }
+            else
+            {
+                Combine cmNew = new Combine();
+                cmNew.media = record.combineLink.media;
+                cmNew.media.Category = CategoryVideo.Series;
 
-                string argument = "/select, \"" + filePath + "\"";
-                Process.Start("explorer.exe", argument);
+                List<Record> filtered = new List<Record>();
+                _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+
+                filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
+
+                foreach (Record rec in filtered)
+                    cmNew.recordList.Add(rec);
+
+                foreach (Record rec in filtered)
+                    _videoCollection.CombineList.Remove(rec.combineLink);
+
+                _videoCollection.CombineList.Add(cmNew);
+                _videoCollection.Save();
+
+                string treeFolderPath = treeFolder.SelectedNode.FullPath;
+
+                FormLoad();
+
+                PrepareRefresh(treeFolderPath, true);
             }
         }
 
+        private void UpdateCatalogInfo_Click(object sender, EventArgs e)
+        {
+
+        }
 
 
-
-
-
+        #endregion
 
 
         #region DragDrop DGV to TreeView
@@ -1947,11 +1835,7 @@ namespace FilmCollection
         }
 
         #endregion
-
-
-
-
-
+        
 
         #region обработка информации по одному фильму
 
@@ -2129,9 +2013,6 @@ namespace FilmCollection
             catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
         }
 
-        #endregion
-
-
         private void btnGetTime_Click(object sender, EventArgs e) => GetTime();
 
         private void GetTime()
@@ -2161,51 +2042,10 @@ namespace FilmCollection
             }
         }
 
+        #endregion
 
-        private void ChangeCatalogTypeVideo_Click(object sender, EventArgs e)
-        {
-            Record record = GetSelectedRecord();
-            if (record == null)
-            {
-                MessageBox.Show("Выберите запись для создания сериала!");
-            }
-            else
-            {
-                Combine cmNew = new Combine();
-                cmNew.media = record.combineLink.media;
-                cmNew.media.Category = CategoryVideo.Series;
-
-                List<Record> filtered = new List<Record>();
-                _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
-
-                filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
-
-                foreach (Record rec in filtered)
-                    cmNew.recordList.Add(rec);
-
-                foreach (Record rec in filtered)
-                    _videoCollection.CombineList.Remove(rec.combineLink);
-
-                _videoCollection.CombineList.Add(cmNew);
-                _videoCollection.Save();
-
-                string treeFolderPath = treeFolder.SelectedNode.FullPath;
-
-                FormLoad();
-
-                PrepareRefresh(treeFolderPath, true);
-            }
-        }
-
-        private void UpdateCatalogInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSaveFolder_Click(object sender, EventArgs e)
-        {
-
-        }
+        
+        #region Обработка актеров
 
         private void btnCancelActor_Click(object sender, EventArgs e)
         {
@@ -2213,48 +2053,179 @@ namespace FilmCollection
             panelViewAct.BringToFront();
         }
 
-        private void linkBIOv_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(linkBIOv.Text);
-            //ProcessStartInfo sInfo = new ProcessStartInfo("http://www.google.com");
-            //Process.Start(sInfo);
-        }
 
-        private void lbActors_DoubleClick(object sender, EventArgs e)
+        private void btnAdd_SelectActor_Click(object sender, EventArgs e)
         {
-            tabControl2.SelectedTab = tabActors;
-            if (lbActors.SelectedItem != null)
+            if (chkActorList.CheckedItems.Count > 0)
             {
-                String searchValue = lbActors.SelectedItem.ToString();
-                int rowIndex = -1;
-                foreach (DataGridViewRow row in dgvTableActors.Rows)
+                foreach (var item in chkActorList.CheckedItems)
                 {
-                    if (row.Cells[0].Value.ToString().Equals(searchValue))
+                    if (!chkActorSelect.Items.Contains(item))
                     {
-                        rowIndex = row.Index;
-                        break;
+                        chkActorSelect.Items.Add(item);
                     }
                 }
-                if (rowIndex != -1) dgvTableActors.Rows[rowIndex].Selected = true;
+                UserModifiedChanged(sender, e);
             }
         }
 
-        private void listViewFilmV_DoubleClick(object sender, EventArgs e)
+        private void btnRemove_SelectActor_Click(object sender, System.EventArgs e)
         {
-            if (listViewFilmV.SelectedItems[0].SubItems[0].Text != "")
+            if (chkActorSelect.SelectedItems.Count > 0)
             {
-                string searchValue = listViewFilmV.SelectedItems[0].SubItems[0].Text;
-                tabControl2.SelectedTab = tabFilm;
-                int rowIndex = -1;
-                DataGridViewRow row = dgvTableRec.Rows
-                    .Cast<DataGridViewRow>()
-                    .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
-                    .First();
-                rowIndex = row.Index;
-                if (rowIndex != -1) dgvTableRec.Rows[rowIndex].Selected = true;
+                chkActorSelect.Items.Remove(chkActorSelect.SelectedItem);
+                UserModifiedChanged(sender, e);
             }
         }
 
+        private void btnNewActor_Click(object sender, EventArgs e)
+        {
+            NewActor();
+        }
+
+        private void NewActor()
+        {
+            tbFIO.Text = "";
+            tbBIO.Text = "";
+            maskDateOfBirth.Text = "";
+            maskDateofDeath_RecoveryState();
+            chLifeState.Checked = false;
+            cBoxCountryActor.SelectedIndex = -1;
+            tbFilmFind.Text = "";
+            listViewFilm.Clear();
+            lvSelectRecord.Items.Clear();
+
+            dgvTableActors.Enabled = false;     // Блокировка таблицы при изменении панели
+            dgvTableActors.ClearSelection();    // Удаление фокуса
+
+            panelEditAct.BringToFront();
+        }
+
+        private void btnSaveActor_Click(object sender, EventArgs e) => SaveActor();
+
+        private void SaveActor()
+        {
+            Actor actor;
+            Actor act = GetSelectedActor();
+            actor = (act == null) ? new Actor() : act;
+
+            actor.FIO = tbFIO.Text;
+
+            if (act == null)
+                foreach (Actor item in _videoCollection.ActorList)
+                {
+                    if (item.Equals(actor))
+                    {
+                        MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
+                        return; // Выходим
+                    }
+                }
+
+            actor.BIO = tbBIO.Text;
+            actor.DateOfBirth = maskDateOfBirth.Text;
+            actor.DateOfDeath = maskDateOfDeath.Text;
+            actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
+            actor.id = RecordCollection.GetActorID();
+
+            foreach (ListViewItem eachItem in listViewFilm.Items)
+            {
+                actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
+                _videoCollection.CombineList.FindLast(m => m.media.Id == Convert.ToInt32(eachItem.SubItems[2].Text)).media.ActorListID.Add(actor.id);
+            }
+
+            if (act == null)
+            {
+                _videoCollection.Add(actor);
+                _videoCollection.Save();
+            }
+            else
+            {
+                _videoCollection.Save();
+            }
+
+            dgvTableActors.Enabled = true;
+            PrepareRefresh();
+        }
+
+
+
+        private void checkLive_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chLifeState.Checked)
+            {
+                maskDateOfDeath.Mask = "";
+                maskDateOfDeath.Text = "По настоящее время";
+                maskDateOfDeath.Enabled = false;
+            }
+            else
+            {
+                maskDateofDeath_RecoveryState();
+            }
+        }
+
+        private void maskDateofDeath_RecoveryState()
+        {
+            maskDateOfDeath.Enabled = true;
+            maskDateOfDeath.Text = "";
+            maskDateOfDeath.Mask = "00/00/0000";
+        }
+
+        private void tbFilmFind_TextChanged(object sender, EventArgs e)
+        {
+            lvSelectRecord.Items.Clear();
+            try
+            {
+                string regReplace = tbFilmFind.Text.Replace("*", "");   //замена вхождения * 
+                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
+                {
+                    if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                    {
+                        Record record = null;
+                        if (row.DataBoundItem is Record) record = row.DataBoundItem as Record;
+                        if (record != null) lvSelectRecord_add(record.combineLink.media.Name, record.combineLink.media.Year, record.combineLink.media.Id);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void lvSelectRecord_add(string name, int year, int id)
+        {
+            string[] arr = new string[3];
+            arr[0] = name;
+            arr[1] = year.ToString();
+            arr[2] = id.ToString();
+
+            ListViewItem itm = new ListViewItem(arr);
+            lvSelectRecord.Items.Add(itm);
+        }
+
+        private void lvSelectRecord_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvSelectRecord.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem item in lvSelectRecord.SelectedItems)
+                    listViewFilm.Items.Add((ListViewItem)item.Clone());
+            }
+        }
+
+        private void listViewFilm_DoubleClick(object sender, EventArgs e)
+        {
+            foreach (ListViewItem eachItem in listViewFilm.SelectedItems)
+                listViewFilm.Items.Remove(eachItem);
+        }
+
+
+        #endregion
+
+
+
+        //===================================
 
         private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
         {
@@ -2271,7 +2242,6 @@ namespace FilmCollection
         }
 
 
-        
         //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         //{
         //    //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
@@ -2281,7 +2251,5 @@ namespace FilmCollection
         //    //    e.FormattingApplied = true;
         //    //}
         //}
-
-
     }
 }
