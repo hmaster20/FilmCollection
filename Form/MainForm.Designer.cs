@@ -1542,7 +1542,6 @@
             this.btnSaveFolder.Text = "Сохранить";
             this.btnSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveFolder.UseVisualStyleBackColor = true;
-            this.btnSaveFolder.Click += new System.EventHandler(this.btnSaveFolder_Click);
             // 
             // button2
             // 
