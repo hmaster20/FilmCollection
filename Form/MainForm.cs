@@ -61,11 +61,11 @@ namespace FilmCollection
                 tscCountryFilter.Items.Add(item);
             }
             MenuChange.Visible =
-            #if DEBUG
+#if DEBUG
                     true;
-            #else
+#else
                     false;
-            #endif
+#endif
         }
 
         private void tsFindbyName_Paint(object sender, PaintEventArgs e)   // отрисовка рамки вокруг tsFindbyName
@@ -396,11 +396,11 @@ namespace FilmCollection
             for (int i = 0; i < _videoCollection.CombineList.Count; i++)
             {
                 _videoCollection.CombineList[i].DeleteOldRecord();
-                if (_videoCollection.CombineList[i].recordList.Count ==0)
+                if (_videoCollection.CombineList[i].recordList.Count == 0)
                 {
                     _videoCollection.CombineList.Remove(_videoCollection.CombineList[i]);
                 }
-            }   
+            }
 
             _videoCollection.Save();
             dgvTableRec.ClearSelection();
@@ -934,16 +934,10 @@ namespace FilmCollection
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
             fileDialog.Filter = FormatOpen;
-            //fileDialog.Filter = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv|Все файлы (*.*) | *.*";
             fileDialog.RestoreDirectory = true;
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                //foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
-                //    cbNameMedia.Items.Add(item.media);
-
-                // checkNewRecord.Checked = true;  // выполняем привязку
-
                 NameBlock();
 
                 FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
@@ -1069,7 +1063,6 @@ namespace FilmCollection
             else
             {
                 cm = new Combine();
-                //cm.media.Id = _videoCollection.GetMediaID();
                 cm.media.Id = RecordCollection.GetMediaID();
             }
             return cm;
@@ -1140,8 +1133,7 @@ namespace FilmCollection
 
         private void Modified()
         {
-            //if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Gold;   // подсветка редактируемой строки в таблице
-            if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Salmon;
+            if (fsInfo == null) dgvTableRec.DefaultCellStyle.SelectionBackColor = Color.Salmon; // подсветка редактируемой строки в таблице
             panelEdit_Button_Unlock();  // разблокировка кнопок
             dgvTableRec.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
@@ -1653,27 +1645,16 @@ namespace FilmCollection
             }
         }
 
-        private void сCollapseAll_Click(object sender, EventArgs e)
-        {
-            treeFolder.CollapseAll();
-        }
+        private void сCollapseAll_Click(object sender, EventArgs e) => treeFolder.CollapseAll();
 
-        private void сExpandAll_Click(object sender, EventArgs e)
-        {
-            treeFolder.ExpandAll();
-        }
+        private void сExpandAll_Click(object sender, EventArgs e) => treeFolder.ExpandAll();
 
-        private void cExpandSelectNode_Click(object sender, EventArgs e)
-        {
-            treeFolder.SelectedNode.ExpandAll();
-        }
+        private void cExpandSelectNode_Click(object sender, EventArgs e) => treeFolder.SelectedNode.ExpandAll();
 
         private void cShowSelcetNodeAllFiles_Click(object sender, EventArgs e)
         {
             PrepareRefresh(treeFolder.SelectedNode.FullPath, true);     // обновление на основе полученной ноды        
         }
-
-
 
         #endregion
 
@@ -1728,10 +1709,7 @@ namespace FilmCollection
             panelEditAct.BringToFront();
         }
 
-        private void btnSaveActor_Click(object sender, EventArgs e)
-        {
-            SaveActor();
-        }
+        private void btnSaveActor_Click(object sender, EventArgs e) => SaveActor();
 
         private void SaveActor()
         {
@@ -1840,18 +1818,14 @@ namespace FilmCollection
             if (lvSelectRecord.SelectedItems.Count > 0)
             {
                 foreach (ListViewItem item in lvSelectRecord.SelectedItems)
-                {
                     listViewFilm.Items.Add((ListViewItem)item.Clone());
-                }
             }
         }
 
         private void listViewFilm_DoubleClick(object sender, EventArgs e)
         {
             foreach (ListViewItem eachItem in listViewFilm.SelectedItems)
-            {
                 listViewFilm.Items.Remove(eachItem);
-            }
         }
 
 
@@ -1860,18 +1834,7 @@ namespace FilmCollection
 
 
 
-
-
-
-
-
-
-        private void cRenameFolder_Click(object sender, EventArgs e)
-        {
-            panelFolder.BringToFront();
-        }
-
-
+        private void cRenameFolder_Click(object sender, EventArgs e) => panelFolder.BringToFront();
 
 
 
@@ -1889,7 +1852,6 @@ namespace FilmCollection
 
                 string argument = "/select, \"" + filePath + "\"";
                 Process.Start("explorer.exe", argument);
-                //Process.Start("explorer.exe", record.Path);
             }
         }
 
@@ -1969,10 +1931,7 @@ namespace FilmCollection
                 }
 
             }
-            catch (Exception Ex)
-            {
-                MessageBox.Show(Ex.Message);
-            }
+            catch (Exception Ex) { MessageBox.Show(Ex.Message); }
         }
 
 
@@ -2173,7 +2132,7 @@ namespace FilmCollection
         #endregion
 
 
-
+        private void btnGetTime_Click(object sender, EventArgs e) => GetTime();
 
         private void GetTime()
         {
@@ -2202,10 +2161,6 @@ namespace FilmCollection
             }
         }
 
-        private void btnGetTime_Click(object sender, EventArgs e)
-        {
-            GetTime();
-        }
 
         private void ChangeCatalogTypeVideo_Click(object sender, EventArgs e)
         {
@@ -2316,16 +2271,7 @@ namespace FilmCollection
         }
 
 
-
-
-
-
-
-
-
-
-
-
+        
         //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         //{
         //    //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
