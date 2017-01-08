@@ -489,58 +489,24 @@ namespace FilmCollection
                     string regReplace = tsFindbyName.Text.Replace("*", "");
                     Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-                    if (isRecTab())
-                    {   // Фильмотека
+                    GetDgv().ClearSelection();
+                    GetDgv().MultiSelect = true;
 
-                        dgvTableRec.ClearSelection();
-                        dgvTableRec.MultiSelect = true;
-
-                        foreach (DataGridViewRow row in dgvTableRec.Rows)
+                    foreach (DataGridViewRow row in GetDgv().Rows)
+                    {
+                        if (regex.IsMatch(row.Cells[0].Value.ToString()))
                         {
-                            if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                            int f = row.Cells[0].RowIndex;
+                            if (f < GetDgv().RowCount)
                             {
-                                int f = row.Cells[0].RowIndex;
-                                if (f < dgvTableRec.RowCount)
-                                {
-                                    dgvTableRec.ClearSelection();
-                                    dgvTableRec.Rows[f].Selected = true;            // выделяем
-                                    dgvTableRec.FirstDisplayedScrollingRowIndex = f;// прокручиваем
-                                    dgvTableRec.Update();
-                                }
-                                break;
+                                GetDgv().ClearSelection();
+                                GetDgv().Rows[f].Selected = true;            // выделяем
+                                GetDgv().FirstDisplayedScrollingRowIndex = f;// прокручиваем
+                                GetDgv().Update();
                             }
+                            break;
                         }
                     }
-                    else
-                    {   // Актеры
-                        dgvTableActors.ClearSelection();
-                        dgvTableActors.MultiSelect = true;
-
-                        foreach (DataGridViewRow row in dgvTableActors.Rows)
-                        {
-                            if (regex.IsMatch(row.Cells[0].Value.ToString()))
-                            {
-                                int f = row.Cells[0].RowIndex;
-                                if (f < dgvTableActors.RowCount)
-                                {
-                                    dgvTableActors.ClearSelection();
-                                    dgvTableActors.Rows[f].Selected = true;            // выделяем
-                                    dgvTableActors.FirstDisplayedScrollingRowIndex = f;// прокручиваем
-                                    dgvTableActors.Update();
-                                }
-                                break;
-                            }
-                        }
-
-                    }
-
-                    
-
-
-
-
-
-
                 }
             }
             catch (Exception ex)
