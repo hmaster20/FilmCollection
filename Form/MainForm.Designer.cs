@@ -2491,7 +2491,7 @@
             this.tsFindbyName.Size = new System.Drawing.Size(150, 20);
             this.tsFindbyName.ToolTipText = "Панель быстрого поиска по названию";
             this.tsFindbyName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsFindbyName_KeyDown);
-            this.tsFindbyName.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.tsFindbyName.Paint += new System.Windows.Forms.PaintEventHandler(this.tsFindbyName_Paint);
             // 
             // toolinfo
             // 
