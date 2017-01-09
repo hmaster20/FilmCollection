@@ -72,8 +72,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class_poster\ImageViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class_poster\ImageViewer.Designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\_Combine.cs" />
     <Compile Include="Class\_Actor.cs" />
+    <Compile Include="Class_poster\ThumbnailController.cs" />
     <Compile Include="Class_Test\BinSerializeHelper.cs" />
     <Compile Include="Class\Enum.cs" />
     <Compile Include="Class\_Media.cs" />
@@ -120,6 +127,10 @@
     <Compile Include="Class\_Record.cs" />
     <Compile Include="Class\RecordCollection.cs" />
     <Compile Include="Class\XmlSerializeHelper.cs" />
+    <EmbeddedResource Include="Class_poster\ImageViewer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
