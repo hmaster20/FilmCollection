@@ -227,8 +227,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanelMain = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonBrowseFolder = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.flowLayoutPanelMain = new System.Windows.Forms.FlowLayoutPanel();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
@@ -247,8 +249,6 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonBrowseFolder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -285,6 +285,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabImage.SuspendLayout();
+            this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
@@ -2337,7 +2338,6 @@
             // 
             this.tabImage.Controls.Add(this.buttonCancel);
             this.tabImage.Controls.Add(this.buttonBrowseFolder);
-            this.tabImage.Controls.Add(this.flowLayoutPanelMain);
             this.tabImage.Controls.Add(this.panelMain);
             this.tabImage.Controls.Add(this.trackBarSize);
             this.tabImage.Location = new System.Drawing.Point(4, 22);
@@ -2348,22 +2348,44 @@
             this.tabImage.Text = "Постеры";
             this.tabImage.UseVisualStyleBackColor = true;
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(87, 6);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(146, 23);
+            this.buttonCancel.TabIndex = 9;
+            this.buttonCancel.Text = "Cancel Scan Directory";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // buttonBrowseFolder
+            // 
+            this.buttonBrowseFolder.Location = new System.Drawing.Point(6, 6);
+            this.buttonBrowseFolder.Name = "buttonBrowseFolder";
+            this.buttonBrowseFolder.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowseFolder.TabIndex = 8;
+            this.buttonBrowseFolder.Text = "Browse...";
+            this.buttonBrowseFolder.UseVisualStyleBackColor = true;
+            this.buttonBrowseFolder.Click += new System.EventHandler(this.buttonBrowseFolder_Click);
+            // 
+            // panelMain
+            // 
+            this.panelMain.Controls.Add(this.flowLayoutPanelMain);
+            this.panelMain.Location = new System.Drawing.Point(6, 35);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(958, 543);
+            this.panelMain.TabIndex = 7;
+            // 
             // flowLayoutPanelMain
             // 
             this.flowLayoutPanelMain.AutoScroll = true;
             this.flowLayoutPanelMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.flowLayoutPanelMain.CausesValidation = false;
-            this.flowLayoutPanelMain.Location = new System.Drawing.Point(134, 76);
+            this.flowLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelMain.Name = "flowLayoutPanelMain";
-            this.flowLayoutPanelMain.Size = new System.Drawing.Size(677, 451);
+            this.flowLayoutPanelMain.Size = new System.Drawing.Size(958, 543);
             this.flowLayoutPanelMain.TabIndex = 0;
-            // 
-            // panelMain
-            // 
-            this.panelMain.Location = new System.Drawing.Point(134, 76);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(680, 451);
-            this.panelMain.TabIndex = 7;
             // 
             // trackBarSize
             // 
@@ -2541,26 +2563,6 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(215, 47);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(146, 23);
-            this.buttonCancel.TabIndex = 9;
-            this.buttonCancel.Text = "Cancel Scan Directory";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonBrowseFolder
-            // 
-            this.buttonBrowseFolder.Location = new System.Drawing.Point(134, 47);
-            this.buttonBrowseFolder.Name = "buttonBrowseFolder";
-            this.buttonBrowseFolder.Size = new System.Drawing.Size(75, 23);
-            this.buttonBrowseFolder.TabIndex = 8;
-            this.buttonBrowseFolder.Text = "Browse...";
-            this.buttonBrowseFolder.UseVisualStyleBackColor = true;
-            this.buttonBrowseFolder.Click += new System.EventHandler(this.buttonBrowseFolder_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2626,6 +2628,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabImage.ResumeLayout(false);
+            this.panelMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).EndInit();
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
