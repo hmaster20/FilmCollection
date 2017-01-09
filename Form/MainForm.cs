@@ -2263,71 +2263,34 @@ namespace FilmCollection
         //}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        #region Постеры
+     
         public event ThumbnailImageEventHandler OnImageSizeChanged;
         private ThumbnailController m_Controller;
         private ImageViewer m_ActiveImageViewer;
 
-        private int ImageSize
-        {
-            get
-            {
-                return (64 * (this.trackBarSize.Value + 1));
-            }
-        }
+        private int ImageSize { get { return (64 * (this.trackBarSize.Value + 1)); } }
 
-
-
-
-
-
-        private void buttonBrowseFolder_Click(object sender, EventArgs e)
-        {
-            this.AddFolder();
-        }
+        private void buttonBrowseFolder_Click(object sender, EventArgs e) => AddFolder();
 
         private void buttonCancel_Click(object sender, EventArgs e) // отмена сканирования
         {
-            this.m_Controller.CancelScanning = true;
+            m_Controller.CancelScanning = true;
         }
 
         private void AddFolder()
         {
-            //FolderBrowserDialog dlg = new FolderBrowserDialog();
-            //dlg.Description = @"Choose folder path";
-            //if (dlg.ShowDialog() == DialogResult.OK)
-            //{
-                this.flowLayoutPanelMain.Controls.Clear();
-            //m_Controller.AddFolder(dlg.SelectedPath);
+            this.flowLayoutPanelMain.Controls.Clear();
             m_Controller.AddFolder(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"));
             this.buttonCancel.Enabled = true;
-                this.buttonBrowseFolder.Enabled = false;
-           // }
+            this.buttonBrowseFolder.Enabled = false;
+
         }
 
         private void m_Controller_OnAdd(object sender, ThumbnailControllerEventArgs e)
         {
-            this.AddImage(e.ImageFilename);
-            this.Invalidate();
+            AddImage(e.ImageFilename);
+            Invalidate();
         }
 
         private void m_Controller_OnEnd(object sender, ThumbnailControllerEventArgs e)
@@ -2350,9 +2313,9 @@ namespace FilmCollection
         private void AddImage(string imageFilename)
         {
             // thread safe
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.Invoke(m_AddImageDelegate, imageFilename);
+                Invoke(m_AddImageDelegate, imageFilename);
             }
             else
             {
@@ -2374,32 +2337,26 @@ namespace FilmCollection
 
         private void imageViewer_MouseClick(object sender, MouseEventArgs e)
         {
-            //if (m_ActiveImageViewer != null)
-            //{
-            //    m_ActiveImageViewer.IsActive = false;
-            //}
 
-            //m_ActiveImageViewer = (ImageViewer)sender;
-            //m_ActiveImageViewer.IsActive = true;
+            if (m_ActiveImageViewer != null)
+            {
+                m_ActiveImageViewer.IsActive = false;
+            }
 
+            m_ActiveImageViewer = (ImageViewer)sender;
+            m_ActiveImageViewer.IsActive = true;
+            MessageBox.Show(m_ActiveImageViewer.ImageLocation);
         }
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
         {
-            this.OnImageSizeChanged(this, new ThumbnailImageEventArgs(ImageSize));
-        }
-    }
-
-    public class ThumbnailImageEventArgs : EventArgs
-    {
-        public ThumbnailImageEventArgs(int size)
-        {
-            this.Size = size;
+            OnImageSizeChanged(this, new ThumbnailImageEventArgs(ImageSize));
         }
 
-        public int Size;
+        #endregion
+
+
     }
-
-    public delegate void ThumbnailImageEventHandler(object sender, ThumbnailImageEventArgs e);
-
 }
+
+
