@@ -5,6 +5,20 @@ using System.IO;
 
 namespace FilmCollection
 {
+    public class ThumbnailImageEventArgs : EventArgs
+    {
+        public ThumbnailImageEventArgs(int size)
+        {
+            this.Size = size;
+        }
+
+        public int Size;
+    }
+
+    public delegate void ThumbnailImageEventHandler(object sender, ThumbnailImageEventArgs e);
+
+
+
     public class ThumbnailControllerEventArgs : EventArgs
     {
         public ThumbnailControllerEventArgs(string imageFilename)
