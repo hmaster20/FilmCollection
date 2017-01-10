@@ -35,8 +35,8 @@ namespace FilmCollection
 
         public bool IsActive
         {
-            set 
-            { 
+            set
+            {
                 m_IsActive = value;
                 this.Invalidate();
             }
@@ -102,28 +102,26 @@ namespace FilmCollection
             g.DrawRectangle(new Pen(Color.Gray), dl, dt, dw, dh);
 
             if (m_IsThumbnail)
-            for (int j = 0; j < 3; j++)
-            {
-                g.DrawLine(new Pen(Color.DarkGray),
-                    new Point(dl + 3, dt + dh + 1 + j),
-                    new Point(dl + dw + 3, dt + dh + 1 + j));
-                g.DrawLine(new Pen(Color.DarkGray),
-                    new Point(dl + dw + 1 + j, dt + 3),
-                    new Point(dl + dw + 1 + j, dt + dh + 3));
-            }
+                for (int j = 0; j < 3; j++)
+                {
+                    g.DrawLine(new Pen(Color.DarkGray),
+                        new Point(dl + 3, dt + dh + 1 + j),
+                        new Point(dl + dw + 3, dt + dh + 1 + j));
+                    g.DrawLine(new Pen(Color.DarkGray),
+                        new Point(dl + dw + 1 + j, dt + 3),
+                        new Point(dl + dw + 1 + j, dt + dh + 3));
+                }
 
             g.DrawImage(m_Image, dl, dt, dw, dh);
 
             if (m_IsActive)
             {
                 g.DrawRectangle(new Pen(Color.White, 1), dl, dt, dw, dh);
-                g.DrawRectangle(new Pen(Color.Blue, 2), dl-2, dt-2, dw+4, dh+4);
+                g.DrawRectangle(new Pen(Color.Blue, 2), dl - 2, dt - 2, dw + 4, dh + 4);
             }
         }
 
-        private void OnResize(object sender, EventArgs e)
-        {
-            this.Invalidate();
-        }
+        private void OnResize(object sender, EventArgs e) => Invalidate();
+
     }
 }
