@@ -2269,24 +2269,22 @@ namespace FilmCollection
         #region Постеры
      
         public event ThumbnailImageEventHandler OnImageSizeChanged;
-        private ThumbnailController m_Controller;
-        private ImageViewer m_ActiveImageViewer;
+        private ThumbnailController m_Controller { get; set; }
+        private ImageViewer m_ActiveImageViewer { get; set; }
 
         private int ImageSize { get { return (64 * (this.trackBarSize.Value + 1)); } }
-
-        private void buttonBrowseFolder_Click(object sender, EventArgs e) => AddFolder();
 
         private void buttonCancel_Click(object sender, EventArgs e) // отмена сканирования
         {
             m_Controller.CancelScanning = true;
         }
 
-        private void AddFolder()
+        private void AddFolder()    // сканирование указанного каталога
         {
             this.flowLayoutPanelMain.Controls.Clear();
             m_Controller.AddFolder(PicsFolder);
-            this.buttonCancel.Enabled = true;
-            this.buttonBrowseFolder.Enabled = false;
+            buttonCancel.Enabled = true;
+            //buttonBrowseFolder.Enabled = false;
 
         }
 
@@ -2305,8 +2303,8 @@ namespace FilmCollection
             }
             else
             {
-                this.buttonCancel.Enabled = false;
-                this.buttonBrowseFolder.Enabled = true;
+                buttonCancel.Enabled = false;
+                //buttonBrowseFolder.Enabled = true;
             }
         }
 
@@ -2353,7 +2351,11 @@ namespace FilmCollection
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
         {
-            OnImageSizeChanged(this, new ThumbnailImageEventArgs(ImageSize));
+            if (OnImageSizeChanged != null)
+            {
+                OnImageSizeChanged(this, new ThumbnailImageEventArgs(ImageSize));
+            }
+           
         }
 
         #endregion
