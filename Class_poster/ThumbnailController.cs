@@ -46,17 +46,11 @@ namespace FilmCollection
         {
             get
             {
-                lock (cancelScanningLock)
-                {
-                    return m_CancelScanning;
-                }
+                lock (cancelScanningLock) { return m_CancelScanning; }
             }
             set
             {
-                lock (cancelScanningLock)
-                {
-                    m_CancelScanning = value;
-                }
+                lock (cancelScanningLock) { m_CancelScanning = value; }
             }
         }
 
@@ -85,21 +79,18 @@ namespace FilmCollection
             // not using AllDirectories
             //string[] files = Directory.GetFiles(folderPath);
 
-            if (!Directory.Exists(folderPath))  // решение проблемы при отсутствии папки
-            {
-                return;
-            }
+            if (!Directory.Exists(folderPath)) return; // решение проблемы при отсутствии папки          
 
             List<string> files = new List<string>(Directory.GetFiles(folderPath));
             //files.Sort();
 
             string PicsNo = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "noPic.jpg");
+
             files.Remove(PicsNo);
 
             foreach (string file in files)
             {
                 if (CancelScanning) break;
-
 
                 Image img = null;
 
