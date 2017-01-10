@@ -2,6 +2,8 @@ using System;
 using System.Drawing;
 using System.Threading;
 using System.IO;
+using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace FilmCollection
 {
@@ -87,10 +89,17 @@ namespace FilmCollection
             if (CancelScanning) return;
 
             // not using AllDirectories
-            string[] files = Directory.GetFiles(folderPath);
+            //string[] files = Directory.GetFiles(folderPath);
+
+            List<string> files = new List<string>(Directory.GetFiles(folderPath));
+
+            string PicsNo = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "noPic.jpg");            
+            files.Remove(PicsNo);
+
             foreach (string file in files)
             {
                 if (CancelScanning) break;
+
 
                 Image img = null;
 
