@@ -11,7 +11,7 @@ namespace FilmCollection
     {
         public ThumbnailImageEventArgs(int size)
         {
-            this.Size = size;
+            Size = size;
         }
 
         public int Size;
@@ -92,6 +92,7 @@ namespace FilmCollection
             //string[] files = Directory.GetFiles(folderPath);
 
             List<string> files = new List<string>(Directory.GetFiles(folderPath));
+            //files.Sort();
 
             string PicsNo = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "noPic.jpg");            
             files.Remove(PicsNo);
