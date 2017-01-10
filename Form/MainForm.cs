@@ -2201,10 +2201,7 @@ namespace FilmCollection
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void lvSelectRecord_add(string name, int year, int id)
@@ -2267,7 +2264,7 @@ namespace FilmCollection
 
 
         #region Постеры
-     
+
         public event ThumbnailImageEventHandler OnImageSizeChanged;
         private ThumbnailController m_Controller { get; set; }
         private ImageViewer m_ActiveImageViewer { get; set; }
@@ -2351,11 +2348,11 @@ namespace FilmCollection
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
         {
-            if (OnImageSizeChanged != null)
-            {
-                OnImageSizeChanged(this, new ThumbnailImageEventArgs(ImageSize));
-            }
-           
+            //if (OnImageSizeChanged != null)
+            //{
+            //    OnImageSizeChanged(this, new ThumbnailImageEventArgs(ImageSize));
+            //}
+            OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
 
         #endregion
