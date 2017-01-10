@@ -26,6 +26,8 @@ namespace FilmCollection
         string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*";
         List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx" };
 
+        public string PicsFolder { get; } = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
+
         #region Главная форма (Main)
 
         public MainForm()                           //Конструктор формы
@@ -121,6 +123,7 @@ namespace FilmCollection
             }
             LoadFormVisualEffect();
             Form_Tooltip();
+            AddFolder();    // загрузка постеров
         }
 
         private void Form_Tooltip()     // Всплывающая подсказка
@@ -2281,7 +2284,7 @@ namespace FilmCollection
         private void AddFolder()
         {
             this.flowLayoutPanelMain.Controls.Clear();
-            m_Controller.AddFolder(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"));
+            m_Controller.AddFolder(PicsFolder);
             this.buttonCancel.Enabled = true;
             this.buttonBrowseFolder.Enabled = false;
 
