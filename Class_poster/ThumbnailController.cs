@@ -7,37 +7,40 @@ using System.Collections.Generic;
 
 namespace FilmCollection
 {
+    public delegate void ThumbnailImageEventHandler(object sender, ThumbnailImageEventArgs e);
+    public delegate void ThumbnailControllerEventHandler(object sender, ThumbnailControllerEventArgs e);
+
+
     public class ThumbnailImageEventArgs : EventArgs
     {
-        public ThumbnailImageEventArgs(int size)
+        public ThumbnailImageEventArgs(int _size)
         {
-            Size = size;
+            Size = _size;
         }
 
         public int Size;
     }
 
-    public delegate void ThumbnailImageEventHandler(object sender, ThumbnailImageEventArgs e);
-
-
-
     public class ThumbnailControllerEventArgs : EventArgs
     {
-        public ThumbnailControllerEventArgs(string imageFilename)
+        public ThumbnailControllerEventArgs(string _imageFilename)
         {
-            this.ImageFilename = imageFilename;
+            ImageFilename = _imageFilename;
         }
 
         public string ImageFilename;
     }
 
-
-    public delegate void ThumbnailControllerEventHandler(object sender, ThumbnailControllerEventArgs e);
-
     public class ThumbnailController
     {
+        public event ThumbnailControllerEventHandler OnStart;
+        public event ThumbnailControllerEventHandler OnAdd;
+        public event ThumbnailControllerEventHandler OnEnd;
+
         private bool m_CancelScanning;
         static readonly object cancelScanningLock = new object();
+
+        public ThumbnailController() { }
 
         public bool CancelScanning
         {
@@ -55,15 +58,6 @@ namespace FilmCollection
                     m_CancelScanning = value;
                 }
             }
-        }
-
-        public event ThumbnailControllerEventHandler OnStart;
-        public event ThumbnailControllerEventHandler OnAdd;
-        public event ThumbnailControllerEventHandler OnEnd;
-
-        public ThumbnailController()
-        {
-
         }
 
         public void AddFolder(string folderPath)
@@ -91,10 +85,15 @@ namespace FilmCollection
             // not using AllDirectories
             //string[] files = Directory.GetFiles(folderPath);
 
+            if (!Directory.Exists(folderPath))  // решение проблемы при отсутствии папки
+            {
+                return;
+            }
+
             List<string> files = new List<string>(Directory.GetFiles(folderPath));
             //files.Sort();
 
-            string PicsNo = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "noPic.jpg");            
+            string PicsNo = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "noPic.jpg");
             files.Remove(PicsNo);
 
             foreach (string file in files)
@@ -115,7 +114,7 @@ namespace FilmCollection
 
                 if (img != null)
                 {
-                    this.OnAdd(this, new ThumbnailControllerEventArgs(file));
+                    OnAdd(this, new ThumbnailControllerEventArgs(file));
 
                     img.Dispose();
                 }
