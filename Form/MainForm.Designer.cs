@@ -228,7 +228,6 @@
             this.label26 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonBrowseFolder = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
             this.flowLayoutPanelMain = new System.Windows.Forms.FlowLayoutPanel();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
@@ -2350,23 +2349,13 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(84, 3);
+            this.buttonCancel.Location = new System.Drawing.Point(6, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(146, 23);
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Cancel Scan Directory";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // buttonBrowseFolder
-            // 
-            this.buttonBrowseFolder.Location = new System.Drawing.Point(3, 3);
-            this.buttonBrowseFolder.Name = "buttonBrowseFolder";
-            this.buttonBrowseFolder.Size = new System.Drawing.Size(75, 23);
-            this.buttonBrowseFolder.TabIndex = 8;
-            this.buttonBrowseFolder.Text = "Browse...";
-            this.buttonBrowseFolder.UseVisualStyleBackColor = true;
-            this.buttonBrowseFolder.Click += new System.EventHandler(this.buttonBrowseFolder_Click);
             // 
             // panelMain
             // 
@@ -2567,7 +2556,6 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Controls.Add(this.buttonBrowseFolder);
             this.panel2.Controls.Add(this.buttonCancel);
             this.panel2.Controls.Add(this.trackBarSize);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -2877,7 +2865,6 @@
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.TrackBar trackBarSize;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Button buttonBrowseFolder;
         private System.Windows.Forms.Panel panel2;
     }
 }
