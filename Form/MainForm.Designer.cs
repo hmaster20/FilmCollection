@@ -249,6 +249,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -292,6 +293,7 @@
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -2336,21 +2338,19 @@
             // 
             // tabImage
             // 
-            this.tabImage.Controls.Add(this.buttonCancel);
-            this.tabImage.Controls.Add(this.buttonBrowseFolder);
+            this.tabImage.BackColor = System.Drawing.SystemColors.Control;
             this.tabImage.Controls.Add(this.panelMain);
-            this.tabImage.Controls.Add(this.trackBarSize);
+            this.tabImage.Controls.Add(this.panel2);
             this.tabImage.Location = new System.Drawing.Point(4, 22);
             this.tabImage.Name = "tabImage";
             this.tabImage.Padding = new System.Windows.Forms.Padding(3);
             this.tabImage.Size = new System.Drawing.Size(972, 614);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
-            this.tabImage.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(87, 6);
+            this.buttonCancel.Location = new System.Drawing.Point(84, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(146, 23);
             this.buttonCancel.TabIndex = 9;
@@ -2360,7 +2360,7 @@
             // 
             // buttonBrowseFolder
             // 
-            this.buttonBrowseFolder.Location = new System.Drawing.Point(6, 6);
+            this.buttonBrowseFolder.Location = new System.Drawing.Point(3, 3);
             this.buttonBrowseFolder.Name = "buttonBrowseFolder";
             this.buttonBrowseFolder.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowseFolder.TabIndex = 8;
@@ -2371,9 +2371,10 @@
             // panelMain
             // 
             this.panelMain.Controls.Add(this.flowLayoutPanelMain);
-            this.panelMain.Location = new System.Drawing.Point(6, 35);
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(3, 32);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(958, 543);
+            this.panelMain.Size = new System.Drawing.Size(966, 579);
             this.panelMain.TabIndex = 7;
             // 
             // flowLayoutPanelMain
@@ -2384,7 +2385,7 @@
             this.flowLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelMain.Name = "flowLayoutPanelMain";
-            this.flowLayoutPanelMain.Size = new System.Drawing.Size(958, 543);
+            this.flowLayoutPanelMain.Size = new System.Drawing.Size(966, 579);
             this.flowLayoutPanelMain.TabIndex = 0;
             // 
             // trackBarSize
@@ -2392,7 +2393,7 @@
             this.trackBarSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarSize.AutoSize = false;
             this.trackBarSize.LargeChange = 1;
-            this.trackBarSize.Location = new System.Drawing.Point(797, 6);
+            this.trackBarSize.Location = new System.Drawing.Point(834, 6);
             this.trackBarSize.Maximum = 2;
             this.trackBarSize.Name = "trackBarSize";
             this.trackBarSize.Size = new System.Drawing.Size(124, 23);
@@ -2563,6 +2564,20 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.buttonBrowseFolder);
+            this.panel2.Controls.Add(this.buttonCancel);
+            this.panel2.Controls.Add(this.trackBarSize);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(966, 29);
+            this.panel2.TabIndex = 10;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2636,6 +2651,7 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2862,6 +2878,7 @@
         private System.Windows.Forms.TrackBar trackBarSize;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonBrowseFolder;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
