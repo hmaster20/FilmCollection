@@ -1877,21 +1877,34 @@ namespace FilmCollection
         {
             string htmlPage = GetHtml("https://afisha.mail.ru/search/?q=" + media.Name);
 
-            MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
+            //MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
+            MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?p-poster__img.*?>)", RegexOptions.IgnoreCase);
+
+            // {<a href="/cinema/movies/432352_stalker/">Сталкер</a> (1979)</div></article>
+            // <article class="searchitem__item"><div class="p-poster margin_bottom_20">
+            // <a class="p-poster__img" href="/cinema/movies/857278_stalker/" style="background-image: url(https://pic.afisha.mail.ru/4309917/)">}
+
             for (int i = 0; i < mc.Count; i++)
             {
                 string PicWeb = "";
                 string Link_txt = "";
                 string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
+
                 for (int y = 0; y < subStrings.Length; y++)
                 {
-                    if (subStrings[y] == "background-image:url")
-                    {
+                    //if (subStrings[y] == "background-image:url")
+                        if (subStrings[y] == "background-image: url")
+                        {
                         ++y;
                         if (subStrings[y].Contains("http"))
                         {
-                            PicWeb = subStrings[y];
-                            Link_txt = subStrings[y - 5];
+                            PicWeb = subStrings[y];         //"https://pic.afisha.mail.ru/2536415/"
+                            //Link_txt = subStrings[y - 5];   //"/cinema/movies/432352_stalker/"
+                            Link_txt = subStrings[y - 3];   //"/cinema/movies/432352_stalker/"
+                            string tt = arrayPath.FindLast(p => p.StartsWith ("/cinema/"));
+                            string ts = arrayPath.FindLast(p => p.StartsWith("https://"));
+
                             break;
                         }
                     }
