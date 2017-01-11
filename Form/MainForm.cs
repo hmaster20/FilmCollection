@@ -1878,7 +1878,7 @@ namespace FilmCollection
             string htmlPage = GetHtml("https://afisha.mail.ru/search/?q=" + media.Name);
 
             //MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
-            //MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?p-poster__img.*?>)", RegexOptions.IgnoreCase);
+
             MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?>)", RegexOptions.IgnoreCase);
 
 
@@ -1888,13 +1888,13 @@ namespace FilmCollection
 
             for (int i = 0; i < mc.Count; i++)
             {
-                string PicWeb = "";
-                string Link_txt = "";
+                //string PicWeb = "";
+                //string Link_txt = "";
                 string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                 List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
 
-                PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
-                Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
+                string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
+                string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
                
 
                 //for (int y = 0; y < subStrings.Length; y++)
