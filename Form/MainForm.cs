@@ -1887,7 +1887,7 @@ namespace FilmCollection
 
             for (int i = 0; i < mc.Count; i++)
             {
-                string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                 List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
 
                 string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
@@ -1910,6 +1910,8 @@ namespace FilmCollection
 
             DownloadYear(media, sourcestring);
 
+            DownloadGenre(media, sourcestring);
+
             DownloadDescription(media, sourcestring);
 
             DownloadPic(media, sourcestring);
@@ -1919,7 +1921,7 @@ namespace FilmCollection
         {
             //return !string.IsNullOrEmpty(str) && !Regex.IsMatch(str, @"[^a-zA-z\d_]");
             return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я]+$");
-        }
+        }   
 
         private static void DownloadCountry(Media media, string sourcestring)
         {
@@ -1966,6 +1968,59 @@ namespace FilmCollection
             {
                 media.Year = Convert.ToInt32(year);
             }
+        }
+
+        private static void DownloadGenre(Media media, string sourcestring)
+        {
+            // Обработка жанра
+            MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
+
+            //string year = "";
+            //foreach (Match m in mcGenre)
+            //{
+            //    year = m.ToString();
+            //    year = year.Remove(0, m.Length - 4);
+            //    break;
+            //}
+
+            //for (int i = 0; i < mcGenre.Count; i++)
+            //{
+            //    // List<string> arrayPath = new List<string>(mcGenre[i].ToString().Split('"', '(', ')'));
+
+            //    List<string> arrayPath = new List<string>(mcGenre[i].ToString().Split('<', '>'));
+
+            //    string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
+            //    string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
+                     
+            //}
+
+            bool flag = false;
+            foreach (Match m in mcGenre)
+            {
+                MatchCollection mcCountry = Regex.Matches(m.ToString(), "(>.*?<)", RegexOptions.IgnoreCase);
+                foreach (Match mm in mcCountry)
+                {
+                    string strt = mm.ToString();
+                    strt = strt.Remove(0, strt.IndexOf('>') + 1);
+                    strt = strt.Remove(strt.IndexOf('<'), 1);
+                    if (StringIsValid(strt))
+                    {
+                        MessageBox.Show(strt);
+                        break;
+                                                //    try
+                                                //    { // может несколько стран
+                                                //        media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
+                                                //        flag = true;
+                                                //        break;// оставляем одну страну и выходим
+                                                //    }
+                                                //    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                    }
+                }
+                //if (flag) break;
+            }
+
+            // добавить проверку по enum GenreVideo_Rus
+
         }
 
         private static void DownloadDescription(Media media, string sourcestring)
