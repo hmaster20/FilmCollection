@@ -1881,48 +1881,38 @@ namespace FilmCollection
 
             MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?>)", RegexOptions.IgnoreCase);
 
-
             // {<a href="/cinema/movies/432352_stalker/">Сталкер</a> (1979)</div></article>
             // <article class="searchitem__item"><div class="p-poster margin_bottom_20">
             // <a class="p-poster__img" href="/cinema/movies/857278_stalker/" style="background-image: url(https://pic.afisha.mail.ru/4309917/)">}
 
             for (int i = 0; i < mc.Count; i++)
             {
-                //string PicWeb = "";
-                //string Link_txt = "";
                 string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                 List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
 
                 string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
                 string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
-               
-
-                //for (int y = 0; y < subStrings.Length; y++)
-                //{
-                //    //if (subStrings[y] == "background-image:url")
-                //        if (subStrings[y] == "background-image: url")
-                //        {
-                //        ++y;
-                //        if (subStrings[y].Contains("http"))
-                //        {
-                //            PicWeb = subStrings[y];         //"https://pic.afisha.mail.ru/2536415/"
-                //            //Link_txt = subStrings[y - 5];   //"/cinema/movies/432352_stalker/"
-                //            Link_txt = subStrings[y - 3];   //"/cinema/movies/432352_stalker/"
-                //            string tt = arrayPath.FindLast(p => p.StartsWith ("/cinema/") && p.EndsWith("/"));
-                //            string ts = arrayPath.FindLast(p => p.StartsWith("https://"));
-
-                //            break;
-                //        }
-                //    }
-                //}
 
                 if (PicWeb != "" && Link_txt != "") // для более полного соответствия искомому фильму
                 {
-                    DownInfoM("https://afisha.mail.ru" + Link_txt, media);
+                    DownloadAddon("https://afisha.mail.ru" + Link_txt, media);
                     return true;
                 }
             }
             return false;
+        }
+
+        private void DownloadAddon(string link, Media media)
+        {
+            string sourcestring = GetHtml(link);
+
+            DownloadCountry(media, sourcestring);
+
+            DownloadYear(media, sourcestring);
+
+            DownloadDescription(media, sourcestring);
+
+            DownloadPic(media, sourcestring);
         }
 
         public static bool StringIsValid(string str)
@@ -1931,10 +1921,8 @@ namespace FilmCollection
             return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я]+$");
         }
 
-        private void DownInfoM(string link, Media media)
+        private static void DownloadCountry(Media media, string sourcestring)
         {
-            string sourcestring = GetHtml(link);
-
             // Обработка страны
             MatchCollection mcCountries = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
 
@@ -1949,25 +1937,21 @@ namespace FilmCollection
                     strt = strt.Remove(strt.IndexOf('<'), 1);
                     if (StringIsValid(strt))
                     {
-                        //MessageBox.Show(strt); // может несколько стран
                         try
-                        {
+                        { // может несколько стран
                             media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
                             flag = true;
                             break;// оставляем одну страну и выходим
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); }
                     }
                 }
-                if (flag)
-                {
-                    break;
-                }
+                if (flag) break;
             }
+        }
 
+        private static void DownloadYear(Media media, string sourcestring)
+        {
             // Обработка года
             MatchCollection mcYear = Regex.Matches(sourcestring, "(itemevent__head__sep.*?<a href=.*?>[0-9]{4})", RegexOptions.IgnoreCase);
 
@@ -1982,7 +1966,10 @@ namespace FilmCollection
             {
                 media.Year = Convert.ToInt32(year);
             }
+        }
 
+        private static void DownloadDescription(Media media, string sourcestring)
+        {
             // Обработка описания
             MatchCollection mcDesc = Regex.Matches(sourcestring, @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
 
@@ -2012,8 +1999,10 @@ namespace FilmCollection
 
                 media.Description = str;
             }
-
-
+        }
+        
+        private void DownloadPic(Media media, string sourcestring)
+        {
             // Обработка картинки
             MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
 
@@ -2025,14 +2014,14 @@ namespace FilmCollection
                 if (PicPath != "")
                 {
                     if (File.Exists(GetFilename(media.Pic))) File.Delete(GetFilename(media.Pic));
-                    DownloadPic(PicPath, media.Name);
+                    DownloadPicBig(PicPath, media.Name);
                     media.Pic = media.Name;
                     break;
                 }
             }
-        }
+        }             
 
-        private void DownloadPic(string PicWeb, string Pic)
+        private void DownloadPicBig(string PicWeb, string Pic)
         {
             try
             {
