@@ -1991,15 +1991,42 @@ namespace FilmCollection
 
             //    string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
             //    string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
-                     
+
             //}
 
+            // Value = "itemevent__head__genre\" itemprop=\"genre\"><a href=\"/cinema/all/drama/\">драма</a> <a href=\"/cinema/all/detektiv/\">детектив</a> <a href=\"/cinema/all/kriminal/\">криминал</a> <a href=\"/cinema/all/fentezi/\">фэнтези</a></div><div class=\"movieabout__sl...
+                      
+
             bool flag = false;
+
             foreach (Match m in mcGenre)
             {
-                MatchCollection mcCountry = Regex.Matches(m.ToString(), "(>.*?<)", RegexOptions.IgnoreCase);
+
+
+                //MatchCollection mcCountry = Regex.Matches(m.ToString().Trim(), "(>.*?<)", RegexOptions.IgnoreCase);
+                MatchCollection mcCountry = Regex.Matches(m.ToString().Replace(" ", string.Empty), "(>.*?<)", RegexOptions.IgnoreCase);
+               
+
+                for (int i = 0; i < 10; i++)
+                {
+                    if (mcCountry[i].ToString() == "><")     continue;
+                
+                    string strt = mcCountry[i].ToString();
+                    strt = strt.Remove(0, strt.IndexOf('>') + 1);
+                    strt = strt.Remove(strt.IndexOf('<'), 1);
+                    if (StringIsValid(strt))
+                    {
+                        MessageBox.Show(strt);
+                        break;
+                    }
+                }
+
+                break;
+
+
                 foreach (Match mm in mcCountry)
                 {
+                    
                     string strt = mm.ToString();
                     strt = strt.Remove(0, strt.IndexOf('>') + 1);
                     strt = strt.Remove(strt.IndexOf('<'), 1);
