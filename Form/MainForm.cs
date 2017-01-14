@@ -1974,7 +1974,7 @@ namespace FilmCollection
         {
             // Обработка жанра
             //MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
-            MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?>)", RegexOptions.IgnoreCase);
+            MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?</a>)", RegexOptions.IgnoreCase);
 
             //string year = "";
             //foreach (Match m in mcGenre)
