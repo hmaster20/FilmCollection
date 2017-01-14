@@ -1719,7 +1719,7 @@ namespace FilmCollection
 
         private void cRenameFolder_Click(object sender, EventArgs e) => panelFolder.BringToFront();
 
-        private void ChangeCatalogTypeVideo_Click(object sender, EventArgs e)   // сделать каталог сериалом
+        private void ChangeCatalogTypeVideo_Click(object sender, EventArgs e)   // сделать каталог сериалом на основе записи
         {
             Record record = GetSelectedRecord();
             if (record == null)
@@ -1752,6 +1752,40 @@ namespace FilmCollection
 
                 PrepareRefresh(treeFolderPath, true);
             }
+        }
+
+
+        private void ChangeCatalogTypeVideo2_Click(object sender, EventArgs e)   // сделать каталог сериалом на основе имени каталога
+        {
+            string treeFolderPath = treeFolder.SelectedNode.FullPath;
+
+            Combine cmNew = new Combine();
+            //cmNew.media = record.combineLink.media;
+            //cmNew.media.Name = treeFolderPath;
+            cmNew.media.Name = Regex.Replace(treeFolderPath, @"[0-9]{4}", string.Empty);       // название без года
+
+            cmNew.media.Id = RecordCollection.GetMediaID();
+
+            cmNew.media.Category = CategoryVideo.Series;
+
+            List<Record> filtered = new List<Record>();
+            _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+
+            filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
+
+            foreach (Record rec in filtered)
+                cmNew.recordList.Add(rec);
+
+            foreach (Record rec in filtered)
+                _videoCollection.CombineList.Remove(rec.combineLink);
+
+            _videoCollection.CombineList.Add(cmNew);
+            _videoCollection.Save();
+
+
+            FormLoad();
+
+            PrepareRefresh(treeFolderPath, true);
         }
 
         private void UpdateCatalogInfo_Click(object sender, EventArgs e)
@@ -1875,11 +1909,39 @@ namespace FilmCollection
 
         private bool GetInfo(Media media)
         {
-            string htmlPage = GetHtml("https://afisha.mail.ru/search/?q=" + media.Name);
+            string webQuery;
+
+            if (media.Category == CategoryVideo.Series)
+            {
+                // webQuery = "https://afisha.mail.ru/search/?region_id=70&ent=20&q=";
+                webQuery = "https://afisha.mail.ru/search/?ent=20&q=";
+            }
+            else
+            {
+                webQuery = "https://afisha.mail.ru/search/?q=";
+            }
+
+            //string htmlPage = GetHtml("https://afisha.mail.ru/search/?q=" + media.Name);
+
+            string htmlPage = GetHtml(webQuery + media.Name);
+
 
             //MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
 
-            MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?>)", RegexOptions.IgnoreCase);
+            //MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?>)", RegexOptions.IgnoreCase);
+            //MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?</a>)", RegexOptions.IgnoreCase);
+
+            MatchCollection mc = Regex.Matches(htmlPage, "(p-poster__img.*?</a>)", RegexOptions.IgnoreCase);
+
+
+            //{<a class="searchmenu__item__link" href="/search/?region_id=70&amp;q=%D0%9B%D1%83%D1%87%D1%88%D0%B0%D1%8F%20%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B0
+            //%20%D0%BD%D0%B0%D1%88%D0%B5%D0%B9%20%D0%B6%D0%B8%D0%B7%D0%BD%D0%B8&amp;ent=20"><u class="searchmenu__item__link__name">Сериалы</u>
+            //<i class="searchmenu__item__link__count">1</i></a></span></div></div></div><!--5509--><!--/5509--><div class="block"><div class="wrapper">
+            //    <div class="hdr"><div class="hdr__wrapper"><span class="hdr__text"><span class="hdr__inner">Сериалы</span></span></div><span class="countyellow">1</span></div>
+            //    <section class="searchitem"><div class="searchitem__items clearin  searchitem__items_all">
+            //<article class="searchitem__item"><div class="p-poster margin_bottom_20"><i class="p-poster__stack"></i>
+            //    <a class="p-poster__img" href="/series_838303_luchshaya_doroga_nashei_zhizni/" style="background-image: url(https://pic.afisha.mail.ru/3176763/)"></a>}
+
 
             // {<a href="/cinema/movies/432352_stalker/">Сталкер</a> (1979)</div></article>
             // <article class="searchitem__item"><div class="p-poster margin_bottom_20">
@@ -1892,6 +1954,10 @@ namespace FilmCollection
 
                 string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
                 string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
+                if (Link_txt == null)
+                {
+                    Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
+                }
 
 
 
@@ -2043,8 +2109,8 @@ namespace FilmCollection
                     {
                         try
                         { // может несколько стран
-                            media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true); 
-                           // flag = true;
+                            media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true);
+                            // flag = true;
                             break;// оставляем одну страну и выходим
                         }
                         catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -2460,8 +2526,8 @@ namespace FilmCollection
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
 
-        #endregion
 
+        #endregion
 
     }
 }
