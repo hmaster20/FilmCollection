@@ -1921,7 +1921,7 @@ namespace FilmCollection
         {
             //return !string.IsNullOrEmpty(str) && !Regex.IsMatch(str, @"[^a-zA-z\d_]");
             return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я]+$");
-        }   
+        }
 
         private static void DownloadCountry(Media media, string sourcestring)
         {
@@ -1995,22 +1995,26 @@ namespace FilmCollection
             //}
 
             // Value = "itemevent__head__genre\" itemprop=\"genre\"><a href=\"/cinema/all/drama/\">драма</a> <a href=\"/cinema/all/detektiv/\">детектив</a> <a href=\"/cinema/all/kriminal/\">криминал</a> <a href=\"/cinema/all/fentezi/\">фэнтези</a></div><div class=\"movieabout__sl...
-                      
 
-            bool flag = false;
+
+           // bool flag = false;
 
             foreach (Match m in mcGenre)
             {
 
 
                 //MatchCollection mcCountry = Regex.Matches(m.ToString().Trim(), "(>.*?<)", RegexOptions.IgnoreCase);
-                MatchCollection mcCountry = Regex.Matches(m.ToString().Replace(" ", string.Empty), "(>.*?<)", RegexOptions.IgnoreCase);
-               
 
-                for (int i = 0; i < 10; i++)
+                //MatchCollection mcCountry = Regex.Matches(m.ToString().Replace(" ", string.Empty), "(>.*?<)", RegexOptions.IgnoreCase);
+
+                MatchCollection mcCountry = Regex.Matches(m.ToString(), "(>.*?<)", RegexOptions.IgnoreCase);
+
+                int arrayCount = (mcCountry.Count > 10) ? 10 : mcCountry.Count;
+
+                for (int i = 0; i < arrayCount; i++)
                 {
-                    if (mcCountry[i].ToString() == "><")     continue;
-                
+                    if (mcCountry[i].ToString() == "><") continue;
+
                     string strt = mcCountry[i].ToString();
                     strt = strt.Remove(0, strt.IndexOf('>') + 1);
                     strt = strt.Remove(strt.IndexOf('<'), 1);
@@ -2026,7 +2030,7 @@ namespace FilmCollection
 
                 foreach (Match mm in mcCountry)
                 {
-                    
+
                     string strt = mm.ToString();
                     strt = strt.Remove(0, strt.IndexOf('>') + 1);
                     strt = strt.Remove(strt.IndexOf('<'), 1);
@@ -2034,13 +2038,13 @@ namespace FilmCollection
                     {
                         MessageBox.Show(strt);
                         break;
-                                                //    try
-                                                //    { // может несколько стран
-                                                //        media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
-                                                //        flag = true;
-                                                //        break;// оставляем одну страну и выходим
-                                                //    }
-                                                //    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                        //    try
+                        //    { // может несколько стран
+                        //        media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
+                        //        flag = true;
+                        //        break;// оставляем одну страну и выходим
+                        //    }
+                        //    catch (Exception ex) { MessageBox.Show(ex.Message); }
                     }
                 }
                 //if (flag) break;
@@ -2082,7 +2086,7 @@ namespace FilmCollection
                 media.Description = str;
             }
         }
-        
+
         private void DownloadPic(Media media, string sourcestring)
         {
             // Обработка картинки
@@ -2101,7 +2105,7 @@ namespace FilmCollection
                     break;
                 }
             }
-        }             
+        }
 
         private void DownloadPicBig(string PicWeb, string Pic)
         {
