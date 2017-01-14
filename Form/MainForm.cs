@@ -1973,7 +1973,8 @@ namespace FilmCollection
         private static void DownloadGenre(Media media, string sourcestring)
         {
             // Обработка жанра
-            MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
+            //MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
+            MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?>)", RegexOptions.IgnoreCase);
 
             //string year = "";
             //foreach (Match m in mcGenre)
@@ -1997,56 +1998,42 @@ namespace FilmCollection
             // Value = "itemevent__head__genre\" itemprop=\"genre\"><a href=\"/cinema/all/drama/\">драма</a> <a href=\"/cinema/all/detektiv/\">детектив</a> <a href=\"/cinema/all/kriminal/\">криминал</a> <a href=\"/cinema/all/fentezi/\">фэнтези</a></div><div class=\"movieabout__sl...
 
 
-           // bool flag = false;
+            // bool flag = false;
 
             foreach (Match m in mcGenre)
             {
-
-
                 //MatchCollection mcCountry = Regex.Matches(m.ToString().Trim(), "(>.*?<)", RegexOptions.IgnoreCase);
-
                 //MatchCollection mcCountry = Regex.Matches(m.ToString().Replace(" ", string.Empty), "(>.*?<)", RegexOptions.IgnoreCase);
-
                 MatchCollection mcCountry = Regex.Matches(m.ToString(), "(>.*?<)", RegexOptions.IgnoreCase);
 
                 int arrayCount = (mcCountry.Count > 10) ? 10 : mcCountry.Count;
 
                 for (int i = 0; i < arrayCount; i++)
                 {
-                    if (mcCountry[i].ToString() == "><") continue;
+                    if (mcCountry[i].ToString().Replace(" ", string.Empty) == "><") continue;
 
-                    string strt = mcCountry[i].ToString();
+                    string strt = mcCountry[i].ToString().Replace(" ", string.Empty);
                     strt = strt.Remove(0, strt.IndexOf('>') + 1);
                     strt = strt.Remove(strt.IndexOf('<'), 1);
                     if (StringIsValid(strt))
                     {
-                        MessageBox.Show(strt);
-                        break;
+                        try
+                        { // может несколько стран
+                            media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true); 
+                           // flag = true;
+                            break;// оставляем одну страну и выходим
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message); }
                     }
                 }
 
                 break;
 
+                //foreach (var item in Enum.GetValues(typeof(GenreVideo_Rus)))
+                //{ cBoxGenre.Items.Add(item); }
 
-                foreach (Match mm in mcCountry)
-                {
+                //cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
 
-                    string strt = mm.ToString();
-                    strt = strt.Remove(0, strt.IndexOf('>') + 1);
-                    strt = strt.Remove(strt.IndexOf('<'), 1);
-                    if (StringIsValid(strt))
-                    {
-                        MessageBox.Show(strt);
-                        break;
-                        //    try
-                        //    { // может несколько стран
-                        //        media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
-                        //        flag = true;
-                        //        break;// оставляем одну страну и выходим
-                        //    }
-                        //    catch (Exception ex) { MessageBox.Show(ex.Message); }
-                    }
-                }
                 //if (flag) break;
             }
 
