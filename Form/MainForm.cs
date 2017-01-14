@@ -1893,13 +1893,37 @@ namespace FilmCollection
                 string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
                 string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
 
-                if (PicWeb != "" && Link_txt != "") // для более полного соответствия искомому фильму
+
+
+                if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
                 {
                     DownloadAddon("https://afisha.mail.ru" + Link_txt, media);
                     return true;
                 }
             }
             return false;
+
+
+
+            //for (int y = 0; y < subStrings.Length; y++)
+            //{
+            //    //if (subStrings[y] == "background-image:url")
+            //        if (subStrings[y] == "background-image: url")
+            //        {
+            //        ++y;
+            //        if (subStrings[y].Contains("http"))
+            //        {
+            //            PicWeb = subStrings[y];         //"https://pic.afisha.mail.ru/2536415/"
+            //            //Link_txt = subStrings[y - 5];   //"/cinema/movies/432352_stalker/"
+            //            Link_txt = subStrings[y - 3];   //"/cinema/movies/432352_stalker/"
+            //            string tt = arrayPath.FindLast(p => p.StartsWith ("/cinema/") && p.EndsWith("/"));
+            //            string ts = arrayPath.FindLast(p => p.StartsWith("https://"));
+
+            //            break;
+            //        }
+            //    }
+            //}
+
         }
 
         private void DownloadAddon(string link, Media media)
