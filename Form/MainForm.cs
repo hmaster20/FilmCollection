@@ -1762,7 +1762,7 @@ namespace FilmCollection
             Combine cmNew = new Combine();
             //cmNew.media = record.combineLink.media;
             //cmNew.media.Name = treeFolderPath;
-            cmNew.media.Name = Regex.Replace(treeFolderPath, @"[0-9]{4}", string.Empty);       // название без года
+            cmNew.media.Name = (Regex.Replace(treeFolderPath, @"[0-9]{4}", string.Empty)).Trim('.');       // название без года
 
             cmNew.media.Id = RecordCollection.GetMediaID();
 
@@ -1901,10 +1901,15 @@ namespace FilmCollection
 
         public static string GetHtml(string url)       //получение веб-страницы
         {
-            WebClient client = new WebClient();
-            using (Stream data = client.OpenRead(url))
-            using (StreamReader reader = new StreamReader(data))
-                return reader.ReadToEnd();
+            try
+            {
+                WebClient client = new WebClient();
+                using (Stream data = client.OpenRead(url))
+                using (StreamReader reader = new StreamReader(data))
+                    return reader.ReadToEnd();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            return "";
         }
 
         private bool GetInfo(Media media)
@@ -1918,7 +1923,8 @@ namespace FilmCollection
             }
             else
             {
-                webQuery = "https://afisha.mail.ru/search/?q=";
+                // webQuery = "https://afisha.mail.ru/search/?q=";
+                webQuery = "https://afisha.mail.ru/search/?ent=1&q=";
             }
 
             //string htmlPage = GetHtml("https://afisha.mail.ru/search/?q=" + media.Name);
