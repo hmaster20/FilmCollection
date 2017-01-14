@@ -227,9 +227,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
             this.flowLayoutPanelMain = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
@@ -248,7 +249,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.ChangeCatalogTypeVideo2 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -286,13 +287,13 @@
             this.groupBox3.SuspendLayout();
             this.tabImage.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.toolMainMenu.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTableRec
@@ -719,15 +720,16 @@
             this.toolStripSeparator7,
             this.UpdateCatalogInfo,
             this.toolStripSeparator11,
-            this.ChangeCatalogTypeVideo});
+            this.ChangeCatalogTypeVideo,
+            this.ChangeCatalogTypeVideo2});
             this.TreeMenu.Name = "contextTreeMenu";
-            this.TreeMenu.Size = new System.Drawing.Size(351, 188);
+            this.TreeMenu.Size = new System.Drawing.Size(370, 232);
             // 
             // сCollapseAll
             // 
             this.сCollapseAll.Image = global::FilmCollection.Properties.Resources.collapse;
             this.сCollapseAll.Name = "сCollapseAll";
-            this.сCollapseAll.Size = new System.Drawing.Size(350, 22);
+            this.сCollapseAll.Size = new System.Drawing.Size(369, 22);
             this.сCollapseAll.Text = "Свернуть все";
             this.сCollapseAll.Click += new System.EventHandler(this.сCollapseAll_Click);
             // 
@@ -735,71 +737,71 @@
             // 
             this.сExpandAll.Image = global::FilmCollection.Properties.Resources.expand;
             this.сExpandAll.Name = "сExpandAll";
-            this.сExpandAll.Size = new System.Drawing.Size(350, 22);
+            this.сExpandAll.Size = new System.Drawing.Size(369, 22);
             this.сExpandAll.Text = "Развернуть все";
             this.сExpandAll.Click += new System.EventHandler(this.сExpandAll_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(347, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(366, 6);
             // 
             // cExpandSelectNode
             // 
             this.cExpandSelectNode.Image = global::FilmCollection.Properties.Resources.expandNode;
             this.cExpandSelectNode.Name = "cExpandSelectNode";
-            this.cExpandSelectNode.Size = new System.Drawing.Size(350, 22);
+            this.cExpandSelectNode.Size = new System.Drawing.Size(369, 22);
             this.cExpandSelectNode.Text = "Развернуть ветку";
             this.cExpandSelectNode.Click += new System.EventHandler(this.cExpandSelectNode_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(347, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(366, 6);
             // 
             // cShowSelcetNodeAllFiles
             // 
             this.cShowSelcetNodeAllFiles.Image = global::FilmCollection.Properties.Resources.viewfiles;
             this.cShowSelcetNodeAllFiles.Name = "cShowSelcetNodeAllFiles";
-            this.cShowSelcetNodeAllFiles.Size = new System.Drawing.Size(350, 22);
+            this.cShowSelcetNodeAllFiles.Size = new System.Drawing.Size(369, 22);
             this.cShowSelcetNodeAllFiles.Text = "Отобразить все вложенные файлы";
             this.cShowSelcetNodeAllFiles.Click += new System.EventHandler(this.cShowSelcetNodeAllFiles_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(347, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(366, 6);
             // 
             // cRenameFolder
             // 
             this.cRenameFolder.Image = global::FilmCollection.Properties.Resources.FolderEdit;
             this.cRenameFolder.Name = "cRenameFolder";
-            this.cRenameFolder.Size = new System.Drawing.Size(350, 22);
+            this.cRenameFolder.Size = new System.Drawing.Size(369, 22);
             this.cRenameFolder.Text = "Переименовать";
             this.cRenameFolder.Click += new System.EventHandler(this.cRenameFolder_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(347, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(366, 6);
             // 
             // UpdateCatalogInfo
             // 
             this.UpdateCatalogInfo.Image = global::FilmCollection.Properties.Resources.grabber;
             this.UpdateCatalogInfo.Name = "UpdateCatalogInfo";
-            this.UpdateCatalogInfo.Size = new System.Drawing.Size(350, 22);
+            this.UpdateCatalogInfo.Size = new System.Drawing.Size(369, 22);
             this.UpdateCatalogInfo.Text = "Обновить информацию в каталоге";
             this.UpdateCatalogInfo.Click += new System.EventHandler(this.UpdateCatalogInfo_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(347, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(366, 6);
             // 
             // ChangeCatalogTypeVideo
             // 
             this.ChangeCatalogTypeVideo.Name = "ChangeCatalogTypeVideo";
-            this.ChangeCatalogTypeVideo.Size = new System.Drawing.Size(350, 22);
+            this.ChangeCatalogTypeVideo.Size = new System.Drawing.Size(369, 22);
             this.ChangeCatalogTypeVideo.Text = "Сделать каталог сериалом на основе выбранного";
             this.ChangeCatalogTypeVideo.Click += new System.EventHandler(this.ChangeCatalogTypeVideo_Click);
             // 
@@ -2347,16 +2349,6 @@
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(6, 3);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(146, 23);
-            this.buttonCancel.TabIndex = 9;
-            this.buttonCancel.Text = "Cancel Scan Directory";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // panelMain
             // 
             this.panelMain.Controls.Add(this.flowLayoutPanelMain);
@@ -2376,6 +2368,29 @@
             this.flowLayoutPanelMain.Name = "flowLayoutPanelMain";
             this.flowLayoutPanelMain.Size = new System.Drawing.Size(966, 579);
             this.flowLayoutPanelMain.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.buttonCancel);
+            this.panel2.Controls.Add(this.trackBarSize);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(966, 29);
+            this.panel2.TabIndex = 10;
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(6, 3);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(146, 23);
+            this.buttonCancel.TabIndex = 9;
+            this.buttonCancel.Text = "Cancel Scan Directory";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // trackBarSize
             // 
@@ -2553,18 +2568,12 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // panel2
+            // ChangeCatalogTypeVideo2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Controls.Add(this.buttonCancel);
-            this.panel2.Controls.Add(this.trackBarSize);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(3);
-            this.panel2.Size = new System.Drawing.Size(966, 29);
-            this.panel2.TabIndex = 10;
+            this.ChangeCatalogTypeVideo2.Name = "ChangeCatalogTypeVideo2";
+            this.ChangeCatalogTypeVideo2.Size = new System.Drawing.Size(369, 22);
+            this.ChangeCatalogTypeVideo2.Text = "Сделать каталог сериалом на основе имени каталога";
+            this.ChangeCatalogTypeVideo2.Click += new System.EventHandler(this.ChangeCatalogTypeVideo2_Click);
             // 
             // MainForm
             // 
@@ -2632,6 +2641,7 @@
             this.groupBox3.PerformLayout();
             this.tabImage.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).EndInit();
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
@@ -2639,7 +2649,6 @@
             this.scMain.ResumeLayout(false);
             this.toolMainMenu.ResumeLayout(false);
             this.toolMainMenu.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2866,6 +2875,7 @@
         private System.Windows.Forms.TrackBar trackBarSize;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripMenuItem ChangeCatalogTypeVideo2;
     }
 }
 
