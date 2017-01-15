@@ -1401,84 +1401,38 @@ namespace FilmCollection
 
         private void CreateTree()       // Построение дерева
         {
-            List<Record> list = new List<Record>();
-            _videoCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
+            treeFolder.Nodes.Clear();                                  // Очистка дерева
+            int SourceLength = _videoCollection.Options.Source.Length; // Получение длинны пути
 
-            List<string> str = new List<string>();
+            List<Record> listRecord = new List<Record>();
+            _videoCollection.CombineList.ForEach(combine => listRecord.AddRange(combine.recordList));
 
-            foreach (var item in list)
-            {
-                if (item.Visible == true) str.Add(item.Path);
-            }
+            List<string> listPath = new List<string>();
 
-            List<string> str2 = str.Distinct().ToList();
-            str2.Sort();
+            foreach (Record rec in listRecord)
+                if (rec.Visible == true)
+                    listPath.Add(rec.Path);
 
-            List<string> str3 = new List<string>();
+            List<string> listPathDistinct = listPath.Distinct().ToList();
 
-            int SourceLength = _videoCollection.Options.Source.Length;
+            listPathDistinct.Sort();
 
-            str3.Add("Фильмотека");
+            List<string> listForTreeView = new List<string>() { "Фильмотека" };
+            
+            //listForTreeView.Add("Фильмотека");
 
             try
             {
-                for (int i = 0; i < str2.Count; i++)
+                for (int i = 0; i < listPathDistinct.Count; i++)
                 {
-                    if (str2[i].Substring(SourceLength).Length > 0)
-                        str3.Add(str2[i].Substring(SourceLength + 1));
+                    if (listPathDistinct[i].Substring(SourceLength).Length > 0)
+                        listForTreeView.Add(listPathDistinct[i].Substring(SourceLength + 1));   //Обрезка строку путь C:\temp\1\11 -> 1\11
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
-            //List<string> str2 = new List<string>(); 
-            //str2.AddRange(str.Distinct());
+            PopulateTreeView(treeFolder, listForTreeView, Path.DirectorySeparatorChar, listForTreeView.Count);
 
-            // Get distinct elements and convert into a list again.
-            //List<int> distinct = list.Distinct().ToList();
-
-
-
-
-
-            //=================================================================================================================
-
-            //XmlDocument doc = new XmlDocument();
-            //doc.Load(RecordOptions.BaseName);                // Получения файла базы
-
-            //int SourceLength = _videoCollection.Options.Source.Length;  // Получение длинны пути
-
-            //XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
-
-            //treeFolder.Nodes.Clear();                                       // Очистка дерева
-
-            //var paths = new List<string>();                                 // Создание списка
-            //paths.Add("Фильмотека");
-
-            //foreach (XmlNode node in nodeList)                              // Заполнение списка для формирования дерева
-            //{
-            //    try
-            //    {
-            //        string temp = "";
-            //        if (node.ChildNodes[0].Value.Length > SourceLength)     // длинна патча, не должна превышать полного пути к директории
-            //            if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
-            //            {
-            //                temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-            //                if (temp.Length != 0)
-            //                {
-            //                    string tt = node.ChildNodes[0].Value.Substring(SourceLength + 1);
-            //                    if (!paths.Exists(x => x == tt)) paths.Add(tt);
-            //                }
-            //            }
-            //    }
-            //    catch (NullReferenceException e)
-            //    {
-            //        MessageBox.Show(e.Message + " " + node.Name + " - не заполнен!");
-            //    }
-            //}
-
-            PopulateTreeView(treeFolder, str3, Path.DirectorySeparatorChar, str3.Count);
-
-            //PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar, paths.Count);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
             // TreeFast(paths);
         }
@@ -1744,7 +1698,9 @@ namespace FilmCollection
                 treeFolder.SelectedNode = treeFolder.GetNodeAt(e.X, e.Y);
                 if (treeFolder.SelectedNode != null) // && treeFolder.SelectedNode.Parent == null)
                 {
+                    TreeMenu.Items[7].Enabled = (treeFolder.SelectedNode.Text == "Фильмотека") ? false : true;
                     TreeMenu.Items[11].Enabled = (treeFolder.SelectedNode.Text == "Фильмотека") ? false : true;
+                    TreeMenu.Items[12].Enabled = (treeFolder.SelectedNode.Text == "Фильмотека") ? false : true;
                     TreeMenu.Show(treeFolder, e.Location);
                 }
             }
