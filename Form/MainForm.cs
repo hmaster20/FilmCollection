@@ -542,10 +542,9 @@ namespace FilmCollection
                                                   "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialog == DialogResult.Yes)
             {
-                //_videoCollection.Remove(record);
+                record.combineLink.recordList.Remove(record);
                 _videoCollection.Save();
-                dgvTableRec.ClearSelection();
-                PrepareRefresh();
+                FormLoad();
             }
         }
 
@@ -1418,7 +1417,7 @@ namespace FilmCollection
             listPathDistinct.Sort();
 
             List<string> listForTreeView = new List<string>() { "Фильмотека" };
-            
+
             //listForTreeView.Add("Фильмотека");
 
             try
@@ -2138,11 +2137,39 @@ namespace FilmCollection
         private static void DownloadDescription(Media media, string sourcestring)
         {
             // Обработка описания
-            MatchCollection mcDesc = Regex.Matches(sourcestring, @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+            // MatchCollection mcDesc = Regex.Matches(sourcestring, @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
+            MatchCollection mcDesc = Regex.Matches(sourcestring, @"(movieabout__info__descr__txt.*?</div>)", RegexOptions.IgnoreCase);
+
+            /*
+             * {<div class="movieabout__info__descr__txt" itemprop="description">
+             * <p class="MsoNormal">Премия Дарвина&nbsp;&mdash; виртуальная премия, которая ежегодно присуждается людям, умершим или покалечившимся (и&nbsp;лишившимся 
+             * возможности иметь потомство) наиболее идиотским способом. Главные герои картины&nbsp;&mdash; бывший полицейский Марк Берроуз (Джозеф Файнс) 
+             * и&nbsp;следователь страховой компании Сири Тейлор (Вайнона Райдер) ведут расследования дел-номинантов премии Дарвина, чтобы выяснить, должна ли компания 
+             * выплачивать страховку. Помимо этого, им придется встретиться с&nbsp;убийцей, которого когда-то&nbsp;упустил Марк.</p>}
+             * 
+             * {movieabout__info__descr__txt" itemprop="description"><p class="MsoNormal">
+             * Премия Дарвина&nbsp;&mdash; виртуальная премия, которая ежегодно присуждается людям, умершим или покалечившимся (и&nbsp;лишившимся возможности иметь потомство) 
+             * наиболее идиотским способом. Главные герои картины&nbsp;&mdash; бывший полицейский Марк Берроуз (Джозеф Файнс) и&nbsp;следователь страховой компании Сири Тейлор 
+             * (Вайнона Райдер) ведут расследования дел-номинантов премии Дарвина, чтобы выяснить, должна ли компания выплачивать страховку. Помимо этого, им придется встретиться 
+             * с&nbsp;убийцей, которого когда-то&nbsp;упустил Марк.</p></div>}
+             */
+
 
             foreach (Match m in mcDesc)
             {
                 string str = m.ToString();
+
+                try
+                {
+                    if (-1 != str.IndexOf("<p"))
+                    {
+                        str = str.Remove(0, str.IndexOf("<p"));
+                        if (-1 != str.IndexOf(">"))
+                            str = str.Remove(0, str.IndexOf(">")+1);
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
+
                 str = Regex.Replace(str, "&nbsp;", " ");
                 str = Regex.Replace(str, "&mdash;", "-");
                 str = Regex.Replace(str, "&laquo;", "\"");
@@ -2154,17 +2181,20 @@ namespace FilmCollection
                 str = Regex.Replace(str, "<br/>", "");
                 str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
 
-                try
-                {
-                    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));
-                    str = str.Remove(0, str.LastIndexOf("<p>") + 3);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                str = Regex.Replace(str, "<p>", "");
+                str = Regex.Replace(str, "</p>", "");
+                str = Regex.Replace(str, "</div>", "");
 
-                media.Description = str;
+                //try
+                //{
+                //    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));                                      
+
+                //    if (-1 != str.LastIndexOf("<p>"))
+                //        str = str.Remove(0, str.LastIndexOf("<p>") + 3);                    
+                //}
+                //catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+                media.Description = str.Trim();
             }
         }
 
