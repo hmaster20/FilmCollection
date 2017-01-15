@@ -116,9 +116,9 @@
             this.panelView = new System.Windows.Forms.Panel();
             this.lbActors = new System.Windows.Forms.ListBox();
             this.lblRecDescription = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblRecRole = new System.Windows.Forms.Label();
+            this.lblRecCountry = new System.Windows.Forms.Label();
+            this.lblRecYear = new System.Windows.Forms.Label();
             this.lblRecName = new System.Windows.Forms.Label();
             this.tbfDesc = new System.Windows.Forms.TextBox();
             this.tbfCountry = new System.Windows.Forms.TextBox();
@@ -709,8 +709,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2MinSize = 200;
@@ -1158,9 +1158,9 @@
             this.panelView.Controls.Add(this.pbImage);
             this.panelView.Controls.Add(this.btnPlay);
             this.panelView.Controls.Add(this.lblRecDescription);
-            this.panelView.Controls.Add(this.label18);
-            this.panelView.Controls.Add(this.label5);
-            this.panelView.Controls.Add(this.label4);
+            this.panelView.Controls.Add(this.lblRecRole);
+            this.panelView.Controls.Add(this.lblRecCountry);
+            this.panelView.Controls.Add(this.lblRecYear);
             this.panelView.Controls.Add(this.lblRecName);
             this.panelView.Controls.Add(this.tbfDesc);
             this.panelView.Controls.Add(this.tbfCountry);
@@ -1194,38 +1194,38 @@
             this.lblRecDescription.TabIndex = 4;
             this.lblRecDescription.Text = " Описание:";
             // 
-            // label18
+            // lblRecRole
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label18.Location = new System.Drawing.Point(11, 115);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(121, 17);
-            this.label18.TabIndex = 3;
-            this.label18.Text = "Роли исполняют:";
+            this.lblRecRole.AutoSize = true;
+            this.lblRecRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecRole.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecRole.Location = new System.Drawing.Point(11, 115);
+            this.lblRecRole.Name = "lblRecRole";
+            this.lblRecRole.Size = new System.Drawing.Size(121, 17);
+            this.lblRecRole.TabIndex = 3;
+            this.lblRecRole.Text = "Роли исполняют:";
             // 
-            // label5
+            // lblRecCountry
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(10, 75);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 17);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Страна:";
+            this.lblRecCountry.AutoSize = true;
+            this.lblRecCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecCountry.Location = new System.Drawing.Point(10, 75);
+            this.lblRecCountry.Name = "lblRecCountry";
+            this.lblRecCountry.Size = new System.Drawing.Size(60, 17);
+            this.lblRecCountry.TabIndex = 3;
+            this.lblRecCountry.Text = "Страна:";
             // 
-            // label4
+            // lblRecYear
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(9, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 17);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Год:";
+            this.lblRecYear.AutoSize = true;
+            this.lblRecYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecYear.Location = new System.Drawing.Point(9, 53);
+            this.lblRecYear.Name = "lblRecYear";
+            this.lblRecYear.Size = new System.Drawing.Size(36, 17);
+            this.lblRecYear.TabIndex = 3;
+            this.lblRecYear.Text = "Год:";
             // 
             // lblRecName
             // 
@@ -1248,7 +1248,8 @@
             this.tbfDesc.Multiline = true;
             this.tbfDesc.Name = "tbfDesc";
             this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.Size = new System.Drawing.Size(334, 260);
+            this.tbfDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbfDesc.Size = new System.Drawing.Size(334, 240);
             this.tbfDesc.TabIndex = 8;
             // 
             // tbfCountry
@@ -2276,7 +2277,7 @@
             this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
             this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(5, 655);
+            this.btnPlay.Location = new System.Drawing.Point(12, 310);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(111, 23);
             this.btnPlay.TabIndex = 6;
@@ -2744,8 +2745,8 @@
         private System.Windows.Forms.ToolStripMenuItem cExpandSelectNode;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem cShowSelcetNodeAllFiles;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblRecCountry;
+        private System.Windows.Forms.Label lblRecYear;
         private System.Windows.Forms.TextBox tbfCountry;
         private System.Windows.Forms.TextBox tbfYear;
         private System.Windows.Forms.ToolStripMenuItem MenuChange;
@@ -2867,7 +2868,7 @@
         private System.Windows.Forms.TextBox tbFIOv;
         private System.Windows.Forms.TextBox tbCountryAv;
         private System.Windows.Forms.ListBox lbActors;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblRecRole;
         private System.Windows.Forms.ComboBox cbNameMedia;
         private System.Windows.Forms.CheckBox checkNewRecord;
         private System.Windows.Forms.Label lblFilePath;
