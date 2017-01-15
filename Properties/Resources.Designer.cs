@@ -213,6 +213,16 @@ namespace FilmCollection.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fileSelect {
+            get {
+                object obj = ResourceManager.GetObject("fileSelect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap FilmCollection {
             get {
                 object obj = ResourceManager.GetObject("FilmCollection", resourceCulture);
@@ -246,6 +256,16 @@ namespace FilmCollection.Properties {
         internal static System.Drawing.Bitmap FolderEdit {
             get {
                 object obj = ResourceManager.GetObject("FolderEdit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folderSelect {
+            get {
+                object obj = ResourceManager.GetObject("folderSelect", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
