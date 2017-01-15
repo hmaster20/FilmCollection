@@ -1408,10 +1408,7 @@ namespace FilmCollection
 
             foreach (var item in list)
             {
-                if (item.Visible == true)
-                {
-                    str.Add(item.Path);
-                }              
+                if (item.Visible == true) str.Add(item.Path);
             }
 
             List<string> str2 = str.Distinct().ToList();
@@ -1423,19 +1420,15 @@ namespace FilmCollection
 
             str3.Add("Фильмотека");
 
-            for (int i = 0; i < str2.Count; i++)
+            try
             {
-                if (str2[i].Substring(SourceLength).Length > 0)
+                for (int i = 0; i < str2.Count; i++)
                 {
-                    //str3.Add(str2[i].Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar));
-                    //if (-1 != str2[i].Substring(SourceLength + 1).IndexOf(Path.DirectorySeparatorChar))
+                    if (str2[i].Substring(SourceLength).Length > 0)
                         str3.Add(str2[i].Substring(SourceLength + 1));
                 }
-               
-         
             }
-
-            
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
 
             //List<string> str2 = new List<string>(); 
             //str2.AddRange(str.Distinct());
@@ -1445,42 +1438,43 @@ namespace FilmCollection
 
 
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(RecordOptions.BaseName);                // Получения файла базы
+
+
+            //=================================================================================================================
+
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load(RecordOptions.BaseName);                // Получения файла базы
+
             //int SourceLength = _videoCollection.Options.Source.Length;  // Получение длинны пути
 
-            XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
-            
-            // Remove all duplicate XML elements
-            //XElement[] uniqueCD = (from cd in xdoc.Root.Descendants("CD") select cd).Distinct(new XElementComparer()).ToArray();
+            //XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
 
+            //treeFolder.Nodes.Clear();                                       // Очистка дерева
 
-            treeFolder.Nodes.Clear();                                       // Очистка дерева
+            //var paths = new List<string>();                                 // Создание списка
+            //paths.Add("Фильмотека");
 
-            var paths = new List<string>();                                 // Создание списка
-            paths.Add("Фильмотека");
-
-            foreach (XmlNode node in nodeList)                              // Заполнение списка для формирования дерева
-            {
-                try
-                {
-                    string temp = "";
-                    if (node.ChildNodes[0].Value.Length > SourceLength)     // длинна патча, не должна превышать полного пути к директории
-                        if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
-                        {
-                            temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                            if (temp.Length != 0)
-                            {
-                                string tt = node.ChildNodes[0].Value.Substring(SourceLength + 1);
-                                if (!paths.Exists(x => x == tt)) paths.Add(tt);
-                            }
-                        }
-                }
-                catch (NullReferenceException e)
-                {
-                    MessageBox.Show(e.Message + " " + node.Name + " - не заполнен!");
-                }
-            }
+            //foreach (XmlNode node in nodeList)                              // Заполнение списка для формирования дерева
+            //{
+            //    try
+            //    {
+            //        string temp = "";
+            //        if (node.ChildNodes[0].Value.Length > SourceLength)     // длинна патча, не должна превышать полного пути к директории
+            //            if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
+            //            {
+            //                temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+            //                if (temp.Length != 0)
+            //                {
+            //                    string tt = node.ChildNodes[0].Value.Substring(SourceLength + 1);
+            //                    if (!paths.Exists(x => x == tt)) paths.Add(tt);
+            //                }
+            //            }
+            //    }
+            //    catch (NullReferenceException e)
+            //    {
+            //        MessageBox.Show(e.Message + " " + node.Name + " - не заполнен!");
+            //    }
+            //}
 
             PopulateTreeView(treeFolder, str3, Path.DirectorySeparatorChar, str3.Count);
 
@@ -1714,7 +1708,7 @@ namespace FilmCollection
 
 
 
-      
+
             int cc = 0;
             TreeNode lastNode = null;
             string subPathAgg;
