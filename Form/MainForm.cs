@@ -2048,29 +2048,7 @@ namespace FilmCollection
             //MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
             MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?</a>)", RegexOptions.IgnoreCase);
 
-            //string year = "";
-            //foreach (Match m in mcGenre)
-            //{
-            //    year = m.ToString();
-            //    year = year.Remove(0, m.Length - 4);
-            //    break;
-            //}
-
-            //for (int i = 0; i < mcGenre.Count; i++)
-            //{
-            //    // List<string> arrayPath = new List<string>(mcGenre[i].ToString().Split('"', '(', ')'));
-
-            //    List<string> arrayPath = new List<string>(mcGenre[i].ToString().Split('<', '>'));
-
-            //    string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
-            //    string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
-
-            //}
-
             // Value = "itemevent__head__genre\" itemprop=\"genre\"><a href=\"/cinema/all/drama/\">драма</a> <a href=\"/cinema/all/detektiv/\">детектив</a> <a href=\"/cinema/all/kriminal/\">криминал</a> <a href=\"/cinema/all/fentezi/\">фэнтези</a></div><div class=\"movieabout__sl...
-
-
-            // bool flag = false;
 
             foreach (Match m in mcGenre)
             {
@@ -2092,25 +2070,13 @@ namespace FilmCollection
                         try
                         { // может несколько стран
                             media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true);
-                            // flag = true;
                             break;// оставляем одну страну и выходим
                         }
                         catch (Exception ex) { MessageBox.Show(ex.Message); }
                     }
                 }
-
                 break;
-
-                //foreach (var item in Enum.GetValues(typeof(GenreVideo_Rus)))
-                //{ cBoxGenre.Items.Add(item); }
-
-                //cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
-
-                //if (flag) break;
             }
-
-            // добавить проверку по enum GenreVideo_Rus
-
         }
 
         private static void DownloadDescription(Media media, string sourcestring)
@@ -2121,18 +2087,8 @@ namespace FilmCollection
 
             /*
              * {<div class="movieabout__info__descr__txt" itemprop="description">
-             * <p class="MsoNormal">Премия Дарвина&nbsp;&mdash; виртуальная премия, которая ежегодно присуждается людям, умершим или покалечившимся (и&nbsp;лишившимся 
-             * возможности иметь потомство) наиболее идиотским способом. Главные герои картины&nbsp;&mdash; бывший полицейский Марк Берроуз (Джозеф Файнс) 
-             * и&nbsp;следователь страховой компании Сири Тейлор (Вайнона Райдер) ведут расследования дел-номинантов премии Дарвина, чтобы выяснить, должна ли компания 
-             * выплачивать страховку. Помимо этого, им придется встретиться с&nbsp;убийцей, которого когда-то&nbsp;упустил Марк.</p>}
-             * 
-             * {movieabout__info__descr__txt" itemprop="description"><p class="MsoNormal">
-             * Премия Дарвина&nbsp;&mdash; виртуальная премия, которая ежегодно присуждается людям, умершим или покалечившимся (и&nbsp;лишившимся возможности иметь потомство) 
-             * наиболее идиотским способом. Главные герои картины&nbsp;&mdash; бывший полицейский Марк Берроуз (Джозеф Файнс) и&nbsp;следователь страховой компании Сири Тейлор 
-             * (Вайнона Райдер) ведут расследования дел-номинантов премии Дарвина, чтобы выяснить, должна ли компания выплачивать страховку. Помимо этого, им придется встретиться 
-             * с&nbsp;убийцей, которого когда-то&nbsp;упустил Марк.</p></div>}
+             * <p class="MsoNormal">Премия Марк.</p>}
              */
-
 
             foreach (Match m in mcDesc)
             {
@@ -2163,15 +2119,6 @@ namespace FilmCollection
                 str = Regex.Replace(str, "<p>", "");
                 str = Regex.Replace(str, "</p>", "");
                 str = Regex.Replace(str, "</div>", "");
-
-                //try
-                //{
-                //    str = str.Remove(str.LastIndexOf("</p>"), str.Length - str.LastIndexOf("</p>"));                                      
-
-                //    if (-1 != str.LastIndexOf("<p>"))
-                //        str = str.Remove(0, str.LastIndexOf("<p>") + 3);                    
-                //}
-                //catch (Exception ex) { MessageBox.Show(ex.Message); }
 
                 media.Description = str.Trim();
             }
