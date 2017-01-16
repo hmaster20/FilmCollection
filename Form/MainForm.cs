@@ -1400,50 +1400,17 @@ namespace FilmCollection
         {
             treeFolder.Nodes.Clear();                                  // Очистка дерева
             int SourceLength = _videoCollection.Options.Source.Length; // Получение длинны пути
+            
+            var test = (from cm in _videoCollection.CombineList
+                        let recList = cm.recordList
+                        from rec in recList
+                        where rec.Visible == true   //orderby rec
+                        select rec.Path).Distinct<string>().OrderBy(name => name);
 
-            List<Record> listRecord = new List<Record>();
-            _videoCollection.CombineList.ForEach(combine => listRecord.AddRange(combine.recordList));
-
-            // var test = listRecord.Where(n => n.Visible == true).Select(r => r).OrderBy(s => s).Distinct();
-            // var test = listRecord.Where(n => n.Visible == true).Select(r => r);
-            // _videoCollection.CombineList.Where(n => n..Visible == true).Select(r => r);
-
-            var test = (from rr in _videoCollection.CombineList
-                       let chrList = rr.recordList
-                       from ch in chrList
-                       where ch.Visible == true
-                       orderby ch
-                       select ch).Distinct();
-
-
-
-
-            List<string> listPath = new List<string>();
-
-            foreach (Record rec in listRecord)
-                if (rec.Visible == true)
-                    listPath.Add(rec.Path);
-
-            List<string> listPathDistinct = listPath.Distinct().ToList();
-
-            listPathDistinct.Sort();
-
-            List<string> listForTreeView = new List<string>() { "Фильмотека" };
-
-            //listForTreeView.Add("Фильмотека");
-
-            try
-            {
-                for (int i = 0; i < listPathDistinct.Count; i++)
-                {
-                    if (listPathDistinct[i].Substring(SourceLength).Length > 0)
-                        listForTreeView.Add(listPathDistinct[i].Substring(SourceLength + 1));   //Обрезка строку путь C:\temp\1\11 -> 1\11
-                }
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-            PopulateTreeView(treeFolder, listForTreeView, Path.DirectorySeparatorChar, listForTreeView.Count);
-
+            List<string> pathList = new List<string>() { "Фильмотека" };
+            pathList.AddRange(test.Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList()); //Обрезка пути C:\temp\1\11 -> 1\11  
+      
+            PopulateTreeView(treeFolder, pathList, Path.DirectorySeparatorChar, pathList.Count);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
             // TreeFast(paths);
         }
