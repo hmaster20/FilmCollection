@@ -655,8 +655,6 @@ namespace FilmCollection
 
         private void PrepareRefresh(bool flag = false, int column = -1)
         {
-
-
             Record selected = GetSelectedRecord();
 
             // List<Record> filtered = _videoCollection.VideoList;
@@ -1405,6 +1403,20 @@ namespace FilmCollection
 
             List<Record> listRecord = new List<Record>();
             _videoCollection.CombineList.ForEach(combine => listRecord.AddRange(combine.recordList));
+
+            // var test = listRecord.Where(n => n.Visible == true).Select(r => r).OrderBy(s => s).Distinct();
+            // var test = listRecord.Where(n => n.Visible == true).Select(r => r);
+            // _videoCollection.CombineList.Where(n => n..Visible == true).Select(r => r);
+
+            var test = (from rr in _videoCollection.CombineList
+                       let chrList = rr.recordList
+                       from ch in chrList
+                       where ch.Visible == true
+                       orderby ch
+                       select ch).Distinct();
+
+
+
 
             List<string> listPath = new List<string>();
 
