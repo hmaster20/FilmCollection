@@ -118,12 +118,35 @@ namespace FilmCollection
                     tssLabel.Text = "Коллекция из " + _videoCollection.CombineList.Count.ToString() + " элементов";
                     PrepareRefresh();
                     CreateTree();
+
+                    ChangeStatusMenuButton(true);
                 }
+                else
+                {
+                    ChangeStatusMenuButton(false);
+                }
+
                 timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
+
+                LoadFormVisualEffect();
+                Form_Tooltip();
+                AddFolder();    // загрузка постеров               
             }
-            LoadFormVisualEffect();
-            Form_Tooltip();
-            AddFolder();    // загрузка постеров
+            else
+            {
+                ChangeStatusMenuButton(false);
+            }
+
+
+        }
+
+        private void ChangeStatusMenuButton(bool state)
+        {
+            tsAdd.Enabled = state;
+            tsChange.Enabled = state;
+            tsRemove.Enabled = state;
+            tsFind.Enabled = state;
+            tsFindbyName.Enabled = state;
         }
 
         private void Form_Tooltip()     // Всплывающая подсказка
@@ -219,6 +242,7 @@ namespace FilmCollection
 
             if (dialogStatus == DialogResult.OK)
                 CreateBase(fbDialog);   // создание базы
+            ChangeStatusMenuButton(false);
         }
 
         private void isExistBase()
@@ -997,20 +1021,6 @@ namespace FilmCollection
                 panelEdit.BringToFront();   // Отображаем панель редактирования
 
                 // добавить блокировку tabControl2
-
-
-                //Record record = new Record();
-                //record.FileName = newFile.Name;
-                //record.Path = newFile.DirectoryName;
-
-                //foreach (Record item in _videoCollection.VideoList)
-                //{
-                //    if (item.Equals(record))
-                //    {
-                //        MessageBox.Show("Файл " + record.FileName + " уже есть в базе!");
-                //        return; // Выходим из метода
-                //    }
-                //}
             }
         }
 
@@ -2087,7 +2097,6 @@ namespace FilmCollection
 
             /*
              * {<div class="movieabout__info__descr__txt" itemprop="description">
-             * <p class="MsoNormal">Премия Марк.</p>}
              */
 
             foreach (Match m in mcDesc)
@@ -2115,6 +2124,7 @@ namespace FilmCollection
                 str = Regex.Replace(str, "</span>", "");
                 str = Regex.Replace(str, "<br/>", "");
                 str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
+                str = Regex.Replace(str, "&hellip;", "...");
 
                 str = Regex.Replace(str, "<p>", "");
                 str = Regex.Replace(str, "</p>", "");
