@@ -78,5 +78,16 @@ namespace FilmCollection
             listView1.Clear();
             LoadBase();
         }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ListViewItem selItem = listView1.SelectedItems[0];
+            if (selItem != null)
+            {
+                recoverBase = ("VideoList_" + selItem.SubItems[0].Text + "_" + selItem.SubItems[1].Text + ".xml");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }            
+        }
     }
 }
