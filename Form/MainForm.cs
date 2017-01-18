@@ -1748,12 +1748,9 @@ namespace FilmCollection
             string treeFolderPath = treeFolder.SelectedNode.FullPath;
 
             Combine cmNew = new Combine();
-            //cmNew.media = record.combineLink.media;
-            //cmNew.media.Name = treeFolderPath;
+
             cmNew.media.Name = (Regex.Replace(treeFolderPath, @"[0-9]{4}", string.Empty)).Trim('.');       // название без года
-
             cmNew.media.Id = RecordCollection.GetMediaID();
-
             cmNew.media.Category = CategoryVideo.Series;
 
             List<Record> filtered = new List<Record>();
@@ -1778,30 +1775,19 @@ namespace FilmCollection
 
         private void UpdateCatalogInfo_Click(object sender, EventArgs e)
         {
-            var test = (from cm in _videoCollection.CombineList
-                        let recList = cm.recordList
-                        from rec in recList
-                        where rec.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
-                        where rec.Visible == true
-                        select rec.combineLink);//.Distinct<Combine>();//.OrderBy(name => name);
+            var cmList = (from cm in _videoCollection.CombineList
+                          let recList = cm.recordList
+                          from rec in recList
+                          where rec.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                          where rec.Visible == true
+                          select rec.combineLink);    //.Distinct<Combine>();
 
-           // List<Combine> ltss = test.Distinct().ToList();
-           
-            foreach (Combine cm in test.Distinct().ToList())
+            foreach (Combine cm in cmList.Distinct().ToList())
                 GetInfo(cm.media);
-
-
-            //if (GetInfo(record.combineLink.media))
-            //{
-            //    _videoCollection.Save();
-            //    PrepareRefresh();
-            //}
 
             _videoCollection.Save();
             PrepareRefresh();
-
         }
-
 
 
         #endregion
@@ -1878,9 +1864,6 @@ namespace FilmCollection
             }
             catch (Exception Ex) { MessageBox.Show(Ex.Message); }
         }
-
-
-
 
         private void dgvTableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -2104,12 +2087,12 @@ namespace FilmCollection
                             if (strt == "мультфильмы")
                             {
                                 media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), "Детский", true);
-                                media.Category = (CategoryVideo)Enum.Parse(typeof(CategoryVideo_Rus), "Мультфильм", true);                                                                
+                                media.Category = (CategoryVideo)Enum.Parse(typeof(CategoryVideo_Rus), "Мультфильм", true);
                             }
                             else
                             {
                                 media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true);
-                            }                    
+                            }
                             break;// оставляем одну страну и выходим
                         }
                         catch (Exception ex) { MessageBox.Show(ex.Message); }
