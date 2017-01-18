@@ -98,9 +98,9 @@ namespace FilmCollection
         }
 
         private void Main_Load(object sender, EventArgs e)  // Загрузка формы
-        {            
+        {
             ChangeStatusMenuButton(FormLoad());
-        }                 
+        }
 
         private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
 
@@ -116,7 +116,7 @@ namespace FilmCollection
                 try { _videoCollection = RecordCollection.Load(); }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);                 
+                    MessageBox.Show(ex.Message);
                     return state;
                 }
 
@@ -1778,8 +1778,30 @@ namespace FilmCollection
 
         private void UpdateCatalogInfo_Click(object sender, EventArgs e)
         {
+            var test = (from cm in _videoCollection.CombineList
+                        let recList = cm.recordList
+                        from rec in recList
+                        where rec.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                        where rec.Visible == true
+                        select rec.combineLink);//.Distinct<Combine>();//.OrderBy(name => name);
+
+           // List<Combine> ltss = test.Distinct().ToList();
+           
+            foreach (Combine cm in test.Distinct().ToList())
+                GetInfo(cm.media);
+
+
+            //if (GetInfo(record.combineLink.media))
+            //{
+            //    _videoCollection.Save();
+            //    PrepareRefresh();
+            //}
+
+            _videoCollection.Save();
+            PrepareRefresh();
 
         }
+
 
 
         #endregion
