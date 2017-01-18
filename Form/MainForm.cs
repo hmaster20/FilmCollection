@@ -2100,8 +2100,16 @@ namespace FilmCollection
                     if (StringIsValid(strt))
                     {
                         try
-                        { // может несколько стран
-                            media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true);
+                        { // может несколько жанров
+                            if (strt == "мультфильмы")
+                            {
+                                media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), "Детский", true);
+                                media.Category = (CategoryVideo)Enum.Parse(typeof(CategoryVideo_Rus), "Мультфильм", true);                                                                
+                            }
+                            else
+                            {
+                                media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true);
+                            }                    
                             break;// оставляем одну страну и выходим
                         }
                         catch (Exception ex) { MessageBox.Show(ex.Message); }
