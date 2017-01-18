@@ -70,7 +70,7 @@ namespace FilmCollection
             false;
 #endif
 
-
+            #region Постеры
             this.buttonCancel.Enabled = false;
 
             m_AddImageDelegate = new DelegateAddImage(this.AddImage);
@@ -78,6 +78,8 @@ namespace FilmCollection
             m_Controller = new ThumbnailController();
             m_Controller.OnAdd += new ThumbnailControllerEventHandler(m_Controller_OnAdd);
             m_Controller.OnEnd += new ThumbnailControllerEventHandler(m_Controller_OnEnd);
+
+            #endregion
 
         }
 
@@ -95,23 +97,30 @@ namespace FilmCollection
             treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
-        private void Main_Load(object sender, EventArgs e) => FormLoad();         // Загрузка формы
+        private void Main_Load(object sender, EventArgs e)  // Загрузка формы
+        {            
+            ChangeStatusMenuButton(FormLoad());
+        }                 
 
         private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
 
 
-        private void FormLoad()
+        private bool FormLoad()
         {
+            bool state = false;
+
             if (File.Exists(RecordOptions.BaseName))    // Если база создана, то загружаем
             {
                 _videoCollection.Clear();
+
                 try { _videoCollection = RecordCollection.Load(); }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
-                    BackupBase();   // на всякий случай делаем бэкап
-                    return;
+                    MessageBox.Show(ex.Message);                 
+                    return state;
                 }
+
+                //BackupBase();   // на всякий случай делаем бэкап
 
                 if (_videoCollection.CombineList.Count > 0)
                 {
@@ -119,11 +128,7 @@ namespace FilmCollection
                     PrepareRefresh();
                     CreateTree();
 
-                    ChangeStatusMenuButton(true);
-                }
-                else
-                {
-                    ChangeStatusMenuButton(false);
+                    state = true;
                 }
 
                 timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
@@ -132,12 +137,7 @@ namespace FilmCollection
                 Form_Tooltip();
                 AddFolder();    // загрузка постеров               
             }
-            else
-            {
-                ChangeStatusMenuButton(false);
-            }
-
-
+            return state;
         }
 
         private void ChangeStatusMenuButton(bool state)
@@ -1410,7 +1410,7 @@ namespace FilmCollection
         {
             treeFolder.Nodes.Clear();                                  // Очистка дерева
             int SourceLength = _videoCollection.Options.Source.Length; // Получение длинны пути
-            
+
             var test = (from cm in _videoCollection.CombineList
                         let recList = cm.recordList
                         from rec in recList
@@ -1419,7 +1419,7 @@ namespace FilmCollection
 
             List<string> pathList = new List<string>() { "Фильмотека" };
             pathList.AddRange(test.Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList()); //Обрезка пути C:\temp\1\11 -> 1\11  
-      
+
             PopulateTreeView(treeFolder, pathList, Path.DirectorySeparatorChar, pathList.Count);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
             // TreeFast(paths);
@@ -2109,7 +2109,7 @@ namespace FilmCollection
                     {
                         str = str.Remove(0, str.IndexOf("<p"));
                         if (-1 != str.IndexOf(">"))
-                            str = str.Remove(0, str.IndexOf(">")+1);
+                            str = str.Remove(0, str.IndexOf(">") + 1);
                     }
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -2454,7 +2454,7 @@ namespace FilmCollection
             // thread safe
             if (InvokeRequired)
             {
-                Invoke(m_AddImageDelegate, imageFilename);
+                Invoke(m_AddImageDelegate, imageFilename); // exception dispose
             }
             else
             {
