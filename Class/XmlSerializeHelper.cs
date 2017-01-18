@@ -101,6 +101,9 @@ namespace FilmCollection
         {
             if (!File.Exists(filename))
                 throw new Exception("File not exist");
+            //long length = new FileInfo(filename).Length;
+            if ((new FileInfo(filename).Length) < 200)
+                throw new Exception("Некорректный файл XML");
 
             XmlSerializer serializer = new XmlSerializer(typeof(T));
 
