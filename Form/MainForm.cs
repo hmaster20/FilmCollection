@@ -2149,19 +2149,19 @@ namespace FilmCollection
             }
         }
 
-        private static void DownloadActor(Media media, string sourcestring)
+        public static bool StringIsValid2(string str)
+        {
+            //return !string.IsNullOrEmpty(str) && !Regex.IsMatch(str, @"[^a-zA-z\d_]");
+            return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я ]+$");
+        }
+
+        private void DownloadActor(Media media, string sourcestring)
         {
             // Обработка описания
-            // MatchCollection mcDesc = Regex.Matches(sourcestring, @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
             // MatchCollection mcDesc = Regex.Matches(sourcestring, @"(movieabout__info__tab.*?</div>)", RegexOptions.IgnoreCase);
             MatchCollection mcDesc = Regex.Matches(sourcestring, "(itemprop=\"actors\".*?</div>)", RegexOptions.IgnoreCase);
 
-
             /*
-             * {movieabout__info__tab">
-             * <table><tr><th>Режиссер</th><td><div class="js-show-more" itemscope="1" itemtype="http://schema.org/Person" itemprop="director">
-             * <a href="/person/471550_mihail_kalatozov/" itemprop="name">Михаил Калатозов</a></div>}
-             * 
              * {itemprop="actors"><a href="/person/447322_evgenij_urbanskij/" itemprop="name">Евгений Урбанский</a>, 
              * <a href="/person/454164_vasilij_livanov/" itemprop="name">Василий Ливанов</a>, 
              * <a href="/person/455359_innokentij_smoktunovskij/" itemprop="name">Иннокентий Смоктуновский</a>, 
@@ -2169,48 +2169,41 @@ namespace FilmCollection
              * <a href="/person/635988_galina_kozhakina/" itemprop="name">Галина Кожакина</a></div>}
              */
 
-
-
             foreach (Match m in mcDesc)
             {
-               // break;
+                // break;
 
                 string str = m.ToString();
 
-                string[] ss = new string[] { "\"name\">", "</a>",  };
+                string[] ss = new string[] { "\"name\">", "</a>", };
 
                 string[] strs = str.Split(ss, StringSplitOptions.RemoveEmptyEntries);
 
-                break;
+                Actor actor;
 
-                try
+                foreach (var item in strs)
                 {
-                    if (-1 != str.IndexOf("<p"))
+                    if (StringIsValid2(item))
                     {
-                        str = str.Remove(0, str.IndexOf("<p"));
-                        if (-1 != str.IndexOf(">"))
-                            str = str.Remove(0, str.IndexOf(">") + 1);
+                        if (!_videoCollection.ActorList.Exists(act => act.FIO == item))
+                        {
+                            actor = new Actor();
+                            actor.id = RecordCollection.GetActorID();
+                            actor.FIO = item;
+
+                            _videoCollection.ActorList.Add(actor);
+
+                        }
+                        else
+                        {
+                            actor = _videoCollection.ActorList.FindLast(act => act.FIO == item);
+                            if (!actor.VideoID.Exists(x => x == media.Id))
+                            {
+                                actor.VideoID.Add(media.Id);
+                            }
+                        }
                     }
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-                str = Regex.Replace(str, "&nbsp;", " ");
-                str = Regex.Replace(str, "&mdash;", "-");
-                str = Regex.Replace(str, "&laquo;", "\"");
-                str = Regex.Replace(str, "&raquo;", "\"");
-                str = Regex.Replace(str, "&bdquo;", "\"");
-                str = Regex.Replace(str, "&ldquo;", "\"");
-                str = Regex.Replace(str, "<span>", "");
-                str = Regex.Replace(str, "</span>", "");
-                str = Regex.Replace(str, "<br/>", "");
-                str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
-                str = Regex.Replace(str, "&hellip;", "...");
-
-                str = Regex.Replace(str, "<p>", "");
-                str = Regex.Replace(str, "</p>", "");
-                str = Regex.Replace(str, "</div>", "");
-
-                media.Description = str.Trim();
             }
         }
 
