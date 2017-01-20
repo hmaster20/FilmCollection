@@ -653,7 +653,23 @@ namespace FilmCollection
             TabMenu.Enabled = false;    // Блокировка меню
             DataGridView dgv = GetDgv();
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
-            if (tabControl2.SelectedIndex == 2) TabMenu.Enabled = true;
+            if (tabControl2.SelectedIndex == 2)
+            {
+                TabMenu.Enabled = true;
+                TabMenu.Items[0].Visible = false;
+                TabMenu.Items[1].Visible = false;
+                TabMenu.Items[3].Visible = false;
+                TabMenu.Items[7].Visible = false;
+                TabMenu.Items[8].Visible = false;
+            }
+            else
+            {
+                TabMenu.Items[0].Visible = true;
+                TabMenu.Items[1].Visible = true;
+                TabMenu.Items[3].Visible = true;
+                TabMenu.Items[7].Visible = true;
+                TabMenu.Items[8].Visible = true;
+            }                
         }
 
         private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
@@ -2622,14 +2638,8 @@ namespace FilmCollection
 
             if (e.Button == MouseButtons.Right)
             {
-                TabMenu.Items[0].Visible = false;
-                TabMenu.Items[1].Visible = false;
-                TabMenu.Items[3].Visible = false;
-                TabMenu.Items[7].Visible = false;
-                TabMenu.Items[8].Visible = false;
-
                 TabMenu.Show(Cursor.Position);
-            }
+            }            
         }
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
