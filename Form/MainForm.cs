@@ -2611,12 +2611,14 @@ namespace FilmCollection
                 int size = ImageSize;
 
                 ImageViewer imageViewer = new ImageViewer();
-                imageViewer.Dock = DockStyle.Bottom;
+                // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                imageViewer.Dock = DockStyle.None;
                 imageViewer.LoadImage(imageFilename, 256, 256);
                 imageViewer.Width = size;
                 imageViewer.Height = size;
                 imageViewer.IsThumbnail = true;
                 imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);
+                imageViewer.MouseHover += new System.EventHandler(imageViewer_Mouse);
 
                 OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
@@ -2624,23 +2626,43 @@ namespace FilmCollection
             }
         }
 
-        private void imageViewer_MouseClick(object sender, MouseEventArgs e)
+        private void imageViewer_Mouse(object sender, EventArgs e)
         {
+            MyControl_MouseHover(sender, e);
+        }
 
+        public ToolTip tT { get; set; }
+
+        public void ClassConstructor()
+        {
+            tT = new ToolTip();
+        }
+
+        private void MyControl_MouseHover(object sender, EventArgs e)
+        {
+            // tT.Show("Why So Many Times?", this);
+            // tT.Show("Why So Many Times?", sender);
             if (m_ActiveImageViewer != null)
             {
-                m_ActiveImageViewer.IsActive = false;
+                toolinfo.SetToolTip(this.m_ActiveImageViewer, "Разблокировать для переименования файла");
             }
+
+          
+        }
+
+
+        private void imageViewer_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (m_ActiveImageViewer != null)
+                m_ActiveImageViewer.IsActive = false;
 
             m_ActiveImageViewer = (ImageViewer)sender;
             m_ActiveImageViewer.IsActive = true;
-
-
+            
             if (e.Button == MouseButtons.Right)
-            {
                 TabMenu.Show(Cursor.Position);
-            }            
-        }
+        }        
+  
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
         {
