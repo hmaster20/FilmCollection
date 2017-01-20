@@ -619,6 +619,7 @@ namespace FilmCollection
             TabMenu.Enabled = false;    // Блокировка меню
             DataGridView dgv = GetDgv();
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
+            if (tabControl2.SelectedIndex == 2) TabMenu.Enabled = true;
         }
 
         private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
@@ -942,6 +943,16 @@ namespace FilmCollection
 
         private void cOpenFolder_Click(object sender, EventArgs e)
         {
+            switch (tabControl2.SelectedIndex)
+            {
+                case 0: OpenRecFolder(); break;
+                case 2: OpenPicFolder(); break;
+                default: break;
+            }     
+        }
+
+        private void OpenRecFolder()
+        {
             Record record = GetSelectedRecord();
             if (record != null)
             {
@@ -955,6 +966,23 @@ namespace FilmCollection
                 string argument = "/select, \"" + filePath + "\"";
                 Process.Start("explorer.exe", argument);
             }
+        }
+
+        private void OpenPicFolder()
+        {
+            if (m_ActiveImageViewer != null)
+            {
+                string filePath = m_ActiveImageViewer.ImageLocation;
+
+                if (!File.Exists(filePath))
+                {
+                    MessageBox.Show("Файл \"" + filePath + "\" не найден!");
+                    return;
+                }
+
+                string argument = "/select, \"" + filePath + "\"";
+                Process.Start("explorer.exe", argument);
+            }   
         }
 
         #endregion
@@ -2483,7 +2511,7 @@ namespace FilmCollection
         private ThumbnailController m_Controller { get; set; }
         private ImageViewer m_ActiveImageViewer { get; set; }
 
-        private int ImageSize { get { return (64 * (this.trackBarSize.Value + 1)); } }
+        private int ImageSize { get { return (64 * (trackBarSize.Value + 1)); } }
 
         private void buttonCancel_Click(object sender, EventArgs e) // отмена сканирования
         {
@@ -2541,9 +2569,9 @@ namespace FilmCollection
                 imageViewer.IsThumbnail = true;
                 imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);
 
-                this.OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+                OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
-                this.flowLayoutPanelMain.Controls.Add(imageViewer);
+                flowLayoutPanelMain.Controls.Add(imageViewer);
             }
         }
 
@@ -2557,7 +2585,22 @@ namespace FilmCollection
 
             m_ActiveImageViewer = (ImageViewer)sender;
             m_ActiveImageViewer.IsActive = true;
-            MessageBox.Show(m_ActiveImageViewer.ImageLocation);
+
+
+            if (e.Button == MouseButtons.Right)
+            {
+                //MessageBox.Show(m_ActiveImageViewer.ImageLocation + " !!!");
+
+                TabMenu.Items[0].Visible = false;
+                TabMenu.Items[1].Visible = false;
+
+                TabMenu.Items[7].Visible = false;
+                TabMenu.Items[8].Visible = false;
+
+                TabMenu.Show(Cursor.Position);
+            }
+
+
         }
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
@@ -2566,6 +2609,7 @@ namespace FilmCollection
             //{
             //    OnImageSizeChanged(this, new ThumbnailImageEventArgs(ImageSize));
             //}
+
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
 

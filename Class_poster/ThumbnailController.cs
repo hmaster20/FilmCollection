@@ -38,20 +38,15 @@ namespace FilmCollection
         public event ThumbnailControllerEventHandler OnEnd;
 
         private bool m_CancelScanning;
+
         static readonly object cancelScanningLock = new object();
 
         public ThumbnailController() { }
 
         public bool CancelScanning
         {
-            get
-            {
-                lock (cancelScanningLock) { return m_CancelScanning; }
-            }
-            set
-            {
-                lock (cancelScanningLock) { m_CancelScanning = value; }
-            }
+            get { lock (cancelScanningLock) { return m_CancelScanning; } }
+            set { lock (cancelScanningLock) { m_CancelScanning = value; } }
         }
 
         public void AddFolder(string folderPath)
@@ -66,9 +61,9 @@ namespace FilmCollection
         private void AddFolder(object folderPath)
         {
             string path = (string)folderPath;
-            this.OnStart?.Invoke(this, new ThumbnailControllerEventArgs(null));
-            this.AddFolderIntern(path);
-            this.OnEnd?.Invoke(this, new ThumbnailControllerEventArgs(null));
+            OnStart?.Invoke(this, new ThumbnailControllerEventArgs(null));
+            AddFolderIntern(path);
+            OnEnd?.Invoke(this, new ThumbnailControllerEventArgs(null));
             CancelScanning = false;
         }
 

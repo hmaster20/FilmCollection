@@ -35,7 +35,7 @@ namespace FilmCollection
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.DoubleBuffered = true;
             this.Name = "ImageViewer";
             this.Size = new System.Drawing.Size(227, 210);
