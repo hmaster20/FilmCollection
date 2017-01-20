@@ -500,18 +500,23 @@ namespace FilmCollection
 
         private void AddRec_Click(object sender, EventArgs e)           // добавление новой записи
         {
-            if (isRecTab()) NewRecord_Dialog();
+            if (RecTabSelect()) NewRecord_Dialog();
             else NewActor();
         }
 
-        private bool isRecTab()
+        private bool RecTabSelect()
         {
             return (tabControl2.SelectedIndex == 0) ? true : false;
         }
 
+        private int isRecTabs()
+        {
+            return tabControl2.SelectedIndex;
+        }
+
         private void EditRec_Click(object sender, EventArgs e)          // Изменение записи
         {
-            if (isRecTab()) panelEdit.BringToFront();
+            if (RecTabSelect()) panelEdit.BringToFront();
             else panelEditAct.BringToFront();
         }
 
@@ -555,9 +560,19 @@ namespace FilmCollection
 
         private void DeleteRec_Click(object sender, EventArgs e)
         {
-            if (isRecTab()) DeleteRec();
-            else DeleteActor();
+            //if (RecTabSelect()) DeleteRec();
+            //else DeleteActor();
+
+            switch (isRecTabs())
+            {
+                case 0: DeleteRec(); break;
+                case 1: DeleteActor(); break;
+                case 2: DeletePic(); break;
+
+                default: break;
+            }
         }
+
 
         private void DeleteRec()
         {
@@ -584,6 +599,25 @@ namespace FilmCollection
                 _videoCollection.Save();
                 dgvTableRec.ClearSelection();
                 PrepareRefresh();
+            }
+        }
+
+        private void DeletePic()
+        {
+            if (m_ActiveImageViewer != null)
+            {
+                string filePath = m_ActiveImageViewer.ImageLocation;
+
+                DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + filePath + "\" ?",
+                                                      "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialog == DialogResult.Yes)
+                {
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                        AddFolder();    // перезагрузка постеров  
+                    }
+                }
             }
         }
 
@@ -948,7 +982,7 @@ namespace FilmCollection
                 case 0: OpenRecFolder(); break;
                 case 2: OpenPicFolder(); break;
                 default: break;
-            }     
+            }
         }
 
         private void OpenRecFolder()
@@ -982,7 +1016,7 @@ namespace FilmCollection
 
                 string argument = "/select, \"" + filePath + "\"";
                 Process.Start("explorer.exe", argument);
-            }   
+            }
         }
 
         #endregion
@@ -2524,7 +2558,6 @@ namespace FilmCollection
             m_Controller.AddFolder(PicsFolder);
             buttonCancel.Enabled = true;
             //buttonBrowseFolder.Enabled = false;
-
         }
 
         private void m_Controller_OnAdd(object sender, ThumbnailControllerEventArgs e)
@@ -2589,18 +2622,14 @@ namespace FilmCollection
 
             if (e.Button == MouseButtons.Right)
             {
-                //MessageBox.Show(m_ActiveImageViewer.ImageLocation + " !!!");
-
                 TabMenu.Items[0].Visible = false;
                 TabMenu.Items[1].Visible = false;
-
+                TabMenu.Items[3].Visible = false;
                 TabMenu.Items[7].Visible = false;
                 TabMenu.Items[8].Visible = false;
 
                 TabMenu.Show(Cursor.Position);
             }
-
-
         }
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
