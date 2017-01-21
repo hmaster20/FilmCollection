@@ -669,7 +669,7 @@ namespace FilmCollection
                 TabMenu.Items[3].Visible = true;
                 TabMenu.Items[7].Visible = true;
                 TabMenu.Items[8].Visible = true;
-            }                
+            }
         }
 
         private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
@@ -2618,7 +2618,8 @@ namespace FilmCollection
                 imageViewer.Height = size;
                 imageViewer.IsThumbnail = true;
                 imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);
-                imageViewer.MouseHover += new System.EventHandler(imageViewer_Mouse);
+                // imageViewer.MouseHover += new EventHandler(imageViewer_Mouse);
+                imageViewer.MouseEnter += new EventHandler(imageViewer_Description);    // При наведении появляется описание
 
                 OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
@@ -2626,29 +2627,105 @@ namespace FilmCollection
             }
         }
 
-        private void imageViewer_Mouse(object sender, EventArgs e)
+        private void imageViewer_Description(object sender, EventArgs e)
         {
-            MyControl_MouseHover(sender, e);
+            ImageViewer AImage = (ImageViewer)sender;
+            string path = AImage.ImageLocation;
+
+            if (File.Exists(path))
+            {
+                FileInfo fileImage = new FileInfo(path);
+                string shortfileImage = fileImage.Name.Remove(fileImage.Name.LastIndexOf(fileImage.Extension), fileImage.Extension.Length);
+
+                Combine cm = _videoCollection.CombineList.FindLast(v => v.media.Pic == shortfileImage);
+
+                if (cm != null)
+                {
+                    //string _desc = "";
+
+                    //if (cm.recordList.Count == 1)
+                    //{
+                    //    _desc = cm.media.Name + "\n " + cm.recordList[0].mDescription;
+                        
+                    //    ToolTip tT = new ToolTip();
+                    //    tT.ToolTipTitle = cm.media.Name;
+                    //    //tT.Show(cm.recordList[0].mDescription, AImage);
+                    //    tT.Show(processingString(cm.recordList[0].mDescription), AImage);
+                    //}
+                    //else
+                    //{
+                    //    _desc = cm.media.Name;
+                    //}
+
+                    toolinfo.SetToolTip(AImage, cm.media.Name);                    
+                    //toolinfo.SetToolTip(AImage, _desc);
+
+                    //ToolTip tT = new ToolTip();
+                    //tT.ToolTipTitle = "Медвед";
+                    //tT.Show("Why So Many Times?", AImage, 25, 25);
+                }
+            }
         }
 
-        public ToolTip tT { get; set; }
-
-        public void ClassConstructor()
+        private string processingString(string str)
         {
-            tT = new ToolTip();
+            if (str.Length > 0)
+            {
+                //string str = "«Не презирай слабого детеныша — он может оказаться сыном тигра», говорит монгольская пословица. Несколько лет провел в рабстве мальчик Темуджин, прежде чем завоевать полмира.";
+                String[] sublines = str.Split(' ');
+                str = null;
+                int length = 50;//длина разбиения
+                int j = 0;
+                for (int i = 0; i < sublines.Count(); i++)
+                {
+                    if (j + sublines[i].Length < length)
+                    {
+                        str = str + sublines[i] + " ";
+                        j = j + sublines[i].Length;
+                    }
+                    else
+                    {
+                        j = 0;
+                        str = str + "\r\n";
+                        i--;
+                    }
+                }
+            }
+
+            return str;
+
+
+
+            //string st = "123";
+            //if (st.Length > 50)
+            //{
+            //    List<string> ss = new List<string>();
+
+            //    st.IndexOf(' ', 50)
+
+            //    //string[] sts = st.Split()
+            //}
         }
+
 
         private void MyControl_MouseHover(object sender, EventArgs e)
         {
-            // tT.Show("Why So Many Times?", this);
-            // tT.Show("Why So Many Times?", sender);
-            if (m_ActiveImageViewer != null)
-            {
-                toolinfo.SetToolTip(this.m_ActiveImageViewer, "Разблокировать для переименования файла");
-            }
+            // public ToolTip tT { get; set; }
 
-          
+            //tT = new ToolTip();
+            //tT.Show("Why So Many Times?", this);
+
+            //if (m_ActiveImageViewer != null)
+            //{
+            //    toolinfo.SetToolTip(this.m_ActiveImageViewer, "Разблокировать для переименования файла");
+            //}
+
+            //toolinfo.SetToolTip(this.m_ActiveImageViewer, "Разблокировать для переименования файла");
+
+            var ActiveImageVi = (ImageViewer)sender;
+            toolinfo.SetToolTip(ActiveImageVi, ActiveImageVi.ImageLocation);
         }
+
 
 
         private void imageViewer_MouseClick(object sender, MouseEventArgs e)
@@ -2658,11 +2735,11 @@ namespace FilmCollection
 
             m_ActiveImageViewer = (ImageViewer)sender;
             m_ActiveImageViewer.IsActive = true;
-            
+
             if (e.Button == MouseButtons.Right)
                 TabMenu.Show(Cursor.Position);
-        }        
-  
+        }
+
 
         private void trackBarSize_ValueChanged(object sender, EventArgs e)
         {
@@ -2676,6 +2753,7 @@ namespace FilmCollection
 
 
         #endregion
+
 
     }
 }
