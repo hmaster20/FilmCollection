@@ -1467,14 +1467,23 @@ namespace FilmCollection
             if (listViewFilmV.SelectedItems[0].SubItems[0].Text != "")
             {
                 string searchValue = listViewFilmV.SelectedItems[0].SubItems[0].Text;
-                tabControl2.SelectedTab = tabFilm;
-                int rowIndex = -1;
-                DataGridViewRow row = dgvTableRec.Rows
-                    .Cast<DataGridViewRow>()
-                    .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
-                    .First();
-                rowIndex = row.Index;
-                if (rowIndex != -1) dgvTableRec.Rows[rowIndex].Selected = true;
+                Get_and_select_Record(searchValue);
+            }
+        }
+
+        private void Get_and_select_Record(string searchValue)
+        {
+            tabControl2.SelectedTab = tabFilm;
+            int rowIndex = -1;
+            DataGridViewRow row = dgvTableRec.Rows
+                .Cast<DataGridViewRow>()
+                .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
+                .First();
+            rowIndex = row.Index;
+            if (rowIndex != -1)
+            {
+                dgvTableRec.Rows[rowIndex].Selected = true;
+                dgvTableRec.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
             }
         }
 
@@ -2618,13 +2627,26 @@ namespace FilmCollection
                 imageViewer.Height = size;
                 imageViewer.IsThumbnail = true;
                 imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);
-                // imageViewer.MouseHover += new EventHandler(imageViewer_Mouse);
                 imageViewer.MouseEnter += new EventHandler(imageViewer_Description);    // При наведении появляется описание
-
+                imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+                
                 OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
                 flowLayoutPanelMain.Controls.Add(imageViewer);
             }
+        }
+
+
+
+        private void imageViewer_SelectRecord(object sender, EventArgs e)
+        {
+            ImageViewer AImage = (ImageViewer)sender;
+            string path = AImage.ImageLocation;
+
+            path = path.Substring(path.LastIndexOf(Path.DirectorySeparatorChar)+1);
+            path = path.Substring(0, path.IndexOf('.'));
+
+            Get_and_select_Record(path);
         }
 
         private void imageViewer_Description(object sender, EventArgs e)
@@ -2646,7 +2668,7 @@ namespace FilmCollection
                     //if (cm.recordList.Count == 1)
                     //{
                     //    _desc = cm.media.Name + "\n " + cm.recordList[0].mDescription;
-                        
+
                     //    ToolTip tT = new ToolTip();
                     //    tT.ToolTipTitle = cm.media.Name;
                     //    //tT.Show(cm.recordList[0].mDescription, AImage);
@@ -2657,7 +2679,7 @@ namespace FilmCollection
                     //    _desc = cm.media.Name;
                     //}
 
-                    toolinfo.SetToolTip(AImage, cm.media.Name);                    
+                    toolinfo.SetToolTip(AImage, cm.media.Name);
                     //toolinfo.SetToolTip(AImage, _desc);
 
                     //ToolTip tT = new ToolTip();
@@ -2667,11 +2689,12 @@ namespace FilmCollection
             }
         }
 
-        private string processingString(string str)
+      
+
+        private string processingString(string str) // разбиение строки на равные куски
         {
             if (str.Length > 0)
-            {
-                //string str = "«Не презирай слабого детеныша — он может оказаться сыном тигра», говорит монгольская пословица. Несколько лет провел в рабстве мальчик Темуджин, прежде чем завоевать полмира.";
+            {            
                 String[] sublines = str.Split(' ');
                 str = null;
                 int length = 50;//длина разбиения
@@ -2691,42 +2714,8 @@ namespace FilmCollection
                     }
                 }
             }
-
             return str;
-
-
-
-            //string st = "123";
-            //if (st.Length > 50)
-            //{
-            //    List<string> ss = new List<string>();
-
-            //    st.IndexOf(' ', 50)
-
-            //    //string[] sts = st.Split()
-            //}
         }
-
-
-        private void MyControl_MouseHover(object sender, EventArgs e)
-        {
-            // public ToolTip tT { get; set; }
-
-            //tT = new ToolTip();
-            //tT.Show("Why So Many Times?", this);
-
-            //if (m_ActiveImageViewer != null)
-            //{
-            //    toolinfo.SetToolTip(this.m_ActiveImageViewer, "Разблокировать для переименования файла");
-            //}
-
-            //toolinfo.SetToolTip(this.m_ActiveImageViewer, "Разблокировать для переименования файла");
-
-            var ActiveImageVi = (ImageViewer)sender;
-            toolinfo.SetToolTip(ActiveImageVi, ActiveImageVi.ImageLocation);
-        }
-
-
 
         private void imageViewer_MouseClick(object sender, MouseEventArgs e)
         {
