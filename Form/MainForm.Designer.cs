@@ -1770,8 +1770,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 608);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
@@ -2413,7 +2413,7 @@
             this.trackBarSize.Size = new System.Drawing.Size(124, 23);
             this.trackBarSize.TabIndex = 6;
             this.trackBarSize.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBarSize.Value = 1;
+            this.trackBarSize.Value = 2;
             this.trackBarSize.ValueChanged += new System.EventHandler(this.trackBarSize_ValueChanged);
             // 
             // timerLoad
