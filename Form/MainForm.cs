@@ -2099,6 +2099,11 @@ namespace FilmCollection
             return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я]+$");
         }
 
+        public static bool StringIsValid2(string str)   // учитывает наличие пробела
+        {
+            return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я ]+$");
+        }
+
         private static void DownloadCountry(Media media, string sourcestring)
         {
             // Обработка страны
@@ -2235,35 +2240,16 @@ namespace FilmCollection
                 media.Description = str.Trim();
             }
         }
-
-        public static bool StringIsValid2(string str)
-        {
-            //return !string.IsNullOrEmpty(str) && !Regex.IsMatch(str, @"[^a-zA-z\d_]");
-            return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я ]+$");
-        }
-
+        
         private void DownloadActor(Media media, string sourcestring)
         {
             // Обработка описания
-            // MatchCollection mcDesc = Regex.Matches(sourcestring, @"(movieabout__info__tab.*?</div>)", RegexOptions.IgnoreCase);
             MatchCollection mcDesc = Regex.Matches(sourcestring, "(itemprop=\"actors\".*?</div>)", RegexOptions.IgnoreCase);
-
-            /*
-             * {itemprop="actors"><a href="/person/447322_evgenij_urbanskij/" itemprop="name">Евгений Урбанский</a>, 
-             * <a href="/person/454164_vasilij_livanov/" itemprop="name">Василий Ливанов</a>, 
-             * <a href="/person/455359_innokentij_smoktunovskij/" itemprop="name">Иннокентий Смоктуновский</a>, 
-             * <a href="/person/459190_tatjana_samojlova/" itemprop="name">Татьяна Самойлова</a>, 
-             * <a href="/person/635988_galina_kozhakina/" itemprop="name">Галина Кожакина</a></div>}
-             */
 
             foreach (Match m in mcDesc)
             {
-                // break;
-
                 string str = m.ToString();
-
                 string[] ss = new string[] { "\"name\">", "</a>", };
-
                 string[] strs = str.Split(ss, StringSplitOptions.RemoveEmptyEntries);
 
                 Actor actor;
@@ -2272,11 +2258,13 @@ namespace FilmCollection
                 {
                     if (StringIsValid2(item))
                     {
-                        if (!_videoCollection.ActorList.Exists(act => act.FIO == item))
+                        if (!(_videoCollection.ActorList.Exists(act => act.FIO == item)))
                         {
                             actor = new Actor();
                             actor.id = RecordCollection.GetActorID();
                             actor.FIO = item;
+                            actor.VideoID.Add(media.Id);
+                            media.ActorListID.Add(actor.id);
 
                             _videoCollection.ActorList.Add(actor);
 
@@ -2287,6 +2275,7 @@ namespace FilmCollection
                             if (!actor.VideoID.Exists(x => x == media.Id))
                             {
                                 actor.VideoID.Add(media.Id);
+                                media.ActorListID.Add(actor.id);
                             }
                         }
                     }
