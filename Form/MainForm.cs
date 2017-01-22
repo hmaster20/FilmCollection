@@ -1472,7 +1472,11 @@ namespace FilmCollection
                         break;
                     }
                 }
-                if (rowIndex != -1) dgvTableActors.Rows[rowIndex].Selected = true;
+                if (rowIndex != -1)
+                {
+                    dgvTableActors.Rows[rowIndex].Selected = true;
+                    dgvTableActors.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
+                }                
             }
         }
 
