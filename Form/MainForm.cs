@@ -60,7 +60,7 @@ namespace FilmCollection
             {
                 cBoxCountry.Items.Add(item);
                 cBoxCountryActor.Items.Add(item);
-                tscCountryFilter.Items.Add(item);
+                tsActCountryFilter.Items.Add(item);
             }
 
             MenuChange.Visible =
@@ -778,13 +778,27 @@ namespace FilmCollection
         }
 
         private void Sort_Actor()
-        {
+        {   
             List<Actor> filteredAct = _videoCollection.ActorList;
-            if (tscCountryFilter.SelectedIndex > -1)
-                filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tscCountryFilter.SelectedIndex);
+            if (tsActCountryFilter.SelectedIndex > -1)
+                filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tsActCountryFilter.SelectedIndex);
+
+            if (tsActSort.SelectedIndex != -1)
+            {
+                if (tsActSort.SelectedIndex == 0)
+                {
+                    filteredAct.Sort(Actor.CompareByName);
+                }
+                if (tsActSort.SelectedIndex == 1)
+                {
+                    filteredAct.Sort(Actor.CompareByCountry);
+                }
+            }
 
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
+
+
 
             // список актеров
             chkActorList.Items.Clear();
@@ -977,7 +991,7 @@ namespace FilmCollection
             tscbTypeFilter.SelectedIndex = 0;
             tscbSort.SelectedIndex = -1;
 
-            tscCountryFilter.SelectedIndex = -1;
+            tsActCountryFilter.SelectedIndex = -1;
 
 
             cbNameMedia.Text = "";
@@ -2009,27 +2023,10 @@ namespace FilmCollection
 
             string htmlPage = GetHtml(webQuery + media.Name);
 
-
             //MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
-
-            //MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?>)", RegexOptions.IgnoreCase);
             //MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?</a>)", RegexOptions.IgnoreCase);
 
             MatchCollection mc = Regex.Matches(htmlPage, "(p-poster__img.*?</a>)", RegexOptions.IgnoreCase);
-
-
-            //{<a class="searchmenu__item__link" href="/search/?region_id=70&amp;q=%D0%9B%D1%83%D1%87%D1%88%D0%B0%D1%8F%20%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B0
-            //%20%D0%BD%D0%B0%D1%88%D0%B5%D0%B9%20%D0%B6%D0%B8%D0%B7%D0%BD%D0%B8&amp;ent=20"><u class="searchmenu__item__link__name">Сериалы</u>
-            //<i class="searchmenu__item__link__count">1</i></a></span></div></div></div><!--5509--><!--/5509--><div class="block"><div class="wrapper">
-            //    <div class="hdr"><div class="hdr__wrapper"><span class="hdr__text"><span class="hdr__inner">Сериалы</span></span></div><span class="countyellow">1</span></div>
-            //    <section class="searchitem"><div class="searchitem__items clearin  searchitem__items_all">
-            //<article class="searchitem__item"><div class="p-poster margin_bottom_20"><i class="p-poster__stack"></i>
-            //    <a class="p-poster__img" href="/series_838303_luchshaya_doroga_nashei_zhizni/" style="background-image: url(https://pic.afisha.mail.ru/3176763/)"></a>}
-
-
-            // {<a href="/cinema/movies/432352_stalker/">Сталкер</a> (1979)</div></article>
-            // <article class="searchitem__item"><div class="p-poster margin_bottom_20">
-            // <a class="p-poster__img" href="/cinema/movies/857278_stalker/" style="background-image: url(https://pic.afisha.mail.ru/4309917/)">}
 
             for (int i = 0; i < mc.Count; i++)
             {
@@ -2043,8 +2040,6 @@ namespace FilmCollection
                     Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
                 }
 
-
-
                 if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
                 {
                     DownloadAddon("https://afisha.mail.ru" + Link_txt, media);
@@ -2052,7 +2047,6 @@ namespace FilmCollection
                 }
             }
             return false;
-
 
 
             //for (int y = 0; y < subStrings.Length; y++)
