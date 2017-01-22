@@ -179,8 +179,8 @@
             this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tscCountryFilter = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
+            this.tsActCountryFilter = new System.Windows.Forms.ToolStripComboBox();
+            this.tsActSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelViewAct = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listViewFilmV = new System.Windows.Forms.ListView();
@@ -1837,8 +1837,8 @@
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.tscCountryFilter,
-            this.toolStripComboBox2});
+            this.tsActCountryFilter,
+            this.tsActSort});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(535, 27);
@@ -1853,23 +1853,24 @@
             this.toolStripMenuItem1.Text = "Сброс фильтра";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
-            // tscCountryFilter
+            // tsActCountryFilter
             // 
-            this.tscCountryFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tscCountryFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tscCountryFilter.Name = "tscCountryFilter";
-            this.tscCountryFilter.Size = new System.Drawing.Size(121, 23);
-            this.tscCountryFilter.SelectedIndexChanged += new System.EventHandler(this.Filter);
+            this.tsActCountryFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsActCountryFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tsActCountryFilter.Name = "tsActCountryFilter";
+            this.tsActCountryFilter.Size = new System.Drawing.Size(121, 23);
+            this.tsActCountryFilter.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
-            // toolStripComboBox2
+            // tsActSort
             // 
-            this.toolStripComboBox2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox2.Items.AddRange(new object[] {
+            this.tsActSort.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsActSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tsActSort.Items.AddRange(new object[] {
             "По Ф.И.О.",
             "По стране"});
-            this.toolStripComboBox2.Name = "toolStripComboBox2";
-            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
+            this.tsActSort.Name = "tsActSort";
+            this.tsActSort.Size = new System.Drawing.Size(121, 23);
+            this.tsActSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
             // panelViewAct
             // 
@@ -2778,8 +2779,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripComboBox tscCountryFilter;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
+        private System.Windows.Forms.ToolStripComboBox tsActCountryFilter;
+        private System.Windows.Forms.ToolStripComboBox tsActSort;
         private System.Windows.Forms.ComboBox cBoxCountryActor;
         private System.Windows.Forms.Button btnSaveActor;
         private System.Windows.Forms.Button btnCancelActor;
