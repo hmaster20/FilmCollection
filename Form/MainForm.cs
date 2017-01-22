@@ -2247,17 +2247,28 @@ namespace FilmCollection
             MatchCollection mcDesc = Regex.Matches(sourcestring, "(itemprop=\"actors\".*?</div>)", RegexOptions.IgnoreCase);
 
             foreach (Match m in mcDesc)
-            {
-                string str = m.ToString();
-                string[] ss = new string[] { "\"name\">", "</a>", };
-                string[] strs = str.Split(ss, StringSplitOptions.RemoveEmptyEntries);
+            {                
+                string[] mArray = m.ToString().Split(new string[] { "\"name\">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
 
-                Actor actor;
+                // получение ссылки на страницу актеров
+                //for (int i = 0; i < strs.Length; i++)
+                //{
+                //    if (StringIsValid2(strs[i]))
+                //    {
+                //        string st = strs[i - 1];
 
-                foreach (var item in strs)
+                //        st = st.Substring(st.LastIndexOf("/"));
+                //        st = st.Substring(st.IndexOf("/person/"));
+                //        MessageBox.Show(st);
+                //    }
+                //}
+
+                foreach (string item in mArray)
                 {
                     if (StringIsValid2(item))
                     {
+                        Actor actor;
+
                         if (!(_videoCollection.ActorList.Exists(act => act.FIO == item)))
                         {
                             actor = new Actor();
@@ -2267,7 +2278,6 @@ namespace FilmCollection
                             media.ActorListID.Add(actor.id);
 
                             _videoCollection.ActorList.Add(actor);
-
                         }
                         else
                         {
@@ -2381,10 +2391,7 @@ namespace FilmCollection
             }
         }
 
-        private void btnNewActor_Click(object sender, EventArgs e)
-        {
-            NewActor();
-        }
+        private void btnNewActor_Click(object sender, EventArgs e) => NewActor();
 
         private void NewActor()
         {
@@ -2449,8 +2456,6 @@ namespace FilmCollection
             dgvTableActors.Enabled = true;
             PrepareRefresh();
         }
-
-
 
         private void checkLive_CheckedChanged(object sender, EventArgs e)
         {
