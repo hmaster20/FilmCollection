@@ -2629,72 +2629,60 @@ namespace FilmCollection
                 imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);
                 imageViewer.MouseEnter += new EventHandler(imageViewer_Description);    // При наведении появляется описание
                 imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
-                
+
                 OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
                 flowLayoutPanelMain.Controls.Add(imageViewer);
             }
         }
 
-
-
-        private void imageViewer_SelectRecord(object sender, EventArgs e)
+        private static string GetPicName(object sender)
         {
             ImageViewer AImage = (ImageViewer)sender;
             string path = AImage.ImageLocation;
 
-            path = path.Substring(path.LastIndexOf(Path.DirectorySeparatorChar)+1);
+            path = path.Substring(path.LastIndexOf(Path.DirectorySeparatorChar) + 1);
             path = path.Substring(0, path.IndexOf('.'));
-
-            Get_and_select_Record(path);
+            return path;
         }
+        
+        private void imageViewer_SelectRecord(object sender, EventArgs e) => Get_and_select_Record(GetPicName(sender));
 
-        private void imageViewer_Description(object sender, EventArgs e)
+
+        private void imageViewer_Description(object sender, EventArgs e)    // Вывод описания
         {
-            ImageViewer AImage = (ImageViewer)sender;
-            string path = AImage.ImageLocation;
+            Combine cm = _videoCollection.CombineList.FindLast(v => v.media.Pic == GetPicName(sender));
 
-            if (File.Exists(path))
+            if (cm != null)
             {
-                FileInfo fileImage = new FileInfo(path);
-                string shortfileImage = fileImage.Name.Remove(fileImage.Name.LastIndexOf(fileImage.Extension), fileImage.Extension.Length);
+                //string _desc = "";
 
-                Combine cm = _videoCollection.CombineList.FindLast(v => v.media.Pic == shortfileImage);
+                //if (cm.recordList.Count == 1)
+                //{
+                //    _desc = cm.media.Name + "\n " + cm.recordList[0].mDescription;
 
-                if (cm != null)
-                {
-                    //string _desc = "";
+                //    ToolTip tT = new ToolTip();
+                //    tT.ToolTipTitle = cm.media.Name;
+                //    //tT.Show(cm.recordList[0].mDescription, AImage);
+                //    tT.Show(processingString(cm.recordList[0].mDescription), AImage);
+                //}
+                //else
+                //{
+                //    _desc = cm.media.Name;
+                //}
 
-                    //if (cm.recordList.Count == 1)
-                    //{
-                    //    _desc = cm.media.Name + "\n " + cm.recordList[0].mDescription;
-
-                    //    ToolTip tT = new ToolTip();
-                    //    tT.ToolTipTitle = cm.media.Name;
-                    //    //tT.Show(cm.recordList[0].mDescription, AImage);
-                    //    tT.Show(processingString(cm.recordList[0].mDescription), AImage);
-                    //}
-                    //else
-                    //{
-                    //    _desc = cm.media.Name;
-                    //}
-
-                    toolinfo.SetToolTip(AImage, cm.media.Name);
-                    //toolinfo.SetToolTip(AImage, _desc);
-
-                    //ToolTip tT = new ToolTip();
-                    //tT.ToolTipTitle = "Медвед";
-                    //tT.Show("Why So Many Times?", AImage, 25, 25);
-                }
+                toolinfo.SetToolTip((ImageViewer)sender, cm.media.Name);
+                //toolinfo.SetToolTip(AImage, cm.media.Name);
+                //toolinfo.SetToolTip(AImage, _desc);
             }
         }
 
-      
+
 
         private string processingString(string str) // разбиение строки на равные куски
         {
             if (str.Length > 0)
-            {            
+            {
                 String[] sublines = str.Split(' ');
                 str = null;
                 int length = 50;//длина разбиения
@@ -2746,5 +2734,4 @@ namespace FilmCollection
 
     }
 }
-
 
