@@ -99,6 +99,17 @@ namespace FilmCollection
             return false;
         }
 
+        public static int CompareByName(Actor a, Actor b)     // Сравнение по названию
+        {
+            return string.Compare(a.FIO, b.FIO);
+        }
+
+        public static int CompareByCountry(Actor a, Actor b)  // Сравнение по стране
+        {
+            return string.Compare(a.CountryString, b.CountryString);
+        }
+
+
         #endregion
     }
 }
