@@ -752,8 +752,8 @@ namespace FilmCollection
                             : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode()));
             }
 
-            Sort(filtered, tscbSort.SelectedIndex);
-            if (column > -1) Sort(filtered, column);
+            SortRecord(filtered, tscbSort.SelectedIndex);
+            if (column > -1) SortRecord(filtered, column);
 
             RefreshTable(filtered);
             Sort_Actor();
@@ -761,7 +761,7 @@ namespace FilmCollection
             if (selected != null) SelectRecord(dgvTableRec, selected);
         }
 
-        private static void Sort(List<Record> filtered, int switch_sort)// Сортировка по столбцам
+        private static void SortRecord(List<Record> filtered, int switch_sort)  // Сортировка по столбцам
         {
             switch (switch_sort)
             {
@@ -777,28 +777,26 @@ namespace FilmCollection
             }
         }
 
+        private void SortActor(List<Actor> filteredAct)
+        {
+            switch (tsActSort.SelectedIndex)
+            {
+                case 0: filteredAct.Sort(Actor.CompareByName); break;
+                case 1: filteredAct.Sort(Actor.CompareByCountry); break;
+                default: break;
+            }
+        }
+
         private void Sort_Actor()
-        {   
+        {
             List<Actor> filteredAct = _videoCollection.ActorList;
             if (tsActCountryFilter.SelectedIndex > -1)
                 filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tsActCountryFilter.SelectedIndex);
 
-            if (tsActSort.SelectedIndex != -1)
-            {
-                if (tsActSort.SelectedIndex == 0)
-                {
-                    filteredAct.Sort(Actor.CompareByName);
-                }
-                if (tsActSort.SelectedIndex == 1)
-                {
-                    filteredAct.Sort(Actor.CompareByCountry);
-                }
-            }
+            SortActor(filteredAct);
 
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
-
-
 
             // список актеров
             chkActorList.Items.Clear();
@@ -806,6 +804,8 @@ namespace FilmCollection
             foreach (Actor item in _videoCollection.ActorList)
                 chkActorList.Items.Add(item);
         }
+
+
 
         private void RefreshTable(List<Record> filtered)
         {
@@ -2234,14 +2234,14 @@ namespace FilmCollection
                 media.Description = str.Trim();
             }
         }
-        
+
         private void DownloadActor(Media media, string sourcestring)
         {
             // Обработка описания
             MatchCollection mcDesc = Regex.Matches(sourcestring, "(itemprop=\"actors\".*?</div>)", RegexOptions.IgnoreCase);
 
             foreach (Match m in mcDesc)
-            {                
+            {
                 string[] mArray = m.ToString().Split(new string[] { "\"name\">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
 
                 // получение ссылки на страницу актеров
@@ -2268,6 +2268,7 @@ namespace FilmCollection
                             actor = new Actor();
                             actor.id = RecordCollection.GetActorID();
                             actor.FIO = item;
+                            actor.Country = media.Country;
                             actor.VideoID.Add(media.Id);
                             media.ActorListID.Add(actor.id);
 
@@ -2633,7 +2634,7 @@ namespace FilmCollection
             path = path.Substring(0, path.IndexOf('.'));
             return path;
         }
-        
+
         private void imageViewer_SelectRecord(object sender, EventArgs e) => Get_and_select_Record(GetPicName(sender));
 
 
