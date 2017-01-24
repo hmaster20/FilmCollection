@@ -33,7 +33,7 @@ namespace FilmCollection
 
         public string BIO { get; set; }     // ссылка на страницу с биографией
 
-        public override string ToString() 
+        public override string ToString()
         {
             return FIO;
         }
@@ -41,7 +41,7 @@ namespace FilmCollection
 
         [XmlIgnore]
         public List<Combine> CombineList { get; set; } // TEST
-        
+
 
         #region Обработка Страны
         private Country_Rus _country;   // Страна
@@ -109,6 +109,16 @@ namespace FilmCollection
             return string.Compare(a.CountryString, b.CountryString);
         }
 
+
+        public static int CompareByDateOfBirth(Actor a, Actor b)  // Сравнение по дате рождения
+        {
+            return string.Compare(a.DateOfBirth, b.DateOfBirth);
+        }
+
+        public static int CompareByDateOfDeath(Actor a, Actor b)  // Сравнение по дате смерти
+        {
+            return string.Compare(a.DateOfDeath, b.DateOfDeath);
+        }
 
         #endregion
     }
