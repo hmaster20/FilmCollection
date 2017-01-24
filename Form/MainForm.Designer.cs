@@ -1867,6 +1867,8 @@
             this.tsActSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tsActSort.Items.AddRange(new object[] {
             "По Ф.И.О.",
+            "По дате рождения",
+            "По дате смерти",
             "По стране"});
             this.tsActSort.Name = "tsActSort";
             this.tsActSort.Size = new System.Drawing.Size(121, 23);
