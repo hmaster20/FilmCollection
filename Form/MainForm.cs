@@ -752,11 +752,28 @@ namespace FilmCollection
                             : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode()));
             }
 
-            SortRecord(filtered, tscbSort.SelectedIndex);
-            if (column > -1) SortRecord(filtered, column);
+            switch (isRecTabs())
+            {
+                case 0:
+                    {
+                        SortRecord(filtered, tscbSort.SelectedIndex);
+                        if (column > -1) SortRecord(filtered, column);
+                    } break;
+                case 1:
+                    {
+                        Sort_Actor();
+                        if (column > -1) SortActor(filtered, column);
+                    }
+                    break;
+
+
+                default:
+                    break;
+            }
+         
 
             RefreshTable(filtered);
-            Sort_Actor();
+           
 
             if (selected != null) SelectRecord(dgvTableRec, selected);
         }
@@ -777,12 +794,14 @@ namespace FilmCollection
             }
         }
 
-        private void SortActor(List<Actor> filteredAct)
+        private void SortActor(List<Actor> filteredAct, int switch_sort)  // Сортировка по столбцам
         {
-            switch (tsActSort.SelectedIndex)
+            switch (switch_sort)
             {
                 case 0: filteredAct.Sort(Actor.CompareByName); break;
-                case 1: filteredAct.Sort(Actor.CompareByCountry); break;
+                case 1: filteredAct.Sort(Actor.CompareByDateOfBirth); break;
+                case 2: filteredAct.Sort(Actor.CompareByDateOfDeath); break;
+                case 3: filteredAct.Sort(Actor.CompareByCountry); break;
                 default: break;
             }
         }
@@ -793,7 +812,8 @@ namespace FilmCollection
             if (tsActCountryFilter.SelectedIndex > -1)
                 filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tsActCountryFilter.SelectedIndex);
 
-            SortActor(filteredAct);
+            SortActor(filteredAct, tsActSort.SelectedIndex);
+
 
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
