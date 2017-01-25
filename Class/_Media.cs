@@ -1,11 +1,13 @@
-﻿// Информация о произведениях: фильма, сериалах, мультфильмах и т.д.
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
 namespace FilmCollection
 {
+    /// <summary>
+    /// Класс содержит информацию о произведениях: фильма, сериалах, мультфильмах и т.д.
+    /// </summary>
     public class Media
     {
         [XmlIgnore]
