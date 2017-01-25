@@ -1,11 +1,13 @@
-﻿// Информация о физических файлах
-using System;
+﻿using System;
 using System.Xml.Serialization;
 
 namespace FilmCollection
 {
     public class Record
     {
+        /// <summary>
+        /// Класс содержит информацию о физических файлах.
+        /// </summary>
         public bool Visible { get; set; }       // Видимость записи
         public string Name { get; set; }        // Название Фильма
         public string FileName { get; set; }    // Название файла
