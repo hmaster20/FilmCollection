@@ -5,7 +5,17 @@ using System.Xml.Serialization;
 
 namespace FilmCollection
 {
-    public class Actor
+    //// Создать объект типа IComparer<T> для объектов класса Actor.
+    //class CompInv<T> : IComparer<T> where T : Actor
+    //{
+    //    // Реализовать интерфейс IComparer<T>.
+    //    public int Compare(T x, T y)
+    //    {
+    //        return string.Compare(x.FIO, y.FIO, StringComparison.OrdinalIgnoreCase);
+    //    }
+    //}    /* Применение:     * CompInv<Actor> comp = new CompInv<Actor>();     * Отсортировать список, используя интерфейс IComparer.     * .Sort(comp);      */
+
+    public class Actor : IComparable<Actor>
     {
         public Actor()
         {
@@ -93,15 +103,20 @@ namespace FilmCollection
         {
             if (act is Actor && act != null)
             {
-                Actor temp = (Actor)act;
-                return (temp.FIO == this.FIO) ? true : false;
+                return (act.FIO == this.FIO) ? true : false;
             }
             return false;
+        }
+                
+        public int CompareTo(Actor obj) // Реализовать интерфейс IComparable<T>, т.е. получить возможность сортировки методом .Sort();
+        {
+            return FIO.CompareTo(obj.FIO);
         }
 
         public static int CompareByName(Actor a, Actor b)     // Сравнение по названию
         {
-            return string.Compare(a.FIO, b.FIO);
+            //return string.Compare(a.FIO, b.FIO);
+            return string.Compare(a.FIO, b.FIO, StringComparison.OrdinalIgnoreCase);
         }
 
         public static int CompareByCountry(Actor a, Actor b)  // Сравнение по стране
