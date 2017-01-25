@@ -2035,13 +2035,6 @@ namespace FilmCollection
                     return reader.ReadToEnd();
             }
             catch (WebException exc) { MessageBox.Show("Сетевая ошибка: " + exc.Message + "\nКод состояния: " + exc.Status); }
-            catch (ProtocolViolationException exc) { MessageBox.Show("Протокольная ошибка: " + exc.Message); }
-            catch (UriFormatException exc) { MessageBox.Show("Ошибка формата URI: " + exc.Message); }
-            catch (NotSupportedException exc) { MessageBox.Show("Неизвестный протокол: " + exc.Message); }
-            catch (IOException exc) { MessageBox.Show("Ошибка ввода-вывода: " + exc.Message); }
-            catch (System.Security.SecurityException exc) { MessageBox.Show("Исключение в связи с нарушением безопасности: " + exc.Message); }
-            catch (InvalidOperationException exc) { MessageBox.Show("Недопустимая операция: " + exc.Message); }
-            catch (Exception exc) { MessageBox.Show("Нестандартная ошибка: " + exc.Message); }
             return "";
         }
 
