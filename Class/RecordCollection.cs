@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace FilmCollection
 {
+    /// <summary>
+    /// Класс управления коллекцией фильмотеки
+    /// </summary>
     public class RecordCollection
     {
         [XmlElement]
