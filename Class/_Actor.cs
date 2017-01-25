@@ -5,16 +5,6 @@ using System.Xml.Serialization;
 
 namespace FilmCollection
 {
-    //// Создать объект типа IComparer<T> для объектов класса Actor.
-    //class CompInv<T> : IComparer<T> where T : Actor
-    //{
-    //    // Реализовать интерфейс IComparer<T>.
-    //    public int Compare(T x, T y)
-    //    {
-    //        return string.Compare(x.FIO, y.FIO, StringComparison.OrdinalIgnoreCase);
-    //    }
-    //}    /* Применение:     * CompInv<Actor> comp = new CompInv<Actor>();     * Отсортировать список, используя интерфейс IComparer.     * .Sort(comp);      */
-
     public class Actor : IComparable<Actor>
     {
         public Actor()
@@ -115,7 +105,6 @@ namespace FilmCollection
 
         public static int CompareByName(Actor a, Actor b)     // Сравнение по названию
         {
-            //return string.Compare(a.FIO, b.FIO);
             return string.Compare(a.FIO, b.FIO, StringComparison.OrdinalIgnoreCase);
         }
 
