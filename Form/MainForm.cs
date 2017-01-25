@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using Shell32;
+using System.Collections.Specialized;
 
 namespace FilmCollection
 {
@@ -734,7 +735,7 @@ namespace FilmCollection
 
             // List<Record> filtered = _videoCollection.VideoList;
             //dataGridView1.DataSource = new List<Combine>(_videoCollection.CombineList);
-
+           
             List<Record> filtered = new List<Record>();
             _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
             dgvTableRec.DataSource = filtered;
@@ -751,29 +752,13 @@ namespace FilmCollection
                             ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
                             : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode()));
             }
+            
+            SortRecord(filtered, tscbSort.SelectedIndex);
+            if (column > -1) SortRecord(filtered, column);
 
-            switch (isRecTabs())
-            {
-                case 0:
-                    {
-                        SortRecord(filtered, tscbSort.SelectedIndex);
-                        if (column > -1) SortRecord(filtered, column);
-                    } break;
-                case 1:
-                    {
-                        Sort_Actor();
-                        if (column > -1) SortActor(filtered, column);
-                    }
-                    break;
-
-
-                default:
-                    break;
-            }
-         
+            // продумать обновление актеров - сейчас ОТКЛЮЧЕНО ()
 
             RefreshTable(filtered);
-           
 
             if (selected != null) SelectRecord(dgvTableRec, selected);
         }
@@ -811,10 +796,9 @@ namespace FilmCollection
             List<Actor> filteredAct = _videoCollection.ActorList;
             if (tsActCountryFilter.SelectedIndex > -1)
                 filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tsActCountryFilter.SelectedIndex);
-
+            
             SortActor(filteredAct, tsActSort.SelectedIndex);
-
-
+            
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
 
@@ -825,6 +809,30 @@ namespace FilmCollection
                 chkActorList.Items.Add(item);
         }
 
+
+        //void tets()
+        //{
+
+        //    switch (isRecTabs())
+        //    {
+        //        case 0:
+        //            {
+        //                SortRecord(filtered, tscbSort.SelectedIndex);
+        //                if (column > -1) SortRecord(filtered, column);
+        //            }
+        //            break;
+        //        case 1:
+        //            {
+        //                Sort_Actor();
+        //                if (column > -1) SortActor(filtered, column);
+        //            }
+        //            break;
+
+
+        //        default:
+        //            break;
+        //    }
+        //}
 
 
         private void RefreshTable(List<Record> filtered)
@@ -1496,7 +1504,7 @@ namespace FilmCollection
                 {
                     dgvTableActors.Rows[rowIndex].Selected = true;
                     dgvTableActors.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
-                }                
+                }
             }
         }
 
@@ -2026,6 +2034,7 @@ namespace FilmCollection
                 using (StreamReader reader = new StreamReader(data))
                     return reader.ReadToEnd();
             }
+            catch (WebException WebEx) { MessageBox.Show(WebEx.Message + " \n" + WebEx.Status); }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             return "";
         }
