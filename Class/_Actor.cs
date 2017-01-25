@@ -1,10 +1,12 @@
-﻿// Информация об актерах
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace FilmCollection
 {
+    /// <summary>
+    /// Класс содержит информацию об актерах.
+    /// </summary>
     public class Actor : IComparable<Actor>
     {
         public Actor()
