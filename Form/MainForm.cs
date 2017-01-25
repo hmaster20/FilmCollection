@@ -728,7 +728,7 @@ namespace FilmCollection
                 return true;
             return false;
         }
-
+        
         private void PrepareRefresh(bool flag = false, int column = -1)
         {
             Record selected = GetSelectedRecord();
