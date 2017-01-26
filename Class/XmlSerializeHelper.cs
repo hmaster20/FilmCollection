@@ -115,7 +115,7 @@ namespace FilmCollection
             catch (Exception ex)
             {
                 //throw new Exception("Error during deserializing");
-                throw new Exception(ex.Message);
+                throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message);
             }
         }
     }

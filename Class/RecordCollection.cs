@@ -100,7 +100,7 @@ namespace FilmCollection
             }
             catch (Exception ex)
             {
-                throw new Exception("Ошибка на этапе загрузки файла базы. " + ex.Message);
+                throw new Exception("Ошибка на этапе загрузки файла базы. \n" + ex.Message);
                 //return new RecordCollection();
             }
             return result;
