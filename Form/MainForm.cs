@@ -118,10 +118,9 @@ namespace FilmCollection
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    BackupBase();   // на всякий случай делаем бэкап
                     return state;
-                }
-
-                //BackupBase();   // на всякий случай делаем бэкап
+                }         
 
                 if (_videoCollection.CombineList.Count > 0)
                 {
@@ -1452,14 +1451,17 @@ namespace FilmCollection
         private void PlayRecord()
         {
             Record record = GetSelectedRecord();
-            string _file = (record.Path + Path.DirectorySeparatorChar + record.FileName);
-            if (File.Exists(_file))
+            if (record != null) // убрать возможность нажатия при отсутствии селекта
             {
-                Process.Start(_file);
-            }
-            else
-            {
-                MessageBox.Show("Отсутствует файл: " + _file);
+                string _file = (record.Path + Path.DirectorySeparatorChar + record.FileName);
+                if (File.Exists(_file))
+                {
+                    Process.Start(_file);
+                }
+                else
+                {
+                    MessageBox.Show("Отсутствует файл: " + _file);
+                }
             }
         }
 
