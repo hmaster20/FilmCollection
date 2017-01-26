@@ -728,7 +728,7 @@ namespace FilmCollection
                 return true;
             return false;
         }
-        
+
         private void PrepareRefresh(bool flag = false, int column = -1)
         {
             Record selected = GetSelectedRecord();
@@ -756,33 +756,17 @@ namespace FilmCollection
 
             if (RecTabSelect())
             {
-                if (column > -1)
-                {
-                    SortRecord(filtered, column);
-                }
-                else
-                {
-                    SortRecord(filtered, tscbSort.SelectedIndex);
-                }
+                if (column > -1) SortRecord(filtered, column);
+                else SortRecord(filtered, tscbSort.SelectedIndex);
+
+                PrepareActor(-1);
             }
             else
             {
-                if (column > -1)
-                {
-                    Sort_Actor(column);
-                }
-                else
-                {
-                    Sort_Actor(tsActSort.SelectedIndex);
-                }
+                if (column > -1) PrepareActor(column);
+                else PrepareActor(tsActSort.SelectedIndex);
             }
-
-
-          
-
-
-
-            // продумать обновление актеров - сейчас ОТКЛЮЧЕНО ()
+            // продумать обновление актеров
 
             RefreshTable(filtered);
 
@@ -805,26 +789,13 @@ namespace FilmCollection
             }
         }
 
-        private void SortActor(List<Actor> filteredAct, int switch_sort)  // Сортировка по столбцам
-        {
-            switch (switch_sort)
-            {
-                case 0: filteredAct.Sort(Actor.CompareByName); break;
-                case 1: filteredAct.Sort(Actor.CompareByDateOfBirth); break;
-                case 2: filteredAct.Sort(Actor.CompareByDateOfDeath); break;
-                case 3: filteredAct.Sort(Actor.CompareByCountry); break;
-                default: break;
-            }
-        }
-
-        private void Sort_Actor(int switch_sort)
+        private void PrepareActor(int switch_sort)
         {
             List<Actor> filteredAct = _videoCollection.ActorList;
             if (tsActCountryFilter.SelectedIndex > -1)
                 filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tsActCountryFilter.SelectedIndex);
 
             SortActor(filteredAct, switch_sort);
-
 
             dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
@@ -836,30 +807,17 @@ namespace FilmCollection
                 chkActorList.Items.Add(item);
         }
 
-
-        //void tets()
-        //{
-
-        //    switch (isRecTabs())
-        //    {
-        //        case 0:
-        //            {
-        //                SortRecord(filtered, tscbSort.SelectedIndex);
-        //                if (column > -1) SortRecord(filtered, column);
-        //            }
-        //            break;
-        //        case 1:
-        //            {
-        //                Sort_Actor();
-        //                if (column > -1) SortActor(filtered, column);
-        //            }
-        //            break;
-
-
-        //        default:
-        //            break;
-        //    }
-        //}
+        private void SortActor(List<Actor> filteredAct, int switch_sort)  // Сортировка по столбцам
+        {
+            switch (switch_sort)
+            {
+                case 0: filteredAct.Sort(Actor.CompareByName); break;
+                case 1: filteredAct.Sort(Actor.CompareByDateOfBirth); break;
+                case 2: filteredAct.Sort(Actor.CompareByDateOfDeath); break;
+                case 3: filteredAct.Sort(Actor.CompareByCountry); break;
+                default: break;
+            }
+        }
 
 
         private void RefreshTable(List<Record> filtered)
@@ -1547,12 +1505,17 @@ namespace FilmCollection
         private void Get_and_select_Record(string searchValue)
         {
             tabControl2.SelectedTab = tabFilm;
-            int rowIndex = -1;
-            DataGridViewRow row = dgvTableRec.Rows
-                .Cast<DataGridViewRow>()
-                .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
-                .First();
-            rowIndex = row.Index;
+            //int rowIndex = -1;
+
+            int rowIndex = (from r in dgvTableRec.Rows.Cast<DataGridViewRow>()
+                            where r.Cells["cmnName"].Value.ToString() == searchValue   //where r.Cells[0].Value == Search
+                            select r.Index).First();
+
+            //DataGridViewRow row = dgvTableRec.Rows
+            //    .Cast<DataGridViewRow>()
+            //    .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
+            //    .First();
+            //rowIndex = row.Index;
             if (rowIndex != -1)
             {
                 dgvTableRec.Rows[rowIndex].Selected = true;
@@ -2299,9 +2262,43 @@ namespace FilmCollection
             // Обработка описания
             MatchCollection mcDesc = Regex.Matches(sourcestring, "(itemprop=\"actors\".*?</div>)", RegexOptions.IgnoreCase);
 
+            /* 1 строка
+             * {itemprop="actors">
+             * <a href="/person/631361_aishwarya_rai/" itemprop="name">Айшвария Рай Баччан</a>, <a href="/person/457275_irfan_khan/" itemprop="name">Ирфан Кхан</a>, <a href="/person/544254_shabana_azmi/" itemprop="name">Шабана Азми</a>, <a href="/person/459400_jackie_shroff/" itemprop="name">Джеки Шрофф</a>, <a href="/person/537746_atul_kulkarni/" itemprop="name">Атул Кулкарни</a>, <a href="/person/613371_chandan_roy_sanyal/" itemprop="name">Чандан Рой Саньял</a>, <a href="/person/575658_abhimanyu_singh/" itemprop="name">Синг Амбхимани Шехар</a>, <a href="/person/743763_taran_bajaj/" itemprop="name">Таран Баджадж</a>, <a href="/person/743764_priya_banerjee/" itemprop="name">Прия Банерджи</a>, <a href="/person/667870_siddhant_kapoor/" itemprop="name">Сиддхант Капур</a></div>}
+             */
+
+            string ssss = "";
+
+            if (mcDesc.Count == 0)
+            {
+                //mcDesc = Regex.Matches(sourcestring, "(class=\"js-show-more\".*?</div>)", RegexOptions.IgnoreCase);
+                mcDesc = Regex.Matches(sourcestring, "(<th>В ролях</th>.*?</div>)", RegexOptions.IgnoreCase);
+                // 1 строка
+                //
+                // {<th>В ролях</th><td><div class="js-show-more"><a href="/person/437937_petr_veljaminov/">Петр Вельяминов</a>, <a href="/person/460439_ada_rogovceva/">Ада Роговцева</a>, <a href="/person/630781_vadim_spiridonov/">Вадим Спиридонов</a>, <a href="/person/455898_tamara_semina/">Тамара Семина</a>, <a href="/person/455523_nikolaj_ivanov/">Николай Иванов</a>, <a href="/person/462498_ivan_lapikov/">Иван Лапиков</a>, <a href="/person/501181_vladlen_birjukov/">Владлен Бирюков</a>, <a href="/person/630476_valerij_hlevinskij/">Валерий Хлевинский</a>, <a href="/person/438527_efim_kopeljan/">Ефим Копелян</a>, <a href="/person/438578_andrej_martynov/">Андрей Мартынов</a>, <a href="/person/703060_vladimir_ivanov/">Владимир Иванов</a></div>} 
+
+                //ssss = mcDesc[0].ToString();
+                //if (ssss.IndexOf("<a href") != -1)
+                //{
+                //    ssss = ssss.Substring(ssss.IndexOf("<a href"));
+                //}       
+
+            }
+
+
+
             foreach (Match m in mcDesc)
             {
-                string[] mArray = m.ToString().Split(new string[] { "\"name\">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
+
+                ssss = m.ToString();
+                if (ssss.IndexOf("<a href") != -1)
+                {
+                    ssss = ssss.Substring(ssss.IndexOf("<a href"));
+                }
+                string[] mArray = ssss.Split(new string[] { ">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
+
+
+                // string[] mArray = m.ToString().Split(new string[] { "\"name\">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
 
                 // получение ссылки на страницу актеров
                 //for (int i = 0; i < strs.Length; i++)
