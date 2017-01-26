@@ -120,7 +120,7 @@ namespace FilmCollection
                     MessageBox.Show(ex.Message);
                     BackupBase();   // на всякий случай делаем бэкап
                     return state;
-                }         
+                }
 
                 if (_videoCollection.CombineList.Count > 0)
                 {
@@ -1507,17 +1507,23 @@ namespace FilmCollection
         private void Get_and_select_Record(string searchValue)
         {
             tabControl2.SelectedTab = tabFilm;
-            //int rowIndex = -1;
+            int rowIndex = -1;
 
-            int rowIndex = (from r in dgvTableRec.Rows.Cast<DataGridViewRow>()
-                            where r.Cells["cmnName"].Value.ToString() == searchValue   //where r.Cells[0].Value == Search
-                            select r.Index).First();
+            IEnumerable<int> index = (from r in dgvTableRec.Rows.Cast<DataGridViewRow>()
+                                      where r.Cells["cmnName"].Value.ToString() == searchValue   //where r.Cells[0].Value == Search
+                                      select r.Index);//.First();
+
+            if (index != null && index.Count() > 0)
+            {
+                rowIndex = index.First();
+            }
 
             //DataGridViewRow row = dgvTableRec.Rows
             //    .Cast<DataGridViewRow>()
             //    .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
             //    .First();
             //rowIndex = row.Index;
+
             if (rowIndex != -1)
             {
                 dgvTableRec.Rows[rowIndex].Selected = true;
