@@ -736,9 +736,9 @@ namespace FilmCollection
             if (nodeName != "" && nodeName != "Фильмотека")
                 return true;
             return false;
-        }
+        } 
 
-        private void PrepareRefresh(bool flag = false, int column = -1)
+        private void PrepareRefresh(bool ShowAllFiles = false, int column = -1)
         {
             Record selected = GetSelectedRecord();
 
@@ -757,8 +757,11 @@ namespace FilmCollection
 
             if (checkNode())
             {
-                filtered = (!flag)
+                // Флаг не распространяется на клик по корню, т.е. на "Фильмотека" - отображается все содержимое каталогов
+                filtered = (!ShowAllFiles)
+                            // отобразить файлы в текущем каталоге
                             ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                            // отобразить все файлы в т.ч. и вложенные
                             : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode()));
             }
 
@@ -1510,22 +1513,25 @@ namespace FilmCollection
             if (listViewFilmV.SelectedItems[0].SubItems[0].Text != "")
             {
                 string searchValue = listViewFilmV.SelectedItems[0].SubItems[0].Text;
-                Get_and_select_Record(searchValue);
+                FindAndSelect_Record(searchValue);
             }
         }
 
-        private void Get_and_select_Record(string searchValue)
+        private void FindAndSelect_Record(string searchValue)
         {
+            PrepareRefresh("Фильмотека", true); // решает проблему с поискам, если в дереве выбрана другая вкладка (фактически делает сброс)
+
             tabControl2.SelectedTab = tabFilm;
+
             int rowIndex = -1;
 
             IEnumerable<int> index = (from r in dgvTableRec.Rows.Cast<DataGridViewRow>()
-                                      where r.Cells["cmnName"].Value.ToString() == searchValue   //where r.Cells[0].Value == Search
-                                      select r.Index);//.First();
+                                      where r.Cells["cmnName"].Value.ToString() == searchValue
+                                      select r.Index);
 
-            if (index != null && index.Count() > 0)
+            if (index != null && index.Count() > 0) // для устранения исключения при отсутствии нужного элемента
             {
-                rowIndex = index.First();
+                rowIndex = index.First();   
             }
 
             //DataGridViewRow row = dgvTableRec.Rows
@@ -1816,6 +1822,7 @@ namespace FilmCollection
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
+            tabControl2.SelectedTab = tabFilm;  // при клике из другой вкладке выполняет переключение на актуальную вкладку
             PrepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
             textBox4.Text = e.Node.Text;                //  panelFolder
         }
@@ -2709,7 +2716,7 @@ namespace FilmCollection
             return path;
         }
 
-        private void imageViewer_SelectRecord(object sender, EventArgs e) => Get_and_select_Record(GetPicName(sender));
+        private void imageViewer_SelectRecord(object sender, EventArgs e) => FindAndSelect_Record(GetPicName(sender));
 
 
         private void imageViewer_Description(object sender, EventArgs e)    // Вывод описания
