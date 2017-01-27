@@ -408,7 +408,7 @@ namespace FilmCollection
 
                     MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
                 }
-                catch (IOException copyError) { MessageBox.Show(copyError.Message); }
+                catch (IOException ex) { MessageBox.Show(ex.Message); }
             }
         }
 
@@ -417,13 +417,20 @@ namespace FilmCollection
             RecoveryForm form = new RecoveryForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // создаем копию испорченной базы
-                string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                    + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
-                    + Path.GetExtension(RecordOptions.BaseName);
+                try
+                {
+                    if (File.Exists(RecordOptions.BaseName)) // если файл базы существует
+                    {
+                        // создаем копию испорченной базы
+                        string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                            + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
+                            + Path.GetExtension(RecordOptions.BaseName);
+                        File.Copy(RecordOptions.BaseName, BadFileBase);
+                    }
+                    File.Copy(form.recoverBase, RecordOptions.BaseName, true);
+                }
+                catch (IOException ex) { MessageBox.Show(ex.Message); }
 
-                File.Copy(RecordOptions.BaseName, BadFileBase);
-                File.Copy(form.recoverBase, RecordOptions.BaseName, true);
                 MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
                 FormLoad();
             }
@@ -531,20 +538,22 @@ namespace FilmCollection
                     string regReplace = tsFindbyName.Text.Replace("*", "");
                     Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
 
-                    GetDgv().ClearSelection();
-                    GetDgv().MultiSelect = true;
+                    DataGridView dgv = GetDgv();
 
-                    foreach (DataGridViewRow row in GetDgv().Rows)
+                    dgv.ClearSelection();
+                    dgv.MultiSelect = true;
+
+                    foreach (DataGridViewRow row in dgv.Rows)
                     {
                         if (regex.IsMatch(row.Cells[0].Value.ToString()))
                         {
                             int f = row.Cells[0].RowIndex;
-                            if (f < GetDgv().RowCount)
+                            if (f < dgv.RowCount)
                             {
-                                GetDgv().ClearSelection();
-                                GetDgv().Rows[f].Selected = true;            // выделяем
-                                GetDgv().FirstDisplayedScrollingRowIndex = f;// прокручиваем
-                                GetDgv().Update();
+                                dgv.ClearSelection();
+                                dgv.Rows[f].Selected = true;            // выделяем
+                                dgv.FirstDisplayedScrollingRowIndex = f;// прокручиваем
+                                dgv.Update();
                             }
                             break;
                         }
@@ -676,10 +685,11 @@ namespace FilmCollection
         {
             if (e.ColumnIndex > -1 && e.RowIndex > -1)
             {
-                GetDgv().CurrentCell = GetDgv().Rows[e.RowIndex].Cells[e.ColumnIndex];
-                GetDgv().Rows[e.RowIndex].Selected = true;
-                GetDgv().Focus();
-                GetDgv().ContextMenuStrip = TabMenu;
+                DataGridView dgv = GetDgv();
+                dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                dgv.Rows[e.RowIndex].Selected = true;
+                dgv.Focus();
+                dgv.ContextMenuStrip = TabMenu;
                 //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
             }
             else
