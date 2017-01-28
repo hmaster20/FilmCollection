@@ -970,7 +970,7 @@ namespace FilmCollection
                 listViewFilmV.Items.Clear();
                 try
                 {
-                    foreach (int recID in act.VideoID)
+                    foreach (int recID in act.VideoID_Get())
                         foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilmV.Items.Add(new ListViewItem(new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
                 }
@@ -987,7 +987,7 @@ namespace FilmCollection
                 listViewFilm.Items.Clear();
                 try
                 {
-                    foreach (int recID in act.VideoID)
+                    foreach (int recID in act.VideoID_Get())
                         foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilm.Items.Add(new ListViewItem(new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
                 }
@@ -1225,12 +1225,20 @@ namespace FilmCollection
             cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
             cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
 
-            foreach (Actor _actorID in chkActorSelect.Items)
-                if (_actorID != null)
-                {
-                    cm.media.ActorListID.Add(_actorID.id);
-                    _actorID.VideoID.Add(cm.media.Id);
-                }
+            if (chkActorSelect.Items.Count != 0)
+            {
+                foreach (Actor _actorID in chkActorSelect.Items)
+                    if (_actorID != null)
+                    {
+                        cm.media.ActorListID.Add(_actorID.id);
+                        //_actorID.VideoID_Add(cm.media.Id);
+                        _actorID.VideoID_Add(cm.media.Id);
+                    }
+            }
+            else
+            {
+                cm.media.ActorListID.Clear(); // Продумать синхронизацию актёров и медиа при изменении или очистки списка актеров
+            } 
         }
 
         private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
@@ -2355,7 +2363,7 @@ namespace FilmCollection
                             actor.id = RecordCollection.GetActorID();
                             actor.FIO = item;
                             actor.Country = media.Country;
-                            actor.VideoID.Add(media.Id);
+                            actor.VideoID_Add(media.Id);
                             media.ActorListID.Add(actor.id);
 
                             _videoCollection.ActorList.Add(actor);
@@ -2363,9 +2371,9 @@ namespace FilmCollection
                         else
                         {
                             actor = _videoCollection.ActorList.FindLast(act => act.FIO == item);
-                            if (!actor.VideoID.Exists(x => x == media.Id))
+                            if (!actor.VideoID_Get().Exists(x => x == media.Id))
                             {
-                                actor.VideoID.Add(media.Id);
+                                actor.VideoID_Add(media.Id);
                                 media.ActorListID.Add(actor.id);
                             }
                         }
@@ -2472,6 +2480,13 @@ namespace FilmCollection
             }
         }
 
+        private void btnRemoveAllGroup_Click(object sender, EventArgs e)
+        {
+
+            chkActorSelect.Items.Clear();
+            UserModifiedChanged(sender, e);
+        }
+
         private void btnNewActor_Click(object sender, EventArgs e) => NewActor();
 
         private void NewActor()
@@ -2520,7 +2535,7 @@ namespace FilmCollection
 
             foreach (ListViewItem eachItem in listViewFilm.Items)
             {
-                actor.VideoID.Add(Convert.ToInt32(eachItem.SubItems[2].Text));
+                actor.VideoID_Add(Convert.ToInt32(eachItem.SubItems[2].Text));
                 _videoCollection.CombineList.FindLast(m => m.media.Id == Convert.ToInt32(eachItem.SubItems[2].Text)).media.ActorListID.Add(actor.id);
             }
 
@@ -2804,9 +2819,11 @@ namespace FilmCollection
         }
 
 
+
         #endregion
 
-
+   
     }
 }
+
 

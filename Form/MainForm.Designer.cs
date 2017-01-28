@@ -250,6 +250,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.btnRemoveAllGroup = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1144,6 +1145,7 @@
             this.gMedia.Controls.Add(this.lblTypeVideo);
             this.gMedia.Controls.Add(this.lblYear);
             this.gMedia.Controls.Add(this.btnAddGroup);
+            this.gMedia.Controls.Add(this.btnRemoveAllGroup);
             this.gMedia.Controls.Add(this.btnRemoveGroup);
             this.gMedia.Controls.Add(this.lblActorsAll);
             this.gMedia.Controls.Add(this.lblActorsSelect);
@@ -1299,7 +1301,7 @@
             // 
             this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnAddGroup.Location = new System.Drawing.Point(197, 254);
+            this.btnAddGroup.Location = new System.Drawing.Point(197, 241);
             this.btnAddGroup.Name = "btnAddGroup";
             this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
             this.btnAddGroup.TabIndex = 52;
@@ -2583,6 +2585,18 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // btnRemoveAllGroup
+            // 
+            this.btnRemoveAllGroup.BackColor = System.Drawing.Color.LightGray;
+            this.btnRemoveAllGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRemoveAllGroup.Location = new System.Drawing.Point(197, 314);
+            this.btnRemoveAllGroup.Name = "btnRemoveAllGroup";
+            this.btnRemoveAllGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveAllGroup.TabIndex = 53;
+            this.btnRemoveAllGroup.Text = "<<";
+            this.btnRemoveAllGroup.UseVisualStyleBackColor = false;
+            this.btnRemoveAllGroup.Click += new System.EventHandler(this.btnRemoveAllGroup_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2884,6 +2898,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnCategoryString;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
+        private System.Windows.Forms.Button btnRemoveAllGroup;
     }
 }
 
