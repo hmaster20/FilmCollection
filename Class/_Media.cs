@@ -23,7 +23,10 @@ namespace FilmCollection
     
 
         public string Name { get; set; }        // Название произведения
-        public int Id { get; set; }             // Уникальный идентификатор (возможно заменить на GUID ?)
+
+        /// <summary>Уникальный идентификатор объекта Media.</summary>
+        public int Id { get; set; }
+
         public string Pic { get; set; } = "";   // если заполнен значит есть Изображение (Постер)
         public string Description { get; set; } = "";  // Описание файла (сюжет)
 
@@ -33,7 +36,6 @@ namespace FilmCollection
             get { return _year; }
             set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
         }
-
         
 
         #region Список ID актеров
