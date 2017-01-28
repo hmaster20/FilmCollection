@@ -12,7 +12,8 @@ namespace FilmCollection
     {
         public Actor()
         {
-            VideoID = new List<int>();     // Создание списка ID
+            // VideoID = new List<int>();     // Создание списка ID
+            _videoID = new List<int>();
             CombineList = new List<Combine>();
         }    
 
@@ -60,6 +61,8 @@ namespace FilmCollection
             set { Country = StringToCountry(value); }
         }
 
+
+
         public static string CountryToString(Country_Rus country)
         {
             Country_Rus _category = (Country_Rus)((int)country);
@@ -76,7 +79,25 @@ namespace FilmCollection
 
         #region Список ID фильмов
 
-        private List<int> VideoID;  // Список фильмов (ID) в которых играет актер
+        //private List<int> VideoID;  // Список фильмов (ID) в которых играет актер
+        //public List<int> VideoID { get; } // Список фильмов (ID) в которых играет актер
+
+
+        private List<int> _videoID;
+        
+        public List<int> VideoID
+        {
+            get
+            {
+                return _videoID;
+            }
+            //private set
+            //{
+            //   _videoID = value;
+            //}
+        }
+
+
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
         /// <param name="id">Идентификатор фильма (Media)</param>
