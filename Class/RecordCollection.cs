@@ -51,12 +51,13 @@ namespace FilmCollection
 
 
         private static int ActorID { get; set; }               // Идентификатор актеров
+
+        /// <summary>Метод создает и присваивает следующий номер.</summary>
         public static int GetActorID() => ++ActorID;           // Генерация идентификатора  // return ++ActorID;
         public static void ResetActorID() => ActorID = 0;      // обнуление идентификатора
         public static void SetActorID(int value) => ActorID = value;
 
-
-
+        
 
         #region Сериализация
 
@@ -84,7 +85,7 @@ namespace FilmCollection
                 foreach (Actor actor in result.ActorList)
                 {
                     actorDic.Add(actor.id, actor);
-                    foreach (int videoID in actor.VideoID)
+                    foreach (int videoID in actor.VideoID_Get())
                     {
                         if (combineDic.ContainsKey(videoID))
                         {
