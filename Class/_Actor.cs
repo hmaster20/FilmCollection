@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -13,7 +14,8 @@ namespace FilmCollection
         {
             VideoID = new List<int>();     // Создание списка ID
             CombineList = new List<Combine>();
-        }
+        }    
+
 
         public int id { get; set; }         // Уникальный идентификатор
 
@@ -35,10 +37,8 @@ namespace FilmCollection
 
         public string BIO { get; set; }     // ссылка на страницу с биографией
 
-        public override string ToString()
-        {
-            return FIO;
-        }
+        public override string ToString() => FIO;
+
 
 
         [XmlIgnore]
@@ -76,15 +76,27 @@ namespace FilmCollection
 
         #region Список ID фильмов
 
-        private List<int> _videoID;     // Объявление ID фильмов
-        public List<int> VideoID
+        private List<int> VideoID;  // Список фильмов (ID) в которых играет актер
+
+        /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
+        /// <param name="id">Идентификатор фильма (Media)</param>
+        public void VideoID_Add(int id)
         {
-            get { return _videoID; }
-            set { _videoID = value; }
+            if (!VideoID.Contains(id)) VideoID.Add(id);
         }
-        public void Add(int id) => VideoID.Add(id);
-        public void Remove(int id) => VideoID.Remove(id);
-        public void ClearID() => VideoID.Clear();
+
+        /// <summary>Этот метод проверяет наличие элемента в списке, если элемент есть, то выполняется удаление.</summary>
+        /// <param name="id">Идентификатор фильма (Media)</param>
+        public void VideoID_Remove(int id)
+        {
+            if (VideoID.Contains(id)) VideoID.Remove(id);
+        }
+
+        /// <summary>Этот метод возвращает список идентификаторов (id) фильмов.</summary>
+        public List<int> VideoID_Get() => VideoID;
+
+        /// <summary>Этот метод выполняет очистку списка идентификаторов фильмов.</summary>
+        public void VideoID_Clear() => VideoID.Clear();
 
         #endregion
 
@@ -99,7 +111,7 @@ namespace FilmCollection
             }
             return false;
         }
-                
+
         public int CompareTo(Actor obj) // Реализовать интерфейс IComparable<T>, т.е. получить возможность сортировки методом .Sort();
         {
             return FIO.CompareTo(obj.FIO);
