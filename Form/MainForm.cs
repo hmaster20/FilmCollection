@@ -1241,8 +1241,13 @@ namespace FilmCollection
             }
             else
             {
+                List<Media> tmp = new List<Media>();    // промежуточный список для ускорения построение списка
+               
                 foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
-                    cbNameMedia.Items.Add(item.media);
+                    tmp.Add(item.media);
+
+                cbNameMedia.Items.AddRange(tmp.ToArray());
+
                 cbNameMedia.Enabled = true;
             }
             UserModifiedChanged(sender, e);
