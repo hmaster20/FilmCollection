@@ -970,7 +970,7 @@ namespace FilmCollection
                 listViewFilmV.Items.Clear();
                 try
                 {
-                    foreach (int recID in act.VideoID_Get())
+                    foreach (int recID in act.VideoID)
                         foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilmV.Items.Add(new ListViewItem(new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
                 }
@@ -987,7 +987,7 @@ namespace FilmCollection
                 listViewFilm.Items.Clear();
                 try
                 {
-                    foreach (int recID in act.VideoID_Get())
+                    foreach (int recID in act.VideoID)
                         foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilm.Items.Add(new ListViewItem(new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
                 }
@@ -1500,7 +1500,7 @@ namespace FilmCollection
 
         private void lbActors_DoubleClick(object sender, EventArgs e)
         {
-            tabControl2.SelectedTab = tabActors;
+            tabControl2.SelectedTab = tabActors; // System.IndexOutOfRangeException
             if (lbActors.SelectedItem != null)
             {
                 String searchValue = lbActors.SelectedItem.ToString();
@@ -2371,7 +2371,7 @@ namespace FilmCollection
                         else
                         {
                             actor = _videoCollection.ActorList.FindLast(act => act.FIO == item);
-                            if (!actor.VideoID_Get().Exists(x => x == media.Id))
+                            if (!actor.VideoID.Contains(media.Id))
                             {
                                 actor.VideoID_Add(media.Id);
                                 media.ActorListID.Add(actor.id);
