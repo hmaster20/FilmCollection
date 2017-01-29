@@ -10,8 +10,7 @@ namespace FilmCollection
     {
         public Actor()
         {
-            // VideoID = new List<int>();     // Создание списка ID
-            _videoID = new List<int>();
+            VideoID = new List<int>();     // Создание списка ID
             CombineList = new List<Combine>();
         }
 
@@ -73,13 +72,20 @@ namespace FilmCollection
             return _category;
         }
         #endregion
-        
+
 
         #region Список ID фильмов
 
-        private List<int> _videoID { get; set; }    // Список фильмов (ID) в которых играет актер
+        private List<int> _videoID;     // Объявление ID фильмов
+        public List<int> VideoID
+        {
+            get { return _videoID; }
+            private set { _videoID = value; }
+        }
 
-        public ReadOnlyCollection<int> VideoID { get { return _videoID.AsReadOnly(); } }
+        //private List<int> _videoID { get; set; }    // Список фильмов (ID) в которых играет актер
+        //public ReadOnlyCollection<int> VideoID { get { return _videoID.AsReadOnly(); } }
+        
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
         /// <param name="id">Идентификатор фильма (Media)</param>

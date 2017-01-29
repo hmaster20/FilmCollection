@@ -85,7 +85,7 @@ namespace FilmCollection
                 foreach (Actor actor in result.ActorList)
                 {
                     actorDic.Add(actor.id, actor);
-                    foreach (int videoID in actor.VideoID_Get())
+                    foreach (int videoID in actor.VideoID)
                     {
                         if (combineDic.ContainsKey(videoID))
                         {

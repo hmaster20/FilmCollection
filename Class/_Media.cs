@@ -5,9 +5,7 @@ using System.Xml.Serialization;
 
 namespace FilmCollection
 {
-    /// <summary>
-    /// Класс содержит информацию о произведениях: фильма, сериалах, мультфильмах и т.д.
-    /// </summary>
+    /// <summary>Класс содержит информацию о произведениях: фильма, сериалах, мультфильмах и т.д.</summary>
     public class Media
     {
         [XmlIgnore]
@@ -20,7 +18,7 @@ namespace FilmCollection
         }
 
         public override string ToString() => Name;  // return Name;
-    
+
 
         public string Name { get; set; }        // Название произведения
 
@@ -36,7 +34,7 @@ namespace FilmCollection
             get { return _year; }
             set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
         }
-        
+
 
         #region Список ID актеров
 
@@ -47,9 +45,9 @@ namespace FilmCollection
             set { _actorID = value; }
         }
 
-        public void Add(int id) => ActorListID.Add(id);
-        public void Remove(int id) => ActorListID.Remove(id);
-        public void ClearID() => ActorListID.Clear();
+        //public void Add(int id) => ActorListID.Add(id);
+        //public void Remove(int id) => ActorListID.Remove(id);
+        //public void ClearID() => ActorListID.Clear();
 
 
         #endregion
