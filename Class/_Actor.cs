@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 
 namespace FilmCollection
 {
-    /// <summary>
-    /// Класс содержит информацию об актерах.
-    /// </summary>
+    /// <summary>Класс содержит информацию об актерах.</summary>
     public class Actor : IComparable<Actor>
     {
         public Actor()
@@ -15,7 +13,7 @@ namespace FilmCollection
             // VideoID = new List<int>();     // Создание списка ID
             _videoID = new List<int>();
             CombineList = new List<Combine>();
-        }    
+        }
 
 
         public int id { get; set; }         // Уникальный идентификатор
@@ -75,49 +73,30 @@ namespace FilmCollection
             return _category;
         }
         #endregion
-
+        
 
         #region Список ID фильмов
 
-        //private List<int> VideoID;  // Список фильмов (ID) в которых играет актер
-        //public List<int> VideoID { get; } // Список фильмов (ID) в которых играет актер
+        private List<int> _videoID { get; set; }    // Список фильмов (ID) в которых играет актер
 
-
-        private List<int> _videoID;
-        
-        public List<int> VideoID
-        {
-            get
-            {
-                return _videoID;
-            }
-            //private set
-            //{
-            //   _videoID = value;
-            //}
-        }
-
-
+        public ReadOnlyCollection<int> VideoID { get { return _videoID.AsReadOnly(); } }
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
         /// <param name="id">Идентификатор фильма (Media)</param>
         public void VideoID_Add(int id)
         {
-            if (!VideoID.Contains(id)) VideoID.Add(id);
+            if (!VideoID.Contains(id)) _videoID.Add(id);
         }
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если элемент есть, то выполняется удаление.</summary>
         /// <param name="id">Идентификатор фильма (Media)</param>
         public void VideoID_Remove(int id)
         {
-            if (VideoID.Contains(id)) VideoID.Remove(id);
+            if (VideoID.Contains(id)) _videoID.Remove(id);
         }
 
-        /// <summary>Этот метод возвращает список идентификаторов (id) фильмов.</summary>
-        public List<int> VideoID_Get() => VideoID;
-
         /// <summary>Этот метод выполняет очистку списка идентификаторов фильмов.</summary>
-        public void VideoID_Clear() => VideoID.Clear();
+        public void VideoID_Clear() => _videoID.Clear();
 
         #endregion
 
