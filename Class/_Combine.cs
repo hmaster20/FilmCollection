@@ -1,9 +1,9 @@
-﻿// Класс для объединения Media (информации о фильме) и Record (самого файла видео)
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace FilmCollection
 {
+    /// <summary>Связывающий класс для объединения Media (информации о фильме) и Record (самого файла видео)</summary>
     public class Combine
     {
         public Combine()
