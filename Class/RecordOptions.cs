@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 
 namespace FilmCollection
 {
+    /// <summary>Параметры настроек программы</summary>
     public class RecordOptions
     {
         [XmlIgnore]
