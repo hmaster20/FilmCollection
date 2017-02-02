@@ -6,9 +6,7 @@ using System.Linq;
 
 namespace FilmCollection
 {
-    /// <summary>
-    /// Класс управления коллекцией фильмотеки
-    /// </summary>
+    /// <summary>Класс управления коллекцией фильмотеки</summary>
     public class RecordCollection
     {
         [XmlElement]
@@ -57,13 +55,17 @@ namespace FilmCollection
         public static void ResetActorID() => ActorID = 0;      // обнуление идентификатора
         public static void SetActorID(int value) => ActorID = value;
 
-        
+
 
         #region Сериализация
 
-        public void Save() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);    // Сохранение
+        /// <summary>Сохранение (Сериализация) коллекции в файл XML</summary>
+        public void Save() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
 
-        public static RecordCollection Load()                   // Загрузка
+
+        /// <summary>Загрузка (деСериализация) объектов из файла XML</summary>
+        /// <returns>Возвращает коллекцию RecordCollection</returns>
+        public static RecordCollection Load()
         {
             RecordCollection result;
             try
