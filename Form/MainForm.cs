@@ -84,7 +84,8 @@ namespace FilmCollection
 
         }
 
-        private void tsFindbyName_Paint(object sender, PaintEventArgs e)   // отрисовка рамки вокруг tsFindbyName
+        /// <summary>Отрисовка рамки вокруг tsFindbyName</summary>
+        private void tsFindbyName_Paint(object sender, PaintEventArgs e)
         {
             Rectangle rect = new Rectangle(1, 1, 145, 18);
             rect.Inflate(1, 1); // border thickness
@@ -104,7 +105,6 @@ namespace FilmCollection
         }
 
         private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
-
 
         private bool FormLoad()
         {
@@ -230,7 +230,8 @@ namespace FilmCollection
 
         #region Обработка файла базы
 
-        private void NewBase()       // Создание файла базы
+        /// <summary>Создание файла базы </summary>
+        private void NewBase()
         {
             FolderBrowserDialog fbDialog = new FolderBrowserDialog();
             fbDialog.Description = "Укажите расположение файлов мультимедиа:";
@@ -393,8 +394,8 @@ namespace FilmCollection
             return (name_f != "") ? name_f : name_1;
         }
 
-
-        private void BackupBase()       // Резервная копия базы
+        /// <summary>Резервная копия базы</summary>
+        private void BackupBase()
         {
             if (File.Exists(RecordOptions.BaseName)) // если есть, что резервировать...
             {
@@ -459,30 +460,15 @@ namespace FilmCollection
 
         #region Главное меню
 
-        private void CreateBase_Click(object sender, EventArgs e)
-        {
-            NewBase();
-        }
+        private void CreateBase_Click(object sender, EventArgs e) => NewBase();
 
-        private void UpdateBase_Click(object sender, EventArgs e)
-        {
-            UpdateBase();
-        }
+        private void UpdateBase_Click(object sender, EventArgs e) => UpdateBase();
 
-        private void BackupBase_Click(object sender, EventArgs e)
-        {
-            BackupBase();
-        }
+        private void BackupBase_Click(object sender, EventArgs e) => BackupBase();
 
-        private void RecoveryBase_Click(object sender, EventArgs e)
-        {
-            RecoveryBase();
-        }
+        private void RecoveryBase_Click(object sender, EventArgs e) => RecoveryBase();
 
-        private void CleanBase_Click(object sender, EventArgs e)
-        {
-            CleanBase();
-        }
+        private void CleanBase_Click(object sender, EventArgs e) => CleanBase();
 
         private void btnReport_Click(object sender, EventArgs e)
         {
@@ -569,15 +555,11 @@ namespace FilmCollection
 
         private void DeleteRec_Click(object sender, EventArgs e)
         {
-            //if (RecTabSelect()) DeleteRec();
-            //else DeleteActor();
-
             switch (isRecTabs())
             {
                 case 0: DeleteRec(); break;
                 case 1: DeleteActor(); break;
                 case 2: DeletePic(); break;
-
                 default: break;
             }
         }
@@ -736,7 +718,7 @@ namespace FilmCollection
             if (nodeName != "" && nodeName != "Фильмотека")
                 return true;
             return false;
-        } 
+        }
 
         private void PrepareRefresh(bool ShowAllFiles = false, int column = -1)
         {
@@ -1085,11 +1067,9 @@ namespace FilmCollection
             UserModifiedChanged(sender, e);
         }
 
-        private void btnNew_Click(object sender, EventArgs e) => NewRecord_Dialog(); // Создание элемента
-
-        private void btnSave_Click(object sender, EventArgs e) => SaveRecord();  // Сохранение нового или измененного элемента
-
-        private void btnCancel_Click(object sender, EventArgs e) => CancelRecord();// Отмена редактирования
+        private void btnNew_Click(object sender, EventArgs e) => NewRecord_Dialog();    // Создание элемента
+        private void btnSave_Click(object sender, EventArgs e) => SaveRecord();         // Сохранение нового или измененного элемента
+        private void btnCancel_Click(object sender, EventArgs e) => CancelRecord();     // Отмена редактирования
 
         private void NewRecord_Dialog()
         {
@@ -1231,14 +1211,13 @@ namespace FilmCollection
                     if (_actorID != null)
                     {
                         cm.media.ActorListID.Add(_actorID.id);
-                        //_actorID.VideoID_Add(cm.media.Id);
                         _actorID.VideoID_Add(cm.media.Id);
                     }
             }
             else
             {
                 cm.media.ActorListID.Clear(); // Продумать синхронизацию актёров и медиа при изменении или очистки списка актеров
-            } 
+            }
         }
 
         private void checkNewRecord_CheckedChanged(object sender, EventArgs e)
@@ -1250,7 +1229,7 @@ namespace FilmCollection
             else
             {
                 List<Media> tmp = new List<Media>();    // промежуточный список для ускорения построение списка
-               
+
                 foreach (var item in _videoCollection.CombineList) // создаем список фильмов для функции авто поиска
                     tmp.Add(item.media);
 
@@ -1544,7 +1523,7 @@ namespace FilmCollection
 
             if (index != null && index.Count() > 0) // для устранения исключения при отсутствии нужного элемента
             {
-                rowIndex = index.First();   
+                rowIndex = index.First();
             }
 
             //DataGridViewRow row = dgvTableRec.Rows
@@ -1810,27 +1789,37 @@ namespace FilmCollection
 
 
 
+            TreeNode treeViewBlank = new TreeNode();
 
-            int cc = 0;
             TreeNode lastNode = null;
             string subPathAgg;
 
             foreach (string path in paths)
             {
-                cc++;
-                //tsProgressBar.Value = cc;
+                //cc++;
                 subPathAgg = string.Empty;
                 foreach (string subPath in path.Split(pathSeparator))
                 {
                     subPathAgg += subPath + pathSeparator;
-                    TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
+                    // TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
+                    TreeNode[] nodes = treeViewBlank.Nodes.Find(subPathAgg, true);
                     if (nodes.Length == 0)
-                        lastNode = (lastNode == null) ? treeView.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                        lastNode = (lastNode == null) ? treeViewBlank.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                    // lastNode = (lastNode == null) ? treeView.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
                     else
                         lastNode = nodes[0];
                 }
                 lastNode = null;
             }
+            List<TreeNode> lst = new List<TreeNode>();
+
+            foreach (TreeNode item in treeViewBlank.Nodes)
+            {
+                lst.Add(item);
+            }
+
+            //treeView.BeginUpdate();
+            treeView.Nodes.AddRange(lst.ToArray());   
         }
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
@@ -2822,7 +2811,7 @@ namespace FilmCollection
 
         #endregion
 
-   
+
     }
 }
 
