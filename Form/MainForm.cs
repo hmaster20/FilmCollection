@@ -470,6 +470,8 @@ namespace FilmCollection
 
         private void CleanBase_Click(object sender, EventArgs e) => CleanBase();
 
+        private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
+
         private void btnReport_Click(object sender, EventArgs e)
         {
             // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
@@ -1056,6 +1058,17 @@ namespace FilmCollection
             }
         }
 
+        private void OpenFolderDB()
+        {
+            string filePath = RecordOptions.BaseName;
+            if (!File.Exists(filePath))
+                return;
+
+            string argument = "/select, \"" + filePath + "\"";
+            Process.Start("explorer.exe", argument);
+        }
+
+
         #endregion
 
 
@@ -1479,7 +1492,8 @@ namespace FilmCollection
 
         private void lbActors_DoubleClick(object sender, EventArgs e)
         {
-            tabControl2.SelectedTab = tabActors; // System.IndexOutOfRangeException
+            tabControl2.SelectTab(tabActors);
+
             if (lbActors.SelectedItem != null)
             {
                 String searchValue = lbActors.SelectedItem.ToString();
@@ -1513,7 +1527,7 @@ namespace FilmCollection
         {
             PrepareRefresh("Фильмотека", true); // решает проблему с поискам, если в дереве выбрана другая вкладка (фактически делает сброс)
 
-            tabControl2.SelectedTab = tabFilm;
+            tabControl2.SelectTab(tabFilm);
 
             int rowIndex = -1;
 
@@ -1819,12 +1833,14 @@ namespace FilmCollection
             }
 
             //treeView.BeginUpdate();
-            treeView.Nodes.AddRange(lst.ToArray());   
+            treeView.Nodes.AddRange(lst.ToArray());
         }
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
-            tabControl2.SelectedTab = tabFilm;  // при клике из другой вкладке выполняет переключение на актуальную вкладку
+            tabControl2.SelectTab(tabFilm);
+
+            // при клике из другой вкладке выполняет переключение на актуальную вкладку
             PrepareRefresh(e.Node.FullPath, false);     // обновление на основе полученной ноды
             textBox4.Text = e.Node.Text;                //  panelFolder
         }
@@ -2806,6 +2822,7 @@ namespace FilmCollection
 
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
+
 
 
 
