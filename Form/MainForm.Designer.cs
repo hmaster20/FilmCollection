@@ -73,6 +73,7 @@
             this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCleanDB = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOpenCatalogDB = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
@@ -185,8 +186,8 @@
             this.panelViewAct = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listViewFilmV = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tbFIOv = new System.Windows.Forms.TextBox();
             this.tbCountryAv = new System.Windows.Forms.TextBox();
@@ -251,7 +252,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.btnOpenCatalogDB = new System.Windows.Forms.ToolStripMenuItem();
+            this.column2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -674,6 +675,14 @@
             this.btnCleanDB.Text = "Очистка базы";
             this.btnCleanDB.Click += new System.EventHandler(this.CleanBase_Click);
             // 
+            // btnOpenCatalogDB
+            // 
+            this.btnOpenCatalogDB.Image = global::FilmCollection.Properties.Resources.Folder;
+            this.btnOpenCatalogDB.Name = "btnOpenCatalogDB";
+            this.btnOpenCatalogDB.Size = new System.Drawing.Size(196, 22);
+            this.btnOpenCatalogDB.Text = "Открыть каталог базы";
+            this.btnOpenCatalogDB.Click += new System.EventHandler(this.btnOpenCatalogDB_Click);
+            // 
             // btnHelp
             // 
             this.btnHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -687,14 +696,14 @@
             // 
             this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(152, 22);
+            this.btnAbout.Size = new System.Drawing.Size(149, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(152, 22);
+            this.btnRelease.Size = new System.Drawing.Size(149, 22);
             this.btnRelease.Text = "Версии";
             this.btnRelease.Visible = false;
             // 
@@ -1915,8 +1924,9 @@
             // listViewFilmV
             // 
             this.listViewFilmV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
+            this.column1,
+            this.column2,
+            this.column3});
             this.listViewFilmV.FullRowSelect = true;
             this.listViewFilmV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewFilmV.Location = new System.Drawing.Point(15, 19);
@@ -1929,15 +1939,15 @@
             this.listViewFilmV.View = System.Windows.Forms.View.Details;
             this.listViewFilmV.DoubleClick += new System.EventHandler(this.listViewFilmV_DoubleClick);
             // 
-            // columnHeader1
+            // column1
             // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 275;
+            this.column1.Text = "";
+            this.column1.Width = 200;
             // 
-            // columnHeader2
+            // column3
             // 
-            this.columnHeader2.Text = "";
-            this.columnHeader2.Width = 45;
+            this.column3.Text = "";
+            this.column3.Width = 45;
             // 
             // groupBox3
             // 
@@ -2599,13 +2609,10 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // btnOpenCatalogDB
+            // column2
             // 
-            this.btnOpenCatalogDB.Image = global::FilmCollection.Properties.Resources.Folder;
-            this.btnOpenCatalogDB.Name = "btnOpenCatalogDB";
-            this.btnOpenCatalogDB.Size = new System.Drawing.Size(196, 22);
-            this.btnOpenCatalogDB.Text = "Открыть каталог базы";
-            this.btnOpenCatalogDB.Click += new System.EventHandler(this.btnOpenCatalogDB_Click);
+            this.column2.Text = "";
+            this.column2.Width = 100;
             // 
             // MainForm
             // 
@@ -2800,8 +2807,10 @@
         private System.Windows.Forms.Button btnRemoveGroup;
         private System.Windows.Forms.Button btnAddGroup;
         private System.Windows.Forms.Label lblActorsSelect;
+        /// <summary>Снимались в фильме</summary>
         private System.Windows.Forms.ListBox chkActorSelect;
         private System.Windows.Forms.Label lblActorsAll;
+        /// <summary>Список актеров</summary>
         private System.Windows.Forms.CheckedListBox chkActorList;
         private System.Windows.Forms.Panel panelEditAct;
         private System.Windows.Forms.Label label8;
@@ -2872,8 +2881,8 @@
         private System.Windows.Forms.Panel panelViewAct;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListView listViewFilmV;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader column1;
+        private System.Windows.Forms.ColumnHeader column3;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.LinkLabel linkBIOv;
         private System.Windows.Forms.MaskedTextBox maskDateOfBirthV;
@@ -2910,6 +2919,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.Button btnRemoveAllGroup;
         private System.Windows.Forms.ToolStripMenuItem btnOpenCatalogDB;
+        private System.Windows.Forms.ColumnHeader column2;
     }
 }
 
