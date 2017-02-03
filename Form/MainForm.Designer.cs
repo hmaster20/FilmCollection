@@ -99,21 +99,6 @@
             this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
-            this.panelView = new System.Windows.Forms.Panel();
-            this.lbActors = new System.Windows.Forms.ListBox();
-            this.pbImage = new System.Windows.Forms.PictureBox();
-            this.btnPlay = new System.Windows.Forms.Button();
-            this.lblRecDescription = new System.Windows.Forms.Label();
-            this.lblRecRole = new System.Windows.Forms.Label();
-            this.lblRecCountry = new System.Windows.Forms.Label();
-            this.lblRecYear = new System.Windows.Forms.Label();
-            this.lblRecName = new System.Windows.Forms.Label();
-            this.tbfDesc = new System.Windows.Forms.TextBox();
-            this.tbfCountry = new System.Windows.Forms.TextBox();
-            this.tbfYear = new System.Windows.Forms.TextBox();
-            this.tbfName = new System.Windows.Forms.TextBox();
-            this.panelTitle = new System.Windows.Forms.Panel();
-            this.lblRecTitle = new System.Windows.Forms.Label();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.checkNewRecord = new System.Windows.Forms.CheckBox();
@@ -130,6 +115,7 @@
             this.lblTypeVideo = new System.Windows.Forms.Label();
             this.lblYear = new System.Windows.Forms.Label();
             this.btnAddGroup = new System.Windows.Forms.Button();
+            this.btnRemoveAllGroup = new System.Windows.Forms.Button();
             this.btnRemoveGroup = new System.Windows.Forms.Button();
             this.lblActorsAll = new System.Windows.Forms.Label();
             this.lblActorsSelect = new System.Windows.Forms.Label();
@@ -151,6 +137,21 @@
             this.tbNameRecord = new System.Windows.Forms.TextBox();
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
+            this.panelView = new System.Windows.Forms.Panel();
+            this.lbActors = new System.Windows.Forms.ListBox();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.lblRecDescription = new System.Windows.Forms.Label();
+            this.lblRecRole = new System.Windows.Forms.Label();
+            this.lblRecCountry = new System.Windows.Forms.Label();
+            this.lblRecYear = new System.Windows.Forms.Label();
+            this.lblRecName = new System.Windows.Forms.Label();
+            this.tbfDesc = new System.Windows.Forms.TextBox();
+            this.tbfCountry = new System.Windows.Forms.TextBox();
+            this.tbfYear = new System.Windows.Forms.TextBox();
+            this.tbfName = new System.Windows.Forms.TextBox();
+            this.panelTitle = new System.Windows.Forms.Panel();
+            this.lblRecTitle = new System.Windows.Forms.Label();
             this.panelFolder = new System.Windows.Forms.Panel();
             this.btnSaveFolder = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -250,7 +251,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.btnRemoveAllGroup = new System.Windows.Forms.Button();
+            this.btnOpenCatalogDB = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -263,13 +264,13 @@
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
             this.menudgvTable.SuspendLayout();
-            this.panelView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
-            this.panelTitle.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             this.gRecord.SuspendLayout();
+            this.panelView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
+            this.panelTitle.SuspendLayout();
             this.panelFolder.SuspendLayout();
             this.panelFind.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -642,7 +643,8 @@
             this.btnOptions,
             this.btnActors,
             this.toolStripSeparator10,
-            this.btnCleanDB});
+            this.btnCleanDB,
+            this.btnOpenCatalogDB});
             this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
             this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.настройкаToolStripMenuItem.Text = "Настройка";
@@ -650,25 +652,25 @@
             // btnOptions
             // 
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(150, 22);
+            this.btnOptions.Size = new System.Drawing.Size(196, 22);
             this.btnOptions.Text = "Параметры";
             // 
             // btnActors
             // 
             this.btnActors.Name = "btnActors";
-            this.btnActors.Size = new System.Drawing.Size(150, 22);
+            this.btnActors.Size = new System.Drawing.Size(196, 22);
             this.btnActors.Text = "Актеры";
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(193, 6);
             // 
             // btnCleanDB
             // 
             this.btnCleanDB.Image = global::FilmCollection.Properties.Resources.dbClear;
             this.btnCleanDB.Name = "btnCleanDB";
-            this.btnCleanDB.Size = new System.Drawing.Size(150, 22);
+            this.btnCleanDB.Size = new System.Drawing.Size(196, 22);
             this.btnCleanDB.Text = "Очистка базы";
             this.btnCleanDB.Click += new System.EventHandler(this.CleanBase_Click);
             // 
@@ -685,14 +687,14 @@
             // 
             this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(149, 22);
+            this.btnAbout.Size = new System.Drawing.Size(152, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(149, 22);
+            this.btnRelease.Size = new System.Drawing.Size(152, 22);
             this.btnRelease.Text = "Версии";
             this.btnRelease.Visible = false;
             // 
@@ -934,187 +936,6 @@
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
-            // panelView
-            // 
-            this.panelView.Controls.Add(this.lbActors);
-            this.panelView.Controls.Add(this.pbImage);
-            this.panelView.Controls.Add(this.btnPlay);
-            this.panelView.Controls.Add(this.lblRecDescription);
-            this.panelView.Controls.Add(this.lblRecRole);
-            this.panelView.Controls.Add(this.lblRecCountry);
-            this.panelView.Controls.Add(this.lblRecYear);
-            this.panelView.Controls.Add(this.lblRecName);
-            this.panelView.Controls.Add(this.tbfDesc);
-            this.panelView.Controls.Add(this.tbfCountry);
-            this.panelView.Controls.Add(this.tbfYear);
-            this.panelView.Controls.Add(this.tbfName);
-            this.panelView.Controls.Add(this.panelTitle);
-            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelView.Location = new System.Drawing.Point(0, 0);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 606);
-            this.panelView.TabIndex = 10;
-            // 
-            // lbActors
-            // 
-            this.lbActors.BackColor = System.Drawing.SystemColors.Control;
-            this.lbActors.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbActors.Location = new System.Drawing.Point(14, 134);
-            this.lbActors.Name = "lbActors";
-            this.lbActors.Size = new System.Drawing.Size(134, 169);
-            this.lbActors.TabIndex = 56;
-            this.lbActors.DoubleClick += new System.EventHandler(this.lbActors_DoubleClick);
-            // 
-            // pbImage
-            // 
-            this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImage.Location = new System.Drawing.Point(154, 49);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(202, 301);
-            this.pbImage.TabIndex = 9;
-            this.pbImage.TabStop = false;
-            // 
-            // btnPlay
-            // 
-            this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
-            this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPlay.Location = new System.Drawing.Point(12, 310);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(111, 23);
-            this.btnPlay.TabIndex = 6;
-            this.btnPlay.Text = "Воспроизвести";
-            this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPlay.UseVisualStyleBackColor = true;
-            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
-            // 
-            // lblRecDescription
-            // 
-            this.lblRecDescription.AutoSize = true;
-            this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecDescription.Location = new System.Drawing.Point(8, 336);
-            this.lblRecDescription.Name = "lblRecDescription";
-            this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
-            this.lblRecDescription.TabIndex = 4;
-            this.lblRecDescription.Text = " Описание:";
-            // 
-            // lblRecRole
-            // 
-            this.lblRecRole.AutoSize = true;
-            this.lblRecRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecRole.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecRole.Location = new System.Drawing.Point(11, 115);
-            this.lblRecRole.Name = "lblRecRole";
-            this.lblRecRole.Size = new System.Drawing.Size(121, 17);
-            this.lblRecRole.TabIndex = 3;
-            this.lblRecRole.Text = "Роли исполняют:";
-            // 
-            // lblRecCountry
-            // 
-            this.lblRecCountry.AutoSize = true;
-            this.lblRecCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecCountry.Location = new System.Drawing.Point(10, 75);
-            this.lblRecCountry.Name = "lblRecCountry";
-            this.lblRecCountry.Size = new System.Drawing.Size(60, 17);
-            this.lblRecCountry.TabIndex = 3;
-            this.lblRecCountry.Text = "Страна:";
-            // 
-            // lblRecYear
-            // 
-            this.lblRecYear.AutoSize = true;
-            this.lblRecYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecYear.Location = new System.Drawing.Point(9, 53);
-            this.lblRecYear.Name = "lblRecYear";
-            this.lblRecYear.Size = new System.Drawing.Size(36, 17);
-            this.lblRecYear.TabIndex = 3;
-            this.lblRecYear.Text = "Год:";
-            // 
-            // lblRecName
-            // 
-            this.lblRecName.AutoSize = true;
-            this.lblRecName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecName.Location = new System.Drawing.Point(2, 29);
-            this.lblRecName.Name = "lblRecName";
-            this.lblRecName.Size = new System.Drawing.Size(80, 17);
-            this.lblRecName.TabIndex = 3;
-            this.lblRecName.Text = " Название:";
-            // 
-            // tbfDesc
-            // 
-            this.tbfDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfDesc.Location = new System.Drawing.Point(16, 356);
-            this.tbfDesc.Multiline = true;
-            this.tbfDesc.Name = "tbfDesc";
-            this.tbfDesc.ReadOnly = true;
-            this.tbfDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbfDesc.Size = new System.Drawing.Size(334, 240);
-            this.tbfDesc.TabIndex = 8;
-            // 
-            // tbfCountry
-            // 
-            this.tbfCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.tbfCountry.Location = new System.Drawing.Point(13, 95);
-            this.tbfCountry.Name = "tbfCountry";
-            this.tbfCountry.ReadOnly = true;
-            this.tbfCountry.Size = new System.Drawing.Size(135, 16);
-            this.tbfCountry.TabIndex = 7;
-            // 
-            // tbfYear
-            // 
-            this.tbfYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.tbfYear.Location = new System.Drawing.Point(44, 54);
-            this.tbfYear.Name = "tbfYear";
-            this.tbfYear.ReadOnly = true;
-            this.tbfYear.Size = new System.Drawing.Size(75, 16);
-            this.tbfYear.TabIndex = 7;
-            // 
-            // tbfName
-            // 
-            this.tbfName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfName.Location = new System.Drawing.Point(88, 29);
-            this.tbfName.Name = "tbfName";
-            this.tbfName.ReadOnly = true;
-            this.tbfName.Size = new System.Drawing.Size(276, 16);
-            this.tbfName.TabIndex = 7;
-            // 
-            // panelTitle
-            // 
-            this.panelTitle.Controls.Add(this.lblRecTitle);
-            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(368, 27);
-            this.panelTitle.TabIndex = 7;
-            // 
-            // lblRecTitle
-            // 
-            this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblRecTitle.Name = "lblRecTitle";
-            this.lblRecTitle.Size = new System.Drawing.Size(368, 27);
-            this.lblRecTitle.TabIndex = 0;
-            this.lblRecTitle.Text = "Общие сведения";
-            this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // panelEdit
             // 
             this.panelEdit.Controls.Add(this.gMedia);
@@ -1308,6 +1129,18 @@
             this.btnAddGroup.Text = ">";
             this.btnAddGroup.UseVisualStyleBackColor = false;
             this.btnAddGroup.Click += new System.EventHandler(this.btnAdd_SelectActor_Click);
+            // 
+            // btnRemoveAllGroup
+            // 
+            this.btnRemoveAllGroup.BackColor = System.Drawing.Color.LightGray;
+            this.btnRemoveAllGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnRemoveAllGroup.Location = new System.Drawing.Point(197, 314);
+            this.btnRemoveAllGroup.Name = "btnRemoveAllGroup";
+            this.btnRemoveAllGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveAllGroup.TabIndex = 53;
+            this.btnRemoveAllGroup.Text = "<<";
+            this.btnRemoveAllGroup.UseVisualStyleBackColor = false;
+            this.btnRemoveAllGroup.Click += new System.EventHandler(this.btnRemoveAllGroup_Click);
             // 
             // btnRemoveGroup
             // 
@@ -1537,6 +1370,187 @@
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // panelView
+            // 
+            this.panelView.Controls.Add(this.lbActors);
+            this.panelView.Controls.Add(this.pbImage);
+            this.panelView.Controls.Add(this.btnPlay);
+            this.panelView.Controls.Add(this.lblRecDescription);
+            this.panelView.Controls.Add(this.lblRecRole);
+            this.panelView.Controls.Add(this.lblRecCountry);
+            this.panelView.Controls.Add(this.lblRecYear);
+            this.panelView.Controls.Add(this.lblRecName);
+            this.panelView.Controls.Add(this.tbfDesc);
+            this.panelView.Controls.Add(this.tbfCountry);
+            this.panelView.Controls.Add(this.tbfYear);
+            this.panelView.Controls.Add(this.tbfName);
+            this.panelView.Controls.Add(this.panelTitle);
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(0, 0);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(368, 606);
+            this.panelView.TabIndex = 10;
+            // 
+            // lbActors
+            // 
+            this.lbActors.BackColor = System.Drawing.SystemColors.Control;
+            this.lbActors.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbActors.Location = new System.Drawing.Point(14, 134);
+            this.lbActors.Name = "lbActors";
+            this.lbActors.Size = new System.Drawing.Size(134, 169);
+            this.lbActors.TabIndex = 56;
+            this.lbActors.DoubleClick += new System.EventHandler(this.lbActors_DoubleClick);
+            // 
+            // pbImage
+            // 
+            this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbImage.Location = new System.Drawing.Point(154, 49);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(202, 301);
+            this.pbImage.TabIndex = 9;
+            this.pbImage.TabStop = false;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
+            this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPlay.Location = new System.Drawing.Point(12, 310);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(111, 23);
+            this.btnPlay.TabIndex = 6;
+            this.btnPlay.Text = "Воспроизвести";
+            this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.Play_Click);
+            // 
+            // lblRecDescription
+            // 
+            this.lblRecDescription.AutoSize = true;
+            this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecDescription.Location = new System.Drawing.Point(8, 336);
+            this.lblRecDescription.Name = "lblRecDescription";
+            this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
+            this.lblRecDescription.TabIndex = 4;
+            this.lblRecDescription.Text = " Описание:";
+            // 
+            // lblRecRole
+            // 
+            this.lblRecRole.AutoSize = true;
+            this.lblRecRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecRole.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecRole.Location = new System.Drawing.Point(11, 115);
+            this.lblRecRole.Name = "lblRecRole";
+            this.lblRecRole.Size = new System.Drawing.Size(121, 17);
+            this.lblRecRole.TabIndex = 3;
+            this.lblRecRole.Text = "Роли исполняют:";
+            // 
+            // lblRecCountry
+            // 
+            this.lblRecCountry.AutoSize = true;
+            this.lblRecCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecCountry.Location = new System.Drawing.Point(10, 75);
+            this.lblRecCountry.Name = "lblRecCountry";
+            this.lblRecCountry.Size = new System.Drawing.Size(60, 17);
+            this.lblRecCountry.TabIndex = 3;
+            this.lblRecCountry.Text = "Страна:";
+            // 
+            // lblRecYear
+            // 
+            this.lblRecYear.AutoSize = true;
+            this.lblRecYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecYear.Location = new System.Drawing.Point(9, 53);
+            this.lblRecYear.Name = "lblRecYear";
+            this.lblRecYear.Size = new System.Drawing.Size(36, 17);
+            this.lblRecYear.TabIndex = 3;
+            this.lblRecYear.Text = "Год:";
+            // 
+            // lblRecName
+            // 
+            this.lblRecName.AutoSize = true;
+            this.lblRecName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblRecName.Location = new System.Drawing.Point(2, 29);
+            this.lblRecName.Name = "lblRecName";
+            this.lblRecName.Size = new System.Drawing.Size(80, 17);
+            this.lblRecName.TabIndex = 3;
+            this.lblRecName.Text = " Название:";
+            // 
+            // tbfDesc
+            // 
+            this.tbfDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfDesc.Location = new System.Drawing.Point(16, 356);
+            this.tbfDesc.Multiline = true;
+            this.tbfDesc.Name = "tbfDesc";
+            this.tbfDesc.ReadOnly = true;
+            this.tbfDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbfDesc.Size = new System.Drawing.Size(334, 240);
+            this.tbfDesc.TabIndex = 8;
+            // 
+            // tbfCountry
+            // 
+            this.tbfCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.tbfCountry.Location = new System.Drawing.Point(13, 95);
+            this.tbfCountry.Name = "tbfCountry";
+            this.tbfCountry.ReadOnly = true;
+            this.tbfCountry.Size = new System.Drawing.Size(135, 16);
+            this.tbfCountry.TabIndex = 7;
+            // 
+            // tbfYear
+            // 
+            this.tbfYear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.tbfYear.Location = new System.Drawing.Point(44, 54);
+            this.tbfYear.Name = "tbfYear";
+            this.tbfYear.ReadOnly = true;
+            this.tbfYear.Size = new System.Drawing.Size(75, 16);
+            this.tbfYear.TabIndex = 7;
+            // 
+            // tbfName
+            // 
+            this.tbfName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfName.Location = new System.Drawing.Point(88, 29);
+            this.tbfName.Name = "tbfName";
+            this.tbfName.ReadOnly = true;
+            this.tbfName.Size = new System.Drawing.Size(276, 16);
+            this.tbfName.TabIndex = 7;
+            // 
+            // panelTitle
+            // 
+            this.panelTitle.Controls.Add(this.lblRecTitle);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(368, 27);
+            this.panelTitle.TabIndex = 7;
+            // 
+            // lblRecTitle
+            // 
+            this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRecTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblRecTitle.Name = "lblRecTitle";
+            this.lblRecTitle.Size = new System.Drawing.Size(368, 27);
+            this.lblRecTitle.TabIndex = 0;
+            this.lblRecTitle.Text = "Общие сведения";
+            this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelFolder
             // 
@@ -2585,17 +2599,13 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
-            // btnRemoveAllGroup
+            // btnOpenCatalogDB
             // 
-            this.btnRemoveAllGroup.BackColor = System.Drawing.Color.LightGray;
-            this.btnRemoveAllGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemoveAllGroup.Location = new System.Drawing.Point(197, 314);
-            this.btnRemoveAllGroup.Name = "btnRemoveAllGroup";
-            this.btnRemoveAllGroup.Size = new System.Drawing.Size(24, 24);
-            this.btnRemoveAllGroup.TabIndex = 53;
-            this.btnRemoveAllGroup.Text = "<<";
-            this.btnRemoveAllGroup.UseVisualStyleBackColor = false;
-            this.btnRemoveAllGroup.Click += new System.EventHandler(this.btnRemoveAllGroup_Click);
+            this.btnOpenCatalogDB.Image = global::FilmCollection.Properties.Resources.Folder;
+            this.btnOpenCatalogDB.Name = "btnOpenCatalogDB";
+            this.btnOpenCatalogDB.Size = new System.Drawing.Size(196, 22);
+            this.btnOpenCatalogDB.Text = "Открыть каталог базы";
+            this.btnOpenCatalogDB.Click += new System.EventHandler(this.btnOpenCatalogDB_Click);
             // 
             // MainForm
             // 
@@ -2628,16 +2638,16 @@
             this.scTabFilm.ResumeLayout(false);
             this.menudgvTable.ResumeLayout(false);
             this.menudgvTable.PerformLayout();
-            this.panelView.ResumeLayout(false);
-            this.panelView.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
-            this.panelTitle.ResumeLayout(false);
             this.panelEdit.ResumeLayout(false);
             this.gMedia.ResumeLayout(false);
             this.gMedia.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             this.gRecord.ResumeLayout(false);
             this.gRecord.PerformLayout();
+            this.panelView.ResumeLayout(false);
+            this.panelView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
+            this.panelTitle.ResumeLayout(false);
             this.panelFolder.ResumeLayout(false);
             this.panelFolder.PerformLayout();
             this.panelFind.ResumeLayout(false);
@@ -2899,6 +2909,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.Button btnRemoveAllGroup;
+        private System.Windows.Forms.ToolStripMenuItem btnOpenCatalogDB;
     }
 }
 
