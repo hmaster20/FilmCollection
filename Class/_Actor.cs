@@ -14,10 +14,11 @@ namespace FilmCollection
             CombineList = new List<Combine>();
         }
 
+        /// <summary>Уникальный идентификатор объекта Actor</summary>
+        public int id { get; set; }
 
-        public int id { get; set; }         // Уникальный идентификатор
-
-        public string FIO { get; set; }     // Ф.И.О.
+        /// <summary>Ф.И.О.</summary>
+        public string FIO { get; set; }
 
         private string _dateOfBirth;        // дата рождения
         public string DateOfBirth
@@ -85,10 +86,10 @@ namespace FilmCollection
 
         //private List<int> _videoID { get; set; }    // Список фильмов (ID) в которых играет актер
         //public ReadOnlyCollection<int> VideoID { get { return _videoID.AsReadOnly(); } }
-        
+
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
-        /// <param name="id">Идентификатор фильма (Media)</param>
+        /// <param name="id">Идентификатор фильма (Media.id)</param>
         public void VideoID_Add(int id)
         {
             if (!VideoID.Contains(id)) _videoID.Add(id);
