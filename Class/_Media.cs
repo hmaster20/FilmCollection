@@ -19,16 +19,17 @@ namespace FilmCollection
 
         public override string ToString() => Name;  // return Name;
 
+        /// <summary>Название произведения</summary>
+        public string Name { get; set; }
 
-        public string Name { get; set; }        // Название произведения
-
-        /// <summary>Уникальный идентификатор объекта Media.</summary>
+        /// <summary>Уникальный идентификатор объекта Media</summary>
         public int Id { get; set; }
 
         public string Pic { get; set; } = "";   // если заполнен значит есть Изображение (Постер)
         public string Description { get; set; } = "";  // Описание файла (сюжет)
 
-        private int _year;                      // Год выпуска
+        private int _year;
+        /// <summary>Год выпуска</summary>
         public int Year
         {
             get { return _year; }
@@ -45,9 +46,18 @@ namespace FilmCollection
             set { _actorID = value; }
         }
 
-        //public void Add(int id) => ActorListID.Add(id);
+
+        /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
+        /// <param name="id">Идентификатор актера (Actor.id)</param>
+        public void ActorListID_Add(int id)
+        {
+            if (!ActorListID.Contains(id)) _actorID.Add(id);
+        }
+
         //public void Remove(int id) => ActorListID.Remove(id);
-        //public void ClearID() => ActorListID.Clear();
+
+        /// <summary>Этот метод выполняет очистку списка идентификаторов актеров.</summary>
+        public void ActorListID_Clear() => _actorID.Clear();
 
 
         #endregion
@@ -62,6 +72,7 @@ namespace FilmCollection
             set { _country = (value < 0) ? Country_Rus.Россия : value; }
         }
 
+        /// <summary>Страна (String)</summary>
         public string CountryString
         {
             get { return CountryToString(Country); }
