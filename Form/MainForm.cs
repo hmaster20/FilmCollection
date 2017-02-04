@@ -24,7 +24,8 @@ namespace FilmCollection
         int FindCount { get; set; }                 // счетчик найденных строк
         public List<int> dgvSelected { get; set; }  // индексы найденных строк
 
-        string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*";
+        //string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*";
+        public string FormatOpen { get; }
 
         // List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx" };
         public List<string> FormatAdd { get; } 
@@ -41,9 +42,6 @@ namespace FilmCollection
             _videoCollection = new RecordCollection();      // Доступ к коллекции
             _treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
 
-            // FormatAdd = new List<string>();
-            FormatAdd = RecordOptions.FormatAdd(); ;
-
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
 
@@ -55,9 +53,12 @@ namespace FilmCollection
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение поисковых индексов
 
+            FormatAdd = RecordOptions.FormatAdd();  //
+            FormatOpen = RecordOptions.FormatOpen();//
+
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideo_Rus)))
-            { cBoxTypeVideo.Items.Add(item); }
+            { cBoxTypeVideo.Items.Add(item); }   
 
             foreach (var item in Enum.GetValues(typeof(GenreVideo_Rus)))
             { cBoxGenre.Items.Add(item); }
