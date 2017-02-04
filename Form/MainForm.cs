@@ -2836,9 +2836,23 @@ namespace FilmCollection
 
 
 
+
         #endregion
 
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            Options form = new Options();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+            //    _videoCollection.Save();
+            }
+        }
 
+        private void btnOpenReportForm_Click(object sender, EventArgs e)
+        {
+            Report _report = new Report(_videoCollection);
+            _report.ShowDialog();
+        }
     }
 }
 
