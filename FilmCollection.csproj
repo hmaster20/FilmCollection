@@ -63,6 +63,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -124,6 +125,12 @@
     <Compile Include="Form\RecoveryForm.Designer.cs">
       <DependentUpon>RecoveryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Report.Designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\_Record.cs" />
@@ -148,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\RecoveryForm.resx">
       <DependentUpon>RecoveryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -199,6 +209,7 @@
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\play.png" />
     <Content Include="Resources\resetFiltr.png" />
+    <Content Include="Resources\Report.png" />
     <Content Include="Resources\save.png" />
     <Content Include="Resources\viewfiles.png" />
     <Content Include="Описание\Разработка.txt" />
