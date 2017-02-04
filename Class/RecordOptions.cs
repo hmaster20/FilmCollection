@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace FilmCollection
@@ -8,6 +9,36 @@ namespace FilmCollection
     {
         [XmlIgnore]
         public static string BaseName { get; } = "VideoList.xml";   // Файл базы коллекции // string BaseName = "VideoList.xml"
+
+        public static List<string> FormatAdd()
+        {
+            List<string> FormatAdd = new List<string>();
+
+            foreach (var item in Enum.GetValues(typeof(MediaFormat)))
+            {
+                FormatAdd.Add("." + item.ToString());
+            }
+            return FormatAdd;
+        }
+
+        public static string FormatOpen()
+        {
+            //string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*";
+
+            string FormatOpen = "Видео(*.avi, *.mkv, *.mp4, ..) |";
+            foreach (var item in Enum.GetValues(typeof(MediaFormat)))
+            {
+                FormatOpen = FormatOpen + "*." + item.ToString() + ";";
+            }
+            FormatOpen = FormatOpen.Remove(FormatOpen.Length - 1, 1);
+            FormatOpen = FormatOpen + "|Все файлы (*.*) | *.*";
+
+            return FormatOpen;
+        }
+
+
+
+
 
         public string Source { get; set; }          // Путь к корневой папке
 
@@ -21,6 +52,10 @@ namespace FilmCollection
 
 
 
+
+
+
+
         // Тестовое ПОЛЕ
         private string _txt = "";
         [XmlElement]
@@ -29,5 +64,7 @@ namespace FilmCollection
             get { return _txt; }
             set { _txt = value; }
         }
+
+
     }
 }
