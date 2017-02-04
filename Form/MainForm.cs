@@ -25,7 +25,9 @@ namespace FilmCollection
         public List<int> dgvSelected { get; set; }  // индексы найденных строк
 
         string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*";
-        List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx" };
+
+        // List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx" };
+        public List<string> FormatAdd { get; } 
 
         public string PicsFolder { get; } = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
 
@@ -38,6 +40,9 @@ namespace FilmCollection
 
             _videoCollection = new RecordCollection();      // Доступ к коллекции
             _treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
+
+            // FormatAdd = new List<string>();
+            FormatAdd = RecordOptions.FormatAdd(); ;
 
             dgvTableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
@@ -1526,10 +1531,8 @@ namespace FilmCollection
 
         private void FindAndSelect_Record(string searchValue)
         {
-            PrepareRefresh("Фильмотека", true); // решает проблему с поискам, если в дереве выбрана другая вкладка (фактически делает сброс)
-
-            tabControl2.SelectTab(tabFilm);
-
+            PrepareRefresh("Фильмотека", true); // решает проблему с поиском, если в дереве выбрана другая вкладка (фактически делает сброс)
+            
             int rowIndex = -1;
 
             IEnumerable<int> index = (from r in dgvTableRec.Rows.Cast<DataGridViewRow>()
@@ -1545,12 +1548,19 @@ namespace FilmCollection
             //    .Cast<DataGridViewRow>()
             //    .Where(r => r.Cells["cmnName"].Value.ToString().Equals(searchValue))
             //    .First();
-            //rowIndex = row.Index;
+            //rowIndex = row.Index;           
 
             if (rowIndex != -1)
             {
+                if (dgvTableRec.Rows[rowIndex].Cells["cmnName"].Value.ToString() != searchValue)
+                {   // если точно не найден фильм по названию картинки, то выходим из метода
+                    return;
+                }
+
                 dgvTableRec.Rows[rowIndex].Selected = true;
                 dgvTableRec.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
+
+                tabControl2.SelectTab(tabFilm);
             }
         }
 
@@ -2538,7 +2548,7 @@ namespace FilmCollection
             actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
             actor.id = RecordCollection.GetActorID();
 
-            if (listViewFilm.Items.Count >0)
+            if (listViewFilm.Items.Count > 0)
             {
                 actor.VideoID_Clear();
                 foreach (ListViewItem eachItem in listViewFilm.Items)
@@ -2552,7 +2562,7 @@ namespace FilmCollection
             {
                 actor.VideoID_Clear();
             }
-      
+
 
             if (act == null)
             {
@@ -2716,28 +2726,36 @@ namespace FilmCollection
         private void AddImage(string imageFilename)
         {
             // thread safe
-            if (InvokeRequired)
+
+            // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
+            if (IsHandleCreated)
             {
-                Invoke(m_AddImageDelegate, imageFilename); // exception dispose
-            }
-            else
-            {
-                int size = ImageSize;
 
-                ImageViewer imageViewer = new ImageViewer();
-                // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
-                imageViewer.Dock = DockStyle.None;
-                imageViewer.LoadImage(imageFilename, 256, 256);
-                imageViewer.Width = size;
-                imageViewer.Height = size;
-                imageViewer.IsThumbnail = true;
-                imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);
-                imageViewer.MouseEnter += new EventHandler(imageViewer_Description);    // При наведении появляется описание
-                imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(m_AddImageDelegate, imageFilename); // exception dispose //Необработанное исключение типа "System.InvalidOperationException" в System.Windows.Forms.dll
+                                                                    // {"Невозможно вызвать Invoke или BeginInvoke для элемента управления до завершения создания дескриптора окна."}
+                }
+                else
+                {
+                    int size = ImageSize;
 
-                OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+                    ImageViewer imageViewer = new ImageViewer();
+                    // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                    imageViewer.Dock = DockStyle.None;
+                    imageViewer.LoadImage(imageFilename, 256, 256);
+                    imageViewer.Width = size;
+                    imageViewer.Height = size;
+                    imageViewer.IsThumbnail = true;
 
-                flowLayoutPanelMain.Controls.Add(imageViewer);
+                    imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
+                    imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
+                    imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+
+                    OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+
+                    flowLayoutPanelMain.Controls.Add(imageViewer);
+                }
             }
         }
 
@@ -2751,8 +2769,13 @@ namespace FilmCollection
             return path;
         }
 
-        private void imageViewer_SelectRecord(object sender, EventArgs e) => FindAndSelect_Record(GetPicName(sender));
-
+        /// <summary>imageViewer.MouseDoubleClick</summary>
+        /// <param name="sender">Передается объект imageViewer</param>
+        /// <param name="e">Передаются координаты и нажатая кнопка мыши</param>
+        private void imageViewer_SelectRecord(object sender, EventArgs e)
+        {
+            FindAndSelect_Record(GetPicName(sender));
+        }     
 
         private void imageViewer_Description(object sender, EventArgs e)    // Вывод описания
         {
@@ -2810,6 +2833,9 @@ namespace FilmCollection
             return str;
         }
 
+        /// <summary>Обработка клика по постеру</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void imageViewer_MouseClick(object sender, MouseEventArgs e)
         {
             if (m_ActiveImageViewer != null)
@@ -2844,7 +2870,7 @@ namespace FilmCollection
             Options form = new Options();
             if (form.ShowDialog() == DialogResult.OK)
             {
-            //    _videoCollection.Save();
+                //    _videoCollection.Save();
             }
         }
 
