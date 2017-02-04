@@ -28,10 +28,17 @@ namespace FilmCollection
 
         private void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            ChartGenerate();
+            ChartGenerateByFormat();
         }
 
-        void ChartGenerate()
+
+        void ChartGenerateByCategory()
+        {
+
+        }
+
+
+        void ChartGenerateByFormat()
         {
             List<string> FormatAdd = new List<string> { "avi", "mkv", "mp4", "wmv", "webm", "rm", "mpg", "mpeg", "flv", "divx" };
 
@@ -39,7 +46,7 @@ namespace FilmCollection
             foreach (string item in FormatAdd)
             {
                 charter.Add(item, 0);
-            }
+            }            
 
             List<Record> filtered = new List<Record>();
             _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
@@ -61,16 +68,9 @@ namespace FilmCollection
             ser1.IsValueShownAsLabel = true;    // включение меток над столбцами
             chart1.Series.Add(ser1);
 
-            chart1.Series[ser1.Name].SmartLabelStyle.Enabled = true;
+            //chart1.Series[ser1.Name].SmartLabelStyle.Enabled = true;
+
             chart1.Series[ser1.Name].Points.DataBindXY(charter.Keys, charter.Values);
-            // chart1.Series["My Series"].Points.DataBindXY(charter.Keys, charter.Values);
-
-
-
-
-      
-
-
         }
     }
 }
