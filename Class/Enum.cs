@@ -3,6 +3,20 @@ using System.Collections.Generic;
 
 namespace FilmCollection
 {
+    public enum MediaFormat
+    {
+        avi,
+        mkv,
+        mp4,
+        wmv,
+        webm,
+        rm,
+        mpg,
+        mpeg,
+        flv,
+        divx
+    }
+
     public enum CategoryVideo
     {
         Film,
@@ -109,7 +123,7 @@ namespace FilmCollection
             description.Add(15, "Детский фильм – особый жанр кинематографа, способный не только повествовать о жизненных ситуациях, но и показать пример, как достойно из них выйти. Это очень важно для маленьких телезрителей. Киноленты для детей и их герои непременно станут образцом поведения для маленьких зрителей.");
             description.Add(15, "Прочие фильмы");
 
-            
+
 
             //foreach (KeyValuePair<int, string> keyValue in countries)
             //{
