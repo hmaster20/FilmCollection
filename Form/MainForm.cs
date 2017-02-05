@@ -11,7 +11,6 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using Shell32;
-using System.Collections.Specialized;
 
 namespace FilmCollection
 {
@@ -22,21 +21,19 @@ namespace FilmCollection
 
         FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
         int FindCount { get; set; }                 // счетчик найденных строк
-        public List<int> dgvSelected { get; set; }  // индексы найденных строк
-
-        //string FormatOpen { get; } = "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*";
-        public string FormatOpen { get; }
-
-        // List<string> FormatAdd { get; } = new List<string> { ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx" };
-        public List<string> FormatAdd { get; } 
-
-        public string PicsFolder { get; } = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
+        public List<int> dgvSelected { get; set; }  // индексы найденных строк        
+        public string FormatOpen { get; }           // формат открытия файлов
+        public List<string> FormatAdd { get; }      // список форматов файлов
+        public string PicsFolder { get; }           //Каталог изображений
 
         #region Главная форма (Main)
 
         public MainForm()                           //Конструктор формы
         {
             InitializeComponent();                  // Создание и отрисовка элементов
+
+            this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
+
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
             _videoCollection = new RecordCollection();      // Доступ к коллекции
@@ -53,12 +50,13 @@ namespace FilmCollection
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение поисковых индексов
 
-            FormatAdd = RecordOptions.FormatAdd();  //
-            FormatOpen = RecordOptions.FormatOpen();//
+            FormatAdd = RecordOptions.FormatAdd();  // формат открытия файлов
+            FormatOpen = RecordOptions.FormatOpen();// список форматов файлов
+            PicsFolder = RecordOptions.PicsFolder();//Каталог изображений
 
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideo_Rus)))
-            { cBoxTypeVideo.Items.Add(item); }   
+            { cBoxTypeVideo.Items.Add(item); }
 
             foreach (var item in Enum.GetValues(typeof(GenreVideo_Rus)))
             { cBoxGenre.Items.Add(item); }
@@ -87,7 +85,6 @@ namespace FilmCollection
             m_Controller.OnEnd += new ThumbnailControllerEventHandler(m_Controller_OnEnd);
 
             #endregion
-
         }
 
         /// <summary>Отрисовка рамки вокруг tsFindbyName</summary>
@@ -1533,7 +1530,7 @@ namespace FilmCollection
         private void FindAndSelect_Record(string searchValue)
         {
             PrepareRefresh("Фильмотека", true); // решает проблему с поиском, если в дереве выбрана другая вкладка (фактически делает сброс)
-            
+
             int rowIndex = -1;
 
             IEnumerable<int> index = (from r in dgvTableRec.Rows.Cast<DataGridViewRow>()
@@ -2776,7 +2773,7 @@ namespace FilmCollection
         private void imageViewer_SelectRecord(object sender, EventArgs e)
         {
             FindAndSelect_Record(GetPicName(sender));
-        }     
+        }
 
         private void imageViewer_Description(object sender, EventArgs e)    // Вывод описания
         {
