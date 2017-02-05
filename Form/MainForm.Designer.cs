@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dgvTableRec = new System.Windows.Forms.DataGridView();
             this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -2641,7 +2640,6 @@
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.toolMainMenu);
             this.Controls.Add(this.mainMenu);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menudgvTable;
             this.Name = "MainForm";
             this.Text = "Фильмотека";
