@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace FilmCollection
 {
+    /// <summary>Список форматов: avi, mkv, ..</summary>
     public enum MediaFormat
     {
         avi,
