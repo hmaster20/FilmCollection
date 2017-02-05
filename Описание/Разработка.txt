@@ -1,5 +1,8 @@
 ﻿Направления для разработки:
 =====================================================
+не работает механизм поиска. сразу сворачивается панель
+не разворачивается иерархи при отображении найденного фильма (FindAndSelect_Record)
+
 - протестировать скорость генерации дерева
 - продумать синхронизацию актёров и медиа при изменении или очистки списка актеров (SaveToMedia(Combine cm))
 - при селекте по актеру сделать обработку чтобы правильно выполнялось отображение фильма, в т.ч. разворачивались нужные каталоги в иерархии
@@ -512,3 +515,20 @@
             }
             return result;
         }
+
+=================================================================================================================================================
+		   Icon icon = new Icon("FC.ico");
+           this.Icon = icon;
+
+		   Icon myIcon = new Icon("Resources/myIcon.ico");
+
+		   var bmp = new Bitmap(WindowsFormsApplication1.Properties.Resources.myimage);
+
+		   Image myImage = Resources.myImage;
+		   Bitmap bmp = new Bitmap(Resources.myImage);
+
+			ResourceManager rm = Resources.ResourceManager;
+			Bitmap myImage = (Bitmap)rm.GetObject("myImage");
+
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Catrig));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
