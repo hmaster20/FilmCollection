@@ -861,8 +861,16 @@ namespace FilmCollection
                 }
         }
 
+
+  
+
+        //this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
+            //MessageBox.Show(IsControlAtFront(panelFind).ToString());
+            //MessageBox.Show(this.Controls.GetChildIndex(panelFind).ToString());  
+
+
             panelView.BringToFront();               // Отображение панели описания
             Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
             if (record != null)
@@ -1405,6 +1413,11 @@ namespace FilmCollection
 
         private void Find_Click(object sender, EventArgs e)  // Поиск
         {
+            FindbyValue();
+        }
+
+        private void FindbyValue()
+        {
             switch (cbTypeFind.SelectedIndex)
             {
                 case 0: Find(0); break; // поиск по названию
@@ -1432,11 +1445,17 @@ namespace FilmCollection
                         i++;
                         dgvSelected.Add(row.Cells[cell].RowIndex);
                         row.Selected = true;
+                        dgvTableRec.FirstDisplayedScrollingRowIndex = row.Index;// прокручиваем
                         //break; //Требуется для выбора одно строки
                     }
                 }
                 if (i == 0) MessageBox.Show("Элементов не найдено!");
-                if (i > 0) FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                if (i > 0)
+                {
+                    FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                    btnFindNext.Focus();
+                }
+
                 if (i > 1) btnFindNext.Enabled = true;
             }
             catch (Exception ex)
@@ -2015,10 +2034,12 @@ namespace FilmCollection
 
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
+          
             try
             {
                 FindNextButton_Lock();
                 if (e.Button == MouseButtons.Right) GetMenuDgv(e);
+
                 if (e.Button == MouseButtons.Left)
                 {
                     if (e.ColumnIndex != 7)
@@ -2876,6 +2897,14 @@ namespace FilmCollection
         {
             Report _report = new Report(_videoCollection);
             _report.ShowDialog();
+        }
+
+        private void tbFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                FindbyValue();
+            }
         }
     }
 }
