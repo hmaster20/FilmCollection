@@ -862,7 +862,10 @@ namespace FilmCollection
         }
 
 
-  
+        private bool IsControlAtFront(Control control)
+        {
+            return control.Parent.Controls.GetChildIndex(control) == 0;
+        }
 
         //this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
@@ -2039,7 +2042,8 @@ namespace FilmCollection
             {
                 FindNextButton_Lock();
                 if (e.Button == MouseButtons.Right) GetMenuDgv(e);
-
+                if (e.Button == MouseButtons.Left && e.Clicks == 2)
+                    SelectRecord_Info(sender,e);
                 if (e.Button == MouseButtons.Left)
                 {
                     if (e.ColumnIndex != 7)
