@@ -867,6 +867,28 @@ namespace FilmCollection
             return control.Parent.Controls.GetChildIndex(control) == 0;
         }
 
+        //This will work for any Control anywhere within the Form:
+
+        private bool IsControlAtFrontUniversal(Control control)
+        {
+            while (control.Parent != null)
+            {
+                if (control.Parent.Controls.GetChildIndex(control) == 0)
+                {
+                    control = control.Parent;
+                    if (control.Parent == null)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
         //this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
@@ -2037,13 +2059,13 @@ namespace FilmCollection
 
         private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
-          
+
             try
             {
                 FindNextButton_Lock();
                 if (e.Button == MouseButtons.Right) GetMenuDgv(e);
                 if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                    SelectRecord_Info(sender,e);
+                    SelectRecord_Info(sender, e);
                 if (e.Button == MouseButtons.Left)
                 {
                     if (e.ColumnIndex != 7)
