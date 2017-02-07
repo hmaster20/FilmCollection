@@ -1430,13 +1430,15 @@ namespace FilmCollection
             dgvTableRec.ClearSelection();   // Удаление фокуса
         }
 
-        private void FindNextButton_Lock()  //блокировка кнопки поиска следующего элемента
+        /// <summary>Блокировка кнопки поиска следующего элемента</summary>
+        private void FindNextButton_Lock()
         {
             FindCount = 0;
             btnFindNext.Enabled = false;
         }
 
-        private void Find_Click(object sender, EventArgs e)  // Поиск
+        /// <summary>Кнопка найти всё</summary>
+        private void Find_Click(object sender, EventArgs e)
         {
             FindbyValue();
         }
@@ -2062,26 +2064,40 @@ namespace FilmCollection
 
             try
             {
-                FindNextButton_Lock();
-                if (e.Button == MouseButtons.Right) GetMenuDgv(e);
-                if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                    SelectRecord_Info(sender, e);
-                if (e.Button == MouseButtons.Left)
+
+
+                if (IsControlAtFront(panelFind))
                 {
-                    if (e.ColumnIndex != 7)
+                    if (e.Button == MouseButtons.Left && e.Clicks == 2)
+                        SelectRecord_Info(sender, e);
+                }
+                else
+                {
+                    FindNextButton_Lock();
+                    if (e.Button == MouseButtons.Right) GetMenuDgv(e);
+
+                    if (e.Button == MouseButtons.Left && e.Clicks == 1)
+                    { 
+                        SelectRecord_Info(sender, e);
+                    }
+                    if (e.Button == MouseButtons.Left)
                     {
-                        DataGridView dgv = dgvTableRec;
-                        if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                            if (dgv.SelectedRows[0].Index == e.RowIndex)
-                            {
-                                dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                            }
-                            else
-                            {
-                                // MessageBox.Show("Сдвиг не соответствует селекту");
-                            }
+                        if (e.ColumnIndex != 7)
+                        {
+                            DataGridView dgv = dgvTableRec;
+                            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                                if (dgv.SelectedRows[0].Index == e.RowIndex)
+                                {
+                                    dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                                }
+                                else
+                                {
+                                    // MessageBox.Show("Сдвиг не соответствует селекту");
+                                }
+                        }
                     }
                 }
+
 
             }
             catch (Exception Ex) { MessageBox.Show(Ex.Message); }
@@ -2931,6 +2947,11 @@ namespace FilmCollection
             {
                 FindbyValue();
             }
+        }
+
+        private void btnHidePanel_Click(object sender, EventArgs e)
+        {
+            panelView.BringToFront();
         }
     }
 }
