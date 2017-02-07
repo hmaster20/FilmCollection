@@ -22,26 +22,11 @@ namespace FilmCollection
         TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
 
         FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
-
-
-        /// <summary>Счетчик найденных строк</summary>
-        int FindCount { get; set; }
-
-
-        /// <summary>Индексы найденных строк</summary>
-        public List<int> dgvSelected { get; set; }
-
-
-        /// <summary>Формат открытия файлов</summary>
-        public string FormatOpen { get; }
-
-
-        /// <summary>Список форматов файлов</summary>
-        public List<string> FormatAdd { get; }
-
-
-        /// <summary>Каталог изображений</summary>
-        public string PicsFolder { get; }
+        int FindCount { get; set; }                 // Счетчик найденных строк
+        public List<int> dgvSelected { get; set; }  //Индексы найденных строк
+        public string FormatOpen { get; }       //Формат открытия файлов
+        public List<string> FormatAdd { get; }  //Список форматов файлов
+        public string PicsFolder { get; }       //Каталог изображений
 
         #endregion
 
@@ -556,45 +541,233 @@ namespace FilmCollection
         #endregion
 
 
-        #region Обработка DataGridView
+        #region Обработка запуска контекстное меню для DataGridView
+
+        private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка выбора строки перед открытием контекстного менюe
+        {
+            //contextMenu.Items[4].Enabled = false;
+
+            TabMenu.Enabled = false;    // Блокировка меню
+            DataGridView dgv = GetDgv();
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            {
+                TabMenu.Enabled = true; // Разблокировка меню
+            }
+            if (tabControl2.SelectedIndex == 2)
+            {
+                TabMenu.Enabled = true;
+                TabMenu.Items[0].Visible = false;
+                TabMenu.Items[1].Visible = false;
+                TabMenu.Items[3].Visible = false;
+                TabMenu.Items[7].Visible = false;
+                TabMenu.Items[8].Visible = false;
+            }
+            else
+            {
+                TabMenu.Items[0].Visible = true;
+                TabMenu.Items[1].Visible = true;
+                TabMenu.Items[3].Visible = true;
+                TabMenu.Items[7].Visible = true;
+                TabMenu.Items[8].Visible = true;
+            }
+        }
+
+        private void dgvTableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
+        {
+            if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
+        }
+
+        private void GetMenuDgv(DataGridViewCellMouseEventArgs e)   // Разрешение контекстного меню
+        {
+            if (e.ColumnIndex > -1 && e.RowIndex > -1)
+            {
+                DataGridView dgv = GetDgv();
+                dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                dgv.Rows[e.RowIndex].Selected = true;
+                dgv.Focus();
+                dgv.ContextMenuStrip = TabMenu;
+                //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+            }
+            else
+            {
+                dgvTableRec.ContextMenuStrip = null;
+                dgvTableRec.ClearSelection();
+            }
+        }
+
+        #endregion
 
 
-        private void QuicSearch(KeyEventArgs e)
+
+        #region DragDrop DGV to TreeView
+
+        private void treeFolder_DragDrop(object sender, DragEventArgs e)
+        {
+            Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
+            TreeNode destinationNode = treeFolder.GetNodeAt(pt);
+            TreeNode dragedNode = new TreeNode();
+
+            Record record = GetSelectedRecord();
+            if (record != null)
+            {
+                try
+                {
+                    if (destinationNode.Level == 0 && destinationNode.Index == 0)
+                    { //если условие верно, то это главный узел - "Фильмотека"
+                      //MessageBox.Show(destinationNode.FullPath);
+                    }
+                    else
+                    {
+                        string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
+
+                        if (File.Exists(Path.Combine(record.Path, record.FileName)))
+                            if (Directory.Exists(dirPath))
+                                File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
+
+                        record.DirName = destinationNode.Text;
+                        record.Path = dirPath;
+
+                        _videoCollection.Save();
+                        PrepareRefresh();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void treeFolder_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+
+        private bool IsControlAtFront(Control control)  // проверка наличия контрола (панели) на верхнем уровне
+        {
+            return control.Parent.Controls.GetChildIndex(control) == 0;
+        }
+
+        //This will work for any Control anywhere within the Form:
+        private bool IsControlAtFrontUniversal(Control control)
+        {
+            while (control.Parent != null)
+            {
+                if (control.Parent.Controls.GetChildIndex(control) == 0)
+                {
+                    control = control.Parent;
+                    if (control.Parent == null)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
             try
             {
-                if (e.KeyCode == Keys.Enter)
+                if (IsControlAtFront(panelFind))
                 {
-                    string regReplace = tsFindbyName.Text.Replace("*", "");
-                    Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+                    if (e.Button == MouseButtons.Left && e.Clicks == 2)
+                        SelectRecord_Info(sender, e);
+                }
+                else
+                {
+                    FindNextButton_Lock();
+                    if (e.Button == MouseButtons.Right) GetMenuDgv(e);
 
-                    DataGridView dgv = GetDgv();
-
-                    dgv.ClearSelection();
-                    dgv.MultiSelect = true;
-
-                    foreach (DataGridViewRow row in dgv.Rows)
+                    if (e.Button == MouseButtons.Left && e.Clicks == 1)
                     {
-                        if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                        SelectRecord_Info(sender, e);
+                    }
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        if (e.ColumnIndex != 7)
                         {
-                            int f = row.Cells[0].RowIndex;
-                            if (f < dgv.RowCount)
-                            {
-                                dgv.ClearSelection();
-                                dgv.Rows[f].Selected = true;            // выделяем
-                                dgv.FirstDisplayedScrollingRowIndex = f;// прокручиваем
-                                dgv.Update();
-                            }
-                            break;
+                            DataGridView dgv = dgvTableRec;
+                            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                                if (dgv.SelectedRows[0].Index == e.RowIndex)
+                                {
+                                    dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                                }
+                                else
+                                {
+                                    // MessageBox.Show("Сдвиг не соответствует селекту");
+                                }
                         }
                     }
                 }
+
             }
-            catch (Exception ex)
+            catch (Exception Ex) { MessageBox.Show(Ex.Message); }
+        }
+
+        private void dgvTableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 7)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                PlayRecord();
             }
         }
+
+        #endregion
+
+
+
+        #region TabControl
+
+        private int isRecTabs()
+        {
+            return tabControl2.SelectedIndex;
+        }
+
+        private bool RecTabSelect()
+        {
+            return (isRecTabs() == 0) ? true : false;
+        }
+
+        private DataGridView GetDgv()
+        {
+            return (tabControl2.SelectedIndex == 0) ? dgvTableRec : dgvTableActors;
+        }
+
+        private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
+        {
+            e.Cancel = !CheckAccess();
+        }
+
+        private bool CheckAccess()
+        {
+            return true;
+
+            //throw new NotImplementedException();
+            // return true;//если доступ разрешен
+            // return false; //если доступ запрещен
+        }
+
+        private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
+            //if (formatter != null)
+            //{
+            //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
+            //    e.FormattingApplied = true;
+            //}
+        }
+
+        #endregion
+
+
+        #region Обработка DataGridView
 
 
         /// <summary>Добавление новой записи</summary>
@@ -621,7 +794,6 @@ namespace FilmCollection
                 default: break;
             }
         }
-
 
         private void DeleteRec()
         {
@@ -671,17 +843,6 @@ namespace FilmCollection
         }
 
 
-        private bool RecTabSelect()
-        {
-            return (tabControl2.SelectedIndex == 0) ? true : false;
-        }
-
-        private int isRecTabs()
-        {
-            return tabControl2.SelectedIndex;
-        }
-
-
         private void OLD_Add_rec(object sender, EventArgs e)        // добавление новой записи
         {
             EditForm form = new EditForm();
@@ -703,65 +864,12 @@ namespace FilmCollection
             }
         }
 
-        private DataGridView GetDgv()
-        {
-            return (tabControl2.SelectedIndex == 0) ? dgvTableRec : dgvTableActors;
-        }
-
-        private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка селекта строки перед открытием меню
-        {   //contextMenu.Items[4].Enabled = false;
-
-            TabMenu.Enabled = false;    // Блокировка меню
-            DataGridView dgv = GetDgv();
-            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1) TabMenu.Enabled = true; // Разблокировка меню
-            if (tabControl2.SelectedIndex == 2)
-            {
-                TabMenu.Enabled = true;
-                TabMenu.Items[0].Visible = false;
-                TabMenu.Items[1].Visible = false;
-                TabMenu.Items[3].Visible = false;
-                TabMenu.Items[7].Visible = false;
-                TabMenu.Items[8].Visible = false;
-            }
-            else
-            {
-                TabMenu.Items[0].Visible = true;
-                TabMenu.Items[1].Visible = true;
-                TabMenu.Items[3].Visible = true;
-                TabMenu.Items[7].Visible = true;
-                TabMenu.Items[8].Visible = true;
-            }
-        }
-
-        private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex > -1 && e.RowIndex > -1)
-            {
-                DataGridView dgv = GetDgv();
-                dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                dgv.Rows[e.RowIndex].Selected = true;
-                dgv.Focus();
-                dgv.ContextMenuStrip = TabMenu;
-                //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
-            }
-            else
-            {
-                dgvTableRec.ContextMenuStrip = null;
-                dgvTableRec.ClearSelection();
-            }
-        }
-
 
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
         {
             dgvTableRec.ClearSelection();
             dgvTableActors.ClearSelection();
             PrepareRefresh();
-        }
-
-        private void dgvTableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
-        {
-            if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
         }
 
         public string LastNode { get; set; }
@@ -772,12 +880,12 @@ namespace FilmCollection
             PrepareRefresh(flag);
         }
 
-        string GetNode()
+        private string GetNode()
         {
             return (LastNode == null) ? "" : LastNode;
         }
 
-        bool checkNode()
+        private bool checkNode()
         {
             string nodeName = (GetNode());
             if (nodeName != "" && nodeName != "Фильмотека")
@@ -921,41 +1029,8 @@ namespace FilmCollection
                 }
         }
 
-
-        private bool IsControlAtFront(Control control)
-        {
-            return control.Parent.Controls.GetChildIndex(control) == 0;
-        }
-
-        //This will work for any Control anywhere within the Form:
-
-        private bool IsControlAtFrontUniversal(Control control)
-        {
-            while (control.Parent != null)
-            {
-                if (control.Parent.Controls.GetChildIndex(control) == 0)
-                {
-                    control = control.Parent;
-                    if (control.Parent == null)
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return false;
-        }
-
-        //this.dgvTableRec.SelectionChanged += new System.EventHandler(this.SelectRecord_Info);
         private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
         {
-            //MessageBox.Show(IsControlAtFront(panelFind).ToString());
-            //MessageBox.Show(this.Controls.GetChildIndex(panelFind).ToString());  
-
-
             panelView.BringToFront();               // Отображение панели описания
             Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
             if (record != null)
@@ -1199,13 +1274,15 @@ namespace FilmCollection
         private void tbFind_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
                 FindbyValue();
-            }
         }
 
-        /// <summary>Кнопка найти всё</summary>
-        private void Find_Click(object sender, EventArgs e)
+        private void btnHidePanel_Click(object sender, EventArgs e) //Скрыть панель поиска
+        {
+            panelView.BringToFront();
+        }
+
+        private void Find_Click(object sender, EventArgs e)     //Кнопка найти всё
         {
             FindbyValue();
         }
@@ -1219,6 +1296,13 @@ namespace FilmCollection
                 default: MessageBox.Show("Укажите критерий поиска!"); break;
             }
         }
+
+
+        #endregion
+
+
+        #region Поисковый механизм
+
 
         private void Find(int cell)
         {
@@ -1274,15 +1358,50 @@ namespace FilmCollection
             if (!(FindCount < dgvSelected.Count)) FindCount = 0;
         }
 
-        /// <summary>Скрыть панель поиска</summary>
-        private void btnHidePanel_Click(object sender, EventArgs e)
+
+
+
+
+        private void QuicSearch(KeyEventArgs e)
         {
-            panelView.BringToFront();
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    string regReplace = tsFindbyName.Text.Replace("*", "");
+                    Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+                    DataGridView dgv = GetDgv();
+
+                    dgv.ClearSelection();
+                    dgv.MultiSelect = true;
+
+                    foreach (DataGridViewRow row in dgv.Rows)
+                    {
+                        if (regex.IsMatch(row.Cells[0].Value.ToString()))
+                        {
+                            int f = row.Cells[0].RowIndex;
+                            if (f < dgv.RowCount)
+                            {
+                                dgv.ClearSelection();
+                                dgv.Rows[f].Selected = true;            // выделяем
+                                dgv.FirstDisplayedScrollingRowIndex = f;// прокручиваем
+                                dgv.Update();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         #endregion
 
-        
+
         #region Панель редактирования (panelEdit)
         private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разблокировка поля имени файла
         {
@@ -1584,7 +1703,7 @@ namespace FilmCollection
         #endregion
 
         #endregion
-        
+
 
         #region Панель просмотра
 
@@ -2089,107 +2208,6 @@ namespace FilmCollection
             PrepareRefresh();
         }
 
-
-        #endregion
-
-
-        #region DragDrop DGV to TreeView
-
-
-        private void treeFolder_DragDrop(object sender, DragEventArgs e)
-        {
-            Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
-            TreeNode destinationNode = treeFolder.GetNodeAt(pt);
-            TreeNode dragedNode = new TreeNode();
-
-            Record record = GetSelectedRecord();
-            if (record != null)
-            {
-                try
-                {
-                    if (destinationNode.Level == 0 && destinationNode.Index == 0)
-                    { //если условие верно, то это главный узел - "Фильмотека"
-                      //MessageBox.Show(destinationNode.FullPath);
-                    }
-                    else
-                    {
-                        string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
-
-                        if (File.Exists(Path.Combine(record.Path, record.FileName)))
-                            if (Directory.Exists(dirPath))
-                                File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
-
-                        record.DirName = destinationNode.Text;
-                        record.Path = dirPath;
-
-                        _videoCollection.Save();
-                        PrepareRefresh();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
-        private void treeFolder_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Copy;
-        }
-
-        private void dgvTable_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
-        {
-
-            try
-            {
-
-
-                if (IsControlAtFront(panelFind))
-                {
-                    if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                        SelectRecord_Info(sender, e);
-                }
-                else
-                {
-                    FindNextButton_Lock();
-                    if (e.Button == MouseButtons.Right) GetMenuDgv(e);
-
-                    if (e.Button == MouseButtons.Left && e.Clicks == 1)
-                    {
-                        SelectRecord_Info(sender, e);
-                    }
-                    if (e.Button == MouseButtons.Left)
-                    {
-                        if (e.ColumnIndex != 7)
-                        {
-                            DataGridView dgv = dgvTableRec;
-                            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                                if (dgv.SelectedRows[0].Index == e.RowIndex)
-                                {
-                                    dgvTableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                                }
-                                else
-                                {
-                                    // MessageBox.Show("Сдвиг не соответствует селекту");
-                                }
-                        }
-                    }
-                }
-
-
-            }
-            catch (Exception Ex) { MessageBox.Show(Ex.Message); }
-        }
-
-        private void dgvTableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 7)
-            {
-                //MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
-                PlayRecord();
-            }
-        }
 
         #endregion
 
@@ -2789,7 +2807,7 @@ namespace FilmCollection
 
         #endregion
 
-        
+
         #region Постеры
 
         public event ThumbnailImageEventHandler OnImageSizeChanged;
@@ -2978,33 +2996,6 @@ namespace FilmCollection
 
         #endregion
 
-        
-        //===================================
-
-        private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
-        {
-            e.Cancel = !CheckAccess();
-        }
-
-        private bool CheckAccess()
-        {
-            return true;
-
-            //throw new NotImplementedException();
-            // return true;//если доступ разрешен
-            // return false; //если доступ запрещен
-        }
-
-
-        //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        //{
-        //    //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
-        //    //if (formatter != null)
-        //    //{
-        //    //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
-        //    //    e.FormattingApplied = true;
-        //    //}
-        //}
     }
 }
 
