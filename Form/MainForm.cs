@@ -16,15 +16,35 @@ namespace FilmCollection
 {
     public partial class MainForm : Form
     {
+        #region Общедоступные свойства
+
         RecordCollection _videoCollection { get; set; }     // Доступ к коллекции
         TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
 
         FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
-        int FindCount { get; set; }                 // счетчик найденных строк
-        public List<int> dgvSelected { get; set; }  // индексы найденных строк        
-        public string FormatOpen { get; }           // формат открытия файлов
-        public List<string> FormatAdd { get; }      // список форматов файлов
-        public string PicsFolder { get; }           //Каталог изображений
+
+
+        /// <summary>Счетчик найденных строк</summary>
+        int FindCount { get; set; }
+
+
+        /// <summary>Индексы найденных строк</summary>
+        public List<int> dgvSelected { get; set; }
+
+
+        /// <summary>Формат открытия файлов</summary>
+        public string FormatOpen { get; }
+
+
+        /// <summary>Список форматов файлов</summary>
+        public List<string> FormatAdd { get; }
+
+
+        /// <summary>Каталог изображений</summary>
+        public string PicsFolder { get; }
+
+        #endregion
+
 
         #region Главная форма (Main)
 
@@ -475,6 +495,21 @@ namespace FilmCollection
 
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
 
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            Options form = new Options();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                //    _videoCollection.Save();
+            }
+        }
+
+        private void btnOpenReportForm_Click(object sender, EventArgs e)
+        {
+            Report _report = new Report(_videoCollection);
+            _report.ShowDialog();
+        }
+
         private void btnReport_Click(object sender, EventArgs e)
         {
             // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
@@ -491,36 +526,40 @@ namespace FilmCollection
             about.ShowDialog();
         }
 
+        private void tsAdd_Click(object sender, EventArgs e) => Add();
+
+        private void tsChange_Click(object sender, EventArgs e) => Edit();
+
+        private void tsRemove_Click(object sender, EventArgs e) => Delete();
+
+        private void tsFind_Click(object sender, EventArgs e) => panelFind.BringToFront();
+
+        private void tsFindbyName_KeyDown(object sender, KeyEventArgs e) => QuicSearch(e);
+
         #endregion
 
 
         #region Контекстное меню для DataGridView
 
-        private void AddRec_Click(object sender, EventArgs e)           // добавление новой записи
-        {
-            if (RecTabSelect()) NewRecord_Dialog();
-            else NewActor();
-        }
+        private void cFind_Click(object sender, EventArgs e) => panelFind.BringToFront();
 
-        private bool RecTabSelect()
-        {
-            return (tabControl2.SelectedIndex == 0) ? true : false;
-        }
+        private void AddRec_Click(object sender, EventArgs e) => Add();
 
-        private int isRecTabs()
-        {
-            return tabControl2.SelectedIndex;
-        }
+        private void EditRec_Click(object sender, EventArgs e) => Edit();
 
-        private void EditRec_Click(object sender, EventArgs e)          // Изменение записи
-        {
-            if (RecTabSelect()) panelEdit.BringToFront();
-            else panelEditAct.BringToFront();
-        }
+        private void DeleteRec_Click(object sender, EventArgs e) => Delete();
 
-        private void cFind_Click(object sender, EventArgs e) => panelFind.BringToFront();       // Поиск
+        private void cOpenFolder_Click(object sender, EventArgs e) => OpenFolder();
 
-        private void tsFindbyName_KeyDown(object sender, KeyEventArgs e)
+        private void UpdateInfo_Click(object sender, EventArgs e) => UpdateInfo();
+
+        #endregion
+
+
+        #region Обработка DataGridView
+
+
+        private void QuicSearch(KeyEventArgs e)
         {
             try
             {
@@ -555,10 +594,24 @@ namespace FilmCollection
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
-        private void DeleteRec_Click(object sender, EventArgs e)
+
+        /// <summary>Добавление новой записи</summary>
+        private void Add()
+        {
+            if (RecTabSelect()) NewRecord_Dialog();
+            else NewActor();
+        }
+
+        /// <summary>Редактирование записи</summary>
+        private void Edit()
+        {
+            if (RecTabSelect()) panelEdit.BringToFront();
+            else panelEditAct.BringToFront();
+        }
+
+        private void Delete()
         {
             switch (isRecTabs())
             {
@@ -616,6 +669,18 @@ namespace FilmCollection
                 }
             }
         }
+
+
+        private bool RecTabSelect()
+        {
+            return (tabControl2.SelectedIndex == 0) ? true : false;
+        }
+
+        private int isRecTabs()
+        {
+            return tabControl2.SelectedIndex;
+        }
+
 
         private void OLD_Add_rec(object sender, EventArgs e)        // добавление новой записи
         {
@@ -686,11 +751,6 @@ namespace FilmCollection
             }
         }
 
-
-        #endregion
-
-
-        #region Обработка DataGridView
 
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
         {
@@ -1052,7 +1112,7 @@ namespace FilmCollection
             //cBoxCountry.SelectedIndex = 0;
         }
 
-        private void cOpenFolder_Click(object sender, EventArgs e)
+        private void OpenFolder()
         {
             switch (tabControl2.SelectedIndex)
             {
@@ -1109,6 +1169,120 @@ namespace FilmCollection
         #endregion
 
 
+        #region панель поиска (panelFind)
+
+        private void ResetFind()
+        {
+            tbFind.Text = "";
+            FindStatusLabel.Text = "";
+            cbTypeFind.SelectedIndex = -1;
+            btnFind.Enabled = false;
+
+            dgvSelected.Clear();
+            dgvTableRec.ClearSelection();
+            FindNextButton_Lock();
+
+            dgvTableActors.Enabled = true;  // Разблокировка таблицы при изменении панели
+            dgvTableActors.ClearSelection();// Удаление фокуса
+            dgvTableRec.Enabled = true;     // Разблокировка таблицы при изменении панели
+            dgvTableRec.ClearSelection();   // Удаление фокуса
+        }
+
+        /// <summary>Блокировка кнопки поиска следующего элемента</summary>
+        private void FindNextButton_Lock()
+        {
+            FindCount = 0;
+            btnFindNext.Enabled = false;
+        }
+
+        /// <summary>Выполняется при вводе значение поисковое поле и нажатии кнопки Enter</summary>
+        private void tbFind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                FindbyValue();
+            }
+        }
+
+        /// <summary>Кнопка найти всё</summary>
+        private void Find_Click(object sender, EventArgs e)
+        {
+            FindbyValue();
+        }
+
+        private void FindbyValue()
+        {
+            switch (cbTypeFind.SelectedIndex)
+            {
+                case 0: Find(0); break; // поиск по названию
+                case 1: Find(2); break; // поиск по году
+                default: MessageBox.Show("Укажите критерий поиска!"); break;
+            }
+        }
+
+        private void Find(int cell)
+        {
+            try
+            {
+                string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
+                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+                dgvTableRec.ClearSelection();
+                dgvTableRec.MultiSelect = true;    // Требуется для выбора всех строк
+
+                int i = 0;
+
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
+                {
+                    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
+                    {
+                        i++;
+                        dgvSelected.Add(row.Cells[cell].RowIndex);
+                        row.Selected = true;
+                        dgvTableRec.FirstDisplayedScrollingRowIndex = row.Index;// прокручиваем
+                        //break; //Требуется для выбора одно строки
+                    }
+                }
+                if (i == 0) MessageBox.Show("Элементов не найдено!");
+                if (i > 0)
+                {
+                    FindStatusLabel.Text = "Найдено " + i + " элементов.";
+                    btnFindNext.Focus();
+                }
+
+                if (i > 1) btnFindNext.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void FindNext()
+        {
+            if (FindCount < dgvSelected.Count)
+            {
+                dgvTableRec.ClearSelection();
+                if (dgvSelected.Count > 0) dgvTableRec.FirstDisplayedScrollingRowIndex = dgvSelected[FindCount];
+
+                foreach (DataGridViewRow row in dgvTableRec.Rows)
+                {
+                    if (row.Index == dgvSelected[FindCount]) row.Selected = true;
+                }
+                FindCount++;
+            }
+            if (!(FindCount < dgvSelected.Count)) FindCount = 0;
+        }
+
+        /// <summary>Скрыть панель поиска</summary>
+        private void btnHidePanel_Click(object sender, EventArgs e)
+        {
+            panelView.BringToFront();
+        }
+
+        #endregion
+
+        
         #region Панель редактирования (panelEdit)
         private void FileNameEdit_Unlock(object sender, EventArgs e)  // Разблокировка поля имени файла
         {
@@ -1410,104 +1584,7 @@ namespace FilmCollection
         #endregion
 
         #endregion
-
-
-        #region панель поиска (panelFind)
-        private void ResetFind()
-        {
-            tbFind.Text = "";
-            FindStatusLabel.Text = "";
-            cbTypeFind.SelectedIndex = -1;
-            btnFind.Enabled = false;
-
-            dgvSelected.Clear();
-            dgvTableRec.ClearSelection();
-            FindNextButton_Lock();
-
-            dgvTableActors.Enabled = true;  // Разблокировка таблицы при изменении панели
-            dgvTableActors.ClearSelection();// Удаление фокуса
-            dgvTableRec.Enabled = true;     // Разблокировка таблицы при изменении панели
-            dgvTableRec.ClearSelection();   // Удаление фокуса
-        }
-
-        /// <summary>Блокировка кнопки поиска следующего элемента</summary>
-        private void FindNextButton_Lock()
-        {
-            FindCount = 0;
-            btnFindNext.Enabled = false;
-        }
-
-        /// <summary>Кнопка найти всё</summary>
-        private void Find_Click(object sender, EventArgs e)
-        {
-            FindbyValue();
-        }
-
-        private void FindbyValue()
-        {
-            switch (cbTypeFind.SelectedIndex)
-            {
-                case 0: Find(0); break; // поиск по названию
-                case 1: Find(2); break; // поиск по году
-                default: MessageBox.Show("Укажите критерий поиска!"); break;
-            }
-        }
-
-        private void Find(int cell)
-        {
-            try
-            {
-                string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
-                Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
-
-                dgvTableRec.ClearSelection();
-                dgvTableRec.MultiSelect = true;    // Требуется для выбора всех строк
-
-                int i = 0;
-
-                foreach (DataGridViewRow row in dgvTableRec.Rows)
-                {
-                    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
-                    {
-                        i++;
-                        dgvSelected.Add(row.Cells[cell].RowIndex);
-                        row.Selected = true;
-                        dgvTableRec.FirstDisplayedScrollingRowIndex = row.Index;// прокручиваем
-                        //break; //Требуется для выбора одно строки
-                    }
-                }
-                if (i == 0) MessageBox.Show("Элементов не найдено!");
-                if (i > 0)
-                {
-                    FindStatusLabel.Text = "Найдено " + i + " элементов.";
-                    btnFindNext.Focus();
-                }
-
-                if (i > 1) btnFindNext.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void FindNext()
-        {
-            if (FindCount < dgvSelected.Count)
-            {
-                dgvTableRec.ClearSelection();
-                if (dgvSelected.Count > 0) dgvTableRec.FirstDisplayedScrollingRowIndex = dgvSelected[FindCount];
-
-                foreach (DataGridViewRow row in dgvTableRec.Rows)
-                {
-                    if (row.Index == dgvSelected[FindCount]) row.Selected = true;
-                }
-                FindCount++;
-            }
-            if (!(FindCount < dgvSelected.Count)) FindCount = 0;
-        }
-        #endregion
-
+        
 
         #region Панель просмотра
 
@@ -1573,14 +1650,16 @@ namespace FilmCollection
             }
         }
 
-        private void FindAndSelect_Record(string searchValue)
+        /// <summary>Поиск фильма и переход к нему</summary>
+        /// <param name="VideoName">Название фильма</param>
+        private void FindAndSelect_Record(string VideoName)
         {
             PrepareRefresh("Фильмотека", true); // решает проблему с поиском, если в дереве выбрана другая вкладка (фактически делает сброс)
 
             int rowIndex = -1;
 
             IEnumerable<int> index = (from r in dgvTableRec.Rows.Cast<DataGridViewRow>()
-                                      where r.Cells["cmnName"].Value.ToString() == searchValue
+                                      where r.Cells["cmnName"].Value.ToString() == VideoName
                                       select r.Index);
 
             if (index != null && index.Count() > 0) // для устранения исключения при отсутствии нужного элемента
@@ -1596,7 +1675,7 @@ namespace FilmCollection
 
             if (rowIndex != -1)
             {
-                if (dgvTableRec.Rows[rowIndex].Cells["cmnName"].Value.ToString() != searchValue)
+                if (dgvTableRec.Rows[rowIndex].Cells["cmnName"].Value.ToString() != VideoName)
                 {   // если точно не найден фильм по названию картинки, то выходим из метода
                     return;
                 }
@@ -1611,7 +1690,7 @@ namespace FilmCollection
         #endregion
 
 
-        #region Обработка меню дерева (treeFolder)
+        #region Контекстное меню для дерева (treeFolder)
 
 
         private void CreateTree()       // Построение дерева
@@ -2077,7 +2156,7 @@ namespace FilmCollection
                     if (e.Button == MouseButtons.Right) GetMenuDgv(e);
 
                     if (e.Button == MouseButtons.Left && e.Clicks == 1)
-                    { 
+                    {
                         SelectRecord_Info(sender, e);
                     }
                     if (e.Button == MouseButtons.Left)
@@ -2117,7 +2196,7 @@ namespace FilmCollection
 
         #region обработка информации по одному фильму
 
-        private void UpdateFIlmInfo_Click(object sender, EventArgs e)
+        private void UpdateInfo()
         {
             Record record = GetSelectedRecord();
             if (record != null)
@@ -2710,36 +2789,7 @@ namespace FilmCollection
 
         #endregion
 
-
-
-        //===================================
-
-        private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
-        {
-            e.Cancel = !CheckAccess();
-        }
-
-        private bool CheckAccess()
-        {
-            return true;
-
-            //throw new NotImplementedException();
-            // return true;//если доступ разрешен
-            // return false; //если доступ запрещен
-        }
-
-
-        //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        //{
-        //    //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
-        //    //if (formatter != null)
-        //    //{
-        //    //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
-        //    //    e.FormattingApplied = true;
-        //    //}
-        //}
-
-
+        
         #region Постеры
 
         public event ThumbnailImageEventHandler OnImageSizeChanged;
@@ -2924,35 +2974,37 @@ namespace FilmCollection
 
 
 
+
+
         #endregion
 
-        private void btnOptions_Click(object sender, EventArgs e)
+        
+        //===================================
+
+        private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
         {
-            Options form = new Options();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                //    _videoCollection.Save();
-            }
+            e.Cancel = !CheckAccess();
         }
 
-        private void btnOpenReportForm_Click(object sender, EventArgs e)
+        private bool CheckAccess()
         {
-            Report _report = new Report(_videoCollection);
-            _report.ShowDialog();
+            return true;
+
+            //throw new NotImplementedException();
+            // return true;//если доступ разрешен
+            // return false; //если доступ запрещен
         }
 
-        private void tbFind_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                FindbyValue();
-            }
-        }
 
-        private void btnHidePanel_Click(object sender, EventArgs e)
-        {
-            panelView.BringToFront();
-        }
+        //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        //{
+        //    //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
+        //    //if (formatter != null)
+        //    //{
+        //    //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
+        //    //    e.FormattingApplied = true;
+        //    //}
+        //}
     }
 }
 
