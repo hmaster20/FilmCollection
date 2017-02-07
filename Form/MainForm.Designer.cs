@@ -102,6 +102,7 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelFind = new System.Windows.Forms.Panel();
+            this.btnHidePanel = new System.Windows.Forms.Button();
             this.btnFindReset = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -254,7 +255,6 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
-            this.btnHidePanel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -482,7 +482,7 @@
             this.UpdateFIlmInfo.Name = "UpdateFIlmInfo";
             this.UpdateFIlmInfo.Size = new System.Drawing.Size(207, 22);
             this.UpdateFIlmInfo.Text = "Обновить информацию";
-            this.UpdateFIlmInfo.Click += new System.EventHandler(this.UpdateFIlmInfo_Click);
+            this.UpdateFIlmInfo.Click += new System.EventHandler(this.UpdateInfo_Click);
             // 
             // testToolStripMenuItem
             // 
@@ -978,6 +978,18 @@
             this.panelFind.Name = "panelFind";
             this.panelFind.Size = new System.Drawing.Size(368, 606);
             this.panelFind.TabIndex = 0;
+            // 
+            // btnHidePanel
+            // 
+            this.btnHidePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHidePanel.Location = new System.Drawing.Point(154, 544);
+            this.btnHidePanel.Name = "btnHidePanel";
+            this.btnHidePanel.Size = new System.Drawing.Size(75, 23);
+            this.btnHidePanel.TabIndex = 19;
+            this.btnHidePanel.Text = "Скрыть";
+            this.btnHidePanel.UseVisualStyleBackColor = true;
+            this.btnHidePanel.Click += new System.EventHandler(this.btnHidePanel_Click);
             // 
             // btnFindReset
             // 
@@ -1815,8 +1827,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 608);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
@@ -2577,7 +2589,7 @@
             this.tsAdd.Name = "tsAdd";
             this.tsAdd.Size = new System.Drawing.Size(23, 22);
             this.tsAdd.Text = "Добавить";
-            this.tsAdd.Click += new System.EventHandler(this.AddRec_Click);
+            this.tsAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
             // tsChange
             // 
@@ -2587,7 +2599,7 @@
             this.tsChange.Name = "tsChange";
             this.tsChange.Size = new System.Drawing.Size(23, 22);
             this.tsChange.Text = "Изменить";
-            this.tsChange.Click += new System.EventHandler(this.EditRec_Click);
+            this.tsChange.Click += new System.EventHandler(this.tsChange_Click);
             // 
             // tsRemove
             // 
@@ -2597,7 +2609,7 @@
             this.tsRemove.Name = "tsRemove";
             this.tsRemove.Size = new System.Drawing.Size(23, 22);
             this.tsRemove.Text = "Удалить";
-            this.tsRemove.Click += new System.EventHandler(this.DeleteRec_Click);
+            this.tsRemove.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // toolStripSeparator5
             // 
@@ -2612,7 +2624,7 @@
             this.tsFind.Name = "tsFind";
             this.tsFind.Size = new System.Drawing.Size(23, 22);
             this.tsFind.Text = "Найти";
-            this.tsFind.Click += new System.EventHandler(this.cFind_Click);
+            this.tsFind.Click += new System.EventHandler(this.tsFind_Click);
             // 
             // tsFindbyName
             // 
@@ -2632,18 +2644,6 @@
             this.toolinfo.AutoPopDelay = 5000;
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
-            // 
-            // btnHidePanel
-            // 
-            this.btnHidePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnHidePanel.Location = new System.Drawing.Point(154, 544);
-            this.btnHidePanel.Name = "btnHidePanel";
-            this.btnHidePanel.Size = new System.Drawing.Size(75, 23);
-            this.btnHidePanel.TabIndex = 19;
-            this.btnHidePanel.Text = "Скрыть";
-            this.btnHidePanel.UseVisualStyleBackColor = true;
-            this.btnHidePanel.Click += new System.EventHandler(this.btnHidePanel_Click);
             // 
             // MainForm
             // 
