@@ -254,6 +254,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.btnHidePanel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -963,6 +964,7 @@
             // 
             // panelFind
             // 
+            this.panelFind.Controls.Add(this.btnHidePanel);
             this.panelFind.Controls.Add(this.btnFindReset);
             this.panelFind.Controls.Add(this.label3);
             this.panelFind.Controls.Add(this.label2);
@@ -2631,6 +2633,18 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // btnHidePanel
+            // 
+            this.btnHidePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHidePanel.Location = new System.Drawing.Point(154, 544);
+            this.btnHidePanel.Name = "btnHidePanel";
+            this.btnHidePanel.Size = new System.Drawing.Size(75, 23);
+            this.btnHidePanel.TabIndex = 19;
+            this.btnHidePanel.Text = "Скрыть";
+            this.btnHidePanel.UseVisualStyleBackColor = true;
+            this.btnHidePanel.Click += new System.EventHandler(this.btnHidePanel_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2939,6 +2953,7 @@
         private System.Windows.Forms.ColumnHeader column2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem btnOpenReportForm;
+        private System.Windows.Forms.Button btnHidePanel;
     }
 }
 
