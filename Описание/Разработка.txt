@@ -531,3 +531,7 @@
 
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Catrig));
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+
+=================================================================================================================================================
+
+			   pictureBox3.Cursor = new Cursor(new MemoryStream(Properties.Resources.BULLSEYE));
