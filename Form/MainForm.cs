@@ -1,14 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
-using System.IO;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using System.Xml;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Net;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Shell32;
 
@@ -27,8 +26,9 @@ namespace FilmCollection
         public string FormatOpen { get; }       //Формат открытия файлов
         public List<string> FormatAdd { get; }  //Список форматов файлов
         public string PicsFolder { get; }       //Каталог изображений
-
-        Timer timerLANG;
+        Timer timerCursor { get; }      // Таймер для смены курсора
+        public Cursor crEn { get; }     // Курсор английской раскладки
+        public Cursor crRu { get; }     // Курсор русской раскладки
 
         #endregion
 
@@ -39,16 +39,18 @@ namespace FilmCollection
         {
             InitializeComponent();                  // Создание и отрисовка элементов
 
-            ////////////////////////////////////////////
-            timerLANG = new Timer();
-            this.timerLANG.Enabled = true;
-            this.timerLANG.Interval = 250;
-            this.timerLANG.Tick += new System.EventHandler(this.timerLANG_Tick);
-            this.TopMost = true;
-            ////////////////////////////////////////////
-
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
 
+            #region Управление курсором (Таймер и курсоры)
+            crEn = new Cursor(new MemoryStream(Properties.Resources.cursorEN)); // загрузка курсора
+            crRu = new Cursor(new MemoryStream(Properties.Resources.cursorRU)); // загрузка курсора
+
+            timerCursor = new Timer();      // Таймер для смены курсора
+            timerCursor.Enabled = false;
+            timerCursor.Interval = 200;
+            timerCursor.Tick += new System.EventHandler(this.timerCursor_Tick);
+            #endregion
+            
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
             _videoCollection = new RecordCollection();      // Доступ к коллекции
@@ -103,59 +105,23 @@ namespace FilmCollection
         }
 
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr GetKeyboardLayout(int WindowsThreadProcessID);
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern int GetWindowThreadProcessId(IntPtr handleWindow, out int lpdwProcessID);
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr GetForegroundWindow();
-
-        private static InputLanguageCollection _InstalledInputLanguages;
-        // Идентификатор активного потока
-        private static int _ProcessId;
-        // Текущий язык ввода
-        private static string _CurrentInputLanguage;
-
-        private static string GetKeyboardLayoutId()
+        #region Управление курсором (Методы управления)
+        private void timerCursor_Tick(object sender, EventArgs e)
         {
-            _InstalledInputLanguages = InputLanguage.InstalledInputLanguages;
-
-            // Получаем хендл активного окна
-            IntPtr hWnd = GetForegroundWindow();
-            // Получаем номер потока активного окна
-            int WinThreadProcId = GetWindowThreadProcessId(hWnd, out _ProcessId);
-
-            // Получаем раскладку
-            IntPtr KeybLayout = GetKeyboardLayout(WinThreadProcId);
-            // Циклом перебираем все установленные языки для проверки идентификатора
-            for (int i = 0; i < _InstalledInputLanguages.Count; i++)
-            {
-                if (KeybLayout == _InstalledInputLanguages[i].Handle)
-                {
-                    _CurrentInputLanguage = _InstalledInputLanguages[i].Culture.ThreeLetterWindowsLanguageName.ToString();
-                }
-            }
-            return _CurrentInputLanguage;
+            this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
         }
 
-        private void timerLANG_Tick(object sender, EventArgs e)
+        private void timerCursorEnabled()
         {
-            if (GetKeyboardLayoutId() == "ENU")
-            {
-                using (var memoryStream = new MemoryStream(Properties.Resources.cursorEN))
-                {
-                    tbFind.Cursor = new Cursor(memoryStream);
-                }
-            }
-            else
-            {
-                using (var memoryStream = new MemoryStream(Properties.Resources.cursorRU))
-                {
-                    tbFind.Cursor = new Cursor(memoryStream);
-                }
-            }
+            timerCursor.Enabled = true;
         }
 
+        private void timerCursorDisabled()
+        {
+            timerCursor.Enabled = false;
+            this.Cursor = Cursors.Arrow;
+        }
+        #endregion
 
         /// <summary>Отрисовка рамки вокруг tsFindbyName</summary>
         private void tsFindbyName_Paint(object sender, PaintEventArgs e)
@@ -586,6 +552,10 @@ namespace FilmCollection
 
         private void tsFindbyName_KeyDown(object sender, KeyEventArgs e) => QuicSearch(e);
 
+        private void tsFindbyName_MouseEnter(object sender, EventArgs e) => timerCursorEnabled();
+
+        private void tsFindbyName_MouseLeave(object sender, EventArgs e) => timerCursorDisabled();
+
         #endregion
 
 
@@ -661,7 +631,7 @@ namespace FilmCollection
         }
 
         #endregion
-        
+
 
         #region DragDrop DGV to TreeView
 
@@ -784,7 +754,7 @@ namespace FilmCollection
         }
 
         #endregion
-        
+
 
         #region TabControl
 
@@ -1360,6 +1330,21 @@ namespace FilmCollection
             }
         }
 
+        private void btnFindNext_Click(object sender, EventArgs e) => FindNext();
+
+        private void cbTypeFind_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnFind.Enabled = true;
+        }
+
+        private void tabControl_ChangeTab_Click(object sender, EventArgs e) => ResetFind();
+
+        private void btnFindReset_Click(object sender, EventArgs e) => ResetFind();
+
+        private void tbFind_MouseEnter(object sender, EventArgs e) => timerCursorEnabled();
+
+        private void tbFind_MouseLeave(object sender, EventArgs e) => timerCursorDisabled();
+
 
         #endregion
 
@@ -1681,17 +1666,6 @@ namespace FilmCollection
             dgvTableRec.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
         }
-
-        private void cbTypeFind_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnFind.Enabled = true;
-        }
-
-        private void btnFindNext_Click(object sender, EventArgs e) => FindNext();
-
-        private void tabControl_ChangeTab_Click(object sender, EventArgs e) => ResetFind();
-
-        private void btnFindReset_Click(object sender, EventArgs e) => ResetFind();
 
         private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
         {
@@ -3050,6 +3024,8 @@ namespace FilmCollection
 
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
+
+
 
 
 
