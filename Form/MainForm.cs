@@ -28,14 +28,24 @@ namespace FilmCollection
         public List<string> FormatAdd { get; }  //Список форматов файлов
         public string PicsFolder { get; }       //Каталог изображений
 
+        Timer timerLANG;
+
         #endregion
 
 
         #region Главная форма (Main)
 
-        public MainForm()                           //Конструктор формы
+        public MainForm()
         {
             InitializeComponent();                  // Создание и отрисовка элементов
+
+            ////////////////////////////////////////////
+            timerLANG = new Timer();
+            this.timerLANG.Enabled = true;
+            this.timerLANG.Interval = 250;
+            this.timerLANG.Tick += new System.EventHandler(this.timerLANG_Tick);
+            this.TopMost = true;
+            ////////////////////////////////////////////
 
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
 
@@ -91,6 +101,61 @@ namespace FilmCollection
 
             #endregion
         }
+
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr GetKeyboardLayout(int WindowsThreadProcessID);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern int GetWindowThreadProcessId(IntPtr handleWindow, out int lpdwProcessID);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetForegroundWindow();
+
+        private static InputLanguageCollection _InstalledInputLanguages;
+        // Идентификатор активного потока
+        private static int _ProcessId;
+        // Текущий язык ввода
+        private static string _CurrentInputLanguage;
+
+        private static string GetKeyboardLayoutId()
+        {
+            _InstalledInputLanguages = InputLanguage.InstalledInputLanguages;
+
+            // Получаем хендл активного окна
+            IntPtr hWnd = GetForegroundWindow();
+            // Получаем номер потока активного окна
+            int WinThreadProcId = GetWindowThreadProcessId(hWnd, out _ProcessId);
+
+            // Получаем раскладку
+            IntPtr KeybLayout = GetKeyboardLayout(WinThreadProcId);
+            // Циклом перебираем все установленные языки для проверки идентификатора
+            for (int i = 0; i < _InstalledInputLanguages.Count; i++)
+            {
+                if (KeybLayout == _InstalledInputLanguages[i].Handle)
+                {
+                    _CurrentInputLanguage = _InstalledInputLanguages[i].Culture.ThreeLetterWindowsLanguageName.ToString();
+                }
+            }
+            return _CurrentInputLanguage;
+        }
+
+        private void timerLANG_Tick(object sender, EventArgs e)
+        {
+            if (GetKeyboardLayoutId() == "ENU")
+            {
+                using (var memoryStream = new MemoryStream(Properties.Resources.cursorEN))
+                {
+                    tbFind.Cursor = new Cursor(memoryStream);
+                }
+            }
+            else
+            {
+                using (var memoryStream = new MemoryStream(Properties.Resources.cursorRU))
+                {
+                    tbFind.Cursor = new Cursor(memoryStream);
+                }
+            }
+        }
+
 
         /// <summary>Отрисовка рамки вокруг tsFindbyName</summary>
         private void tsFindbyName_Paint(object sender, PaintEventArgs e)
@@ -596,8 +661,7 @@ namespace FilmCollection
         }
 
         #endregion
-
-
+        
 
         #region DragDrop DGV to TreeView
 
@@ -720,8 +784,7 @@ namespace FilmCollection
         }
 
         #endregion
-
-
+        
 
         #region TabControl
 
