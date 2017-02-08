@@ -189,6 +189,8 @@
     <Content Include="Resources\attention.png" />
     <Content Include="Resources\change.png" />
     <Content Include="Resources\collapse.png" />
+    <Content Include="Resources\cursorEN.cur" />
+    <Content Include="Resources\cursorRU.cur" />
     <Content Include="Resources\db.png" />
     <Content Include="Resources\dbBackup.png" />
     <Content Include="Resources\dbClear.png" />
