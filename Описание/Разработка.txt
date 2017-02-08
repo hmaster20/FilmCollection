@@ -535,3 +535,27 @@
 =================================================================================================================================================
 
 			   pictureBox3.Cursor = new Cursor(new MemoryStream(Properties.Resources.BULLSEYE));
+
+=================================================================================================================================================
+
+			               this.TopMost = true; // делает форму поверх всех окон, достучаться к отладчику невозможно
+
+
+=================================================================================================================================================
+		private void timerLANG_Tick(object sender, EventArgs e)
+        {
+            if (InputLanguages.GetKeyboardLayoutId() == "ENU")
+            {
+                using (var memoryStream = new MemoryStream(Properties.Resources.cursorEN))
+                {
+                    tbFind.Cursor = new Cursor(memoryStream);
+                }
+            }
+            else
+            {
+                using (var memoryStream = new MemoryStream(Properties.Resources.cursorRU))
+                {
+                    tbFind.Cursor = new Cursor(memoryStream);
+                }
+            }
+        }
