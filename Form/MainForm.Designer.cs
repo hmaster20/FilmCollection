@@ -1829,8 +1829,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 608);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
