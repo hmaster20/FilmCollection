@@ -50,7 +50,7 @@ namespace FilmCollection
             timerCursor.Interval = 200;
             timerCursor.Tick += new System.EventHandler(this.timerCursor_Tick);
             #endregion
-            
+
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
             _videoCollection = new RecordCollection();      // Доступ к коллекции
@@ -1846,8 +1846,8 @@ namespace FilmCollection
         #endregion
 
 
-        #region Контекстное меню для дерева (treeFolder)
 
+        #region Дерево (treeFolder)
 
         private void CreateTree()       // Построение дерева
         {
@@ -2093,38 +2093,48 @@ namespace FilmCollection
 
 
 
-            TreeNode treeViewBlank = new TreeNode();
+            TreeNode trv = new TreeNode();
 
             TreeNode lastNode = null;
             string subPathAgg;
 
             foreach (string path in paths)
             {
-                //cc++;
                 subPathAgg = string.Empty;
                 foreach (string subPath in path.Split(pathSeparator))
                 {
                     subPathAgg += subPath + pathSeparator;
-                    // TreeNode[] nodes = treeView.Nodes.Find(subPathAgg, true);
-                    TreeNode[] nodes = treeViewBlank.Nodes.Find(subPathAgg, true);
-                    if (nodes.Length == 0)
-                        lastNode = (lastNode == null) ? treeViewBlank.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
-                    // lastNode = (lastNode == null) ? treeView.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
-                    else
-                        lastNode = nodes[0];
+
+                    TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+                    if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                        if (lastNode == null)
+                        {
+                            lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                        }
+                        else
+                        {
+                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                        }
+                    else lastNode = nodes[0];
                 }
                 lastNode = null;
             }
-            List<TreeNode> lst = new List<TreeNode>();
 
-            foreach (TreeNode item in treeViewBlank.Nodes)
-            {
-                lst.Add(item);
-            }
+            List<TreeNode> _ListTree = new List<TreeNode>();
+
+            foreach (TreeNode node in trv.Nodes)    // проход по корневым нодам
+                _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
+
 
             //treeView.BeginUpdate();
-            treeView.Nodes.AddRange(lst.ToArray());
+            treeView.Nodes.AddRange(_ListTree.ToArray());
         }
+
+        #endregion
+
+        #region Контекстное меню для дерева (treeFolder)
+
 
         private void treeFolder_AfterSelect(object sender, TreeViewEventArgs e) // Команда при клике по строке
         {
