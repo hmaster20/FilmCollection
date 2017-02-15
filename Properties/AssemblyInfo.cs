@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Фильмотека (FilmCollection)")]
+[assembly: AssemblyTitle("Фильмотека")]
 [assembly: AssemblyDescription("Фильмотека - это специализированная программа для учета и хранения информации  о фильмах и связанных с ними материалов.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
