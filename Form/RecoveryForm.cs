@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -48,7 +49,7 @@ namespace FilmCollection
                 if (files[i].Length < 2 || subStrings.Length == 4)
                 {
                     li.ForeColor = Color.Gray;
-                    li.Font = new Font(listView1.Font, FontStyle.Strikeout);            
+                    li.Font = new Font(listView1.Font, FontStyle.Strikeout);
                 }
                 li.Text = subStrings[1];
                 listView1.Items.Add(li);
@@ -87,7 +88,51 @@ namespace FilmCollection
                 recoverBase = ("VideoList_" + selItem.SubItems[0].Text + "_" + selItem.SubItems[1].Text + ".xml");
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-            }            
+            }
+        }
+
+        private int sortColumn = -1;
+
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column != sortColumn)
+            {
+                sortColumn = e.Column;
+                listView1.Sorting = SortOrder.Ascending;
+            }
+            else
+            {
+                if (listView1.Sorting == SortOrder.Ascending)
+                    listView1.Sorting = SortOrder.Descending;
+                else
+                    listView1.Sorting = SortOrder.Ascending;
+            }
+            //listView1.Sort();
+
+            //this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column);
+            //this.listView1.ListViewItemSorter = new ListViewItemComparer(e.Column, listView1.Sorting);
+            //this.listView1.ListViewItemSorter = new ListViewItemComparer()
+        }
+
+    }
+
+    class ListViewItemComparer : IComparer
+    {
+        private int col;
+        public ListViewItemComparer()
+        {
+            col = 0;
+        }
+        public ListViewItemComparer(int column)
+        {
+            col = column;
+        }
+        public int Compare(object x, object y)
+        {
+            int returnVal = -1;
+            returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
+            ((ListViewItem)y).SubItems[col].Text);
+            return returnVal;
         }
     }
 }
