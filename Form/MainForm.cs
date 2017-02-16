@@ -30,6 +30,14 @@ namespace FilmCollection
         public Cursor crEn { get; }     // Курсор английской раскладки
         public Cursor crRu { get; }     // Курсор русской раскладки
 
+        public bool DebugMenu { get; set; } =
+#if DEBUG
+            true;
+#else
+            false;
+#endif
+
+
         #endregion
 
 
@@ -85,12 +93,9 @@ namespace FilmCollection
                 tsActCountryFilter.Items.Add(item);
             }
 
-            MenuChange.Visible =
-#if DEBUG
-            true;
-#else
-            false;
-#endif
+            MenuChange.Visible = DebugMenu;
+            btnOptions.Visible = DebugMenu;
+            btnActors.Visible = DebugMenu;
 
             #region Постеры
             this.buttonCancel.Enabled = false;
