@@ -683,10 +683,14 @@ namespace FilmCollection
         }
 
 
-        private bool IsControlAtFront(Control control)  // проверка наличия контрола (панели) на верхнем уровне
+        /// <summary>Проверка размещения панели на верхнем уровне</summary>
+        /// <param name="control"></param>
+        /// <returns></returns>
+        private bool IsControlAtFront(Control control)
         {
             return control.Parent.Controls.GetChildIndex(control) == 0;
         }
+
 
         //This will work for any Control anywhere within the Form:
         private bool IsControlAtFrontUniversal(Control control)
@@ -713,6 +717,18 @@ namespace FilmCollection
         {
             try
             {
+                //dgvTableRec.Rows[e.RowIndex].Selected = true;
+
+                if (e.RowIndex < 0)
+                {
+                    return;
+                }
+                // Add this
+                dgvTableRec.CurrentCell = dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                // Can leave these here - doesn't hurt
+                dgvTableRec.Rows[e.RowIndex].Selected = true;
+                dgvTableRec.Focus();
+
                 if (IsControlAtFront(panelFind))
                 {
                     if (e.Button == MouseButtons.Left && e.Clicks == 2)
@@ -723,8 +739,10 @@ namespace FilmCollection
                     FindNextButton_Lock();
                     if (e.Button == MouseButtons.Right) GetMenuDgv(e);
 
+
                     if (e.Button == MouseButtons.Left && e.Clicks == 1)
                     {
+
                         SelectRecord_Info(sender, e);
                     }
                     if (e.Button == MouseButtons.Left)
@@ -1067,7 +1085,9 @@ namespace FilmCollection
                 }
         }
 
-        private void SelectRecord_Info(object sender, EventArgs e)  // Отражение информации в карточке
+        /// <summary>Отражение информации в карточке при выборе строки</summary>
+        /// <param name="sender"></param><param name="e"></param>
+        private void SelectRecord_Info(object sender, EventArgs e)
         {
             panelView.BringToFront();               // Отображение панели описания
             Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
