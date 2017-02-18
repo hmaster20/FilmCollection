@@ -96,41 +96,41 @@
     <Compile Include="Class_Test\TreeViewFast.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Form\About.cs">
+    <Compile Include="Form\formAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\About.Designer.cs">
-      <DependentUpon>About.cs</DependentUpon>
+    <Compile Include="Form\formAbout.Designer.cs">
+      <DependentUpon>formAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\EditForm.cs">
+    <Compile Include="Form\formEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\EditForm.Designer.cs">
-      <DependentUpon>EditForm.cs</DependentUpon>
+    <Compile Include="Form\formEdit.Designer.cs">
+      <DependentUpon>formEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\MainForm.cs">
+    <Compile Include="Form\formMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="Form\formMain.Designer.cs">
+      <DependentUpon>formMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\Options.cs">
+    <Compile Include="Form\formOptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Options.Designer.cs">
-      <DependentUpon>Options.cs</DependentUpon>
+    <Compile Include="Form\formOptions.Designer.cs">
+      <DependentUpon>formOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\RecoveryForm.cs">
+    <Compile Include="Form\formRecovery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\RecoveryForm.Designer.cs">
-      <DependentUpon>RecoveryForm.cs</DependentUpon>
+    <Compile Include="Form\formRecovery.Designer.cs">
+      <DependentUpon>formRecovery.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\Report.cs">
+    <Compile Include="Form\formReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\Report.Designer.cs">
-      <DependentUpon>Report.cs</DependentUpon>
+    <Compile Include="Form\formReport.Designer.cs">
+      <DependentUpon>formReport.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,24 +141,24 @@
       <SubType>Designer</SubType>
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\About.resx">
-      <DependentUpon>About.cs</DependentUpon>
+    <EmbeddedResource Include="Form\formAbout.resx">
+      <DependentUpon>formAbout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\EditForm.resx">
-      <DependentUpon>EditForm.cs</DependentUpon>
+    <EmbeddedResource Include="Form\formEdit.resx">
+      <DependentUpon>formEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="Form\formMain.resx">
+      <DependentUpon>formMain.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\Options.resx">
-      <DependentUpon>Options.cs</DependentUpon>
+    <EmbeddedResource Include="Form\formOptions.resx">
+      <DependentUpon>formOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\RecoveryForm.resx">
-      <DependentUpon>RecoveryForm.cs</DependentUpon>
+    <EmbeddedResource Include="Form\formRecovery.resx">
+      <DependentUpon>formRecovery.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\Report.resx">
-      <DependentUpon>Report.cs</DependentUpon>
+    <EmbeddedResource Include="Form\formReport.resx">
+      <DependentUpon>formReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
