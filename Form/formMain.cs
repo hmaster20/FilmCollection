@@ -50,6 +50,16 @@ namespace FilmCollection
 
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
 
+            Tray.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки для отображения в трее
+
+            // делаем невидимой нашу иконку в трее
+            Tray.Visible = false;
+            // добавляем событие по двойному клику мыши, вызывая функцию Tray_MouseDoubleClick
+            this.Tray.MouseDoubleClick += new MouseEventHandler(Tray_MouseDoubleClick);
+            // добавляем событие на изменение окна
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
+
+
             #region Управление курсором (Таймер и курсоры)
             crEn = new Cursor(new MemoryStream(Properties.Resources.cursorEN)); // загрузка курсора
             crRu = new Cursor(new MemoryStream(Properties.Resources.cursorRU)); // загрузка курсора
@@ -150,6 +160,32 @@ namespace FilmCollection
         }
 
         private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            // проверяем наше окно, и если оно было свернуто, делаем событие        
+            if (WindowState == FormWindowState.Minimized)
+            {
+                // Hide();
+                Tray.BalloonTipTitle = "Программа была спрятана";
+                Tray.BalloonTipText = "Обратите внимание что программа была спрятана в трей и продолжит свою работу.";
+                Tray.ShowBalloonTip(5000);
+
+                // прячем наше окно из панели
+                this.ShowInTaskbar = false;
+                // делаем нашу иконку в трее активной
+                Tray.Visible = true;
+            }
+        }
+
+        private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
+            // возвращаем отображение окна в панели
+            ShowInTaskbar = true;
+            // делаем нашу иконку скрытой
+            Tray.Visible = false;
+        }
 
         private bool FormLoad()
         {
@@ -716,47 +752,13 @@ namespace FilmCollection
         }
 
 
-        private void TableRec_MouseMove(object sender, MouseEventArgs e)
-        {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
-            {
-                int rowIndexFromMouseDown = TableRec.HitTest(e.X, e.Y).RowIndex;
-                if (rowIndexFromMouseDown != -1)
-                {
-                    DataGridView dgv = TableRec;
-                    if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                        if (dgv.SelectedRows[0].Index == rowIndexFromMouseDown)
-                        {
-                            TableRec.DoDragDrop(rowIndexFromMouseDown, DragDropEffects.Copy);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Сдвиг не соответствует селекту");
-                        }
-                } 
-            }
-
-            //inp.MouseEventArgs es = e;
-
-            //DataGrid ellipse = sender as DataGrid;
-            //if (ellipse != null && e.LeftButton == inp.MouseButtonState.Pressed)
-            //{
-            //    MessageBox.Show(e.ToString());
-            //   ;
-            //    //DragDrop.DoDragDrop(ellipse,
-            //    //                     ellipse.Fill.ToString(),
-            //    //                     DragDropEffects.Copy);
-            //}
-        }
-
-
         private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
             try
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                     if (e.ColumnIndex != 7)
+                    if (e.ColumnIndex != 7)
                     {
                         DataGridView dgv = TableRec;
                         if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
@@ -2054,7 +2056,7 @@ namespace FilmCollection
 
 
             // Load items into TreeViewFast
-            treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
+            //treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
         }
 
         private void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator, int count)  // Построение дерева
@@ -3101,6 +3103,9 @@ namespace FilmCollection
 
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
+
+
+
 
 
 
