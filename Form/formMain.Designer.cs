@@ -255,6 +255,7 @@
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
+            this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -329,7 +330,9 @@
             this.TableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.TableRec.Size = new System.Drawing.Size(590, 579);
             this.TableRec.TabIndex = 12;
-            this.TableRec.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TableRec_MouseMove);
+            this.TableRec.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TableRec_CellContentDoubleClick);
+            this.TableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Table_CellMouseDown);
+            this.TableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableRec_ColumnHeaderMouseClick);
             // 
             // cmnName
             // 
@@ -1856,6 +1859,7 @@
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTableActors.Size = new System.Drawing.Size(535, 579);
             this.dgvTableActors.TabIndex = 0;
+            this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Table_CellMouseDown);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
             // 
             // colActFIO
@@ -2646,6 +2650,12 @@
             this.toolinfo.InitialDelay = 300;
             this.toolinfo.ReshowDelay = 100;
             // 
+            // Tray
+            // 
+            this.Tray.Text = "Фильмотека";
+            this.Tray.Visible = true;
+            this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2661,6 +2671,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_Close);
             this.Load += new System.EventHandler(this.Main_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).EndInit();
             this.TabMenu.ResumeLayout(false);
             this.statusLine.ResumeLayout(false);
@@ -2955,6 +2966,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem btnOpenReportForm;
         private System.Windows.Forms.Button btnHidePanel;
+        private System.Windows.Forms.NotifyIcon Tray;
     }
 }
 
