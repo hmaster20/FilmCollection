@@ -10,7 +10,6 @@ using System.Net;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Shell32;
-using inp = System.Windows.Input;
 
 namespace FilmCollection
 {
@@ -31,13 +30,12 @@ namespace FilmCollection
         public Cursor crEn { get; }     // Курсор английской раскладки
         public Cursor crRu { get; }     // Курсор русской раскладки
 
-        public bool DebugMenu { get; set; } =
+        public bool isDebug { get; set; } =
 #if DEBUG
             true;
 #else
             false;
 #endif
-
 
         #endregion
 
@@ -50,15 +48,8 @@ namespace FilmCollection
 
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
 
-            Tray.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки для отображения в трее
-
-            // делаем невидимой нашу иконку в трее
-            Tray.Visible = false;
-            // добавляем событие по двойному клику мыши, вызывая функцию Tray_MouseDoubleClick
-            this.Tray.MouseDoubleClick += new MouseEventHandler(Tray_MouseDoubleClick);
-            // добавляем событие на изменение окна
-            this.Resize += new System.EventHandler(this.MainForm_Resize);
-
+            Tray.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки для отображения в трее            
+            Tray.Visible = false;   // скрываем иконку в трее
 
             #region Управление курсором (Таймер и курсоры)
             crEn = new Cursor(new MemoryStream(Properties.Resources.cursorEN)); // загрузка курсора
@@ -104,9 +95,9 @@ namespace FilmCollection
                 tsActCountryFilter.Items.Add(item);
             }
 
-            MenuChange.Visible = DebugMenu;
-            btnOptions.Visible = DebugMenu;
-            btnActors.Visible = DebugMenu;
+            MenuChange.Visible = isDebug;
+            btnOptions.Visible = isDebug;
+            btnActors.Visible = isDebug;
 
             #region Постеры
             this.buttonCancel.Enabled = false;
@@ -172,15 +163,23 @@ namespace FilmCollection
                 Tray.ShowBalloonTip(5000);
 
                 // прячем наше окно из панели
-                this.ShowInTaskbar = false;
+                ShowInTaskbar = false;
                 // делаем нашу иконку в трее активной
                 Tray.Visible = true;
             }
+            //else
+            //{
+            //    // возвращаем отображение окна в панели
+            //    ShowInTaskbar = true;
+            //    // делаем нашу иконку скрытой
+            //    Tray.Visible = false;
+            //}
         }
 
         private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             WindowState = FormWindowState.Maximized;
+
             // возвращаем отображение окна в панели
             ShowInTaskbar = true;
             // делаем нашу иконку скрытой
@@ -756,57 +755,41 @@ namespace FilmCollection
         {
             try
             {
-                if (e.Button == MouseButtons.Left)
+                if (e.RowIndex < 0)
                 {
-                    if (e.ColumnIndex != 7)
-                    {
-                        DataGridView dgv = TableRec;
-                        if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                            if (dgv.SelectedRows[0].Index == e.RowIndex)
-                            {
-                                TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                            }
-                            else
-                            {
-                                //MessageBox.Show("Сдвиг не соответствует селекту");
-                            }
-                    }
+                    return;
                 }
 
+                // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+                // TableRec.Focus();
 
-                // if (e.RowIndex < 0)
-                // {
-                //     return;
-                // }
+                if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
+                {
+                    if (e.Button == MouseButtons.Left && e.Clicks == 2)
+                        SelectRecord_Info(sender, e);
+                }
+                else
+                {
+                    FindNextButton_Lock();
 
-                //// TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                // TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+                    if (e.Button == MouseButtons.Right)
+                        GetMenuDgv(e);
 
-                //// TableRec.Focus();
-
-                // if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
-                // {
-                //     if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                //         SelectRecord_Info(sender, e);
-                // }
-                // else
-                // {
-                //     FindNextButton_Lock();
-
-                //     if (e.Button == MouseButtons.Right)
-                //         GetMenuDgv(e);
-
-                //     if (e.Button == MouseButtons.Left && e.Clicks == 1)
-                //         SelectRecord_Info(sender, e);
-
-                //     if (e.Button == MouseButtons.Left && e.ColumnIndex != 7)
-                //     {
-                //         DataGridView dgv = TableRec;
-                //         if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                //             if (dgv.SelectedRows[0].Index == e.RowIndex)
-                //                 TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                //     }
-                // }
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        if (e.ColumnIndex != 7)
+                        {
+                            DataGridView dgv = TableRec;
+                            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                                if (dgv.SelectedRows[0].Index == e.RowIndex)
+                                {
+                                    TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                                }
+                            SelectRecord_Info(sender, e);
+                        }
+                    }
+                }
             }
             catch (Exception Ex) { MessageBox.Show(Ex.Message); }
         }
@@ -1915,7 +1898,6 @@ namespace FilmCollection
         #endregion
 
 
-
         #region Дерево (treeFolder)
 
         private void CreateTree()       // Построение дерева
@@ -2201,6 +2183,7 @@ namespace FilmCollection
         }
 
         #endregion
+
 
         #region Контекстное меню для дерева (treeFolder)
 
@@ -3116,9 +3099,8 @@ namespace FilmCollection
 
 
 
+
         #endregion
-
-
     }
 }
 
