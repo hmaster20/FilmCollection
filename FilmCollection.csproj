@@ -170,6 +170,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="help.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -181,7 +184,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChangeLog.txt" />
+    <Content Include="ChangeLog.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="FC.ico" />
     <Content Include="Pics\noPic.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -210,6 +215,7 @@
     <Content Include="Resources\folderSelect.png" />
     <Content Include="Resources\grabber.png" />
     <Content Include="Resources\help.png" />
+    <Content Include="Resources\help_run.png" />
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\play.png" />
     <Content Include="Resources\resetFiltr.png" />
