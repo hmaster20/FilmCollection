@@ -3101,6 +3101,26 @@ namespace FilmCollection
 
 
         #endregion
+
+        private void btnRelease_Click(object sender, EventArgs e)
+        {
+            string ChangeLog = "ChangeLog.txt";
+            if (File.Exists(ChangeLog))
+            {
+                Process.Start(ChangeLog);
+            }
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            HelpProvider dsf = new HelpProvider();
+            dsf.HelpNamespace = "help.chm";
+            dsf.SetHelpNavigator(this, HelpNavigator.Topic);
+            dsf.SetHelpKeyword(this, "opisanie_i_kharakteristiki.htm");
+            dsf.SetShowHelp(this, true);
+
+            Help.ShowHelp(this, dsf.HelpNamespace, "opisanie_i_kharakteristiki.htm");
+        }
     }
 }
 

@@ -75,9 +75,10 @@
             this.btnOpenCatalogDB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.btnOpenReportForm = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRelease = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.TreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.сCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -256,6 +257,7 @@
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -539,7 +541,7 @@
             this.MenuFile,
             this.MenuChange,
             this.настройкаToolStripMenuItem,
-            this.btnHelp});
+            this.MenuHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(1175, 24);
@@ -701,29 +703,39 @@
             this.btnOpenReportForm.Text = "Отчет";
             this.btnOpenReportForm.Click += new System.EventHandler(this.btnOpenReportForm_Click);
             // 
-            // btnHelp
+            // MenuHelp
             // 
-            this.btnHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnAbout,
-            this.btnRelease});
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(65, 20);
-            this.btnHelp.Text = "Справка";
+            this.MenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnHelp,
+            this.btnRelease,
+            this.btnAbout});
+            this.MenuHelp.Name = "MenuHelp";
+            this.MenuHelp.Size = new System.Drawing.Size(65, 20);
+            this.MenuHelp.Text = "Справка";
             // 
             // btnAbout
             // 
             this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(149, 22);
+            this.btnAbout.Size = new System.Drawing.Size(152, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // btnRelease
             // 
             this.btnRelease.Name = "btnRelease";
-            this.btnRelease.Size = new System.Drawing.Size(149, 22);
+            this.btnRelease.Size = new System.Drawing.Size(152, 22);
             this.btnRelease.Text = "Версии";
-            this.btnRelease.Visible = false;
+            this.btnRelease.Click += new System.EventHandler(this.btnRelease_Click);
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Image = global::FilmCollection.Properties.Resources.help_run;
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.btnHelp.Size = new System.Drawing.Size(152, 22);
+            this.btnHelp.Text = "Справка";
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // treeFolder
             // 
@@ -892,9 +904,9 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
-            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(966, 608);
@@ -2745,7 +2757,7 @@
         private System.Windows.Forms.TabPage tabFilm;
         private System.Windows.Forms.ToolStripMenuItem MenuFile;
         private System.Windows.Forms.ToolStripMenuItem btnCreateBase;
-        private System.Windows.Forms.ToolStripMenuItem btnHelp;
+        private System.Windows.Forms.ToolStripMenuItem MenuHelp;
         private System.Windows.Forms.ToolStripMenuItem cAdd;
         private System.Windows.Forms.ToolStripMenuItem cDelete;
         private System.Windows.Forms.ToolStripMenuItem cChange;
@@ -2967,6 +2979,8 @@
         private System.Windows.Forms.ToolStripMenuItem btnOpenReportForm;
         private System.Windows.Forms.Button btnHidePanel;
         private System.Windows.Forms.NotifyIcon Tray;
+        private System.Windows.Forms.ToolStripMenuItem btnHelp;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }
 
