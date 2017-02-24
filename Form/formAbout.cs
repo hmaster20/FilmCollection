@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 namespace FilmCollection
 {
-    partial class About : Form
+    public partial class formAbout : Form
     {
-        public About()
+        public formAbout()
         {
             InitializeComponent();
-            this.Text = String.Format("О программе {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Версия {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+
+            this.Text = String.Format("О программе {0}", AssemblyTitle);           
+
+            lName.Text = AssemblyTitle;
+            lVersion.Text = String.Format("Версия {0}", AssemblyVersion);
+            lCopyright.Text = AssemblyCopyright;
+
+            textBoxDescription.Text = AssemblyDescription;
         }
+
 
         #region Методы доступа к атрибутам сборки
 
@@ -61,19 +66,6 @@ namespace FilmCollection
             }
         }
 
-        public string AssemblyProduct
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyProductAttribute)attributes[0]).Product;
-            }
-        }
-
         public string AssemblyCopyright
         {
             get
@@ -87,18 +79,12 @@ namespace FilmCollection
             }
         }
 
-        public string AssemblyCompany
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
-            }
-        }
         #endregion
+
+    
+        private void linkLabelHome_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(linkLabelHome.Text);
+        }
     }
 }
