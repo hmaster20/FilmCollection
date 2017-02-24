@@ -193,16 +193,6 @@ namespace FilmCollection.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Exit {
-            get {
-                object obj = ResourceManager.GetObject("Exit", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap ExitV2 {
             get {
                 object obj = ResourceManager.GetObject("ExitV2", resourceCulture);
@@ -253,9 +243,9 @@ namespace FilmCollection.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FilmCollection {
+        internal static System.Drawing.Bitmap FilmCollectionLogo {
             get {
-                object obj = ResourceManager.GetObject("FilmCollection", resourceCulture);
+                object obj = ResourceManager.GetObject("FilmCollectionLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
