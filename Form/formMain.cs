@@ -19,7 +19,6 @@ namespace FilmCollection
 
         RecordCollection _videoCollection { get; set; }     // Доступ к коллекции
         TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
-
         FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
         int FindCount { get; set; }                 // Счетчик найденных строк
         public List<int> dgvSelected { get; set; }  //Индексы найденных строк
@@ -29,6 +28,8 @@ namespace FilmCollection
         Timer timerCursor { get; }      // Таймер для смены курсора
         public Cursor crEn { get; }     // Курсор английской раскладки
         public Cursor crRu { get; }     // Курсор русской раскладки
+
+        HelpProvider helpProvider { get; set; } // Справка
 
         public bool isDebug { get; set; } =
 #if DEBUG
@@ -108,6 +109,26 @@ namespace FilmCollection
             m_Controller.OnAdd += new ThumbnailControllerEventHandler(m_Controller_OnAdd);
             m_Controller.OnEnd += new ThumbnailControllerEventHandler(m_Controller_OnEnd);
 
+            #endregion
+
+            #region Справка
+            helpProvider = new HelpProvider();
+            helpProvider.HelpNamespace = "help.chm";
+            helpProvider.SetHelpNavigator(this, HelpNavigator.Topic);
+            helpProvider.SetHelpKeyword(this, "Main.htm");
+            helpProvider.SetShowHelp(this, true);
+
+            helpProvider.SetHelpKeyword(panelEditAct, "editFilm.htm");
+            helpProvider.SetHelpNavigator(panelEditAct, HelpNavigator.Topic);
+            helpProvider.SetShowHelp(panelEditAct, true);
+
+            helpProvider.SetHelpKeyword(panelEditAct, "editActor.htm");
+            helpProvider.SetHelpNavigator(panelEditAct, HelpNavigator.Topic);
+            helpProvider.SetShowHelp(panelEditAct, true);
+
+            helpProvider.SetHelpKeyword(panelFind, "Find.htm");
+            helpProvider.SetHelpNavigator(panelFind, HelpNavigator.Topic);
+            helpProvider.SetShowHelp(panelFind, true);
             #endregion
         }
 
@@ -581,6 +602,20 @@ namespace FilmCollection
         {
             formAbout about = new formAbout();
             about.ShowDialog();
+        }
+
+        private void btnHistory_Click(object sender, EventArgs e)
+        {
+            string ChangeLog = "ChangeLog.txt";
+            if (File.Exists(ChangeLog))
+            {
+                Process.Start(ChangeLog);
+            }
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, helpProvider.HelpNamespace, "index.htm");
         }
 
         private void tsAdd_Click(object sender, EventArgs e) => Add();
@@ -3102,25 +3137,6 @@ namespace FilmCollection
 
         #endregion
 
-        private void btnHistory_Click(object sender, EventArgs e)
-        {
-            string ChangeLog = "ChangeLog.txt";
-            if (File.Exists(ChangeLog))
-            {
-                Process.Start(ChangeLog);
-            }
-        }
-
-        private void btnHelp_Click(object sender, EventArgs e)
-        {
-            HelpProvider dsf = new HelpProvider();
-            dsf.HelpNamespace = "help.chm";
-            dsf.SetHelpNavigator(this, HelpNavigator.Topic);
-            dsf.SetHelpKeyword(this, "opisanie_i_kharakteristiki.htm");
-            dsf.SetShowHelp(this, true);
-
-            Help.ShowHelp(this, dsf.HelpNamespace, "opisanie_i_kharakteristiki.htm");
-        }
     }
 }
 
