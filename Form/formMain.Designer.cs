@@ -48,8 +48,6 @@
             this.cOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.UpdateFIlmInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.testChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusLine = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -258,6 +256,9 @@
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.btnAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChange = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDelete = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -417,11 +418,9 @@
             this.toolStripSeparator9,
             this.cOpenFolder,
             this.toolStripSeparator1,
-            this.UpdateFIlmInfo,
-            this.testToolStripMenuItem,
-            this.testChangeToolStripMenuItem});
+            this.UpdateFIlmInfo});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(208, 198);
+            this.TabMenu.Size = new System.Drawing.Size(208, 176);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
@@ -486,22 +485,6 @@
             this.UpdateFIlmInfo.Size = new System.Drawing.Size(207, 22);
             this.UpdateFIlmInfo.Text = "Обновить информацию";
             this.UpdateFIlmInfo.Click += new System.EventHandler(this.UpdateInfo_Click);
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.testToolStripMenuItem.Text = "Test Create";
-            this.testToolStripMenuItem.Visible = false;
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.OLD_Add_rec);
-            // 
-            // testChangeToolStripMenuItem
-            // 
-            this.testChangeToolStripMenuItem.Name = "testChangeToolStripMenuItem";
-            this.testChangeToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.testChangeToolStripMenuItem.Text = "Test Change";
-            this.testChangeToolStripMenuItem.Visible = false;
-            this.testChangeToolStripMenuItem.Click += new System.EventHandler(this.OLD_Change_rec);
             // 
             // statusLine
             // 
@@ -638,6 +621,10 @@
             // 
             // MenuChange
             // 
+            this.MenuChange.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAdd,
+            this.btnChange,
+            this.btnDelete});
             this.MenuChange.Name = "MenuChange";
             this.MenuChange.Size = new System.Drawing.Size(59, 20);
             this.MenuChange.Text = "Правка";
@@ -701,6 +688,7 @@
             // 
             this.btnOpenReportForm.Image = global::FilmCollection.Properties.Resources.Report;
             this.btnOpenReportForm.Name = "btnOpenReportForm";
+            this.btnOpenReportForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.btnOpenReportForm.Size = new System.Drawing.Size(196, 22);
             this.btnOpenReportForm.Text = "Отчет";
             this.btnOpenReportForm.Click += new System.EventHandler(this.btnOpenReportForm_Click);
@@ -2677,6 +2665,33 @@
             this.Tray.Visible = true;
             this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.btnAdd.Size = new System.Drawing.Size(152, 22);
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
+            // 
+            // btnChange
+            // 
+            this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
+            this.btnChange.Name = "btnChange";
+            this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.btnChange.Size = new System.Drawing.Size(152, 22);
+            this.btnChange.Text = "Изменить";
+            this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.btnDelete.Size = new System.Drawing.Size(152, 22);
+            this.btnDelete.Text = "Удалить";
+            this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2815,11 +2830,9 @@
         private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
         private System.Windows.Forms.ToolStripComboBox tscbSort;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog FileDialog;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.ToolStripMenuItem testChangeToolStripMenuItem;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblRecTitle;
         private System.Windows.Forms.Panel panelEditTitle;
@@ -2990,6 +3003,9 @@
         private System.Windows.Forms.NotifyIcon Tray;
         private System.Windows.Forms.ToolStripMenuItem btnHelp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripMenuItem btnAdd;
+        private System.Windows.Forms.ToolStripMenuItem btnChange;
+        private System.Windows.Forms.ToolStripMenuItem btnDelete;
     }
 }
 
