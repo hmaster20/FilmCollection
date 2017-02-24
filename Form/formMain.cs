@@ -96,7 +96,7 @@ namespace FilmCollection
                 tsActCountryFilter.Items.Add(item);
             }
 
-            MenuChange.Visible = isDebug;
+            //MenuChange.Visible = isDebug;
             btnOptions.Visible = isDebug;
             btnActors.Visible = isDebug;
 
@@ -654,38 +654,63 @@ namespace FilmCollection
 
         #region Обработка запуска контекстное меню для DataGridView
 
-        private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка выбора строки перед открытием контекстного менюe
+        private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка выбора строки перед открытием контекстного меню
         {
-            //contextMenu.Items[4].Enabled = false;
-
             TabMenu.Enabled = false;    // Блокировка меню
-            DataGridView dgv = GetDgv();
-            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+
+            for (int i = 0; i < TabMenu.Items.Count; i++)
             {
-                TabMenu.Enabled = true; // Разблокировка меню
+                TabMenu.Items[i].Visible = true;
             }
-            if (tabControl2.SelectedIndex == 2)
+
+            switch (isRecTabs())
             {
-                TabMenu.Enabled = true;
-                TabMenu.Items[0].Visible = false;
-                TabMenu.Items[1].Visible = false;
-                TabMenu.Items[3].Visible = false;
-                TabMenu.Items[7].Visible = false;
-                TabMenu.Items[8].Visible = false;
-            }
-            else
-            {
-                TabMenu.Items[0].Visible = true;
-                TabMenu.Items[1].Visible = true;
-                TabMenu.Items[3].Visible = true;
-                TabMenu.Items[7].Visible = true;
-                TabMenu.Items[8].Visible = true;
+                case 0: // Фильмы
+                    {
+                        if (isRows())
+                        {
+                            TabMenu.Enabled = true; // Разблокировка меню
+                        }
+                    }
+                    break;
+
+                case 1: // Актеры
+                    {
+                        if (isRows())
+                        {
+                            TabMenu.Enabled = true; // Разблокировка меню
+                        }
+                        TabMenu.Items[0].Visible = false;   // Поиск
+                        TabMenu.Items[1].Visible = false;   // Separator
+                        TabMenu.Items[5].Visible = false;   // Separator
+                        TabMenu.Items[6].Visible = false;   // Открыть папку
+                        TabMenu.Items[7].Visible = false;   // Separator
+                        TabMenu.Items[8].Visible = false;   // Обновить информацию
+                    }
+                    break;
+
+                case 2: // Постеры
+                    {
+                        TabMenu.Enabled = true; // Разблокировка меню
+
+                        TabMenu.Items[0].Visible = false;
+                        TabMenu.Items[1].Visible = false;
+                        TabMenu.Items[3].Visible = false;
+                        TabMenu.Items[7].Visible = false;
+                        TabMenu.Items[8].Visible = false;
+                    }
+                    break;
+
+                default: break;
             }
         }
 
         private void TableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
         {
-            // if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
+            if (e.Button == MouseButtons.Left)
+            {
+                PrepareRefresh(false, e.ColumnIndex);
+            }
         }
 
         /// <summary>Разрешение контекстного меню</summary>
@@ -786,6 +811,8 @@ namespace FilmCollection
         }
 
 
+
+
         private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
             try
@@ -795,33 +822,53 @@ namespace FilmCollection
                     return;
                 }
 
-                // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
-                // TableRec.Focus();
-
-                if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
+                if (!isRows())
                 {
-                    if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                        SelectRecord_Info(sender, e);
+                    return;
+                }
+
+                DataGridView dgv = GetDgv();
+                dgv.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+
+                if (!RecTabSelect())
+                {
+                    // если это таблица актеров, то доп.обработка не нужна
+                    if (e.Button == MouseButtons.Right)
+                        GetMenuDgv(e);
                 }
                 else
                 {
-                    FindNextButton_Lock();
+                    // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    // TableRec.Focus();
 
-                    if (e.Button == MouseButtons.Right)
-                        GetMenuDgv(e);
 
-                    if (e.Button == MouseButtons.Left)
+
+                    //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+
+                    if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
                     {
-                        if (e.ColumnIndex != 7)
-                        {
-                            DataGridView dgv = TableRec;
-                            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                                if (dgv.SelectedRows[0].Index == e.RowIndex)
-                                {
-                                    TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                                }
+                        if (e.Button == MouseButtons.Left && e.Clicks == 2)
                             SelectRecord_Info(sender, e);
+                    }
+                    else
+                    {
+                        FindNextButton_Lock();
+
+                        if (e.Button == MouseButtons.Right)
+                            GetMenuDgv(e);
+
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            if (e.ColumnIndex != 7)
+                            {
+
+                                //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+                                    if (dgv.SelectedRows[0].Index == e.RowIndex)
+                                    {
+                                        TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                                    }
+                                SelectRecord_Info(sender, e);
+                            }
                         }
                     }
                 }
@@ -856,6 +903,19 @@ namespace FilmCollection
         private DataGridView GetDgv()
         {
             return (tabControl2.SelectedIndex == 0) ? TableRec : dgvTableActors;
+        }
+
+        bool isRows()
+        {
+            DataGridView dgv = GetDgv();
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
@@ -1214,7 +1274,7 @@ namespace FilmCollection
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
             DataGridView dgv = TableRec;
-            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            if (isRows())
             {
                 Record record = null;
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
