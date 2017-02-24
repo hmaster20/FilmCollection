@@ -579,7 +579,7 @@ namespace FilmCollection
 
         private void About_Click(object sender, EventArgs e)
         {
-            About about = new About();
+            formAbout about = new formAbout();
             about.ShowDialog();
         }
 
@@ -3102,7 +3102,7 @@ namespace FilmCollection
 
         #endregion
 
-        private void btnRelease_Click(object sender, EventArgs e)
+        private void btnHistory_Click(object sender, EventArgs e)
         {
             string ChangeLog = "ChangeLog.txt";
             if (File.Exists(ChangeLog))
