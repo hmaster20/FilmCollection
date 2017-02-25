@@ -819,16 +819,8 @@ namespace FilmCollection
                     return;
                 }
 
-     
-
-                //if (!isRows())
-                //{
-                //    return;
-                //}
-
                 DataGridView dgv = GetDgv();
-
-                dgv.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+                dgv.Rows[e.RowIndex].Selected = true;
 
                 if (!RecTabSelect())
                 {
@@ -840,7 +832,6 @@ namespace FilmCollection
                 {
                     // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
                     // TableRec.Focus();
-
 
 
                     //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
@@ -861,13 +852,12 @@ namespace FilmCollection
                         {
                             if (e.ColumnIndex != 7)
                             {
-
                                 //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
                                 if (isRows())
-                                if (dgv.SelectedRows[0].Index == e.RowIndex)
-                                {
-                                    TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                                }
+                                    if (dgv.SelectedRows[0].Index == e.RowIndex)
+                                    {
+                                        TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                                    }
                                 SelectRecord_Info(sender, e);
                             }
                         }
@@ -886,11 +876,27 @@ namespace FilmCollection
             }
         }
 
+        /// <summary>Обработка клика правой кнопкой мыши вне строки таблицы. для невозможности использования контекстного меню</summary>
         private void TableRec_MouseDown(object sender, MouseEventArgs e)
         {
-            TableRec.ClearSelection();
-        }
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView dgv = (DataGridView)(sender);
+                if (dgv.SelectedRows.Count > 0)
+                {
+                    int x = e.X;
+                    int y = e.Y;
 
+                    Rectangle RowCoordinates = dgv.GetRowDisplayRectangle(dgv.SelectedRows[0].Index, true);
+
+                    if (!(x > RowCoordinates.Left && x < RowCoordinates.Right && y > RowCoordinates.Top && y < RowCoordinates.Bottom))
+                    {
+                        TableRec.ClearSelection();
+                        //TableRec.ContextMenuStrip = null;
+                    }
+                }
+            }
+        }
 
         #endregion
 
@@ -1217,8 +1223,12 @@ namespace FilmCollection
         }
 
         /// <summary>Отражение информации в карточке при выборе строки</summary>
-        /// <param name="sender"></param><param name="e"></param>
         private void SelectRecord_Info(object sender, EventArgs e)
+        {
+            SelectRec();
+        }
+
+        private void SelectRec()
         {
             panelView.BringToFront();               // Отображение панели описания
             Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
@@ -1286,14 +1296,6 @@ namespace FilmCollection
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
-
-
-
-
-
-
-
-
             DataGridView dgv = TableRec;
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
@@ -1309,9 +1311,6 @@ namespace FilmCollection
             }
             return null;
         }
-
-
-
 
         private void SelectActor_Info(object sender, EventArgs e)  // Отражение информации в карточке актеров
         {
@@ -1587,9 +1586,6 @@ namespace FilmCollection
         }
 
 
-
-
-
         private void QuicSearch(KeyEventArgs e)
         {
             try
@@ -1645,7 +1641,6 @@ namespace FilmCollection
         private void NewRecord()
         {
             TableRec.ClearSelection();   // сброс селекта таблицы
-
 
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
@@ -1713,12 +1708,6 @@ namespace FilmCollection
             lbActors.Items.Clear();
             btnPlay.Enabled = false;
         }
-
-
-
-
-
-
 
         private void SaveRecord()
         {
@@ -2478,6 +2467,7 @@ namespace FilmCollection
                 {
                     _videoCollection.Save();
                     PrepareRefresh();
+                    SelectRec();
                 }
             }
         }
@@ -2951,10 +2941,6 @@ namespace FilmCollection
             listViewFilmV.Items.Clear();
         }
 
-
-
-
-
         private void btnSaveActor_Click(object sender, EventArgs e) => SaveActor();
 
         private void SaveActor()
@@ -3263,7 +3249,7 @@ namespace FilmCollection
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
 
-                #endregion
+        #endregion
 
     }
 }
