@@ -67,9 +67,11 @@ namespace FilmCollection
             _videoCollection = new RecordCollection();      // Доступ к коллекции
             _treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
 
-            TableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
+            dgvTableActors.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
+            dgvTableActors.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
 
+            TableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             TableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
             TableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
             TableRec.Columns[7].DefaultCellStyle.SelectionForeColor = Color.Blue;    // цвет текста выбранной строки нужного столбца
@@ -181,7 +183,7 @@ namespace FilmCollection
                 // Hide();
                 Tray.BalloonTipTitle = "Программа была спрятана";
                 Tray.BalloonTipText = "Обратите внимание что программа была спрятана в трей и продолжит свою работу.";
-                Tray.ShowBalloonTip(5000);
+                Tray.ShowBalloonTip(2000);
 
                 // прячем наше окно из панели
                 ShowInTaskbar = false;
@@ -667,19 +669,14 @@ namespace FilmCollection
             {
                 case 0: // Фильмы
                     {
-                        if (isRows())
-                        {
-                            TabMenu.Enabled = true; // Разблокировка меню
-                        }
+                        if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
                     }
                     break;
 
                 case 1: // Актеры
                     {
-                        if (isRows())
-                        {
-                            TabMenu.Enabled = true; // Разблокировка меню
-                        }
+                        if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
+
                         TabMenu.Items[0].Visible = false;   // Поиск
                         TabMenu.Items[1].Visible = false;   // Separator
                         TabMenu.Items[5].Visible = false;   // Separator
@@ -822,12 +819,15 @@ namespace FilmCollection
                     return;
                 }
 
-                if (!isRows())
-                {
-                    return;
-                }
+     
+
+                //if (!isRows())
+                //{
+                //    return;
+                //}
 
                 DataGridView dgv = GetDgv();
+
                 dgv.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
 
                 if (!RecTabSelect())
@@ -863,10 +863,11 @@ namespace FilmCollection
                             {
 
                                 //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                                    if (dgv.SelectedRows[0].Index == e.RowIndex)
-                                    {
-                                        TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                                    }
+                                if (isRows())
+                                if (dgv.SelectedRows[0].Index == e.RowIndex)
+                                {
+                                    TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                                }
                                 SelectRecord_Info(sender, e);
                             }
                         }
@@ -884,6 +885,12 @@ namespace FilmCollection
                 PlayRecord();
             }
         }
+
+        private void TableRec_MouseDown(object sender, MouseEventArgs e)
+        {
+            TableRec.ClearSelection();
+        }
+
 
         #endregion
 
@@ -951,8 +958,10 @@ namespace FilmCollection
         /// <summary>Добавление новой записи</summary>
         private void Add()
         {
-            if (RecTabSelect()) NewRecord_Dialog();
-            else NewActor();
+            if (RecTabSelect())
+                NewRecord();
+            else
+                NewActor();
         }
 
         /// <summary>Редактирование записи</summary>
@@ -1221,6 +1230,7 @@ namespace FilmCollection
                 tbfYear.Text = Convert.ToString(record.mYear);
                 tbfCountry.Text = record.mCountry;
                 GetPic(record.combineLink.media);
+                btnPlay.Enabled = true;
                 lbActors.Items.Clear();
                 if (record.combineLink.media.ActorListID != null)
                     foreach (int ListID in record.combineLink.media.ActorListID)
@@ -1256,10 +1266,13 @@ namespace FilmCollection
 
         private void GetPic(Media _media)
         {
+            string pic = "";
+            if (_media != null) pic = _media.Pic;
+
             string filename;
-            filename = (_media.Pic == "")
+            filename = (pic == "")
                 ? GetFilename("noPic")
-                : GetFilename(_media.Pic);
+                : GetFilename(pic);
 
             if (File.Exists(filename))
             {
@@ -1273,8 +1286,16 @@ namespace FilmCollection
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
         {
+
+
+
+
+
+
+
+
             DataGridView dgv = TableRec;
-            if (isRows())
+            if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
             {
                 Record record = null;
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
@@ -1288,6 +1309,9 @@ namespace FilmCollection
             }
             return null;
         }
+
+
+
 
         private void SelectActor_Info(object sender, EventArgs e)  // Отражение информации в карточке актеров
         {
@@ -1344,27 +1368,36 @@ namespace FilmCollection
             return null;
         }
 
-        private void ResetFilter_Click(object sender, EventArgs e)
+        private void ResetFilter_Click(object sender, EventArgs e) => ResetFilter();
+
+        private void ResetFilter()
         {
             PrepareRefresh();
-            TableRec.ClearSelection(); // сброс селекта
-            dgvTableActors.ClearSelection();
 
-            tscbTypeFilter.SelectedIndex = 0;
-            tscbSort.SelectedIndex = -1;
+            switch (isRecTabs())
+            {
+                case 0:
+                    {
+                        TableRec.ClearSelection();
+                        tscbSort.SelectedIndex = -1;
+                        tscbTypeFilter.SelectedIndex = 0;
+                        CardRecordPreview_Clear();
+                        panelView.BringToFront();
+                    }
+                    break;
 
-            tsActCountryFilter.SelectedIndex = -1;
+                case 1:
+                    {
+                        dgvTableActors.ClearSelection();
+                        tsActSort.SelectedIndex = -1;
+                        tsActCountryFilter.SelectedIndex = -1;
+                        CardActorPreview_Clear();
+                        panelViewAct.BringToFront();
+                    }
+                    break;
 
-
-            cbNameMedia.Text = "";
-            //numericTime.Value = 0;
-            tbDescription.Text = "";
-            tbFileName.Text = "";
-
-            panelView.BringToFront();   // Отображение панели описания
-            //cBoxGenre.SelectedIndex = 0;
-            //cBoxTypeVideo.SelectedIndex = 0;
-            //cBoxCountry.SelectedIndex = 0;
+                default: break;
+            }
         }
 
         private void OpenFolder()
@@ -1605,13 +1638,14 @@ namespace FilmCollection
             UserModifiedChanged(sender, e);
         }
 
-        private void btnNew_Click(object sender, EventArgs e) => NewRecord_Dialog();    // Создание элемента
+        private void btnNew_Click(object sender, EventArgs e) => NewRecord();    // Создание элемента
         private void btnSave_Click(object sender, EventArgs e) => SaveRecord();         // Сохранение нового или измененного элемента
         private void btnCancel_Click(object sender, EventArgs e) => CancelRecord();     // Отмена редактирования
 
-        private void NewRecord_Dialog()
+        private void NewRecord()
         {
             TableRec.ClearSelection();   // сброс селекта таблицы
+
 
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
@@ -1629,17 +1663,14 @@ namespace FilmCollection
                     return; // Выходим из метода
                 }
 
+                CardRecordEdit_Clear();
+
                 // Заполняем поля
                 cbNameMedia.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
                 tbNameRecord.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
                 tbFileName.Text = newFile.Name;
-                tbDescription.Text = "";
                 mtbYear.Text = DateTime.Now.Year.ToString();
-                cBoxGenre.SelectedIndex = -1;
-                cBoxTypeVideo.SelectedIndex = -1;
-                cBoxCountry.SelectedIndex = -1;
 
-                chkActorList.Items.Clear();
                 foreach (Actor item in _videoCollection.ActorList)
                 {
                     chkActorList.Items.Add(item.FIO);
@@ -1658,6 +1689,36 @@ namespace FilmCollection
                 // добавить блокировку tabControl2
             }
         }
+
+        private void CardRecordEdit_Clear()
+        {
+            cbNameMedia.Text = "";
+            tbNameRecord.Text = "";
+            tbFileName.Text = "";
+            tbDescription.Text = "";
+            mtbYear.Text = "";
+            cBoxGenre.SelectedIndex = -1;
+            cBoxTypeVideo.SelectedIndex = -1;
+            cBoxCountry.SelectedIndex = -1;
+            chkActorList.Items.Clear();
+        }
+
+        private void CardRecordPreview_Clear()
+        {
+            tbfName.Text = "";
+            tbfDesc.Text = "";
+            tbfYear.Text = "";
+            tbfCountry.Text = "";
+            GetPic(null);
+            lbActors.Items.Clear();
+            btnPlay.Enabled = false;
+        }
+
+
+
+
+
+
 
         private void SaveRecord()
         {
@@ -2858,6 +2919,16 @@ namespace FilmCollection
 
         private void NewActor()
         {
+            CardActorEdit_Clear();
+
+            dgvTableActors.Enabled = false;     // Блокировка таблицы при изменении панели
+            dgvTableActors.ClearSelection();    // Удаление фокуса
+
+            panelEditAct.BringToFront();
+        }
+
+        private void CardActorEdit_Clear()
+        {
             tbFIO.Text = "";
             tbBIO.Text = "";
             maskDateOfBirth.Text = "";
@@ -2867,12 +2938,22 @@ namespace FilmCollection
             tbFilmFind.Text = "";
             listViewFilm.Clear();
             lvSelectRecord.Items.Clear();
-
-            dgvTableActors.Enabled = false;     // Блокировка таблицы при изменении панели
-            dgvTableActors.ClearSelection();    // Удаление фокуса
-
-            panelEditAct.BringToFront();
         }
+
+        private void CardActorPreview_Clear()
+        {
+            tbFIOv.Text = "";
+            linkBIOv.Text = "";
+            tbCountryAv.Text = "";
+            maskDateOfBirthV.Text = "";
+            maskDateOfDeathV.Mask = "";
+            maskDateOfDeathV.Text = "";
+            listViewFilmV.Items.Clear();
+        }
+
+
+
+
 
         private void btnSaveActor_Click(object sender, EventArgs e) => SaveActor();
 
@@ -3182,20 +3263,7 @@ namespace FilmCollection
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        #endregion
+                #endregion
 
     }
 }
