@@ -892,7 +892,6 @@ namespace FilmCollection
                     if (!(x > RowCoordinates.Left && x < RowCoordinates.Right && y > RowCoordinates.Top && y < RowCoordinates.Bottom))
                     {
                         TableRec.ClearSelection();
-                        //TableRec.ContextMenuStrip = null;
                     }
                 }
             }
