@@ -65,6 +65,9 @@
             this.tS4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuChange = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnChange = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,7 +101,7 @@
             this.scTabFilm = new System.Windows.Forms.SplitContainer();
             this.cbIsVisible = new System.Windows.Forms.CheckBox();
             this.menudgvTable = new System.Windows.Forms.MenuStrip();
-            this.menuResetFilter = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnResetFilterRec = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelView = new System.Windows.Forms.Panel();
@@ -182,7 +185,7 @@
             this.colDateOfDeath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnResetFilterAct = new System.Windows.Forms.ToolStripMenuItem();
             this.tsActCountryFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tsActSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelViewAct = new System.Windows.Forms.Panel();
@@ -256,9 +259,6 @@
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.btnAdd = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnChange = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnDelete = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -336,6 +336,7 @@
             this.TableRec.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TableRec_CellContentDoubleClick);
             this.TableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Table_CellMouseDown);
             this.TableRec.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableRec_ColumnHeaderMouseClick);
+            this.TableRec.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TableRec_MouseDown);
             // 
             // cmnName
             // 
@@ -420,7 +421,7 @@
             this.toolStripSeparator1,
             this.UpdateFIlmInfo});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(208, 176);
+            this.TabMenu.Size = new System.Drawing.Size(208, 154);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
@@ -628,6 +629,33 @@
             this.MenuChange.Name = "MenuChange";
             this.MenuChange.Size = new System.Drawing.Size(59, 20);
             this.MenuChange.Text = "Правка";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.btnAdd.Size = new System.Drawing.Size(147, 22);
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
+            // 
+            // btnChange
+            // 
+            this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
+            this.btnChange.Name = "btnChange";
+            this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
+            this.btnChange.Size = new System.Drawing.Size(147, 22);
+            this.btnChange.Text = "Изменить";
+            this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.btnDelete.Size = new System.Drawing.Size(147, 22);
+            this.btnDelete.Text = "Удалить";
+            this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // настройкаToolStripMenuItem
             // 
@@ -924,7 +952,7 @@
             // 
             this.menudgvTable.BackColor = System.Drawing.SystemColors.Control;
             this.menudgvTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuResetFilter,
+            this.btnResetFilterRec,
             this.tscbTypeFilter,
             this.tscbSort});
             this.menudgvTable.Location = new System.Drawing.Point(0, 0);
@@ -933,13 +961,13 @@
             this.menudgvTable.TabIndex = 23;
             this.menudgvTable.Text = "menuStrip1";
             // 
-            // menuResetFilter
+            // btnResetFilterRec
             // 
-            this.menuResetFilter.Image = global::FilmCollection.Properties.Resources.resetFiltr;
-            this.menuResetFilter.Name = "menuResetFilter";
-            this.menuResetFilter.Size = new System.Drawing.Size(120, 23);
-            this.menuResetFilter.Text = "Сброс фильтра";
-            this.menuResetFilter.Click += new System.EventHandler(this.ResetFilter_Click);
+            this.btnResetFilterRec.Image = global::FilmCollection.Properties.Resources.resetFiltr;
+            this.btnResetFilterRec.Name = "btnResetFilterRec";
+            this.btnResetFilterRec.Size = new System.Drawing.Size(120, 23);
+            this.btnResetFilterRec.Text = "Сброс фильтра";
+            this.btnResetFilterRec.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
             // tscbTypeFilter
             // 
@@ -1013,6 +1041,7 @@
             // 
             // btnPlay
             // 
+            this.btnPlay.Enabled = false;
             this.btnPlay.Image = global::FilmCollection.Properties.Resources.play;
             this.btnPlay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPlay.Location = new System.Drawing.Point(12, 310);
@@ -1904,7 +1933,7 @@
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
+            this.btnResetFilterAct,
             this.tsActCountryFilter,
             this.tsActSort});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -1913,13 +1942,13 @@
             this.menuStrip1.TabIndex = 25;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // toolStripMenuItem1
+            // btnResetFilterAct
             // 
-            this.toolStripMenuItem1.Image = global::FilmCollection.Properties.Resources.resetFiltr;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 23);
-            this.toolStripMenuItem1.Text = "Сброс фильтра";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.ResetFilter_Click);
+            this.btnResetFilterAct.Image = global::FilmCollection.Properties.Resources.resetFiltr;
+            this.btnResetFilterAct.Name = "btnResetFilterAct";
+            this.btnResetFilterAct.Size = new System.Drawing.Size(120, 23);
+            this.btnResetFilterAct.Text = "Сброс фильтра";
+            this.btnResetFilterAct.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
             // tsActCountryFilter
             // 
@@ -2665,33 +2694,6 @@
             this.Tray.Visible = true;
             this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.btnAdd.Size = new System.Drawing.Size(152, 22);
-            this.btnAdd.Text = "Добавить";
-            this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
-            // 
-            // btnChange
-            // 
-            this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
-            this.btnChange.Name = "btnChange";
-            this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnChange.Size = new System.Drawing.Size(152, 22);
-            this.btnChange.Text = "Изменить";
-            this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnDelete.Size = new System.Drawing.Size(152, 22);
-            this.btnDelete.Text = "Удалить";
-            this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2826,7 +2828,7 @@
         private System.Windows.Forms.ComboBox cbTypeFind;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.MenuStrip menudgvTable;
-        private System.Windows.Forms.ToolStripMenuItem menuResetFilter;
+        private System.Windows.Forms.ToolStripMenuItem btnResetFilterRec;
         private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
         private System.Windows.Forms.ToolStripComboBox tscbSort;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
@@ -2892,7 +2894,7 @@
         private System.Windows.Forms.Panel panelEditAct;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem btnResetFilterAct;
         private System.Windows.Forms.ToolStripComboBox tsActCountryFilter;
         private System.Windows.Forms.ToolStripComboBox tsActSort;
         private System.Windows.Forms.ComboBox cBoxCountryActor;
