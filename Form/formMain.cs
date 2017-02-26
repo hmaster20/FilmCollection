@@ -577,7 +577,7 @@ namespace FilmCollection
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            Options form = new Options();
+            Options form = new Options(_videoCollection);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 //    _videoCollection.Save();
@@ -617,7 +617,7 @@ namespace FilmCollection
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            Help.ShowHelp(this, helpProvider.HelpNamespace, "index.htm");
+            Help.ShowHelp(this, helpProvider.HelpNamespace, "about.htm");
         }
 
         private void tsAdd_Click(object sender, EventArgs e) => Add();
