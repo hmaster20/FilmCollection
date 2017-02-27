@@ -932,8 +932,11 @@ namespace FilmCollection
 
         private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
         {
-            e.Cancel = !CheckAccess();
+            // e.Cancel = !CheckAccess();
+            e.Cancel = tabControlisBlock;
         }
+
+        bool tabControlisBlock { get; set; } = false;   // панель разблокирована
 
         private bool CheckAccess()
         {
@@ -1680,7 +1683,8 @@ namespace FilmCollection
 
                 panelEdit.BringToFront();   // Отображаем панель редактирования
 
-                // добавить блокировку tabControl2
+                // блокировка tabControl2
+                tabControlisBlock = true;
             }
         }
 
@@ -1733,6 +1737,7 @@ namespace FilmCollection
                 MessageBox.Show(Ex.Message);
                 record.TimeVideoSpan = TimeSpan.Parse("0");
             }
+
             if (record.FileName != tbFileName.Text)
             {
                 File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
@@ -1765,6 +1770,8 @@ namespace FilmCollection
             fsInfo = null;
 
             panelEdit_Lock();    // блокировка панели
+
+            tabControlisBlock = false;
         }
 
         private Combine GetMedia()
@@ -1881,6 +1888,7 @@ namespace FilmCollection
         {
             fsInfo = null;
             panelEdit_Lock();    // блокировка кнопок панели редактирования
+            tabControlisBlock = false;
         }
 
         private void NameBlock()
