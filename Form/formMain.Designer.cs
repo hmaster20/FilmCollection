@@ -68,6 +68,8 @@
             this.btnAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChange = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tS14 = new System.Windows.Forms.ToolStripSeparator();
+            this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
@@ -259,8 +261,6 @@
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.tS14 = new System.Windows.Forms.ToolStripSeparator();
-            this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -639,7 +639,7 @@
             this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.btnAdd.Size = new System.Drawing.Size(152, 22);
+            this.btnAdd.Size = new System.Drawing.Size(149, 22);
             this.btnAdd.Text = "Добавить";
             this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
@@ -648,7 +648,7 @@
             this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
             this.btnChange.Name = "btnChange";
             this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnChange.Size = new System.Drawing.Size(152, 22);
+            this.btnChange.Size = new System.Drawing.Size(149, 22);
             this.btnChange.Text = "Изменить";
             this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
             // 
@@ -657,9 +657,22 @@
             this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnDelete.Size = new System.Drawing.Size(152, 22);
+            this.btnDelete.Size = new System.Drawing.Size(149, 22);
             this.btnDelete.Text = "Удалить";
             this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
+            // 
+            // tS14
+            // 
+            this.tS14.Name = "tS14";
+            this.tS14.Size = new System.Drawing.Size(146, 6);
+            // 
+            // поискToolStripMenuItem
+            // 
+            this.поискToolStripMenuItem.Image = global::FilmCollection.Properties.Resources.find;
+            this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
+            this.поискToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.поискToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.поискToolStripMenuItem.Text = "Поиск";
             // 
             // настройкаToolStripMenuItem
             // 
@@ -932,8 +945,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2MinSize = 200;
@@ -1310,7 +1323,8 @@
             this.mtbYear.TabIndex = 49;
             this.mtbYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbYear.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.mtbYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbTime_KeyDown);
+            this.mtbYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbYear_KeyDown);
+            this.mtbYear.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mtbYear_KeyUp);
             this.mtbYear.Validating += new System.ComponentModel.CancelEventHandler(this.mtbYear_Validating);
             // 
             // lblDescription
@@ -1550,6 +1564,7 @@
             this.mtbTime.Text = "000000";
             this.mtbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbTime_KeyDown);
+            this.mtbTime.Validating += new System.ComponentModel.CancelEventHandler(this.mtbTime_Validating);
             // 
             // tbFileName
             // 
@@ -2698,19 +2713,6 @@
             this.Tray.Text = "Фильмотека";
             this.Tray.Visible = true;
             this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
-            // 
-            // tS14
-            // 
-            this.tS14.Name = "tS14";
-            this.tS14.Size = new System.Drawing.Size(149, 6);
-            // 
-            // поискToolStripMenuItem
-            // 
-            this.поискToolStripMenuItem.Image = global::FilmCollection.Properties.Resources.find;
-            this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
-            this.поискToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.поискToolStripMenuItem.Text = "Поиск";
             // 
             // MainForm
             // 
