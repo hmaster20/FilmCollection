@@ -12,11 +12,18 @@ namespace FilmCollection
 {
     public partial class formAbout : Form
     {
+        public bool isDebugMode { get; set; } =
+#if DEBUG
+            true;
+#else
+            false;
+#endif
+
         public formAbout()
         {
             InitializeComponent();
 
-            this.Text = String.Format("О программе {0}", AssemblyTitle);           
+            this.Text = String.Format("О программе {0}", AssemblyTitle);
 
             lName.Text = AssemblyTitle;
             lVersion.Text = String.Format("Версия {0}", AssemblyVersion);
@@ -49,7 +56,17 @@ namespace FilmCollection
         {
             get
             {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                if (isDebugMode)
+                {
+                    return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                }
+                else
+                {
+                    return Assembly.GetExecutingAssembly().GetName().Version.Major.ToString()
+                        + "."
+                        + Assembly.GetExecutingAssembly().GetName().Version.Minor.ToString();
+                }
+
             }
         }
 
@@ -81,7 +98,7 @@ namespace FilmCollection
 
         #endregion
 
-    
+
         private void linkLabelHome_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(linkLabelHome.Text);
