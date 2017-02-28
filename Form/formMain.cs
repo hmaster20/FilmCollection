@@ -1871,15 +1871,25 @@ namespace FilmCollection
 
         private void mtbYearValidator()
         {
-            mtbYear.Mask = "";
-            if (mtbYear.TextLength > 0)
+            string year = mtbYear.Text.Trim('_');
+
+            if (year.Length == 4)
             {
-                int count = (Convert.ToInt32(mtbYear.Text.Trim(' ')));
+                int count = (Convert.ToInt32(year));
                 int Year = DateTime.Now.Year;
-                if (count > Year)
+                if (count > Year || count < 1900)
                     mtbYear.Text = Year.ToString();
             }
-            mtbYear.Mask = "0000";
+
+            //mtbYear.Mask = "";
+            //if (mtbYear.TextLength == 4)
+            //{
+            //    int count = (Convert.ToInt32(mtbYear.Text.Trim(' ')));
+            //    int Year = DateTime.Now.Year;
+            //        if (count > Year)
+            //        mtbYear.Text = Year.ToString();
+            //}
+            //mtbYear.Mask = "0000";
         }
 
         private void mtbYear_KeyUp(object sender, KeyEventArgs e)
