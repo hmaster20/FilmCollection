@@ -1860,7 +1860,47 @@ namespace FilmCollection
 
         private void UserModifiedChanged(object sender, EventArgs e) => Modified();   // Срабатывает при изменении любого поля
 
-        private void mtbTime_KeyDown(object sender, KeyEventArgs e) => Modified();
+
+        private void mtbYear_KeyDown(object sender, KeyEventArgs e) => Modified();   // Срабатывает при изменении любого поля
+
+        private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
+        {
+            if (!mtbYear.MaskCompleted)
+                MessageBox.Show("Неверно указан год!");
+        }
+
+        private void mtbYearValidator()
+        {
+            mtbYear.Mask = "";
+            if (mtbYear.TextLength > 0)
+            {
+                int count = (Convert.ToInt32(mtbYear.Text.Trim(' ')));
+                int Year = DateTime.Now.Year;
+                if (count > Year)
+                    mtbYear.Text = Year.ToString();
+            }
+            mtbYear.Mask = "0000";
+        }
+
+        private void mtbYear_KeyUp(object sender, KeyEventArgs e)
+        {
+            mtbYearValidator();
+        }
+
+
+
+        #region Время
+        private void mtbTime_KeyDown(object sender, KeyEventArgs e) => Modified();  // Проверка времени
+
+        private void mtbTime_Validating(object sender, CancelEventArgs e)
+        {
+            if (!mtbTime.MaskCompleted)
+            {
+                MessageBox.Show("Неверно указано время!");
+                mtbTime.Focus();
+            }
+        }
+        #endregion
 
         private void Modified()
         {
@@ -1868,17 +1908,6 @@ namespace FilmCollection
             panelEdit_Button_Unlock();  // разблокировка кнопок
             TableRec.Enabled = false;   // блокировка таблицы
             treeFolder.Enabled = false; // блокировка дерева
-        }
-
-        private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
-        {
-            if (!mtbYear.MaskCompleted)
-                MessageBox.Show("Неверно указан год!");
-            if (!mtbTime.MaskCompleted)
-            {
-                MessageBox.Show("Неверно указано время!");
-                mtbTime.Focus();
-            }
         }
 
 
@@ -3255,6 +3284,7 @@ namespace FilmCollection
 
             OnImageSizeChanged?.Invoke(this, new ThumbnailImageEventArgs(ImageSize));
         }
+
 
         #endregion
 
