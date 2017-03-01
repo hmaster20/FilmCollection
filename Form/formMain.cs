@@ -669,7 +669,12 @@ namespace FilmCollection
             {
                 case 0: // Фильмы
                     {
-                        if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
+                        //if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
+                        TabMenu.Enabled = true;
+                        if (TableRecClickExternal)
+                        {
+                            e.Cancel = true;
+                        }
                     }
                     break;
 
@@ -729,12 +734,13 @@ namespace FilmCollection
             }
         }
 
-        #endregion
+        private void TableRec_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                panelView.BringToFront();
+        }
 
-
-        #region DragDrop DGV to TreeView
-
-        private void treeFolder_DragDrop(object sender, DragEventArgs e)
+        private void treeFolder_DragDrop(object sender, DragEventArgs e)// здесь функционал DragDrop DGV to TreeView
         {
             Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
             TreeNode destinationNode = treeFolder.GetNodeAt(pt);
@@ -779,7 +785,6 @@ namespace FilmCollection
 
         /// <summary>Проверка размещения панели на верхнем уровне</summary>
         /// <param name="control"></param>
-        /// <returns></returns>
         private bool IsControlAtFront(Control control)
         {
             return control.Parent.Controls.GetChildIndex(control) == 0;
@@ -808,73 +813,89 @@ namespace FilmCollection
         }
 
 
-
+        private void TableRec_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //if (e.Button == MouseButtons.Right && e.RowIndex > -1)
+            //{
+            //    DataGridView dgv = GetDgv();
+            //    dgv.Rows[e.RowIndex].Selected = true;
+            //    TabMenu.Show();
+            //}
+        }
 
         private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
         {
-            try
-            {
-                if (e.RowIndex < 0)
-                {
-                    return;
-                }
+            //if (e.Button == MouseButtons.Right)
+            //{
+            //    Int32 rowToDelete = TableRec.Rows.GetFirstRow(DataGridViewElementStates.Selected);
 
-                DataGridView dgv = GetDgv();
-                dgv.Rows[e.RowIndex].Selected = true;
+            //    //var hti = TableRec.HitTest(e.X, e.Y);
+            //    //TableRec.ClearSelection();
+            //    //TableRec.Rows[hti.RowIndex].Selected = true;
+            //}
 
-                if (!RecTabSelect())
-                {
-                    // если это таблица актеров, то доп.обработка не нужна
-                    if (e.Button == MouseButtons.Right)
-                        GetMenuDgv(e);
-                }
-                else
-                {
-                    // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                    // TableRec.Focus();
+            //try
+            //{
+            //    if (e.RowIndex < 0)
+            //    {
+            //        return;
+            //    }
+
+            //    DataGridView dgv = GetDgv();
+            //    dgv.Rows[e.RowIndex].Selected = true;
+
+            //    if (!RecTabSelect())
+            //    {
+            //        // если это таблица актеров, то доп.обработка не нужна
+            //        if (e.Button == MouseButtons.Right)
+            //            GetMenuDgv(e);
+            //    }
+            //    else
+            //    {
+            //        // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            //        // TableRec.Focus();
 
 
-                    //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+            //        //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
 
-                    if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
-                    {
-                        if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                            SelectRecord_Info(sender, e);
-                    }
-                    else
-                    {
-                        FindNextButton_Lock();
+            //        if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
+            //        {
+            //            if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            //                SelectRecord_Info(sender, e);
+            //        }
+            //        else
+            //        {
+            //            FindNextButton_Lock();
 
-                        if (e.Button == MouseButtons.Right)
-                            GetMenuDgv(e);
+            //            if (e.Button == MouseButtons.Right)
+            //                GetMenuDgv(e);
 
-                        if (e.Button == MouseButtons.Left)
-                        {
-                            if (e.ColumnIndex != 7)
-                            {
-                                //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-                                if (isRows())
-                                    if (dgv.SelectedRows[0].Index == e.RowIndex)
-                                    {
-                                        TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                                    }
-                                SelectRecord_Info(sender, e);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception Ex) { MessageBox.Show(Ex.Message); }
+            //            if (e.Button == MouseButtons.Left)
+            //            {
+            //                if (e.ColumnIndex != 7)
+            //                {
+            //                    //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+            //                    if (isRows())
+            //                        if (dgv.SelectedRows[0].Index == e.RowIndex)
+            //                        {
+            //                            TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+            //                        }
+            //                    SelectRecord_Info(sender, e);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception Ex) { MessageBox.Show(Ex.Message); }
         }
 
         private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 7)
-            {
-                //MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            if (e.ColumnIndex == 7)   
                 PlayRecord();
-            }
         }
+
+        private bool TableRecClickExternal { get; set; } = false;
 
         /// <summary>Обработка клика правой кнопкой мыши вне строки таблицы. для невозможности использования контекстного меню</summary>
         private void TableRec_MouseDown(object sender, MouseEventArgs e)
@@ -891,14 +912,26 @@ namespace FilmCollection
 
                     if (!(x > RowCoordinates.Left && x < RowCoordinates.Right && y > RowCoordinates.Top && y < RowCoordinates.Bottom))
                     {
-                        TableRec.ClearSelection();
+                        // TableRec.ClearSelection();
+                        TableRecClickExternal = true;
+                        TableRec.ContextMenuStrip = null;
                     }
+                    else
+                    {
+                        TableRecClickExternal = false;
+                        TableRec.ContextMenuStrip = TabMenu;                  
+                    }           
                 }
             }
         }
 
-        #endregion
+        private void TableRec_SelectionChanged(object sender, EventArgs e)
+        {
+            SelectRecord_Info(sender, e);
+        }
 
+
+        #endregion
 
         #region TabControl
 
@@ -1861,6 +1894,7 @@ namespace FilmCollection
         private void UserModifiedChanged(object sender, EventArgs e) => Modified();   // Срабатывает при изменении любого поля
 
 
+        #region Годы
         private void mtbYear_KeyDown(object sender, KeyEventArgs e) => Modified();   // Срабатывает при изменении любого поля
 
         private void mtbYear_Validating(object sender, CancelEventArgs e)   // Проверка корректности вводимого года
@@ -1880,23 +1914,13 @@ namespace FilmCollection
                 if (count > Year || count < 1900)
                     mtbYear.Text = Year.ToString();
             }
-
-            //mtbYear.Mask = "";
-            //if (mtbYear.TextLength == 4)
-            //{
-            //    int count = (Convert.ToInt32(mtbYear.Text.Trim(' ')));
-            //    int Year = DateTime.Now.Year;
-            //        if (count > Year)
-            //        mtbYear.Text = Year.ToString();
-            //}
-            //mtbYear.Mask = "0000";
         }
 
         private void mtbYear_KeyUp(object sender, KeyEventArgs e)
         {
             mtbYearValidator();
         }
-
+        #endregion
 
 
         #region Время
@@ -2509,6 +2533,7 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
+                CardRecordPreview_Clear();
                 if (GetInfo(record.combineLink.media))
                 {
                     _videoCollection.Save();
@@ -2749,12 +2774,12 @@ namespace FilmCollection
                 str = Regex.Replace(str, "<span>", "");
                 str = Regex.Replace(str, "</span>", "");
                 str = Regex.Replace(str, "<br/>", "");
+                str = Regex.Replace(str, "<br />", "");
                 str = Regex.Replace(str, "<span class=\"_reachbanner_\">", "");
                 str = Regex.Replace(str, "&hellip;", "...");
-
                 str = Regex.Replace(str, "<p>", "");
                 str = Regex.Replace(str, "</p>", "");
-                str = Regex.Replace(str, "</div>", "");
+                str = Regex.Replace(str, "</div>", "");                
 
                 media.Description = str.Trim();
             }
