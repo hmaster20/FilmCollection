@@ -658,7 +658,7 @@ namespace FilmCollection
 
         private void contextMenu_Opening(object sender, CancelEventArgs e)    // Проверка выбора строки перед открытием контекстного меню
         {
-            TabMenu.Enabled = false;    // Блокировка меню
+            // TabMenu.Enabled = false;    // Блокировка меню
 
             for (int i = 0; i < TabMenu.Items.Count; i++)
             {
@@ -670,11 +670,11 @@ namespace FilmCollection
                 case 0: // Фильмы
                     {
                         //if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
-                        TabMenu.Enabled = true;
-                        if (TableRecClickExternal)
-                        {
-                            e.Cancel = true;
-                        }
+                        //TabMenu.Enabled = true;
+                        //if (TableRecClickExternal)
+                        //{
+                        //    e.Cancel = true;
+                        //}
                     }
                     break;
 
@@ -707,38 +707,9 @@ namespace FilmCollection
             }
         }
 
-        private void TableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                PrepareRefresh(false, e.ColumnIndex);
-            }
-        }
 
-        /// <summary>Разрешение контекстного меню</summary>
-        private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex > -1 && e.RowIndex > -1)
-            {
-                DataGridView dgv = GetDgv();
-                dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                dgv.Rows[e.RowIndex].Selected = true;
-                dgv.Focus();
-                dgv.ContextMenuStrip = TabMenu;
-                //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
-            }
-            else
-            {
-                TableRec.ContextMenuStrip = null;
-                TableRec.ClearSelection();
-            }
-        }
 
-        private void TableRec_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-                panelView.BringToFront();
-        }
+
 
         private void treeFolder_DragDrop(object sender, DragEventArgs e)// здесь функционал DragDrop DGV to TreeView
         {
@@ -784,12 +755,10 @@ namespace FilmCollection
 
 
         /// <summary>Проверка размещения панели на верхнем уровне</summary>
-        /// <param name="control"></param>
         private bool IsControlAtFront(Control control)
         {
             return control.Parent.Controls.GetChildIndex(control) == 0;
         }
-
 
         //This will work for any Control anywhere within the Form:
         private bool IsControlAtFrontUniversal(Control control)
@@ -813,93 +782,167 @@ namespace FilmCollection
         }
 
 
-        private void TableRec_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+
+
+
+
+
+
+        //private void TableRec_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+
+        //}
+
+        ///// <summary>Разрешение контекстного меню</summary>
+        //private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
+        //{
+        //    if (e.ColumnIndex > -1 && e.RowIndex > -1)
+        //    {
+        //        DataGridView dgv = GetDgv();
+        //        dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //        dgv.Rows[e.RowIndex].Selected = true;
+        //        dgv.Focus();
+        //        dgv.ContextMenuStrip = TabMenu;
+        //        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+        //    }
+        //    else
+        //    {
+        //        TableRec.ContextMenuStrip = null;
+        //        TableRec.ClearSelection();
+        //    }
+        //}  
+
+
+        //private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+        //{
+        //    if (e.Button == MouseButtons.Right)
+        //    {
+        //        Int32 rowToDelete = TableRec.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+
+        //        //var hti = TableRec.HitTest(e.X, e.Y);
+        //        //TableRec.ClearSelection();
+        //        //TableRec.Rows[hti.RowIndex].Selected = true;
+        //    }
+
+        //    try
+        //    {
+        //        if (e.RowIndex < 0)
+        //        {
+        //            return;
+        //        }
+
+        //        DataGridView dgv = GetDgv();
+        //        dgv.Rows[e.RowIndex].Selected = true;
+
+        //        if (!RecTabSelect())
+        //        {
+        //            // если это таблица актеров, то доп.обработка не нужна
+        //            if (e.Button == MouseButtons.Right)
+        //                GetMenuDgv(e);
+        //        }
+        //        else
+        //        {
+        //            // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //            // TableRec.Focus();
+
+
+        //            //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+
+        //            if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
+        //            {
+        //                if (e.Button == MouseButtons.Left && e.Clicks == 2)
+        //                    SelectRecord_Info(sender, e);
+        //            }
+        //            else
+        //            {
+        //                FindNextButton_Lock();
+
+        //                if (e.Button == MouseButtons.Right)
+        //                    GetMenuDgv(e);
+
+        //                if (e.Button == MouseButtons.Left)
+        //                {
+        //                    if (e.ColumnIndex != 7)
+        //                    {
+        //                        //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+        //                        if (isRows())
+        //                            if (dgv.SelectedRows[0].Index == e.RowIndex)
+        //                            {
+        //                                TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+        //                            }
+        //                        SelectRecord_Info(sender, e);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex) { MessageBox.Show(Ex.Message); }
+        //}
+
+        ///// <summary>Обработка клика правой кнопкой мыши вне строки таблицы. для невозможности использования контекстного меню</summary>
+        //private void TableRec_MouseDown(object sender, MouseEventArgs e)
+        //{
+
+        //}
+
+        //private void TableRec_SelectionChanged(object sender, EventArgs e)
+        //{
+        //    //SelectRecord_Info(sender, e);
+        //}
+
+
+        /* Порядок:
+         * MouseDown
+         * CellMouseDown
+         * SelectionChanged
+         * CellClick
+         * MouseClick
+         * CellMouseClick
+         */
+
+        private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 1
         {
-            //if (e.Button == MouseButtons.Right && e.RowIndex > -1)
-            //{
-            //    DataGridView dgv = GetDgv();
-            //    dgv.Rows[e.RowIndex].Selected = true;
-            //    TabMenu.Show();
-            //}
+            Debug.WriteLine(" - CellMouseDown");
+
+
+
+            DataGridView dgv = GetDgv();
+            dgv.Rows[e.RowIndex].Selected = true;
+            if (e.Button == MouseButtons.Left)
+            {
+                if (e.ColumnIndex != 7)
+                {
+                    if (isRows())
+                        if (dgv.SelectedRows[0].Index == e.RowIndex)
+                        {
+                            TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+                        }
+                    SelectRecord_Info(sender, e);
+                }
+            }
+
+
+
+
+
+            // организован селект правой кнопкой мыши
+            if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Right)
+            {
+                DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
+                if (!c.Selected)
+                {
+                    c.DataGridView.ClearSelection();
+                    c.DataGridView.CurrentCell = c;
+                    c.Selected = true;
+                }
+            }
         }
 
-        private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+        private void TableRec_MouseClick(object sender, MouseEventArgs e)   // Порядок 2
         {
-            //if (e.Button == MouseButtons.Right)
-            //{
-            //    Int32 rowToDelete = TableRec.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+            Debug.WriteLine(" - MouseClick");
 
-            //    //var hti = TableRec.HitTest(e.X, e.Y);
-            //    //TableRec.ClearSelection();
-            //    //TableRec.Rows[hti.RowIndex].Selected = true;
-            //}
-
-            //try
-            //{
-            //    if (e.RowIndex < 0)
-            //    {
-            //        return;
-            //    }
-
-            //    DataGridView dgv = GetDgv();
-            //    dgv.Rows[e.RowIndex].Selected = true;
-
-            //    if (!RecTabSelect())
-            //    {
-            //        // если это таблица актеров, то доп.обработка не нужна
-            //        if (e.Button == MouseButtons.Right)
-            //            GetMenuDgv(e);
-            //    }
-            //    else
-            //    {
-            //        // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            //        // TableRec.Focus();
-
-
-            //        //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
-
-            //        if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
-            //        {
-            //            if (e.Button == MouseButtons.Left && e.Clicks == 2)
-            //                SelectRecord_Info(sender, e);
-            //        }
-            //        else
-            //        {
-            //            FindNextButton_Lock();
-
-            //            if (e.Button == MouseButtons.Right)
-            //                GetMenuDgv(e);
-
-            //            if (e.Button == MouseButtons.Left)
-            //            {
-            //                if (e.ColumnIndex != 7)
-            //                {
-            //                    //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-            //                    if (isRows())
-            //                        if (dgv.SelectedRows[0].Index == e.RowIndex)
-            //                        {
-            //                            TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-            //                        }
-            //                    SelectRecord_Info(sender, e);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception Ex) { MessageBox.Show(Ex.Message); }
-        }
-
-        private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 7)   
-                PlayRecord();
-        }
-
-        private bool TableRecClickExternal { get; set; } = false;
-
-        /// <summary>Обработка клика правой кнопкой мыши вне строки таблицы. для невозможности использования контекстного меню</summary>
-        private void TableRec_MouseDown(object sender, MouseEventArgs e)
-        {
+            // организованы вывод меню при клике правой кнопкой и в соответствии с координатами выбранной строки
             if (e.Button == MouseButtons.Right)
             {
                 DataGridView dgv = (DataGridView)(sender);
@@ -910,25 +953,45 @@ namespace FilmCollection
 
                     Rectangle RowCoordinates = dgv.GetRowDisplayRectangle(dgv.SelectedRows[0].Index, true);
 
-                    if (!(x > RowCoordinates.Left && x < RowCoordinates.Right && y > RowCoordinates.Top && y < RowCoordinates.Bottom))
+                    if ((x > RowCoordinates.Left && x < RowCoordinates.Right && y > RowCoordinates.Top && y < RowCoordinates.Bottom))
                     {
-                        // TableRec.ClearSelection();
-                        TableRecClickExternal = true;
-                        TableRec.ContextMenuStrip = null;
+                        TabMenu.Show(dgv, new Point(e.X, e.Y));
                     }
-                    else
-                    {
-                        TableRecClickExternal = false;
-                        TableRec.ContextMenuStrip = TabMenu;                  
-                    }           
+
                 }
             }
         }
 
-        private void TableRec_SelectionChanged(object sender, EventArgs e)
+        //private void TableRec_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 3
+        //{
+        //    if (e.Button == MouseButtons.Left && e.ColumnIndex != 7)
+        //    {
+        //        DataGridView dgv = (DataGridView)(sender);
+        //        // if (isRows())
+        //        if (dgv.SelectedRows[0].Index == e.RowIndex)
+        //        {
+        //            TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+        //        }
+        //        //SelectRecord_Info(sender, e);
+        //    }
+        //}
+
+
+        private void TableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
         {
-            SelectRecord_Info(sender, e);
+            if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
         }
+
+        private void TableRec_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) panelView.BringToFront();
+        }
+
+        private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 7) PlayRecord();
+        }
+
 
 
         #endregion
@@ -2779,7 +2842,7 @@ namespace FilmCollection
                 str = Regex.Replace(str, "&hellip;", "...");
                 str = Regex.Replace(str, "<p>", "");
                 str = Regex.Replace(str, "</p>", "");
-                str = Regex.Replace(str, "</div>", "");                
+                str = Regex.Replace(str, "</div>", "");
 
                 media.Description = str.Trim();
             }
