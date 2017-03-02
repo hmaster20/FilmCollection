@@ -674,7 +674,7 @@ namespace FilmCollection
 
                 case 1: // Актеры
                     {
-                        if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
+                       // if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
 
                         TabMenu.Items[0].Visible = false;   // Поиск
                         TabMenu.Items[1].Visible = false;   // Separator
@@ -867,6 +867,7 @@ namespace FilmCollection
 
         private void TableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
         {
+            // организована сортировка при выборе колонки
             if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
         }
 
@@ -1297,6 +1298,56 @@ namespace FilmCollection
             }
             return null;
         }
+
+
+        private void dgvTableActors_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // организована сортировка при выборе колонки
+            if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
+        }
+
+        private void TableRightSelect_Actor(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // организован селект правой кнопкой мыши
+            if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Right)
+            {
+                DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
+                if (!c.Selected)
+                {
+                    c.DataGridView.ClearSelection();
+                    c.DataGridView.CurrentCell = c;
+                    c.Selected = true;
+                }
+                SelectActor_Info(sender, e);
+            }
+        }
+
+        private void dgvTableActors_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            TableRightSelect_Actor(sender, e);
+        }
+
+        private void TableAct_MouseClick(object sender, MouseEventArgs e)
+        {
+            // организованы вывод меню при клике правой кнопкой и в соответствии с координатами выбранной строки
+            if (e.Button == MouseButtons.Right)
+            {
+                DataGridView dgv = (DataGridView)(sender);
+                if (dgv.SelectedRows.Count > 0)
+                {
+                    int x = e.X;
+                    int y = e.Y;
+
+                    Rectangle RowCoordinates = dgv.GetRowDisplayRectangle(dgv.SelectedRows[0].Index, true);
+
+                    if ((x > RowCoordinates.Left && x < RowCoordinates.Right && y > RowCoordinates.Top && y < RowCoordinates.Bottom))
+                    {
+                        TabMenu.Show(dgv, new Point(e.X, e.Y));
+                    }
+                }
+            }
+        }
+
 
         private void SelectActor_Info(object sender, EventArgs e)  // Отражение информации в карточке актеров
         {
@@ -3280,8 +3331,8 @@ namespace FilmCollection
 
 
 
-        #endregion
 
+        #endregion
 
     }
 }

@@ -678,8 +678,9 @@
             this.поискToolStripMenuItem.Image = global::FilmCollection.Properties.Resources.find;
             this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
             this.поискToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.поискToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.поискToolStripMenuItem.Text = "Поиск";
+            this.поискToolStripMenuItem.Click += new System.EventHandler(this.tsFind_Click);
             // 
             // настройкаToolStripMenuItem
             // 
@@ -1924,7 +1925,10 @@
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTableActors.Size = new System.Drawing.Size(535, 579);
             this.dgvTableActors.TabIndex = 0;
+            this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_CellMouseDown);
+            this.dgvTableActors.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_ColumnHeaderMouseClick);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
+            this.dgvTableActors.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TableAct_MouseClick);
             // 
             // colActFIO
             // 
@@ -2729,7 +2733,7 @@
             this.separator1,
             this.Exit});
             this.TrayMenu.Name = "TrayMenu";
-            this.TrayMenu.Size = new System.Drawing.Size(155, 98);
+            this.TrayMenu.Size = new System.Drawing.Size(155, 76);
             // 
             // ShowWindow
             // 
