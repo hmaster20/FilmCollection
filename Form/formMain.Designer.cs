@@ -1918,8 +1918,6 @@
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTableActors.Size = new System.Drawing.Size(535, 579);
             this.dgvTableActors.TabIndex = 0;
-            this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Table_CellMouseDown);
-            this.dgvTableActors.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.TableRec_ColumnHeaderMouseClick);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
             // 
             // colActFIO
