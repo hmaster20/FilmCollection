@@ -665,16 +665,10 @@ namespace FilmCollection
                 TabMenu.Items[i].Visible = true;
             }
 
-            switch (isRecTabs())
+            switch (tabControlNumber())
             {
                 case 0: // Фильмы
                     {
-                        //if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
-                        //TabMenu.Enabled = true;
-                        //if (TableRecClickExternal)
-                        //{
-                        //    e.Cancel = true;
-                        //}
                     }
                     break;
 
@@ -693,7 +687,7 @@ namespace FilmCollection
 
                 case 2: // Постеры
                     {
-                        TabMenu.Enabled = true; // Разблокировка меню
+                        //TabMenu.Enabled = true; // Разблокировка меню
 
                         TabMenu.Items[0].Visible = false;
                         TabMenu.Items[1].Visible = false;
@@ -706,10 +700,7 @@ namespace FilmCollection
                 default: break;
             }
         }
-
-
-
-
+        
 
         private void treeFolder_DragDrop(object sender, DragEventArgs e)// здесь функционал DragDrop DGV to TreeView
         {
@@ -782,119 +773,10 @@ namespace FilmCollection
         }
 
 
-
-
-
-
-
-
-        //private void TableRec_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        //{
-
-        //}
-
-        ///// <summary>Разрешение контекстного меню</summary>
-        //private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
-        //{
-        //    if (e.ColumnIndex > -1 && e.RowIndex > -1)
-        //    {
-        //        DataGridView dgv = GetDgv();
-        //        dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
-        //        dgv.Rows[e.RowIndex].Selected = true;
-        //        dgv.Focus();
-        //        dgv.ContextMenuStrip = TabMenu;
-        //        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
-        //    }
-        //    else
-        //    {
-        //        TableRec.ContextMenuStrip = null;
-        //        TableRec.ClearSelection();
-        //    }
-        //}  
-
-
-        //private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
-        //{
-        //    if (e.Button == MouseButtons.Right)
-        //    {
-        //        Int32 rowToDelete = TableRec.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-
-        //        //var hti = TableRec.HitTest(e.X, e.Y);
-        //        //TableRec.ClearSelection();
-        //        //TableRec.Rows[hti.RowIndex].Selected = true;
-        //    }
-
-        //    try
-        //    {
-        //        if (e.RowIndex < 0)
-        //        {
-        //            return;
-        //        }
-
-        //        DataGridView dgv = GetDgv();
-        //        dgv.Rows[e.RowIndex].Selected = true;
-
-        //        if (!RecTabSelect())
-        //        {
-        //            // если это таблица актеров, то доп.обработка не нужна
-        //            if (e.Button == MouseButtons.Right)
-        //                GetMenuDgv(e);
-        //        }
-        //        else
-        //        {
-        //            // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
-        //            // TableRec.Focus();
-
-
-        //            //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
-
-        //            if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
-        //            {
-        //                if (e.Button == MouseButtons.Left && e.Clicks == 2)
-        //                    SelectRecord_Info(sender, e);
-        //            }
-        //            else
-        //            {
-        //                FindNextButton_Lock();
-
-        //                if (e.Button == MouseButtons.Right)
-        //                    GetMenuDgv(e);
-
-        //                if (e.Button == MouseButtons.Left)
-        //                {
-        //                    if (e.ColumnIndex != 7)
-        //                    {
-        //                        //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-        //                        if (isRows())
-        //                            if (dgv.SelectedRows[0].Index == e.RowIndex)
-        //                            {
-        //                                TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-        //                            }
-        //                        SelectRecord_Info(sender, e);
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception Ex) { MessageBox.Show(Ex.Message); }
-        //}
-
-        ///// <summary>Обработка клика правой кнопкой мыши вне строки таблицы. для невозможности использования контекстного меню</summary>
-        //private void TableRec_MouseDown(object sender, MouseEventArgs e)
-        //{
-
-        //}
-
-        //private void TableRec_SelectionChanged(object sender, EventArgs e)
-        //{
-        //    //SelectRecord_Info(sender, e);
-        //}
-
-
-        /* Порядок:
+        /* Порядок отработки кликов:
          * MouseDown
          * CellMouseDown
-         * SelectionChanged
+         * -- SelectionChanged
          * CellClick
          * MouseClick
          * CellMouseClick
@@ -904,27 +786,31 @@ namespace FilmCollection
         {
             Debug.WriteLine(" - CellMouseDown");
 
-
-
-            DataGridView dgv = GetDgv();
-            dgv.Rows[e.RowIndex].Selected = true;
-            if (e.Button == MouseButtons.Left)
+            if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
             {
-                if (e.ColumnIndex != 7)
-                {
-                    if (isRows())
-                        if (dgv.SelectedRows[0].Index == e.RowIndex)
-                        {
-                            TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-                        }
+                if (e.Button == MouseButtons.Left && e.Clicks == 2)
                     SelectRecord_Info(sender, e);
-                }
             }
+            else
+            {
+                TableDragDrop(e);
+                TableRightSelect(sender, e);
+                TableLeftSelect(sender, e);
+            }
+        }
 
+        private void TableDragDrop(DataGridViewCellMouseEventArgs e)
+        {
+            // организован Drag&Drop и отображение
+            if (e.Button == MouseButtons.Left && e.ColumnIndex != 7)
+            {
+                if (isRows())
+                    if (TableRec.SelectedRows[0].Index == e.RowIndex) TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+            }
+        }
 
-
-
-
+        private void TableRightSelect(object sender, DataGridViewCellMouseEventArgs e)
+        {
             // организован селект правой кнопкой мыши
             if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Right)
             {
@@ -935,8 +821,26 @@ namespace FilmCollection
                     c.DataGridView.CurrentCell = c;
                     c.Selected = true;
                 }
+                SelectRecord_Info(sender, e);
             }
         }
+
+        private void TableLeftSelect(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            // организован селект левой кнопкой мыши
+            if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Left)
+            {
+                DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
+                if (!c.Selected)
+                {
+                    c.DataGridView.ClearSelection();
+                    c.DataGridView.CurrentCell = c;
+                    c.Selected = true;
+                }
+                SelectRecord_Info(sender, e);
+            }
+        }
+
 
         private void TableRec_MouseClick(object sender, MouseEventArgs e)   // Порядок 2
         {
@@ -957,25 +861,9 @@ namespace FilmCollection
                     {
                         TabMenu.Show(dgv, new Point(e.X, e.Y));
                     }
-
                 }
             }
         }
-
-        //private void TableRec_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 3
-        //{
-        //    if (e.Button == MouseButtons.Left && e.ColumnIndex != 7)
-        //    {
-        //        DataGridView dgv = (DataGridView)(sender);
-        //        // if (isRows())
-        //        if (dgv.SelectedRows[0].Index == e.RowIndex)
-        //        {
-        //            TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
-        //        }
-        //        //SelectRecord_Info(sender, e);
-        //    }
-        //}
-
 
         private void TableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
         {
@@ -998,14 +886,14 @@ namespace FilmCollection
 
         #region TabControl
 
-        private int isRecTabs()
+        private int tabControlNumber()
         {
             return tabControl2.SelectedIndex;
         }
 
-        private bool RecTabSelect()
+        private bool isRecTabs()
         {
-            return (isRecTabs() == 0) ? true : false;
+            return (tabControlNumber() == 0) ? true : false;
         }
 
         private DataGridView GetDgv()
@@ -1062,7 +950,7 @@ namespace FilmCollection
         /// <summary>Добавление новой записи</summary>
         private void Add()
         {
-            if (RecTabSelect())
+            if (isRecTabs())
                 NewRecord();
             else
                 NewActor();
@@ -1071,13 +959,13 @@ namespace FilmCollection
         /// <summary>Редактирование записи</summary>
         private void Edit()
         {
-            if (RecTabSelect()) panelEdit.BringToFront();
+            if (isRecTabs()) panelEdit.BringToFront();
             else panelEditAct.BringToFront();
         }
 
         private void Delete()
         {
-            switch (isRecTabs())
+            switch (tabControlNumber())
             {
                 case 0: DeleteRec(); break;
                 case 1: DeleteActor(); break;
@@ -1212,7 +1100,7 @@ namespace FilmCollection
             }
 
 
-            if (RecTabSelect())
+            if (isRecTabs())
             {
                 if (column > -1) SortRecord(filtered, column);
                 else SortRecord(filtered, tscbSort.SelectedIndex);
@@ -1471,7 +1359,7 @@ namespace FilmCollection
         {
             PrepareRefresh();
 
-            switch (isRecTabs())
+            switch (tabControlNumber())
             {
                 case 0:
                     {
