@@ -102,7 +102,7 @@
             this.tabFilm = new System.Windows.Forms.TabPage();
             this.scTabFilm = new System.Windows.Forms.SplitContainer();
             this.cbIsVisible = new System.Windows.Forms.CheckBox();
-            this.menudgvTable = new System.Windows.Forms.MenuStrip();
+            this.menuTableRec = new System.Windows.Forms.MenuStrip();
             this.btnResetFilterRec = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
@@ -186,7 +186,7 @@
             this.colDateOfBirth = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDateOfDeath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCountry = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuTableAct = new System.Windows.Forms.MenuStrip();
             this.btnResetFilterAct = new System.Windows.Forms.ToolStripMenuItem();
             this.tsActCountryFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tsActSort = new System.Windows.Forms.ToolStripComboBox();
@@ -246,7 +246,7 @@
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.toolMainMenu = new System.Windows.Forms.ToolStrip();
+            this.mainMenuIcon = new System.Windows.Forms.ToolStrip();
             this.tsCreateDB = new System.Windows.Forms.ToolStripButton();
             this.tsUpdateDB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -261,10 +261,11 @@
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.TrayMenu = new System.Windows.Forms.ContextMenu();
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.TrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ShowWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.About = new System.Windows.Forms.ToolStripMenuItem();
+            this.separator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -276,7 +277,7 @@
             this.scTabFilm.Panel1.SuspendLayout();
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
-            this.menudgvTable.SuspendLayout();
+            this.menuTableRec.SuspendLayout();
             this.panelView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
@@ -293,7 +294,7 @@
             this.scTabActors.Panel2.SuspendLayout();
             this.scTabActors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
-            this.menuStrip1.SuspendLayout();
+            this.menuTableAct.SuspendLayout();
             this.panelViewAct.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -308,7 +309,8 @@
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
-            this.toolMainMenu.SuspendLayout();
+            this.mainMenuIcon.SuspendLayout();
+            this.TrayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // TableRec
@@ -944,7 +946,7 @@
             this.scTabFilm.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.scTabFilm.Panel1.Controls.Add(this.cbIsVisible);
             this.scTabFilm.Panel1.Controls.Add(this.TableRec);
-            this.scTabFilm.Panel1.Controls.Add(this.menudgvTable);
+            this.scTabFilm.Panel1.Controls.Add(this.menuTableRec);
             this.scTabFilm.Panel1MinSize = 400;
             // 
             // scTabFilm.Panel2
@@ -970,18 +972,18 @@
             this.cbIsVisible.UseVisualStyleBackColor = true;
             this.cbIsVisible.CheckStateChanged += new System.EventHandler(this.Filter);
             // 
-            // menudgvTable
+            // menuTableRec
             // 
-            this.menudgvTable.BackColor = System.Drawing.SystemColors.Control;
-            this.menudgvTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuTableRec.BackColor = System.Drawing.SystemColors.Control;
+            this.menuTableRec.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnResetFilterRec,
             this.tscbTypeFilter,
             this.tscbSort});
-            this.menudgvTable.Location = new System.Drawing.Point(0, 0);
-            this.menudgvTable.Name = "menudgvTable";
-            this.menudgvTable.Size = new System.Drawing.Size(590, 27);
-            this.menudgvTable.TabIndex = 23;
-            this.menudgvTable.Text = "menuStrip1";
+            this.menuTableRec.Location = new System.Drawing.Point(0, 0);
+            this.menuTableRec.Name = "menuTableRec";
+            this.menuTableRec.Size = new System.Drawing.Size(590, 27);
+            this.menuTableRec.TabIndex = 23;
+            this.menuTableRec.Text = "menuStrip1";
             // 
             // btnResetFilterRec
             // 
@@ -1888,7 +1890,7 @@
             // 
             this.scTabActors.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel1.Controls.Add(this.dgvTableActors);
-            this.scTabActors.Panel1.Controls.Add(this.menuStrip1);
+            this.scTabActors.Panel1.Controls.Add(this.menuTableAct);
             // 
             // scTabActors.Panel2
             // 
@@ -1954,18 +1956,18 @@
             this.colCountry.ReadOnly = true;
             this.colCountry.Width = 68;
             // 
-            // menuStrip1
+            // menuTableAct
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuTableAct.BackColor = System.Drawing.SystemColors.Control;
+            this.menuTableAct.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnResetFilterAct,
             this.tsActCountryFilter,
             this.tsActSort});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(535, 27);
-            this.menuStrip1.TabIndex = 25;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuTableAct.Location = new System.Drawing.Point(0, 0);
+            this.menuTableAct.Name = "menuTableAct";
+            this.menuTableAct.Size = new System.Drawing.Size(535, 27);
+            this.menuTableAct.TabIndex = 25;
+            this.menuTableAct.Text = "menuStrip1";
             // 
             // btnResetFilterAct
             // 
@@ -2576,9 +2578,9 @@
             // 
             this.FileDialog.FileName = "openFileDialog1";
             // 
-            // toolMainMenu
+            // mainMenuIcon
             // 
-            this.toolMainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsCreateDB,
             this.tsUpdateDB,
             this.toolStripSeparator4,
@@ -2591,11 +2593,11 @@
             this.toolStripSeparator5,
             this.tsFind,
             this.tsFindbyName});
-            this.toolMainMenu.Location = new System.Drawing.Point(0, 24);
-            this.toolMainMenu.Name = "toolMainMenu";
-            this.toolMainMenu.Size = new System.Drawing.Size(1175, 25);
-            this.toolMainMenu.TabIndex = 26;
-            this.toolMainMenu.Text = "toolStrip1";
+            this.mainMenuIcon.Location = new System.Drawing.Point(0, 24);
+            this.mainMenuIcon.Name = "mainMenuIcon";
+            this.mainMenuIcon.Size = new System.Drawing.Size(1175, 25);
+            this.mainMenuIcon.TabIndex = 26;
+            this.mainMenuIcon.Text = "toolStrip1";
             // 
             // tsCreateDB
             // 
@@ -2721,27 +2723,41 @@
             // 
             // TrayMenu
             // 
-            this.TrayMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem1,
-            this.menuItem2,
-            this.menuItem3});
+            this.TrayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowWindow,
+            this.About,
+            this.separator1,
+            this.Exit});
+            this.TrayMenu.Name = "TrayMenu";
+            this.TrayMenu.Size = new System.Drawing.Size(155, 98);
             // 
-            // menuItem1
+            // ShowWindow
             // 
-            this.menuItem1.Index = 0;
-            this.menuItem1.Text = "О программе";
-            this.menuItem1.Click += new System.EventHandler(this.About_Click);
+            this.ShowWindow.Name = "ShowWindow";
+            this.ShowWindow.Size = new System.Drawing.Size(154, 22);
+            this.ShowWindow.Text = "Показать окно";
+            this.ShowWindow.Click += new System.EventHandler(this.ShowWindow_Click);
             // 
-            // menuItem2
+            // About
             // 
-            this.menuItem2.Index = 1;
-            this.menuItem2.Text = "-";
+            this.About.Image = global::FilmCollection.Properties.Resources.help;
+            this.About.Name = "About";
+            this.About.Size = new System.Drawing.Size(154, 22);
+            this.About.Text = "О программе";
+            this.About.Click += new System.EventHandler(this.About_Click);
             // 
-            // menuItem3
+            // separator1
             // 
-            this.menuItem3.Index = 2;
-            this.menuItem3.Text = "Выход";
-            this.menuItem3.Click += new System.EventHandler(this.Exit_Click);
+            this.separator1.Name = "separator1";
+            this.separator1.Size = new System.Drawing.Size(151, 6);
+            // 
+            // Exit
+            // 
+            this.Exit.Image = global::FilmCollection.Properties.Resources.ExitV2;
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(154, 22);
+            this.Exit.Text = "Выход";
+            this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // MainForm
             // 
@@ -2750,9 +2766,9 @@
             this.ClientSize = new System.Drawing.Size(1175, 711);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
-            this.Controls.Add(this.toolMainMenu);
+            this.Controls.Add(this.mainMenuIcon);
             this.Controls.Add(this.mainMenu);
-            this.MainMenuStrip = this.menudgvTable;
+            this.MainMenuStrip = this.menuTableRec;
             this.Name = "MainForm";
             this.Text = "Фильмотека";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -2773,8 +2789,8 @@
             this.scTabFilm.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).EndInit();
             this.scTabFilm.ResumeLayout(false);
-            this.menudgvTable.ResumeLayout(false);
-            this.menudgvTable.PerformLayout();
+            this.menuTableRec.ResumeLayout(false);
+            this.menuTableRec.PerformLayout();
             this.panelView.ResumeLayout(false);
             this.panelView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
@@ -2797,8 +2813,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).EndInit();
             this.scTabActors.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuTableAct.ResumeLayout(false);
+            this.menuTableAct.PerformLayout();
             this.panelViewAct.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -2816,8 +2832,9 @@
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
-            this.toolMainMenu.ResumeLayout(false);
-            this.toolMainMenu.PerformLayout();
+            this.mainMenuIcon.ResumeLayout(false);
+            this.mainMenuIcon.PerformLayout();
+            this.TrayMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2876,7 +2893,7 @@
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.ComboBox cbTypeFind;
         private System.Windows.Forms.Button btnPlay;
-        private System.Windows.Forms.MenuStrip menudgvTable;
+        private System.Windows.Forms.MenuStrip menuTableRec;
         private System.Windows.Forms.ToolStripMenuItem btnResetFilterRec;
         private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
         private System.Windows.Forms.ToolStripComboBox tscbSort;
@@ -2914,7 +2931,7 @@
         private System.Windows.Forms.TextBox tbfCountry;
         private System.Windows.Forms.TextBox tbfYear;
         private System.Windows.Forms.ToolStripMenuItem MenuChange;
-        private System.Windows.Forms.ToolStrip toolMainMenu;
+        private System.Windows.Forms.ToolStrip mainMenuIcon;
         private System.Windows.Forms.ToolStripButton tsCreateDB;
         private System.Windows.Forms.ToolStripButton tsUpdateDB;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -2942,7 +2959,7 @@
         private System.Windows.Forms.CheckedListBox chkActorList;
         private System.Windows.Forms.Panel panelEditAct;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuTableAct;
         private System.Windows.Forms.ToolStripMenuItem btnResetFilterAct;
         private System.Windows.Forms.ToolStripComboBox tsActCountryFilter;
         private System.Windows.Forms.ToolStripComboBox tsActSort;
@@ -3059,10 +3076,11 @@
         private System.Windows.Forms.ToolStripMenuItem btnDelete;
         private System.Windows.Forms.ToolStripSeparator tS14;
         private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
-        private System.Windows.Forms.ContextMenu TrayMenu;
-        private System.Windows.Forms.MenuItem menuItem1;
-        private System.Windows.Forms.MenuItem menuItem2;
-        private System.Windows.Forms.MenuItem menuItem3;
+        private System.Windows.Forms.ContextMenuStrip TrayMenu;
+        private System.Windows.Forms.ToolStripMenuItem About;
+        private System.Windows.Forms.ToolStripMenuItem ShowWindow;
+        private System.Windows.Forms.ToolStripSeparator separator1;
+        private System.Windows.Forms.ToolStripMenuItem Exit;
     }
 }
 

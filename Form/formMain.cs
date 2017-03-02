@@ -48,10 +48,10 @@ namespace FilmCollection
             InitializeComponent();                  // Создание и отрисовка элементов
 
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
+            Tray.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки для отображения в трее
 
-            Tray.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки для отображения в трее            
             Tray.Visible = false;   // скрываем иконку в трее
-            Tray.ContextMenu = TrayMenu;    // контекстное меню
+            Tray.ContextMenuStrip = TrayMenu;   // контекстное меню
 
             #region Управление курсором (Таймер и курсоры)
             crEn = new Cursor(new MemoryStream(Properties.Resources.cursorEN)); // загрузка курсора
@@ -181,26 +181,21 @@ namespace FilmCollection
             // проверяем наше окно, и если оно было свернуто, делаем событие        
             if (WindowState == FormWindowState.Minimized)
             {
-                // Hide();
+                //Hide();
                 Tray.BalloonTipTitle = "Программа была спрятана";
                 Tray.BalloonTipText = "Обратите внимание что программа была спрятана в трей и продолжит свою работу.";
                 Tray.ShowBalloonTip(500);
+                Tray.BalloonTipIcon = ToolTipIcon.Info;
 
                 // прячем наше окно из панели
                 ShowInTaskbar = false;
+
                 // делаем нашу иконку в трее активной
                 Tray.Visible = true;
             }
-            //else
-            //{
-            //    // возвращаем отображение окна в панели
-            //    ShowInTaskbar = true;
-            //    // делаем нашу иконку скрытой
-            //    Tray.Visible = false;
-            //}
         }
 
-        private void Tray_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void RestoreWindow()
         {
             WindowState = FormWindowState.Maximized;
 
@@ -209,6 +204,10 @@ namespace FilmCollection
             // делаем нашу иконку скрытой
             Tray.Visible = false;
         }
+
+        private void Tray_MouseDoubleClick(object sender, MouseEventArgs e) => RestoreWindow();
+        private void ShowWindow_Click(object sender, EventArgs e) => RestoreWindow();
+        
 
         private bool FormLoad()
         {
@@ -701,7 +700,7 @@ namespace FilmCollection
                 default: break;
             }
         }
-        
+
 
         private void treeFolder_DragDrop(object sender, DragEventArgs e)// здесь функционал DragDrop DGV to TreeView
         {
@@ -3280,7 +3279,9 @@ namespace FilmCollection
         }
 
 
+
         #endregion
+
 
     }
 }
