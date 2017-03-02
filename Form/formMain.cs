@@ -51,6 +51,7 @@ namespace FilmCollection
 
             Tray.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки для отображения в трее            
             Tray.Visible = false;   // скрываем иконку в трее
+            Tray.ContextMenu = TrayMenu;    // контекстное меню
 
             #region Управление курсором (Таймер и курсоры)
             crEn = new Cursor(new MemoryStream(Properties.Resources.cursorEN)); // загрузка курсора
@@ -183,7 +184,7 @@ namespace FilmCollection
                 // Hide();
                 Tray.BalloonTipTitle = "Программа была спрятана";
                 Tray.BalloonTipText = "Обратите внимание что программа была спрятана в трей и продолжит свою работу.";
-                Tray.ShowBalloonTip(2000);
+                Tray.ShowBalloonTip(500);
 
                 // прячем наше окно из панели
                 ShowInTaskbar = false;
