@@ -162,10 +162,10 @@
             this.panelFind = new System.Windows.Forms.Panel();
             this.btnHidePanel = new System.Windows.Forms.Button();
             this.btnFindReset = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lCritery = new System.Windows.Forms.Label();
+            this.lFindText = new System.Windows.Forms.Label();
+            this.panelFindTitle = new System.Windows.Forms.Panel();
+            this.lblFindTitle = new System.Windows.Forms.Label();
             this.tbFind = new System.Windows.Forms.TextBox();
             this.btnFindNext = new System.Windows.Forms.Button();
             this.btnFind = new System.Windows.Forms.Button();
@@ -281,7 +281,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
             this.panelFind.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelFindTitle.SuspendLayout();
             this.panelFolder.SuspendLayout();
             this.tabActors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).BeginInit();
@@ -946,9 +946,9 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
+            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(966, 608);
@@ -1642,9 +1642,9 @@
             // 
             this.panelFind.Controls.Add(this.btnHidePanel);
             this.panelFind.Controls.Add(this.btnFindReset);
-            this.panelFind.Controls.Add(this.label3);
-            this.panelFind.Controls.Add(this.label2);
-            this.panelFind.Controls.Add(this.panel1);
+            this.panelFind.Controls.Add(this.lCritery);
+            this.panelFind.Controls.Add(this.lFindText);
+            this.panelFind.Controls.Add(this.panelFindTitle);
             this.panelFind.Controls.Add(this.tbFind);
             this.panelFind.Controls.Add(this.btnFindNext);
             this.panelFind.Controls.Add(this.btnFind);
@@ -1677,43 +1677,43 @@
             this.btnFindReset.UseVisualStyleBackColor = true;
             this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
             // 
-            // label3
+            // lCritery
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 91);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Критерий поиска";
+            this.lCritery.AutoSize = true;
+            this.lCritery.Location = new System.Drawing.Point(22, 91);
+            this.lCritery.Name = "lCritery";
+            this.lCritery.Size = new System.Drawing.Size(94, 13);
+            this.lCritery.TabIndex = 17;
+            this.lCritery.Text = "Критерий поиска";
             // 
-            // label2
+            // lFindText
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Строка поиска";
+            this.lFindText.AutoSize = true;
+            this.lFindText.Location = new System.Drawing.Point(23, 43);
+            this.lFindText.Name = "lFindText";
+            this.lFindText.Size = new System.Drawing.Size(82, 13);
+            this.lFindText.TabIndex = 17;
+            this.lFindText.Text = "Строка поиска";
             // 
-            // panel1
+            // panelFindTitle
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(368, 27);
-            this.panel1.TabIndex = 16;
+            this.panelFindTitle.Controls.Add(this.lblFindTitle);
+            this.panelFindTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelFindTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelFindTitle.Name = "panelFindTitle";
+            this.panelFindTitle.Size = new System.Drawing.Size(368, 27);
+            this.panelFindTitle.TabIndex = 16;
             // 
-            // label1
+            // lblFindTitle
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(368, 27);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Панель поиска";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFindTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFindTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblFindTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblFindTitle.Name = "lblFindTitle";
+            this.lblFindTitle.Size = new System.Drawing.Size(368, 27);
+            this.lblFindTitle.TabIndex = 0;
+            this.lblFindTitle.Text = "Панель поиска";
+            this.lblFindTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tbFind
             // 
@@ -2759,7 +2759,7 @@
             this.panelTitle.ResumeLayout(false);
             this.panelFind.ResumeLayout(false);
             this.panelFind.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.panelFindTitle.ResumeLayout(false);
             this.panelFolder.ResumeLayout(false);
             this.panelFolder.PerformLayout();
             this.tabActors.ResumeLayout(false);
@@ -2860,10 +2860,10 @@
         private System.Windows.Forms.Label lblRecTitle;
         private System.Windows.Forms.Panel panelEditTitle;
         private System.Windows.Forms.Label lblEditTitle;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panelFindTitle;
+        private System.Windows.Forms.Label lblFindTitle;
+        private System.Windows.Forms.Label lCritery;
+        private System.Windows.Forms.Label lFindText;
         private System.Windows.Forms.ToolStripProgressBar tsProgressBar;
         private System.Windows.Forms.StatusStrip statusLine;
         private System.Windows.Forms.ToolStripMenuItem btnRecoveryBase;

@@ -1452,13 +1452,20 @@ namespace FilmCollection
             btnFind.Enabled = false;
 
             dgvSelected.Clear();
-            TableRec.ClearSelection();
             FindNextButton_Lock();
 
+            Reset();
+        }
+
+        private void Reset()
+        {
             dgvTableActors.Enabled = true;  // Разблокировка таблицы при изменении панели
             dgvTableActors.ClearSelection();// Удаление фокуса
-            TableRec.Enabled = true;     // Разблокировка таблицы при изменении панели
-            TableRec.ClearSelection();   // Удаление фокуса
+            CardActorPreview_Clear();       // Очистка информации на карточке
+
+            TableRec.Enabled = true;        // Разблокировка таблицы при изменении панели
+            TableRec.ClearSelection();      // Удаление фокуса
+            CardRecordPreview_Clear();      // Очистка информации на карточке
         }
 
         /// <summary>Блокировка кнопки поиска следующего элемента</summary>
@@ -1502,7 +1509,7 @@ namespace FilmCollection
             btnFind.Enabled = true;
         }
 
-        private void tabControl_ChangeTab_Click(object sender, EventArgs e) => ResetFind();
+        private void tabControl_ChangeTab_Click(object sender, EventArgs e) => Reset();
 
         private void btnFindReset_Click(object sender, EventArgs e) => ResetFind();
 
