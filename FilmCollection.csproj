@@ -65,6 +65,10 @@
     <AssemblyOriginatorKeyFile>FCkey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -82,15 +86,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\InputLanguages.cs" />
-    <Compile Include="Class_poster\ImageViewer.cs">
+    <Compile Include="Class\UpdateService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Class\Poster\ImageViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Class_poster\ImageViewer.Designer.cs">
+    <Compile Include="Class\Poster\ImageViewer.Designer.cs">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Class\_Combine.cs" />
     <Compile Include="Class\_Actor.cs" />
-    <Compile Include="Class_poster\ThumbnailController.cs" />
+    <Compile Include="Class\Poster\ThumbnailController.cs" />
     <Compile Include="Class_Test\BinSerializeHelper.cs" />
     <Compile Include="Class\Enum.cs" />
     <Compile Include="Class\_Media.cs" />
@@ -143,7 +150,7 @@
     <Compile Include="Class\_Record.cs" />
     <Compile Include="Class\RecordCollection.cs" />
     <Compile Include="Class\XmlSerializeHelper.cs" />
-    <EmbeddedResource Include="Class_poster\ImageViewer.resx">
+    <EmbeddedResource Include="Class\Poster\ImageViewer.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +202,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="FC.ico" />
+    <Content Include="Library\Ionic.Zip.Reduced.dll" />
     <Content Include="Pics\noPic.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
