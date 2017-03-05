@@ -10,6 +10,7 @@ using System.Net;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Shell32;
+using Thr = System.Threading;
 
 namespace FilmCollection
 {
@@ -1689,6 +1690,7 @@ namespace FilmCollection
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
             fileDialog.Filter = FormatOpen;
+            fileDialog.Title = "Выберите файл:";
             fileDialog.RestoreDirectory = true;
 
             if (fileDialog.ShowDialog() == DialogResult.OK)
@@ -3334,6 +3336,13 @@ namespace FilmCollection
 
         #endregion
 
+        private void btnCheckUpdate_Click(object sender, EventArgs e)
+        {
+            UpdateService.download();
+            UpdateService.unzipFile();
+            //Thr.Thread.Sleep(20000);
+            UpdateService.compareVersion();
+        }
     }
 }
 

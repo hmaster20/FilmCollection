@@ -56,32 +56,32 @@
             this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCreateBase = new System.Windows.Forms.ToolStripMenuItem();
             this.btnUpdateBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.tS1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ts1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnBackupBase = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecoveryBase = new System.Windows.Forms.ToolStripMenuItem();
-            this.tS2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ts2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExportHTML = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReport = new System.Windows.Forms.ToolStripMenuItem();
-            this.tS4 = new System.Windows.Forms.ToolStripSeparator();
+            this.ts3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuChange = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChange = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.tS14 = new System.Windows.Forms.ToolStripSeparator();
+            this.ts4 = new System.Windows.Forms.ToolStripSeparator();
             this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.btnActors = new System.Windows.Forms.ToolStripMenuItem();
-            this.ts10 = new System.Windows.Forms.ToolStripSeparator();
+            this.ts5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCleanDB = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOpenCatalogDB = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.ts6 = new System.Windows.Forms.ToolStripSeparator();
             this.btnOpenReportForm = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHistory = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.ts7 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
             this.TreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -245,7 +245,6 @@
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
-            this.FileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mainMenuIcon = new System.Windows.Forms.ToolStrip();
             this.tsCreateDB = new System.Windows.Forms.ToolStripButton();
             this.tsUpdateDB = new System.Windows.Forms.ToolStripButton();
@@ -266,6 +265,8 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCheckUpdate = new System.Windows.Forms.ToolStripMenuItem();
+            this.ts8 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -546,13 +547,13 @@
             this.MenuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnCreateBase,
             this.btnUpdateBase,
-            this.tS1,
+            this.ts1,
             this.btnBackupBase,
             this.btnRecoveryBase,
-            this.tS2,
+            this.ts2,
             this.btnExportHTML,
             this.btnReport,
-            this.tS4,
+            this.ts3,
             this.btnExit});
             this.MenuFile.Name = "MenuFile";
             this.MenuFile.Size = new System.Drawing.Size(48, 20);
@@ -574,10 +575,10 @@
             this.btnUpdateBase.Text = "Обновить базу";
             this.btnUpdateBase.Click += new System.EventHandler(this.UpdateBase_Click);
             // 
-            // tS1
+            // ts1
             // 
-            this.tS1.Name = "tS1";
-            this.tS1.Size = new System.Drawing.Size(184, 6);
+            this.ts1.Name = "ts1";
+            this.ts1.Size = new System.Drawing.Size(184, 6);
             // 
             // btnBackupBase
             // 
@@ -595,11 +596,11 @@
             this.btnRecoveryBase.Text = "Восстановить из...";
             this.btnRecoveryBase.Click += new System.EventHandler(this.RecoveryBase_Click);
             // 
-            // tS2
+            // ts2
             // 
-            this.tS2.Name = "tS2";
-            this.tS2.Size = new System.Drawing.Size(184, 6);
-            this.tS2.Visible = false;
+            this.ts2.Name = "ts2";
+            this.ts2.Size = new System.Drawing.Size(184, 6);
+            this.ts2.Visible = false;
             // 
             // btnExportHTML
             // 
@@ -616,10 +617,10 @@
             this.btnReport.Visible = false;
             this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
-            // tS4
+            // ts3
             // 
-            this.tS4.Name = "tS4";
-            this.tS4.Size = new System.Drawing.Size(184, 6);
+            this.ts3.Name = "ts3";
+            this.ts3.Size = new System.Drawing.Size(184, 6);
             // 
             // btnExit
             // 
@@ -635,7 +636,7 @@
             this.btnAdd,
             this.btnChange,
             this.btnDelete,
-            this.tS14,
+            this.ts4,
             this.поискToolStripMenuItem});
             this.MenuChange.Name = "MenuChange";
             this.MenuChange.Size = new System.Drawing.Size(59, 20);
@@ -646,7 +647,7 @@
             this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.btnAdd.Size = new System.Drawing.Size(149, 22);
+            this.btnAdd.Size = new System.Drawing.Size(152, 22);
             this.btnAdd.Text = "Добавить";
             this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
@@ -655,7 +656,7 @@
             this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
             this.btnChange.Name = "btnChange";
             this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnChange.Size = new System.Drawing.Size(149, 22);
+            this.btnChange.Size = new System.Drawing.Size(152, 22);
             this.btnChange.Text = "Изменить";
             this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
             // 
@@ -664,14 +665,14 @@
             this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnDelete.Size = new System.Drawing.Size(149, 22);
+            this.btnDelete.Size = new System.Drawing.Size(152, 22);
             this.btnDelete.Text = "Удалить";
             this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
             // 
-            // tS14
+            // ts4
             // 
-            this.tS14.Name = "tS14";
-            this.tS14.Size = new System.Drawing.Size(146, 6);
+            this.ts4.Name = "ts4";
+            this.ts4.Size = new System.Drawing.Size(149, 6);
             // 
             // поискToolStripMenuItem
             // 
@@ -687,10 +688,10 @@
             this.настройкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnOptions,
             this.btnActors,
-            this.ts10,
+            this.ts5,
             this.btnCleanDB,
             this.btnOpenCatalogDB,
-            this.toolStripSeparator12,
+            this.ts6,
             this.btnOpenReportForm});
             this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
             this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
@@ -711,10 +712,10 @@
             this.btnActors.Text = "Актеры";
             this.btnActors.Visible = false;
             // 
-            // ts10
+            // ts5
             // 
-            this.ts10.Name = "ts10";
-            this.ts10.Size = new System.Drawing.Size(193, 6);
+            this.ts5.Name = "ts5";
+            this.ts5.Size = new System.Drawing.Size(193, 6);
             // 
             // btnCleanDB
             // 
@@ -732,10 +733,10 @@
             this.btnOpenCatalogDB.Text = "Открыть каталог базы";
             this.btnOpenCatalogDB.Click += new System.EventHandler(this.btnOpenCatalogDB_Click);
             // 
-            // toolStripSeparator12
+            // ts6
             // 
-            this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(193, 6);
+            this.ts6.Name = "ts6";
+            this.ts6.Size = new System.Drawing.Size(193, 6);
             // 
             // btnOpenReportForm
             // 
@@ -751,7 +752,9 @@
             this.MenuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnHelp,
             this.btnHistory,
-            this.toolStripSeparator13,
+            this.ts7,
+            this.btnCheckUpdate,
+            this.ts8,
             this.btnAbout});
             this.MenuHelp.Name = "MenuHelp";
             this.MenuHelp.Size = new System.Drawing.Size(65, 20);
@@ -762,27 +765,27 @@
             this.btnHelp.Image = global::FilmCollection.Properties.Resources.help_run;
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.btnHelp.Size = new System.Drawing.Size(185, 22);
+            this.btnHelp.Size = new System.Drawing.Size(204, 22);
             this.btnHelp.Text = "Справка";
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnHistory
             // 
             this.btnHistory.Name = "btnHistory";
-            this.btnHistory.Size = new System.Drawing.Size(185, 22);
+            this.btnHistory.Size = new System.Drawing.Size(204, 22);
             this.btnHistory.Text = "История изменений";
             this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
             // 
-            // toolStripSeparator13
+            // ts7
             // 
-            this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(182, 6);
+            this.ts7.Name = "ts7";
+            this.ts7.Size = new System.Drawing.Size(201, 6);
             // 
             // btnAbout
             // 
             this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(185, 22);
+            this.btnAbout.Size = new System.Drawing.Size(204, 22);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
@@ -2578,10 +2581,6 @@
             this.scMain.SplitterDistance = 191;
             this.scMain.TabIndex = 24;
             // 
-            // FileDialog
-            // 
-            this.FileDialog.FileName = "openFileDialog1";
-            // 
             // mainMenuIcon
             // 
             this.mainMenuIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2763,6 +2762,18 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // btnCheckUpdate
+            // 
+            this.btnCheckUpdate.Name = "btnCheckUpdate";
+            this.btnCheckUpdate.Size = new System.Drawing.Size(204, 22);
+            this.btnCheckUpdate.Text = "Проверить обновления";
+            this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
+            // 
+            // ts8
+            // 
+            this.ts8.Name = "ts8";
+            this.ts8.Size = new System.Drawing.Size(201, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2862,14 +2873,14 @@
         private System.Windows.Forms.ToolStripMenuItem cFind;
         private System.Windows.Forms.ToolStripSeparator cSeparator3;
         private System.Windows.Forms.ToolStripMenuItem btnExportHTML;
-        private System.Windows.Forms.ToolStripSeparator tS4;
+        private System.Windows.Forms.ToolStripSeparator ts3;
         private System.Windows.Forms.ToolStripMenuItem btnExit;
         private System.Windows.Forms.ToolStripMenuItem btnReport;
         private System.Windows.Forms.Timer timerLoad;
         private System.Windows.Forms.ToolStripMenuItem btnUpdateBase;
-        private System.Windows.Forms.ToolStripSeparator tS1;
+        private System.Windows.Forms.ToolStripSeparator ts1;
         private System.Windows.Forms.ToolStripMenuItem btnBackupBase;
-        private System.Windows.Forms.ToolStripSeparator tS2;
+        private System.Windows.Forms.ToolStripSeparator ts2;
         private System.Windows.Forms.SplitContainer scMain;
         private System.Windows.Forms.SplitContainer scTabFilm;
         private System.Windows.Forms.Panel panelFind;
@@ -2902,7 +2913,6 @@
         private System.Windows.Forms.ToolStripComboBox tscbTypeFilter;
         private System.Windows.Forms.ToolStripComboBox tscbSort;
         private System.Windows.Forms.ToolStripStatusLabel tssLabel;
-        private System.Windows.Forms.OpenFileDialog FileDialog;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Panel panelTitle;
@@ -3012,7 +3022,7 @@
         private System.Windows.Forms.ToolStripMenuItem cOpenFolder;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.CheckBox cbIsVisible;
-        private System.Windows.Forms.ToolStripSeparator ts10;
+        private System.Windows.Forms.ToolStripSeparator ts5;
         private System.Windows.Forms.ToolStripMenuItem btnCleanDB;
         private System.Windows.Forms.ToolStripMenuItem UpdateFIlmInfo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -3069,22 +3079,24 @@
         private System.Windows.Forms.Button btnRemoveAllGroup;
         private System.Windows.Forms.ToolStripMenuItem btnOpenCatalogDB;
         private System.Windows.Forms.ColumnHeader column2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripSeparator ts6;
         private System.Windows.Forms.ToolStripMenuItem btnOpenReportForm;
         private System.Windows.Forms.Button btnHidePanel;
         private System.Windows.Forms.NotifyIcon Tray;
         private System.Windows.Forms.ToolStripMenuItem btnHelp;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
+        private System.Windows.Forms.ToolStripSeparator ts7;
         private System.Windows.Forms.ToolStripMenuItem btnAdd;
         private System.Windows.Forms.ToolStripMenuItem btnChange;
         private System.Windows.Forms.ToolStripMenuItem btnDelete;
-        private System.Windows.Forms.ToolStripSeparator tS14;
+        private System.Windows.Forms.ToolStripSeparator ts4;
         private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip TrayMenu;
         private System.Windows.Forms.ToolStripMenuItem About;
         private System.Windows.Forms.ToolStripMenuItem ShowWindow;
         private System.Windows.Forms.ToolStripSeparator separator1;
         private System.Windows.Forms.ToolStripMenuItem Exit;
+        private System.Windows.Forms.ToolStripMenuItem btnCheckUpdate;
+        private System.Windows.Forms.ToolStripSeparator ts8;
     }
 }
 
