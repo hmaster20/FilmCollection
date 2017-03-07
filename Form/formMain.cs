@@ -208,7 +208,7 @@ namespace FilmCollection
 
         private void Tray_MouseDoubleClick(object sender, MouseEventArgs e) => RestoreWindow();
         private void ShowWindow_Click(object sender, EventArgs e) => RestoreWindow();
-        
+
 
         private bool FormLoad()
         {
@@ -675,7 +675,7 @@ namespace FilmCollection
 
                 case 1: // Актеры
                     {
-                       // if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
+                        // if (isRows()) TabMenu.Enabled = true; // Разблокировка меню
 
                         TabMenu.Items[0].Visible = false;   // Поиск
                         TabMenu.Items[1].Visible = false;   // Separator
@@ -702,7 +702,6 @@ namespace FilmCollection
             }
         }
 
-
         private void treeFolder_DragDrop(object sender, DragEventArgs e)// здесь функционал DragDrop DGV to TreeView
         {
             Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
@@ -714,11 +713,26 @@ namespace FilmCollection
             {
                 try
                 {
-                    if (destinationNode.Level == 0 && destinationNode.Index == 0)
-                    { //если условие верно, то это главный узел - "Фильмотека"
-                      //MessageBox.Show(destinationNode.FullPath);
-                    }
-                    else
+                    //if (destinationNode.Level == 0 && destinationNode.Index == 0)
+                    //{ //если условие верно, то это главный узел - "Фильмотека"
+                    //  //MessageBox.Show(destinationNode.FullPath);
+                    //}
+                    //else
+                    //{
+                    //    string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
+
+                    //    if (File.Exists(Path.Combine(record.Path, record.FileName)))
+                    //        if (Directory.Exists(dirPath))
+                    //            File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
+
+                    //    record.DirName = destinationNode.Text;
+                    //    record.Path = dirPath;
+
+                    //    _videoCollection.Save();
+                    //    PrepareRefresh();
+                    //}
+
+                    if (destinationNode != treeFolder.TopNode)
                     {
                         string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
 
@@ -885,6 +899,7 @@ namespace FilmCollection
 
 
         #endregion
+
 
         #region TabControl
 
@@ -1291,11 +1306,11 @@ namespace FilmCollection
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
                 if (record != null) return record;
 
-                List<string> nnn = new List<string>();
+                //List<string> nnn = new List<string>();
 
-                foreach (DataGridViewTextBoxCell item in dgv.SelectedRows[0].Cells)
-                    if (item != null && item.Value != null)
-                        nnn.Add(item.Value.ToString());
+                //foreach (DataGridViewTextBoxCell item in dgv.SelectedRows[0].Cells)
+                //    if (item != null && item.Value != null)
+                //        nnn.Add(item.Value.ToString());
             }
             return null;
         }
