@@ -59,10 +59,12 @@ namespace FilmCollection
         {
             if (rec is Record && rec != null)
             {
-                Record temp;
-                temp = (Record)rec;
-                if (temp.FileName == this.FileName
-                && temp.Path == this.Path)
+                //Record temp;
+                //temp = (Record)rec;
+                //if (temp.FileName == this.FileName
+                //&& temp.Path == this.Path)
+
+                if (rec.FileName == this.FileName && rec.Path == this.Path)
                 {
                     return true;
                 }
