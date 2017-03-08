@@ -565,15 +565,12 @@ namespace FilmCollection
         #region Главное меню
 
         private void CreateBase_Click(object sender, EventArgs e) => NewBase();
-
         private void UpdateBase_Click(object sender, EventArgs e) => UpdateBase();
-
         private void BackupBase_Click(object sender, EventArgs e) => BackupBase();
-
         private void RecoveryBase_Click(object sender, EventArgs e) => RecoveryBase();
+        private void Exit_Click(object sender, EventArgs e) => Close();
 
         private void CleanBase_Click(object sender, EventArgs e) => CleanBase();
-
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -596,35 +593,14 @@ namespace FilmCollection
             // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
         }
 
-        private void Exit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
-        private void About_Click(object sender, EventArgs e)
-        {
-            formAbout about = new formAbout();
-            about.ShowDialog();
-        }
+        private void About_Click(object sender, EventArgs e) => AboutFC();
+        private void btnHistory_Click(object sender, EventArgs e) => History();
+        private void btnHelp_Click(object sender, EventArgs e) => HelpShow();
 
-        private void btnHistory_Click(object sender, EventArgs e)
-        {
-            string ChangeLog = "ChangeLog.txt";
-            if (File.Exists(ChangeLog))
-            {
-                Process.Start(ChangeLog);
-            }
-        }
-
-        private void btnHelp_Click(object sender, EventArgs e)
-        {
-            Help.ShowHelp(this, helpProvider.HelpNamespace, "about.htm");
-        }
 
         private void tsAdd_Click(object sender, EventArgs e) => Add();
-
         private void tsChange_Click(object sender, EventArgs e) => Edit();
-
         private void tsRemove_Click(object sender, EventArgs e) => Delete();
 
         private void tsFind_Click(object sender, EventArgs e) => panelFind.BringToFront();
@@ -636,6 +612,29 @@ namespace FilmCollection
         private void tsFindbyName_MouseLeave(object sender, EventArgs e) => timerCursorDisabled();
 
         #endregion
+
+
+
+        private static void History()
+        {
+            string ChangeLog = "ChangeLog.txt";
+            if (File.Exists(ChangeLog))
+            {
+                Process.Start(ChangeLog);
+            }
+        }
+
+        private static void AboutFC()
+        {
+            formAbout about = new formAbout();
+            about.ShowDialog();
+        }
+
+        private void HelpShow()
+        {
+            Help.ShowHelp(this, helpProvider.HelpNamespace, "about.htm");
+        }
+
 
 
         #region Контекстное меню для DataGridView
