@@ -1,7 +1,19 @@
 ﻿Направления для разработки:
 =====================================================
+- MVC or MVP
+- кнопка воспроизведение не работает при отсутствии выбранной строки в таблице
+- подумать о необходимости убирать фокус при переключении вкладок (возможно нет необходимости)
+
+- переместить настройки в область метаданных (модуль программы пользователя 62)
+- использование потоков (Thread) для обработки файлов и построение первичной базы, использования прогресс бара
+
+
+- указать использование лицензии GNU General Public License v.2.0
+
 - механизм автоматического обновления
-- английская локализация
+- добавить возможность проверки наличия и получение обновлений
+
+- английская и другие локализации, продумать механизм
 - указание пути к каталогу базы в окне "О программе" ?
 - продумать экспорт Media, импорт и синхронизацию
 - не разворачивается иерархия при отображении одного(!) найденного фильма (FindAndSelect_Record)
@@ -28,7 +40,7 @@
 - продумать использование FileWatcher
 - использование доп.информации о файлах (кодеки)
 - продумать возможность интеграции данных в SQL
-- добавить возможность проверки наличия и получение обновлений
+
 
 
 
@@ -550,3 +562,275 @@
                 }
             }
         }
+
+
+
+=================================================================================================================================================
+		 //MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+
+
+
+
+=================================================================================================================================================
+		   
+        ///// <summary>Разрешение контекстного меню</summary>
+        //private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
+        //{
+        //    if (e.ColumnIndex > -1 && e.RowIndex > -1)
+        //    {
+        //        DataGridView dgv = GetDgv();
+        //        dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //        dgv.Rows[e.RowIndex].Selected = true;
+        //        dgv.Focus();
+        //        dgv.ContextMenuStrip = TabMenu;
+        //        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+        //    }
+        //    else
+        //    {
+        //        TableRec.ContextMenuStrip = null;
+        //        TableRec.ClearSelection();
+        //    }
+        //}  
+
+
+        //private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+        //{
+        //    if (e.Button == MouseButtons.Right)
+        //    {
+        //        Int32 rowToDelete = TableRec.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+
+        //        //var hti = TableRec.HitTest(e.X, e.Y);
+        //        //TableRec.ClearSelection();
+        //        //TableRec.Rows[hti.RowIndex].Selected = true;
+        //    }
+
+        //    try
+        //    {
+        //        if (e.RowIndex < 0)
+        //        {
+        //            return;
+        //        }
+
+        //        DataGridView dgv = GetDgv();
+        //        dgv.Rows[e.RowIndex].Selected = true;
+
+        //        if (!RecTabSelect())
+        //        {
+        //            // если это таблица актеров, то доп.обработка не нужна
+        //            if (e.Button == MouseButtons.Right)
+        //                GetMenuDgv(e);
+        //        }
+        //        else
+        //        {
+        //            // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //            // TableRec.Focus();
+
+
+        //            //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+
+        //            if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
+        //            {
+        //                if (e.Button == MouseButtons.Left && e.Clicks == 2)
+        //                    SelectRecord_Info(sender, e);
+        //            }
+        //            else
+        //            {
+        //                FindNextButton_Lock();
+
+        //                if (e.Button == MouseButtons.Right)
+        //                    GetMenuDgv(e);
+
+        //                if (e.Button == MouseButtons.Left)
+        //                {
+        //                    if (e.ColumnIndex != 7)
+        //                    {
+        //                        //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+        //                        if (isRows())
+        //                            if (dgv.SelectedRows[0].Index == e.RowIndex)
+        //                            {
+        //                                TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+        //                            }
+        //                        SelectRecord_Info(sender, e);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex) { MessageBox.Show(Ex.Message); }
+        //}
+
+
+
+
+
+=================================================================================================================================================
+
+		public static string GetHtmlString(string url, string login = "", string password = "", Dictionary<string, string> queries = null)
+        {
+            WebClient client = new WebClient();
+            if (login != "" && password != "")
+                client.Credentials = new NetworkCredential(login, password);
+            client.Proxy = null;
+            if (queries != null)
+            {
+                client.QueryString = new System.Collections.Specialized.NameValueCollection();
+                foreach (string key in queries.Keys)
+                    client.QueryString.Add(key, queries[key]);
+            }
+            client.Encoding = System.Text.Encoding.GetEncoding("utf-8");
+            client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0");
+            return client.DownloadString(url);
+        }
+
+
+
+=================================================================================================================================================
+
+		Bitmap pic = new Bitmap(VideoTag.ImageSize * tagPics.Count, VideoTag.ImageSize);
+            using (Graphics g = Graphics.FromImage(pic))
+                for (int i = 0; i < tagPics.Count; i++)
+                    g.DrawImage(tagPics[i], i * VideoTag.ImageSize, 0, VideoTag.ImageSize, VideoTag.ImageSize);
+
+
+
+=================================================================================================================================================
+
+				/Assembly assembly = Assembly.LoadFrom(filePath);
+                ////Version ver = assembly.GetName().Version;
+                //ver = assembly.GetName().Version;
+
+
+
+
+                //AppDomain dom = AppDomain.CreateDomain("some");
+                ////AssemblyName assemblyName = new AssemblyName();
+                ////assemblyName.CodeBase = filePath;
+                ////Assembly assembly = dom.Load(assemblyName);
+                ////Type[] types = assembly.GetTypes();
+                //ver = assembly.GetName().Version;
+                //AppDomain.Unload(dom);
+
+
+=================================================================================================================================================
+
+изменение стиля DGV
+
+            //DataGridViewCellStyle currencyCellStyle = new DataGridViewCellStyle();
+            //dgvMerge.Rows[e.RowIndex].DefaultCellStyle = currencyCellStyle; // сброс на параметры по умолчанию
+
+
+            ////dgvMerge.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Underline);
+            ////dgvMerge.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.SteelBlue;
+			////currentRow.DefaultCellStyle.ForeColor = Color.Silver;
+
+
+=================================================================================================================================================
+
+
+		* Порядок отработки кликов для DGV:
+         * MouseDown
+         * CellMouseDown
+         * -- SelectionChanged
+         * CellClick
+         * MouseClick
+         * CellMouseClick
+         */
+
+
+// - CellMouseDown: True  - кнопка нажата но не отпущена
+// - CellClick: True
+// - CellValueChanged: 5False
+
+
+=================================================================================================================================================
+
+
+                    //// синхронизация листов
+                    //foreach (TVChannel tvc in channelsForMerge)
+                    //{
+                    //    if (!TVchannelExist(tvc))
+                    //    {
+                    //        channels.Add(tvc);
+                    //    }
+                    //}
+
+=================================================================================================================================================
+
+
+          //double val;
+            //Control edit = dgvTV.EditingControl;
+            //if (edit != null && !Double.TryParse(e.FormattedValue.ToString(), out val))
+            //{
+            //    e.Cancel = true;
+            //    errorProvider.SetError(edit, "Numeric value required");
+            //    errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
+            //    errorProvider.SetIconPadding(edit, -20); // icon displays on left side of cell
+            //}
+
+
+            //if (e.ColumnIndex != -1)
+            //{
+            //    if (e.ColumnIndex == 0)
+            //    {
+            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
+            //    }
+
+            //    if (e.ColumnIndex == 1)
+            //    {
+            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
+            //    }
+
+
+            //}
+
+
+            //if (!this.Validates(e.FormattedValue)) //run some custom validation on the value in that cell
+            //{
+            //    this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Error";
+            //    e.Cancel = true; //will prevent user from leaving cell, may not be the greatest idea, you can decide that yourself.
+            //}
+
+
+            //DataGridViewCell aa = c.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            // CheckErrorCell(aa);
+
+
+
+
+
+
+			                //if (e.ColumnIndex != 3)
+                //{       
+                //    if (edit != null && (!ValidatorText(e.FormattedValue.ToString())))
+                //    {
+                //        CelleError(e, edit);
+                //    }
+                //    else
+                //    {
+                //        errorProvider.Clear();
+                //    }
+                //}
+                //else
+                //{
+                //    if (edit != null && (!ValidatorUDP(e.FormattedValue.ToString())))
+                //    {
+                //        CelleError(e, edit);
+                //    }
+                //    else
+                //    {
+                //        errorProvider.Clear();
+                //    }
+                //}  
+
+	
+	
+	 private void CelleError(DataGridViewCellValidatingEventArgs e, Control edit)
+        {
+            e.Cancel = true;
+            errorProvider.SetError(edit, "Неверно заполнена ячейка");
+            errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
+            errorProvider.SetIconPadding(edit, -20);
+        }
+
+=================================================================================================================================================
