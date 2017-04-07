@@ -4,4 +4,5 @@ pull_requests:
 configuration: Debug
 platform: Any CPU
 build:
+  project: FilmCollection.sln
   verbosity: minimal
