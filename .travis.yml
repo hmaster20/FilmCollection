@@ -1,0 +1,4 @@
+language: csharp
+solution: FilmCollection.sln
+install:
+  - nuget restore FilmCollection.sln
