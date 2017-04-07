@@ -7,5 +7,3 @@ os: Visual Studio 2015
 branches:
   only:
     - master
-install:
-  - nuget restore FilmCollection.sln
