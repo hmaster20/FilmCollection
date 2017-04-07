@@ -1,9 +1,5 @@
 language: csharp
 solution: FilmCollection.sln
-dist: trusty
-sudo: required
 mono: none
 os: Visual Studio 2015
-branches:
-  only:
-    - master
+
