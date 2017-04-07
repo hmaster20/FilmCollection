@@ -787,14 +787,7 @@ namespace FilmCollection
         }
 
 
-        /* Порядок отработки кликов:
-         * MouseDown
-         * CellMouseDown
-         * -- SelectionChanged
-         * CellClick
-         * MouseClick
-         * CellMouseClick
-         */
+
 
         private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 1
         {
