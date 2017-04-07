@@ -1,5 +1,11 @@
 language: csharp
 solution: FilmCollection.sln
+dist: trusty
+sudo: required
 mono: none
-os: Visual Studio 2015
-
+dotnet: 1.1.1.
+branches:
+  only:
+    - master
+install:
+  - nuget restore FilmCollection.sln
