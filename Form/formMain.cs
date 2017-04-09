@@ -398,7 +398,7 @@ namespace FilmCollection
 
         private void UpdateBase()       // Добавить обновление базы
         {
-            if (_videoCollection.Options.Source == "" && _videoCollection.Options.Source == null)  // Если есть информация о корневой папки коллекции
+            if (_videoCollection.Options.Source == null && _videoCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
                 MessageBox.Show("Необходимо создать базу данных.");
             else
             {
@@ -872,7 +872,10 @@ namespace FilmCollection
             }
         }
 
-        private void TableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)    // Сортировка по колонке
+        /// <summary>Сортировка при клике по колонке</summary>
+        private void TableRec_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => SortByColumn(e);
+
+        private void SortByColumn(DataGridViewCellMouseEventArgs e)
         {
             // организована сортировка при выборе колонки
             if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
@@ -1308,11 +1311,9 @@ namespace FilmCollection
         }
 
 
-        private void dgvTableActors_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            // организована сортировка при выборе колонки
-            if (e.Button == MouseButtons.Left) PrepareRefresh(false, e.ColumnIndex);
-        }
+        /// <summary>Сортировка при клике по колонке</summary>
+        private void dgvTableActors_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e) => SortByColumn(e);
+
 
         private void TableRightSelect_Actor(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -1715,7 +1716,7 @@ namespace FilmCollection
 
                 // Заполняем поля
                 cbNameMedia.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
-                tbNameRecord.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
+                tbNameRecord.Text = cbNameMedia.Text;
                 tbFileName.Text = newFile.Name;
                 mtbYear.Text = DateTime.Now.Year.ToString();
 

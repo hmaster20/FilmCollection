@@ -187,21 +187,25 @@ namespace FilmCollection
         private void btnSizePlus_Click(object sender, EventArgs e)
         {
             Font SelectedText_Font = dynamicRichTextBox.SelectionFont;
-            int count;
-            count = Convert.ToInt32(SelectedText_Font.Size);
+            int count;           
             if (SelectedText_Font != null)
+            {
+                count = Convert.ToInt32(SelectedText_Font.Size);
                 dynamicRichTextBox.SelectionFont = new Font(SelectedText_Font.ToString(), ++count);
+            }                
         }
 
         private void btnSizeMinus_Click(object sender, EventArgs e)
         {
             Font SelectedText_Font = dynamicRichTextBox.SelectionFont;
             int count;
-            count = Convert.ToInt32(SelectedText_Font.Size);
+          
             if (SelectedText_Font != null)
+            {
+                count = Convert.ToInt32(SelectedText_Font.Size);
                 dynamicRichTextBox.SelectionFont = new Font(SelectedText_Font.ToString(), --count);
+            }                
         }
-
 
 
         private void ToggleBold()

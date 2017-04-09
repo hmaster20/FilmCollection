@@ -57,7 +57,7 @@ namespace FilmCollection
 
         public bool Equals(Record rec)
         {
-            if (rec is Record && rec != null)
+            if (rec != null)
             {
                 //Record temp;
                 //temp = (Record)rec;

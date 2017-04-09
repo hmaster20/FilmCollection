@@ -112,7 +112,7 @@ namespace FilmCollection
 
         public bool Equals(Actor act)
         {
-            if (act is Actor && act != null)
+            if (act != null)
             {
                 return (act.FIO == this.FIO) ? true : false;
             }

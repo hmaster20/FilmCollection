@@ -11,7 +11,7 @@ namespace FilmCollection
 
         public bool Equals(Catalog emp)
         {
-            if (emp is Catalog && emp != null)
+            if (emp != null)
             {
                 Catalog temp;
                 temp = (Catalog)emp;

@@ -61,9 +61,23 @@ namespace FilmCollection
                 // Размер файла базы
                 long Size = files[i].Length;
                 string _size = "";
-                if (Size <= 1024) _size = Size.ToString() + " Байт";
-                else if (Size > 1024 && Size <= 1024 * 1024) _size = (Math.Round((float)Size / 1024)).ToString() + " КБ";
-                else if (Size > 1024 * 1024) _size = Math.Round(((double)Size / (1024 * 1024)), 1).ToString() + " МБ";
+
+                if (Size <= 1024)
+                {
+                    _size = Size.ToString() + " Байт";
+                }
+                if (1024 < Size && Size <= 1024 * 1024)
+                {
+                    _size = (Math.Round((float)Size / 1024)).ToString() + " КБ";
+                }
+                if (Size > 1024 * 1024)
+                {
+                    _size = Math.Round(((double)Size / (1024 * 1024)), 1).ToString() + " МБ";
+                }
+
+
+
+
                 li.SubItems.Add(_size);
             }
         }
