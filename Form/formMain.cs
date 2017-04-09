@@ -396,9 +396,10 @@ namespace FilmCollection
             FormLoad();
         }
 
-        private void UpdateBase()       // Добавить обновление базы
+        /// <summary>Добавить обновление базы</summary>
+        private void UpdateBase()
         {
-            if (_videoCollection.Options.Source == null && _videoCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
+            if (_videoCollection.Options.Source == null || _videoCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
                 MessageBox.Show("Необходимо создать базу данных.");
             else
             {
