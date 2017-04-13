@@ -618,11 +618,14 @@ namespace FilmCollection
 
         private static void History()
         {
-            string ChangeLog = "ChangeLog.txt";
-            if (File.Exists(ChangeLog))
-            {
-                Process.Start(ChangeLog);
-            }
+            fromChangeLog formLog = new fromChangeLog();
+            formLog.ShowDialog();
+
+            //string ChangeLog = "ChangeLog.txt";
+            //if (File.Exists(ChangeLog))
+            //{
+            //    Process.Start(ChangeLog);
+            //}
         }
 
         private static void AboutFC()
