@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Фильмотека")]
-[assembly: AssemblyDescription("Фильмотека - это специализированная программа для учета и хранения информации о фильмах и связанных с ними материалов. Программа  распространяется бесплатно по принципу «As is» («Как есть») без каких либо гарантий на бесперебойную работу и отсутствие ошибок. Пожелания, предложения и информацию об ошибках направляйте по адресу: support@it-enginer.ru")]
+[assembly: AssemblyDescription("Фильмотека - это специализированная программа для учета и хранения информации о фильмах и связанных с ними материалов. Программа  распространяется бесплатно по принципу «As is» («Как есть») без каких-либо гарантий на бесперебойную работу и отсутствие ошибок. Пожелания, предложения и информацию об ошибках направляйте по адресу: support@it-enginer.ru")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FilmCollection")]
