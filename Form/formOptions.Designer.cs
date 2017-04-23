@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.gBoxOptions = new System.Windows.Forms.GroupBox();
+            this.lCatalogPath = new System.Windows.Forms.Label();
+            this.lBasePath = new System.Windows.Forms.Label();
+            this.lCatalog = new System.Windows.Forms.Label();
+            this.lBase = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.lBase = new System.Windows.Forms.Label();
-            this.lCatalog = new System.Windows.Forms.Label();
             this.gBoxRecColumn = new System.Windows.Forms.GroupBox();
-            this.lBoxColumnSelected = new System.Windows.Forms.ListBox();
             this.clBoxColumn = new System.Windows.Forms.CheckedListBox();
-            this.lBasePath = new System.Windows.Forms.Label();
-            this.lCatalogPath = new System.Windows.Forms.Label();
+            this.lBoxColumnSelected = new System.Windows.Forms.ListBox();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +55,44 @@
             this.gBoxOptions.TabStop = false;
             this.gBoxOptions.Text = "Параметры";
             // 
+            // lCatalogPath
+            // 
+            this.lCatalogPath.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lCatalogPath.Location = new System.Drawing.Point(70, 50);
+            this.lCatalogPath.Name = "lCatalogPath";
+            this.lCatalogPath.Size = new System.Drawing.Size(418, 13);
+            this.lCatalogPath.TabIndex = 1;
+            this.lCatalogPath.Text = "Путь к каталогу фильмотеки";
+            // 
+            // lBasePath
+            // 
+            this.lBasePath.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lBasePath.Location = new System.Drawing.Point(70, 24);
+            this.lBasePath.Name = "lBasePath";
+            this.lBasePath.Size = new System.Drawing.Size(418, 13);
+            this.lBasePath.TabIndex = 1;
+            this.lBasePath.Text = "Путь к файлу базы";
+            // 
+            // lCatalog
+            // 
+            this.lCatalog.AutoSize = true;
+            this.lCatalog.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lCatalog.Location = new System.Drawing.Point(16, 50);
+            this.lCatalog.Name = "lCatalog";
+            this.lCatalog.Size = new System.Drawing.Size(51, 13);
+            this.lCatalog.TabIndex = 2;
+            this.lCatalog.Text = "Каталог:";
+            // 
+            // lBase
+            // 
+            this.lBase.AutoSize = true;
+            this.lBase.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lBase.Location = new System.Drawing.Point(16, 24);
+            this.lBase.Name = "lBase";
+            this.lBase.Size = new System.Drawing.Size(35, 13);
+            this.lBase.TabIndex = 1;
+            this.lBase.Text = "База:";
+            // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -67,32 +105,13 @@
             // 
             // button3
             // 
+            this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button3.Location = new System.Drawing.Point(311, 326);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 9;
             this.button3.Text = "Отмена";
             this.button3.UseVisualStyleBackColor = true;
-            // 
-            // lBase
-            // 
-            this.lBase.AutoSize = true;
-            this.lBase.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lBase.Location = new System.Drawing.Point(16, 24);
-            this.lBase.Name = "lBase";
-            this.lBase.Size = new System.Drawing.Size(35, 13);
-            this.lBase.TabIndex = 1;
-            this.lBase.Text = "База:";
-            // 
-            // lCatalog
-            // 
-            this.lCatalog.AutoSize = true;
-            this.lCatalog.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lCatalog.Location = new System.Drawing.Point(16, 50);
-            this.lCatalog.Name = "lCatalog";
-            this.lCatalog.Size = new System.Drawing.Size(51, 13);
-            this.lCatalog.TabIndex = 2;
-            this.lCatalog.Text = "Каталог:";
             // 
             // gBoxRecColumn
             // 
@@ -105,16 +124,6 @@
             this.gBoxRecColumn.TabStop = false;
             this.gBoxRecColumn.Text = "Настройка столбцов фильмотеки";
             // 
-            // lBoxColumnSelected
-            // 
-            this.lBoxColumnSelected.BackColor = System.Drawing.SystemColors.Control;
-            this.lBoxColumnSelected.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lBoxColumnSelected.FormattingEnabled = true;
-            this.lBoxColumnSelected.Location = new System.Drawing.Point(169, 23);
-            this.lBoxColumnSelected.Name = "lBoxColumnSelected";
-            this.lBoxColumnSelected.Size = new System.Drawing.Size(120, 169);
-            this.lBoxColumnSelected.TabIndex = 7;
-            // 
             // clBoxColumn
             // 
             this.clBoxColumn.BackColor = System.Drawing.SystemColors.Control;
@@ -125,23 +134,15 @@
             this.clBoxColumn.Size = new System.Drawing.Size(120, 165);
             this.clBoxColumn.TabIndex = 6;
             // 
-            // lBasePath
+            // lBoxColumnSelected
             // 
-            this.lBasePath.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lBasePath.Location = new System.Drawing.Point(70, 24);
-            this.lBasePath.Name = "lBasePath";
-            this.lBasePath.Size = new System.Drawing.Size(418, 13);
-            this.lBasePath.TabIndex = 1;
-            this.lBasePath.Text = "Путь к файлу базы";
-            // 
-            // lCatalogPath
-            // 
-            this.lCatalogPath.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lCatalogPath.Location = new System.Drawing.Point(70, 50);
-            this.lCatalogPath.Name = "lCatalogPath";
-            this.lCatalogPath.Size = new System.Drawing.Size(418, 13);
-            this.lCatalogPath.TabIndex = 1;
-            this.lCatalogPath.Text = "Путь к каталогу фильмотеки";
+            this.lBoxColumnSelected.BackColor = System.Drawing.SystemColors.Control;
+            this.lBoxColumnSelected.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lBoxColumnSelected.FormattingEnabled = true;
+            this.lBoxColumnSelected.Location = new System.Drawing.Point(169, 23);
+            this.lBoxColumnSelected.Name = "lBoxColumnSelected";
+            this.lBoxColumnSelected.Size = new System.Drawing.Size(120, 169);
+            this.lBoxColumnSelected.TabIndex = 7;
             // 
             // Options
             // 

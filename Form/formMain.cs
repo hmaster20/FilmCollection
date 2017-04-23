@@ -1232,7 +1232,7 @@ namespace FilmCollection
             panelView.BringToFront();               // Отображение панели описания
             Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
             if (record != null)
-            {
+             {
                 // Панель описания
                 tbfName.Text = record.mName;
                 tbfDesc.Text = record.mDescription;
@@ -2498,7 +2498,8 @@ namespace FilmCollection
 
         private void ChangeCatalogTypeVideo2_Click(object sender, EventArgs e)   // сделать каталог сериалом на основе имени каталога
         {
-            string treeFolderPath = treeFolder.SelectedNode.FullPath;
+            // string treeFolderPath = treeFolder.SelectedNode.FullPath;
+            string treeFolderPath = treeFolder.SelectedNode.Text;
 
             Combine cmNew = new Combine();
 
