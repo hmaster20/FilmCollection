@@ -915,3 +915,129 @@
                 //{
                 //    serializer.Serialize(stream, objectToSerialize);
                 //}
+
+
+				
+=================================================================================================================================================
+
+
+
+       //public void Save()
+        //{
+        //    Debug.Print(this.Options.Source);
+
+        //    // создаем новый поток
+        //    // Thread myThread = new Thread(new ThreadStart(Saver));
+        //    // myThread.Start(); // запускаем поток
+
+        //    //string filename = ...
+        //    //myClass a = new myClass();
+        //    //myClass b = (myClass)a.Clone();
+
+        //    RecordCollection RC = (RecordCollection)this.Clone();            
+        //    Thread thread = new Thread(() => Saver(RC));
+        //    thread.Start();
+        //    Thread.Sleep(5);
+        //}
+
+        //void Saver(RecordCollection th)
+        //{
+        //    XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, th);
+        //}
+
+
+=================================================================================================================================================
+
+
+
+
+
+		public static void SerializeAndSaveMemory(object objectToSerialize)
+        {
+            // MemoryStream streamCollection = SerializeToStream(objectToSerialize);
+
+            //XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
+            try
+            {
+                //using (MemoryStream stream = new MemoryStream())
+                //{
+                //    serializer.Serialize(stream, objectToSerialize);
+                //}
+
+
+                //serializer.Serialize(streamCollection, objectToSerialize);
+
+                streamCollection.Position = 0;
+                new XmlSerializer(objectToSerialize.GetType()).Serialize(streamCollection, objectToSerialize);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+
+=================================================================================================================================================
+
+        public static bool SerializeAndSave(string filename, object objectToSerialize)
+        {
+            XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
+            try
+            {
+                string FileWithPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename);
+
+                using (FileStream stream = new FileStream(FileWithPath, FileMode.Create))
+                {
+                    serializer.Serialize(stream, objectToSerialize);
+                }
+
+                SerializeAndSaveMemory(objectToSerialize);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+
+        public static void SerializeAndSaveMemory(object objectToSerialize)
+        {
+            XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
+            try
+            {
+                //using (MemoryStream stream = new MemoryStream())
+                //{
+                //    serializer.Serialize(stream, objectToSerialize);
+                //}
+               streamCollection.Position = 0;
+                serializer.Serialize(streamCollection, objectToSerialize);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+
+=================================================================================================================================================
+
+
+
+		
+        public static RecordCollection LoadSelector()
+        {
+            if (streamCollection != null && streamCollection.Length != 0)
+            {
+                return LoadAndDeserializeMemory<RecordCollection>();
+                // RecordCollection RC = (RecordCollection)DeserializeFromStream(streamCollection);
+                // return RC;
+            }
+            else
+            {
+                return LoadAndDeserialize<RecordCollection>(RecordOptions.BaseName);
+            }
+        }
+
+
