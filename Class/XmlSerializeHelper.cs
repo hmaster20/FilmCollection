@@ -101,8 +101,11 @@ namespace FilmCollection
             {
                 streamCollection.Seek(0, SeekOrigin.Begin);
                 return (T)serializer.Deserialize(streamCollection);
+               // var t = (T)serializer.Deserialize(streamCollection);
+               // return t;
             }
             catch (Exception ex) { throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message); }
+
         }
         #endregion
 
