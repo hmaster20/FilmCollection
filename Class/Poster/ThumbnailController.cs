@@ -60,9 +60,10 @@ namespace FilmCollection
 
         private void AddFolder(object folderPath)
         {
-            string path = (string)folderPath;
+            //string path = (string)folderPath;
             OnStart?.Invoke(this, new ThumbnailControllerEventArgs(null));
-            AddFolderIntern(path);
+            //AddFolderIntern(path);
+            AddFolderIntern((string)folderPath);
             OnEnd?.Invoke(this, new ThumbnailControllerEventArgs(null));
             CancelScanning = false;
         }
