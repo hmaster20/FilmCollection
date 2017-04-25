@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\InputLanguages.cs" />
+    <Compile Include="Class\MemoryMapped.cs" />
     <Compile Include="Class\UpdateService.cs">
       <SubType>Component</SubType>
     </Compile>
