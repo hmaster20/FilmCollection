@@ -218,7 +218,10 @@ namespace FilmCollection
             {
                 _videoCollection.Clear();
 
-                try { _videoCollection = RecordCollection.Load(); }
+                try
+                {
+                    _videoCollection = RecordCollection.Load();
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
@@ -266,8 +269,11 @@ namespace FilmCollection
             if (dialog == DialogResult.Yes) Application.ExitThread();
             else if (dialog == DialogResult.No) e.Cancel = true;
 
-            _videoCollection.Save();
             SaveFormVisualEffect();
+
+            //_videoCollection.Save();
+            _videoCollection.SaveToFile();
+
         }
 
         private void LoadFormVisualEffect()
@@ -1235,7 +1241,7 @@ namespace FilmCollection
             panelView.BringToFront();               // Отображение панели описания
             Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
             if (record != null)
-             {
+            {
                 // Панель описания
                 tbfName.Text = record.mName;
                 tbfDesc.Text = record.mDescription;
