@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace FilmCollection
 {
     /// <summary>Класс управления коллекцией фильмотеки</summary>
-    public class RecordCollection : ICloneable
+    public class RecordCollection   // : ICloneable
     {
         [XmlElement]
         public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
@@ -61,37 +61,14 @@ namespace FilmCollection
 
         #region Сериализация
 
-        /// <summary>Сохранение (Сериализация) коллекции в файл XML</summary>
-        //public void Save() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
 
+
+        /// <summary>Сохранение (Сериализация) коллекции в MemoryStream</summary>
         public void Save() => XmlSerializeHelper.SerializeAndSaveMemory(this);
 
+        /// <summary>Сохранение (Сериализация) коллекции в файл XML</summary>
         public void SaveToFile() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
 
-
-
-        //public void Save()
-        //{
-        //    Debug.Print(this.Options.Source);
-
-        //    // создаем новый поток
-        //    // Thread myThread = new Thread(new ThreadStart(Saver));
-        //    // myThread.Start(); // запускаем поток
-
-        //    //string filename = ...
-        //    //myClass a = new myClass();
-        //    //myClass b = (myClass)a.Clone();
-
-        //    RecordCollection RC = (RecordCollection)this.Clone();            
-        //    Thread thread = new Thread(() => Saver(RC));
-        //    thread.Start();
-        //    Thread.Sleep(5);
-        //}
-
-        //void Saver(RecordCollection th)
-        //{
-        //    XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, th);
-        //}
 
 
         /// <summary>Загрузка (деСериализация) объектов из файла XML</summary>
@@ -141,10 +118,11 @@ namespace FilmCollection
             return result;
         }
 
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+
+        //public object Clone()
+        //{
+        //    return this.MemberwiseClone();
+        //}
 
         #endregion
     }
