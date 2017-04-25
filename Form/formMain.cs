@@ -2512,7 +2512,9 @@ namespace FilmCollection
 
             Combine cmNew = new Combine();
 
-            cmNew.media.Name = (Regex.Replace(treeFolderPath, @"[0-9]{4}", string.Empty)).Trim('.');       // название без года
+            //cmNew.media.Name = (Regex.Replace(treeFolderPath, @"[0-9]{4}", string.Empty)).Trim('.');       // название без года
+            treeFolderPath = (Regex.Replace(treeFolderPath, @"[0-9]", string.Empty)).Trim('.');
+            cmNew.media.Name = (Regex.Replace(treeFolderPath, @"[^\w\s]", "", RegexOptions.Compiled)).Trim();
             cmNew.media.Id = RecordCollection.GetMediaID();
             cmNew.media.Category = CategoryVideo.Series;
 
@@ -3200,9 +3202,9 @@ namespace FilmCollection
         private void m_Controller_OnEnd(object sender, ThumbnailControllerEventArgs e)
         {
             // thread safe
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.Invoke(new ThumbnailControllerEventHandler(m_Controller_OnEnd), sender, e);
+                Invoke(new ThumbnailControllerEventHandler(m_Controller_OnEnd), sender, e);
             }
             else
             {
@@ -3221,11 +3223,9 @@ namespace FilmCollection
             // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
             if (IsHandleCreated)
             {
-
-                if (this.InvokeRequired)
+                if (InvokeRequired)
                 {
-                    this.Invoke(m_AddImageDelegate, imageFilename); // exception dispose //Необработанное исключение типа "System.InvalidOperationException" в System.Windows.Forms.dll
-                                                                    // {"Невозможно вызвать Invoke или BeginInvoke для элемента управления до завершения создания дескриптора окна."}
+                    Invoke(m_AddImageDelegate, imageFilename); 
                 }
                 else
                 {
