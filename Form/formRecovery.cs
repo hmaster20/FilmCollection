@@ -43,6 +43,9 @@ namespace FilmCollection
                     if (files[i].Length < 2 || subStrings.Length == 4)
                         continue;   // если видимость сбойных файлов отключена, то пропускаем
 
+                if (subStrings.Length < 3)
+                    continue;   // пропускаем файлы без даты
+
                 ListViewItem li = new ListViewItem();
 
                 // Дата файла
