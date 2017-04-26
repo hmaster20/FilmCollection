@@ -73,13 +73,21 @@ namespace FilmCollection
 
         /// <summary>Загрузка (деСериализация) объектов из файла XML</summary>
         /// <returns>Возвращает коллекцию RecordCollection</returns>
-        public static RecordCollection Load()
+        public static RecordCollection Load(bool fromFile = false)
         {
             RecordCollection result;
             try
             {
                 //result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
-                result = XmlSerializeHelper.LoadSelector();
+                //result = XmlSerializeHelper.LoadSelector();
+                if (fromFile)
+                {
+                    result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
+                }
+                else
+                {
+                    result = XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+                }
 
                 Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
 
