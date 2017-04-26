@@ -172,7 +172,7 @@ namespace FilmCollection
 
         private void Main_Load(object sender, EventArgs e)  // Загрузка формы
         {
-            ChangeStatusMenuButton(FormLoad());
+            ChangeStatusMenuButton(FormLoad(true));
         }
 
         private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
@@ -210,7 +210,7 @@ namespace FilmCollection
         private void ShowWindow_Click(object sender, EventArgs e) => RestoreWindow();
 
 
-        private bool FormLoad()
+        private bool FormLoad(bool LoadfromFile = false)
         {
             bool state = false;
 
@@ -220,7 +220,7 @@ namespace FilmCollection
 
                 try
                 {
-                    _videoCollection = RecordCollection.Load();
+                    _videoCollection = RecordCollection.Load(LoadfromFile);
                 }
                 catch (Exception ex)
                 {
@@ -437,9 +437,9 @@ namespace FilmCollection
                                 CreateCombine(file); // если файла нет в коллекции, создаем     
                         }
 
-                        _videoCollection.Save();    // если все прошло гладко, то сохраняем в файл базы
+                        _videoCollection.SaveToFile();    // если все прошло гладко, то сохраняем в файл базы
 
-                        FormLoad();                 // и перегружаем главную форму
+                        FormLoad(true);                 // и перегружаем главную форму
                         MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
                     }
                     else
@@ -544,7 +544,7 @@ namespace FilmCollection
                 catch (IOException ex) { MessageBox.Show(ex.Message); }
 
                 MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
-                FormLoad();
+                FormLoad(true);
             }
         }
 
