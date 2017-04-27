@@ -71,6 +71,17 @@ namespace FilmCollection
 
 
 
+
+        public static void test()
+        {
+            Thread myThreadR = new Thread(XmlSerializeHelper.LoadSelector);
+            myThreadR.Name = "Поток R";
+            myThreadR.Start();
+        }
+
+
+
+
         /// <summary>Загрузка (деСериализация) объектов из файла XML</summary>
         /// <returns>Возвращает коллекцию RecordCollection</returns>
         public static RecordCollection Load(bool fromFile = false)

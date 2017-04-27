@@ -5,7 +5,7 @@ using System.Text;
 using System.IO.MemoryMappedFiles;
 using System.IO;
 
-namespace FilmCollection.Class
+namespace FilmCollection
 {
     class MemoryMapped
     {

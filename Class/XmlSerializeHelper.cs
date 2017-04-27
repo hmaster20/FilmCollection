@@ -35,6 +35,7 @@ namespace FilmCollection
         {
             try
             {
+
                 streamCollection = new MemoryStream();
                 //streamCollection.Position = 0;
                 new XmlSerializer(objectToSerialize.GetType()).Serialize(streamCollection, objectToSerialize);
@@ -64,6 +65,18 @@ namespace FilmCollection
         //        return LoadAndDeserialize<RecordCollection>(RecordOptions.BaseName);
         //    }
         //}
+
+
+        static object locker = new object();
+        public static void LoadSelector()
+        {
+            lock (locker)
+            {
+             
+
+
+            }
+        }
 
 
         public static T LoadAndDeserialize<T>(this string filename)

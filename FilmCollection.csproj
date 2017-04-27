@@ -87,8 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\InputLanguages.cs" />
-    <Compile Include="Class\MemoryMapped.cs" />
-    <Compile Include="Class\UpdateService.cs">
+    <Compile Include="Class_Test\ManagedObjectMMF.cs" />
+    <Compile Include="Class_Test\MemoryMapped.cs" />
+    <Compile Include="Class_Test\UpdateService.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Class\Poster\ImageViewer.cs">
