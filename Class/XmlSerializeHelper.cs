@@ -7,8 +7,8 @@ namespace FilmCollection
 {
     public static class XmlSerializeHelper
     {
-        static MemoryStream streamCollection = new MemoryStream();
-
+        //static MemoryStream streamCollection = new MemoryStream();
+        static MemoryStream streamCollection;
 
         #region Сохранение путем сериализации
 
@@ -35,7 +35,8 @@ namespace FilmCollection
         {
             try
             {
-                streamCollection.Position = 0;
+                streamCollection = new MemoryStream();
+                //streamCollection.Position = 0;
                 new XmlSerializer(objectToSerialize.GetType()).Serialize(streamCollection, objectToSerialize);
             }
             catch (Exception e)
@@ -51,18 +52,18 @@ namespace FilmCollection
 
         #region Загрузка путем десериализации
 
-        /// <summary>Селектор загрузки</summary>
-        public static RecordCollection LoadSelector()
-        {
-            if (streamCollection != null && streamCollection.Length != 0)
-            {
-                return LoadAndDeserializeMemory<RecordCollection>();
-            }
-            else
-            {
-                return LoadAndDeserialize<RecordCollection>(RecordOptions.BaseName);
-            }
-        }
+        ///// <summary>Селектор загрузки</summary>
+        //public static RecordCollection LoadSelector()
+        //{
+        //    if (streamCollection != null && streamCollection.Length != 0)
+        //    {
+        //        return LoadAndDeserializeMemory<RecordCollection>();
+        //    }
+        //    else
+        //    {
+        //        return LoadAndDeserialize<RecordCollection>(RecordOptions.BaseName);
+        //    }
+        //}
 
 
         public static T LoadAndDeserialize<T>(this string filename)
@@ -89,18 +90,20 @@ namespace FilmCollection
             catch (Exception ex) { throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message); }
         }
 
+
         public static T LoadAndDeserializeMemory<T>()
         {
             if (streamCollection == null)
                 throw new Exception("Некорректный поток");
-
-
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-
+            
             try
             {
-                streamCollection.Seek(0, SeekOrigin.Begin);
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+                //streamCollection.Seek(0, SeekOrigin.Begin);
+                streamCollection.Position = 0;
                 return (T)serializer.Deserialize(streamCollection);
+
                // var t = (T)serializer.Deserialize(streamCollection);
                // return t;
             }
