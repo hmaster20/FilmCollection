@@ -2507,21 +2507,23 @@ namespace FilmCollection
 
         private void ChangeCatalogTypeVideo2_Click(object sender, EventArgs e)   // сделать каталог сериалом на основе имени каталога
         {
-            // string treeFolderPath = treeFolder.SelectedNode.FullPath;
-            string treeFolderPath = treeFolder.SelectedNode.Text;
+            string treeFolderPath = treeFolder.SelectedNode.FullPath;
+
+            string FolderName = "";
+            FolderName = (Regex.Replace(treeFolder.SelectedNode.Text, @"[0-9]", string.Empty)).Trim('.');
+            FolderName = (Regex.Replace(FolderName, @"[^\w\s]", "", RegexOptions.Compiled)).Trim();
+
 
             Combine cmNew = new Combine();
-
-            //cmNew.media.Name = (Regex.Replace(treeFolderPath, @"[0-9]{4}", string.Empty)).Trim('.');       // название без года
-            treeFolderPath = (Regex.Replace(treeFolderPath, @"[0-9]", string.Empty)).Trim('.');
-            cmNew.media.Name = (Regex.Replace(treeFolderPath, @"[^\w\s]", "", RegexOptions.Compiled)).Trim();
+            cmNew.media.Name = FolderName;
             cmNew.media.Id = RecordCollection.GetMediaID();
             cmNew.media.Category = CategoryVideo.Series;
+
 
             List<Record> filtered = new List<Record>();
             _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
-            filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
+            filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + treeFolderPath));
 
             foreach (Record rec in filtered)
                 cmNew.recordList.Add(rec);
@@ -2530,12 +2532,12 @@ namespace FilmCollection
                 _videoCollection.CombineList.Remove(rec.combineLink);
 
             _videoCollection.CombineList.Add(cmNew);
-            _videoCollection.Save();
+            //_videoCollection.Save();
+            _videoCollection.SaveToFile();
 
+            FormLoad(true);
 
-            FormLoad();
-
-            PrepareRefresh(treeFolderPath, true);
+            PrepareRefresh(FolderName, true);
         }
 
         private void UpdateCatalogInfo_Click(object sender, EventArgs e)
@@ -3225,7 +3227,7 @@ namespace FilmCollection
             {
                 if (InvokeRequired)
                 {
-                    Invoke(m_AddImageDelegate, imageFilename); 
+                    Invoke(m_AddImageDelegate, imageFilename);
                 }
                 else
                 {
