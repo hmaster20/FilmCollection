@@ -1041,3 +1041,23 @@
         }
 
 
+=================================================================================================================================================
+
+	Необработанное исключение типа "System.ObjectDisposedException" в System.Windows.Forms.dll
+   {"Доступ к ликвидированному объекту невозможен.\r\nИмя объекта: \"MainForm\"."}
+      65:   AddFolderIntern(folderPath);
+	 103:	OnAdd(this, new ThumbnailControllerEventArgs(file));
+	3196:	AddImage(e.ImageFilename);
+	3227:	this.Invoke(m_AddImageDelegate, imageFilename); 
+   
+   в System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   в System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   в FilmCollection.MainForm.AddImage(String imageFilename) в R:\Repository\FilmCollection\Form\formMain.cs:строка 3227
+   в FilmCollection.MainForm.m_Controller_OnAdd(Object sender, ThumbnailControllerEventArgs e) в R:\Repository\FilmCollection\Form\formMain.cs:строка 3196
+   в FilmCollection.ThumbnailController.AddFolderIntern(String folderPath) в R:\Repository\FilmCollection\Class\Poster\ThumbnailController.cs:строка 103
+   в FilmCollection.ThumbnailController.AddFolder(Object folderPath) в R:\Repository\FilmCollection\Class\Poster\ThumbnailController.cs:строка 65  
+   
+   в System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   в System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   в System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   в System.Threading.ThreadHelper.ThreadStart(Object obj)
