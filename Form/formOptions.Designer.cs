@@ -36,9 +36,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.gBoxRecColumn = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.clBoxColumn = new System.Windows.Forms.CheckedListBox();
             this.lBoxColumnSelected = new System.Windows.Forms.ListBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.SuspendLayout();
@@ -116,6 +117,7 @@
             // 
             // gBoxRecColumn
             // 
+            this.gBoxRecColumn.Controls.Add(this.button4);
             this.gBoxRecColumn.Controls.Add(this.button2);
             this.gBoxRecColumn.Controls.Add(this.clBoxColumn);
             this.gBoxRecColumn.Controls.Add(this.lBoxColumnSelected);
@@ -125,6 +127,16 @@
             this.gBoxRecColumn.TabIndex = 5;
             this.gBoxRecColumn.TabStop = false;
             this.gBoxRecColumn.Text = "Настройка столбцов фильмотеки";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(363, 169);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // clBoxColumn
             // 
@@ -146,15 +158,15 @@
             this.lBoxColumnSelected.Size = new System.Drawing.Size(120, 169);
             this.lBoxColumnSelected.TabIndex = 7;
             // 
-            // button2
+            // button4
             // 
-            this.button2.Location = new System.Drawing.Point(363, 169);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button4.Location = new System.Drawing.Point(198, 169);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Options
             // 
@@ -192,5 +204,6 @@
         private System.Windows.Forms.Label lCatalogPath;
         private System.Windows.Forms.Label lBasePath;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
     }
 }

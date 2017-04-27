@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -17,11 +18,13 @@ namespace FilmCollection
         {
             try
             {
+                Debug.Print("SerializeAndSave : " + DateTime.Now.ToString());
                 using (FileStream stream = new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename)), FileMode.Create))
                 {
                     new XmlSerializer(objectToSerialize.GetType()).Serialize(stream, objectToSerialize);
                 }
-                SerializeAndSaveMemory(objectToSerialize);
+                Debug.Print("SerializeAndSave : " + DateTime.Now.ToString());
+               // SerializeAndSaveMemory(objectToSerialize);
             }
             catch (Exception e)
             {
@@ -35,10 +38,10 @@ namespace FilmCollection
         {
             try
             {
-
+                Debug.Print("SerializeAndSaveMemory : " + DateTime.Now.ToString());
                 streamCollection = new MemoryStream();
-                //streamCollection.Position = 0;
                 new XmlSerializer(objectToSerialize.GetType()).Serialize(streamCollection, objectToSerialize);
+                Debug.Print("SerializeAndSaveMemory : " + DateTime.Now.ToString());
             }
             catch (Exception e)
             {
@@ -70,11 +73,16 @@ namespace FilmCollection
         static object locker = new object();
         public static void LoadSelector()
         {
+            Debug.Print("locker : " + DateTime.Now.ToString());
             lock (locker)
             {
-             
-
-
+                Debug.Print("LoadSelector : " + DateTime.Now.ToString());
+                using (FileStream stream = new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName)), FileMode.Create))
+                {
+                    streamCollection.Position = 0;
+                    streamCollection.CopyTo(stream);
+                }
+                Debug.Print("LoadSelector : " + DateTime.Now.ToString());
             }
         }
 
