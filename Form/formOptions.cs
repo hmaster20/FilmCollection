@@ -32,5 +32,10 @@ namespace FilmCollection
             //    checkedListBox1.Items.Add(dc.ColumnName);
             //}
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ManagedMMF.Program.MAIN_();
+        }
     }
 }

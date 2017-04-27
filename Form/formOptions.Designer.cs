@@ -38,6 +38,7 @@
             this.gBoxRecColumn = new System.Windows.Forms.GroupBox();
             this.clBoxColumn = new System.Windows.Forms.CheckedListBox();
             this.lBoxColumnSelected = new System.Windows.Forms.ListBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.SuspendLayout();
@@ -115,6 +116,7 @@
             // 
             // gBoxRecColumn
             // 
+            this.gBoxRecColumn.Controls.Add(this.button2);
             this.gBoxRecColumn.Controls.Add(this.clBoxColumn);
             this.gBoxRecColumn.Controls.Add(this.lBoxColumnSelected);
             this.gBoxRecColumn.Location = new System.Drawing.Point(15, 12);
@@ -143,6 +145,16 @@
             this.lBoxColumnSelected.Name = "lBoxColumnSelected";
             this.lBoxColumnSelected.Size = new System.Drawing.Size(120, 169);
             this.lBoxColumnSelected.TabIndex = 7;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(363, 169);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Options
             // 
@@ -179,5 +191,6 @@
         private System.Windows.Forms.ListBox lBoxColumnSelected;
         private System.Windows.Forms.Label lCatalogPath;
         private System.Windows.Forms.Label lBasePath;
+        private System.Windows.Forms.Button button2;
     }
 }
