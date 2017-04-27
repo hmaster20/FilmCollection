@@ -90,10 +90,10 @@
             this.linkLabelHome.AutoSize = true;
             this.linkLabelHome.Location = new System.Drawing.Point(237, 98);
             this.linkLabelHome.Name = "linkLabelHome";
-            this.linkLabelHome.Size = new System.Drawing.Size(98, 13);
+            this.linkLabelHome.Size = new System.Drawing.Size(93, 13);
             this.linkLabelHome.TabIndex = 24;
             this.linkLabelHome.TabStop = true;
-            this.linkLabelHome.Text = "http://it-enginer.ru/";
+            this.linkLabelHome.Text = "http://it-enginer.ru";
             this.linkLabelHome.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHome_LinkClicked);
             // 
             // labelHome
