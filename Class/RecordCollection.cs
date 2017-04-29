@@ -72,11 +72,17 @@ namespace FilmCollection
 
 
 
-        public static void test()
+        public void test()
         {
-            Thread myThreadR = new Thread(XmlSerializeHelper.LoadSelector);
-            myThreadR.Name = "Поток R";
-            myThreadR.Start();
+            Thread ThreadSave = new Thread(SaveRuntime);
+            ThreadSave.Name = "Запуск автоматического сохранения";
+            ThreadSave.Start();
+        }
+
+        public void SaveRuntime()
+        {
+            XmlSerializeHelper.SerializeAndSaveMemory(this);
+            XmlSerializeHelper.FromMemoryToSaveToFile();
         }
 
 

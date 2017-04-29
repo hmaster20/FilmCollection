@@ -40,7 +40,7 @@ namespace FilmCollection
 
         private void button4_Click(object sender, EventArgs e)
         {
-            XmlSerializeHelper.LoadSelector();
+            XmlSerializeHelper.FromMemoryToSaveToFile();
         }
     }
 }
