@@ -67,23 +67,22 @@ namespace FilmCollection
         public void Save() => XmlSerializeHelper.SerializeAndSaveMemory(this);
 
         /// <summary>Сохранение (Сериализация) коллекции в файл XML</summary>
-        public void SaveToFile() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
+       // public void SaveToFile() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
+        public void SaveToFile() => XmlSerializeHelper.FromMemoryToSaveToFile();
 
 
+        //public void test()
+        //{
+        //    Thread ThreadSave = new Thread(SaveRuntime);
+        //    ThreadSave.Name = "Запуск автоматического сохранения";
+        //    ThreadSave.Start();
+        //}
 
-
-        public void test()
-        {
-            Thread ThreadSave = new Thread(SaveRuntime);
-            ThreadSave.Name = "Запуск автоматического сохранения";
-            ThreadSave.Start();
-        }
-
-        public void SaveRuntime()
-        {
-            XmlSerializeHelper.SerializeAndSaveMemory(this);
-            XmlSerializeHelper.FromMemoryToSaveToFile();
-        }
+        //public void SaveRuntime()
+        //{
+        //    XmlSerializeHelper.SerializeAndSaveMemory(this);
+        //    XmlSerializeHelper.FromMemoryToSaveToFile();
+        //}
 
 
 

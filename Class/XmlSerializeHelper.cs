@@ -19,7 +19,8 @@ namespace FilmCollection
         {
             try
             {
-                FileStream stream = NewMethod(filename);
+                //FileStream stream = NewMethod(filename);
+                FileStream stream = new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename)), FileMode.Create);
                 {
                     new XmlSerializer(objectToSerialize.GetType()).Serialize(stream, objectToSerialize);
                 }
@@ -35,14 +36,14 @@ namespace FilmCollection
             return true;
         }
 
-        static object lockr = new object();
-        private static FileStream NewMethod(string filename)
-        {
-            lock (lockr)
-            {
-                return new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename)), FileMode.Create);
-            }
-        }
+        //static object lockr = new object();
+        //private static FileStream NewMethod(string filename)
+        //{
+        //    lock (lockr)
+        //    {
+        //        return new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename)), FileMode.Create);
+        //    }
+        //}
 
         public static void SerializeAndSaveMemory(object obj)
         {
