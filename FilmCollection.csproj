@@ -241,6 +241,7 @@
     <Content Include="Resources\grabber.png" />
     <Content Include="Resources\help.png" />
     <Content Include="Resources\help_run.png" />
+    <Content Include="Resources\hidePanel.png" />
     <Content Include="Resources\lock.png" />
     <Content Include="Resources\play.png" />
     <Content Include="Resources\resetFiltr.png" />

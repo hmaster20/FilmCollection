@@ -192,25 +192,6 @@
             this.btnResetFilterAct = new System.Windows.Forms.ToolStripMenuItem();
             this.tsActCountryFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tsActSort = new System.Windows.Forms.ToolStripComboBox();
-            this.panelViewAct = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listViewFilmV = new System.Windows.Forms.ListView();
-            this.column1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.column2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.column3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.tbFIOv = new System.Windows.Forms.TextBox();
-            this.tbCountryAv = new System.Windows.Forms.TextBox();
-            this.linkBIOv = new System.Windows.Forms.LinkLabel();
-            this.maskDateOfBirthV = new System.Windows.Forms.MaskedTextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.maskDateOfDeathV = new System.Windows.Forms.MaskedTextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
             this.panelEditAct = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listViewFilm = new System.Windows.Forms.ListView();
@@ -239,6 +220,25 @@
             this.btnCancelActor = new System.Windows.Forms.Button();
             this.btnNewActor = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.panelViewAct = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listViewFilmV = new System.Windows.Forms.ListView();
+            this.column1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tbFIOv = new System.Windows.Forms.TextBox();
+            this.tbCountryAv = new System.Windows.Forms.TextBox();
+            this.linkBIOv = new System.Windows.Forms.LinkLabel();
+            this.maskDateOfBirthV = new System.Windows.Forms.MaskedTextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.maskDateOfDeathV = new System.Windows.Forms.MaskedTextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.tabImage = new System.Windows.Forms.TabPage();
             this.panelMain = new System.Windows.Forms.Panel();
             this.flowLayoutPanelMain = new System.Windows.Forms.FlowLayoutPanel();
@@ -260,6 +260,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
+            this.tsHidePanel = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -296,12 +297,12 @@
             this.scTabActors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).BeginInit();
             this.menuTableAct.SuspendLayout();
-            this.panelViewAct.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.panelEditAct.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.gActAbout.SuspendLayout();
+            this.panelViewAct.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.tabImage.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -972,6 +973,7 @@
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
+            this.scTabFilm.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(966, 608);
             this.scTabFilm.SplitterDistance = 592;
@@ -2017,202 +2019,6 @@
             this.tsActSort.Size = new System.Drawing.Size(121, 23);
             this.tsActSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
-            // panelViewAct
-            // 
-            this.panelViewAct.Controls.Add(this.groupBox2);
-            this.panelViewAct.Controls.Add(this.groupBox3);
-            this.panelViewAct.Controls.Add(this.label26);
-            this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelViewAct.Location = new System.Drawing.Point(0, 0);
-            this.panelViewAct.Name = "panelViewAct";
-            this.panelViewAct.Size = new System.Drawing.Size(423, 606);
-            this.panelViewAct.TabIndex = 1;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.listViewFilmV);
-            this.groupBox2.Location = new System.Drawing.Point(20, 198);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(391, 302);
-            this.groupBox2.TabIndex = 64;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Фильмография";
-            // 
-            // listViewFilmV
-            // 
-            this.listViewFilmV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.column1,
-            this.column2,
-            this.column3});
-            this.listViewFilmV.FullRowSelect = true;
-            this.listViewFilmV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewFilmV.Location = new System.Drawing.Point(15, 19);
-            this.listViewFilmV.MultiSelect = false;
-            this.listViewFilmV.Name = "listViewFilmV";
-            this.listViewFilmV.ShowGroups = false;
-            this.listViewFilmV.Size = new System.Drawing.Size(364, 261);
-            this.listViewFilmV.TabIndex = 62;
-            this.listViewFilmV.UseCompatibleStateImageBehavior = false;
-            this.listViewFilmV.View = System.Windows.Forms.View.Details;
-            this.listViewFilmV.DoubleClick += new System.EventHandler(this.listViewFilmV_DoubleClick);
-            // 
-            // column1
-            // 
-            this.column1.Text = "";
-            this.column1.Width = 200;
-            // 
-            // column2
-            // 
-            this.column2.Text = "";
-            this.column2.Width = 100;
-            // 
-            // column3
-            // 
-            this.column3.Text = "";
-            this.column3.Width = 45;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.tbFIOv);
-            this.groupBox3.Controls.Add(this.tbCountryAv);
-            this.groupBox3.Controls.Add(this.linkBIOv);
-            this.groupBox3.Controls.Add(this.maskDateOfBirthV);
-            this.groupBox3.Controls.Add(this.label20);
-            this.groupBox3.Controls.Add(this.label21);
-            this.groupBox3.Controls.Add(this.maskDateOfDeathV);
-            this.groupBox3.Controls.Add(this.label22);
-            this.groupBox3.Controls.Add(this.label23);
-            this.groupBox3.Controls.Add(this.label24);
-            this.groupBox3.Controls.Add(this.label25);
-            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(20, 30);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(391, 157);
-            this.groupBox3.TabIndex = 63;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Информация об актере";
-            // 
-            // tbFIOv
-            // 
-            this.tbFIOv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFIOv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbFIOv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbFIOv.Location = new System.Drawing.Point(98, 24);
-            this.tbFIOv.Name = "tbFIOv";
-            this.tbFIOv.ReadOnly = true;
-            this.tbFIOv.Size = new System.Drawing.Size(278, 16);
-            this.tbFIOv.TabIndex = 66;
-            // 
-            // tbCountryAv
-            // 
-            this.tbCountryAv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCountryAv.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbCountryAv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbCountryAv.Location = new System.Drawing.Point(98, 92);
-            this.tbCountryAv.Name = "tbCountryAv";
-            this.tbCountryAv.ReadOnly = true;
-            this.tbCountryAv.Size = new System.Drawing.Size(278, 16);
-            this.tbCountryAv.TabIndex = 66;
-            // 
-            // linkBIOv
-            // 
-            this.linkBIOv.Location = new System.Drawing.Point(98, 123);
-            this.linkBIOv.Name = "linkBIOv";
-            this.linkBIOv.Padding = new System.Windows.Forms.Padding(3);
-            this.linkBIOv.Size = new System.Drawing.Size(281, 23);
-            this.linkBIOv.TabIndex = 65;
-            this.linkBIOv.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBIOv_LinkClicked);
-            // 
-            // maskDateOfBirthV
-            // 
-            this.maskDateOfBirthV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskDateOfBirthV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskDateOfBirthV.Location = new System.Drawing.Point(108, 57);
-            this.maskDateOfBirthV.Mask = "00/00/0000";
-            this.maskDateOfBirthV.Name = "maskDateOfBirthV";
-            this.maskDateOfBirthV.ReadOnly = true;
-            this.maskDateOfBirthV.Size = new System.Drawing.Size(87, 16);
-            this.maskDateOfBirthV.TabIndex = 58;
-            this.maskDateOfBirthV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(49, 26);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(46, 13);
-            this.label20.TabIndex = 52;
-            this.label20.Text = "Ф.И.О.:";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(32, 127);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(66, 13);
-            this.label21.TabIndex = 54;
-            this.label21.Text = "Биография:";
-            // 
-            // maskDateOfDeathV
-            // 
-            this.maskDateOfDeathV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.maskDateOfDeathV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskDateOfDeathV.Location = new System.Drawing.Point(227, 56);
-            this.maskDateOfDeathV.Mask = "00/00/0000";
-            this.maskDateOfDeathV.Name = "maskDateOfDeathV";
-            this.maskDateOfDeathV.ReadOnly = true;
-            this.maskDateOfDeathV.Size = new System.Drawing.Size(156, 16);
-            this.maskDateOfDeathV.TabIndex = 58;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(49, 93);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(46, 13);
-            this.label22.TabIndex = 54;
-            this.label22.Text = "Страна:";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(22, 59);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(71, 13);
-            this.label23.TabIndex = 53;
-            this.label23.Text = "Годы жизни:";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(96, 59);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(13, 13);
-            this.label24.TabIndex = 53;
-            this.label24.Text = "с";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(200, 59);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(19, 13);
-            this.label25.TabIndex = 53;
-            this.label25.Text = "по";
-            // 
-            // label26
-            // 
-            this.label26.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label26.Location = new System.Drawing.Point(0, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(423, 27);
-            this.label26.TabIndex = 1;
-            this.label26.Text = "Информация об актере";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // panelEditAct
             // 
             this.panelEditAct.Controls.Add(this.groupBox1);
@@ -2499,6 +2305,202 @@
             this.label8.Text = "Панель редактирования";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panelViewAct
+            // 
+            this.panelViewAct.Controls.Add(this.groupBox2);
+            this.panelViewAct.Controls.Add(this.groupBox3);
+            this.panelViewAct.Controls.Add(this.label26);
+            this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelViewAct.Location = new System.Drawing.Point(0, 0);
+            this.panelViewAct.Name = "panelViewAct";
+            this.panelViewAct.Size = new System.Drawing.Size(423, 606);
+            this.panelViewAct.TabIndex = 1;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.listViewFilmV);
+            this.groupBox2.Location = new System.Drawing.Point(20, 198);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(391, 302);
+            this.groupBox2.TabIndex = 64;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Фильмография";
+            // 
+            // listViewFilmV
+            // 
+            this.listViewFilmV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.column1,
+            this.column2,
+            this.column3});
+            this.listViewFilmV.FullRowSelect = true;
+            this.listViewFilmV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.listViewFilmV.Location = new System.Drawing.Point(15, 19);
+            this.listViewFilmV.MultiSelect = false;
+            this.listViewFilmV.Name = "listViewFilmV";
+            this.listViewFilmV.ShowGroups = false;
+            this.listViewFilmV.Size = new System.Drawing.Size(364, 261);
+            this.listViewFilmV.TabIndex = 62;
+            this.listViewFilmV.UseCompatibleStateImageBehavior = false;
+            this.listViewFilmV.View = System.Windows.Forms.View.Details;
+            this.listViewFilmV.DoubleClick += new System.EventHandler(this.listViewFilmV_DoubleClick);
+            // 
+            // column1
+            // 
+            this.column1.Text = "";
+            this.column1.Width = 200;
+            // 
+            // column2
+            // 
+            this.column2.Text = "";
+            this.column2.Width = 100;
+            // 
+            // column3
+            // 
+            this.column3.Text = "";
+            this.column3.Width = 45;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.tbFIOv);
+            this.groupBox3.Controls.Add(this.tbCountryAv);
+            this.groupBox3.Controls.Add(this.linkBIOv);
+            this.groupBox3.Controls.Add(this.maskDateOfBirthV);
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.label21);
+            this.groupBox3.Controls.Add(this.maskDateOfDeathV);
+            this.groupBox3.Controls.Add(this.label22);
+            this.groupBox3.Controls.Add(this.label23);
+            this.groupBox3.Controls.Add(this.label24);
+            this.groupBox3.Controls.Add(this.label25);
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Location = new System.Drawing.Point(20, 30);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(391, 157);
+            this.groupBox3.TabIndex = 63;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Информация об актере";
+            // 
+            // tbFIOv
+            // 
+            this.tbFIOv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFIOv.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbFIOv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbFIOv.Location = new System.Drawing.Point(98, 24);
+            this.tbFIOv.Name = "tbFIOv";
+            this.tbFIOv.ReadOnly = true;
+            this.tbFIOv.Size = new System.Drawing.Size(278, 16);
+            this.tbFIOv.TabIndex = 66;
+            // 
+            // tbCountryAv
+            // 
+            this.tbCountryAv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbCountryAv.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbCountryAv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbCountryAv.Location = new System.Drawing.Point(98, 92);
+            this.tbCountryAv.Name = "tbCountryAv";
+            this.tbCountryAv.ReadOnly = true;
+            this.tbCountryAv.Size = new System.Drawing.Size(278, 16);
+            this.tbCountryAv.TabIndex = 66;
+            // 
+            // linkBIOv
+            // 
+            this.linkBIOv.Location = new System.Drawing.Point(98, 123);
+            this.linkBIOv.Name = "linkBIOv";
+            this.linkBIOv.Padding = new System.Windows.Forms.Padding(3);
+            this.linkBIOv.Size = new System.Drawing.Size(281, 23);
+            this.linkBIOv.TabIndex = 65;
+            this.linkBIOv.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBIOv_LinkClicked);
+            // 
+            // maskDateOfBirthV
+            // 
+            this.maskDateOfBirthV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.maskDateOfBirthV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskDateOfBirthV.Location = new System.Drawing.Point(108, 57);
+            this.maskDateOfBirthV.Mask = "00/00/0000";
+            this.maskDateOfBirthV.Name = "maskDateOfBirthV";
+            this.maskDateOfBirthV.ReadOnly = true;
+            this.maskDateOfBirthV.Size = new System.Drawing.Size(87, 16);
+            this.maskDateOfBirthV.TabIndex = 58;
+            this.maskDateOfBirthV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(49, 26);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(46, 13);
+            this.label20.TabIndex = 52;
+            this.label20.Text = "Ф.И.О.:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(32, 127);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(66, 13);
+            this.label21.TabIndex = 54;
+            this.label21.Text = "Биография:";
+            // 
+            // maskDateOfDeathV
+            // 
+            this.maskDateOfDeathV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.maskDateOfDeathV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.maskDateOfDeathV.Location = new System.Drawing.Point(227, 56);
+            this.maskDateOfDeathV.Mask = "00/00/0000";
+            this.maskDateOfDeathV.Name = "maskDateOfDeathV";
+            this.maskDateOfDeathV.ReadOnly = true;
+            this.maskDateOfDeathV.Size = new System.Drawing.Size(156, 16);
+            this.maskDateOfDeathV.TabIndex = 58;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(49, 93);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(46, 13);
+            this.label22.TabIndex = 54;
+            this.label22.Text = "Страна:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(22, 59);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(71, 13);
+            this.label23.TabIndex = 53;
+            this.label23.Text = "Годы жизни:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(96, 59);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(13, 13);
+            this.label24.TabIndex = 53;
+            this.label24.Text = "с";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(200, 59);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(19, 13);
+            this.label25.TabIndex = 53;
+            this.label25.Text = "по";
+            // 
+            // label26
+            // 
+            this.label26.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label26.Location = new System.Drawing.Point(0, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(423, 27);
+            this.label26.TabIndex = 1;
+            this.label26.Text = "Информация об актере";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tabImage
             // 
             this.tabImage.BackColor = System.Drawing.SystemColors.Control;
@@ -2607,7 +2609,8 @@
             this.tsRemove,
             this.toolStripSeparator5,
             this.tsFind,
-            this.tsFindbyName});
+            this.tsFindbyName,
+            this.tsHidePanel});
             this.mainMenuIcon.Location = new System.Drawing.Point(0, 24);
             this.mainMenuIcon.Name = "mainMenuIcon";
             this.mainMenuIcon.Size = new System.Drawing.Size(1175, 25);
@@ -2724,6 +2727,18 @@
             this.tsFindbyName.MouseLeave += new System.EventHandler(this.tsFindbyName_MouseLeave);
             this.tsFindbyName.Paint += new System.Windows.Forms.PaintEventHandler(this.tsFindbyName_Paint);
             // 
+            // tsHidePanel
+            // 
+            this.tsHidePanel.CheckOnClick = true;
+            this.tsHidePanel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsHidePanel.Image = global::FilmCollection.Properties.Resources.hidePanel;
+            this.tsHidePanel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsHidePanel.Name = "tsHidePanel";
+            this.tsHidePanel.Size = new System.Drawing.Size(23, 22);
+            this.tsHidePanel.Text = "Скрыть панель";
+            this.tsHidePanel.ToolTipText = "Скрыть панель";
+            this.tsHidePanel.CheckedChanged += new System.EventHandler(this.tsHidePanel_CheckedChanged);
+            // 
             // toolinfo
             // 
             this.toolinfo.AutoPopDelay = 5000;
@@ -2830,15 +2845,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableActors)).EndInit();
             this.menuTableAct.ResumeLayout(false);
             this.menuTableAct.PerformLayout();
-            this.panelViewAct.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.panelEditAct.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.gActAbout.ResumeLayout(false);
             this.gActAbout.PerformLayout();
+            this.panelViewAct.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.tabImage.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -3097,6 +3112,7 @@
         private System.Windows.Forms.ToolStripMenuItem Exit;
         private System.Windows.Forms.ToolStripMenuItem btnCheckUpdate;
         private System.Windows.Forms.ToolStripSeparator ts8;
+        private System.Windows.Forms.ToolStripButton tsHidePanel;
     }
 }
 

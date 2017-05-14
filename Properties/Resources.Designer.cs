@@ -101,14 +101,15 @@ namespace FilmCollection.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 0.x
+        ///   Ищет локализованную строку, похожую на 1.0
+        ///	Изменение кодовой базы: оптимизирован механизм работы с базой (раздельно в памяти и физическом файле)
+        ///
+        ///0.9 beta (2017-04-25)
         ///	Ошибки: убран ключ PFX, не позволяющий выполнить автоматическую сборку проекта
         ///	Ошибки: устранена ошибка не позволяющая выполнять Drag&amp;Drop из таблицы в дерево каталогов
         ///	Ошибки: устранена ошибка при выборе строки таблицы фильмов
         ///	Ошибки: устранена ошибка при нажатии кнопки &quot;Сброс фильтра&quot; в разделе актеры
-        ///	Ошибки: устранена ошибка при обновлении информации из интернет (автоматически не отображалась новая карточка)
-        ///	Ошибки: устранена ошибка очистки данных в карточке фильмов, актеров
-        ///	Ошибки: уст [остаток строки не уместился]&quot;;.
+        ///	Ошибки: устранена ошибка при обновлении информации из интернет ( [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string ChangeLog {
             get {
@@ -332,6 +333,16 @@ namespace FilmCollection.Properties {
         internal static System.Drawing.Bitmap help_run {
             get {
                 object obj = ResourceManager.GetObject("help_run", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hidePanel {
+            get {
+                object obj = ResourceManager.GetObject("hidePanel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
