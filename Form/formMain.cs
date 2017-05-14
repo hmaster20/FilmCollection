@@ -3364,7 +3364,20 @@ namespace FilmCollection
             //Thr.Thread.Sleep(20000);
             UpdateService.compareVersion();
         }
+
+        private void tsHidePanel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tsHidePanel.Checked)
+            {
+                scTabFilm.Panel2Collapsed = true;
+                scTabFilm.Panel2.Hide();
+            }
+            else
+            {
+                scTabFilm.Panel2Collapsed = false;
+                scTabFilm.Panel2.Show();
+            }
+        }
+
     }
 }
-
-
