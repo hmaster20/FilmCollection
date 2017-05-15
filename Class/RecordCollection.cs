@@ -61,14 +61,12 @@ namespace FilmCollection
 
         #region Сериализация
 
-
-
         /// <summary>Сохранение (Сериализация) коллекции в MemoryStream</summary>
-        public void Save() => XmlSerializeHelper.SerializeAndSaveMemory(this);
+        public void Save() => XmlSerializeHelper.SerializeAndSaveToMemory(this);
 
         /// <summary>Сохранение (Сериализация) коллекции в файл XML</summary>
-       // public void SaveToFile() => XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, this);
         public void SaveToFile() => XmlSerializeHelper.FromMemoryToSaveToFile();
+
 
 
         //public void test()
@@ -94,8 +92,6 @@ namespace FilmCollection
             RecordCollection result;
             try
             {
-                //result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
-                //result = XmlSerializeHelper.LoadSelector();
                 if (fromFile)
                 {
                     result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();

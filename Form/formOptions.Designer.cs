@@ -39,7 +39,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.clBoxColumn = new System.Windows.Forms.CheckedListBox();
             this.lBoxColumnSelected = new System.Windows.Forms.ListBox();
-            this.button4 = new System.Windows.Forms.Button();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.SuspendLayout();
@@ -117,7 +116,6 @@
             // 
             // gBoxRecColumn
             // 
-            this.gBoxRecColumn.Controls.Add(this.button4);
             this.gBoxRecColumn.Controls.Add(this.button2);
             this.gBoxRecColumn.Controls.Add(this.clBoxColumn);
             this.gBoxRecColumn.Controls.Add(this.lBoxColumnSelected);
@@ -158,16 +156,6 @@
             this.lBoxColumnSelected.Size = new System.Drawing.Size(120, 169);
             this.lBoxColumnSelected.TabIndex = 7;
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(198, 169);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,6 +192,5 @@
         private System.Windows.Forms.Label lCatalogPath;
         private System.Windows.Forms.Label lBasePath;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
     }
 }

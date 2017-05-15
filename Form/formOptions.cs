@@ -38,9 +38,5 @@ namespace FilmCollection
             ManagedMMF.Program.MAIN_();
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            XmlSerializeHelper.FromMemoryToSaveToFile();
-        }
     }
 }
