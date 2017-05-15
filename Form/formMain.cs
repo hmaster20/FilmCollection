@@ -1010,17 +1010,19 @@ namespace FilmCollection
         }
 
         private void DeleteActor()
-        {
+        {        
             Actor act = GetSelectedActor();
-
-            DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + act.FIO + "\" ?",
-                                                  "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialog == DialogResult.Yes)
+            if (act != null)
             {
-                _videoCollection.Remove(act);
-                _videoCollection.Save();
-                TableRec.ClearSelection();
-                PrepareRefresh();
+                DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + act.FIO + "\" ?",
+                                      "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialog == DialogResult.Yes)
+                {
+                    _videoCollection.Remove(act);
+                    _videoCollection.Save();
+                    TableRec.ClearSelection();
+                    PrepareRefresh();
+                }
             }
         }
 
@@ -2070,12 +2072,10 @@ namespace FilmCollection
         }
 
         private void lbActors_DoubleClick(object sender, EventArgs e)
-        {
-            tabControl2.SelectTab(tabActors);
-
+        { 
             if (lbActors.SelectedItem != null)
             {
-                String searchValue = lbActors.SelectedItem.ToString();
+                string searchValue = lbActors.SelectedItem.ToString();
                 int rowIndex = -1;
                 foreach (DataGridViewRow row in dgvTableActors.Rows)
                 {
@@ -2085,10 +2085,13 @@ namespace FilmCollection
                         break;
                     }
                 }
+
                 if (rowIndex != -1)
-                {
+                {               
                     dgvTableActors.Rows[rowIndex].Selected = true;
+                    //dgvTableActors.Rows[rowIndex].Visible = true;
                     dgvTableActors.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
+                    tabControl2.SelectTab(tabActors);
                 }
             }
         }
@@ -2918,10 +2921,18 @@ namespace FilmCollection
                 PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
                 if (PicPath != "")
                 {
-                    if (File.Exists(GetFilename(media.Pic))) File.Delete(GetFilename(media.Pic));
-                    DownloadPicBig(PicPath, media.Name);
-                    media.Pic = media.Name;
-                    break;
+                    try
+                    {
+                        if (File.Exists(GetFilename(media.Pic))) File.Delete(GetFilename(media.Pic));
+                        DownloadPicBig(PicPath, media.Name);
+                        media.Pic = media.Name;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        break;
+                        throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message);
+                    }  
                 }
             }
         }
