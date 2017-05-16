@@ -69,21 +69,6 @@ namespace FilmCollection
 
 
 
-        //public void test()
-        //{
-        //    Thread ThreadSave = new Thread(SaveRuntime);
-        //    ThreadSave.Name = "Запуск автоматического сохранения";
-        //    ThreadSave.Start();
-        //}
-
-        //public void SaveRuntime()
-        //{
-        //    XmlSerializeHelper.SerializeAndSaveMemory(this);
-        //    XmlSerializeHelper.FromMemoryToSaveToFile();
-        //}
-
-
-
 
         /// <summary>Загрузка (деСериализация) объектов из файла XML</summary>
         /// <returns>Возвращает коллекцию RecordCollection</returns>

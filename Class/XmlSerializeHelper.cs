@@ -43,7 +43,7 @@ namespace FilmCollection
         public static T LoadAndDeserialize<T>(this string filename)
         {
             if (!File.Exists(filename))
-                throw new Exception("File not exist");
+                throw new Exception("Файл базы не существует!");
 
             if ((new FileInfo(filename).Length) < 200)
                 throw new Exception("Некорректный файл XML");
