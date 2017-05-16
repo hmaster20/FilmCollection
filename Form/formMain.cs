@@ -224,7 +224,7 @@ namespace FilmCollection
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    Logs.Log("При загрузки базы произошла ошибка:", ex);
                     BackupBase();   // на всякий случай делаем бэкап
                     return state;
                 }
@@ -445,8 +445,7 @@ namespace FilmCollection
                     else
                         MessageBox.Show("Каталог " + directory + " не обнаружен!");
                 }
-                catch (Exception ex)
-                { MessageBox.Show(ex.Message); }
+                catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
             }
         }
 
@@ -520,7 +519,7 @@ namespace FilmCollection
 
                     MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
                 }
-                catch (IOException ex) { MessageBox.Show(ex.Message); }
+                catch (IOException ex) { Logs.Log("Произошла ошибка при создании резервной копии базы:", ex); }
             }
         }
 
@@ -541,7 +540,7 @@ namespace FilmCollection
                     }
                     File.Copy(form.recoverBase, RecordOptions.BaseName, true);
                 }
-                catch (IOException ex) { MessageBox.Show(ex.Message); }
+                catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
 
                 MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
                 FormLoad(true);
@@ -756,10 +755,7 @@ namespace FilmCollection
                         PrepareRefresh();
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                catch (Exception ex) { Logs.Log("Произошла ошибка при перемещении Drag&Drop:", ex); }
             }
         }
 
@@ -1161,13 +1157,14 @@ namespace FilmCollection
 
         private void PrepareActor(int switch_sort)
         {
-            List<Actor> filteredAct = _videoCollection.ActorList;
+            List<Actor> filteredAct = new List<Actor>(_videoCollection.ActorList);
+
             if (tsActCountryFilter.SelectedIndex > -1)
                 filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tsActCountryFilter.SelectedIndex);
 
             SortActor(filteredAct, switch_sort);
 
-            dgvTableActors.DataSource = null;
+            // dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
 
             // список актеров
@@ -1217,7 +1214,7 @@ namespace FilmCollection
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { Logs.Log("Произошла ошибка при обновлении данных в таблице:", ex); }
         }
 
         private void SelectRecord(DataGridView dgv, Record record)
@@ -1381,40 +1378,37 @@ namespace FilmCollection
             Actor act = GetSelectedActor();            // Предоставляет данные выбранной записи
             if (act != null)
             {
-                // Панель описания
-                tbFIOv.Text = act.FIO;
-                linkBIOv.Text = act.BIO;
-                tbCountryAv.Text = act.CountryString;
-                maskDateOfBirthV.Text = act.DateOfBirth;
-                maskDateOfDeathV.Mask = "";
-                maskDateOfDeathV.Text = act.DateOfDeath;
-                listViewFilmV.Items.Clear();
                 try
                 {
+                    // Панель описания
+                    tbFIOv.Text = act.FIO;
+                    linkBIOv.Text = act.BIO;
+                    tbCountryAv.Text = act.CountryString;
+                    maskDateOfBirthV.Text = act.DateOfBirth;
+                    maskDateOfDeathV.Mask = "";
+                    maskDateOfDeathV.Text = act.DateOfDeath;
+                    listViewFilmV.Items.Clear();
+
                     foreach (int recID in act.VideoID)
                         foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilmV.Items.Add(new ListViewItem(
                                 new string[] { com.media.Name, com.media.CountryString, com.media.Year.ToString(), com.media.Id.ToString() }));
-                }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                    
+                    // Панель редактирования
+                    tbFIO.Text = act.FIO;
+                    tbBIO.Text = act.BIO;
+                    maskDateOfBirth.Text = act.DateOfBirth;
+                    chLifeState.CheckState = (act.DateOfDeath == "По настоящее время") ? CheckState.Checked : CheckState.Unchecked;
+                    maskDateOfDeath.Text = act.DateOfDeath;
+                    cBoxCountryActor.SelectedIndex = ((int)act.Country);
+                    listViewFilm.Items.Clear();
 
-
-                // Панель редактирования
-                tbFIO.Text = act.FIO;
-                tbBIO.Text = act.BIO;
-                maskDateOfBirth.Text = act.DateOfBirth;
-                chLifeState.CheckState = (act.DateOfDeath == "По настоящее время") ? CheckState.Checked : CheckState.Unchecked;
-                maskDateOfDeath.Text = act.DateOfDeath;
-                cBoxCountryActor.SelectedIndex = ((int)act.Country);
-                listViewFilm.Items.Clear();
-                try
-                {
                     foreach (int recID in act.VideoID)
                         foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilm.Items.Add(new ListViewItem(
                                 new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                catch (Exception ex) { Logs.Log("Произошла ошибка при отображении данных выбранной строки:", ex); }
             }
         }
 
@@ -2078,6 +2072,9 @@ namespace FilmCollection
 
         private void lbActors_DoubleClick(object sender, EventArgs e)
         {
+            // tabControl2.SelectTab(tabActors);
+            //tabControl2.SelectedTab = tabActors;
+
             if (lbActors.SelectedItem != null)
             {
                 string searchValue = lbActors.SelectedItem.ToString();
@@ -2096,7 +2093,7 @@ namespace FilmCollection
                     dgvTableActors.Rows[rowIndex].Selected = true;
                     //dgvTableActors.Rows[rowIndex].Visible = true;
                     dgvTableActors.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
-                    tabControl2.SelectTab(tabActors);
+
                 }
             }
         }
@@ -2582,8 +2579,15 @@ namespace FilmCollection
                     PrepareRefresh();
                     SelectRec();
                 }
+
+                //Thr.Thread t = new Thr.Thread(getInfofromWeb);
+                //t.Start();
+                //while (!t.IsAlive)
+                //{ };
+
             }
         }
+
 
         private void btnGetTime_Click(object sender, EventArgs e)
         {
@@ -3007,6 +3011,8 @@ namespace FilmCollection
                 scTabFilm.Panel2.Show();
             }
         }
+
+
 
     }
 }
