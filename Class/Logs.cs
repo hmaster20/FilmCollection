@@ -9,7 +9,6 @@ namespace FilmCollection
 {
     public static class Logs
     {
-
         public static void Log(string message, Exception ex)
         {
             MessageBox.Show(ex.Message);
@@ -18,7 +17,11 @@ namespace FilmCollection
             File.AppendAllText("log.txt", (string.Format($"\r\n{DateTime.Now.ToString("yyyy.MM.dd_HH:mm:ss")}\r\n")));
             File.AppendAllText("log.txt", message);
             File.AppendAllText("log.txt", "\r\n");
-            File.AppendAllText("log.txt", ex.Message);
+            //File.AppendAllText("log.txt", ex.Message);
+            File.AppendAllText("log.txt", ex.ToString());
+
+            // Почитать habrahabr.ru/post/98638/
+ 
         }
     }
 }

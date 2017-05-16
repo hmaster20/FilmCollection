@@ -211,9 +211,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChangeLog.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="ChangeLog.txt" />
     <Content Include="FC.ico" />
     <Content Include="Library\Ionic.Zip.Reduced.dll" />
     <Content Include="Pics\noPic.jpg">
