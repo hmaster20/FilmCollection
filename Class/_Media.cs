@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -27,7 +28,28 @@ namespace FilmCollection
         /// <summary>Уникальный идентификатор объекта Media</summary>
         public int Id { get; set; }
 
-        public string Pic { get; set; } = "noPic";   // если заполнен значит есть Изображение (Постер)
+
+        private string _pic;
+        public string Pic {
+            get { return _pic; }
+            set
+            {
+                if (_pic == null || _pic == "")
+                {
+                    _pic = "noPic";
+                }
+                else
+                {
+                    _pic = value;
+                }
+            }
+        }
+        //= "noPic";   
+        
+        // если заполнен значит есть Изображение (Постер)
+
+
+
         public string Description { get; set; } = "";  // Описание файла (сюжет)
 
         private int _year;
@@ -166,10 +188,7 @@ namespace FilmCollection
         {
             get
             {
-                if (Pic == "")
-                {
-                    Pic = "noPic";
-                }
+                Debug.Print(Pic);
                 return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + Pic + ".jpg");
             }
         }
