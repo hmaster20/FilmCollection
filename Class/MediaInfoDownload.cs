@@ -45,8 +45,6 @@ namespace FilmCollection
                 webQuery = "https://afisha.mail.ru/search/?ent=1&q=";
             }
 
-            //string htmlPage = GetHtml("https://afisha.mail.ru/search/?q=" + media.Name);
-
             string htmlPage = GetHtml(webQuery + media.Name);
 
             //MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
@@ -76,27 +74,6 @@ namespace FilmCollection
 
             _videoCollection = null;
             return flag;
-
-
-            //for (int y = 0; y < subStrings.Length; y++)
-            //{
-            //    //if (subStrings[y] == "background-image:url")
-            //        if (subStrings[y] == "background-image: url")
-            //        {
-            //        ++y;
-            //        if (subStrings[y].Contains("http"))
-            //        {
-            //            PicWeb = subStrings[y];         //"https://pic.afisha.mail.ru/2536415/"
-            //            //Link_txt = subStrings[y - 5];   //"/cinema/movies/432352_stalker/"
-            //            Link_txt = subStrings[y - 3];   //"/cinema/movies/432352_stalker/"
-            //            string tt = arrayPath.FindLast(p => p.StartsWith ("/cinema/") && p.EndsWith("/"));
-            //            string ts = arrayPath.FindLast(p => p.StartsWith("https://"));
-
-            //            break;
-            //        }
-            //    }
-            //}
-
         }
 
         private static void DownloadAddon(string link, Media media)
@@ -104,15 +81,10 @@ namespace FilmCollection
             string sourcestring = GetHtml(link);
 
             DownloadCountry(media, sourcestring);
-
             DownloadYear(media, sourcestring);
-
             DownloadGenre(media, sourcestring);
-
             DownloadDescription(media, sourcestring);
-
             DownloadActor(media, sourcestring);
-
             DownloadPic(media, sourcestring);
         }
 
@@ -269,30 +241,13 @@ namespace FilmCollection
             // Обработка описания
             MatchCollection mcDesc = Regex.Matches(sourcestring, "(itemprop=\"actors\".*?</div>)", RegexOptions.IgnoreCase);
 
-            /* 1 строка
-             * {itemprop="actors">
-             * <a href="/person/631361_aishwarya_rai/" itemprop="name">Айшвария Рай Баччан</a>, <a href="/person/457275_irfan_khan/" itemprop="name">Ирфан Кхан</a>, <a href="/person/544254_shabana_azmi/" itemprop="name">Шабана Азми</a>, <a href="/person/459400_jackie_shroff/" itemprop="name">Джеки Шрофф</a>, <a href="/person/537746_atul_kulkarni/" itemprop="name">Атул Кулкарни</a>, <a href="/person/613371_chandan_roy_sanyal/" itemprop="name">Чандан Рой Саньял</a>, <a href="/person/575658_abhimanyu_singh/" itemprop="name">Синг Амбхимани Шехар</a>, <a href="/person/743763_taran_bajaj/" itemprop="name">Таран Баджадж</a>, <a href="/person/743764_priya_banerjee/" itemprop="name">Прия Банерджи</a>, <a href="/person/667870_siddhant_kapoor/" itemprop="name">Сиддхант Капур</a></div>}
-             */
-
             string ssss = "";
 
             if (mcDesc.Count == 0)
             {
                 //mcDesc = Regex.Matches(sourcestring, "(class=\"js-show-more\".*?</div>)", RegexOptions.IgnoreCase);
                 mcDesc = Regex.Matches(sourcestring, "(<th>В ролях</th>.*?</div>)", RegexOptions.IgnoreCase);
-                // 1 строка
-                //
-                // {<th>В ролях</th><td><div class="js-show-more"><a href="/person/437937_petr_veljaminov/">Петр Вельяминов</a>, <a href="/person/460439_ada_rogovceva/">Ада Роговцева</a>, <a href="/person/630781_vadim_spiridonov/">Вадим Спиридонов</a>, <a href="/person/455898_tamara_semina/">Тамара Семина</a>, <a href="/person/455523_nikolaj_ivanov/">Николай Иванов</a>, <a href="/person/462498_ivan_lapikov/">Иван Лапиков</a>, <a href="/person/501181_vladlen_birjukov/">Владлен Бирюков</a>, <a href="/person/630476_valerij_hlevinskij/">Валерий Хлевинский</a>, <a href="/person/438527_efim_kopeljan/">Ефим Копелян</a>, <a href="/person/438578_andrej_martynov/">Андрей Мартынов</a>, <a href="/person/703060_vladimir_ivanov/">Владимир Иванов</a></div>} 
-
-                //ssss = mcDesc[0].ToString();
-                //if (ssss.IndexOf("<a href") != -1)
-                //{
-                //    ssss = ssss.Substring(ssss.IndexOf("<a href"));
-                //}       
-
             }
-
-
 
             foreach (Match m in mcDesc)
             {
@@ -353,7 +308,6 @@ namespace FilmCollection
 
         private static void DownloadPic(Media media, string sourcestring)
         {
-            // Обработка картинки
             MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
 
             foreach (Match Pic in Pics)
@@ -365,10 +319,14 @@ namespace FilmCollection
                 {
                     try
                     {
-                        //if (File.Exists(GetFilename(media.Pic))) File.Delete(GetFilename(media.Pic));
-                        if (File.Exists(media.GetFilename)) File.Delete(media.GetFilename);
-                        //DownloadPicBig(PicPath, media.Name);
-                        DownloadPicBig(PicPath, media.GetFilename);
+                        if (File.Exists(media.GetFilename))
+                            File.Delete(media.GetFilename);
+
+                        if (PicPath.StartsWith("http"))                //if (PicWeb.Contains("http"))
+                        {
+                            using (WebClient webClient = new WebClient())
+                                webClient.DownloadFile(PicPath, media.GetFilename);
+                        }
                         media.Pic = media.Name;
                         break;
                     }
@@ -381,25 +339,11 @@ namespace FilmCollection
             }
         }
 
-        private static void DownloadPicBig(string PicWeb, string PicFilename)
-        {
-            try
-            {
-                if (PicWeb.StartsWith("http"))                //if (PicWeb.Contains("http"))
-                {
-                    using (WebClient webClient = new WebClient())
-                        webClient.DownloadFile(PicWeb, PicFilename);
-                }
-            }
-            catch (Exception Ex) { MessageBox.Show("Загрузить изображение не удалось: " + Ex.Message); }
-        }
-
-   
 
         public static string GetTime(Record record)
         {
             string value = "";
-            //Record record = GetSelectedRecord();
+
             if (record != null)
             {
                 Shell shell = new Shell();
@@ -411,14 +355,7 @@ namespace FilmCollection
                         double nanoseconds;
                         double.TryParse(Convert.ToString(_file.ExtendedProperty("System.Media.Duration")), out nanoseconds);
                         if (nanoseconds > 0)
-                        {
                             value = TimeSpan.FromSeconds(nanoseconds / 10000000).ToString();
-
-                            //string oldvalue = mtbTime.Text;
-                            //mtbTime.Text = TimeSpan.FromSeconds(nanoseconds / 10000000).ToString();
-                            //if (mtbTime.Text != oldvalue)
-                            //    Modified();
-                        }
                     }
                 }
                 Marshal.ReleaseComObject(folder);
