@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\InputLanguages.cs" />
+    <Compile Include="Class\Logs.cs" />
     <Compile Include="Class\MediaInfoDownload.cs" />
     <Compile Include="Class_Test\ManagedObjectMMF.cs" />
     <Compile Include="Class_Test\MemoryMapped.cs" />
