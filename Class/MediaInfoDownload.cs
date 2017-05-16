@@ -34,6 +34,12 @@ namespace FilmCollection
 
             _videoCollection = videoCollection;
 
+
+            RecordCollection VideoCollection = (RecordCollection)videoCollection.Clone();
+
+                
+
+
             string webQuery;
 
             if (media.Category == CategoryVideo.Series)
@@ -67,12 +73,11 @@ namespace FilmCollection
                 if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
                 {
                     DownloadAddon("https://afisha.mail.ru" + Link_txt, media);
-                    //return true;
                     flag = true;
                 }
             }
 
-            _videoCollection = null;
+            //_videoCollection = null;
             return flag;
         }
 
@@ -101,7 +106,6 @@ namespace FilmCollection
 
         private static void DownloadCountry(Media media, string sourcestring)
         {
-            // Обработка страны
             MatchCollection mcCountries = Regex.Matches(sourcestring, "(itemevent__head__info.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
 
             bool flag = false;
@@ -130,7 +134,6 @@ namespace FilmCollection
 
         private static void DownloadYear(Media media, string sourcestring)
         {
-            // Обработка года
             MatchCollection mcYear = Regex.Matches(sourcestring, "(itemevent__head__sep.*?<a href=.*?>[0-9]{4})", RegexOptions.IgnoreCase);
 
             string year = "";
@@ -148,7 +151,6 @@ namespace FilmCollection
 
         private static void DownloadGenre(Media media, string sourcestring)
         {
-            // Обработка жанра
             //MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?<a href=.*?>[0-9]{4}</a>)", RegexOptions.IgnoreCase);
             MatchCollection mcGenre = Regex.Matches(sourcestring, "(itemevent__head__genre.*?</a>)", RegexOptions.IgnoreCase);
 
@@ -193,7 +195,6 @@ namespace FilmCollection
 
         private static void DownloadDescription(Media media, string sourcestring)
         {
-            // Обработка описания
             // MatchCollection mcDesc = Regex.Matches(sourcestring, @"(<div class=\""movieabout__info__descr__tx.*?>.*?</p>)", RegexOptions.IgnoreCase);
             MatchCollection mcDesc = Regex.Matches(sourcestring, @"(movieabout__info__descr__txt.*?</div>)", RegexOptions.IgnoreCase);
 
@@ -319,6 +320,8 @@ namespace FilmCollection
                 {
                     try
                     {
+                        media.Pic = media.Name;
+
                         if (File.Exists(media.GetFilename))
                             File.Delete(media.GetFilename);
 
@@ -327,7 +330,7 @@ namespace FilmCollection
                             using (WebClient webClient = new WebClient())
                                 webClient.DownloadFile(PicPath, media.GetFilename);
                         }
-                        media.Pic = media.Name;
+
                         break;
                     }
                     catch (Exception ex)

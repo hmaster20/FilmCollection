@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace FilmCollection
 {
     /// <summary>Класс управления коллекцией фильмотеки</summary>
-    public class RecordCollection   // : ICloneable
+    public class RecordCollection    : ICloneable
     {
         [XmlElement]
         public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
@@ -124,10 +124,10 @@ namespace FilmCollection
         }
 
 
-        //public object Clone()
-        //{
-        //    return this.MemberwiseClone();
-        //}
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
 
         #endregion
     }
