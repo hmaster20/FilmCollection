@@ -409,6 +409,8 @@ namespace FilmCollection
             {
                 try
                 {
+                    int findCount = 0;
+
                     if (_videoCollection.Options.Source == null)
                     {
                         MessageBox.Show("Файл базы испорчен!");
@@ -432,13 +434,26 @@ namespace FilmCollection
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
                             if (!RecordExist(record))
+                            {
+                                findCount++;
                                 CreateCombine(file); // если файла нет в коллекции, создаем     
+                            }
+
+                        }
+                        _videoCollection.Save();
+                        _videoCollection.SaveToFile();
+
+                        FormLoad(true);
+
+                        if (findCount > 0)
+                        {
+                            MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
                         }
 
-                        _videoCollection.SaveToFile();    // если все прошло гладко, то сохраняем в файл базы
-
-                        FormLoad(true);                 // и перегружаем главную форму
-                        MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
                     }
                     else
                         MessageBox.Show("Каталог " + directory + " не обнаружен!");
@@ -1369,7 +1384,7 @@ namespace FilmCollection
                         foreach (Combine com in _videoCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilmV.Items.Add(new ListViewItem(
                                 new string[] { com.media.Name, com.media.CountryString, com.media.Year.ToString(), com.media.Id.ToString() }));
-                    
+
                     // Панель редактирования
                     tbFIO.Text = act.FIO;
                     tbBIO.Text = act.BIO;
