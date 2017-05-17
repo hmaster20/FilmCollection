@@ -9,10 +9,19 @@ using System.Diagnostics;
 namespace FilmCollection
 {
     /// <summary>Класс управления коллекцией фильмотеки</summary>
-    public class RecordCollection    : ICloneable
+    public class RecordCollection : ICloneable
     {
         [XmlElement]
-        public RecordOptions Options { get; set; } = new RecordOptions();   // Параметры настройки
+        public RecordOptions Options { get; set; } = new RecordOptions();
+
+
+        private static RecordCollection _recordCollection;
+        public static RecordCollection GetInstance()
+        {
+            if (_recordCollection == null)
+                _recordCollection = Load();
+            return _recordCollection;
+        }
 
         public RecordCollection()
         {
@@ -120,10 +129,12 @@ namespace FilmCollection
                 throw new Exception("Ошибка на этапе загрузки файла базы. \n" + ex.Message);
                 //return new RecordCollection();
             }
+
+            _recordCollection = result;
             return result;
         }
 
-
+        //RecordCollection VideoCollection = (RecordCollection)videoCollection.Clone();
         public object Clone()
         {
             return this.MemberwiseClone();
