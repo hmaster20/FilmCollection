@@ -1585,6 +1585,18 @@ namespace FilmCollection
 
         #region Поисковый механизм
 
+        private void FindFull()
+        {
+            try
+            {
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());;
+            }
+        }
 
         private void Find(int cell)
         {
@@ -2063,7 +2075,7 @@ namespace FilmCollection
 
         private void lbActors_DoubleClick(object sender, EventArgs e)
         {
-            // tabControl2.SelectTab(tabActors);
+            tabControl2.SelectTab(tabActors);
             //tabControl2.SelectedTab = tabActors;
 
             if (lbActors.SelectedItem != null)
