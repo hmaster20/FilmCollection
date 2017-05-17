@@ -100,7 +100,6 @@ namespace FilmCollection
                 tsActCountryFilter.Items.Add(item);
             }
 
-            //MenuChange.Visible = isDebug;
             btnOptions.Visible = isDebug;
             btnActors.Visible = isDebug;
 
@@ -170,7 +169,7 @@ namespace FilmCollection
             treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
-        private void Main_Load(object sender, EventArgs e)  // Загрузка формы
+        private void Main_Load(object sender, EventArgs e)
         {
             ChangeStatusMenuButton(FormLoad(true));
         }
@@ -225,7 +224,7 @@ namespace FilmCollection
                 catch (Exception ex)
                 {
                     Logs.Log("При загрузки базы произошла ошибка:", ex);
-                    BackupBase();   // на всякий случай делаем бэкап
+                    BackupBase();
                     return state;
                 }
 
@@ -398,7 +397,6 @@ namespace FilmCollection
             }
 
             _videoCollection.Save();
-            //MessageBox.Show(_videoCollection.VideoList.Count.ToString());
             FormLoad();
         }
 
@@ -530,9 +528,8 @@ namespace FilmCollection
             {
                 try
                 {
-                    if (File.Exists(RecordOptions.BaseName)) // если файл базы существует
+                    if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
                     {
-                        // создаем копию испорченной базы
                         string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
                             + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
                             + Path.GetExtension(RecordOptions.BaseName);
@@ -625,12 +622,6 @@ namespace FilmCollection
         {
             fromChangeLog formLog = new fromChangeLog();
             formLog.ShowDialog();
-
-            //string ChangeLog = "ChangeLog.txt";
-            //if (File.Exists(ChangeLog))
-            //{
-            //    Process.Start(ChangeLog);
-            //}
         }
 
         private static void AboutFC()
@@ -780,14 +771,10 @@ namespace FilmCollection
                 {
                     control = control.Parent;
                     if (control.Parent == null)
-                    {
                         return true;
-                    }
                 }
                 else
-                {
                     return false;
-                }
             }
             return false;
         }
@@ -1276,11 +1263,6 @@ namespace FilmCollection
             }
         }
 
-        //public string GetFilename(string name)
-        //{
-        //    return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + name + ".jpg");
-        //}
-
         private void GetPic(Media _media)
         {
             //string pic = "";
@@ -1314,12 +1296,6 @@ namespace FilmCollection
                 Record record = null;
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
                 if (record != null) return record;
-
-                //List<string> nnn = new List<string>();
-
-                //foreach (DataGridViewTextBoxCell item in dgv.SelectedRows[0].Cells)
-                //    if (item != null && item.Value != null)
-                //        nnn.Add(item.Value.ToString());
             }
             return null;
         }
@@ -2555,7 +2531,7 @@ namespace FilmCollection
                           select rec.combineLink);    //.Distinct<Combine>();
 
             foreach (Combine cm in cmList.Distinct().ToList())
-                MediaInfoDownload.GetInfo(cm.media, _videoCollection);
+                DownloadDetails.GetInfo(cm.media, _videoCollection);
 
             _videoCollection.Save();
             PrepareRefresh();
@@ -2573,7 +2549,7 @@ namespace FilmCollection
             if (record != null)
             {
                 CardRecordPreview_Clear();
-                if (MediaInfoDownload.GetInfo(record.combineLink.media, _videoCollection))
+                if (DownloadDetails.GetInfo(record.combineLink.media, _videoCollection))
                 {
                     _videoCollection.Save();
                     PrepareRefresh();
@@ -2593,7 +2569,7 @@ namespace FilmCollection
         {
             Record record = GetSelectedRecord();
 
-            string newTimeValue = MediaInfoDownload.GetTime(record);
+            string newTimeValue = FileDetails.GetTime(record);
             if (newTimeValue != "" && newTimeValue != mtbTime.Text)
             {
                 mtbTime.Text = newTimeValue;
