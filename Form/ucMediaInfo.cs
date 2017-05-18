@@ -14,7 +14,6 @@ namespace FilmCollection
     public partial class ucMediaInfo : UserControl
     {
         public Record record { get; set; }
-        public RecordCollection _videoCollection { get; set; }
 
         public ucMediaInfo()
         {
@@ -26,7 +25,8 @@ namespace FilmCollection
             InitializeComponent();
 
             this.record = _record;
-            this._videoCollection = RecordCollection.GetInstance();
+           // this._videoCollection = RecordCollection.GetInstance();
+            RecordCollection _videoCollection = RecordCollection.GetInstance();
 
 
             if (record != null)
