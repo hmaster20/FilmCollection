@@ -85,7 +85,7 @@
             this.lblRecDescription.AutoSize = true;
             this.lblRecDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblRecDescription.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblRecDescription.Location = new System.Drawing.Point(20, 319);
+            this.lblRecDescription.Location = new System.Drawing.Point(20, 322);
             this.lblRecDescription.Name = "lblRecDescription";
             this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
             this.lblRecDescription.TabIndex = 61;
@@ -142,12 +142,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfDesc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfDesc.Location = new System.Drawing.Point(28, 349);
+            this.tbfDesc.Location = new System.Drawing.Point(19, 348);
             this.tbfDesc.Multiline = true;
             this.tbfDesc.Name = "tbfDesc";
             this.tbfDesc.ReadOnly = true;
             this.tbfDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbfDesc.Size = new System.Drawing.Size(210, 372);
+            this.tbfDesc.Size = new System.Drawing.Size(349, 239);
             this.tbfDesc.TabIndex = 67;
             // 
             // tbfCountry
@@ -170,7 +170,7 @@
             this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbfYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.tbfYear.Location = new System.Drawing.Point(62, 39);
+            this.tbfYear.Location = new System.Drawing.Point(59, 39);
             this.tbfYear.Name = "tbfYear";
             this.tbfYear.ReadOnly = true;
             this.tbfYear.Size = new System.Drawing.Size(82, 16);

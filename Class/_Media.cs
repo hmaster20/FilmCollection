@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace FilmCollection
 {
     /// <summary>Класс содержит информацию о произведениях: фильма, сериалах, мультфильмах и т.д.</summary>
-    public class Media
+    public class Media : ICloneable
     {
         [XmlIgnore]
         public List<Actor> ActorList { get; set; }
@@ -181,6 +181,7 @@ namespace FilmCollection
             CategoryVideo _category = (CategoryVideo)(Enum.Parse(typeof(CategoryVideo_Rus), category));
             return _category;
         }
+
         #endregion
 
         [XmlIgnore]
@@ -191,6 +192,11 @@ namespace FilmCollection
                 Debug.Print(Pic);
                 return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"), "" + Pic + ".jpg");
             }
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

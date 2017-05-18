@@ -25,6 +25,7 @@ namespace FilmCollection
             string webQuery = "";
 
             _videoCollection = RecordCollection.GetInstance();
+
             _media = media;
 
             if (_media.Category == CategoryVideo.Series)
@@ -38,34 +39,84 @@ namespace FilmCollection
             //MatchCollection mc = Regex.Matches(htmlPage, "(<a class=.*?p-poster__img.*?</a>)", RegexOptions.IgnoreCase);
             MatchCollection mc = Regex.Matches(htmlPage, "(p-poster__img.*?</a>)", RegexOptions.IgnoreCase);
 
-            for (int i = 0; i < mc.Count; i++)
+            if (mc.Count > 1)
             {
-                //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
-                List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
+                List<Media> MList = new List<Media>();
 
-                string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
-                string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
-                if (Link_txt == null)
-                {
-                    Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
+                for (int i = 0; i < mc.Count; i++)
+                {    
+                     Media m = (Media)media.Clone();
+
+                    m.Pic = m.Name + "_" + i;
+                    _media = m;
+
+                    //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
+                    List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
+
+                    string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
+                    string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
+                    if (Link_txt == null)
+                    {
+                        Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
+                    }
+
+                    if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
+                    {
+                        string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
+
+                        DownloadCountry(sourcestring);
+                        DownloadYear(sourcestring);
+                        DownloadGenre(sourcestring);
+                        DownloadDescription(sourcestring);
+                        DownloadActor(sourcestring);
+                        DownloadPic(sourcestring);
+
+                        flag = true;
+                    }
+
+                    MList.Add(m);
+
                 }
 
-                if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
-                {
-                    string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
-
-                    DownloadCountry(sourcestring);
-                    DownloadYear(sourcestring);
-                    DownloadGenre(sourcestring);
-                    DownloadDescription(sourcestring);
-                    DownloadActor(sourcestring);
-                    DownloadPic(sourcestring);
-
-                    flag = true;
-                }
+                formSelectMedia selectMedia = new formSelectMedia(MList);
+                selectMedia.ShowDialog();
             }
+
+
+
+            //if (mc.Count > 1)
+            //{
+            //    formSelectMedia selectMedia = new formSelectMedia();
+            //    selectMedia.ShowDialog();
+            //}
+            //else
+            //{
+            //    //media = 
+            //}
+
+
             return flag;
         }
+
+
+        //static string GetPicDirectory()
+        //{
+        //    return Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics"));
+        //}
+
+        //private static string TempFolder()
+        //{
+        //    if (!Directory.Exists(Path.Combine(GetPicDirectory(), "Temp")))
+        //    {
+        //        Directory.CreateDirectory("Temp");
+        //    }
+        //    return Path.Combine(GetPicDirectory(), "Temp");
+        //}
+
+        //private static string GetFilename(string name)
+        //{
+        //    return Path.Combine(TempFolder(), "" + name + ".jpg");
+        //}
 
         private static string GetHtml(string url)       //получение веб-страницы
         {

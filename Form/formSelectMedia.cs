@@ -11,9 +11,16 @@ namespace FilmCollection
 {
     public partial class formSelectMedia : Form
     {
+        public List<Media> MList { get; set; }
+
         public formSelectMedia()
         {
             InitializeComponent();
+        }
+
+        public formSelectMedia(List<Media> MList)
+        {
+
         }
     }
 }
