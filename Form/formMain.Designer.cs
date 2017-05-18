@@ -123,6 +123,18 @@
             this.tbfName = new System.Windows.Forms.TextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
+            this.panelFind = new System.Windows.Forms.Panel();
+            this.cbFullFind = new System.Windows.Forms.CheckBox();
+            this.btnHidePanel = new System.Windows.Forms.Button();
+            this.btnFindReset = new System.Windows.Forms.Button();
+            this.lCritery = new System.Windows.Forms.Label();
+            this.lFindText = new System.Windows.Forms.Label();
+            this.panelFindTitle = new System.Windows.Forms.Panel();
+            this.lblFindTitle = new System.Windows.Forms.Label();
+            this.tbFind = new System.Windows.Forms.TextBox();
+            this.btnFindNext = new System.Windows.Forms.Button();
+            this.btnFind = new System.Windows.Forms.Button();
+            this.cbTypeFind = new System.Windows.Forms.ComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.checkNewRecord = new System.Windows.Forms.CheckBox();
@@ -161,17 +173,6 @@
             this.tbNameRecord = new System.Windows.Forms.TextBox();
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.panelFind = new System.Windows.Forms.Panel();
-            this.btnHidePanel = new System.Windows.Forms.Button();
-            this.btnFindReset = new System.Windows.Forms.Button();
-            this.lCritery = new System.Windows.Forms.Label();
-            this.lFindText = new System.Windows.Forms.Label();
-            this.panelFindTitle = new System.Windows.Forms.Panel();
-            this.lblFindTitle = new System.Windows.Forms.Label();
-            this.tbFind = new System.Windows.Forms.TextBox();
-            this.btnFindNext = new System.Windows.Forms.Button();
-            this.btnFind = new System.Windows.Forms.Button();
-            this.cbTypeFind = new System.Windows.Forms.ComboBox();
             this.panelFolder = new System.Windows.Forms.Panel();
             this.btnSaveFolder = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -268,7 +269,7 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.cbFullFind = new System.Windows.Forms.CheckBox();
+            this.ucMediaInfo1 = new FilmCollection.ucMediaInfo();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -284,12 +285,12 @@
             this.panelView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
+            this.panelFind.SuspendLayout();
+            this.panelFindTitle.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             this.gRecord.SuspendLayout();
-            this.panelFind.SuspendLayout();
-            this.panelFindTitle.SuspendLayout();
             this.panelFolder.SuspendLayout();
             this.tabActors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scTabActors)).BeginInit();
@@ -970,6 +971,7 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.ucMediaInfo1);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
@@ -1223,6 +1225,144 @@
             this.lblRecTitle.TabIndex = 0;
             this.lblRecTitle.Text = "Общие сведения";
             this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelFind
+            // 
+            this.panelFind.Controls.Add(this.cbFullFind);
+            this.panelFind.Controls.Add(this.btnHidePanel);
+            this.panelFind.Controls.Add(this.btnFindReset);
+            this.panelFind.Controls.Add(this.lCritery);
+            this.panelFind.Controls.Add(this.lFindText);
+            this.panelFind.Controls.Add(this.panelFindTitle);
+            this.panelFind.Controls.Add(this.tbFind);
+            this.panelFind.Controls.Add(this.btnFindNext);
+            this.panelFind.Controls.Add(this.btnFind);
+            this.panelFind.Controls.Add(this.cbTypeFind);
+            this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFind.Location = new System.Drawing.Point(0, 0);
+            this.panelFind.Name = "panelFind";
+            this.panelFind.Size = new System.Drawing.Size(368, 606);
+            this.panelFind.TabIndex = 0;
+            // 
+            // cbFullFind
+            // 
+            this.cbFullFind.AutoSize = true;
+            this.cbFullFind.Location = new System.Drawing.Point(40, 184);
+            this.cbFullFind.Name = "cbFullFind";
+            this.cbFullFind.Size = new System.Drawing.Size(108, 17);
+            this.cbFullFind.TabIndex = 20;
+            this.cbFullFind.Text = "Сквозной поиск";
+            this.cbFullFind.UseVisualStyleBackColor = true;
+            this.cbFullFind.Visible = false;
+            // 
+            // btnHidePanel
+            // 
+            this.btnHidePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnHidePanel.Location = new System.Drawing.Point(154, 544);
+            this.btnHidePanel.Name = "btnHidePanel";
+            this.btnHidePanel.Size = new System.Drawing.Size(75, 23);
+            this.btnHidePanel.TabIndex = 19;
+            this.btnHidePanel.Text = "Скрыть";
+            this.btnHidePanel.UseVisualStyleBackColor = true;
+            this.btnHidePanel.Click += new System.EventHandler(this.btnHidePanel_Click);
+            // 
+            // btnFindReset
+            // 
+            this.btnFindReset.Location = new System.Drawing.Point(58, 143);
+            this.btnFindReset.Name = "btnFindReset";
+            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
+            this.btnFindReset.TabIndex = 18;
+            this.btnFindReset.Text = "Сброс";
+            this.btnFindReset.UseVisualStyleBackColor = true;
+            this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
+            // 
+            // lCritery
+            // 
+            this.lCritery.AutoSize = true;
+            this.lCritery.Location = new System.Drawing.Point(22, 91);
+            this.lCritery.Name = "lCritery";
+            this.lCritery.Size = new System.Drawing.Size(94, 13);
+            this.lCritery.TabIndex = 17;
+            this.lCritery.Text = "Критерий поиска";
+            // 
+            // lFindText
+            // 
+            this.lFindText.AutoSize = true;
+            this.lFindText.Location = new System.Drawing.Point(23, 43);
+            this.lFindText.Name = "lFindText";
+            this.lFindText.Size = new System.Drawing.Size(82, 13);
+            this.lFindText.TabIndex = 17;
+            this.lFindText.Text = "Строка поиска";
+            // 
+            // panelFindTitle
+            // 
+            this.panelFindTitle.Controls.Add(this.lblFindTitle);
+            this.panelFindTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelFindTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelFindTitle.Name = "panelFindTitle";
+            this.panelFindTitle.Size = new System.Drawing.Size(368, 27);
+            this.panelFindTitle.TabIndex = 16;
+            // 
+            // lblFindTitle
+            // 
+            this.lblFindTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFindTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblFindTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblFindTitle.Name = "lblFindTitle";
+            this.lblFindTitle.Size = new System.Drawing.Size(368, 27);
+            this.lblFindTitle.TabIndex = 0;
+            this.lblFindTitle.Text = "Панель поиска";
+            this.lblFindTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tbFind
+            // 
+            this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbFind.Location = new System.Drawing.Point(22, 59);
+            this.tbFind.Name = "tbFind";
+            this.tbFind.Size = new System.Drawing.Size(328, 20);
+            this.tbFind.TabIndex = 15;
+            this.tbFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFind_KeyDown);
+            this.tbFind.MouseEnter += new System.EventHandler(this.tbFind_MouseEnter);
+            this.tbFind.MouseLeave += new System.EventHandler(this.tbFind_MouseLeave);
+            // 
+            // btnFindNext
+            // 
+            this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFindNext.Enabled = false;
+            this.btnFindNext.Location = new System.Drawing.Point(227, 136);
+            this.btnFindNext.Name = "btnFindNext";
+            this.btnFindNext.Size = new System.Drawing.Size(123, 23);
+            this.btnFindNext.TabIndex = 14;
+            this.btnFindNext.Text = "Найти следующее";
+            this.btnFindNext.UseVisualStyleBackColor = true;
+            this.btnFindNext.Click += new System.EventHandler(this.btnFindNext_Click);
+            // 
+            // btnFind
+            // 
+            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFind.Enabled = false;
+            this.btnFind.Location = new System.Drawing.Point(227, 107);
+            this.btnFind.Name = "btnFind";
+            this.btnFind.Size = new System.Drawing.Size(123, 23);
+            this.btnFind.TabIndex = 14;
+            this.btnFind.Text = "Найти все";
+            this.btnFind.UseVisualStyleBackColor = true;
+            this.btnFind.Click += new System.EventHandler(this.Find_Click);
+            // 
+            // cbTypeFind
+            // 
+            this.cbTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTypeFind.FormattingEnabled = true;
+            this.cbTypeFind.Items.AddRange(new object[] {
+            "Название",
+            "Год"});
+            this.cbTypeFind.Location = new System.Drawing.Point(22, 109);
+            this.cbTypeFind.Name = "cbTypeFind";
+            this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
+            this.cbTypeFind.TabIndex = 13;
+            this.cbTypeFind.SelectedIndexChanged += new System.EventHandler(this.cbTypeFind_SelectedIndexChanged);
             // 
             // panelEdit
             // 
@@ -1662,133 +1802,6 @@
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // panelFind
-            // 
-            this.panelFind.Controls.Add(this.cbFullFind);
-            this.panelFind.Controls.Add(this.btnHidePanel);
-            this.panelFind.Controls.Add(this.btnFindReset);
-            this.panelFind.Controls.Add(this.lCritery);
-            this.panelFind.Controls.Add(this.lFindText);
-            this.panelFind.Controls.Add(this.panelFindTitle);
-            this.panelFind.Controls.Add(this.tbFind);
-            this.panelFind.Controls.Add(this.btnFindNext);
-            this.panelFind.Controls.Add(this.btnFind);
-            this.panelFind.Controls.Add(this.cbTypeFind);
-            this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFind.Location = new System.Drawing.Point(0, 0);
-            this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 606);
-            this.panelFind.TabIndex = 0;
-            // 
-            // btnHidePanel
-            // 
-            this.btnHidePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnHidePanel.Location = new System.Drawing.Point(154, 544);
-            this.btnHidePanel.Name = "btnHidePanel";
-            this.btnHidePanel.Size = new System.Drawing.Size(75, 23);
-            this.btnHidePanel.TabIndex = 19;
-            this.btnHidePanel.Text = "Скрыть";
-            this.btnHidePanel.UseVisualStyleBackColor = true;
-            this.btnHidePanel.Click += new System.EventHandler(this.btnHidePanel_Click);
-            // 
-            // btnFindReset
-            // 
-            this.btnFindReset.Location = new System.Drawing.Point(58, 143);
-            this.btnFindReset.Name = "btnFindReset";
-            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
-            this.btnFindReset.TabIndex = 18;
-            this.btnFindReset.Text = "Сброс";
-            this.btnFindReset.UseVisualStyleBackColor = true;
-            this.btnFindReset.Click += new System.EventHandler(this.btnFindReset_Click);
-            // 
-            // lCritery
-            // 
-            this.lCritery.AutoSize = true;
-            this.lCritery.Location = new System.Drawing.Point(22, 91);
-            this.lCritery.Name = "lCritery";
-            this.lCritery.Size = new System.Drawing.Size(94, 13);
-            this.lCritery.TabIndex = 17;
-            this.lCritery.Text = "Критерий поиска";
-            // 
-            // lFindText
-            // 
-            this.lFindText.AutoSize = true;
-            this.lFindText.Location = new System.Drawing.Point(23, 43);
-            this.lFindText.Name = "lFindText";
-            this.lFindText.Size = new System.Drawing.Size(82, 13);
-            this.lFindText.TabIndex = 17;
-            this.lFindText.Text = "Строка поиска";
-            // 
-            // panelFindTitle
-            // 
-            this.panelFindTitle.Controls.Add(this.lblFindTitle);
-            this.panelFindTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFindTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelFindTitle.Name = "panelFindTitle";
-            this.panelFindTitle.Size = new System.Drawing.Size(368, 27);
-            this.panelFindTitle.TabIndex = 16;
-            // 
-            // lblFindTitle
-            // 
-            this.lblFindTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblFindTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblFindTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblFindTitle.Name = "lblFindTitle";
-            this.lblFindTitle.Size = new System.Drawing.Size(368, 27);
-            this.lblFindTitle.TabIndex = 0;
-            this.lblFindTitle.Text = "Панель поиска";
-            this.lblFindTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tbFind
-            // 
-            this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFind.Location = new System.Drawing.Point(22, 59);
-            this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(328, 20);
-            this.tbFind.TabIndex = 15;
-            this.tbFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFind_KeyDown);
-            this.tbFind.MouseEnter += new System.EventHandler(this.tbFind_MouseEnter);
-            this.tbFind.MouseLeave += new System.EventHandler(this.tbFind_MouseLeave);
-            // 
-            // btnFindNext
-            // 
-            this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFindNext.Enabled = false;
-            this.btnFindNext.Location = new System.Drawing.Point(227, 136);
-            this.btnFindNext.Name = "btnFindNext";
-            this.btnFindNext.Size = new System.Drawing.Size(123, 23);
-            this.btnFindNext.TabIndex = 14;
-            this.btnFindNext.Text = "Найти следующее";
-            this.btnFindNext.UseVisualStyleBackColor = true;
-            this.btnFindNext.Click += new System.EventHandler(this.btnFindNext_Click);
-            // 
-            // btnFind
-            // 
-            this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Enabled = false;
-            this.btnFind.Location = new System.Drawing.Point(227, 107);
-            this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(123, 23);
-            this.btnFind.TabIndex = 14;
-            this.btnFind.Text = "Найти все";
-            this.btnFind.UseVisualStyleBackColor = true;
-            this.btnFind.Click += new System.EventHandler(this.Find_Click);
-            // 
-            // cbTypeFind
-            // 
-            this.cbTypeFind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTypeFind.FormattingEnabled = true;
-            this.cbTypeFind.Items.AddRange(new object[] {
-            "Название",
-            "Год"});
-            this.cbTypeFind.Location = new System.Drawing.Point(22, 109);
-            this.cbTypeFind.Name = "cbTypeFind";
-            this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
-            this.cbTypeFind.TabIndex = 13;
-            this.cbTypeFind.SelectedIndexChanged += new System.EventHandler(this.cbTypeFind_SelectedIndexChanged);
             // 
             // panelFolder
             // 
@@ -2791,16 +2804,14 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // cbFullFind
+            // ucMediaInfo1
             // 
-            this.cbFullFind.AutoSize = true;
-            this.cbFullFind.Location = new System.Drawing.Point(40, 184);
-            this.cbFullFind.Name = "cbFullFind";
-            this.cbFullFind.Size = new System.Drawing.Size(108, 17);
-            this.cbFullFind.TabIndex = 20;
-            this.cbFullFind.Text = "Сквозной поиск";
-            this.cbFullFind.UseVisualStyleBackColor = true;
-            this.cbFullFind.Visible = false;
+            this.ucMediaInfo1.AutoSize = true;
+            this.ucMediaInfo1.Location = new System.Drawing.Point(0, 0);
+            this.ucMediaInfo1.Name = "ucMediaInfo1";
+            this.ucMediaInfo1.record = null;
+            this.ucMediaInfo1.Size = new System.Drawing.Size(369, 626);
+            this.ucMediaInfo1.TabIndex = 57;
             // 
             // MainForm
             // 
@@ -2830,6 +2841,7 @@
             this.scTabFilm.Panel1.ResumeLayout(false);
             this.scTabFilm.Panel1.PerformLayout();
             this.scTabFilm.Panel2.ResumeLayout(false);
+            this.scTabFilm.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scTabFilm)).EndInit();
             this.scTabFilm.ResumeLayout(false);
             this.menuTableRec.ResumeLayout(false);
@@ -2838,15 +2850,15 @@
             this.panelView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.panelTitle.ResumeLayout(false);
+            this.panelFind.ResumeLayout(false);
+            this.panelFind.PerformLayout();
+            this.panelFindTitle.ResumeLayout(false);
             this.panelEdit.ResumeLayout(false);
             this.gMedia.ResumeLayout(false);
             this.gMedia.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             this.gRecord.ResumeLayout(false);
             this.gRecord.PerformLayout();
-            this.panelFind.ResumeLayout(false);
-            this.panelFind.PerformLayout();
-            this.panelFindTitle.ResumeLayout(false);
             this.panelFolder.ResumeLayout(false);
             this.panelFolder.PerformLayout();
             this.tabActors.ResumeLayout(false);
@@ -3127,6 +3139,7 @@
         private System.Windows.Forms.ToolStripSeparator ts8;
         private System.Windows.Forms.ToolStripButton tsHidePanel;
         private System.Windows.Forms.CheckBox cbFullFind;
+        private ucMediaInfo ucMediaInfo1;
     }
 }
 

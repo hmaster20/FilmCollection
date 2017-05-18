@@ -151,11 +151,23 @@
     <Compile Include="Form\formReport.Designer.cs">
       <DependentUpon>formReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\formSelectMedia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\formSelectMedia.Designer.cs">
+      <DependentUpon>formSelectMedia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\fromChangeLog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\fromChangeLog.Designer.cs">
       <DependentUpon>fromChangeLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ucMediaInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Form\ucMediaInfo.Designer.cs">
+      <DependentUpon>ucMediaInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,8 +197,14 @@
     <EmbeddedResource Include="Form\formReport.resx">
       <DependentUpon>formReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\formSelectMedia.resx">
+      <DependentUpon>formSelectMedia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\fromChangeLog.resx">
       <DependentUpon>fromChangeLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ucMediaInfo.resx">
+      <DependentUpon>ucMediaInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
