@@ -1239,8 +1239,17 @@ namespace FilmCollection
 
         private void SelectRec()
         {
-            panelView.BringToFront();               // Отображение панели описания
-            Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
+            //ucMediaInfo
+            //  Application.OpenForms["ucMediaInfo"].Activate();
+
+            Record record = GetSelectedRecord();
+            ucMediaInfo uc = new ucMediaInfo(record);
+            uc.Show();
+
+
+              //panelView.BringToFront();               // Отображение панели описания
+              //Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
+
             if (record != null)
             {
                 // Панель описания
@@ -1299,8 +1308,6 @@ namespace FilmCollection
                 }
                 else pbImage.Image = null;
             }
-
-
         }
 
         private Record GetSelectedRecord()  // получение выбранной записи в dgvTable
