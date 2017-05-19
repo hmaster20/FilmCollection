@@ -18,6 +18,7 @@ namespace FilmCollection
 
         static RecordCollection _videoCollection { get; set; }
         static Media _media { get; set; }
+        static Media mediaOriginal { get; set; }
 
         public static bool GetInfo(Media media, RecordCollection videoCollection)
         {
@@ -26,6 +27,7 @@ namespace FilmCollection
 
             _videoCollection = RecordCollection.GetInstance();
 
+            mediaOriginal = media;
             _media = media;
 
             if (_media.Category == CategoryVideo.Series)
@@ -47,7 +49,7 @@ namespace FilmCollection
                 {    
                      Media m = (Media)media.Clone();
 
-                    m.Pic = m.Name + "_" + i;
+                    m.Pic = ""+ m.Name + "_" + i;
                     _media = m;
 
                     //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
@@ -69,7 +71,8 @@ namespace FilmCollection
                         DownloadGenre(sourcestring);
                         DownloadDescription(sourcestring);
                         DownloadActor(sourcestring);
-                        DownloadPic(sourcestring);
+                        // DownloadPic(sourcestring);
+                        DownloadPicTemp(sourcestring);
 
                         flag = true;
                     }
@@ -78,9 +81,14 @@ namespace FilmCollection
 
                 }
 
-                formSelectMedia selectMedia = new formSelectMedia(MList);
-                selectMedia.ShowDialog();
-            }
+
+                formSelectMedia form = new formSelectMedia(MList);
+                if (form.ShowDialog() == DialogResult.OK)
+                    if (form.media != null)
+                    {
+                        mediaOriginal = (Media)form.media.Clone();
+                    }
+                }
 
 
 
@@ -356,6 +364,44 @@ namespace FilmCollection
                 }
             }
         }
+
+
+        private static void DownloadPicTemp(string sourcestring)
+        {
+            MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
+
+            foreach (Match Pic in Pics)
+            {
+                string PicPath = Pic.ToString();
+                PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
+                PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
+                if (PicPath != "")
+                {
+                    try
+                    {
+                        //_media.Pic = _media.Name;
+
+                        if (File.Exists(_media.GetFilename))
+                            File.Delete(_media.GetFilename);
+
+                        if (PicPath.StartsWith("http"))                //if (PicWeb.Contains("http"))
+                        {
+                            string path = _media.GetFilename;
+                            using (WebClient webClient = new WebClient())
+                                webClient.DownloadFile(PicPath, _media.GetFilename);
+                        }
+
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        break;
+                        throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message);
+                    }
+                }
+            }
+        }
+
 
     }
 }
