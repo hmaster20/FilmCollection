@@ -34,20 +34,13 @@ namespace FilmCollection
             get { return _pic; }
             set
             {
+                _pic = value;
                 if (_pic == null || _pic == "")
                 {
                     _pic = "noPic";
                 }
-                else
-                {
-                    _pic = value;
-                }
             }
         }
-        //= "noPic";   
-        
-        // если заполнен значит есть Изображение (Постер)
-
 
 
         public string Description { get; set; } = "";  // Описание файла (сюжет)
