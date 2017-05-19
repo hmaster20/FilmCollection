@@ -20,7 +20,7 @@ namespace FilmCollection
         static Media _media { get; set; }
         static Media mediaOriginal { get; set; }
 
-        public static bool GetInfo(Media media, RecordCollection videoCollection)
+        public static Media GetInfo(Media media, RecordCollection videoCollection)
         {
             bool flag = false;
             string webQuery = "";
@@ -46,10 +46,10 @@ namespace FilmCollection
                 List<Media> MList = new List<Media>();
 
                 for (int i = 0; i < mc.Count; i++)
-                {    
-                     Media m = (Media)media.Clone();
+                {
+                    Media m = (Media)media.Clone();
 
-                    m.Pic = ""+ m.Name + "_" + i;
+                    m.Pic = "" + m.Name + "_" + i;
                     _media = m;
 
                     //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
@@ -86,9 +86,65 @@ namespace FilmCollection
                 if (form.ShowDialog() == DialogResult.OK)
                     if (form.media != null)
                     {
-                        mediaOriginal = (Media)form.media.Clone();
+                        // mediaOriginal = (Media)form.media.Clone();
+                        //mediaOriginal = form.media;
+
+                        // File form.media.GetFilename
+
+                        _media = (Media)form.media.Clone();
+
+                        string currentPIC = _media.GetFilename;
+
+                        _media.Pic = _media.Name;
+
+                        string newPIC = _media.GetFilename;
+                        
+                        if (File.Exists(newPIC))
+                            File.Delete(newPIC);
+
+                        //File.Move(currentPIC, newPIC);
+                        File.Copy(currentPIC, newPIC);
+
+                        foreach (Media m in MList)
+                        {
+                            if (File.Exists(m.GetFilename))
+                            {
+                                try
+                                {
+                                    File.Delete(m.GetFilename);
+                                }
+                                catch (Exception)
+                                {
+                                }
+                            }
+                        }
                     }
+            }
+            else
+            {
+                List<string> arrayPath = new List<string>(mc[0].ToString().Split('"', '(', ')'));
+
+                string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
+                string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
+                if (Link_txt == null)
+                {
+                    Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
                 }
+
+                if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
+                {
+                    string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
+
+                    DownloadCountry(sourcestring);
+                    DownloadYear(sourcestring);
+                    DownloadGenre(sourcestring);
+                    DownloadDescription(sourcestring);
+                    DownloadActor(sourcestring);
+                    DownloadPic(sourcestring);
+
+                    flag = true;
+                }
+            }
 
 
 
@@ -103,7 +159,9 @@ namespace FilmCollection
             //}
 
 
-            return flag;
+            // return flag;
+
+            return _media;
         }
 
 
