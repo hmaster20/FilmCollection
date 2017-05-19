@@ -46,9 +46,59 @@ namespace FilmCollection
             }
         }
 
+        public ucMediaInfo(Media _media)
+        {
+            InitializeComponent();
+
+            RecordCollection _videoCollection = RecordCollection.GetInstance();
+            
+            if (_media != null)
+            {
+                // Панель описания
+                tbfName.Text = _media.Name;
+                tbfDesc.Text = _media.Description;
+                tbfYear.Text = Convert.ToString(_media.Year);
+                tbfCountry.Text = _media.CountryString;
+                GetPic(_media);
+                btnPlay.Enabled = false;
+                lbActors.Items.Clear();
+                if (_media.ActorListID != null)
+                    foreach (int ListID in _media.ActorListID)
+                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
+                            lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
+            }
+        }
+
+
+
+
+        public void update(Media _media)
+        {
+            RecordCollection _videoCollection = RecordCollection.GetInstance();
+
+            if (_media != null)
+            {
+                // Панель описания
+                tbfName.Text = _media.Name;
+                tbfDesc.Text = _media.Description;
+                tbfYear.Text = Convert.ToString(_media.Year);
+                tbfCountry.Text = _media.CountryString;
+                GetPic(_media);
+                btnPlay.Enabled = false;
+                lbActors.Items.Clear();
+                if (_media.ActorListID != null)
+                    foreach (int ListID in _media.ActorListID)
+                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
+                            lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
+            }
+        }
+
+
+
+
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (record != null) // убрать возможность нажатия при отсутствии селекта
+            if (record != null)
             {
                 string _file = (record.Path + Path.DirectorySeparatorChar + record.FileName);
                 if (File.Exists(_file))
