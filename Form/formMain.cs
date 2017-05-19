@@ -2583,18 +2583,20 @@ namespace FilmCollection
             if (record != null)
             {
                 CardRecordPreview_Clear();
-                if (DownloadDetails.GetInfo(record.combineLink.media, _videoCollection))
-                {
-                    _videoCollection.Save();
-                    PrepareRefresh();
-                    SelectRec();
-                }
+                //if (DownloadDetails.GetInfo(record.combineLink.media, _videoCollection))
+                //{
 
-                //Thr.Thread t = new Thr.Thread(getInfofromWeb);
-                //t.Start();
-                //while (!t.IsAlive)
-                //{ };
+                //    _videoCollection.Save();
+                //    _videoCollection.SaveToFile();
+                //    PrepareRefresh();
+                //    SelectRec();
+                //}
 
+                record.combineLink.media = (Media) DownloadDetails.GetInfo(record.combineLink.media, _videoCollection).Clone();
+                _videoCollection.Save();
+                _videoCollection.SaveToFile();
+                PrepareRefresh();
+                SelectRec();
             }
         }
 
