@@ -11,7 +11,6 @@ namespace FilmCollection
 {
     public partial class formSelectMedia : Form
     {
-        //public List<Media> MList { get; set; }
         public Media media = null;
 
         public formSelectMedia()
@@ -22,33 +21,25 @@ namespace FilmCollection
         public formSelectMedia(List<Media> MList)
         {
             InitializeComponent();
+            MList.ForEach(x => listMedia.Items.Add(x));
 
-            MList.ForEach(x=> listBox1.Items.Add(x));
-
+            //listMedia.Items.Clear();
+            //foreach (Media _media in MList)
+            //    listMedia.Items.Add(new ListViewItem(new string[] {_media.Name, _media.CountryString, _media.Year.ToString() }));
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            Media media = (Media)listBox1.SelectedItem;
+            media = (Media)listMedia.SelectedItem;           
             DialogResult = DialogResult.OK;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            Media media = (Media)listBox1.SelectedItem;
 
+            Media media = (Media)listMedia.SelectedItem;
             SelectMediaInfo.update(media);
-
-            //ucMediaInfo uc = new ucMediaInfo(media);             
-            //uc.Show();
-            //uc.Refresh();
-
-           // lCountry.Text = media.CountryString;
-          //  lYear.Text = media.Year.ToString();
-                           
         }
     }
 }
 
-               
