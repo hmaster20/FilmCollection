@@ -122,6 +122,8 @@ namespace FilmCollection
                     pbImage.Image = (image.Height > 300)
                         ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
                         : image;
+
+                    //image.Dispose();
                 }
                 else pbImage.Image = null;
             }
