@@ -2592,11 +2592,19 @@ namespace FilmCollection
                 //    SelectRec();
                 //}
 
-                record.combineLink.media = (Media) DownloadDetails.GetInfo(record.combineLink.media, _videoCollection).Clone();
-                _videoCollection.Save();
-                _videoCollection.SaveToFile();
-                PrepareRefresh();
-                SelectRec();
+                Media newMedia = (Media)DownloadDetails.GetInfo(record.combineLink.media, _videoCollection);
+
+                if (newMedia != null)
+                {
+                    //record.combineLink.media = (Media) DownloadDetails.GetInfo(record.combineLink.media, _videoCollection).Clone();
+
+                    record.combineLink.media = (Media)newMedia.Clone();
+                    _videoCollection.Save();
+                    _videoCollection.SaveToFile();
+                    PrepareRefresh();
+                    SelectRec();
+                }
+
             }
         }
 
