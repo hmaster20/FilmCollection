@@ -123,7 +123,7 @@ namespace FilmCollection
                         ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
                         : image;
 
-                    //image.Dispose();
+                    image.Dispose();
                 }
                 else pbImage.Image = null;
             }
