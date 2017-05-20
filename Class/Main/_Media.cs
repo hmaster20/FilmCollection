@@ -30,15 +30,13 @@ namespace FilmCollection
 
 
         private string _pic;
-        public string Pic {
+        public string Pic
+        {
             get { return _pic; }
             set
             {
                 _pic = value;
-                if (_pic == null || _pic == "")
-                {
-                    _pic = "noPic";
-                }
+                if (_pic == null || _pic == "") _pic = "noPic";
             }
         }
 
