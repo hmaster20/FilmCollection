@@ -62,8 +62,14 @@ namespace FilmCollection
                         Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
                     }
 
-                    if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
+                    //=========================================================================
+                    // if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
+                    // {
+
+                    if (Link_txt != "")
                     {
+
+
                         string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
 
                         DownloadCountry(sourcestring);
@@ -77,6 +83,9 @@ namespace FilmCollection
                         flag = true;
                     }
 
+                    // }
+                    //=========================================================================
+
                     MList.Add(m);
 
                 }
@@ -86,41 +95,28 @@ namespace FilmCollection
                 if (form.ShowDialog() == DialogResult.OK)
                     if (form.media != null)
                     {
-                        // mediaOriginal = (Media)form.media.Clone();
-                        //mediaOriginal = form.media;
-
-                        // File form.media.GetFilename
-
                         _media = (Media)form.media.Clone();
 
-                        string currentPIC = _media.GetFilename;
+                        string currentPicFile = _media.GetFilename;
 
                         _media.Pic = _media.Name;
 
-                        string newPIC = _media.GetFilename;
-                        
-                        if (File.Exists(newPIC))
-                            File.Delete(newPIC);
+                        string newPicFile = _media.GetFilename;
 
-                        //File.Move(currentPIC, newPIC);
-                        File.Copy(currentPIC, newPIC);
+                        if (File.Exists(newPicFile))
+                            File.Delete(newPicFile);
+
+                        if (File.Exists(currentPicFile))
+                            File.Copy(currentPicFile, newPicFile);
 
                         foreach (Media m in MList)
                         {
                             if (File.Exists(m.GetFilename))
-                            {
-                                try
-                                {
-                                    File.Delete(m.GetFilename);
-                                }
-                                catch (Exception)
-                                {
-                                }
-                            }
+                                File.Delete(m.GetFilename);
                         }
                     }
             }
-            else
+            else if (mc.Count == 1)
             {
                 List<string> arrayPath = new List<string>(mc[0].ToString().Split('"', '(', ')'));
 
@@ -145,6 +141,11 @@ namespace FilmCollection
                     flag = true;
                 }
             }
+            else
+            {
+                _media = null;
+            }
+
 
 
 
@@ -193,7 +194,9 @@ namespace FilmCollection
                 using (StreamReader reader = new StreamReader(data))
                     return reader.ReadToEnd();
             }
-            catch (WebException exc) { MessageBox.Show("Сетевая ошибка: " + exc.Message + "\nКод состояния: " + exc.Status); }
+            catch (WebException ex) { Logs.Log("В интернете отсутствует запрошенная информация.\n", ex); }
+            // catch (WebException exc) { MessageBox.Show("Сетевая ошибка: " + exc.Message + "\nКод состояния: " + exc.Status); }
+
             return "";
         }
 
