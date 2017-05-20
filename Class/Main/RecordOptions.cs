@@ -9,6 +9,13 @@ namespace FilmCollection
     /// <summary>Параметры настроек программы</summary>
     public class RecordOptions
     {
+        public static bool isDebug { get; set; } =
+#if DEBUG
+            true;
+#else
+            false;
+#endif
+
         /// <summary>Файл базы коллекции "VideoList.xml"</summary>
         [XmlIgnore]
         public static string BaseName { get; } = "VideoList.xml";
