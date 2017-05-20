@@ -81,6 +81,7 @@ namespace FilmCollection
     public enum Country_Rus
     {
         Австралия,
+        Беларусь,
         Бельгия,
         Бразилия,
         Великобритания,
