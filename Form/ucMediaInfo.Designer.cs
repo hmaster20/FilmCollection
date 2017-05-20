@@ -43,6 +43,7 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lUserControl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -190,6 +191,7 @@
             // 
             // panelTitle
             // 
+            this.panelTitle.Controls.Add(this.lUserControl);
             this.panelTitle.Controls.Add(this.lblRecTitle);
             this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitle.Location = new System.Drawing.Point(0, 0);
@@ -228,6 +230,15 @@
             this.panel1.Size = new System.Drawing.Size(386, 599);
             this.panel1.TabIndex = 70;
             // 
+            // lUserControl
+            // 
+            this.lUserControl.AutoSize = true;
+            this.lUserControl.Location = new System.Drawing.Point(290, 8);
+            this.lUserControl.Name = "lUserControl";
+            this.lUserControl.Size = new System.Drawing.Size(62, 13);
+            this.lUserControl.TabIndex = 1;
+            this.lUserControl.Text = "UserControl";
+            // 
             // ucMediaInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,6 +249,7 @@
             this.Size = new System.Drawing.Size(386, 626);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.panelTitle.ResumeLayout(false);
+            this.panelTitle.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -261,5 +273,6 @@
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblRecTitle;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lUserControl;
     }
 }
