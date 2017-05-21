@@ -20,13 +20,17 @@ namespace FilmCollection
         static Media _media { get; set; }
         static Media mediaOriginal { get; set; }
 
-        public static Media GetInfo(Media media, RecordCollection videoCollection)
+        //public static Media GetInfo(Media media, RecordCollection videoCollection)
+        public static Media GetInfo(Record record, RecordCollection videoCollection)
         {
-            bool flag = false;
+            //bool flag = false;
             string webQuery = "";
 
             _videoCollection = RecordCollection.GetInstance();
 
+            //record.combineLink.media
+
+            Media media = record.combineLink.media;
             mediaOriginal = media;
             _media = media;
 
@@ -62,14 +66,9 @@ namespace FilmCollection
                         Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
                     }
 
-                    //=========================================================================
                     // if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
-                    // {
-
                     if (Link_txt != "")
                     {
-
-
                         string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
 
                         DownloadCountry(sourcestring);
@@ -77,28 +76,17 @@ namespace FilmCollection
                         DownloadGenre(sourcestring);
                         DownloadDescription(sourcestring);
                         DownloadActor(sourcestring);
-                        // DownloadPic(sourcestring);
                         DownloadPicTemp(sourcestring);
-
-                        flag = true;
                     }
-
-                    // }
-                    //=========================================================================
-
                     MList.Add(m);
-
                 }
-
 
                 formSelectMedia form = new formSelectMedia(MList);
                 if (form.ShowDialog() == DialogResult.OK)
                     if (form.media != null)
                     {
                         _media = (Media)form.media.Clone();
-
                         string currentPicFile = _media.GetFilename;
-
                         _media.Pic = _media.Name;
 
                         string newPicFile = _media.GetFilename;
@@ -137,31 +125,12 @@ namespace FilmCollection
                     DownloadDescription(sourcestring);
                     DownloadActor(sourcestring);
                     DownloadPic(sourcestring);
-
-                    flag = true;
                 }
             }
             else
             {
                 _media = null;
             }
-
-
-
-
-            //if (mc.Count > 1)
-            //{
-            //    formSelectMedia selectMedia = new formSelectMedia();
-            //    selectMedia.ShowDialog();
-            //}
-            //else
-            //{
-            //    //media = 
-            //}
-
-
-            // return flag;
-
             return _media;
         }
 
