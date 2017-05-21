@@ -8,8 +8,8 @@ using System.Diagnostics;
 
 namespace FilmCollection
 {
-    /// <summary>Класс управления коллекцией фильмотеки</summary>
-    public class RecordCollection : ICloneable
+    /// <summary>Класс управления коллекцией фильмотеки, состоящей из фильмов (CombineList) и актеров (ActorList)</summary>
+    public class RecordCollection //: ICloneable
     {
         [XmlElement]
         public RecordOptions Options { get; set; } = new RecordOptions();
@@ -135,10 +135,10 @@ namespace FilmCollection
         }
 
         //RecordCollection VideoCollection = (RecordCollection)videoCollection.Clone();
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+        //public object Clone()
+        //{
+        //    return this.MemberwiseClone();
+        //}
 
         #endregion
     }
