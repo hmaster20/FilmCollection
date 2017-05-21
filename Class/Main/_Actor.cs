@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace FilmCollection
 {
-    /// <summary>Класс содержит информацию об актерах.</summary>
+    /// <summary>Класс содержит информацию об актерах</summary>
     public class Actor : IComparable<Actor>
     {
         public Actor()
