@@ -6,15 +6,14 @@ namespace FilmCollection
     /// <summary>Связывающий класс для объединения Media (информации о фильме) и Record (самого файла видео)</summary>
     public class Combine
     {
+        public Media media { get; set; }
+        public List<Record> recordList { get; set; }
+
         public Combine()
         {
-            recordList = new List<Record>();
-            media = new Media();
+            media = new Media();                // создание объекта Media
+            recordList = new List<Record>();    // хранение файлов принадлежащих Media
         }
-
-        public Media media { get; set; }                // создание объекта Media
-        public List<Record> recordList { get; set; }    // хранение файлов принадлежащих Media
-
 
         public void DeleteOldRecord()    // удаление помеченных фильмов
         {
