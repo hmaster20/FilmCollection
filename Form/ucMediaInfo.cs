@@ -14,6 +14,7 @@ namespace FilmCollection
     public partial class ucMediaInfo : UserControl
     {
         private Record record { get; set; }
+        private MainForm main { get; set; }
 
         public ucMediaInfo()
         {
@@ -25,10 +26,11 @@ namespace FilmCollection
             InitializeComponent();
         }        
 
-        public void update(Record _record)
+        public void update(Record _record, MainForm main)
         {
             RecordCollection _videoCollection = RecordCollection.GetInstance();
 
+            this.main = main;
             this.record = _record;
 
             if (_record != null)
@@ -106,5 +108,12 @@ namespace FilmCollection
             }
         }
 
+        private void lbActors_DoubleClick(object sender, EventArgs e)
+        {
+            if (record != null && main != null)
+            {
+                main.SelectActor(lbActors.SelectedItem.ToString());
+            }
+        }
     }
 }
