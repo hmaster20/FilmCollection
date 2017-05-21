@@ -19,20 +19,26 @@ namespace FilmCollection
                 Directory.CreateDirectory(BackFolder);
                 return true;
             }
-            return false;
+            else
+            {
+                return true;
+            }
         }
 
 
         public static void CreateBackup()
         {
-            using (ZipFile zip = new ZipFile())
-            {
-                // add this map file into the "images" directory in the zip archive
-                //zip.AddFile("c:\\images\\personal\\7440-N49th.png", "images");
+            string zipName = Path.Combine(BackFolder, "Base_" + DateTime.Now.ToString("yyyy.M.dd") + ".zip");
 
-                zip.AddFile(RecordOptions.BaseName);
-                zip.Save("Base_" + DateTime.Now.ToString("yyyy.M.dd") + ".zip");
+            if (FindCurrentArchive() && !File.Exists(zipName))
+            {
+                using (ZipFile zip = new ZipFile())
+                {
+                    zip.AddFile(RecordOptions.BaseName);
+                    zip.Save(zipName);
+                }
             }
+
         }
     }
 }
