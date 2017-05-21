@@ -1233,11 +1233,24 @@ namespace FilmCollection
 
         private void SelectRec()
         {
+
+
+            Record record = GetSelectedRecord();
+
             panelView2.BringToFront();
+            ucView.update(record, this);
 
-            Record record = GetSelectedRecord();    
+            //try
+            //{
+            //    panelView2.SuspendLayout();
+            //    panelView2.Controls.Remove(ucView);
+            //    panelView2.Controls.Add(userControl2);
+            //}
+            //finally
+            //{
+            //    panelView2.ResumeLayout();
+            //}
 
-            ucView.update(record);
 
             //panelView.BringToFront();               // Отображение панели описания
             //Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
@@ -2100,6 +2113,32 @@ namespace FilmCollection
             }
         }
 
+        public void SelectActor(string actor)
+        {
+            tabControl2.SelectTab(tabActors);
+
+            if (actor != null)
+            {
+                int rowIndex = -1;
+                foreach (DataGridViewRow row in dgvTableActors.Rows)
+                {
+                    if (row.Cells[0].Value.ToString().Equals(actor))
+                    {
+                        rowIndex = row.Index;
+                        break;
+                    }
+                }
+
+                if (rowIndex != -1)
+                {
+                    dgvTableActors.Rows[rowIndex].Selected = true;
+                    dgvTableActors.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
+                }
+            }
+        }
+
+
+
         private void listViewFilmV_DoubleClick(object sender, EventArgs e)
         {
             if (listViewFilmV.SelectedItems[0].SubItems[0].Text != "")
@@ -2556,8 +2595,12 @@ namespace FilmCollection
                           where rec.Visible == true
                           select rec.combineLink);    //.Distinct<Combine>();
 
+            //foreach (Combine cm in cmList.Distinct().ToList())
+            //    DownloadDetails.GetInfo(cm.media, _videoCollection);
+
             foreach (Combine cm in cmList.Distinct().ToList())
-                DownloadDetails.GetInfo(cm.media, _videoCollection);
+                foreach (Record rec in cm.recordList)
+                    DownloadDetails.GetInfo(rec, _videoCollection);
 
             _videoCollection.Save();
             PrepareRefresh();
@@ -2584,7 +2627,8 @@ namespace FilmCollection
                 //    SelectRec();
                 //}
 
-                Media newMedia = (Media)DownloadDetails.GetInfo(record.combineLink.media, _videoCollection);
+                //Media newMedia = (Media)DownloadDetails.GetInfo(record.combineLink.media, _videoCollection);
+                Media newMedia = (Media)DownloadDetails.GetInfo(record, _videoCollection);
 
                 if (newMedia != null)
                 {
