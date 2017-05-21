@@ -77,7 +77,8 @@ namespace FilmCollection
 
         #region Список ID фильмов
 
-        private List<int> _videoID;     // Объявление ID фильмов
+        private List<int> _videoID;
+        /// <summary>Список ID фильмов</summary>
         public List<int> VideoID
         {
             get { return _videoID; }

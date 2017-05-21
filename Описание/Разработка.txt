@@ -1150,3 +1150,31 @@
    =================================================================================================================================================
 
 		 Logs.Log(string.Format($"При загрузки базы произошла ошибка: {ex}"));
+
+
+ =================================================================================================================================================
+
+
+
+That's perfectly reasonable.
+
+If you're concerned about keeping around resources you're no longer using, you can add a Panel and add or remove the control from there.
+
+E.g.
+
+try
+{
+    panel.SuspendLayout();
+    panel.Controls.Remove(userControl1);
+    panel.Controls.Add(userControl2);
+}
+finally
+{
+    panel.ResumeLayout();
+}
+
+If the user controls do things like connect to data sources, you might want to actually dispose and recreate them. Really depends on how complex the controls are. If they're just capturing a few properties, your current solution is fine.
+
+
+
+
