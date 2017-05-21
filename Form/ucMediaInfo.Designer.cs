@@ -41,9 +41,9 @@
             this.tbfYear = new System.Windows.Forms.TextBox();
             this.tbfName = new System.Windows.Forms.TextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
+            this.lUserControl = new System.Windows.Forms.Label();
             this.lblRecTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lUserControl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -57,6 +57,7 @@
             this.lbActors.Name = "lbActors";
             this.lbActors.Size = new System.Drawing.Size(134, 169);
             this.lbActors.TabIndex = 69;
+            this.lbActors.DoubleClick += new System.EventHandler(this.lbActors_DoubleClick);
             // 
             // pbImage
             // 
@@ -199,6 +200,15 @@
             this.panelTitle.Size = new System.Drawing.Size(386, 27);
             this.panelTitle.TabIndex = 66;
             // 
+            // lUserControl
+            // 
+            this.lUserControl.AutoSize = true;
+            this.lUserControl.Location = new System.Drawing.Point(290, 8);
+            this.lUserControl.Name = "lUserControl";
+            this.lUserControl.Size = new System.Drawing.Size(62, 13);
+            this.lUserControl.TabIndex = 1;
+            this.lUserControl.Text = "UserControl";
+            // 
             // lblRecTitle
             // 
             this.lblRecTitle.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -229,15 +239,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(386, 599);
             this.panel1.TabIndex = 70;
-            // 
-            // lUserControl
-            // 
-            this.lUserControl.AutoSize = true;
-            this.lUserControl.Location = new System.Drawing.Point(290, 8);
-            this.lUserControl.Name = "lUserControl";
-            this.lUserControl.Size = new System.Drawing.Size(62, 13);
-            this.lUserControl.TabIndex = 1;
-            this.lUserControl.Text = "UserControl";
             // 
             // ucMediaInfo
             // 
