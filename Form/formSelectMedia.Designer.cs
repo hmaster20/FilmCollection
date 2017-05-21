@@ -30,12 +30,13 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.SelectMediaInfo = new FilmCollection.ucMediaInfo();
+            this.listMedia = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.listMedia = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
+            this.labelRecordName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,17 +69,27 @@
             this.SelectMediaInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SelectMediaInfo.Location = new System.Drawing.Point(0, 0);
             this.SelectMediaInfo.Name = "SelectMediaInfo";
-            this.SelectMediaInfo.record = null;
             this.SelectMediaInfo.Size = new System.Drawing.Size(397, 655);
             this.SelectMediaInfo.TabIndex = 0;
             // 
+            // listMedia
+            // 
+            this.listMedia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listMedia.FormattingEnabled = true;
+            this.listMedia.Location = new System.Drawing.Point(0, 52);
+            this.listMedia.Name = "listMedia";
+            this.listMedia.Size = new System.Drawing.Size(382, 547);
+            this.listMedia.TabIndex = 0;
+            this.listMedia.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.labelRecordName);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(382, 40);
+            this.panel2.Size = new System.Drawing.Size(382, 52);
             this.panel2.TabIndex = 1;
             // 
             // label1
@@ -86,19 +97,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(361, 13);
+            this.label1.Size = new System.Drawing.Size(328, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Необходимо выбрать одну из записей отображаемых в списке ниже:";
-            // 
-            // listMedia
-            // 
-            this.listMedia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listMedia.FormattingEnabled = true;
-            this.listMedia.Location = new System.Drawing.Point(0, 40);
-            this.listMedia.Name = "listMedia";
-            this.listMedia.Size = new System.Drawing.Size(382, 559);
-            this.listMedia.TabIndex = 0;
-            this.listMedia.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.label1.Text = "Необходимо выбрать одну из записей, которая соответствует:";
             // 
             // panel1
             // 
@@ -133,6 +134,15 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // labelRecordName
+            // 
+            this.labelRecordName.AutoSize = true;
+            this.labelRecordName.Location = new System.Drawing.Point(13, 26);
+            this.labelRecordName.Name = "labelRecordName";
+            this.labelRecordName.Size = new System.Drawing.Size(100, 13);
+            this.labelRecordName.TabIndex = 1;
+            this.labelRecordName.Text = "Название фильма";
+            // 
             // formSelectMedia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,5 +173,6 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelRecordName;
     }
 }

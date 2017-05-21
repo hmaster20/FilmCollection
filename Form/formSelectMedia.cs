@@ -18,10 +18,19 @@ namespace FilmCollection
             InitializeComponent();
         }
 
-        public formSelectMedia(List<Media> MList)
+        public formSelectMedia(List<Media> MList, Record record)
         {
             InitializeComponent();
             MList.ForEach(x => listMedia.Items.Add(x));
+
+            if (record != null)
+            {
+                labelRecordName.Text = record.FileName;
+            }
+            else
+            {
+                labelRecordName.Text = "";
+            }
 
             //listMedia.Items.Clear();
             //foreach (Media _media in MList)
@@ -37,7 +46,6 @@ namespace FilmCollection
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             Media media = (Media)listMedia.SelectedItem;
             SelectMediaInfo.update(media);
         }
