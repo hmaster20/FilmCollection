@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FilmCollection.Properties;
+using System;
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
@@ -164,7 +165,16 @@ namespace FilmCollection
 
         private void Main_Load(object sender, EventArgs e)
         {
+            // загрузка параметров из файла конфигурации
             ChangeStatusMenuButton(FormLoad(true));
+            LastNode = Settings.Default.TreeFolderSelect;
+            PrepareRefresh();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // сохранение параметров в файл конфигурации
+            Settings.Default.TreeFolderSelect = GetNode();
         }
 
         private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
@@ -1274,7 +1284,7 @@ namespace FilmCollection
                 // Media
                 cbNameMedia.Text = record.combineLink.media.Name;
                 mtbYear.Text = Convert.ToString(record.combineLink.media.Year);
-                tbDescription.Text = record.combineLink.media.Description;
+                rtDescription.Text = record.combineLink.media.Description;
                 cBoxTypeVideo.SelectedIndex = ((int)record.combineLink.media.Category);
                 cBoxGenre.SelectedIndex = ((int)record.combineLink.media.GenreVideo);
                 cBoxCountry.SelectedIndex = ((int)record.combineLink.media.Country);
@@ -1606,7 +1616,7 @@ namespace FilmCollection
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());;
+                MessageBox.Show(ex.ToString()); ;
             }
         }
 
@@ -1771,7 +1781,7 @@ namespace FilmCollection
             cbNameMedia.Text = "";
             tbNameRecord.Text = "";
             tbFileName.Text = "";
-            tbDescription.Text = "";
+            rtDescription.Text = "";
             mtbYear.Text = "";
             cBoxGenre.SelectedIndex = -1;
             cBoxTypeVideo.SelectedIndex = -1;
@@ -1818,10 +1828,17 @@ namespace FilmCollection
 
             if (record.FileName != tbFileName.Text)
             {
-                File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
-                          record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
-                record.FileName = tbFileName.Text;
-                record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim('.');
+                if (File.Exists(record.Path + Path.DirectorySeparatorChar + record.FileName))
+                {
+                    File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
+                              record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
+                    record.FileName = tbFileName.Text;
+                    record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim('.');
+                }
+                else
+                {
+                    MessageBox.Show("Файл " + record.FileName + " не найден!");
+                }
             }
             else record.FileName = tbFileName.Text;
 
@@ -1872,7 +1889,7 @@ namespace FilmCollection
         {
             cm.media.Name = cbNameMedia.Text;
             cm.media.Year = Convert.ToInt32(mtbYear.Text);
-            cm.media.Description = tbDescription.Text;
+            cm.media.Description = rtDescription.Text;
             cm.media.Category = (CategoryVideo)cBoxTypeVideo.SelectedIndex;
             cm.media.GenreVideo = (GenreVideo)cBoxGenre.SelectedIndex;
             cm.media.Country = (Country_Rus)cBoxCountry.SelectedIndex;
@@ -1888,7 +1905,41 @@ namespace FilmCollection
             }
             else
             {
-                cm.media.ActorListID_Clear(); // Продумать синхронизацию актёров и медиа при изменении или очистки списка актеров
+                if (cm.media.ActorListID.Count > 0)
+                {
+                    foreach (int actorID in cm.media.ActorListID)
+                    {
+                        foreach (Actor act in _videoCollection.ActorList)
+                        {
+                            if (act.id == actorID)
+                            {
+                                act.VideoID.Remove(cm.media.Id);
+                            }
+                        }
+
+                    }
+                    cm.media.ActorListID_Clear();
+                    cm.media.ActorList.Clear();
+                }
+                else
+                {
+                    foreach (Actor act in _videoCollection.ActorList)
+                    {
+                        foreach (int filmID in act.VideoID)
+                        {
+                            if (filmID == cm.media.Id)
+                            {
+                                act.VideoID.Remove(cm.media.Id);
+                                break;
+                            }
+                        }
+                    }
+                    cm.media.ActorList.Clear();
+                }
+
+                //List<int> originalActorListID = new List<int>(cm.media.ActorListID);
+
+
             }
         }
 
@@ -1924,7 +1975,7 @@ namespace FilmCollection
             if (cm != null)
             {
                 mtbYear.Text = Convert.ToString(cm.media.Year);
-                tbDescription.Text = cm.media.Description;
+                rtDescription.Text = cm.media.Description;
                 cBoxTypeVideo.SelectedIndex = ((int)cm.media.Category);
                 cBoxGenre.SelectedIndex = ((int)cm.media.GenreVideo);
                 cBoxCountry.SelectedIndex = ((int)cm.media.Country);
@@ -2010,7 +2061,7 @@ namespace FilmCollection
             NameBlock();
 
             mtbYear.Modified = false;       // возвращаем назад статус изменения поля  
-            tbDescription.Modified = false; // возвращаем назад статус изменения поля
+            rtDescription.Modified = false; // возвращаем назад статус изменения поля
 
             treeFolder.Enabled = true;      // Разблокировка дерева
             TableRec.Enabled = true;     // Разблокировка таблицы
@@ -2694,7 +2745,6 @@ namespace FilmCollection
 
         private void btnRemoveAllGroup_Click(object sender, EventArgs e)
         {
-
             chkActorSelect.Items.Clear();
             UserModifiedChanged(sender, e);
         }
@@ -2909,36 +2959,44 @@ namespace FilmCollection
 
         private void AddImage(string imageFilename)
         {
-            // thread safe
-
-            // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
-            if (IsHandleCreated)
+            try
             {
-                if (InvokeRequired)
+                // thread safe
+
+                // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
+                if (IsHandleCreated)
                 {
-                    Invoke(m_AddImageDelegate, imageFilename);
-                }
-                else
-                {
-                    int size = ImageSize;
+                    if (InvokeRequired)
+                    {
+                        Invoke(m_AddImageDelegate, imageFilename);
+                    }
+                    else
+                    {
+                        int size = ImageSize;
 
-                    ImageViewer imageViewer = new ImageViewer();
-                    // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
-                    imageViewer.Dock = DockStyle.None;
-                    imageViewer.LoadImage(imageFilename, 256, 256);
-                    imageViewer.Width = size;
-                    imageViewer.Height = size;
-                    imageViewer.IsThumbnail = true;
+                        ImageViewer imageViewer = new ImageViewer();
+                        // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                        imageViewer.Dock = DockStyle.None;
+                        imageViewer.LoadImage(imageFilename, 256, 256);
+                        imageViewer.Width = size;
+                        imageViewer.Height = size;
+                        imageViewer.IsThumbnail = true;
 
-                    imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
-                    imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
-                    imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+                        imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
+                        imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
+                        imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
 
-                    OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+                        OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
-                    flowLayoutPanelMain.Controls.Add(imageViewer);
+                        flowLayoutPanelMain.Controls.Add(imageViewer);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Logs.Log("Ошибка отображения постера", ex);
+            }
+
         }
 
         private static string GetPicName(object sender)
@@ -3067,7 +3125,6 @@ namespace FilmCollection
                 scTabFilm.Panel2.Show();
             }
         }
-
 
 
     }
