@@ -13,7 +13,7 @@ namespace FilmCollection
 {
     public partial class ucMediaInfo : UserControl
     {
-        public Record record { get; set; }
+        private Record record { get; set; }
 
         public ucMediaInfo()
         {
@@ -23,53 +23,30 @@ namespace FilmCollection
         public ucMediaInfo(Record _record)
         {
             InitializeComponent();
+        }        
+
+        public void update(Record _record)
+        {
+            RecordCollection _videoCollection = RecordCollection.GetInstance();
 
             this.record = _record;
-           // this._videoCollection = RecordCollection.GetInstance();
-            RecordCollection _videoCollection = RecordCollection.GetInstance();
 
-
-            if (record != null)
+            if (_record != null)
             {
                 // Панель описания
-                tbfName.Text = record.mName;
-                tbfDesc.Text = record.mDescription;
-                tbfYear.Text = Convert.ToString(record.mYear);
-                tbfCountry.Text = record.mCountry;
-                GetPic(record.combineLink.media);
+                tbfName.Text = _record.mName;
+                tbfDesc.Text = _record.mDescription;
+                tbfYear.Text = Convert.ToString(_record.mYear);
+                tbfCountry.Text = _record.mCountry;
+                GetPic(_record.combineLink.media);
                 btnPlay.Enabled = true;
                 lbActors.Items.Clear();
-                if (record.combineLink.media.ActorListID != null)
-                    foreach (int ListID in record.combineLink.media.ActorListID)
+                if (_record.combineLink.media.ActorListID != null)
+                    foreach (int ListID in _record.combineLink.media.ActorListID)
                         if (_videoCollection.ActorList.Exists(act => act.id == ListID))
                             lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
             }
         }
-
-        public ucMediaInfo(Media _media)
-        {
-            InitializeComponent();
-
-            RecordCollection _videoCollection = RecordCollection.GetInstance();
-            
-            if (_media != null)
-            {
-                // Панель описания
-                tbfName.Text = _media.Name;
-                tbfDesc.Text = _media.Description;
-                tbfYear.Text = Convert.ToString(_media.Year);
-                tbfCountry.Text = _media.CountryString;
-                GetPic(_media);
-                btnPlay.Enabled = false;
-                lbActors.Items.Clear();
-                if (_media.ActorListID != null)
-                    foreach (int ListID in _media.ActorListID)
-                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
-                            lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
-            }
-        }
-
-
 
 
         public void update(Media _media)
