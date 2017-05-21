@@ -32,13 +32,6 @@ namespace FilmCollection
 
         HelpProvider helpProvider { get; set; } // Справка
 
-        public bool isDebug { get; set; } =
-#if DEBUG
-            true;
-#else
-            false;
-#endif
-
         #endregion
 
 
@@ -100,8 +93,8 @@ namespace FilmCollection
                 tsActCountryFilter.Items.Add(item);
             }
 
-            btnOptions.Visible = isDebug;
-            btnActors.Visible = isDebug;
+            btnOptions.Visible = RecordOptions.isDebug;
+            btnActors.Visible = RecordOptions.isDebug;
 
             #region Постеры
             this.buttonCancel.Enabled = false;
@@ -220,6 +213,7 @@ namespace FilmCollection
                 try
                 {
                     _videoCollection = RecordCollection.Load(LoadfromFile);
+                    ZipArc.CreateBackup();
                 }
                 catch (Exception ex)
                 {
@@ -1239,16 +1233,14 @@ namespace FilmCollection
 
         private void SelectRec()
         {
-            //ucMediaInfo
-            //  Application.OpenForms["ucMediaInfo"].Activate();
+            panelView2.BringToFront();
 
-            Record record = GetSelectedRecord();
-            ucMediaInfo uc = new ucMediaInfo(record);
-            uc.Show();
+            Record record = GetSelectedRecord();    
 
+            ucView.update(record);
 
-              //panelView.BringToFront();               // Отображение панели описания
-              //Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
+            //panelView.BringToFront();               // Отображение панели описания
+            //Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
 
             if (record != null)
             {
