@@ -21,6 +21,8 @@ namespace FilmCollection
         public formSelectMedia(List<Media> MList, Record record)
         {
             InitializeComponent();
+            this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
+
             MList.ForEach(x => listMedia.Items.Add(x));
 
             if (record != null)
