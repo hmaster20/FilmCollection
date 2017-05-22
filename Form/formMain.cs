@@ -2628,8 +2628,14 @@ namespace FilmCollection
             foreach (Record rec in filtered)
                 _videoCollection.CombineList.Remove(rec.combineLink);
 
+            foreach (Record rec in filtered)
+            {
+                rec.combineLink = cmNew;
+            }
+
             _videoCollection.CombineList.Add(cmNew);
             //_videoCollection.Save();
+            _videoCollection.Save();
             _videoCollection.SaveToFile();
 
             FormLoad(true);
