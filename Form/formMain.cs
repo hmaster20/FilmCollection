@@ -163,9 +163,11 @@ namespace FilmCollection
             treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
+        #region Параметры
         private void Main_Load(object sender, EventArgs e)
         {
             // загрузка параметров из файла конфигурации
+            RecordOptions.ToTray = Settings.Default.ToTray;
             ChangeStatusMenuButton(FormLoad(true));
             LastNode = Settings.Default.TreeFolderSelect;
             PrepareRefresh();
@@ -175,14 +177,17 @@ namespace FilmCollection
         {
             // сохранение параметров в файл конфигурации
             Settings.Default.TreeFolderSelect = GetNode();
+            Settings.Default.ToTray = RecordOptions.ToTray;
+            Settings.Default.Save();
         }
+        #endregion
 
         private void Main_Close(object sender, FormClosingEventArgs e) => FormClose(e);// Закрытие формы или выход
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
             // проверяем наше окно, и если оно было свернуто, делаем событие        
-            if (WindowState == FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized && RecordOptions.ToTray)
             {
                 //Hide();
                 Tray.BalloonTipTitle = "Программа была спрятана";
@@ -209,8 +214,8 @@ namespace FilmCollection
         }
 
         private void Tray_MouseDoubleClick(object sender, MouseEventArgs e) => RestoreWindow();
-        private void ShowWindow_Click(object sender, EventArgs e) => RestoreWindow();
 
+        private void ShowWindow_Click(object sender, EventArgs e) => RestoreWindow();
 
         private bool FormLoad(bool LoadfromFile = false)
         {
@@ -2965,8 +2970,8 @@ namespace FilmCollection
 
         private void AddImage(string imageFilename)
         {
-            try
-            {
+           // try
+           // {
                 // thread safe
 
                 // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
@@ -2997,11 +3002,11 @@ namespace FilmCollection
                         flowLayoutPanelMain.Controls.Add(imageViewer);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logs.Log("Ошибка отображения постера", ex);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Logs.Log("Ошибка отображения постера", ex);
+            //}
 
         }
 
