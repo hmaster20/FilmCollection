@@ -59,7 +59,8 @@ namespace FilmCollection
 
         [XmlAttribute]
         public string FormState { get; set; }       // Поле сохранения состояния главной формы
- 
+
+        public static bool ToTray { get; set; }
 
 
         // Тестовое ПОЛЕ

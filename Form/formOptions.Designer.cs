@@ -36,6 +36,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.gBoxRecColumn = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.clBoxColumn = new System.Windows.Forms.CheckedListBox();
             this.lBoxColumnSelected = new System.Windows.Forms.ListBox();
@@ -116,6 +117,7 @@
             // 
             // gBoxRecColumn
             // 
+            this.gBoxRecColumn.Controls.Add(this.checkBox1);
             this.gBoxRecColumn.Controls.Add(this.button2);
             this.gBoxRecColumn.Controls.Add(this.clBoxColumn);
             this.gBoxRecColumn.Controls.Add(this.lBoxColumnSelected);
@@ -125,6 +127,17 @@
             this.gBoxRecColumn.TabIndex = 5;
             this.gBoxRecColumn.TabStop = false;
             this.gBoxRecColumn.Text = "Настройка столбцов фильмотеки";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(283, 23);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(191, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "Разрешить сворачивнаие в трей";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button2
             // 
@@ -175,6 +188,7 @@
             this.gBoxOptions.ResumeLayout(false);
             this.gBoxOptions.PerformLayout();
             this.gBoxRecColumn.ResumeLayout(false);
+            this.gBoxRecColumn.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -192,5 +206,6 @@
         private System.Windows.Forms.Label lCatalogPath;
         private System.Windows.Forms.Label lBasePath;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

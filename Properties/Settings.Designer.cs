@@ -34,5 +34,17 @@ namespace FilmCollection.Properties {
                 this["TreeFolderSelect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ToTray {
+            get {
+                return ((bool)(this["ToTray"]));
+            }
+            set {
+                this["ToTray"] = value;
+            }
+        }
     }
 }
