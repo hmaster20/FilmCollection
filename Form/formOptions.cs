@@ -21,6 +21,8 @@ namespace FilmCollection
         {
             InitializeComponent();
 
+            checkBox1.Checked = RecordOptions.ToTray;
+
             if (_videoCollection.Options.Source != null)
             {
                 lBasePath.Text = _videoCollection.Options.Source;
@@ -38,5 +40,16 @@ namespace FilmCollection
             ManagedMMF.Program.MAIN_();
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                RecordOptions.ToTray = true;
+            }
+            else
+            {
+                RecordOptions.ToTray = false;
+            }
+        }
     }
 }
