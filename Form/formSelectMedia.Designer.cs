@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.SelectMediaInfo = new FilmCollection.ucMediaInfo();
             this.listMedia = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labelRecordName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.labelRecordName = new System.Windows.Forms.Label();
+            this.SelectMediaInfo = new FilmCollection.ucMediaInfo();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,14 +64,6 @@
             this.splitContainer1.SplitterDistance = 397;
             this.splitContainer1.TabIndex = 0;
             // 
-            // SelectMediaInfo
-            // 
-            this.SelectMediaInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SelectMediaInfo.Location = new System.Drawing.Point(0, 0);
-            this.SelectMediaInfo.Name = "SelectMediaInfo";
-            this.SelectMediaInfo.Size = new System.Drawing.Size(397, 655);
-            this.SelectMediaInfo.TabIndex = 0;
-            // 
             // listMedia
             // 
             this.listMedia.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -91,6 +83,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(382, 52);
             this.panel2.TabIndex = 1;
+            // 
+            // labelRecordName
+            // 
+            this.labelRecordName.AutoSize = true;
+            this.labelRecordName.Location = new System.Drawing.Point(13, 26);
+            this.labelRecordName.Name = "labelRecordName";
+            this.labelRecordName.Size = new System.Drawing.Size(100, 13);
+            this.labelRecordName.TabIndex = 1;
+            this.labelRecordName.Text = "Название фильма";
             // 
             // label1
             // 
@@ -121,6 +122,7 @@
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOk
             // 
@@ -134,14 +136,13 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // labelRecordName
+            // SelectMediaInfo
             // 
-            this.labelRecordName.AutoSize = true;
-            this.labelRecordName.Location = new System.Drawing.Point(13, 26);
-            this.labelRecordName.Name = "labelRecordName";
-            this.labelRecordName.Size = new System.Drawing.Size(100, 13);
-            this.labelRecordName.TabIndex = 1;
-            this.labelRecordName.Text = "Название фильма";
+            this.SelectMediaInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SelectMediaInfo.Location = new System.Drawing.Point(0, 0);
+            this.SelectMediaInfo.Name = "SelectMediaInfo";
+            this.SelectMediaInfo.Size = new System.Drawing.Size(397, 655);
+            this.SelectMediaInfo.TabIndex = 0;
             // 
             // formSelectMedia
             // 
@@ -151,6 +152,7 @@
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "formSelectMedia";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formSelectMedia";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

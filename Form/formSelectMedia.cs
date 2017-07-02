@@ -13,10 +13,10 @@ namespace FilmCollection
     {
         public Media media = null;
 
-        public formSelectMedia()
-        {
-            InitializeComponent();
-        }
+        //public formSelectMedia()
+        //{
+        //    InitializeComponent();
+        //}
 
         public formSelectMedia(List<Media> MList, Record record)
         {
@@ -50,6 +50,11 @@ namespace FilmCollection
         {
             Media media = (Media)listMedia.SelectedItem;
             SelectMediaInfo.update(media);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            media = null;
         }
     }
 }

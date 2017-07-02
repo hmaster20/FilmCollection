@@ -18,9 +18,11 @@ namespace FilmCollection
 
         static RecordCollection _videoCollection { get; set; }
         static Media _media { get; set; }
-        static Media mediaOriginal { get; set; }
+
+        //static Media mediaOriginal { get; set; }
 
         //public static Media GetInfo(Media media, RecordCollection videoCollection)
+
         public static Media GetInfo(Record record, RecordCollection videoCollection)
         {
             string webQuery = "";
@@ -28,7 +30,8 @@ namespace FilmCollection
             _videoCollection = RecordCollection.GetInstance();
 
             Media media = record.combineLink.media;
-            mediaOriginal = media;
+
+            // mediaOriginal = media;
             _media = media;
 
             if (_media.Category == CategoryVideo.Series)
@@ -77,7 +80,7 @@ namespace FilmCollection
                     }
                     MList.Add(m);
                 }
-                RunSelectOneMedia(MList, record);
+                OpenFormSelectMedia(MList, record);
             }
             else if (mc.Count == 1)
             {
@@ -109,30 +112,39 @@ namespace FilmCollection
             return _media;
         }
 
-        private static void RunSelectOneMedia(List<Media> MList, Record record)
+        private static void OpenFormSelectMedia(List<Media> MList, Record record)
         {
             formSelectMedia form = new formSelectMedia(MList, record);
-            if (form.ShowDialog() == DialogResult.OK)
-                if (form.media != null)
-                {
-                    _media = (Media)form.media.Clone();
-                    string currentPicFile = _media.GetFilename;
-                    _media.Pic = _media.Name;
 
-                    string newPicFile = _media.GetFilename;
-
-                    if (File.Exists(newPicFile))
-                        File.Delete(newPicFile);
-
-                    if (File.Exists(currentPicFile))
-                        File.Copy(currentPicFile, newPicFile);
-
-                    foreach (Media m in MList)
+            switch (form.ShowDialog())
+            {
+                case DialogResult.OK:
+                    if (form.media != null)
                     {
-                        if (File.Exists(m.GetFilename))
-                            File.Delete(m.GetFilename);
+                        _media = (Media)form.media.Clone();
+                        string currentPicFile = _media.GetFilename;
+                        _media.Pic = _media.Name;
+
+                        string newPicFile = _media.GetFilename;
+
+                        if (File.Exists(newPicFile))
+                            File.Delete(newPicFile);
+
+                        if (File.Exists(currentPicFile))
+                            File.Copy(currentPicFile, newPicFile);
+
+                        foreach (Media m in MList)
+                        {
+                            if (File.Exists(m.GetFilename))
+                                File.Delete(m.GetFilename);
+                        }
                     }
-                }
+                    break;
+                case DialogResult.Cancel:
+                    _media = null;
+                    break;
+                default: break;
+            }
         }
 
         private static string GetHtml(string url)       //получение веб-страницы
