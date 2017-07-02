@@ -412,81 +412,94 @@ namespace FilmCollection
         /// <summary>Добавить обновление базы</summary>
         private void UpdateBase()
         {
-            if (_videoCollection.Options.Source == null || _videoCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
-                MessageBox.Show("Необходимо создать базу данных.");
-            else
+            this.Invoke(new Thr.ThreadStart(delegate
             {
-                try
-                {
-                    int findCount = 0;
+                //label1.Text = Mas_1[i].ToString() + " * " +
+                //Mas_2[i].ToString() + " = " +
+                //(Mas_1[i] * Mas_2[i]).ToString();
+                //tsProgressBar.Value++;
+            }));
 
-                    if (_videoCollection.Options.Source == null)
-                    {
-                        MessageBox.Show("Файл базы испорчен!");
-                        return;
-                    }
-                    DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
+            //if (_videoCollection.Update())
+            //{
+            //    FormLoad(true);
+            //}
 
-                    if (directory.Exists)   // проверяем доступность каталога
-                    {
-                        foreach (Combine _combine in _videoCollection.CombineList)
-                            _combine.invisibleRecord(); // скрываем файлы
+            //if (_videoCollection.Options.Source == null || _videoCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
+            //    MessageBox.Show("Необходимо создать базу данных.");
+            //else
+            //{
+            //    try
+            //    {
+            //        int findCount = 0;
 
-                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
-                                                  .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
+            //        if (_videoCollection.Options.Source == null)
+            //        {
+            //            MessageBox.Show("Файл базы испорчен!");
+            //            return;
+            //        }
+            //        DirectoryInfo directory = new DirectoryInfo(_videoCollection.Options.Source);
 
-                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                        foreach (FileInfo file in myFiles)
-                        {
-                            Record record = new Record();
-                            record.FileName = file.Name;                            // полное название файла (film.avi)
-                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+            //        if (directory.Exists)   // проверяем доступность каталога
+            //        {
+            //            foreach (Combine _combine in _videoCollection.CombineList)
+            //                _combine.invisibleRecord(); // скрываем файлы
 
-                            if (!RecordExist(record))
-                            {
-                                findCount++;
-                                CreateCombine(file); // если файла нет в коллекции, создаем     
-                            }
+            //            var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
+            //                                      .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
 
-                        }
-                        _videoCollection.Save();
-                        _videoCollection.SaveToFile();
+            //            //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+            //            foreach (FileInfo file in myFiles)
+            //            {
+            //                Record record = new Record();
+            //                record.FileName = file.Name;                            // полное название файла (film.avi)
+            //                record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
-                        FormLoad(true);
+            //                if (!RecordExist(record))
+            //                {
+            //                    findCount++;
+            //                    CreateCombine(file); // если файла нет в коллекции, создаем     
+            //                }
 
-                        if (findCount > 0)
-                        {
-                            MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
-                        }
+            //            }
+            //            _videoCollection.Save();
+            //            _videoCollection.SaveToFile();
 
-                    }
-                    else
-                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
-                }
-                catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
-            }
+            //            FormLoad(true);
+
+            //            if (findCount > 0)
+            //            {
+            //                MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+            //            }
+
+            //        }
+            //        else
+            //            MessageBox.Show("Каталог " + directory + " не обнаружен!");
+            //    }
+            //    catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
+            //}
         }
 
 
-        private bool RecordExist(Record record)
-        {
-            List<Record> list = new List<Record>();
-            _videoCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
+        //private bool RecordExist(Record record)
+        //{
+        //    List<Record> list = new List<Record>();
+        //    _videoCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
 
-            foreach (Record rec in list)    // проверка наличия файла
-            {
-                if (rec.Equals(record))
-                {
-                    _videoCollection.CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
-                    return true;    // если файл есть
-                }
-            }
-            return false;           // иначе файла нет файл есть
-        }
+        //    foreach (Record rec in list)    // проверка наличия файла
+        //    {
+        //        if (rec.Equals(record))
+        //        {
+        //            _videoCollection.CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
+        //            return true;    // если файл есть
+        //        }
+        //    }
+        //    return false;           // иначе файла нет файл есть
+        //}
 
 
         void CreateCombine(FileInfo file)
@@ -1554,7 +1567,7 @@ namespace FilmCollection
 
             TableRec.Enabled = true;        // Разблокировка таблицы при изменении панели
             TableRec.ClearSelection();      // Удаление фокуса
-            CardRecordPreview_Clear();      // Очистка информации на карточке
+            CardRecordPreview_Clear();
         }
 
         /// <summary>Блокировка кнопки поиска следующего элемента</summary>
@@ -1794,6 +1807,7 @@ namespace FilmCollection
             chkActorList.Items.Clear();
         }
 
+        /// <summary>Очистка панели просмотра</summary>
         private void CardRecordPreview_Clear()
         {
             tbfName.Text = "";
@@ -2690,7 +2704,7 @@ namespace FilmCollection
                 //}
 
                 //Media newMedia = (Media)DownloadDetails.GetInfo(record.combineLink.media, _videoCollection);
-                Media newMedia = (Media)DownloadDetails.GetInfo(record, _videoCollection);
+                Media newMedia = DownloadDetails.GetInfo(record, _videoCollection);
 
                 if (newMedia != null)
                 {
@@ -3137,6 +3151,9 @@ namespace FilmCollection
             }
         }
 
+        private void cClearMetaData_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

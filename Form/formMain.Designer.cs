@@ -40,13 +40,15 @@
             this.cmnFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cFind = new System.Windows.Forms.ToolStripMenuItem();
-            this.cSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.cSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.cAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.cChange = new System.Windows.Forms.ToolStripMenuItem();
             this.cDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.cSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cClearMetaData = new System.Windows.Forms.ToolStripMenuItem();
+            this.cSep3 = new System.Windows.Forms.ToolStripSeparator();
             this.cOpenFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cSep4 = new System.Windows.Forms.ToolStripSeparator();
             this.UpdateFIlmInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.statusLine = new System.Windows.Forms.StatusStrip();
             this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -110,6 +112,7 @@
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
+            this.rtDescription = new System.Windows.Forms.RichTextBox();
             this.checkNewRecord = new System.Windows.Forms.CheckBox();
             this.cbNameMedia = new System.Windows.Forms.ComboBox();
             this.cBoxTypeVideo = new System.Windows.Forms.ComboBox();
@@ -161,6 +164,7 @@
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
             this.panelView2 = new System.Windows.Forms.Panel();
+            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -269,8 +273,6 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.rtDescription = new System.Windows.Forms.RichTextBox();
-            this.ucView = new FilmCollection.ucMediaInfo();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -427,16 +429,18 @@
             // 
             this.TabMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cFind,
-            this.cSeparator3,
+            this.cSep1,
             this.cAdd,
             this.cChange,
             this.cDelete,
-            this.toolStripSeparator9,
+            this.cSep2,
+            this.cClearMetaData,
+            this.cSep3,
             this.cOpenFolder,
-            this.toolStripSeparator1,
+            this.cSep4,
             this.UpdateFIlmInfo});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(208, 154);
+            this.TabMenu.Size = new System.Drawing.Size(208, 204);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
@@ -447,10 +451,10 @@
             this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
-            // cSeparator3
+            // cSep1
             // 
-            this.cSeparator3.Name = "cSeparator3";
-            this.cSeparator3.Size = new System.Drawing.Size(204, 6);
+            this.cSep1.Name = "cSep1";
+            this.cSep1.Size = new System.Drawing.Size(204, 6);
             // 
             // cAdd
             // 
@@ -476,10 +480,23 @@
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
-            // toolStripSeparator9
+            // cSep2
             // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(204, 6);
+            this.cSep2.Name = "cSep2";
+            this.cSep2.Size = new System.Drawing.Size(204, 6);
+            // 
+            // cClearMetaData
+            // 
+            this.cClearMetaData.Image = global::FilmCollection.Properties.Resources.MetaClear;
+            this.cClearMetaData.Name = "cClearMetaData";
+            this.cClearMetaData.Size = new System.Drawing.Size(207, 22);
+            this.cClearMetaData.Text = "Очистка информации";
+            this.cClearMetaData.Click += new System.EventHandler(this.cClearMetaData_Click);
+            // 
+            // cSep3
+            // 
+            this.cSep3.Name = "cSep3";
+            this.cSep3.Size = new System.Drawing.Size(204, 6);
             // 
             // cOpenFolder
             // 
@@ -489,10 +506,10 @@
             this.cOpenFolder.Text = "Открыть папку";
             this.cOpenFolder.Click += new System.EventHandler(this.cOpenFolder_Click);
             // 
-            // toolStripSeparator1
+            // cSep4
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(204, 6);
+            this.cSep4.Name = "cSep4";
+            this.cSep4.Size = new System.Drawing.Size(204, 6);
             // 
             // UpdateFIlmInfo
             // 
@@ -529,10 +546,12 @@
             // 
             // FindStatusLabel
             // 
+            this.FindStatusLabel.AutoSize = false;
             this.FindStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.FindStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.FindStatusLabel.Name = "FindStatusLabel";
-            this.FindStatusLabel.Size = new System.Drawing.Size(4, 17);
+            this.FindStatusLabel.Size = new System.Drawing.Size(50, 17);
+            this.FindStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // mainMenu
             // 
@@ -1088,6 +1107,15 @@
             this.gMedia.TabIndex = 60;
             this.gMedia.TabStop = false;
             this.gMedia.Text = "Общая информация";
+            // 
+            // rtDescription
+            // 
+            this.rtDescription.Location = new System.Drawing.Point(67, 113);
+            this.rtDescription.Name = "rtDescription";
+            this.rtDescription.Size = new System.Drawing.Size(275, 102);
+            this.rtDescription.TabIndex = 61;
+            this.rtDescription.Text = "";
+            this.rtDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
             // checkNewRecord
             // 
@@ -1663,6 +1691,14 @@
             this.panelView2.Name = "panelView2";
             this.panelView2.Size = new System.Drawing.Size(368, 606);
             this.panelView2.TabIndex = 57;
+            // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
             // 
             // panelFind
             // 
@@ -2745,7 +2781,7 @@
             // 
             this.tsHidePanel.CheckOnClick = true;
             this.tsHidePanel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsHidePanel.Image = global::FilmCollection.Properties.Resources.hidePanel;
+            this.tsHidePanel.Image = global::FilmCollection.Properties.Resources.hide;
             this.tsHidePanel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsHidePanel.Name = "tsHidePanel";
             this.tsHidePanel.Size = new System.Drawing.Size(23, 22);
@@ -2802,23 +2838,6 @@
             this.Exit.Size = new System.Drawing.Size(154, 22);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
-            // 
-            // rtDescription
-            // 
-            this.rtDescription.Location = new System.Drawing.Point(67, 113);
-            this.rtDescription.Name = "rtDescription";
-            this.rtDescription.Size = new System.Drawing.Size(275, 102);
-            this.rtDescription.TabIndex = 61;
-            this.rtDescription.Text = "";
-            this.rtDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
-            // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -2919,7 +2938,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnAbout;
         private System.Windows.Forms.ToolStripMenuItem btnHistory;
         private System.Windows.Forms.ToolStripMenuItem cFind;
-        private System.Windows.Forms.ToolStripSeparator cSeparator3;
+        private System.Windows.Forms.ToolStripSeparator cSep1;
         private System.Windows.Forms.ToolStripMenuItem btnExportHTML;
         private System.Windows.Forms.ToolStripSeparator ts3;
         private System.Windows.Forms.ToolStripMenuItem btnExit;
@@ -3067,12 +3086,12 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ToolStripMenuItem cOpenFolder;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripSeparator cSep3;
         private System.Windows.Forms.CheckBox cbIsVisible;
         private System.Windows.Forms.ToolStripSeparator ts5;
         private System.Windows.Forms.ToolStripMenuItem btnCleanDB;
         private System.Windows.Forms.ToolStripMenuItem UpdateFIlmInfo;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator cSep4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem UpdateCatalogInfo;
         private System.Windows.Forms.Button btnGetTime;
@@ -3149,6 +3168,8 @@
         private System.Windows.Forms.Panel panelView2;
         private ucMediaInfo ucView;
         private System.Windows.Forms.RichTextBox rtDescription;
+        private System.Windows.Forms.ToolStripSeparator cSep2;
+        private System.Windows.Forms.ToolStripMenuItem cClearMetaData;
     }
 }
 
