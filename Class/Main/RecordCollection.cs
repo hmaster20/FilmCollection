@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace FilmCollection
 {
@@ -141,5 +143,126 @@ namespace FilmCollection
         //}
 
         #endregion
+
+
+
+        public bool Update()
+        {
+            bool state = false;
+
+            if (Options.Source == null || Options.Source == "")  // Если есть информация о корневой папки коллекции
+                MessageBox.Show("Необходимо создать базу данных.");
+            else
+            {
+                try
+                {
+                    int findCount = 0;
+
+                    if (Options.Source == null)
+                    {
+                        MessageBox.Show("Файл базы испорчен!");
+                        return false;
+                    }
+                    DirectoryInfo directory = new DirectoryInfo(Options.Source);
+
+                    if (directory.Exists)   // проверяем доступность каталога
+                    {
+                        foreach (Combine _combine in CombineList)
+                            _combine.invisibleRecord(); // скрываем файлы
+
+                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
+                                                  .Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
+
+                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                        foreach (FileInfo file in myFiles)
+                        {
+                            Record record = new Record();
+                            record.FileName = file.Name;                            // полное название файла (film.avi)
+                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+
+                            if (!RecordExist(record))
+                            {
+                                findCount++;
+                                CreateCombine(file); // если файла нет в коллекции, создаем     
+                            }
+                        }
+                        Save();
+                        SaveToFile();
+
+                        // FormLoad(true);
+                        state = true;
+
+                        if (findCount > 0)
+                        {
+                            MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                        }
+
+                    }
+                    else
+                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
+                }
+                catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
+            }
+            return state;
+        }
+
+
+        private bool RecordExist(Record record)
+        {
+            List<Record> list = new List<Record>();
+            CombineList.ForEach(combine => list.AddRange(combine.recordList));
+
+            foreach (Record rec in list)    // проверка наличия файла
+            {
+                if (rec.Equals(record))
+                {
+                    CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
+                    return true;    // если файл есть
+                }
+            }
+            return false;           // иначе файла нет файл есть
+        }
+
+        void CreateCombine(FileInfo file)
+        {
+            Combine cm = new Combine();
+
+            Record record = CreateRecord(file);
+
+            record.combineLink = cm;
+            cm.recordList.Add(record);
+            cm.media.Name = record.Name;
+            cm.media.Id = GetMediaID();
+
+            Add(cm);
+        }
+
+        private static Record CreateRecord(FileInfo file)
+        {
+            Record record = new Record();
+            record.Name = getRecordName(file);
+            record.FileName = file.Name;        // полное название файла (film.avi)
+            record.Path = file.DirectoryName;   // полный путь (C:\Folder)
+            record.Visible = true;              // видимость
+            record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
+            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                    // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+            return record;
+        }
+
+        private static string getRecordName(FileInfo file)
+        {
+            string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
+            string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
+            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
+            name_f = name_f.Trim();                         // название без пробелов вначале и конце
+            return (name_f != "") ? name_f : name_1;
+        }
+
     }
 }
