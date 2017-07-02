@@ -9,13 +9,15 @@ namespace FilmCollection
         avi,
         mkv,
         mp4,
-        wmv,
-        webm,
-        rm,
         mpg,
         mpeg,
+        m4v,
+        divx,
+        vob,
+        wmv,
+        webm,
         flv,
-        divx
+        rm
     }
 
     public enum CategoryVideo
@@ -106,6 +108,7 @@ namespace FilmCollection
         Нидерланды,
         Польша,
         Россия,
+        Румыния,
         СССР,
         Словакия,
         США,
