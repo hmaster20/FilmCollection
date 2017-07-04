@@ -32,7 +32,8 @@ namespace FilmCollection
             Media media = record.combineLink.media;
 
             // mediaOriginal = media;
-            _media = media;
+            //_media = media;
+            _media = (Media)media.Clone();
 
             if (_media.Category == CategoryVideo.Series)
                 webQuery = SERIES;
@@ -140,9 +141,7 @@ namespace FilmCollection
                         }
                     }
                     break;
-                case DialogResult.Cancel:
-                    _media = null;
-                    break;
+                case DialogResult.Cancel: _media = null; break;
                 default: break;
             }
         }

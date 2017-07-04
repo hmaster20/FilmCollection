@@ -54,6 +54,7 @@ namespace FilmCollection
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            SelectMediaInfo.Clear();
             media = null;
         }
     }

@@ -115,5 +115,16 @@ namespace FilmCollection
                 main.SelectActor(lbActors.SelectedItem.ToString());
             }
         }
+
+        public void Clear()
+        {
+            tbfName.Text = "";
+            tbfDesc.Text = "";
+            tbfYear.Text = "";
+            tbfCountry.Text = "";
+            GetPic(null);
+            lbActors.Items.Clear();
+            btnPlay.Enabled = false;
+        }
     }
 }
