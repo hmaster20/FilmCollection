@@ -72,7 +72,8 @@ namespace FilmCollection
             TableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
             TableRec.Columns[7].DefaultCellStyle.SelectionForeColor = Color.Blue;    // цвет текста выбранной строки нужного столбца
 
-            panelView.BringToFront();               // Отображение панели описания
+            panelView2.BringToFront();  // Отображение панели описания
+
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение поисковых индексов
 
@@ -127,13 +128,32 @@ namespace FilmCollection
             helpProvider.SetHelpNavigator(panelFind, HelpNavigator.Topic);
             helpProvider.SetShowHelp(panelFind, true);
             #endregion
+
+
+            this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+
+            bbb = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
+
         }
 
+
+        private bool bbb;
 
         #region Управление курсором (Методы управления)
         private void timerCursor_Tick(object sender, EventArgs e)
         {
-            this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+            bool cur = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
+
+            if (bbb != cur)
+            {
+                mainMenuIcon.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+                //this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+                bbb = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
+            }
+
+           // mainMenuIcon.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+
+            //this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
         }
 
         private void timerCursorEnabled()
@@ -742,7 +762,7 @@ namespace FilmCollection
         {
             Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
             TreeNode destinationNode = treeFolder.GetNodeAt(pt);
-            TreeNode dragedNode = new TreeNode();
+            //TreeNode dragedNode = new TreeNode();
 
             Record record = GetSelectedRecord();
             if (record != null)
@@ -913,7 +933,7 @@ namespace FilmCollection
 
         private void TableRec_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) panelView.BringToFront();
+            if (e.KeyCode == Keys.Escape) panelView2.BringToFront();
         }
 
         private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1268,36 +1288,8 @@ namespace FilmCollection
             panelView2.BringToFront();
             ucView.update(record, this);
 
-            //try
-            //{
-            //    panelView2.SuspendLayout();
-            //    panelView2.Controls.Remove(ucView);
-            //    panelView2.Controls.Add(userControl2);
-            //}
-            //finally
-            //{
-            //    panelView2.ResumeLayout();
-            //}
-
-
-            //panelView.BringToFront();               // Отображение панели описания
-            //Record record = GetSelectedRecord();    // Предоставляет данные выбранной записи
-
             if (record != null)
             {
-                // Панель описания
-                tbfName.Text = record.mName;
-                tbfDesc.Text = record.mDescription;
-                tbfYear.Text = Convert.ToString(record.mYear);
-                tbfCountry.Text = record.mCountry;
-                GetPic(record.combineLink.media);
-                btnPlay.Enabled = true;
-                lbActors.Items.Clear();
-                if (record.combineLink.media.ActorListID != null)
-                    foreach (int ListID in record.combineLink.media.ActorListID)
-                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
-                            lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
-
                 // Панель редактирования
                 // Media
                 cbNameMedia.Text = record.combineLink.media.Name;
@@ -1317,29 +1309,6 @@ namespace FilmCollection
                 mtbTime.Text = record.TimeVideoSpan.ToString();
                 tbFileName.Text = record.FileName;
                 tbFilePath.Text = (record.Path + Path.DirectorySeparatorChar + record.FileName);
-            }
-        }
-
-        private void GetPic(Media _media)
-        {
-            //string pic = "";
-            //if (_media != null) pic = _media.Pic;
-
-            //string filename;
-            //filename = (pic == "")
-            //    ? GetFilename("noPic")
-            //    : GetFilename(pic);
-
-            if (_media != null)
-            {
-                if (File.Exists(_media.GetFilename))
-                {
-                    Image image = Image.FromFile(_media.GetFilename);
-                    pbImage.Image = (image.Height > 300)
-                        ? image.GetThumbnailImage(300 * image.Width / image.Height, 300, null, IntPtr.Zero)
-                        : image;
-                }
-                else pbImage.Image = null;
             }
         }
 
@@ -1469,7 +1438,7 @@ namespace FilmCollection
                         tscbSort.SelectedIndex = -1;
                         tscbTypeFilter.SelectedIndex = 0;
                         CardRecordPreview_Clear();
-                        panelView.BringToFront();
+                        panelView2.BringToFront();
                     }
                     break;
 
@@ -1586,7 +1555,7 @@ namespace FilmCollection
 
         private void btnHidePanel_Click(object sender, EventArgs e) //Скрыть панель поиска
         {
-            panelView.BringToFront();
+            panelView2.BringToFront();
         }
 
         private void Find_Click(object sender, EventArgs e)     //Кнопка найти всё
@@ -1810,13 +1779,7 @@ namespace FilmCollection
         /// <summary>Очистка панели просмотра</summary>
         private void CardRecordPreview_Clear()
         {
-            tbfName.Text = "";
-            tbfDesc.Text = "";
-            tbfYear.Text = "";
-            tbfCountry.Text = "";
-            GetPic(null);
-            lbActors.Items.Clear();
-            btnPlay.Enabled = false;
+            ucView.Clear();
         }
 
         private void SaveRecord()
@@ -2092,7 +2055,7 @@ namespace FilmCollection
 
             panelEdit_Button_Lock();
 
-            panelView.BringToFront();   // показать панель сведений
+            panelView2.BringToFront();// показать панель сведений
         }
 
         private void panelEdit_Button_Lock()
@@ -2153,34 +2116,6 @@ namespace FilmCollection
             System.Diagnostics.Process.Start(linkBIOv.Text);
             //ProcessStartInfo sInfo = new ProcessStartInfo("http://www.google.com");
             //Process.Start(sInfo);
-        }
-
-        private void lbActors_DoubleClick(object sender, EventArgs e)
-        {
-            tabControl2.SelectTab(tabActors);
-            //tabControl2.SelectedTab = tabActors;
-
-            if (lbActors.SelectedItem != null)
-            {
-                string searchValue = lbActors.SelectedItem.ToString();
-                int rowIndex = -1;
-                foreach (DataGridViewRow row in dgvTableActors.Rows)
-                {
-                    if (row.Cells[0].Value.ToString().Equals(searchValue))
-                    {
-                        rowIndex = row.Index;
-                        break;
-                    }
-                }
-
-                if (rowIndex != -1)
-                {
-                    dgvTableActors.Rows[rowIndex].Selected = true;
-                    //dgvTableActors.Rows[rowIndex].Visible = true;
-                    dgvTableActors.FirstDisplayedScrollingRowIndex = rowIndex;// прокручиваем
-
-                }
-            }
         }
 
         public void SelectActor(string actor)
@@ -2984,38 +2919,38 @@ namespace FilmCollection
 
         private void AddImage(string imageFilename)
         {
-           // try
-           // {
-                // thread safe
+            // try
+            // {
+            // thread safe
 
-                // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
-                if (IsHandleCreated)
+            // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
+            if (IsHandleCreated)
+            {
+                if (InvokeRequired)
                 {
-                    if (InvokeRequired)
-                    {
-                        Invoke(m_AddImageDelegate, imageFilename);
-                    }
-                    else
-                    {
-                        int size = ImageSize;
-
-                        ImageViewer imageViewer = new ImageViewer();
-                        // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
-                        imageViewer.Dock = DockStyle.None;
-                        imageViewer.LoadImage(imageFilename, 256, 256);
-                        imageViewer.Width = size;
-                        imageViewer.Height = size;
-                        imageViewer.IsThumbnail = true;
-
-                        imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
-                        imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
-                        imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
-
-                        OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
-
-                        flowLayoutPanelMain.Controls.Add(imageViewer);
-                    }
+                    Invoke(m_AddImageDelegate, imageFilename);
                 }
+                else
+                {
+                    int size = ImageSize;
+
+                    ImageViewer imageViewer = new ImageViewer();
+                    // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                    imageViewer.Dock = DockStyle.None;
+                    imageViewer.LoadImage(imageFilename, 256, 256);
+                    imageViewer.Width = size;
+                    imageViewer.Height = size;
+                    imageViewer.IsThumbnail = true;
+
+                    imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
+                    imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
+                    imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+
+                    OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+
+                    flowLayoutPanelMain.Controls.Add(imageViewer);
+                }
+            }
             //}
             //catch (Exception ex)
             //{

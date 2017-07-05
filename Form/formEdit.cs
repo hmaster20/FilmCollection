@@ -74,24 +74,24 @@ namespace FilmCollection
 
         private void btnEditOk_Click(object sender, EventArgs e)    // Сохранение измененных параметров
         {
-            CategoryVideo category;
-            GenreVideo genre;
+            //CategoryVideo category;
+            //GenreVideo genre;
 
-            switch (cBoxGenre.SelectedIndex)
-            {
-                case 0: genre = GenreVideo.Action; break;
-                case 1: genre = GenreVideo.Vestern; break;
-                case 2: genre = GenreVideo.Comedy; break;
-                default: MessageBox.Show("Не выбран тип"); return;
-            }
+            //switch (cBoxGenre.SelectedIndex)
+            //{
+            //    case 0: genre = GenreVideo.Action; break;
+            //    case 1: genre = GenreVideo.Vestern; break;
+            //    case 2: genre = GenreVideo.Comedy; break;
+            //    default: MessageBox.Show("Не выбран тип"); return;
+            //}
 
-            switch (cBoxTypeVideo.SelectedIndex)
-            {
-                case 0: category = CategoryVideo.Film; break;
-                case 1: category = CategoryVideo.Series; break;
-                case 2: category = CategoryVideo.Cartoon; break;
-                default: MessageBox.Show("Не выбран тип"); return;
-            }
+            //switch (cBoxTypeVideo.SelectedIndex)
+            //{
+            //    case 0: category = CategoryVideo.Film; break;
+            //    case 1: category = CategoryVideo.Series; break;
+            //    case 2: category = CategoryVideo.Cartoon; break;
+            //    default: MessageBox.Show("Не выбран тип"); return;
+            //}
 
 
             if (rec == null)

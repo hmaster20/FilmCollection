@@ -60,7 +60,7 @@ namespace FilmCollection
                     //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                     List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
 
-                    string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
+                    //string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
                     string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
                     if (Link_txt == null)
                     {
@@ -150,14 +150,16 @@ namespace FilmCollection
         {
             try
             {
+                //WebClient client = new WebClient();
+                //using (Stream data = client.OpenRead(url))
+                //using (StreamReader reader = new StreamReader(data))
+                //    return reader.ReadToEnd();
+
                 WebClient client = new WebClient();
-                using (Stream data = client.OpenRead(url))
-                using (StreamReader reader = new StreamReader(data))
+                using (StreamReader reader = new StreamReader(client.OpenRead(url)))
                     return reader.ReadToEnd();
             }
             catch (WebException ex) { Logs.Log("В интернете отсутствует запрошенная информация.\n", ex); }
-            // catch (WebException exc) { MessageBox.Show("Сетевая ошибка: " + exc.Message + "\nКод состояния: " + exc.Status); }
-
             return "";
         }
 
