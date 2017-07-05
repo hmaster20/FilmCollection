@@ -149,6 +149,7 @@
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.panelView2 = new System.Windows.Forms.Panel();
+            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -257,7 +258,6 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.ucView = new FilmCollection.ucMediaInfo();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1491,6 +1491,14 @@
             this.panelView2.Size = new System.Drawing.Size(368, 606);
             this.panelView2.TabIndex = 57;
             // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
             // panelFind
             // 
             this.panelFind.Controls.Add(this.cbFullFind);
@@ -2629,14 +2637,6 @@
             this.Exit.Size = new System.Drawing.Size(154, 22);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
-            // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
             // 
             // MainForm
             // 

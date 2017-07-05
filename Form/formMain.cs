@@ -129,31 +129,23 @@ namespace FilmCollection
             helpProvider.SetShowHelp(panelFind, true);
             #endregion
 
-
-            this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
-
-            bbb = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
-
         }
-
-
-        private bool bbb;
 
         #region Управление курсором (Методы управления)
         private void timerCursor_Tick(object sender, EventArgs e)
         {
-            bool cur = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
+            //bool cur = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
 
-            if (bbb != cur)
-            {
-                mainMenuIcon.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
-                //this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
-                bbb = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
-            }
+            //if (bbb != cur)
+            //{
+            //    mainMenuIcon.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+            //    this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+            //    bbb = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? true : false;
+            //}
 
-           // mainMenuIcon.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+            // mainMenuIcon.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
 
-            //this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+            this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
         }
 
         private void timerCursorEnabled()
@@ -3090,5 +3082,30 @@ namespace FilmCollection
         {
 
         }
+
+        //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
+        //{
+        //    //this.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+        //    //tsFindbyName.
+        //    mainMenuIcon.Cursor = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+        //    //HideCaret(mainMenuIcon.Handle);
+        //    //Cursor.Current = (InputLanguages.GetKeyboardLayoutId() == "ENU") ? crEn : crRu;
+        //}
+
+
+        //[System.Runtime.InteropServices.DllImport("user32.dll")]
+        //static extern bool HideCaret(IntPtr hWnd);
+
+
+        //private void timerCursorEnabled()
+        //{
+        //    this.InputLanguageChanged += new System.Windows.Forms.InputLanguageChangedEventHandler(this.MainForm_InputLanguageChanged);
+        //}
+
+        //private void timerCursorDisabled()
+        //{
+        //    this.InputLanguageChanged -= new System.Windows.Forms.InputLanguageChangedEventHandler(this.MainForm_InputLanguageChanged);
+        //    this.Cursor = Cursors.Arrow;
+        //}
     }
 }
