@@ -20,10 +20,10 @@ namespace FilmCollection
         #region Общедоступные свойства
 
         RecordCollection _videoCollection { get; set; }     // Доступ к коллекции
-        TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
+        // TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
         FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
         int FindCount { get; set; }                 // Счетчик найденных строк
-        public List<int> dgvSelected { get; set; }  //Индексы найденных строк
+        public List<int> dgvSelected { get; }  //Индексы найденных строк
         public string FormatOpen { get; }       //Формат открытия файлов
         public List<string> FormatAdd { get; }  //Список форматов файлов
         public string PicsFolder { get; }       //Каталог изображений
@@ -49,8 +49,21 @@ namespace FilmCollection
             Tray.ContextMenuStrip = TrayMenu;   // контекстное меню
 
             #region Управление курсором (Таймер и курсоры)
-            crEn = new Cursor(new MemoryStream(Properties.Resources.cursorEN)); // загрузка курсора
-            crRu = new Cursor(new MemoryStream(Properties.Resources.cursorRU)); // загрузка курсора
+            //crEn = new Cursor(new MemoryStream(Properties.Resources.cursorEN)); // загрузка курсора
+            //crRu = new Cursor(new MemoryStream(Properties.Resources.cursorRU)); // загрузка курсора
+
+            using (var memoryStream = new MemoryStream(Properties.Resources.cursorEN))
+                crEn = new Cursor(memoryStream);
+
+            using (var memoryStream = new MemoryStream(Properties.Resources.cursorRU))
+                crRu = new Cursor(memoryStream);
+
+
+            ////Cursor myCursor;
+            //using (var memoryStream = new MemoryStream(Properties.Resources.cursorEN))
+            //{
+            //    crEn = new Cursor(memoryStream);
+            //}
 
             timerCursor = new Timer();      // Таймер для смены курсора
             timerCursor.Enabled = false;
@@ -61,7 +74,7 @@ namespace FilmCollection
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
             _videoCollection = new RecordCollection();      // Доступ к коллекции
-            _treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
+            //_treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
 
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
             dgvTableActors.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
@@ -363,17 +376,31 @@ namespace FilmCollection
         /// <summary>Создание файла базы </summary>
         private void NewBase()
         {
-            FolderBrowserDialog fbDialog = new FolderBrowserDialog();
-            fbDialog.Description = "Укажите расположение файлов мультимедиа:";
-            fbDialog.ShowNewFolderButton = false;
+            using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
+            {
+                fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+                fbDialog.ShowNewFolderButton = false;
 
-            isExistBase();  // инициализация файла базы
+                isExistBase();  // инициализация файла базы
 
-            DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+                DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
 
-            if (dialogStatus == DialogResult.OK)
-                CreateBase(fbDialog);   // создание базы
-            ChangeStatusMenuButton(false);
+                if (dialogStatus == DialogResult.OK)
+                    CreateBase(fbDialog);   // создание базы
+                ChangeStatusMenuButton(false);
+            }
+
+            //FolderBrowserDialog fbDialog = new FolderBrowserDialog();
+            //fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+            //fbDialog.ShowNewFolderButton = false;
+
+            //isExistBase();  // инициализация файла базы
+
+            //DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+
+            //if (dialogStatus == DialogResult.OK)
+            //    CreateBase(fbDialog);   // создание базы
+            //ChangeStatusMenuButton(false);
         }
 
         private void isExistBase()
@@ -636,8 +663,11 @@ namespace FilmCollection
 
         private void btnOpenReportForm_Click(object sender, EventArgs e)
         {
-            Report _report = new Report(_videoCollection);
-            _report.ShowDialog();
+            using (Report _report = new Report(_videoCollection))
+            { _report.ShowDialog(); }
+
+            //    Report _report = new Report(_videoCollection);
+            //_report.ShowDialog();
         }
 
         private void btnReport_Click(object sender, EventArgs e)
@@ -669,14 +699,20 @@ namespace FilmCollection
 
         private static void History()
         {
-            fromChangeLog formLog = new fromChangeLog();
-            formLog.ShowDialog();
+            using (fromChangeLog formLog = new fromChangeLog())
+            { formLog.ShowDialog(); }
+
+            //fromChangeLog formLog = new fromChangeLog();
+            //formLog.ShowDialog();
         }
 
         private static void AboutFC()
         {
-            formAbout about = new formAbout();
-            about.ShowDialog();
+            using (formAbout about = new formAbout())
+            { about.ShowDialog(); }
+
+            //formAbout about = new formAbout();
+            //about.ShowDialog();
         }
 
         private void HelpShow()
@@ -812,21 +848,21 @@ namespace FilmCollection
         }
 
         //This will work for any Control anywhere within the Form:
-        private bool IsControlAtFrontUniversal(Control control)
-        {
-            while (control.Parent != null)
-            {
-                if (control.Parent.Controls.GetChildIndex(control) == 0)
-                {
-                    control = control.Parent;
-                    if (control.Parent == null)
-                        return true;
-                }
-                else
-                    return false;
-            }
-            return false;
-        }
+        //private bool IsControlAtFrontUniversal(Control control)
+        //{
+        //    while (control.Parent != null)
+        //    {
+        //        if (control.Parent.Controls.GetChildIndex(control) == 0)
+        //        {
+        //            control = control.Parent;
+        //            if (control.Parent == null)
+        //                return true;
+        //        }
+        //        else
+        //            return false;
+        //    }
+        //    return false;
+        //}
 
 
 
@@ -976,24 +1012,24 @@ namespace FilmCollection
 
         bool tabControlisBlock { get; set; } = false;   // панель разблокирована
 
-        private bool CheckAccess()
-        {
-            return true;
+        //private bool CheckAccess()
+        //{
+        //    return true;
 
-            //throw new NotImplementedException();
-            // return true;//если доступ разрешен
-            // return false; //если доступ запрещен
-        }
+        //    //throw new NotImplementedException();
+        //    // return true;//если доступ разрешен
+        //    // return false; //если доступ запрещен
+        //}
 
-        private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            //var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
-            //if (formatter != null)
-            //{
-            //    e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
-            //    e.FormattingApplied = true;
-            //}
-        }
+        //private void dgvTableRec_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        //{
+        //    var formatter = e.CellStyle.FormatProvider as ICustomFormatter;
+        //    if (formatter != null)
+        //    {
+        //        e.Value = formatter.Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider);
+        //        e.FormattingApplied = true;
+        //    }
+        //}
 
         #endregion
 
@@ -1078,26 +1114,26 @@ namespace FilmCollection
         }
 
 
-        private void OLD_Add_rec(object sender, EventArgs e)        // добавление новой записи
-        {
-            EditForm form = new EditForm();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                //_videoCollection.Add(form.rec);
-                _videoCollection.Save();
-                PrepareRefresh();
-            }
-        }
+        //private void OLD_Add_rec(object sender, EventArgs e)        // добавление новой записи
+        //{
+        //    EditForm form = new EditForm();
+        //    if (form.ShowDialog() == DialogResult.OK)
+        //    {
+        //        //_videoCollection.Add(form.rec);
+        //        _videoCollection.Save();
+        //        PrepareRefresh();
+        //    }
+        //}
 
-        private void OLD_Change_rec(object sender, EventArgs e)     // Изменить запись
-        {
-            Record record = GetSelectedRecord();
-            if (new EditForm(record).ShowDialog() == DialogResult.OK)
-            {
-                _videoCollection.Save();
-                PrepareRefresh();      //Должно быть обновление вместо фильтра
-            }
-        }
+        //private void OLD_Change_rec(object sender, EventArgs e)     // Изменить запись
+        //{
+        //    Record record = GetSelectedRecord();
+        //    if (new EditForm(record).ShowDialog() == DialogResult.OK)
+        //    {
+        //        _videoCollection.Save();
+        //        PrepareRefresh();      //Должно быть обновление вместо фильтра
+        //    }
+        //}
 
 
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
@@ -1586,18 +1622,18 @@ namespace FilmCollection
 
         #region Поисковый механизм
 
-        private void FindFull()
-        {
-            try
-            {
+        //private void FindFull()
+        //{
+        //    try
+        //    {
 
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString()); ;
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.ToString()); ;
+        //    }
+        //}
 
         private void Find(int cell)
         {
@@ -2081,10 +2117,10 @@ namespace FilmCollection
 
         #region Панель просмотра
 
-        private void Play_Click(object sender, EventArgs e)  // запуск файла
-        {
-            PlayRecord();
-        }
+        //private void Play_Click(object sender, EventArgs e)  // запуск файла
+        //{
+        //    PlayRecord();
+        //}
 
         private void PlayRecord()
         {
@@ -2206,127 +2242,127 @@ namespace FilmCollection
             // TreeFast(paths);
         }
 
-        private void TreeFastT(IEnumerable<string> paths)
-        {
-            // подумать об использовании анонимного класса!
-            int pathCount = 0;
-            Catalog emp = new Catalog();
-            foreach (string path in paths)
-            {
-                string[] PathD = path.Split(Path.DirectorySeparatorChar);
-                if (PathD.Length == 1)  // Корневые папки без поддиректорий
-                {
-                    emp.Name = PathD[0];
-                    emp.ParentId = (int?)null; // родителя нет
+        //private void TreeFastT(IEnumerable<string> paths)
+        //{
+        //    // подумать об использовании анонимного класса!
+        //    int pathCount = 0;
+        //    Catalog emp = new Catalog();
+        //    foreach (string path in paths)
+        //    {
+        //        string[] PathD = path.Split(Path.DirectorySeparatorChar);
+        //        if (PathD.Length == 1)  // Корневые папки без поддиректорий
+        //        {
+        //            emp.Name = PathD[0];
+        //            emp.ParentId = (int?)null; // родителя нет
 
-                    if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
-                    {
-                        emp.nodeId = pathCount;
-                        _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-                        pathCount++;
-                    }
-                    else
-                    {
-                        bool isElement = false; // элемента нет
+        //            if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
+        //            {
+        //                emp.nodeId = pathCount;
+        //                _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+        //                pathCount++;
+        //            }
+        //            else
+        //            {
+        //                bool isElement = false; // элемента нет
 
-                        for (int i = 0; i < _treeViewColletion.Employees.Count; i++)
-                        {
-                            if (_treeViewColletion.Employees[i].Equals(emp))
-                            { // если есть то выводим инфу и будем использовать его id
-                                //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
-                                // emp.ParentId = id;
-                                isElement = true;
-                                break;
-                            }
-                        }
-                        if (!isElement) // если элемента нет, то создаем                       
-                        //if (!_treeViewColletion.Employees.Exists(x => x == emp))
-                        {
-                            emp.nodeId = pathCount;
-                            _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-                            pathCount++;
-                        }
-                    }
-                }
-                else // папки с поддиректориями
-                {
-                    List<int> parent = new List<int>();
+        //                for (int i = 0; i < _treeViewColletion.Employees.Count; i++)
+        //                {
+        //                    if (_treeViewColletion.Employees[i].Equals(emp))
+        //                    { // если есть то выводим инфу и будем использовать его id
+        //                        //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
+        //                        // emp.ParentId = id;
+        //                        isElement = true;
+        //                        break;
+        //                    }
+        //                }
+        //                if (!isElement) // если элемента нет, то создаем                       
+        //                //if (!_treeViewColletion.Employees.Exists(x => x == emp))
+        //                {
+        //                    emp.nodeId = pathCount;
+        //                    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+        //                    pathCount++;
+        //                }
+        //            }
+        //        }
+        //        else // папки с поддиректориями
+        //        {
+        //            List<int> parent = new List<int>();
 
-                    for (int i = 0; i < PathD.Length; i++)
-                    {
-                        emp.Name = PathD[i];
-                        //emp.ParentId = (i != 0) ? (i - 1) : (int?)null;
-                        if (i == 0)
-                        {
-                            emp.ParentId = (int?)null;
-                        }
-                        else
-                        {
-                            //Employee emps = new Employee(); // ВЫЧИСЛЯЕТСЯ ID родителя
-                            //emps = _treeViewColletion.Employees.Find(x => x.Name == PathD[i - 1]);
-                            // emp.ParentId = emps.nodeId;
-                            emp.ParentId = parent[i - 1];
-                        }
+        //            for (int i = 0; i < PathD.Length; i++)
+        //            {
+        //                emp.Name = PathD[i];
+        //                //emp.ParentId = (i != 0) ? (i - 1) : (int?)null;
+        //                if (i == 0)
+        //                {
+        //                    emp.ParentId = (int?)null;
+        //                }
+        //                else
+        //                {
+        //                    //Employee emps = new Employee(); // ВЫЧИСЛЯЕТСЯ ID родителя
+        //                    //emps = _treeViewColletion.Employees.Find(x => x.Name == PathD[i - 1]);
+        //                    // emp.ParentId = emps.nodeId;
+        //                    emp.ParentId = parent[i - 1];
+        //                }
 
-                        if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
-                        {
-                            parent.Add(pathCount);  // добавили id родителя List<int> parent 
-                            emp.nodeId = pathCount;
-                            _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-                            pathCount++;
-                        }
-                        else
-                        {
-                            // Проверяем наличие элемента
-                            bool isElement = false; // элемента нет
+        //                if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
+        //                {
+        //                    parent.Add(pathCount);  // добавили id родителя List<int> parent 
+        //                    emp.nodeId = pathCount;
+        //                    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+        //                    pathCount++;
+        //                }
+        //                else
+        //                {
+        //                    // Проверяем наличие элемента
+        //                    bool isElement = false; // элемента нет
 
-                            for (int j = 0; j < _treeViewColletion.Employees.Count; j++)
-                            {
-                                if (_treeViewColletion.Employees[j].Equals(emp))
-                                { // если есть то выводим инфу и будем использовать его id
-                                  //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
+        //                    for (int j = 0; j < _treeViewColletion.Employees.Count; j++)
+        //                    {
+        //                        if (_treeViewColletion.Employees[j].Equals(emp))
+        //                        { // если есть то выводим инфу и будем использовать его id
+        //                          //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
 
-                                    // !!!!Неправильно выбирается элемент!!!! .Берется текущий id вместо id того который в базе.
+        //                            // !!!!Неправильно выбирается элемент!!!! .Берется текущий id вместо id того который в базе.
 
-                                    Catalog emps = _treeViewColletion.Employees.Find(x => emp.Name == x.Name && emp.ParentId == x.ParentId);
-                                    if (emps != null) { parent.Add(emps.nodeId); }
-                                    //isElement = true;
-                                    // добавили id родителя List<int> parent 
-                                    break;
-                                }
-                            }
-                            if (!isElement) // если элемента нет, то создаем                       
-                            {
-                                parent.Add(pathCount);  // добавили id родителя List<int> parent 
-                                emp.nodeId = pathCount;
+        //                            Catalog emps = _treeViewColletion.Employees.Find(x => emp.Name == x.Name && emp.ParentId == x.ParentId);
+        //                            if (emps != null) { parent.Add(emps.nodeId); }
+        //                            //isElement = true;
+        //                            // добавили id родителя List<int> parent 
+        //                            break;
+        //                        }
+        //                    }
+        //                    if (!isElement) // если элемента нет, то создаем                       
+        //                    {
+        //                        parent.Add(pathCount);  // добавили id родителя List<int> parent 
+        //                        emp.nodeId = pathCount;
 
-                                _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-                                pathCount++;
-                            }
-                            //if (!_treeViewColletion.Employees.Exists(x => x == emp))
-                            //{
-                            //    emp.nodeId = pathCount;
-                            //    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-                            //    pathCount++;
-                            //}
-                        }
-                    }
-
-
-
-                }
-            }
-
-            MessageBox.Show(_treeViewColletion.Employees.Count.ToString());
-            // Define functions needed by the load method
-            Func<Catalog, int> getId = (x => x.nodeId);
-            Func<Catalog, int?> getParentId = (x => x.ParentId);
-            Func<Catalog, string> getDisplayName = (x => x.Name);
+        //                        _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+        //                        pathCount++;
+        //                    }
+        //                    //if (!_treeViewColletion.Employees.Exists(x => x == emp))
+        //                    //{
+        //                    //    emp.nodeId = pathCount;
+        //                    //    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
+        //                    //    pathCount++;
+        //                    //}
+        //                }
+        //            }
 
 
-            // Load items into TreeViewFast
-            //treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
-        }
+
+        //        }
+        //    }
+
+        //    MessageBox.Show(_treeViewColletion.Employees.Count.ToString());
+        //    // Define functions needed by the load method
+        //    Func<Catalog, int> getId = (x => x.nodeId);
+        //    Func<Catalog, int?> getParentId = (x => x.ParentId);
+        //    Func<Catalog, string> getDisplayName = (x => x.Name);
+
+
+        //    // Load items into TreeViewFast
+        //    //treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
+        //}
 
         private void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator, int count)  // Построение дерева
         {
@@ -2926,21 +2962,39 @@ namespace FilmCollection
                 {
                     int size = ImageSize;
 
-                    ImageViewer imageViewer = new ImageViewer();
-                    // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
-                    imageViewer.Dock = DockStyle.None;
-                    imageViewer.LoadImage(imageFilename, 256, 256);
-                    imageViewer.Width = size;
-                    imageViewer.Height = size;
-                    imageViewer.IsThumbnail = true;
+                    using (ImageViewer imageViewer = new ImageViewer())
+                    {
+                        // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                        imageViewer.Dock = DockStyle.None;
+                        imageViewer.LoadImage(imageFilename, 256, 256);
+                        imageViewer.Width = size;
+                        imageViewer.Height = size;
+                        imageViewer.IsThumbnail = true;
 
-                    imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
-                    imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
-                    imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+                        imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
+                        imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
+                        imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
 
-                    OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+                        OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
-                    flowLayoutPanelMain.Controls.Add(imageViewer);
+                        flowLayoutPanelMain.Controls.Add(imageViewer);
+                    }
+
+                    //    ImageViewer imageViewer = new ImageViewer();
+                    //// imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                    //imageViewer.Dock = DockStyle.None;
+                    //imageViewer.LoadImage(imageFilename, 256, 256);
+                    //imageViewer.Width = size;
+                    //imageViewer.Height = size;
+                    //imageViewer.IsThumbnail = true;
+
+                    //imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
+                    //imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
+                    //imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+
+                    //OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+
+                    //flowLayoutPanelMain.Controls.Add(imageViewer);
                 }
             }
             //}
@@ -2999,31 +3053,31 @@ namespace FilmCollection
 
 
 
-        private string processingString(string str) // разбиение строки на равные куски
-        {
-            if (str.Length > 0)
-            {
-                String[] sublines = str.Split(' ');
-                str = null;
-                int length = 50;//длина разбиения
-                int j = 0;
-                for (int i = 0; i < sublines.Count(); i++)
-                {
-                    if (j + sublines[i].Length < length)
-                    {
-                        str = str + sublines[i] + " ";
-                        j = j + sublines[i].Length;
-                    }
-                    else
-                    {
-                        j = 0;
-                        str = str + "\r\n";
-                        i--;
-                    }
-                }
-            }
-            return str;
-        }
+        //private string processingString(string str) // разбиение строки на равные куски
+        //{
+        //    if (str.Length > 0)
+        //    {
+        //        String[] sublines = str.Split(' ');
+        //        str = null;
+        //        int length = 50;//длина разбиения
+        //        int j = 0;
+        //        for (int i = 0; i < sublines.Count(); i++)
+        //        {
+        //            if (j + sublines[i].Length < length)
+        //            {
+        //                str = str + sublines[i] + " ";
+        //                j = j + sublines[i].Length;
+        //            }
+        //            else
+        //            {
+        //                j = 0;
+        //                str = str + "\r\n";
+        //                i--;
+        //            }
+        //        }
+        //    }
+        //    return str;
+        //}
 
         /// <summary>Обработка клика по постеру</summary>
         /// <param name="sender"></param>

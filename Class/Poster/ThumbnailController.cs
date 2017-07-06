@@ -13,9 +13,9 @@ namespace FilmCollection
 
     public class ThumbnailImageEventArgs : EventArgs
     {
-        public ThumbnailImageEventArgs(int _size)
+        public ThumbnailImageEventArgs(int size)
         {
-            Size = _size;
+            Size = size;
         }
 
         public int Size;
@@ -23,9 +23,9 @@ namespace FilmCollection
 
     public class ThumbnailControllerEventArgs : EventArgs
     {
-        public ThumbnailControllerEventArgs(string _imageFilename)
+        public ThumbnailControllerEventArgs(string Filename)
         {
-            ImageFilename = _imageFilename;
+            ImageFilename = Filename;
         }
 
         public string ImageFilename;

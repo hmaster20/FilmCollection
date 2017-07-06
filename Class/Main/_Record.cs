@@ -78,16 +78,22 @@ namespace FilmCollection
 
         public static int CompareByName(Record a, Record b)     // Сравнение по названию
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.Name, b.Name);
         }
 
         public static int CompareByCatalog(Record a, Record b)  // Сравнение по каталогу
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.DirName, b.DirName);
         }
 
         public static int CompareByYear(Record a, Record b)
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             if (a.mYear == b.mYear)
                 return CompareByName(a, b);
             return (a.mYear - b.mYear);
@@ -95,16 +101,22 @@ namespace FilmCollection
 
         public static int CompareByCountry(Record a, Record b)  // Сравнение по стране
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.mCountry, b.mCountry);
         }
 
         public static int CompareByGenre(Record a, Record b) // Сравнение по жанру
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.mGenre, b.mGenre);
         }
 
         public static int CompareByCategory(Record a, Record b) // Сравнение по категории
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             if (a.mCategory == b.mCategory)
                 return CompareByName(a, b);
             if (a.mCategory == CategoryVideo.Film.ToString())
@@ -128,6 +140,8 @@ namespace FilmCollection
 
         public static int CompareByTime(Record a, Record b)     // Сравнение по времени записи
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             if (a.TimeVideoSpan >= b.TimeVideoSpan)
                 return 1;
             else if (a.TimeVideoSpan <= b.TimeVideoSpan)
@@ -138,6 +152,8 @@ namespace FilmCollection
 
         public static int CompareByFileName(Record a, Record b) // Сравнение по файлу
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.FileName, b.FileName);
         }
 

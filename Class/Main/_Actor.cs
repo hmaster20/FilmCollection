@@ -122,27 +122,37 @@ namespace FilmCollection
 
         public int CompareTo(Actor obj) // Реализовать интерфейс IComparable<T>, т.е. получить возможность сортировки методом .Sort();
         {
+            if (obj == null)
+                throw new ArgumentNullException("Параметр содержат null");
             return FIO.CompareTo(obj.FIO);
         }
 
         public static int CompareByName(Actor a, Actor b)     // Сравнение по названию
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.FIO, b.FIO, StringComparison.OrdinalIgnoreCase);
         }
 
         public static int CompareByCountry(Actor a, Actor b)  // Сравнение по стране
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.CountryString, b.CountryString);
         }
 
 
         public static int CompareByDateOfBirth(Actor a, Actor b)  // Сравнение по дате рождения
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.DateOfBirth, b.DateOfBirth);
         }
 
         public static int CompareByDateOfDeath(Actor a, Actor b)  // Сравнение по дате смерти
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException("Параметры содержат null");
             return string.Compare(a.DateOfDeath, b.DateOfDeath);
         }
 

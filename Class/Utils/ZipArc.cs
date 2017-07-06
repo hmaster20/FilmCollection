@@ -10,7 +10,7 @@ namespace FilmCollection
 {
     public static class ZipArc
     {
-        public static string BackFolder = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Bak");
+        private static string BackFolder = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Bak");
 
         public static bool FindCurrentArchive()
         {

@@ -9,20 +9,20 @@ namespace FilmCollection
 {
     public partial class Report : Form
     {
-        RecordCollection _videoCollection { get; set; }     // Доступ к коллекции
+        RecordCollection videoCollection { get; set; }     // Доступ к коллекции
 
         public Report()
         {
             InitializeComponent();
         }
 
-        public Report(RecordCollection _сollection)
+        public Report(RecordCollection сollection)
         {
             InitializeComponent();
 
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
 
-            _videoCollection = _сollection;
+            videoCollection = сollection;
 
             cbSelectReport.Items.Add("Отчет по формату");
             cbSelectReport.Items.Add("Отчет по категориям");
@@ -58,7 +58,7 @@ namespace FilmCollection
                 charter.Add(ext, 0);
             }
 
-            foreach (Combine item in _videoCollection.CombineList)
+            foreach (Combine item in videoCollection.CombineList)
             {
                 if (charter.ContainsKey(item.media.GenreString))
                 {
@@ -99,7 +99,7 @@ namespace FilmCollection
                 charter.Add(ext, 0);
             }
 
-            foreach (Combine item in _videoCollection.CombineList)
+            foreach (Combine item in videoCollection.CombineList)
             {
                 if (charter.ContainsKey(item.media.CategoryString))
                 {
@@ -138,7 +138,7 @@ namespace FilmCollection
             }
 
             List<Record> filtered = new List<Record>();
-            _videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+            videoCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
             foreach (Record item in filtered)
             {

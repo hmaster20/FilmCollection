@@ -38,21 +38,21 @@ namespace FilmCollection
 
         //private List<Employee> _employees;
         public List<Catalog> Employees { get; set; }
-        public void Add(Catalog _emp)
-        {
-            Employees.Add(_emp);
-        }
+        //public void Add(Catalog _emp)
+        //{
+        //    Employees.Add(_emp);
+        //}
 
-        public void Add(int _nodeId, int? _parentId, string _nodeName)
-        {
-            var employee = new Catalog
-            {
-                nodeId = _nodeId,
-                ParentId = _parentId,
-                Name = _nodeName
-            };
-        Employees.Add(employee);
-        }
+        //public void Add(int _nodeId, int? _parentId, string _nodeName)
+        //{
+        //    var employee = new Catalog
+        //    {
+        //        nodeId = _nodeId,
+        //        ParentId = _parentId,
+        //        Name = _nodeName
+        //    };
+        //Employees.Add(employee);
+        //}
 
         //public bool Equals(Employee other)
         //{

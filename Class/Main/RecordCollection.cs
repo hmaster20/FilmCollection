@@ -43,20 +43,26 @@ namespace FilmCollection
         }
 
 
-        public List<Combine> CombineList { get; set; }
+        public List<Combine> CombineList { get; }
         public void Add(Combine cm) => CombineList.Add(cm);
         public void Remove(Combine cm) => CombineList.Remove(cm);
         public void ClearCombine() => CombineList.Clear();
 
 
-        public List<Actor> ActorList { get; set; }                  // Объявление списка        
+        public List<Actor> ActorList { get; }                  // Объявление списка        
         public void Add(Actor actor) => ActorList.Add(actor);       // Добавление актера
         public void Remove(Actor actor) => ActorList.Remove(actor); // Удаление актера
         public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
 
 
         private static int MediaID { get; set; }               // Идентификатор Media
+
+
+        //[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        //public int GetMediaID { get { return ++MediaID; } } 
         public static int GetMediaID() => ++MediaID;           // создание следующего номера
+
+
         public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
         public static void SetMediaID(int value) => MediaID = value;
 
@@ -64,7 +70,13 @@ namespace FilmCollection
         private static int ActorID { get; set; }               // Идентификатор актеров
 
         /// <summary>Метод создает и присваивает следующий номер.</summary>
-        public static int GetActorID() => ++ActorID;           // Генерация идентификатора  // return ++ActorID;
+        /// 
+
+        //[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        //public int GetActorID { get { return ++ActorID; } } 
+        public static int GetActorID() => ++ActorID;        // Генерация идентификатора  // return ++ActorID;          
+
+
         public static void ResetActorID() => ActorID = 0;      // обнуление идентификатора
         public static void SetActorID(int value) => ActorID = value;
 
@@ -128,7 +140,7 @@ namespace FilmCollection
             }
             catch (Exception ex)
             {
-                throw new Exception("Ошибка на этапе загрузки файла базы. \n" + ex.Message);
+                throw new ArgumentNullException("Ошибка на этапе загрузки файла базы. \n" + ex.Message);
                 //return new RecordCollection();
             }
 

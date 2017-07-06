@@ -82,6 +82,9 @@ namespace FilmCollection
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (e == null)
+                throw new ArgumentNullException("Параметр содержат null");
+
             Graphics g = e.Graphics;
             if (g == null) return;
             if (m_Image == null) return;
@@ -121,7 +124,7 @@ namespace FilmCollection
             }
         }
 
-        private void OnResize(object sender, EventArgs e) => Invalidate();
+        //private void OnResize(object sender, EventArgs e) => Invalidate();
 
     }
 }

@@ -15,6 +15,8 @@ namespace FilmCollection
         {
             if (disposing && (components != null))
             {
+                // Очистка ресурсов
+                m_Image.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

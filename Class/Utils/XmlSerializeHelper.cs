@@ -15,12 +15,15 @@ namespace FilmCollection
         #region Сохранение путем сериализации
         public static void SerializeAndSaveToMemory(object obj)
         {
+            if (obj == null)
+                throw new ArgumentNullException("Параметр содержат null");
+
             try
             {
                 streamCollection = new MemoryStream();
                 new XmlSerializer(obj.GetType()).Serialize(streamCollection, obj);
             }
-            catch (Exception ex) { throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message); }
+            catch (Exception ex) { throw new ArgumentException(ex.Message + "\nПричина: " + ex.InnerException.Message); }
         }
 
 
@@ -40,26 +43,26 @@ namespace FilmCollection
 
 
         #region Загрузка путем десериализации
-        public static T LoadAndDeserialize<T>(this string filename)
+        public static T LoadAndDeserialize<T>(this string fileName)
         {
-            if (!File.Exists(filename))
-                throw new Exception("Файл базы не существует!");
+            if (!File.Exists(fileName))
+                throw new ArgumentException("Файл базы не существует!");
 
-            if ((new FileInfo(filename).Length) < 200)
-                throw new Exception("Некорректный файл XML");
+            if ((new FileInfo(fileName).Length) < 200)
+                throw new ArgumentException("Некорректный файл XML");
 
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
-        
-                using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Open))
+
+                using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), fileName), FileMode.Open))
                 {
                     var t = (T)serializer.Deserialize(stream);
                     SerializeAndSaveToMemory(t);
                     return t;
                 }
             }
-            catch (Exception ex) { throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message); }
+            catch (Exception ex) { throw new ArgumentException(ex.Message + "\nПричина: " + ex.InnerException.Message); }
         }
 
 
@@ -74,7 +77,7 @@ namespace FilmCollection
                 streamCollection.Position = 0;
                 return (T)serializer.Deserialize(streamCollection);
             }
-            catch (Exception ex) { throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message); }
+            catch (Exception ex) { throw new ArgumentException(ex.Message + "\nПричина: " + ex.InnerException.Message); }
 
         }
         #endregion

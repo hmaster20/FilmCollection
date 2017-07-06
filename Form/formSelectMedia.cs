@@ -18,12 +18,12 @@ namespace FilmCollection
         //    InitializeComponent();
         //}
 
-        public formSelectMedia(List<Media> MList, Record record)
+        public formSelectMedia(List<Media> mediaList, Record record)
         {
             InitializeComponent();
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
 
-            MList.ForEach(x => listMedia.Items.Add(x));
+            mediaList.ForEach(x => listMedia.Items.Add(x));
 
             if (record != null)
             {

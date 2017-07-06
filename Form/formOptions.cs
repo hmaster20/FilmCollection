@@ -23,6 +23,9 @@ namespace FilmCollection
 
             checkBox1.Checked = RecordOptions.ToTray;
 
+            if (_videoCollection == null)
+            throw new ArgumentNullException("Параметры содержат null");
+
             if (_videoCollection.Options.Source != null)
             {
                 lBasePath.Text = _videoCollection.Options.Source;

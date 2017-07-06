@@ -382,8 +382,8 @@ namespace FilmCollection
                     }
                     catch (Exception ex)
                     {
-                        break;
-                        throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message);
+                        //break;
+                        throw new ArgumentNullException(ex.Message + "\nПричина: " + ex.InnerException.Message);
                     }
                 }
             }
@@ -410,7 +410,7 @@ namespace FilmCollection
 
                         if (PicPath.StartsWith("http"))                //if (PicWeb.Contains("http"))
                         {
-                            string path = _media.GetFilename;
+                            //string path = _media.GetFilename;
                             using (WebClient webClient = new WebClient())
                                 webClient.DownloadFile(PicPath, _media.GetFilename);
                         }
@@ -419,8 +419,8 @@ namespace FilmCollection
                     }
                     catch (Exception ex)
                     {
-                        break;
-                        throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message);
+                        //break;
+                        throw new ArgumentNullException(ex.Message + "\nПричина: " + ex.InnerException.Message);
                     }
                 }
             }

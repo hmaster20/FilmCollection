@@ -12,7 +12,7 @@ namespace FilmCollection
     public class Media : ICloneable
     {
         [XmlIgnore]
-        public List<Actor> ActorList { get; set; }
+        public List<Actor> ActorList { get; }
 
         public Media()
         {
