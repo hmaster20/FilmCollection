@@ -39,7 +39,7 @@ namespace FilmCollection
                 ClearCombine();
                 ResetMediaID();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (ApplicationException ex) { MessageBox.Show(ex.Message); }
         }
 
 
@@ -162,7 +162,7 @@ namespace FilmCollection
         {
             bool state = false;
 
-            if (Options.Source == null || Options.Source == "")  // Если есть информация о корневой папки коллекции
+            if (string.IsNullOrEmpty(Options.Source))  // Если есть информация о корневой папки коллекции
                 MessageBox.Show("Необходимо создать базу данных.");
             else
             {
@@ -217,7 +217,7 @@ namespace FilmCollection
                     else
                         MessageBox.Show("Каталог " + directory + " не обнаружен!");
                 }
-                catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
+                catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
             }
             return state;
         }
@@ -273,7 +273,7 @@ namespace FilmCollection
             string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
             string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
-            return (name_f != "") ? name_f : name_1;
+            return (!string.IsNullOrEmpty(name_f)) ? name_f : name_1;
         }
 
     }

@@ -11,7 +11,7 @@ namespace FilmCollection
 {
     public partial class formSelectMedia : Form
     {
-        public Media media = null;
+        internal Media media = null;
 
         //public formSelectMedia()
         //{
@@ -22,6 +22,9 @@ namespace FilmCollection
         {
             InitializeComponent();
             this.Icon = FilmCollection.Properties.Resources.FC; // Загрузка иконки
+
+            if (mediaList == null)
+                throw new ArgumentNullException("mediaList", "mediaList не может содержать null");
 
             mediaList.ForEach(x => listMedia.Items.Add(x));
 
@@ -48,8 +51,7 @@ namespace FilmCollection
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Media media = (Media)listMedia.SelectedItem;
-            SelectMediaInfo.update(media);
+            SelectMediaInfo.update((Media)listMedia.SelectedItem);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

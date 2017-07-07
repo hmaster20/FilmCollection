@@ -255,7 +255,7 @@ namespace FilmCollection
                     _videoCollection = RecordCollection.Load(LoadfromFile);
                     ZipArc.CreateBackup();
                 }
-                catch (Exception ex)
+                catch (ApplicationException ex)
                 {
                     Logs.Log("При загрузки базы произошла ошибка:", ex);
                     BackupBase();
@@ -575,7 +575,7 @@ namespace FilmCollection
             string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
             string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
-            return (name_f != "") ? name_f : name_1;
+            return (!string.IsNullOrEmpty(name_f)) ? name_f : name_1;
         }
 
         /// <summary>Резервная копия базы</summary>
@@ -599,24 +599,26 @@ namespace FilmCollection
 
         private void RecoveryBase()
         {
-            RecoveryForm form = new RecoveryForm();
-            if (form.ShowDialog() == DialogResult.OK)
+            using (RecoveryForm form = new RecoveryForm())
             {
-                try
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
+                    try
                     {
-                        string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                            + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
-                            + Path.GetExtension(RecordOptions.BaseName);
-                        File.Copy(RecordOptions.BaseName, BadFileBase);
+                        if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
+                        {
+                            string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                                + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
+                                + Path.GetExtension(RecordOptions.BaseName);
+                            File.Copy(RecordOptions.BaseName, BadFileBase);
+                        }
+                        File.Copy(form.recoverBase, RecordOptions.BaseName, true);
                     }
-                    File.Copy(form.recoverBase, RecordOptions.BaseName, true);
-                }
-                catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
+                    catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
 
-                MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
-                FormLoad(true);
+                    MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
+                    FormLoad(true);
+                }
             }
         }
 
@@ -648,26 +650,24 @@ namespace FilmCollection
         private void BackupBase_Click(object sender, EventArgs e) => BackupBase();
         private void RecoveryBase_Click(object sender, EventArgs e) => RecoveryBase();
         private void Exit_Click(object sender, EventArgs e) => Close();
-
         private void CleanBase_Click(object sender, EventArgs e) => CleanBase();
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            Options form = new Options(_videoCollection);
-            if (form.ShowDialog() == DialogResult.OK)
+            using (Options form = new Options(_videoCollection))
             {
-                //    _videoCollection.Save();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    //    _videoCollection.Save();
+                }
             }
         }
 
         private void btnOpenReportForm_Click(object sender, EventArgs e)
         {
-            using (Report _report = new Report(_videoCollection))
-            { _report.ShowDialog(); }
-
-            //    Report _report = new Report(_videoCollection);
-            //_report.ShowDialog();
+            using (Report report = new Report(_videoCollection))
+                report.ShowDialog();
         }
 
         private void btnReport_Click(object sender, EventArgs e)
@@ -679,18 +679,12 @@ namespace FilmCollection
         private void About_Click(object sender, EventArgs e) => AboutFC();
         private void btnHistory_Click(object sender, EventArgs e) => History();
         private void btnHelp_Click(object sender, EventArgs e) => HelpShow();
-
-
         private void tsAdd_Click(object sender, EventArgs e) => Add();
         private void tsChange_Click(object sender, EventArgs e) => Edit();
         private void tsRemove_Click(object sender, EventArgs e) => Delete();
-
         private void tsFind_Click(object sender, EventArgs e) => panelFind.BringToFront();
-
         private void tsFindbyName_KeyDown(object sender, KeyEventArgs e) => QuicSearch(e);
-
         private void tsFindbyName_MouseEnter(object sender, EventArgs e) => timerCursorEnabled();
-
         private void tsFindbyName_MouseLeave(object sender, EventArgs e) => timerCursorDisabled();
 
         #endregion
@@ -700,19 +694,13 @@ namespace FilmCollection
         private static void History()
         {
             using (fromChangeLog formLog = new fromChangeLog())
-            { formLog.ShowDialog(); }
-
-            //fromChangeLog formLog = new fromChangeLog();
-            //formLog.ShowDialog();
+                formLog.ShowDialog();
         }
 
         private static void AboutFC()
         {
             using (formAbout about = new formAbout())
-            { about.ShowDialog(); }
-
-            //formAbout about = new formAbout();
-            //about.ShowDialog();
+                about.ShowDialog();
         }
 
         private void HelpShow()
@@ -752,10 +740,7 @@ namespace FilmCollection
 
             switch (tabControlNumber())
             {
-                case 0: // Фильмы
-                    {
-                    }
-                    break;
+                case 0: break;// Фильмы
 
                 case 1: // Актеры
                     {
@@ -831,7 +816,7 @@ namespace FilmCollection
                         PrepareRefresh();
                     }
                 }
-                catch (Exception ex) { Logs.Log("Произошла ошибка при перемещении Drag&Drop:", ex); }
+                catch (ApplicationException ex) { Logs.Log("Произошла ошибка при перемещении Drag&Drop:", ex); }
             }
         }
 
@@ -995,13 +980,9 @@ namespace FilmCollection
         {
             DataGridView dgv = GetDgv();
             if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
 
         private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
@@ -1159,7 +1140,8 @@ namespace FilmCollection
         private bool checkNode()
         {
             string nodeName = (GetNode());
-            if (nodeName != "" && nodeName != "Фильмотека")
+
+            if (!string.IsNullOrEmpty(nodeName) && nodeName != "Фильмотека")
                 return true;
             return false;
         }
@@ -1286,7 +1268,7 @@ namespace FilmCollection
                     }
                 }
             }
-            catch (Exception ex) { Logs.Log("Произошла ошибка при обновлении данных в таблице:", ex); }
+            catch (ApplicationException ex) { Logs.Log("Произошла ошибка при обновлении данных в таблице:", ex); }
         }
 
         private void SelectRecord(DataGridView dgv, Record record)
@@ -1436,7 +1418,7 @@ namespace FilmCollection
                             listViewFilm.Items.Add(new ListViewItem(
                                 new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
                 }
-                catch (Exception ex) { Logs.Log("Произошла ошибка при отображении данных выбранной строки:", ex); }
+                catch (ApplicationException ex) { Logs.Log("Произошла ошибка при отображении данных выбранной строки:", ex); }
             }
         }
 
@@ -1667,7 +1649,7 @@ namespace FilmCollection
 
                 if (i > 1) btnFindNext.Enabled = true;
             }
-            catch (Exception ex)
+            catch (ApplicationException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1721,7 +1703,7 @@ namespace FilmCollection
                     }
                 }
             }
-            catch (Exception ex)
+            catch (ApplicationException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1746,48 +1728,50 @@ namespace FilmCollection
         {
             TableRec.ClearSelection();   // сброс селекта таблицы
 
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
-            fileDialog.Filter = FormatOpen;
-            fileDialog.Title = "Выберите файл:";
-            fileDialog.RestoreDirectory = true;
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog fileDialog = new OpenFileDialog())
             {
-                NameBlock();
+                fileDialog.InitialDirectory = Path.Combine(_videoCollection.Options.Source, GetNode());
+                fileDialog.Filter = FormatOpen;
+                fileDialog.Title = "Выберите файл:";
+                fileDialog.RestoreDirectory = true;
 
-                FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
-                if (!newFile.DirectoryName.StartsWith(_videoCollection.Options.Source))
+                if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Options.Source);
-                    return; // Выходим из метода
+                    NameBlock();
+
+                    FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
+                    if (!newFile.DirectoryName.StartsWith(_videoCollection.Options.Source))
+                    {
+                        MessageBox.Show("Файл не принадлежит источнику коллекции " + _videoCollection.Options.Source);
+                        return; // Выходим из метода
+                    }
+
+                    CardRecordEdit_Clear();
+
+                    // Заполняем поля
+                    cbNameMedia.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
+                    tbNameRecord.Text = cbNameMedia.Text;
+                    tbFileName.Text = newFile.Name;
+                    mtbYear.Text = DateTime.Now.Year.ToString();
+
+                    foreach (Actor item in _videoCollection.ActorList)
+                    {
+                        chkActorList.Items.Add(item.FIO);
+                    }
+
+                    fsInfo = newFile;           // если все хорошо, то передаем объект    
+
+                    TableRec.Enabled = false;    // блокировка таблицы
+                    treeFolder.Enabled = false;     // блокировка дерева
+
+                    panelEdit_Button_Unlock();          // разблокировка кнопок
+                    FileNameDisabled();
+
+                    panelEdit.BringToFront();   // Отображаем панель редактирования
+
+                    // блокировка tabControl2
+                    tabControlisBlock = true;
                 }
-
-                CardRecordEdit_Clear();
-
-                // Заполняем поля
-                cbNameMedia.Text = newFile.Name.Remove(newFile.Name.LastIndexOf(newFile.Extension), newFile.Extension.Length);
-                tbNameRecord.Text = cbNameMedia.Text;
-                tbFileName.Text = newFile.Name;
-                mtbYear.Text = DateTime.Now.Year.ToString();
-
-                foreach (Actor item in _videoCollection.ActorList)
-                {
-                    chkActorList.Items.Add(item.FIO);
-                }
-
-                fsInfo = newFile;           // если все хорошо, то передаем объект    
-
-                TableRec.Enabled = false;    // блокировка таблицы
-                treeFolder.Enabled = false;     // блокировка дерева
-
-                panelEdit_Button_Unlock();          // разблокировка кнопок
-                FileNameDisabled();
-
-                panelEdit.BringToFront();   // Отображаем панель редактирования
-
-                // блокировка tabControl2
-                tabControlisBlock = true;
             }
         }
 
@@ -1830,7 +1814,7 @@ namespace FilmCollection
 
             record.Name = tbNameRecord.Text;
             try { record.TimeVideoSpan = TimeSpan.Parse(mtbTime.Text); }
-            catch (Exception Ex)
+            catch (ApplicationException Ex)
             {
                 MessageBox.Show(Ex.Message);
                 record.TimeVideoSpan = TimeSpan.Parse("0");
@@ -2174,7 +2158,7 @@ namespace FilmCollection
 
         private void listViewFilmV_DoubleClick(object sender, EventArgs e)
         {
-            if (listViewFilmV.SelectedItems[0].SubItems[0].Text != "")
+            if (!string.IsNullOrEmpty(listViewFilmV.SelectedItems[0].SubItems[0].Text))
             {
                 string searchValue = listViewFilmV.SelectedItems[0].SubItems[0].Text;
                 FindAndSelect_Record(searchValue);
@@ -2639,7 +2623,8 @@ namespace FilmCollection
 
             foreach (Combine cm in cmList.Distinct().ToList())
                 foreach (Record rec in cm.recordList)
-                    DownloadDetails.GetInfo(rec, _videoCollection);
+                    DownloadDetails.GetInfo(rec);
+            //DownloadDetails.GetInfo(rec, _videoCollection);
 
             _videoCollection.Save();
             PrepareRefresh();
@@ -2667,7 +2652,8 @@ namespace FilmCollection
                 //}
 
                 //Media newMedia = (Media)DownloadDetails.GetInfo(record.combineLink.media, _videoCollection);
-                Media newMedia = DownloadDetails.GetInfo(record, _videoCollection);
+                //Media newMedia = DownloadDetails.GetInfo(record, _videoCollection);
+                Media newMedia = DownloadDetails.GetInfo(record);
 
                 if (newMedia != null)
                 {
@@ -2689,7 +2675,8 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
 
             string newTimeValue = FileDetails.GetTime(record);
-            if (newTimeValue != "" && newTimeValue != mtbTime.Text)
+
+            if (!string.IsNullOrEmpty(newTimeValue) && newTimeValue != mtbTime.Text)
             {
                 mtbTime.Text = newTimeValue;
                 Modified();
@@ -2868,7 +2855,7 @@ namespace FilmCollection
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (ApplicationException ex) { MessageBox.Show(ex.Message); }
         }
 
         private void lvSelectRecord_add(string name, int year, int id)

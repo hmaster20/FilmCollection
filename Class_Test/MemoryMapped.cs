@@ -7,14 +7,14 @@ using System.IO;
 
 namespace FilmCollection
 {
-    class MemoryMapped
-    {
-        void openFile()
-        {
-            MemoryMappedFile mmf = MemoryMappedFile.CreateFromFile(RecordOptions.BaseName, FileMode.Open, "VideoList");
+    //class MemoryMapped
+    //{
+    //    void openFile()
+    //    {
+    //        MemoryMappedFile mmf = MemoryMappedFile.CreateFromFile(RecordOptions.BaseName, FileMode.Open, "VideoList");
 
 
 
-        }
-    }
+    //    }
+    //}
 }

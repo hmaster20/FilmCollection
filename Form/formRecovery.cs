@@ -8,7 +8,7 @@ namespace FilmCollection
 {
     public partial class RecoveryForm : Form
     {
-        public string recoverBase = null;
+        internal string recoverBase = null;
 
         public RecoveryForm()
         {
@@ -77,10 +77,7 @@ namespace FilmCollection
                 {
                     _size = Math.Round(((double)Size / (1024 * 1024)), 1).ToString() + " МБ";
                 }
-
-
-
-
+                
                 li.SubItems.Add(_size);
             }
         }

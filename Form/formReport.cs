@@ -76,13 +76,13 @@ namespace FilmCollection
 
             chart1.ChartAreas[0].AxisX.Interval = 1;
 
-            Series ser2 = new Series("По жанрам");
-            ser2.IsValueShownAsLabel = true;    // включение меток над столбцами
-            chart1.Series.Add(ser2);
-
-            chart1.Series[ser2.Name].SmartLabelStyle.Enabled = true;
-
-            chart1.Series[ser2.Name].Points.DataBindXY(charter.Keys, charter.Values);
+            using (Series ser2 = new Series("По жанрам"))
+            {
+                ser2.IsValueShownAsLabel = true;    // включение меток над столбцами
+                chart1.Series.Add(ser2);
+                chart1.Series[ser2.Name].SmartLabelStyle.Enabled = true;
+                chart1.Series[ser2.Name].Points.DataBindXY(charter.Keys, charter.Values);
+            }
         }
 
 
@@ -115,11 +115,13 @@ namespace FilmCollection
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;   // Вертикальные линии - отключены
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;   // Горизонтальные линии - отключены
 
-            Series ser2 = new Series("По категориям");
-            ser2.IsValueShownAsLabel = true;    // включение меток над столбцами
-            chart1.Series.Add(ser2);
 
-            chart1.Series[ser2.Name].Points.DataBindXY(charter.Keys, charter.Values);
+            using (Series ser2 = new Series("По категориям"))
+            {
+                ser2.IsValueShownAsLabel = true;    // включение меток над столбцами
+                chart1.Series.Add(ser2);
+                chart1.Series[ser2.Name].Points.DataBindXY(charter.Keys, charter.Values);
+            }
         }
 
 
@@ -156,13 +158,13 @@ namespace FilmCollection
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;   // Вертикальные линии - отключены
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;   // Горизонтальные линии - отключены
 
-            Series ser1 = new Series("По типам", 10);
-            ser1.IsValueShownAsLabel = true;    // включение меток над столбцами
-            chart1.Series.Add(ser1);
-
-            //chart1.Series[ser1.Name].SmartLabelStyle.Enabled = true;
-
-            chart1.Series[ser1.Name].Points.DataBindXY(charter.Keys, charter.Values);
+            using (Series ser1 = new Series("По типам", 10))
+            {
+                ser1.IsValueShownAsLabel = true;    // включение меток над столбцами
+                chart1.Series.Add(ser1);
+                //chart1.Series[ser1.Name].SmartLabelStyle.Enabled = true;
+                chart1.Series[ser1.Name].Points.DataBindXY(charter.Keys, charter.Values);
+            }
         }
     }
 }

@@ -13,15 +13,15 @@ namespace FilmCollection
 
 
         #region Сохранение путем сериализации
-        public static void SerializeAndSaveToMemory(object obj)
+        public static void SerializeAndSaveToMemory(object serializeObject)
         {
-            if (obj == null)
-                throw new ArgumentNullException("Параметр содержат null");
+            if (serializeObject == null)
+                throw new ArgumentNullException("serializeObject", "serializeObject не можеть быть null");
 
             try
             {
                 streamCollection = new MemoryStream();
-                new XmlSerializer(obj.GetType()).Serialize(streamCollection, obj);
+                new XmlSerializer(serializeObject.GetType()).Serialize(streamCollection, serializeObject);
             }
             catch (Exception ex) { throw new ArgumentException(ex.Message + "\nПричина: " + ex.InnerException.Message); }
         }
@@ -69,7 +69,7 @@ namespace FilmCollection
         public static T LoadAndDeserializeMemory<T>()
         {
             if (streamCollection == null)
-                throw new Exception("Некорректный поток");
+                throw new ArgumentException("Некорректный поток");
 
             try
             {

@@ -14,7 +14,7 @@ namespace FilmCollection
 {
     public partial class EditForm : Form
     {
-        public Record rec = null;
+        //internal Record rec = null;
 
 
         public EditForm()               // Конструктор по умолчанию
@@ -46,14 +46,14 @@ namespace FilmCollection
             "Вестерн",
             "Комедия"});
 
-            rec = record;
+            //rec = record;
 
-            tbName.Text = record.Name;
+            //tbName.Text = record.Name;
            // tbYear.Text = record.Year;
            // tbCountry.Text = record.Country;
            // numericTime.Value = record.Time;
            // tbDescription.Text = record.Description;
-            tbFileName.Text = record.FileName;
+            //tbFileName.Text = record.FileName;
 
             //switch (record.Category)
             //{
@@ -94,10 +94,10 @@ namespace FilmCollection
             //}
 
 
-            if (rec == null)
-                rec = new Record();
+            //if (rec == null)
+            //    rec = new Record();
 
-            rec.Name = tbName.Text;
+            //rec.Name = tbName.Text;
            // rec.Year = tbYear.Text;
            // rec.Country = tbCountry.Text;
            // rec.Time = (int)numericTime.Value;

@@ -16,18 +16,22 @@ namespace FilmCollection
         private const string SERIES = "https://afisha.mail.ru/search/?ent=20&q=";
         private const string FILMS = "https://afisha.mail.ru/search/?ent=1&q=";
 
-        static RecordCollection _videoCollection { get; set; }
+        static RecordCollection _videoCollection { get; }
         static Media _media { get; set; }
 
         //static Media mediaOriginal { get; set; }
 
         //public static Media GetInfo(Media media, RecordCollection videoCollection)
 
-        public static Media GetInfo(Record record, RecordCollection videoCollection)
+        //public static Media GetInfo(Record record, RecordCollection videoCollection)
+        public static Media GetInfo(Record record)
         {
+            if (record == null)
+                throw new ArgumentNullException("record", "record не может содержать null");
+
             string webQuery = "";
 
-            _videoCollection = RecordCollection.GetInstance();
+            // _videoCollection = RecordCollection.GetInstance();
 
             Media media = record.combineLink.media;
 
@@ -68,7 +72,7 @@ namespace FilmCollection
                     }
 
                     // if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
-                    if (Link_txt != "")
+                    if (!string.IsNullOrEmpty(Link_txt))
                     {
                         string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
 
@@ -94,7 +98,7 @@ namespace FilmCollection
                     Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
                 }
 
-                if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
+                if (!string.IsNullOrEmpty(PicWeb) && !string.IsNullOrEmpty(Link_txt)) // для более полного соответствия искомому фильму
                 {
                     string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
 
@@ -115,34 +119,35 @@ namespace FilmCollection
 
         private static void OpenFormSelectMedia(List<Media> MList, Record record)
         {
-            formSelectMedia form = new formSelectMedia(MList, record);
-
-            switch (form.ShowDialog())
+            using (formSelectMedia form = new formSelectMedia(MList, record))
             {
-                case DialogResult.OK:
-                    if (form.media != null)
-                    {
-                        _media = (Media)form.media.Clone();
-                        string currentPicFile = _media.GetFilename;
-                        _media.Pic = _media.Name;
-
-                        string newPicFile = _media.GetFilename;
-
-                        if (File.Exists(newPicFile))
-                            File.Delete(newPicFile);
-
-                        if (File.Exists(currentPicFile))
-                            File.Copy(currentPicFile, newPicFile);
-
-                        foreach (Media m in MList)
+                switch (form.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        if (form.media != null)
                         {
-                            if (File.Exists(m.GetFilename))
-                                File.Delete(m.GetFilename);
+                            _media = (Media)form.media.Clone();
+                            string currentPicFile = _media.GetFilename;
+                            _media.Pic = _media.Name;
+
+                            string newPicFile = _media.GetFilename;
+
+                            if (File.Exists(newPicFile))
+                                File.Delete(newPicFile);
+
+                            if (File.Exists(currentPicFile))
+                                File.Copy(currentPicFile, newPicFile);
+
+                            foreach (Media m in MList)
+                            {
+                                if (File.Exists(m.GetFilename))
+                                    File.Delete(m.GetFilename);
+                            }
                         }
-                    }
-                    break;
-                case DialogResult.Cancel: _media = null; break;
-                default: break;
+                        break;
+                    case DialogResult.Cancel: _media = null; break;
+                    default: break;
+                }
             }
         }
 
@@ -155,9 +160,14 @@ namespace FilmCollection
                 //using (StreamReader reader = new StreamReader(data))
                 //    return reader.ReadToEnd();
 
-                WebClient client = new WebClient();
-                using (StreamReader reader = new StreamReader(client.OpenRead(url)))
-                    return reader.ReadToEnd();
+                using (WebClient client = new WebClient())
+                {
+                    using (StreamReader reader = new StreamReader(client.OpenRead(url)))
+                        return reader.ReadToEnd();
+                }
+
+
+
             }
             catch (WebException ex) { Logs.Log("В интернете отсутствует запрошенная информация.\n", ex); }
             return "";
@@ -195,7 +205,7 @@ namespace FilmCollection
                             flag = true;
                             break;// оставляем одну страну и выходим
                         }
-                        catch (Exception ex) { MessageBox.Show(ex.Message); }
+                        catch (ApplicationException ex) { MessageBox.Show(ex.Message); }
                     }
                 }
                 if (flag) break;
@@ -213,7 +223,7 @@ namespace FilmCollection
                 year = year.Remove(0, m.Length - 4);
                 break;
             }
-            if (year != "")
+            if (!string.IsNullOrEmpty(year))
             {
                 _media.Year = Convert.ToInt32(year);
             }
@@ -254,7 +264,7 @@ namespace FilmCollection
                             }
                             break;// оставляем одну страну и выходим
                         }
-                        catch (Exception ex) { MessageBox.Show(ex.Message); }
+                        catch (ApplicationException ex) { MessageBox.Show(ex.Message); }
                     }
                 }
                 break;
@@ -279,7 +289,7 @@ namespace FilmCollection
                             str = str.Remove(0, str.IndexOf(">") + 1);
                     }
                 }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                catch (ApplicationException ex) { MessageBox.Show(ex.Message); }
 
                 str = Regex.Replace(str, "&nbsp;", " ");
                 str = Regex.Replace(str, "&mdash;", "-");
@@ -363,7 +373,7 @@ namespace FilmCollection
                 string PicPath = Pic.ToString();
                 PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
                 PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
-                if (PicPath != "")
+                if (!string.IsNullOrEmpty(PicPath))
                 {
                     try
                     {
@@ -399,7 +409,7 @@ namespace FilmCollection
                 string PicPath = Pic.ToString();
                 PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
                 PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
-                if (PicPath != "")
+                if (!string.IsNullOrEmpty(PicPath))
                 {
                     try
                     {

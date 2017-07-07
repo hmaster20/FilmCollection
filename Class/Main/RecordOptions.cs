@@ -18,7 +18,9 @@ namespace FilmCollection
 
         /// <summary>Файл базы коллекции "VideoList.xml"</summary>
         [XmlIgnore]
-        public static string BaseName { get; } = "VideoList.xml";
+        //public static string BaseName { get; } = "VideoList.xml";
+        //static readonly string BaseName = "VideoList.xml";
+        public const string BaseName = "VideoList.xml";
 
         /// <summary>Метод генерирует массив вида ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx"</summary>
         public static List<string> FormatAdd()

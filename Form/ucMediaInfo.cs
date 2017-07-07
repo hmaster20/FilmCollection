@@ -21,11 +21,6 @@ namespace FilmCollection
             InitializeComponent();
         }
 
-        public ucMediaInfo(Record _record)
-        {
-            InitializeComponent();
-        }        
-
         public void update(Record _record, MainForm main)
         {
             RecordCollection _videoCollection = RecordCollection.GetInstance();

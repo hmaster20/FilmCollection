@@ -24,7 +24,7 @@ namespace FilmCollection
             checkBox1.Checked = RecordOptions.ToTray;
 
             if (_videoCollection == null)
-            throw new ArgumentNullException("Параметры содержат null");
+            throw new ArgumentNullException("_videoCollection", "_videoCollection не может содержать null");
 
             if (_videoCollection.Options.Source != null)
             {
@@ -40,7 +40,7 @@ namespace FilmCollection
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ManagedMMF.Program.MAIN_();
+            //ManagedMMF.Program.MAIN_();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

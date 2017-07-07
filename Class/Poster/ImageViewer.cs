@@ -51,6 +51,8 @@ namespace FilmCollection
 
         public void ImageSizeChanged(object sender, ThumbnailImageEventArgs e)
         {
+            if (e == null)
+                throw new ArgumentNullException("e", "e не может содержать null");
             this.Width = e.Size;
             this.Height = e.Size;
             this.Invalidate();
@@ -83,7 +85,7 @@ namespace FilmCollection
         protected override void OnPaint(PaintEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("Параметр содержат null");
+                throw new ArgumentNullException("e", "e не может содержать null");
 
             Graphics g = e.Graphics;
             if (g == null) return;

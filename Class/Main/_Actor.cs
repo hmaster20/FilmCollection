@@ -41,7 +41,8 @@ namespace FilmCollection
 
 
         [XmlIgnore]
-        public List<Combine> CombineList { get; set; } // TEST
+        public List<Combine> CombineList { get; }
+        //public List<Combine> CombineList { get; set; } // TEST
 
 
         #region Обработка Страны
@@ -120,42 +121,98 @@ namespace FilmCollection
             return false;
         }
 
-        public int CompareTo(Actor obj) // Реализовать интерфейс IComparable<T>, т.е. получить возможность сортировки методом .Sort();
+        public int CompareTo(Actor compareObject) // Реализовать интерфейс IComparable<T>, т.е. получить возможность сортировки методом .Sort();
         {
-            if (obj == null)
-                throw new ArgumentNullException("Параметр содержат null");
-            return FIO.CompareTo(obj.FIO);
+            if (compareObject == null)
+                throw new ArgumentNullException("compareObject", "compareObject cannot be a null");
+            return FIO.CompareTo(compareObject.FIO);
         }
 
-        public static int CompareByName(Actor a, Actor b)     // Сравнение по названию
+        public static int CompareByName(Actor actorA, Actor actorB)     // Сравнение по названию
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.FIO, b.FIO, StringComparison.OrdinalIgnoreCase);
+            if (actorA == null || actorB == null)
+                throw new ArgumentNullException("actorA", "actorA and actorB cannot be a null");
+            return string.Compare(actorA.FIO, actorB.FIO, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static int CompareByCountry(Actor a, Actor b)  // Сравнение по стране
+        public static int CompareByCountry(Actor actorA, Actor actorB)  // Сравнение по стране
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.CountryString, b.CountryString);
+            if (actorA == null || actorB == null)
+                throw new ArgumentNullException("actorA", "actorA and actorB cannot be a null");
+            return string.Compare(actorA.CountryString, actorB.CountryString);
         }
 
 
-        public static int CompareByDateOfBirth(Actor a, Actor b)  // Сравнение по дате рождения
+        public static int CompareByDateOfBirth(Actor actorA, Actor actorB)  // Сравнение по дате рождения
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.DateOfBirth, b.DateOfBirth);
+            if (actorA == null || actorB == null)
+                throw new ArgumentNullException("actorA", "actorA and actorB cannot be a null");
+            return string.Compare(actorA.DateOfBirth, actorB.DateOfBirth);
         }
 
-        public static int CompareByDateOfDeath(Actor a, Actor b)  // Сравнение по дате смерти
+        public static int CompareByDateOfDeath(Actor actorA, Actor actorB)  // Сравнение по дате смерти
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.DateOfDeath, b.DateOfDeath);
+            if (actorA == null || actorB == null)
+                throw new ArgumentNullException("actorA", "actorA and actorB cannot be a null");
+            return string.Compare(actorA.DateOfDeath, actorB.DateOfDeath);
         }
 
+        #endregion
+
+
+        #region CA1036
+        // CA1036: переопределяйте методы в сравнимых типах
+        // msdn.microsoft.com/library/ms182163.aspx
+
+        public static int Compare(Actor actorA, Actor actorB)
+        {
+            if (object.ReferenceEquals(actorA, actorB))
+            {
+                return 0;
+            }
+            if (object.ReferenceEquals(actorA, null))
+            {
+                return -1;
+            }
+            return actorA.CompareTo(actorB);
+        }
+
+        public override bool Equals(object obj)
+        {
+            Actor other = obj as Actor;
+            if (object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            return this.CompareTo(other) == 0;
+        }
+
+        public override int GetHashCode()
+        {
+            char[] c = this.FIO.ToCharArray();
+            return (int)c[0];
+        }
+
+        public static bool operator ==(Actor actorA, Actor actorB)
+        {
+            if (object.ReferenceEquals(actorA, null))
+            {
+                return object.ReferenceEquals(actorB, null);
+            }
+            return actorA.Equals(actorB);
+        }
+        public static bool operator !=(Actor actorA, Actor actorB)
+        {
+            return !(actorA == actorB);
+        }
+        public static bool operator <(Actor actorA, Actor actorB)
+        {
+            return (Compare(actorA, actorB) < 0);
+        }
+        public static bool operator >(Actor actorA, Actor actorB)
+        {
+            return (Compare(actorA, actorB) > 0);
+        }
         #endregion
     }
 }

@@ -25,15 +25,17 @@ namespace FilmCollection
 
     class upd
     {
-        void downdloadwithTimeout()
+       static void downdloadwithTimeout()
         {
             string somestring;
             try
             {
-                WebClient wc = new WebClientWithTimeout();
-                //The web server may return 500(Internal Server Error) if the user agent header is missing.
-                wc.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)");
-                somestring = wc.DownloadString("http://www.example.com/somefile.txt");
+                using (WebClient wc = new WebClientWithTimeout())
+                {
+                    //The web server may return 500(Internal Server Error) if the user agent header is missing.
+                    wc.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)");
+                    somestring = wc.DownloadString("http://www.example.com/somefile.txt");
+                }
             }
             catch (WebException we)
             {
@@ -49,7 +51,7 @@ namespace FilmCollection
 
     class UpdateService
     {
-        void getUpdate()
+       static void getUpdate()
         {
             string remoteUri = "http://www.contoso.com/library/homepage/images/";
             string fileName = "ms-banner.gif", myStringWebResource = null;
@@ -89,10 +91,12 @@ namespace FilmCollection
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            WebClient webClient = new WebClient();
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
-            webClient.DownloadFileAsync(new Uri("http://mysite.com/myfile.txt"), @"c:\myfile.txt");
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+                webClient.DownloadFileAsync(new Uri("http://mysite.com/myfile.txt"), @"c:\myfile.txt");
+            }
         }
 
         private void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -108,15 +112,18 @@ namespace FilmCollection
 
 
 
-        static readonly string remoteUri = "http://it-enginer.ru/wp-content/uploads/FilmCollection.zip";
-        static readonly string fileName = "FilmCollection.zip";
+        //static readonly string remoteUri = "http://it-enginer.ru/wp-content/uploads/FilmCollection.zip";
+        //static readonly string fileName = "FilmCollection.zip";
+
+        const string remoteUri = "http://it-enginer.ru/wp-content/uploads/FilmCollection.zip";
+        const string fileName = "FilmCollection.zip";
 
         public static void download()
         {
             ClearTemp();
 
-           // string remoteUri = "http://it-enginer.ru/wp-content/uploads/FilmCollection.zip";
-           // string fileName = "FilmCollection.zip";
+            // string remoteUri = "http://it-enginer.ru/wp-content/uploads/FilmCollection.zip";
+            // string fileName = "FilmCollection.zip";
 
             using (WebClient client = new WebClient())
             {
@@ -125,11 +132,11 @@ namespace FilmCollection
                 client.DownloadFile(new Uri(remoteUri), fileName);
             }
         }
-            
+
 
         public static void unzipFile()
         {
-           // string fileName = "FilmCollection.zip";
+            // string fileName = "FilmCollection.zip";
             if (File.Exists(fileName))
             {
                 using (ZipFile zipFile = new ZipFile(fileName))
@@ -191,13 +198,13 @@ namespace FilmCollection
                 {
                     ClearTemp();
                 }
-            }     
+            }
         }
 
 
         private static void ClearTemp()
         {
-            string filePath = Path.Combine(Path.Combine(Application.StartupPath, "Extract"), "FilmCollection.exe");
+            //string filePath = Path.Combine(Path.Combine(Application.StartupPath, "Extract"), "FilmCollection.exe");
             string file = "FilmCollection.zip";
             string directory = Path.Combine(Application.StartupPath, "Extract");
 
@@ -215,10 +222,10 @@ namespace FilmCollection
         static void Updat()
         {
             MessageBox.Show("Test");
-            ClearTemp(); 
+            ClearTemp();
         }
 
-        void runProcess()
+        static void runProcess()
         {
             // запустить процесс и забыть о нем 
             Process.Start("cRename.exe");

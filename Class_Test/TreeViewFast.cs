@@ -25,6 +25,9 @@ namespace TreeViewFast.Controls
             Nodes.Clear();
             _treeNodes.Clear();
 
+            if (items == null || getId == null || getParentId == null || getDisplayName == null)
+                throw new ArgumentNullException("items", "items или один из параметров не может содержать null");
+
             // Load internal dictionary with nodes
             foreach (var item in items)
             {

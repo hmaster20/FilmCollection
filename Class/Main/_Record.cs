@@ -76,85 +76,85 @@ namespace FilmCollection
             return false;
         }
 
-        public static int CompareByName(Record a, Record b)     // Сравнение по названию
+        public static int CompareByName(Record recordA, Record recordB)     // Сравнение по названию
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.Name, b.Name);
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            return string.Compare(recordA.Name, recordB.Name);
         }
 
-        public static int CompareByCatalog(Record a, Record b)  // Сравнение по каталогу
+        public static int CompareByCatalog(Record recordA, Record recordB)  // Сравнение по каталогу
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.DirName, b.DirName);
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            return string.Compare(recordA.DirName, recordB.DirName);
         }
 
-        public static int CompareByYear(Record a, Record b)
+        public static int CompareByYear(Record recordA, Record recordB)
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            if (a.mYear == b.mYear)
-                return CompareByName(a, b);
-            return (a.mYear - b.mYear);
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            if (recordA.mYear == recordB.mYear)
+                return CompareByName(recordA, recordB);
+            return (recordA.mYear - recordB.mYear);
         }
 
-        public static int CompareByCountry(Record a, Record b)  // Сравнение по стране
+        public static int CompareByCountry(Record recordA, Record recordB)  // Сравнение по стране
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.mCountry, b.mCountry);
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            return string.Compare(recordA.mCountry, recordB.mCountry);
         }
 
-        public static int CompareByGenre(Record a, Record b) // Сравнение по жанру
+        public static int CompareByGenre(Record recordA, Record recordB) // Сравнение по жанру
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.mGenre, b.mGenre);
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            return string.Compare(recordA.mGenre, recordB.mGenre);
         }
 
-        public static int CompareByCategory(Record a, Record b) // Сравнение по категории
+        public static int CompareByCategory(Record recordA, Record recordB) // Сравнение по категории
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            if (a.mCategory == b.mCategory)
-                return CompareByName(a, b);
-            if (a.mCategory == CategoryVideo.Film.ToString())
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            if (recordA.mCategory == recordB.mCategory)
+                return CompareByName(recordA, recordB);
+            if (recordA.mCategory == CategoryVideo.Film.ToString())
                 return -1;
-            if (b.mCategory == CategoryVideo.Film.ToString())
+            if (recordB.mCategory == CategoryVideo.Film.ToString())
                 return 1;
-            if (a.mCategory == CategoryVideo.Cartoon.ToString())
+            if (recordA.mCategory == CategoryVideo.Cartoon.ToString())
                 return -1;
-            if (b.mCategory == CategoryVideo.Cartoon.ToString())
+            if (recordB.mCategory == CategoryVideo.Cartoon.ToString())
                 return 1;
-            if (a.mCategory == CategoryVideo.Series.ToString())
+            if (recordA.mCategory == CategoryVideo.Series.ToString())
                 return -1;
-            if (b.mCategory == CategoryVideo.Series.ToString())
+            if (recordB.mCategory == CategoryVideo.Series.ToString())
                 return 1;
-            if (a.mCategory == CategoryVideo.Unknown.ToString())
+            if (recordA.mCategory == CategoryVideo.Unknown.ToString())
                 return -1;
-            if (b.mCategory == CategoryVideo.Unknown.ToString())
+            if (recordB.mCategory == CategoryVideo.Unknown.ToString())
                 return 1;
             return 0;
         }
 
-        public static int CompareByTime(Record a, Record b)     // Сравнение по времени записи
+        public static int CompareByTime(Record recordA, Record recordB)     // Сравнение по времени записи
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            if (a.TimeVideoSpan >= b.TimeVideoSpan)
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            if (recordA.TimeVideoSpan >= recordB.TimeVideoSpan)
                 return 1;
-            else if (a.TimeVideoSpan <= b.TimeVideoSpan)
+            else if (recordA.TimeVideoSpan <= recordB.TimeVideoSpan)
                 return -1;
             else
                 return 0;
         }
 
-        public static int CompareByFileName(Record a, Record b) // Сравнение по файлу
+        public static int CompareByFileName(Record recordA, Record recordB) // Сравнение по файлу
         {
-            if (a == null || b == null)
-                throw new ArgumentNullException("Параметры содержат null");
-            return string.Compare(a.FileName, b.FileName);
+            if (recordA == null || recordB == null)
+                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
+            return string.Compare(recordA.FileName, recordB.FileName);
         }
 
         #endregion

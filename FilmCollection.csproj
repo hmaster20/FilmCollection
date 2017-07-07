@@ -111,9 +111,7 @@
     <Compile Include="Class\Main\Enum.cs" />
     <Compile Include="Class\Main\_Media.cs" />
     <Compile Include="Class\Main\RecordOptions.cs" />
-    <Compile Include="Class_Test\MyTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Class_Test\MyTextBox.cs" />
     <Compile Include="Class_Test\TreeViewColletion.cs" />
     <Compile Include="Class_Test\TreeViewFast.cs">
       <SubType>Component</SubType>

@@ -18,7 +18,7 @@ namespace FilmCollection
             Size = size;
         }
 
-        public int Size;
+        internal int Size;
     }
 
     public class ThumbnailControllerEventArgs : EventArgs
@@ -28,7 +28,7 @@ namespace FilmCollection
             ImageFilename = Filename;
         }
 
-        public string ImageFilename;
+        internal string ImageFilename;
     }
 
     public class ThumbnailController
@@ -94,10 +94,8 @@ namespace FilmCollection
                 {
                     img = Image.FromFile(file);
                 }
-                catch
-                {
-                    // do nothing
-                }
+                // do nothing
+                catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
 
                 if (img != null)
                 {

@@ -29,50 +29,48 @@ namespace FilmCollection
         }
     }
 
-    class TreeViewColletion
-    {
-        public TreeViewColletion()
-        {
-            Employees = new List<Catalog>();
-        }
+    //class TreeViewColletion
+    //{
+    //    public TreeViewColletion()
+    //    {
+    //        Employees = new List<Catalog>();
+    //    }
 
-        //private List<Employee> _employees;
-        public List<Catalog> Employees { get; set; }
-        //public void Add(Catalog _emp)
-        //{
-        //    Employees.Add(_emp);
-        //}
+    //    private List<Employee> _employees;
+    //    public List<Catalog> Employees { get; set; }
+    //    public void Add(Catalog _emp)
+    //    {
+    //        Employees.Add(_emp);
+    //    }
 
-        //public void Add(int _nodeId, int? _parentId, string _nodeName)
-        //{
-        //    var employee = new Catalog
-        //    {
-        //        nodeId = _nodeId,
-        //        ParentId = _parentId,
-        //        Name = _nodeName
-        //    };
-        //Employees.Add(employee);
-        //}
+    //    public void Add(int _nodeId, int? _parentId, string _nodeName)
+    //    {
+    //        var employee = new Catalog
+    //        {
+    //            nodeId = _nodeId,
+    //            ParentId = _parentId,
+    //            Name = _nodeName
+    //        };
+    //        Employees.Add(employee);
+    //    }
 
-        //public bool Equals(Employee other)
-        //{
-        //    if (other == null) { return false; }
-        //    else
-        //    {
-        //        //f (this.Employees.)
-        //        return (this.Employees.Equals(other));
-        //    }
-        //}
-
-
-        //public bool Contains(T item)
-        //{
-        //    foreach (T member in list)
-        //        if (member.Equals(item))
-        //           return true;
-        //    return false;
-        //}
+    //    public bool Equals(Employee other)
+    //    {
+    //        if (other == null) { return false; }
+    //        else
+    //        {
+    //            //f (this.Employees.)
+    //            return (this.Employees.Equals(other));
+    //        }
+    //    }
 
 
-    }
+    //    public bool Contains(T item)
+    //    {
+    //        foreach (T member in list)
+    //            if (member.Equals(item))
+    //                return true;
+    //        return false;
+    //    }
+    //}
 }

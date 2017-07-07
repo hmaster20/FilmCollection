@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -13,11 +14,15 @@ namespace FilmCollection
     {
         [XmlIgnore]
         public List<Actor> ActorList { get; }
+        //public Collection<Actor> ActorList { get; }
+
 
         public Media()
         {
-            ActorListID = new List<int>();      // Создание списка ID актеров, играющих в картине
+            actorID = new List<int>();
+            //ActorListID = new List<int>();      // Создание списка ID актеров, играющих в картине
             ActorList = new List<Actor>();
+            //ActorList = new Collection<Actor>();
         }
 
         public override string ToString() => Name;  // return Name;
@@ -29,14 +34,14 @@ namespace FilmCollection
         public int Id { get; set; }
 
 
-        private string _pic;
+        private string pic;
         public string Pic
         {
-            get { return _pic; }
+            get { return pic; }
             set
             {
-                _pic = value;
-                if (_pic == null || _pic == "") _pic = "noPic";
+                pic = value;
+                if (string.IsNullOrEmpty(pic)) pic = "noPic";
             }
         }
 
@@ -54,25 +59,27 @@ namespace FilmCollection
 
         #region Список ID актеров
 
-        private List<int> _actorID;     // Объявление ID актеров
+        private List<int> actorID;     // Объявление ID актеров
         public List<int> ActorListID
         {
-            get { return _actorID; }
-            set { _actorID = value; }
+            get { return actorID; }
+            //set { _actorID = value; }
         }
+
+
 
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
         /// <param name="id">Идентификатор актера (Actor.id)</param>
         public void ActorListID_Add(int id)
         {
-            if (!ActorListID.Contains(id)) _actorID.Add(id);
+            if (!ActorListID.Contains(id)) actorID.Add(id);
         }
 
         //public void Remove(int id) => ActorListID.Remove(id);
 
         /// <summary>Этот метод выполняет очистку списка идентификаторов актеров.</summary>
-        public void ActorListID_Clear() => _actorID.Clear();
+        public void ActorListID_Clear() => actorID.Clear();
 
 
         #endregion
