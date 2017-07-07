@@ -690,7 +690,6 @@ namespace FilmCollection
         #endregion
 
 
-
         private static void History()
         {
             using (fromChangeLog formLog = new fromChangeLog())
@@ -2952,10 +2951,7 @@ namespace FilmCollection
 
         private void AddImage(string imageFilename)
         {
-            // try
-            // {
             // thread safe
-
             // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
             if (IsHandleCreated)
             {
@@ -2967,46 +2963,23 @@ namespace FilmCollection
                 {
                     int size = ImageSize;
 
-                    using (ImageViewer imageViewer = new ImageViewer())
-                    {
-                        // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
-                        imageViewer.Dock = DockStyle.None;
-                        imageViewer.LoadImage(imageFilename, 256, 256);
-                        imageViewer.Width = size;
-                        imageViewer.Height = size;
-                        imageViewer.IsThumbnail = true;
+                    ImageViewer imageViewer = new ImageViewer();
+                    // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                    imageViewer.Dock = DockStyle.None;
+                    imageViewer.LoadImage(imageFilename, 256, 256);
+                    imageViewer.Width = size;
+                    imageViewer.Height = size;
+                    imageViewer.IsThumbnail = true;
 
-                        imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
-                        imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
-                        imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+                    imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
+                    imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
+                    imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
 
-                        OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+                    OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
 
-                        flowLayoutPanelMain.Controls.Add(imageViewer);
-                    }
-
-                    //    ImageViewer imageViewer = new ImageViewer();
-                    //// imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
-                    //imageViewer.Dock = DockStyle.None;
-                    //imageViewer.LoadImage(imageFilename, 256, 256);
-                    //imageViewer.Width = size;
-                    //imageViewer.Height = size;
-                    //imageViewer.IsThumbnail = true;
-
-                    //imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
-                    //imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
-                    //imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
-
-                    //OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
-
-                    //flowLayoutPanelMain.Controls.Add(imageViewer);
+                    flowLayoutPanelMain.Controls.Add(imageViewer);
                 }
             }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logs.Log("Ошибка отображения постера", ex);
-            //}
 
         }
 
