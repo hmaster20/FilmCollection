@@ -900,6 +900,24 @@ namespace FilmCollection
             // организован селект левой кнопкой мыши
             if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Left)
             {
+                //var senderGrid = (DataGridView)sender;
+
+                //var dataGridView = (sender as DataGridView);
+                //DataGridViewRow row = dataGridView.Rows[e.RowIndex];
+                //if (!row.Selected)
+                //{
+                //    row.DataGridView.ClearSelection();
+                //    row.Selected = true;
+                //}
+
+                //DataGridViewCell cell = dataGridView.Rows[e.RowIndex].Cells[0];
+                //if (!cell.Selected)
+                //{
+                //    cell.DataGridView.ClearSelection();
+                //    cell.DataGridView.CurrentCell = cell;
+                //    cell.Selected = true;
+                //}
+
                 DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
                 if (!c.Selected)
                 {

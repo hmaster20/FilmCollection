@@ -16,7 +16,7 @@ namespace FilmCollection
         private const string SERIES = "https://afisha.mail.ru/search/?ent=20&q=";
         private const string FILMS = "https://afisha.mail.ru/search/?ent=1&q=";
 
-        static RecordCollection _videoCollection { get; }
+        static RecordCollection _videoCollection { get; set; }
         static Media _media { get; set; }
 
         //static Media mediaOriginal { get; set; }
@@ -31,7 +31,7 @@ namespace FilmCollection
 
             string webQuery = "";
 
-            // _videoCollection = RecordCollection.GetInstance();
+            _videoCollection = RecordCollection.GetInstance();
 
             Media media = record.combineLink.media;
 
@@ -260,7 +260,15 @@ namespace FilmCollection
                             }
                             else
                             {
-                                _media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true);
+                                // _media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), strt, true);
+
+                                GenreVideo_Rus newGenre;
+                                if (Enum.TryParse(strt, out newGenre))
+                                {
+                                    _media.GenreVideo = (GenreVideo)newGenre;
+                                }
+
+
                             }
                             break;// оставляем одну страну и выходим
                         }
@@ -335,28 +343,31 @@ namespace FilmCollection
 
                 foreach (string item in mArray)
                 {
-                    if (StringIsValid2(item))
+                    if (!string.IsNullOrEmpty(item))
                     {
-                        Actor actor;
-
-                        if (!(_videoCollection.ActorList.Exists(act => act.FIO == item)))
+                        if (StringIsValid2(item))
                         {
-                            actor = new Actor();
-                            actor.id = RecordCollection.GetActorID();
-                            actor.FIO = item;
-                            actor.Country = _media.Country;
-                            actor.VideoID_Add(_media.Id);
-                            _media.ActorListID_Add(actor.id);
+                            Actor actor;
 
-                            _videoCollection.ActorList.Add(actor);
-                        }
-                        else
-                        {
-                            actor = _videoCollection.ActorList.FindLast(act => act.FIO == item);
-                            if (!actor.VideoID.Contains(_media.Id))
+                            if (!(_videoCollection.ActorList.Exists(act => act.FIO == item)))
                             {
+                                actor = new Actor();
+                                actor.id = RecordCollection.GetActorID();
+                                actor.FIO = item;
+                                actor.Country = _media.Country;
                                 actor.VideoID_Add(_media.Id);
                                 _media.ActorListID_Add(actor.id);
+
+                                _videoCollection.ActorList.Add(actor);
+                            }
+                            else
+                            {
+                                actor = _videoCollection.ActorList.FindLast(act => act.FIO == item);
+                                if (!actor.VideoID.Contains(_media.Id))
+                                {
+                                    actor.VideoID_Add(_media.Id);
+                                    _media.ActorListID_Add(actor.id);
+                                }
                             }
                         }
                     }

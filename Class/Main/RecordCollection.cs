@@ -140,7 +140,7 @@ namespace FilmCollection
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException("Ошибка на этапе загрузки файла базы. \n" + ex.Message);
+                throw new ApplicationException("Ошибка на этапе загрузки файла базы. \n" + ex.Message);
                 //return new RecordCollection();
             }
 
