@@ -983,7 +983,7 @@ namespace FilmCollection
             return tabControl2.SelectedIndex;
         }
 
-        private bool isRecTabs()
+        private bool isTabFilm()
         {
             return (tabControlNumber() == 0) ? true : false;
         }
@@ -1038,7 +1038,7 @@ namespace FilmCollection
         /// <summary>Добавление новой записи</summary>
         private void Add()
         {
-            if (isRecTabs())
+            if (isTabFilm())
                 NewRecord();
             else
                 NewActor();
@@ -1047,7 +1047,7 @@ namespace FilmCollection
         /// <summary>Редактирование записи</summary>
         private void Edit()
         {
-            if (isRecTabs()) panelEdit.BringToFront();
+            if (isTabFilm()) panelEdit.BringToFront();
             else panelEditAct.BringToFront();
         }
 
@@ -1182,16 +1182,17 @@ namespace FilmCollection
 
             if (checkNode())
             {
+                string node = GetNode();
                 // Флаг не распространяется на клик по корню, т.е. на "Фильмотека" - отображается все содержимое каталогов
                 filtered = (!ShowAllFiles)
                             // отобразить файлы в текущем каталоге
-                            ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                            ? filtered.FindAll(v => v.Path == _videoCollection.Options.Source + Path.DirectorySeparatorChar + node)
                             // отобразить все файлы в т.ч. и вложенные
-                            : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + GetNode()));
+                            : filtered = filtered.FindAll(v => v.Path.StartsWith(_videoCollection.Options.Source + Path.DirectorySeparatorChar + node));
             }
 
 
-            if (isRecTabs())
+            if (isTabFilm())
             {
                 if (column > -1) SortRecord(filtered, column);
                 else SortRecord(filtered, tscbSort.SelectedIndex);
@@ -1207,7 +1208,30 @@ namespace FilmCollection
 
             RefreshTable(filtered);
 
-            if (selected != null) SelectRecord(TableRec, selected);
+            if (filtered.Count != 0)
+            {
+                SelectRecord(TableRec, filtered[0]);
+            }
+
+
+            //if (TableRec.Rows.Count > 0)
+            //{
+            //    TableRec.Rows[0].Selected = true;
+            //}
+
+
+            //if (selected != null)
+            //{
+            //    SelectRecord(TableRec, selected);
+            //}
+            //else
+            //{
+            //    if (filtered.Count != 0)
+            //    {
+            //        SelectRecord(TableRec, filtered[0]);
+            //    }
+            //}
+
         }
 
         private static void SortRecord(List<Record> filtered, int switch_sort)  // Сортировка по столбцам
