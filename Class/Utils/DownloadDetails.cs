@@ -200,8 +200,15 @@ namespace FilmCollection
                     if (StringIsValid(strt))
                     {
                         try
-                        { // может несколько стран
-                            _media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
+                        {   // может несколько стран
+                            //_media.Country = (Country_Rus)Enum.Parse(typeof(Country_Rus), strt);
+
+                            Country_Rus country;
+                            if (Enum.TryParse(strt, out country))
+                            {
+                                _media.Country = (Country_Rus)country;
+                            }
+
                             flag = true;
                             break;// оставляем одну страну и выходим
                         }
