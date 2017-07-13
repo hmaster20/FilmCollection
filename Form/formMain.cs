@@ -85,7 +85,7 @@ namespace FilmCollection
             TableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
             TableRec.Columns[7].DefaultCellStyle.SelectionForeColor = Color.Blue;    // цвет текста выбранной строки нужного столбца
 
-            panelView2.BringToFront();  // Отображение панели описания
+            panelView.BringToFront();  // Отображение панели описания
 
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение поисковых индексов
@@ -858,7 +858,7 @@ namespace FilmCollection
             if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
             {
                 if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                    SelectRecord_Info(sender, e);
+                    SelectRec();//SelectRecord_Info(sender, e);
             }
             else
             {
@@ -890,7 +890,7 @@ namespace FilmCollection
                     c.DataGridView.CurrentCell = c;
                     c.Selected = true;
                 }
-                SelectRecord_Info(sender, e);
+                SelectRec(); // SelectRecord_Info(sender, e);
             }
         }
 
@@ -924,7 +924,7 @@ namespace FilmCollection
                     c.DataGridView.CurrentCell = c;
                     c.Selected = true;
                 }
-                SelectRecord_Info(sender, e);
+                SelectRec(); //SelectRecord_Info(sender, e);
             }
         }
 
@@ -963,7 +963,7 @@ namespace FilmCollection
 
         private void TableRec_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) panelView2.BringToFront();
+            if (e.KeyCode == Keys.Escape) panelView.BringToFront();
         }
 
         private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1210,14 +1210,16 @@ namespace FilmCollection
 
             if (filtered.Count != 0)
             {
+                if (TableRec.Rows.Count > 0)
+                {
+                    TableRec.Rows[0].Selected = true;
+                }
                 SelectRecord(TableRec, filtered[0]);
+                SelectRec();
             }
 
 
-            //if (TableRec.Rows.Count > 0)
-            //{
-            //    TableRec.Rows[0].Selected = true;
-            //}
+
 
 
             //if (selected != null)
@@ -1325,18 +1327,16 @@ namespace FilmCollection
         }
 
         /// <summary>Отражение информации в карточке при выборе строки</summary>
-        private void SelectRecord_Info(object sender, EventArgs e)
-        {
-            SelectRec();
-        }
+        //private void SelectRecord_Info(object sender, EventArgs e)
+        //{
+        //    SelectRec();
+        //}
 
         private void SelectRec()
         {
-
-
             Record record = GetSelectedRecord();
 
-            panelView2.BringToFront();
+            panelView.BringToFront();
             ucView.update(record, this);
 
             if (record != null)
@@ -1489,7 +1489,7 @@ namespace FilmCollection
                         tscbSort.SelectedIndex = -1;
                         tscbTypeFilter.SelectedIndex = 0;
                         CardRecordPreview_Clear();
-                        panelView2.BringToFront();
+                        panelView.BringToFront();
                     }
                     break;
 
@@ -1606,7 +1606,7 @@ namespace FilmCollection
 
         private void btnHidePanel_Click(object sender, EventArgs e) //Скрыть панель поиска
         {
-            panelView2.BringToFront();
+            panelView.BringToFront();
         }
 
         private void Find_Click(object sender, EventArgs e)     //Кнопка найти всё
@@ -2108,7 +2108,7 @@ namespace FilmCollection
 
             panelEdit_Button_Lock();
 
-            panelView2.BringToFront();// показать панель сведений
+            panelView.BringToFront();// показать панель сведений
         }
 
         private void panelEdit_Button_Lock()
@@ -3137,6 +3137,16 @@ namespace FilmCollection
         private void cClearMetaData_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvTableActors_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                Delete();
+                //MessageBox.Show("delete pressed");
+                e.Handled = true;
+            }
         }
 
         //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)

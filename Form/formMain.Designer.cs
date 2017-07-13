@@ -148,8 +148,7 @@
             this.tbNameRecord = new System.Windows.Forms.TextBox();
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.panelView2 = new System.Windows.Forms.Panel();
-            this.ucView = new FilmCollection.ucMediaInfo();
+            this.panelView = new System.Windows.Forms.Panel();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -258,6 +257,7 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucView = new FilmCollection.ucMediaInfo();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -274,7 +274,7 @@
             this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             this.gRecord.SuspendLayout();
-            this.panelView2.SuspendLayout();
+            this.panelView.SuspendLayout();
             this.panelFind.SuspendLayout();
             this.panelFindTitle.SuspendLayout();
             this.panelFolder.SuspendLayout();
@@ -974,8 +974,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
-            this.scTabFilm.Panel2.Controls.Add(this.panelView2);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -1482,22 +1482,14 @@
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // panelView2
+            // panelView
             // 
-            this.panelView2.Controls.Add(this.ucView);
-            this.panelView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelView2.Location = new System.Drawing.Point(0, 0);
-            this.panelView2.Name = "panelView2";
-            this.panelView2.Size = new System.Drawing.Size(368, 606);
-            this.panelView2.TabIndex = 57;
-            // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
+            this.panelView.Controls.Add(this.ucView);
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(0, 0);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(368, 606);
+            this.panelView.TabIndex = 57;
             // 
             // panelFind
             // 
@@ -1794,6 +1786,7 @@
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_CellMouseDown);
             this.dgvTableActors.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_ColumnHeaderMouseClick);
             this.dgvTableActors.SelectionChanged += new System.EventHandler(this.SelectActor_Info);
+            this.dgvTableActors.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvTableActors_KeyDown);
             this.dgvTableActors.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TableAct_MouseClick);
             // 
             // colActFIO
@@ -2638,6 +2631,14 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2677,7 +2678,7 @@
             this.panelEditTitle.ResumeLayout(false);
             this.gRecord.ResumeLayout(false);
             this.gRecord.PerformLayout();
-            this.panelView2.ResumeLayout(false);
+            this.panelView.ResumeLayout(false);
             this.panelFind.ResumeLayout(false);
             this.panelFind.PerformLayout();
             this.panelFindTitle.ResumeLayout(false);
@@ -2945,7 +2946,7 @@
         private System.Windows.Forms.ToolStripSeparator ts8;
         private System.Windows.Forms.ToolStripButton tsHidePanel;
         private System.Windows.Forms.CheckBox cbFullFind;
-        private System.Windows.Forms.Panel panelView2;
+        private System.Windows.Forms.Panel panelView;
         private ucMediaInfo ucView;
         private System.Windows.Forms.RichTextBox rtDescription;
         private System.Windows.Forms.ToolStripSeparator cSep2;
