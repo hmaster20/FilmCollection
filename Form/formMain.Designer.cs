@@ -2599,7 +2599,6 @@
             // 
             this.Tray.Text = "Фильмотека";
             this.Tray.Visible = true;
-
             this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
             // 
             // TrayMenu
@@ -2781,7 +2780,6 @@
         private System.Windows.Forms.ToolStripProgressBar tsProgressBar;
         private System.Windows.Forms.StatusStrip statusLine;
         private System.Windows.Forms.ToolStripMenuItem btnRecoveryBase;
-        private TreeViewFast.Controls.TreeViewFast treeViewFast1;
         private System.Windows.Forms.ToolStripMenuItem настройкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnOptions;
         private System.Windows.Forms.ToolStripMenuItem btnActors;

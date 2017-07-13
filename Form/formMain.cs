@@ -2723,39 +2723,24 @@ namespace FilmCollection
             if (record != null)
             {
                 CardRecordPreview_Clear();
-                //if (DownloadDetails.GetInfo(record.combineLink.media, _videoCollection))
-                //{
 
-                //    _videoCollection.Save();
-                //    _videoCollection.SaveToFile();
-                //    PrepareRefresh();
-                //    SelectRec();
-                //}
-
-                //Media newMedia = (Media)DownloadDetails.GetInfo(record.combineLink.media, _videoCollection);
-                //Media newMedia = DownloadDetails.GetInfo(record, _videoCollection);
                 Media newMedia = DownloadDetails.GetInfo(record);
 
                 if (newMedia != null)
                 {
-                    //record.combineLink.media = (Media) DownloadDetails.GetInfo(record.combineLink.media, _videoCollection).Clone();
-
                     record.combineLink.media = (Media)newMedia.Clone();
                     _videoCollection.Save();
                     _videoCollection.SaveToFile();
                     PrepareRefresh();
                     SelectRec();
                 }
-
             }
         }
 
 
         private void btnGetTime_Click(object sender, EventArgs e)
         {
-            Record record = GetSelectedRecord();
-
-            string newTimeValue = FileDetails.GetTime(record);
+            string newTimeValue = FileDetails.GetTime(GetSelectedRecord());
 
             if (!string.IsNullOrEmpty(newTimeValue) && newTimeValue != mtbTime.Text)
             {

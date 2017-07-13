@@ -13,11 +13,6 @@ namespace FilmCollection
     {
         internal Media media = null;
 
-        //public formSelectMedia()
-        //{
-        //    InitializeComponent();
-        //}
-
         public formSelectMedia(List<Media> mediaList, Record record)
         {
             InitializeComponent();
@@ -49,7 +44,7 @@ namespace FilmCollection
 
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listRecord_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectMediaInfo.update((Media)listMedia.SelectedItem);
         }
