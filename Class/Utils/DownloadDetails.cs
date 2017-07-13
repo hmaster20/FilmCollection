@@ -16,28 +16,21 @@ namespace FilmCollection
         private const string SERIES = "https://afisha.mail.ru/search/?ent=20&q=";
         private const string FILMS = "https://afisha.mail.ru/search/?ent=1&q=";
 
-        static RecordCollection _videoCollection { get; set; }
+        //static RecordCollection _videoCollection { get; set; }
         static Media _media { get; set; }
 
-        //static Media mediaOriginal { get; set; }
-
-        //public static Media GetInfo(Media media, RecordCollection videoCollection)
-
-        //public static Media GetInfo(Record record, RecordCollection videoCollection)
         public static Media GetInfo(Record record)
         {
             if (record == null)
                 throw new ArgumentNullException("record", "record не может содержать null");
 
-            string webQuery = "";
-
-            _videoCollection = RecordCollection.GetInstance();
+            //_videoCollection = RecordCollection.GetInstance();
 
             Media media = record.combineLink.media;
 
-            // mediaOriginal = media;
-            //_media = media;
             _media = (Media)media.Clone();
+
+            string webQuery = "";
 
             if (_media.Category == CategoryVideo.Series)
                 webQuery = SERIES;
@@ -151,25 +144,19 @@ namespace FilmCollection
             }
         }
 
-        private static string GetHtml(string url)       //получение веб-страницы
+        /// <summary>получение веб-страницы</summary><param name="url"></param><returns></returns>
+        private static string GetHtml(string url)
         {
             try
             {
-                //WebClient client = new WebClient();
-                //using (Stream data = client.OpenRead(url))
-                //using (StreamReader reader = new StreamReader(data))
-                //    return reader.ReadToEnd();
-
                 using (WebClient client = new WebClient())
                 {
                     using (StreamReader reader = new StreamReader(client.OpenRead(url)))
                         return reader.ReadToEnd();
                 }
-
-
-
             }
-            catch (WebException ex) { Logs.Log("В интернете отсутствует запрошенная информация.\n", ex); }
+            catch (WebException ex) { Logs.Log("В интернете отсутствует запрошенная информация (WebException).\n", ex); }
+            catch (ApplicationException ex) { Logs.Log("В интернете отсутствует запрошенная информация (ApplicationException).\n", ex); }
             return "";
         }
 
@@ -259,7 +246,7 @@ namespace FilmCollection
                     if (StringIsValid(strt))
                     {
                         try
-                        { // может несколько жанров
+                        {   // может несколько жанров
                             if (strt == "мультфильмы")
                             {
                                 _media.GenreVideo = (GenreVideo)Enum.Parse(typeof(GenreVideo_Rus), "Детский", true);
@@ -274,10 +261,8 @@ namespace FilmCollection
                                 {
                                     _media.GenreVideo = (GenreVideo)newGenre;
                                 }
-
-
                             }
-                            break;// оставляем одну страну и выходим
+                            break;  // оставляем одну страну и выходим
                         }
                         catch (ApplicationException ex) { MessageBox.Show(ex.Message); }
                     }
@@ -331,8 +316,6 @@ namespace FilmCollection
             // Обработка описания
             MatchCollection mcDesc = Regex.Matches(sourcestring, "(itemprop=\"actors\".*?</div>)", RegexOptions.IgnoreCase);
 
-            string ssss = "";
-
             if (mcDesc.Count == 0)
             {
                 //mcDesc = Regex.Matches(sourcestring, "(class=\"js-show-more\".*?</div>)", RegexOptions.IgnoreCase);
@@ -341,43 +324,43 @@ namespace FilmCollection
 
             foreach (Match m in mcDesc)
             {
-                ssss = m.ToString();
+                string ssss = m.ToString();
                 if (ssss.IndexOf("<a href") != -1)
                 {
                     ssss = ssss.Substring(ssss.IndexOf("<a href"));
                 }
-                string[] mArray = ssss.Split(new string[] { ">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
+                string[] ActorArray = ssss.Split(new string[] { ">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (string item in mArray)
+                foreach (string ActorItem in ActorArray)
                 {
-                    if (!string.IsNullOrEmpty(item))
+                    if (StringIsValid2(ActorItem))
                     {
-                        if (StringIsValid2(item))
-                        {
-                            Actor actor;
+                        Actor actor;
 
-                            if (!(_videoCollection.ActorList.Exists(act => act.FIO == item)))
+                        RecordCollection _videoCollection = RecordCollection.GetInstance();
+
+                        if (!(_videoCollection.ActorList.Exists(act => act.FIO == ActorItem)))
+                        {
+                            actor = new Actor();
+                            actor.id = RecordCollection.GetActorID();
+                            actor.FIO = ActorItem;
+                            actor.Country = _media.Country;
+                            actor.VideoID_Add(_media.Id);
+                            _media.ActorListID_Add(actor.id);
+
+                            //_videoCollection.ActorList.Add(actor);
+                        }
+                        else
+                        {
+                            actor = _videoCollection.ActorList.FindLast(act => act.FIO == ActorItem);
+                            if (!actor.VideoID.Contains(_media.Id))
                             {
-                                actor = new Actor();
-                                actor.id = RecordCollection.GetActorID();
-                                actor.FIO = item;
-                                actor.Country = _media.Country;
                                 actor.VideoID_Add(_media.Id);
                                 _media.ActorListID_Add(actor.id);
-
-                                _videoCollection.ActorList.Add(actor);
-                            }
-                            else
-                            {
-                                actor = _videoCollection.ActorList.FindLast(act => act.FIO == item);
-                                if (!actor.VideoID.Contains(_media.Id))
-                                {
-                                    actor.VideoID_Add(_media.Id);
-                                    _media.ActorListID_Add(actor.id);
-                                }
                             }
                         }
                     }
+
                 }
             }
         }
