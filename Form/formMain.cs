@@ -33,6 +33,8 @@ namespace FilmCollection
 
         HelpProvider helpProvider { get; set; } // Справка
 
+        //private TreeViewFast.Controls.TreeViewFast treeViewFast1;
+
         #endregion
 
 
@@ -219,7 +221,7 @@ namespace FilmCollection
                 Tray.BalloonTipText = "Обратите внимание что программа была спрятана в трей и продолжит свою работу.";
                 Tray.BalloonTipIcon = ToolTipIcon.Info;
                 Tray.ShowBalloonTip(2);
-                
+
                 // прячем наше окно из панели
                 ShowInTaskbar = false;
 
@@ -227,7 +229,7 @@ namespace FilmCollection
                 Tray.Visible = true;
             }
         }
-        
+
         private void RestoreWindow()
         {
             WindowState = FormWindowState.Maximized;
@@ -297,10 +299,10 @@ namespace FilmCollection
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
         {
             DialogResult dialog = MessageBox.Show("Вы уверены что хотите выйти из программы?",
-                                                  "Завершение работы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                                  "Завершение работы", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
-            if (dialog == DialogResult.Yes) Application.ExitThread();
-            else if (dialog == DialogResult.No) e.Cancel = true;
+            if (dialog == DialogResult.OK) Application.ExitThread();
+            else if (dialog == DialogResult.Cancel) e.Cancel = true;
 
             SaveFormVisualEffect();
 
@@ -964,6 +966,24 @@ namespace FilmCollection
         private void TableRec_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) panelView.BringToFront();
+            if (e.KeyCode == Keys.Delete)
+            {
+                Delete();
+                e.Handled = true;
+            }
+            if (e.KeyCode == Keys.F2)
+            {
+                Edit();
+                e.Handled = true;
+            }
+            if (e.KeyCode == Keys.Insert)
+            {
+                Add();
+                e.Handled = true;
+            }
+
+
+
         }
 
         private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1066,8 +1086,8 @@ namespace FilmCollection
         {
             Record record = GetSelectedRecord();
             DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + record.Name + "\" ?",
-                                                  "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialog == DialogResult.Yes)
+                                                  "Удаление записи", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dialog == DialogResult.OK)
             {
                 record.combineLink.recordList.Remove(record);
                 _videoCollection.Save();
@@ -1075,14 +1095,34 @@ namespace FilmCollection
             }
         }
 
+
+        //protected override bool ProcessDialogKey(Keys keyData)
+        //{
+        //    if (Form.ModifierKeys == Keys.None && keyData == Keys.Escape)
+        //    {
+        //        this.Close();
+        //        return true;
+        //    }
+        //    return base.ProcessDialogKey(keyData);
+        //}
+        //private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.KeyCode == Keys.Escape)
+        //    {
+        //        this.Close();
+        //    }
+        //}
+
+
+
         private void DeleteActor()
         {
             Actor act = GetSelectedActor();
             if (act != null)
             {
                 DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + act.FIO + "\" ?",
-                                      "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialog == DialogResult.Yes)
+                                      "Удаление записи", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialog == DialogResult.OK)
                 {
                     _videoCollection.Remove(act);
                     _videoCollection.Save();
@@ -1099,8 +1139,8 @@ namespace FilmCollection
                 string filePath = m_ActiveImageViewer.ImageLocation;
 
                 DialogResult dialog = MessageBox.Show("Вы хотите удалить запись \"" + filePath + "\" ?",
-                                                      "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialog == DialogResult.Yes)
+                                                      "Удаление записи", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialog == DialogResult.OK)
                 {
                     if (File.Exists(filePath))
                     {
@@ -2975,34 +3015,41 @@ namespace FilmCollection
 
         private void AddImage(string imageFilename)
         {
-            // thread safe
-            // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
-            if (IsHandleCreated)
+            try
             {
-                if (InvokeRequired)
+                // thread safe
+                // ошибка из-за того что окно не успевает создаться, т.е. метод CreateHandle ещё не был вызван. Советую перед тем как выполнять Invoke из другого потока и при этом нет точной уверенности что форма уже создана проверять IsHandleCreated.
+                if (IsHandleCreated)
                 {
-                    Invoke(m_AddImageDelegate, imageFilename);
+                    if (InvokeRequired)
+                    {
+                        Invoke(m_AddImageDelegate, imageFilename);
+                    }
+                    else
+                    {
+                        int size = ImageSize;
+
+                        ImageViewer imageViewer = new ImageViewer();
+                        // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
+                        imageViewer.Dock = DockStyle.None;
+                        imageViewer.LoadImage(imageFilename, 256, 256);
+                        imageViewer.Width = size;
+                        imageViewer.Height = size;
+                        imageViewer.IsThumbnail = true;
+
+                        imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
+                        imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
+                        imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
+
+                        OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
+
+                        flowLayoutPanelMain.Controls.Add(imageViewer);
+                    }
                 }
-                else
-                {
-                    int size = ImageSize;
-
-                    ImageViewer imageViewer = new ImageViewer();
-                    // imageViewer.Dock = DockStyle.Bottom;  // привязка изображения
-                    imageViewer.Dock = DockStyle.None;
-                    imageViewer.LoadImage(imageFilename, 256, 256);
-                    imageViewer.Width = size;
-                    imageViewer.Height = size;
-                    imageViewer.IsThumbnail = true;
-
-                    imageViewer.MouseClick += new MouseEventHandler(imageViewer_MouseClick);        // При клике по картинке
-                    imageViewer.MouseEnter += new EventHandler(imageViewer_Description);            // При наведении появляется описание
-                    imageViewer.MouseDoubleClick += new MouseEventHandler(imageViewer_SelectRecord);// При двойном клике по картинке
-
-                    OnImageSizeChanged += new ThumbnailImageEventHandler(imageViewer.ImageSizeChanged);
-
-                    flowLayoutPanelMain.Controls.Add(imageViewer);
-                }
+            }
+            catch (ApplicationException ex)
+            {
+                Logs.Log("При обработке постеров возникла ошибка в методе AddImage(string imageFilename):", ex);
             }
 
         }
@@ -3144,10 +3191,11 @@ namespace FilmCollection
             if (e.KeyCode == Keys.Delete)
             {
                 Delete();
-                //MessageBox.Show("delete pressed");
                 e.Handled = true;
             }
         }
+
+
 
         //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
         //{
