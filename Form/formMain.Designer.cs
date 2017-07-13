@@ -110,6 +110,8 @@
             this.btnResetFilterRec = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
+            this.panelView = new System.Windows.Forms.Panel();
+            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.rtDescription = new System.Windows.Forms.RichTextBox();
@@ -148,7 +150,6 @@
             this.tbNameRecord = new System.Windows.Forms.TextBox();
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.panelView = new System.Windows.Forms.Panel();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -257,7 +258,6 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.ucView = new FilmCollection.ucMediaInfo();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -270,11 +270,11 @@
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
             this.menuTableRec.SuspendLayout();
+            this.panelView.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             this.gRecord.SuspendLayout();
-            this.panelView.SuspendLayout();
             this.panelFind.SuspendLayout();
             this.panelFindTitle.SuspendLayout();
             this.panelFolder.SuspendLayout();
@@ -1046,6 +1046,23 @@
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
+            // panelView
+            // 
+            this.panelView.Controls.Add(this.ucView);
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(0, 0);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(368, 606);
+            this.panelView.TabIndex = 57;
+            // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
             // panelEdit
             // 
             this.panelEdit.Controls.Add(this.gMedia);
@@ -1481,15 +1498,6 @@
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // panelView
-            // 
-            this.panelView.Controls.Add(this.ucView);
-            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelView.Location = new System.Drawing.Point(0, 0);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 606);
-            this.panelView.TabIndex = 57;
             // 
             // panelFind
             // 
@@ -2591,6 +2599,7 @@
             // 
             this.Tray.Text = "Фильмотека";
             this.Tray.Visible = true;
+
             this.Tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Tray_MouseDoubleClick);
             // 
             // TrayMenu
@@ -2631,14 +2640,6 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2672,13 +2673,13 @@
             this.scTabFilm.ResumeLayout(false);
             this.menuTableRec.ResumeLayout(false);
             this.menuTableRec.PerformLayout();
+            this.panelView.ResumeLayout(false);
             this.panelEdit.ResumeLayout(false);
             this.gMedia.ResumeLayout(false);
             this.gMedia.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             this.gRecord.ResumeLayout(false);
             this.gRecord.PerformLayout();
-            this.panelView.ResumeLayout(false);
             this.panelFind.ResumeLayout(false);
             this.panelFind.PerformLayout();
             this.panelFindTitle.ResumeLayout(false);

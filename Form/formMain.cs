@@ -217,9 +217,9 @@ namespace FilmCollection
                 //Hide();
                 Tray.BalloonTipTitle = "Программа была спрятана";
                 Tray.BalloonTipText = "Обратите внимание что программа была спрятана в трей и продолжит свою работу.";
-                Tray.ShowBalloonTip(500);
                 Tray.BalloonTipIcon = ToolTipIcon.Info;
-
+                Tray.ShowBalloonTip(2);
+                
                 // прячем наше окно из панели
                 ShowInTaskbar = false;
 
@@ -227,7 +227,7 @@ namespace FilmCollection
                 Tray.Visible = true;
             }
         }
-
+        
         private void RestoreWindow()
         {
             WindowState = FormWindowState.Maximized;
