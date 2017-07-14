@@ -2728,6 +2728,23 @@ namespace FilmCollection
 
                 if (newMedia != null)
                 {
+                    foreach (Actor act in newMedia.ActorList)
+                    {
+                        if (_videoCollection.ActorList.Exists(x => x.FIO == act.FIO))
+                        {
+                            Actor actColl = _videoCollection.ActorList.FindLast(x => x.FIO == act.FIO);
+                            newMedia.ActorList.Remove(act);
+                            newMedia.ActorList.Add(actColl);
+                            newMedia.ActorListID.Add(actColl.id);
+                        }
+                        else
+                        {
+                            act.id = RecordCollection.GetActorID();
+                            newMedia.ActorListID.Add(act.id);
+                            _videoCollection.ActorList.Add(act);
+                        }
+                    }
+
                     record.combineLink.media = (Media)newMedia.Clone();
                     _videoCollection.Save();
                     _videoCollection.SaveToFile();
