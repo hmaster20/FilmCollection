@@ -16,16 +16,10 @@ namespace FilmCollection
         private const string SERIES = "https://afisha.mail.ru/search/?ent=20&q=";
         private const string FILMS = "https://afisha.mail.ru/search/?ent=1&q=";
 
-        //static RecordCollection _videoCollection { get; set; }
         static Media _media { get; set; }
 
         public static Media GetInfo(Record record)
         {
-            if (record == null)
-                throw new ArgumentNullException("record", "record не может содержать null");
-
-            //_videoCollection = RecordCollection.GetInstance();
-
             Media media = record.combineLink.media;
 
             _media = (Media)media.Clone();
@@ -49,22 +43,18 @@ namespace FilmCollection
 
                 for (int i = 0; i < mc.Count; i++)
                 {
-                    Media m = (Media)media.Clone();
-
-                    m.Pic = "" + m.Name + "_" + i;
-                    _media = m;
+                    _media = new Media();
+                    _media.Name = media.Name;
+                    _media.Pic = "" + media.Name + "_" + i;
 
                     //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                     List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
 
-                    //string PicWeb = arrayPath.FindLast(p => p.StartsWith("https://"));
                     string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
-                    if (Link_txt == null)
-                    {
-                        Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
-                    }
 
-                    // if (PicWeb != "" && PicWeb != null && Link_txt != "") // для более полного соответствия искомому фильму
+                    if (Link_txt == null)
+                        Link_txt = arrayPath.FindLast(p => p.StartsWith("/series") && p.EndsWith("/"));
+
                     if (!string.IsNullOrEmpty(Link_txt))
                     {
                         string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
@@ -76,8 +66,7 @@ namespace FilmCollection
                         DownloadActor(sourcestring);
                         DownloadPicTemp(sourcestring);
                     }
-                    MList.Add(m);
-
+                    MList.Add(_media);
                 }
                 OpenFormSelectMedia(MList, record);
             }
