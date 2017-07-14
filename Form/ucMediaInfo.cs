@@ -60,14 +60,13 @@ namespace FilmCollection
                 GetPic(_media);
                 btnPlay.Enabled = false;
                 lbActors.Items.Clear();
-                if (_media.ActorListID != null)
-                    foreach (int ListID in _media.ActorListID)
-                        if (_videoCollection.ActorList.Exists(act => act.id == ListID))
-                            lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
+
+                lbActors.Items.Clear();
+                if (_media.ActorList != null)
+                    _media.ActorList.ForEach(x => lbActors.Items.Add(x));
+
             }
         }
-
-
 
 
         private void btnPlay_Click(object sender, EventArgs e)
