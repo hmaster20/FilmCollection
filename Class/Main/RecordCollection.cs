@@ -50,8 +50,24 @@ namespace FilmCollection
 
 
         public List<Actor> ActorList { get; }                  // Объявление списка        
-        public void Add(Actor actor) => ActorList.Add(actor);       // Добавление актера
-        public void Remove(Actor actor) => ActorList.Remove(actor); // Удаление актера
+        public void Add(Actor actor) => ActorList.Add(actor);
+        public void Remove(Actor actor)
+        {
+            foreach (var cm in CombineList)
+            {
+                if (cm.media.ActorList.Exists(x => x == actor))
+                {
+                    cm.media.ActorList.Remove(actor);
+                }
+
+                if (cm.media.ActorListID.Exists(x => x == actor.id))
+                {
+                    cm.media.ActorListID.Remove(actor.id);
+                }
+            }
+            ActorList.Remove(actor);
+        }
+
         public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
 
 
