@@ -77,6 +77,7 @@ namespace FilmCollection
                         DownloadPicTemp(sourcestring);
                     }
                     MList.Add(m);
+
                 }
                 OpenFormSelectMedia(MList, record);
             }
@@ -335,30 +336,39 @@ namespace FilmCollection
                 {
                     if (StringIsValid2(ActorItem))
                     {
-                        Actor actor;
+                        Actor actor = new Actor();
+                        actor.FIO = ActorItem;
+                        actor.Country = _media.Country;
+                        actor.VideoID_Add(_media.Id);
+                        _media.ActorList.Add(actor);
 
-                        RecordCollection _videoCollection = RecordCollection.GetInstance();
 
-                        if (!(_videoCollection.ActorList.Exists(act => act.FIO == ActorItem)))
-                        {
-                            actor = new Actor();
-                            actor.id = RecordCollection.GetActorID();
-                            actor.FIO = ActorItem;
-                            actor.Country = _media.Country;
-                            actor.VideoID_Add(_media.Id);
-                            _media.ActorListID_Add(actor.id);
+                        //Actor actor;
 
-                            //_videoCollection.ActorList.Add(actor);
-                        }
-                        else
-                        {
-                            actor = _videoCollection.ActorList.FindLast(act => act.FIO == ActorItem);
-                            if (!actor.VideoID.Contains(_media.Id))
-                            {
-                                actor.VideoID_Add(_media.Id);
-                                _media.ActorListID_Add(actor.id);
-                            }
-                        }
+                        //RecordCollection _videoCollection = RecordCollection.GetInstance();
+
+                        //if (!(_videoCollection.ActorList.Exists(act => act.FIO == ActorItem)))
+                        //{
+                        //    actor = new Actor();
+                        //    actor.id = RecordCollection.GetActorID();
+                        //    actor.FIO = ActorItem;
+                        //    actor.Country = _media.Country;
+                        //    actor.VideoID_Add(_media.Id);
+
+                        //    //_media.ActorListID_Add(actor.id);
+                        //    _media.ActorList.Add(actor);
+
+                        //    //_videoCollection.ActorList.Add(actor);
+                        //}
+                        //else
+                        //{
+                        //    actor = _videoCollection.ActorList.FindLast(act => act.FIO == ActorItem);
+                        //    if (!actor.VideoID.Contains(_media.Id))
+                        //    {
+                        //        actor.VideoID_Add(_media.Id);
+                        //        _media.ActorListID_Add(actor.id);
+                        //    }
+                        //}
                     }
 
                 }
