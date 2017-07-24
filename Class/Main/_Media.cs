@@ -14,15 +14,11 @@ namespace FilmCollection
     {
         [XmlIgnore]
         public List<Actor> ActorList { get; }
-        //public Collection<Actor> ActorList { get; }
-
 
         public Media()
         {
-            actorID = new List<int>();
-            //ActorListID = new List<int>();      // Создание списка ID актеров, играющих в картине
             ActorList = new List<Actor>();
-            //ActorList = new Collection<Actor>();
+            actorID = new List<int>();      // Создание списка ID актеров, играющих в картине
         }
 
         public override string ToString() => Name;  // return Name;
@@ -49,8 +45,8 @@ namespace FilmCollection
             }
         }
 
-
-        public string Description { get; set; } = "";  // Описание файла (сюжет)
+        /// <summary>Описание файла (сюжет)</summary>
+        public string Description { get; set; } = "";
 
         private int _year;
         /// <summary>Год выпуска</summary>
@@ -80,7 +76,7 @@ namespace FilmCollection
 
         //public void Remove(int id) => ActorListID.Remove(id);
 
-        /// <summary>Этот метод выполняет очистку списка идентификаторов актеров.</summary>
+        /// <summary>Очистка списка идентификаторов актеров.</summary>
         public void ActorListID_Clear() => actorID.Clear();
 
 
