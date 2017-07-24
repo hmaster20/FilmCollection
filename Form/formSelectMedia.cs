@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -31,6 +32,9 @@ namespace FilmCollection
             {
                 labelRecordName.Text = "";
             }
+            listMedia.SelectedIndex = 0;
+
+            SelectMediaInfo.InVisibleButton();
 
             //listMedia.Items.Clear();
             //foreach (Media _media in MList)
