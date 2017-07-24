@@ -21,6 +21,8 @@ namespace FilmCollection
             InitializeComponent();
         }
 
+        public void InVisibleButton() => btnPlay.Visible = false;
+
         public void update(Record _record, MainForm main)
         {
             RecordCollection _videoCollection = RecordCollection.GetInstance();
@@ -100,6 +102,11 @@ namespace FilmCollection
                 }
                 else pbImage.Image = null;
             }
+            else
+            {
+                pbImage.Image = null;
+            }
+
         }
 
         private void lbActors_DoubleClick(object sender, EventArgs e)

@@ -37,12 +37,12 @@
             this.lblRecYear = new System.Windows.Forms.Label();
             this.lblRecName = new System.Windows.Forms.Label();
             this.tbfDesc = new System.Windows.Forms.TextBox();
-            this.tbfCountry = new System.Windows.Forms.TextBox();
             this.tbfYear = new System.Windows.Forms.TextBox();
             this.tbfName = new System.Windows.Forms.TextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblRecTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tbfCountry = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.panelTitle.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -55,7 +55,7 @@
             this.lbActors.Location = new System.Drawing.Point(26, 117);
             this.lbActors.Name = "lbActors";
             this.lbActors.Size = new System.Drawing.Size(134, 169);
-            this.lbActors.TabIndex = 69;
+            this.lbActors.TabIndex = 0;
             this.lbActors.DoubleClick += new System.EventHandler(this.lbActors_DoubleClick);
             // 
             // pbImage
@@ -75,7 +75,7 @@
             this.btnPlay.Location = new System.Drawing.Point(24, 293);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(111, 23);
-            this.btnPlay.TabIndex = 62;
+            this.btnPlay.TabIndex = 0;
             this.btnPlay.Text = "Воспроизвести";
             this.btnPlay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnPlay.UseVisualStyleBackColor = true;
@@ -89,7 +89,7 @@
             this.lblRecDescription.Location = new System.Drawing.Point(20, 322);
             this.lblRecDescription.Name = "lblRecDescription";
             this.lblRecDescription.Size = new System.Drawing.Size(82, 17);
-            this.lblRecDescription.TabIndex = 61;
+            this.lblRecDescription.TabIndex = 0;
             this.lblRecDescription.Text = " Описание:";
             // 
             // lblRecRole
@@ -100,7 +100,7 @@
             this.lblRecRole.Location = new System.Drawing.Point(23, 98);
             this.lblRecRole.Name = "lblRecRole";
             this.lblRecRole.Size = new System.Drawing.Size(121, 17);
-            this.lblRecRole.TabIndex = 57;
+            this.lblRecRole.TabIndex = 0;
             this.lblRecRole.Text = "Роли исполняют:";
             // 
             // lblRecCountry
@@ -111,7 +111,7 @@
             this.lblRecCountry.Location = new System.Drawing.Point(22, 58);
             this.lblRecCountry.Name = "lblRecCountry";
             this.lblRecCountry.Size = new System.Drawing.Size(60, 17);
-            this.lblRecCountry.TabIndex = 58;
+            this.lblRecCountry.TabIndex = 0;
             this.lblRecCountry.Text = "Страна:";
             // 
             // lblRecYear
@@ -122,7 +122,7 @@
             this.lblRecYear.Location = new System.Drawing.Point(21, 36);
             this.lblRecYear.Name = "lblRecYear";
             this.lblRecYear.Size = new System.Drawing.Size(36, 17);
-            this.lblRecYear.TabIndex = 59;
+            this.lblRecYear.TabIndex = 0;
             this.lblRecYear.Text = "Год:";
             // 
             // lblRecName
@@ -133,7 +133,7 @@
             this.lblRecName.Location = new System.Drawing.Point(16, 17);
             this.lblRecName.Name = "lblRecName";
             this.lblRecName.Size = new System.Drawing.Size(80, 17);
-            this.lblRecName.TabIndex = 60;
+            this.lblRecName.TabIndex = 0;
             this.lblRecName.Text = " Название:";
             // 
             // tbfDesc
@@ -149,20 +149,7 @@
             this.tbfDesc.ReadOnly = true;
             this.tbfDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbfDesc.Size = new System.Drawing.Size(349, 239);
-            this.tbfDesc.TabIndex = 67;
-            // 
-            // tbfCountry
-            // 
-            this.tbfCountry.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbfCountry.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.tbfCountry.Location = new System.Drawing.Point(26, 79);
-            this.tbfCountry.Name = "tbfCountry";
-            this.tbfCountry.ReadOnly = true;
-            this.tbfCountry.Size = new System.Drawing.Size(118, 16);
-            this.tbfCountry.TabIndex = 63;
+            this.tbfDesc.TabIndex = 0;
             // 
             // tbfYear
             // 
@@ -171,11 +158,11 @@
             this.tbfYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbfYear.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.tbfYear.Location = new System.Drawing.Point(59, 39);
+            this.tbfYear.Location = new System.Drawing.Point(58, 38);
             this.tbfYear.Name = "tbfYear";
             this.tbfYear.ReadOnly = true;
             this.tbfYear.Size = new System.Drawing.Size(82, 16);
-            this.tbfYear.TabIndex = 64;
+            this.tbfYear.TabIndex = 2;
             // 
             // tbfName
             // 
@@ -183,11 +170,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbfName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbfName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbfName.Location = new System.Drawing.Point(97, 19);
+            this.tbfName.Location = new System.Drawing.Point(97, 18);
             this.tbfName.Name = "tbfName";
             this.tbfName.ReadOnly = true;
             this.tbfName.Size = new System.Drawing.Size(271, 16);
-            this.tbfName.TabIndex = 65;
+            this.tbfName.TabIndex = 0;
             // 
             // panelTitle
             // 
@@ -205,13 +192,12 @@
             this.lblRecTitle.Location = new System.Drawing.Point(0, 0);
             this.lblRecTitle.Name = "lblRecTitle";
             this.lblRecTitle.Size = new System.Drawing.Size(386, 27);
-            this.lblRecTitle.TabIndex = 0;
+            this.lblRecTitle.TabIndex = 1;
             this.lblRecTitle.Text = "Общие сведения";
             this.lblRecTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tbfCountry);
             this.panel1.Controls.Add(this.lblRecName);
             this.panel1.Controls.Add(this.tbfYear);
             this.panel1.Controls.Add(this.lbActors);
@@ -220,6 +206,7 @@
             this.panel1.Controls.Add(this.pbImage);
             this.panel1.Controls.Add(this.lblRecYear);
             this.panel1.Controls.Add(this.btnPlay);
+            this.panel1.Controls.Add(this.tbfCountry);
             this.panel1.Controls.Add(this.lblRecCountry);
             this.panel1.Controls.Add(this.lblRecDescription);
             this.panel1.Controls.Add(this.lblRecRole);
@@ -227,7 +214,16 @@
             this.panel1.Location = new System.Drawing.Point(0, 27);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(386, 599);
-            this.panel1.TabIndex = 70;
+            this.panel1.TabIndex = 0;
+            // 
+            // tbfCountry
+            // 
+            this.tbfCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbfCountry.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.tbfCountry.Location = new System.Drawing.Point(23, 77);
+            this.tbfCountry.Name = "tbfCountry";
+            this.tbfCountry.Size = new System.Drawing.Size(137, 19);
+            this.tbfCountry.TabIndex = 0;
             // 
             // ucMediaInfo
             // 
@@ -256,11 +252,11 @@
         private System.Windows.Forms.Label lblRecYear;
         private System.Windows.Forms.Label lblRecName;
         private System.Windows.Forms.TextBox tbfDesc;
-        private System.Windows.Forms.TextBox tbfCountry;
         private System.Windows.Forms.TextBox tbfYear;
         private System.Windows.Forms.TextBox tbfName;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblRecTitle;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label tbfCountry;
     }
 }
