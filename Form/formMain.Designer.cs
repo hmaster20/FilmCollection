@@ -111,7 +111,6 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelView = new System.Windows.Forms.Panel();
-            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.rtDescription = new System.Windows.Forms.RichTextBox();
@@ -258,6 +257,7 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.ucView = new FilmCollection.ucMediaInfo();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -522,9 +522,9 @@
             // 
             // tsProgressBar
             // 
+            this.tsProgressBar.BackColor = System.Drawing.SystemColors.Control;
             this.tsProgressBar.Name = "tsProgressBar";
             this.tsProgressBar.Size = new System.Drawing.Size(200, 16);
-            this.tsProgressBar.Visible = false;
             // 
             // FindStatusLabel
             // 
@@ -1054,14 +1054,6 @@
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(368, 606);
             this.panelView.TabIndex = 57;
-            // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
             // 
             // panelEdit
             // 
@@ -2639,6 +2631,14 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2777,14 +2777,12 @@
         private System.Windows.Forms.Label lblFindTitle;
         private System.Windows.Forms.Label lCritery;
         private System.Windows.Forms.Label lFindText;
-        private System.Windows.Forms.ToolStripProgressBar tsProgressBar;
         private System.Windows.Forms.StatusStrip statusLine;
         private System.Windows.Forms.ToolStripMenuItem btnRecoveryBase;
         private System.Windows.Forms.ToolStripMenuItem настройкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnOptions;
         private System.Windows.Forms.ToolStripMenuItem btnActors;
         private System.Windows.Forms.Button btnFindNext;
-        private System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
         private System.Windows.Forms.Button btnFindReset;
         private System.Windows.Forms.ContextMenuStrip TreeMenu;
         private System.Windows.Forms.ToolStripMenuItem сCollapseAll;
@@ -2950,6 +2948,8 @@
         private System.Windows.Forms.RichTextBox rtDescription;
         private System.Windows.Forms.ToolStripSeparator cSep2;
         private System.Windows.Forms.ToolStripMenuItem cClearMetaData;
+        public System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
+        public System.Windows.Forms.ToolStripProgressBar tsProgressBar;
     }
 }
 

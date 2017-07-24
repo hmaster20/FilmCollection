@@ -12,6 +12,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Shell32;
 using Thr = System.Threading;
+using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace FilmCollection
 {
@@ -450,22 +452,71 @@ namespace FilmCollection
             FormLoad();
         }
 
+
         /// <summary>Добавить обновление базы</summary>
         private void UpdateBase()
         {
-            this.Invoke(new Thr.ThreadStart(delegate
+
+            //this.Invoke(new Thr.ThreadStart(delegate
+            //{
+            //    if (_videoCollection.Update())
+            //    {
+            //        FormLoad(true);
+            //    }
+
+            //    //label1.Text = Mas_1[i].ToString() + " * " +
+            //    //Mas_2[i].ToString() + " = " +
+            //    //(Mas_1[i] * Mas_2[i]).ToString();
+            //    //tsProgressBar.Value++;
+            //}));
+
+
+            (new System.Threading.Thread(delegate ()
             {
-                if (_videoCollection.Update())
+                if (_videoCollection.Update(this))
                 {
                     FormLoad(true);
                 }
+            })).Start();
 
-                //label1.Text = Mas_1[i].ToString() + " * " +
-                //Mas_2[i].ToString() + " = " +
-                //(Mas_1[i] * Mas_2[i]).ToString();
-                //tsProgressBar.Value++;
-            }));    
+
+
+
+
+            ////bw.DoWork += Bw_DoWork;
+            //bw.DoWork += _videoCollection.Update;
+            //bw.ProgressChanged += Bw_ProgressChanged;
+            //bw.RunWorkerCompleted += Bw_RunWorkerCompleted;
+            //bw.RunWorkerAsync();
         }
+        
+
+        //private void Bw_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    for (int i = 0; i < filesCount; i++)
+        //    {
+        //        ParseSingleFile(); // pass filename here
+        //        int percentage = (i + 1) * 100 / filesCount;
+        //        myBGWorker.ReportProgress(percentage);
+        //        bw.ReportProgress()
+        //    }
+        //}
+
+        //public void Bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    tsProgressBar.Value = e.ProgressPercentage;
+
+        //}
+
+        //private void Bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    MessageBox.Show("Done");
+        //}
+
+        //public BackgroundWorker bw = new BackgroundWorker();
+        
+
+
 
 
         private void UpdateBase2()
@@ -3252,3 +3303,4 @@ namespace FilmCollection
         //}
     }
 }
+
