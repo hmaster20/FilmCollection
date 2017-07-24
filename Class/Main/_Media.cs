@@ -37,11 +37,15 @@ namespace FilmCollection
         private string pic;
         public string Pic
         {
-            get { return pic; }
+            get
+            {
+                if (string.IsNullOrEmpty(pic)) pic = "noPic";
+                return pic;
+            }
             set
             {
                 pic = value;
-                if (string.IsNullOrEmpty(pic)) pic = "noPic";
+                //if (string.IsNullOrEmpty(pic)) pic = "noPic";
             }
         }
 
@@ -65,8 +69,6 @@ namespace FilmCollection
             get { return actorID; }
             //set { _actorID = value; }
         }
-
-
 
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
