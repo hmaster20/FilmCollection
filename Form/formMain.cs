@@ -2728,21 +2728,24 @@ namespace FilmCollection
 
                 if (newMedia != null)
                 {
-                    foreach (Actor act in newMedia.ActorList)
+                    for (int i = 0; i < newMedia.ActorList.Count; i++)
                     {
-                        if (_videoCollection.ActorList.Exists(x => x.FIO == act.FIO))
+                        Actor currentAct = newMedia.ActorList[i];
+
+                        if (_videoCollection.ActorList.Exists(x => x.FIO == currentAct.FIO))
                         {
-                            Actor actColl = _videoCollection.ActorList.FindLast(x => x.FIO == act.FIO);
-                            newMedia.ActorList.Remove(act);
+                            Actor actColl = _videoCollection.ActorList.FindLast(x => x.FIO == currentAct.FIO);
+                            newMedia.ActorList.Remove(currentAct);
                             newMedia.ActorList.Add(actColl);
                             newMedia.ActorListID.Add(actColl.id);
                         }
                         else
                         {
-                            act.id = RecordCollection.GetActorID();
-                            newMedia.ActorListID.Add(act.id);
-                            _videoCollection.ActorList.Add(act);
+                            currentAct.id = RecordCollection.GetActorID();
+                            newMedia.ActorListID.Add(currentAct.id);
+                            _videoCollection.ActorList.Add(currentAct);
                         }
+
                     }
 
                     record.combineLink.media = (Media)newMedia.Clone();
@@ -3171,7 +3174,7 @@ namespace FilmCollection
 
         private void tsHidePanel_CheckedChanged(object sender, EventArgs e)
         {
-            if (tsHidePanel.Checked)
+            if (tsHidePanel.Checked && tabControlNumber() == 0)
             {
                 scTabFilm.Panel2Collapsed = true;
                 scTabFilm.Panel2.Hide();
@@ -3180,6 +3183,17 @@ namespace FilmCollection
             {
                 scTabFilm.Panel2Collapsed = false;
                 scTabFilm.Panel2.Show();
+            }
+
+            if (tsHidePanel.Checked && tabControlNumber() == 1)
+            {
+                scTabActors.Panel2Collapsed = true;
+                scTabActors.Panel2.Hide();
+            }
+            else
+            {
+                scTabActors.Panel2Collapsed = false;
+                scTabActors.Panel2.Show();
             }
         }
 
