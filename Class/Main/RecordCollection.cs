@@ -176,12 +176,6 @@ namespace FilmCollection
 
 
 
-
-        // public void Update(object sender, DoWorkEventArgs e)
-
-        //public bool Update()
-
-
         public bool Update(MainForm main)
         {
             bool state = false;
@@ -215,7 +209,6 @@ namespace FilmCollection
                         //};
                         //Dispatcher.BeginInvoke(action);
 
-
                         //Dispatcher.BeginInvoke((Action)(() =>
                         //{
                         //    tsProgressBar.Value = tsProgressBar.Value + 1;
@@ -227,65 +220,20 @@ namespace FilmCollection
                         //}));
 
                         //this.Invoke(() => { button3.Text = DateTime.Now.ToString(); });
-                        //tsProgressBar.
 
-
-
-
-
-                        //mainForm.BeginInvoke((Action)(() =>
-                        //{
-                        //mainForm.tsProgressBar.Maximum = CombineList.Count;
-                        //mainForm.tsProgressBar.Value = CombineList.Count;
-                        //}));
-
+                        //    mainForm.BeginInvoke((Action)(() => { mainForm.tsProgressBar.Value ++;}));
 
 
 
                         main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = CombineList.Count));
-
                         main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = CombineList.Count.ToString()));
-
-
-
-                        main.Invoke(new Action(() => { main.FindStatusLabel.Text = "Обновляем данные"; }));
-
-
-
 
                         for (int i = 0; i < CombineList.Count; i++)
                         {
                             CombineList[i].invisibleRecord(); // скрываем файлы
                             main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
                         }
-
-
-
-
-
-
-                        //foreach (Combine _combine in CombineList)
-                        //{
-                        //    _combine.invisibleRecord(); // скрываем файлы
-
-                           
-                        //    main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = _combine.));
-
-                        //    //mainForm.BeginInvoke((Action)(() =>
-                        //    //{
-                        //    //    mainForm.tsProgressBar.Value ++;
-                        //    //}));
-                        //}
-
-
-                        //this.Invoke(new Thr.ThreadStart(delegate
-                        //{
-                        //tsProgressBar
-
-                        //    //tsProgressBar.Value++;
-                        //}));
-
-
+                        
 
                         var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
                                                   .Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
