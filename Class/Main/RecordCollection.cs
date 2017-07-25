@@ -181,11 +181,18 @@ namespace FilmCollection
             bool state = false;
 
             if (string.IsNullOrEmpty(Options.Source))  // Если есть информация о корневой папки коллекции
-                MessageBox.Show("Необходимо создать базу данных.");
+            {
+                main.BeginInvoke((MethodInvoker)(() => 
+                MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ));
+            }               
             else
             {
                 try
                 {
+                    RecordCollection RC = new RecordCollection();
+                    RC = (RecordCollection)GetInstance().MemberwiseClone();
+
                     int findCount = 0;
 
                     if (Options.Source == null)
@@ -222,8 +229,7 @@ namespace FilmCollection
                         //this.Invoke(() => { button3.Text = DateTime.Now.ToString(); });
 
                         //    mainForm.BeginInvoke((Action)(() => { mainForm.tsProgressBar.Value ++;}));
-
-
+                        
 
                         main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = CombineList.Count));
                         main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = CombineList.Count.ToString()));
@@ -232,15 +238,24 @@ namespace FilmCollection
                         {
                             CombineList[i].invisibleRecord(); // скрываем файлы
                             main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
-                        }
-                        
+                        }                        
+
 
                         var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
                                                   .Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
 
-                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                        foreach (FileInfo file in myFiles)
+
+                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
+                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = myFiles.Count()));
+                        main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = myFiles.Count().ToString()));
+
+                        List<FileInfo> ff = new List<FileInfo>();
+                        ff = myFiles.ToList();
+
+                        for (int i = 0; i < ff.Count; i++)
                         {
+                            main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
+                            FileInfo file = ff[i];
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
@@ -251,6 +266,23 @@ namespace FilmCollection
                                 CreateCombine(file); // если файла нет в коллекции, создаем     
                             }
                         }
+
+
+
+                        ////foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                        //foreach (FileInfo file in myFiles)
+                        //{
+                        //    Record record = new Record();
+                        //    record.FileName = file.Name;                            // полное название файла (film.avi)
+                        //    record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+
+                        //    if (!RecordExist(record))
+                        //    {
+                        //        findCount++;
+                        //        CreateCombine(file); // если файла нет в коллекции, создаем     
+                        //    }
+                        //}
+
                         Save();
                         SaveToFile();
 
