@@ -246,7 +246,7 @@ namespace FilmCollection
 
         private void ShowWindow_Click(object sender, EventArgs e) => RestoreWindow();
 
-        private bool FormLoad(bool LoadfromFile = false)
+        public bool FormLoad(bool LoadfromFile = false)
         {
             bool state = false;
 
@@ -3022,7 +3022,10 @@ namespace FilmCollection
                 {
                     if (InvokeRequired)
                     {
-                        Invoke(m_AddImageDelegate, imageFilename);
+                        if (m_AddImageDelegate != null)
+                        {
+                            Invoke(m_AddImageDelegate, imageFilename);
+                        }
                     }
                     else
                     {
