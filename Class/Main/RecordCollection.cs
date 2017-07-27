@@ -182,16 +182,17 @@ namespace FilmCollection
 
             if (string.IsNullOrEmpty(Options.Source))  // Если есть информация о корневой папки коллекции
             {
-                main.BeginInvoke((MethodInvoker)(() => 
+                main.BeginInvoke((MethodInvoker)(() =>
                 MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 ));
-            }               
+            }
             else
             {
                 try
                 {
                     RecordCollection RC = new RecordCollection();
                     RC = (RecordCollection)GetInstance().MemberwiseClone();
+
 
                     int findCount = 0;
 
@@ -229,16 +230,17 @@ namespace FilmCollection
                         //this.Invoke(() => { button3.Text = DateTime.Now.ToString(); });
 
                         //    mainForm.BeginInvoke((Action)(() => { mainForm.tsProgressBar.Value ++;}));
-                        
+
 
                         main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = CombineList.Count));
-                        main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = CombineList.Count.ToString()));
+                        //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = CombineList.Count.ToString()));
 
                         for (int i = 0; i < CombineList.Count; i++)
                         {
                             CombineList[i].invisibleRecord(); // скрываем файлы
                             main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
-                        }                        
+                            main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + CombineList.Count.ToString()));
+                        }
 
 
                         var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
@@ -255,34 +257,30 @@ namespace FilmCollection
                         for (int i = 0; i < ff.Count; i++)
                         {
                             main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
+                            main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + ff.Count.ToString()));
                             FileInfo file = ff[i];
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
 
-                            if (!RecordExist(record))
+                            if (!RC.RecordExist(record))
                             {
                                 findCount++;
-                                CreateCombine(file); // если файла нет в коллекции, создаем     
+                                RC.CreateCombine(file); // если файла нет в коллекции, создаем     
                             }
                         }
 
+                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
+                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Enabled = false));
+                        main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = ""));
 
+                        DialogResult result = MessageBox.Show("Сведения в каталоге обновлены. Применить обновление ?", "Обновление каталога", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (result != DialogResult.OK)
+                        {
+                            return false;
+                        }
 
-                        ////foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                        //foreach (FileInfo file in myFiles)
-                        //{
-                        //    Record record = new Record();
-                        //    record.FileName = file.Name;                            // полное название файла (film.avi)
-                        //    record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-
-                        //    if (!RecordExist(record))
-                        //    {
-                        //        findCount++;
-                        //        CreateCombine(file); // если файла нет в коллекции, создаем     
-                        //    }
-                        //}
-
+                        _recordCollection = RC;
                         Save();
                         SaveToFile();
 
@@ -297,6 +295,9 @@ namespace FilmCollection
                         {
                             MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
                         }
+
+                        main.BeginInvoke((MethodInvoker)(() => main.FormLoad(true)));
+
 
                     }
                     else
