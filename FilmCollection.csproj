@@ -88,6 +88,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
     <Compile Include="Class\Utils\FileDetails.cs" />
     <Compile Include="Class\Utils\InputLanguages.cs" />
     <Compile Include="Class\Utils\Logs.cs" />
