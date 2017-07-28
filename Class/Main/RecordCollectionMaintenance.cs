@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -10,7 +9,8 @@ namespace FilmCollection
 {
     public class RecordCollectionMaintenance
     {
-        private RecordCollection CurrentRC { get; set; } = RecordCollection.GetInstance();
+        //private RecordCollection CurrentRC { get; set; } = RecordCollection.GetInstance();
+        private RecordCollection CurrentRC { get; set; } = new RecordCollection();
 
         public void NewBase(MainForm main)
         {
@@ -32,10 +32,6 @@ namespace FilmCollection
                         main.TableRec.ClearSelection();      // выключаем селекты таблицы
                         main.PrepareRefresh();               // сбрасываем старые значения таблицы
                     }));
-
-                    //treeFolder.Nodes.Clear();       // очищаем иерархию
-                    //TableRec.ClearSelection();      // выключаем селекты таблицы
-                    //PrepareRefresh();               // сбрасываем старые значения таблицы
                 }
                 else
                 {
@@ -87,7 +83,6 @@ namespace FilmCollection
                 try
                 {
                     RecordCollection RC = new RecordCollection();
-                    //RC = (RecordCollection)GetInstance().MemberwiseClone();
                     RC = (RecordCollection)CurrentRC.Clone();
 
                     DirectoryInfo directory = new DirectoryInfo(RC.Options.Source);
@@ -109,9 +104,6 @@ namespace FilmCollection
                                 main.tsProgressBar.Value = i;
                                 main.FindStatusLabel.Text = i.ToString() + " из " + RC.CombineList.Count.ToString();
                             }));
-
-                            //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
-                            //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + CombineList.Count.ToString()));
                         }
 
                         var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
@@ -122,10 +114,6 @@ namespace FilmCollection
                             main.tsProgressBar.Maximum = myFiles.Count();
                             main.FindStatusLabel.Text = myFiles.Count().ToString();
                         }));
-
-                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
-                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = myFiles.Count()));
-                        //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = myFiles.Count().ToString()));
 
                         List<FileInfo> ff = new List<FileInfo>();
                         ff = myFiles.ToList();
@@ -140,8 +128,6 @@ namespace FilmCollection
                                 main.FindStatusLabel.Text = i.ToString() + " из " + ff.Count.ToString();
                             }));
 
-                            //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
-                            //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + ff.Count.ToString()));
                             FileInfo file = ff[i];
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
@@ -150,7 +136,7 @@ namespace FilmCollection
                             if (!RecordExist(record))
                             {
                                 findCount++;
-                                CreateCombine(file); // если файла нет в коллекции, создаем     
+                                CreateCombine(file); // если файла нет в коллекции, создаем
                             }
                         }
 
@@ -161,10 +147,6 @@ namespace FilmCollection
                             main.tsProgressBar.Visible = false;
                             main.FindStatusLabel.Text = "";
                         }));
-
-                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
-                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Enabled = false));
-                        //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = ""));
 
                         DialogResult result = MessageBox.Show("Сведения в каталоге обновлены. Применить обновление ?", "Обновление каталога", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                         if (result != DialogResult.OK)
@@ -181,7 +163,6 @@ namespace FilmCollection
                         MessageBox.Show(message);
 
                         main.BeginInvoke((MethodInvoker)(() => main.FormLoad(true)));
-
                     }
                     else
                         MessageBox.Show("Каталог " + directory + " не обнаружен!");
@@ -189,7 +170,6 @@ namespace FilmCollection
                 catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
             }
         }
-
 
         private bool RecordExist(Record record)
         {
@@ -207,7 +187,7 @@ namespace FilmCollection
             return false;           // иначе файла нет файл есть
         }
 
-        void CreateCombine(FileInfo file)
+        private void CreateCombine(FileInfo file)
         {
             Combine cm = new Combine();
 
@@ -239,7 +219,7 @@ namespace FilmCollection
         {
             string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
             string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
-            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
+            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
             return (!string.IsNullOrEmpty(name_f)) ? name_f : name_1;
         }
@@ -286,7 +266,6 @@ namespace FilmCollection
                 }
             }
         }
-
 
         public void CleanBase(MainForm main)   // очистка базы путем удаления старых файлов видео
         {
