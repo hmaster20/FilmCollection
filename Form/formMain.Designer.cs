@@ -525,6 +525,7 @@
             this.tsProgressBar.BackColor = System.Drawing.SystemColors.Control;
             this.tsProgressBar.Name = "tsProgressBar";
             this.tsProgressBar.Size = new System.Drawing.Size(200, 16);
+            this.tsProgressBar.Visible = false;
             // 
             // FindStatusLabel
             // 
@@ -2718,10 +2719,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView TableRec;
         private System.Windows.Forms.ContextMenuStrip TabMenu;
         private System.Windows.Forms.MenuStrip mainMenu;
-        private System.Windows.Forms.TreeView treeFolder;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabFilm;
         private System.Windows.Forms.ToolStripMenuItem MenuFile;
@@ -2949,6 +2948,8 @@
         private System.Windows.Forms.ToolStripMenuItem cClearMetaData;
         public System.Windows.Forms.ToolStripStatusLabel FindStatusLabel;
         public System.Windows.Forms.ToolStripProgressBar tsProgressBar;
+        public System.Windows.Forms.DataGridView TableRec;
+        public System.Windows.Forms.TreeView treeFolder;
     }
 }
 

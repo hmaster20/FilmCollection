@@ -262,7 +262,7 @@ namespace FilmCollection
                 catch (ApplicationException ex)
                 {
                     Logs.Log("При загрузки базы произошла ошибка:", ex);
-                    RecordCollection.BackupBase();
+                    RecordCollectionMaintenance.BackupBase();
                     return state;
                 }
 
@@ -284,7 +284,7 @@ namespace FilmCollection
             return state;
         }
 
-        private void ChangeStatusMenuButton(bool state)
+        public void ChangeStatusMenuButton(bool state)
         {
             tsAdd.Enabled = state;
             tsChange.Enabled = state;
@@ -382,12 +382,12 @@ namespace FilmCollection
 
         #region Главное меню
 
-        private void CreateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { VCollection.NewBase(); })).Start();
-    private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { VCollection.Update(this); })).Start();
-        private void BackupBase_Click(object sender, EventArgs e) => RecordCollection.BackupBase();
-        private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollection.RecoveryBase();
+        private void CreateBase_Click(object sender, EventArgs e) => VCollection.Maintenance.NewBase(this);
+        private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { VCollection.Maintenance.Update(this); })).Start();
+        private void BackupBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.BackupBase();
+        private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.RecoveryBase(this);
         private void Exit_Click(object sender, EventArgs e) => Close();
-        private void CleanBase_Click(object sender, EventArgs e) => VCollection.CleanBase();
+        private void CleanBase_Click(object sender, EventArgs e) => VCollection.Maintenance.CleanBase(this);
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -936,7 +936,7 @@ namespace FilmCollection
             return false;
         }
 
-        private void PrepareRefresh(bool ShowAllFiles = false, int column = -1)
+        public void PrepareRefresh(bool ShowAllFiles = false, int column = -1)
         {
             Record selected = GetSelectedRecord();
 
@@ -1610,7 +1610,7 @@ namespace FilmCollection
             if (fsInfo != null) // Создание нового фильма
             {
                 cm = GetMedia();
-                record = RecordCollection.CreateRecord(fsInfo);
+                record = RecordCollectionMaintenance.CreateRecord(fsInfo);
             }
             else // редактирование имеющегося фильма
             {
