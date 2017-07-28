@@ -175,16 +175,72 @@ namespace FilmCollection
         #endregion
 
 
-
-        public bool Update(MainForm main)
+        public void NewBase()
         {
-            bool state = false;
+            using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
+            {
+                fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+                fbDialog.ShowNewFolderButton = false;
 
+                isExistBase();  // инициализация файла базы
+
+                DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+
+                if (dialogStatus == DialogResult.OK)
+                    CreateBase(fbDialog);   // создание базы
+                //ChangeStatusMenuButton(false); - ! временно отключен
+            }
+        }
+
+        private void isExistBase()
+        {
+            if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
+            {
+                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No) BackupBase();
+                File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                VCollection.Clear();       // очищаем коллекцию
+                treeFolder.Nodes.Clear();       // очищаем иерархию
+                TableRec.ClearSelection();      // выключаем селекты таблицы
+                PrepareRefresh();               // сбрасываем старые значения таблицы
+            }
+            else
+            {
+                File.Create(RecordOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
+            }
+        }
+
+        private void CreateBase(FolderBrowserDialog fbDialog)
+        {
+            string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
+
+            DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
+                            MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+            if (CheckfolderName == DialogResult.Cancel) NewBase();
+
+            DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
+            if (directory.Exists)
+            {
+                VCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
+
+                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
+                                          .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
+
+                foreach (FileInfo file in myFiles)
+                    CreateCombine(file);
+            }
+
+            VCollection.Save();
+            FormLoad();
+        }
+
+        public void Update(MainForm main)
+        {
             if (string.IsNullOrEmpty(Options.Source))  // Если есть информация о корневой папки коллекции
             {
                 main.BeginInvoke((MethodInvoker)(() =>
-                MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                ));
+                MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)));
             }
             else
             {
@@ -193,71 +249,64 @@ namespace FilmCollection
                     RecordCollection RC = new RecordCollection();
                     RC = (RecordCollection)GetInstance().MemberwiseClone();
 
-
-                    int findCount = 0;
-
                     if (Options.Source == null)
                     {
-                        MessageBox.Show("Файл базы испорчен!");
-                        return false;
+                        MessageBox.Show("Файл базы испорчен!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
                     }
+
                     DirectoryInfo directory = new DirectoryInfo(Options.Source);
 
                     if (directory.Exists)   // проверяем доступность каталога
                     {
-
-                        //mainForm.BeginInvoke((Action)(() =>
-                        //{
-                        //    mainForm.tsProgressBar.Value = mainForm.tsProgressBar.Value + 1;
-                        //}));
-
-                        //Action action = () =>
-                        //{
-                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
-                        //};
-                        //Dispatcher.BeginInvoke(action);
-
-                        //Dispatcher.BeginInvoke((Action)(() =>
-                        //{
-                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
-                        //}));
-
-                        //Dispatcher.BeginInvoke(new ThreadStart(delegate
-                        //{
-                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
-                        //}));
-
-                        //this.Invoke(() => { button3.Text = DateTime.Now.ToString(); });
-
-                        //    mainForm.BeginInvoke((Action)(() => { mainForm.tsProgressBar.Value ++;}));
-
-
-                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = CombineList.Count));
-                        //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = CombineList.Count.ToString()));
+                        main.BeginInvoke((MethodInvoker)(() =>
+                        {
+                            main.tsProgressBar.Visible = true;
+                            main.tsProgressBar.Maximum = CombineList.Count;
+                        }));
+                        // main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = CombineList.Count));
 
                         for (int i = 0; i < CombineList.Count; i++)
                         {
                             CombineList[i].invisibleRecord(); // скрываем файлы
-                            main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
-                            main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + CombineList.Count.ToString()));
+                            main.BeginInvoke((MethodInvoker)(() =>
+                            {
+                                main.tsProgressBar.Value = i;
+                                main.FindStatusLabel.Text = i.ToString() + " из " + CombineList.Count.ToString();
+                            }));
+
+                            //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
+                            //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + CombineList.Count.ToString()));
                         }
 
+                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
 
-                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
-                                                  .Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
+                        main.BeginInvoke((MethodInvoker)(() =>
+                        {
+                            main.tsProgressBar.Value = 0;
+                            main.tsProgressBar.Maximum = myFiles.Count();
+                            main.FindStatusLabel.Text = myFiles.Count().ToString();
+                        }));
 
-
-                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
-                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = myFiles.Count()));
-                        main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = myFiles.Count().ToString()));
+                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
+                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = myFiles.Count()));
+                        //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = myFiles.Count().ToString()));
 
                         List<FileInfo> ff = new List<FileInfo>();
                         ff = myFiles.ToList();
 
+                        int findCount = 0;
+
                         for (int i = 0; i < ff.Count; i++)
                         {
-                            main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
-                            main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + ff.Count.ToString()));
+                            main.BeginInvoke((MethodInvoker)(() =>
+                            {
+                                main.tsProgressBar.Value = i;
+                                main.FindStatusLabel.Text = i.ToString() + " из " + ff.Count.ToString();
+                            }));
+
+                            //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = i));
+                            //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = i.ToString() + " из " + ff.Count.ToString()));
                             FileInfo file = ff[i];
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
@@ -270,34 +319,34 @@ namespace FilmCollection
                             }
                         }
 
-                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
-                        main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Enabled = false));
-                        main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = ""));
+                        main.BeginInvoke((MethodInvoker)(() =>
+                        {
+                            main.tsProgressBar.Value = 0;
+                            main.tsProgressBar.Enabled = false;
+                            main.tsProgressBar.Visible = false;
+                            main.FindStatusLabel.Text = "";
+                        }));
+
+                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Value = 0));
+                        //main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Enabled = false));
+                        //main.BeginInvoke((MethodInvoker)(() => main.FindStatusLabel.Text = ""));
 
                         DialogResult result = MessageBox.Show("Сведения в каталоге обновлены. Применить обновление ?", "Обновление каталога", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                         if (result != DialogResult.OK)
                         {
-                            return false;
+                            return;
                         }
 
                         _recordCollection = RC;
                         Save();
                         SaveToFile();
 
-                        // FormLoad(true);
-                        state = true;
-
-                        if (findCount > 0)
-                        {
-                            MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
-                        }
+                        string message = (findCount > 0)
+                            ? ("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!")
+                            : ("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                        MessageBox.Show(message);
 
                         main.BeginInvoke((MethodInvoker)(() => main.FormLoad(true)));
-
 
                     }
                     else
@@ -305,7 +354,6 @@ namespace FilmCollection
                 }
                 catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
             }
-            return state;
         }
 
 
@@ -339,7 +387,7 @@ namespace FilmCollection
             Add(cm);
         }
 
-        private static Record CreateRecord(FileInfo file)
+        public static Record CreateRecord(FileInfo file)
         {
             Record record = new Record();
             record.Name = getRecordName(file);
@@ -360,6 +408,69 @@ namespace FilmCollection
             string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
             name_f = name_f.Trim();                         // название без пробелов вначале и конце
             return (!string.IsNullOrEmpty(name_f)) ? name_f : name_1;
+        }
+
+        /// <summary>Резервная копия базы</summary>
+        public static void BackupBase()
+        {
+            if (File.Exists(RecordOptions.BaseName)) // если есть, что резервировать...
+            {
+                try
+                {   // создаем резервную копию
+                    string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                        + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
+                        + Path.GetExtension(RecordOptions.BaseName);
+
+                    File.Copy(RecordOptions.BaseName, FileBase);
+
+                    MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
+                }
+                catch (IOException ex) { Logs.Log("Произошла ошибка при создании резервной копии базы:", ex); }
+            }
+        }
+
+        public static void RecoveryBase()
+        {
+            using (RecoveryForm form = new RecoveryForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
+                        {
+                            string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                                + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
+                                + Path.GetExtension(RecordOptions.BaseName);
+                            File.Copy(RecordOptions.BaseName, BadFileBase);
+                        }
+                        File.Copy(form.recoverBase, RecordOptions.BaseName, true);
+                    }
+                    catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
+
+                    MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
+                    FormLoad(true);
+                }
+            }
+        }
+
+
+        public void CleanBase()   // очистка базы путем удаления старых файлов видео
+        {
+            for (int i = 0; i < VCollection.CombineList.Count; i++)
+            {
+                VCollection.CombineList[i].DeleteOldRecord();
+                if (VCollection.CombineList[i].recordList.Count == 0)
+                {
+                    VCollection.CombineList.Remove(VCollection.CombineList[i]);
+                }
+            }
+
+            VCollection.Save();
+            TableRec.ClearSelection();
+            // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
+            PrepareRefresh();
+            MessageBox.Show("Очистка выполнена!");
         }
 
     }

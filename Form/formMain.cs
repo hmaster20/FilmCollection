@@ -262,7 +262,7 @@ namespace FilmCollection
                 catch (ApplicationException ex)
                 {
                     Logs.Log("При загрузки базы произошла ошибка:", ex);
-                    BackupBase();
+                    RecordCollection.BackupBase();
                     return state;
                 }
 
@@ -377,284 +377,17 @@ namespace FilmCollection
 
         #region Обработка файла базы
 
-        /// <summary>Создание файла базы </summary>
-        private void NewBase()
-        {
-            using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
-            {
-                fbDialog.Description = "Укажите расположение файлов мультимедиа:";
-                fbDialog.ShowNewFolderButton = false;
-
-                isExistBase();  // инициализация файла базы
-
-                DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
-
-                if (dialogStatus == DialogResult.OK)
-                    CreateBase(fbDialog);   // создание базы
-                ChangeStatusMenuButton(false);
-            }
-        }
-
-        private void isExistBase()
-        {
-            if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
-            {
-                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.No) BackupBase();
-                File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                VCollection.Clear();       // очищаем коллекцию
-                treeFolder.Nodes.Clear();       // очищаем иерархию
-                TableRec.ClearSelection();      // выключаем селекты таблицы
-                PrepareRefresh();               // сбрасываем старые значения таблицы
-            }
-            else
-            {
-                File.Create(RecordOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
-            }
-        }
-
-        private void CreateBase(FolderBrowserDialog fbDialog)
-        {
-            string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
-
-            DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
-                            MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-
-            if (CheckfolderName == DialogResult.Cancel) NewBase();
-
-            DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-            if (directory.Exists)
-            {
-                VCollection.Options.Source = directory.FullName;   // Сохранение каталога фильмов
-
-                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
-                                          .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
-
-                foreach (FileInfo file in myFiles)
-                    CreateCombine(file);
-            }
-
-            VCollection.Save();
-            FormLoad();
-        }
-
-
-        /// <summary>Добавить обновление базы</summary>
-        private void UpdateBase()
-        {
-            //this.Invoke(new Thr.ThreadStart(delegate
-            //{
-            //    if (_videoCollection.Update())
-            //    {
-            //        FormLoad(true);
-            //    }
-            //}));
-
-            //(new System.Threading.Thread(delegate ()
-            //{
-            //    if (_videoCollection.Update(this))
-            //    {
-            //        FormLoad(true);
-            //    }
-            //})).Start();
-
-
-            (new System.Threading.Thread(delegate () { VCollection.Update(this); })).Start();
-        }
-
-
-        #region Старый механизм обновления базы
-        private void OldUpdateBase()
-        {
-            if (VCollection.Options.Source == null || VCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
-            {
-                MessageBox.Show("Необходимо создать базу данных.");
-            }
-            else
-            {
-                try
-                {
-                    int findCount = 0;
-
-                    if (VCollection.Options.Source == null)
-                    {
-                        MessageBox.Show("Файл базы испорчен!");
-                        return;
-                    }
-                    DirectoryInfo directory = new DirectoryInfo(VCollection.Options.Source);
-
-                    if (directory.Exists)   // проверяем доступность каталога
-                    {
-                        foreach (Combine _combine in VCollection.CombineList)
-                            _combine.invisibleRecord(); // скрываем файлы
-
-                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
-                                                  .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
-
-                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
-                        foreach (FileInfo file in myFiles)
-                        {
-                            Record record = new Record();
-                            record.FileName = file.Name;                            // полное название файла (film.avi)
-                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-
-                            if (!RecordExist(record))
-                            {
-                                findCount++;
-                                CreateCombine(file); // если файла нет в коллекции, создаем     
-                            }
-
-                        }
-                        VCollection.Save();
-                        VCollection.SaveToFile();
-
-                        FormLoad(true);
-
-                        if (findCount > 0)
-                        {
-                            MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
-                        }
-
-                    }
-                    else
-                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
-                }
-                catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
-            }
-        }
-
-        private bool RecordExist(Record record)
-        {
-            List<Record> list = new List<Record>();
-            VCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
-
-            foreach (Record rec in list)    // проверка наличия файла
-            {
-                if (rec.Equals(record))
-                {
-                    VCollection.CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
-                    return true;    // если файл есть
-                }
-            }
-            return false;           // иначе файла нет файл есть
-        }
-        #endregion
-
-
-        void CreateCombine(FileInfo file)
-        {
-            Combine cm = new Combine();
-
-            Record record = CreateRecord(file);
-
-            record.combineLink = cm;
-            cm.recordList.Add(record);
-            cm.media.Name = record.Name;
-            cm.media.Id = RecordCollection.GetMediaID();
-
-            VCollection.Add(cm);
-        }
-
-        private static Record CreateRecord(FileInfo file)
-        {
-            Record record = new Record();
-            record.Name = getRecordName(file);
-            record.FileName = file.Name;        // полное название файла (film.avi)
-            record.Path = file.DirectoryName;   // полный путь (C:\Folder)
-            record.Visible = true;              // видимость
-            record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
-            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                    // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-            return record;
-        }
-
-        private static string getRecordName(FileInfo file)
-        {
-            string name_1 = file.Name.Remove(file.Name.LastIndexOf(file.Extension), file.Extension.Length); // название без расширения (film)
-            string name_2 = Regex.Replace(name_1, @"[0-9]{4}", string.Empty);       // название без года
-            string name_f = Regex.Replace(name_2, @"[a-zA-Z_.'()]", string.Empty);  // название без символов                       
-            name_f = name_f.Trim();                         // название без пробелов вначале и конце
-            return (!string.IsNullOrEmpty(name_f)) ? name_f : name_1;
-        }
-
-        /// <summary>Резервная копия базы</summary>
-        private void BackupBase()
-        {
-            if (File.Exists(RecordOptions.BaseName)) // если есть, что резервировать...
-            {
-                try
-                {   // создаем резервную копию
-                    string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                        + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
-                        + Path.GetExtension(RecordOptions.BaseName);
-
-                    File.Copy(RecordOptions.BaseName, FileBase);
-
-                    MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
-                }
-                catch (IOException ex) { Logs.Log("Произошла ошибка при создании резервной копии базы:", ex); }
-            }
-        }
-
-        private void RecoveryBase()
-        {
-            using (RecoveryForm form = new RecoveryForm())
-            {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
-                        {
-                            string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                                + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
-                                + Path.GetExtension(RecordOptions.BaseName);
-                            File.Copy(RecordOptions.BaseName, BadFileBase);
-                        }
-                        File.Copy(form.recoverBase, RecordOptions.BaseName, true);
-                    }
-                    catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
-
-                    MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
-                    FormLoad(true);
-                }
-            }
-        }
-
-        private void CleanBase()   // очистка базы путем удаления старых файлов видео
-        {
-            for (int i = 0; i < VCollection.CombineList.Count; i++)
-            {
-                VCollection.CombineList[i].DeleteOldRecord();
-                if (VCollection.CombineList[i].recordList.Count == 0)
-                {
-                    VCollection.CombineList.Remove(VCollection.CombineList[i]);
-                }
-            }
-
-            VCollection.Save();
-            TableRec.ClearSelection();
-            // treeFolder.Nodes.Clear(); //добавить обработку очистки дерева
-            PrepareRefresh();
-            MessageBox.Show("Очистка выполнена!");
-        }
-
         #endregion
 
 
         #region Главное меню
 
-        private void CreateBase_Click(object sender, EventArgs e) => NewBase();
-        private void UpdateBase_Click(object sender, EventArgs e) => UpdateBase();
-        private void BackupBase_Click(object sender, EventArgs e) => BackupBase();
-        private void RecoveryBase_Click(object sender, EventArgs e) => RecoveryBase();
+        private void CreateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { VCollection.NewBase(); })).Start();
+    private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { VCollection.Update(this); })).Start();
+        private void BackupBase_Click(object sender, EventArgs e) => RecordCollection.BackupBase();
+        private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollection.RecoveryBase();
         private void Exit_Click(object sender, EventArgs e) => Close();
-        private void CleanBase_Click(object sender, EventArgs e) => CleanBase();
+        private void CleanBase_Click(object sender, EventArgs e) => VCollection.CleanBase();
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -1877,7 +1610,7 @@ namespace FilmCollection
             if (fsInfo != null) // Создание нового фильма
             {
                 cm = GetMedia();
-                record = CreateRecord(fsInfo);
+                record = RecordCollection.CreateRecord(fsInfo);
             }
             else // редактирование имеющегося фильма
             {
