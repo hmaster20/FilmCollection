@@ -1166,4 +1166,144 @@ If the user controls do things like connect to data sources, you might want to a
 
 
 
+ =================================================================================================================================================
+
+
+    //mainForm.BeginInvoke((Action)(() =>
+                        //{
+                        //    mainForm.tsProgressBar.Value = mainForm.tsProgressBar.Value + 1;
+                        //}));
+
+                        //Action action = () =>
+                        //{
+                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
+                        //};
+                        //Dispatcher.BeginInvoke(action);
+
+                        //Dispatcher.BeginInvoke((Action)(() =>
+                        //{
+                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
+                        //}));
+
+                        //Dispatcher.BeginInvoke(new ThreadStart(delegate
+                        //{
+                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
+                        //}));
+
+                        //this.Invoke(() => { button3.Text = DateTime.Now.ToString(); });
+
+                        //    mainForm.BeginInvoke((Action)(() => { mainForm.tsProgressBar.Value ++;}));
+
+
+ =================================================================================================================================================
+
+
+		/// <summary>Добавить обновление базы</summary>
+        private void UpdateBase()
+        {
+            //this.Invoke(new Thr.ThreadStart(delegate
+            //{
+            //    if (_videoCollection.Update())
+            //    {
+            //        FormLoad(true);
+            //    }
+            //}));
+
+            //(new System.Threading.Thread(delegate ()
+            //{
+            //    if (_videoCollection.Update(this))
+            //    {
+            //        FormLoad(true);
+            //    }
+            //})).Start();
+
+
+            (new System.Threading.Thread(delegate () { VCollection.Update(this); })).Start();
+        }
+
+
+ =================================================================================================================================================
+
+
+		
+        #region Старый механизм обновления базы
+        private void OldUpdateBase()
+        {
+            if (VCollection.Options.Source == null || VCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
+            {
+                MessageBox.Show("Необходимо создать базу данных.");
+            }
+            else
+            {
+                try
+                {
+                    int findCount = 0;
+
+                    if (VCollection.Options.Source == null)
+                    {
+                        MessageBox.Show("Файл базы испорчен!");
+                        return;
+                    }
+                    DirectoryInfo directory = new DirectoryInfo(VCollection.Options.Source);
+
+                    if (directory.Exists)   // проверяем доступность каталога
+                    {
+                        foreach (Combine _combine in VCollection.CombineList)
+                            _combine.invisibleRecord(); // скрываем файлы
+
+                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
+                                                  .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
+
+                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                        foreach (FileInfo file in myFiles)
+                        {
+                            Record record = new Record();
+                            record.FileName = file.Name;                            // полное название файла (film.avi)
+                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+
+                            if (!RecordExist(record))
+                            {
+                                findCount++;
+                                CreateCombine(file); // если файла нет в коллекции, создаем     
+                            }
+
+                        }
+                        VCollection.Save();
+                        VCollection.SaveToFile();
+
+                        FormLoad(true);
+
+                        if (findCount > 0)
+                        {
+                            MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                        }
+
+                    }
+                    else
+                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
+                }
+                catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
+            }
+        }
+
+        private bool RecordExist(Record record)
+        {
+            List<Record> list = new List<Record>();
+            VCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
+
+            foreach (Record rec in list)    // проверка наличия файла
+            {
+                if (rec.Equals(record))
+                {
+                    VCollection.CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
+                    return true;    // если файл есть
+                }
+            }
+            return false;           // иначе файла нет файл есть
+        }
+        #endregion
 
