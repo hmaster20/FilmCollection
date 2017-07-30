@@ -9,8 +9,7 @@ namespace FilmCollection
 {
     public class RecordCollectionMaintenance
     {
-        //private RecordCollection CurrentRC { get; set; } = RecordCollection.GetInstance();
-        private RecordCollection CurrentRC { get; set; } = new RecordCollection();
+        private RecordCollection CurrentRC() => RecordCollection.GetInstance();
 
         public void NewBase(MainForm main)
         {
@@ -24,7 +23,7 @@ namespace FilmCollection
                     DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.No) BackupBase();
                     File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                    CurrentRC.Clear();       // очищаем коллекцию
+                    CurrentRC().Clear();       // очищаем коллекцию
 
                     main.BeginInvoke((MethodInvoker)(() =>
                     {
@@ -58,7 +57,7 @@ namespace FilmCollection
             DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
             if (directory.Exists)
             {
-                CurrentRC.Options.Source = directory.FullName;   // Сохранение каталога фильмов
+                CurrentRC().Options.Source = directory.FullName;   // Сохранение каталога фильмов
 
                 var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
                                           .Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
@@ -67,13 +66,13 @@ namespace FilmCollection
                     CreateCombine(file);
             }
 
-            CurrentRC.Save();
+            CurrentRC().Save();
             main.BeginInvoke((MethodInvoker)(() => main.FormLoad()));
         }
 
         public void Update(MainForm main)
         {
-            if (string.IsNullOrEmpty(CurrentRC.Options.Source))  // Если есть информация о корневой папки коллекции
+            if (string.IsNullOrEmpty(CurrentRC().Options.Source))  // Если есть информация о корневой папки коллекции
             {
                 main.BeginInvoke((MethodInvoker)(() =>
                 MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)));
@@ -83,7 +82,7 @@ namespace FilmCollection
                 try
                 {
                     RecordCollection RC = new RecordCollection();
-                    RC = (RecordCollection)CurrentRC.Clone();
+                    RC = (RecordCollection)CurrentRC().Clone();
 
                     DirectoryInfo directory = new DirectoryInfo(RC.Options.Source);
 
@@ -154,8 +153,8 @@ namespace FilmCollection
                             return;
                         }
 
-                        CurrentRC.Save();
-                        CurrentRC.SaveToFile();
+                        CurrentRC().Save();
+                        CurrentRC().SaveToFile();
 
                         string message = (findCount > 0)
                             ? ("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!")
@@ -174,13 +173,13 @@ namespace FilmCollection
         private bool RecordExist(Record record)
         {
             List<Record> list = new List<Record>();
-            CurrentRC.CombineList.ForEach(combine => list.AddRange(combine.recordList));
+            CurrentRC().CombineList.ForEach(combine => list.AddRange(combine.recordList));
 
             foreach (Record rec in list)    // проверка наличия файла
             {
                 if (rec.Equals(record))
                 {
-                    CurrentRC.CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
+                    CurrentRC().CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
                     return true;    // если файл есть
                 }
             }
@@ -198,7 +197,7 @@ namespace FilmCollection
             cm.media.Name = record.Name;
             cm.media.Id = RecordCollection.GetMediaID();
 
-            CurrentRC.Add(cm);
+            CurrentRC().Add(cm);
         }
 
         public static Record CreateRecord(FileInfo file)
@@ -269,16 +268,16 @@ namespace FilmCollection
 
         public void CleanBase(MainForm main)   // очистка базы путем удаления старых файлов видео
         {
-            for (int i = 0; i < CurrentRC.CombineList.Count; i++)
+            for (int i = 0; i < CurrentRC().CombineList.Count; i++)
             {
-                CurrentRC.CombineList[i].DeleteOldRecord();
-                if (CurrentRC.CombineList[i].recordList.Count == 0)
+                CurrentRC().CombineList[i].DeleteOldRecord();
+                if (CurrentRC().CombineList[i].recordList.Count == 0)
                 {
-                    CurrentRC.CombineList.Remove(CurrentRC.CombineList[i]);
+                    CurrentRC().CombineList.Remove(CurrentRC().CombineList[i]);
                 }
             }
 
-            CurrentRC.Save();
+            CurrentRC().Save();
             main.BeginInvoke((MethodInvoker)(() =>
             {
                 // main.treeFolder.Nodes.Clear();       // очищаем иерархию (добавить обработку очистки дерева)
