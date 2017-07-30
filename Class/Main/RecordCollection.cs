@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.Linq;
-using System.Threading;
-using System.Diagnostics;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Windows.Threading;
-using System.ComponentModel;
 
 namespace FilmCollection
 {
@@ -19,12 +13,11 @@ namespace FilmCollection
         public RecordOptions Options { get; set; } = new RecordOptions();
         public RecordCollectionMaintenance Maintenance { get; set; } = new RecordCollectionMaintenance();
 
-
         private static RecordCollection _recordCollection;
         public static RecordCollection GetInstance()
         {
             if (_recordCollection == null)
-                _recordCollection = Load();
+                _recordCollection = Load(true);
             return _recordCollection;
         }
 
@@ -45,6 +38,8 @@ namespace FilmCollection
             catch (ApplicationException ex) { MessageBox.Show(ex.Message); }
         }
 
+        public object Clone() => this.MemberwiseClone();
+
 
         public List<Combine> CombineList { get; }
         public void Add(Combine cm) => CombineList.Add(cm);
@@ -52,7 +47,18 @@ namespace FilmCollection
         public void ClearCombine() => CombineList.Clear();
 
 
-        public List<Actor> ActorList { get; }                  // Объявление списка        
+        #region Медиа
+        private static int MediaID { get; set; }
+        //[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        //public int GetMediaID { get { return ++MediaID; } } 
+        public static int GetMediaID() => ++MediaID;           // создание следующего номера        
+        public static void ResetMediaID() => MediaID = 0;
+        public static void SetMediaID(int value) => MediaID = value;
+        #endregion
+
+
+        #region Актеры
+        public List<Actor> ActorList { get; }
         public void Add(Actor actor) => ActorList.Add(actor);
         public void Remove(Actor actor)
         {
@@ -70,41 +76,22 @@ namespace FilmCollection
             }
             ActorList.Remove(actor);
         }
-
-        public void ClearActor() => ActorList.Clear();              // Очистить коллекцию
-
-
-        private static int MediaID { get; set; }               // Идентификатор Media
-
-
-        //[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        //public int GetMediaID { get { return ++MediaID; } } 
-        public static int GetMediaID() => ++MediaID;           // создание следующего номера
-
-
-        public static void ResetMediaID() => MediaID = 0;      // обнуление идентификатора
-        public static void SetMediaID(int value) => MediaID = value;
-
-
+        public void ClearActor() => ActorList.Clear();
         private static int ActorID { get; set; }               // Идентификатор актеров
-
-        /// <summary>Метод создает и присваивает следующий номер.</summary>
-        /// 
-
         //[DebuggerBrowsable(DebuggerBrowsableState.Never)]
         //public int GetActorID { get { return ++ActorID; } } 
         public static int GetActorID() => ++ActorID;        // Генерация идентификатора  // return ++ActorID;
         public static void ResetActorID() => ActorID = 0;      // обнуление идентификатора
         public static void SetActorID(int value) => ActorID = value;
-        
-        #region Сериализация
+        #endregion
 
+
+        #region Сериализация
         /// <summary>Сохранение (Сериализация) коллекции в MemoryStream</summary>
         public void Save() => XmlSerializeHelper.SerializeAndSaveToMemory(this);
 
         /// <summary>Сохранение (Сериализация) коллекции в файл XML</summary>
         public void SaveToFile() => XmlSerializeHelper.FromMemoryToSaveToFile();
-
 
 
 
@@ -115,6 +102,10 @@ namespace FilmCollection
             RecordCollection result;
             try
             {
+                //result = (fromFile) 
+                //    ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
+                //    : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+
                 if (fromFile)
                 {
                     result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
@@ -162,18 +153,6 @@ namespace FilmCollection
             _recordCollection = result;
             return result;
         }
-
-        //RecordCollection VideoCollection = (RecordCollection)videoCollection.Clone();
-        //public object Clone()
-        //{
-        //    return this.MemberwiseClone();
-        //}
-
         #endregion
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
     }
 }
