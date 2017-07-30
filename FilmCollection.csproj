@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
     <Compile Include="Class\Utils\FileDetails.cs" />
+    <Compile Include="Class\Utils\HTMLhelper.cs" />
     <Compile Include="Class\Utils\InputLanguages.cs" />
     <Compile Include="Class\Utils\Logs.cs" />
     <Compile Include="Class\Utils\DownloadDetails.cs" />
