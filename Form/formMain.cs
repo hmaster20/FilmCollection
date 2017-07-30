@@ -384,10 +384,12 @@ namespace FilmCollection
 
         private void CreateBase_Click(object sender, EventArgs e) => VCollection.Maintenance.NewBase(this);
         private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { VCollection.Maintenance.Update(this); })).Start();
+        private void CleanBase_Click(object sender, EventArgs e) => VCollection.Maintenance.CleanBase(this);
+
         private void BackupBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.BackupBase();
         private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.RecoveryBase(this);
         private void Exit_Click(object sender, EventArgs e) => Close();
-        private void CleanBase_Click(object sender, EventArgs e) => VCollection.Maintenance.CleanBase(this);
+
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -410,6 +412,12 @@ namespace FilmCollection
         private void btnReport_Click(object sender, EventArgs e)
         {
             // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
+        }
+
+        private void btnExportHTML_Click(object sender, EventArgs e)
+        {
+            Reports reportHTML = new Reports(); 
+
         }
 
 
@@ -2431,7 +2439,8 @@ namespace FilmCollection
 
             foreach (Combine cm in cmList.Distinct().ToList())
                 foreach (Record rec in cm.recordList)
-                    DownloadDetails.GetInfo(rec);
+                    (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(rec); })).Start();
+            //DownloadDetails.GetInfo(rec);
             //DownloadDetails.GetInfo(rec, _videoCollection);
 
             VCollection.Save();
@@ -2940,7 +2949,6 @@ namespace FilmCollection
                 e.Handled = true;
             }
         }
-
 
 
         //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)

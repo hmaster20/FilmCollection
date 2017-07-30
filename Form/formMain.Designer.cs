@@ -614,6 +614,7 @@
             this.btnExportHTML.Size = new System.Drawing.Size(187, 22);
             this.btnExportHTML.Text = "Экспорт в HTML";
             this.btnExportHTML.Visible = false;
+            this.btnExportHTML.Click += new System.EventHandler(this.btnExportHTML_Click);
             // 
             // btnReport
             // 
@@ -653,7 +654,7 @@
             this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.btnAdd.Size = new System.Drawing.Size(149, 22);
+            this.btnAdd.Size = new System.Drawing.Size(152, 22);
             this.btnAdd.Text = "Добавить";
             this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
@@ -662,7 +663,7 @@
             this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
             this.btnChange.Name = "btnChange";
             this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnChange.Size = new System.Drawing.Size(149, 22);
+            this.btnChange.Size = new System.Drawing.Size(152, 22);
             this.btnChange.Text = "Изменить";
             this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
             // 
@@ -671,21 +672,21 @@
             this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnDelete.Size = new System.Drawing.Size(149, 22);
+            this.btnDelete.Size = new System.Drawing.Size(152, 22);
             this.btnDelete.Text = "Удалить";
             this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // ts4
             // 
             this.ts4.Name = "ts4";
-            this.ts4.Size = new System.Drawing.Size(146, 6);
+            this.ts4.Size = new System.Drawing.Size(149, 6);
             // 
             // поискToolStripMenuItem
             // 
             this.поискToolStripMenuItem.Image = global::FilmCollection.Properties.Resources.find;
             this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
             this.поискToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.поискToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.поискToolStripMenuItem.Text = "Поиск";
             this.поискToolStripMenuItem.Click += new System.EventHandler(this.tsFind_Click);
             // 
