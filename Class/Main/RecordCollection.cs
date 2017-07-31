@@ -21,6 +21,18 @@ namespace FilmCollection
             return _recordCollection;
         }
 
+        public static bool status()
+        {
+            bool status = (_recordCollection == null) ? false : true;
+            return status;
+        }
+
+        public static void SetInstance(RecordCollection rc)
+        {
+            if (_recordCollection == null)
+                _recordCollection = rc;
+        }
+
         public RecordCollection()
         {
             ActorList = new List<Actor>();      // Создание списка актеров

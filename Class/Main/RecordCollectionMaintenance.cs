@@ -18,19 +18,24 @@ namespace FilmCollection
                 fbDialog.Description = "Укажите расположение файлов мультимедиа:";
                 fbDialog.ShowNewFolderButton = false;
 
-                if (File.Exists(RecordOptions.BaseName)) // Если база есть, то запрашиваем удаление
+                if (File.Exists(RecordOptions.BaseName) && (RecordCollection.status())) // Если база есть, то запрашиваем удаление
                 {
                     DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.No) BackupBase();
-                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                    CurrentRC().Clear();       // очищаем коллекцию
 
-                    main.BeginInvoke((MethodInvoker)(() =>
-                    {
-                        main.treeFolder.Nodes.Clear();       // очищаем иерархию
-                        main.TableRec.ClearSelection();      // выключаем селекты таблицы
-                        main.PrepareRefresh();               // сбрасываем старые значения таблицы
-                    }));
+                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                    if (RecordCollection.status()) CurrentRC().Clear();       // очищаем коллекцию
+
+                    main.treeFolder.Nodes.Clear();       // очищаем иерархию
+                    main.TableRec.ClearSelection();      // выключаем селекты таблицы
+                    main.PrepareRefresh();               // сбрасываем старые значения таблицы
+
+                    //main.BeginInvoke((MethodInvoker)(() =>
+                    //{
+                    //    main.treeFolder.Nodes.Clear();       // очищаем иерархию
+                    //    main.TableRec.ClearSelection();      // выключаем селекты таблицы
+                    //    main.PrepareRefresh();               // сбрасываем старые значения таблицы
+                    //}));
                 }
                 else
                 {
@@ -38,9 +43,8 @@ namespace FilmCollection
                 }
 
                 DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+                if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
 
-                if (dialogStatus == DialogResult.OK)
-                    CreateBase(fbDialog, main);   // создание базы
                 main.BeginInvoke((MethodInvoker)(() => main.ChangeStatusMenuButton(false)));
             }
         }
@@ -50,24 +54,26 @@ namespace FilmCollection
             string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
 
             DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
-                            MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                                                                MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
 
             if (CheckfolderName == DialogResult.Cancel) NewBase(main);
 
             DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
             if (directory.Exists)
             {
+                RecordCollection rc = new RecordCollection();
+                RecordCollection.SetInstance(rc);
                 CurrentRC().Options.Source = directory.FullName;   // Сохранение каталога фильмов
 
-                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
-                                          .Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
+                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
 
                 foreach (FileInfo file in myFiles)
                     CreateCombine(file);
             }
 
             CurrentRC().Save();
-            main.BeginInvoke((MethodInvoker)(() => main.FormLoad()));
+            //main.BeginInvoke((MethodInvoker)(() => main.FormLoad()));
+            main.FormLoad();
         }
 
         public void Update(MainForm main)
@@ -93,7 +99,6 @@ namespace FilmCollection
                             main.tsProgressBar.Visible = true;
                             main.tsProgressBar.Maximum = RC.CombineList.Count;
                         }));
-                        // main.BeginInvoke((MethodInvoker)(() => main.tsProgressBar.Maximum = CombineList.Count));
 
                         for (int i = 0; i < RC.CombineList.Count; i++)
                         {
