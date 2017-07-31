@@ -21,7 +21,7 @@ namespace FilmCollection
     {
         #region Общедоступные свойства
 
-        RecordCollection VCollection { get; set; }     // Доступ к коллекции
+        RecordCollection RCollection { get; set; }     // Доступ к коллекции
         // TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
         FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
         int FindCount { get; set; }                 // Счетчик найденных строк
@@ -77,7 +77,7 @@ namespace FilmCollection
 
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
-            VCollection = new RecordCollection();      // Доступ к коллекции
+            RCollection = new RecordCollection();      // Доступ к коллекции
             //_treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
 
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
@@ -252,23 +252,23 @@ namespace FilmCollection
 
             if (File.Exists(RecordOptions.BaseName))    // Если база создана, то загружаем
             {
-                VCollection.Clear();
+                RCollection.Clear();
 
                 try
                 {
-                    VCollection = RecordCollection.Load(LoadfromFile);
+                    RCollection = RecordCollection.Load(LoadfromFile);
                     ZipArc.CreateBackup();
                 }
                 catch (ApplicationException ex)
                 {
                     Logs.Log("При загрузки базы произошла ошибка:", ex);
-                    RecordCollectionMaintenance.BackupBase();
+                    //RecordCollectionMaintenance.BackupBase();
                     return state;
                 }
 
-                if (VCollection.CombineList.Count > 0)
+                if (RCollection.CombineList.Count > 0)
                 {
-                    tssLabel.Text = "Коллекция из " + VCollection.CombineList.Count.ToString() + " элементов";
+                    tssLabel.Text = "Коллекция из " + RCollection.CombineList.Count.ToString() + " элементов";
                     PrepareRefresh();
                     CreateTree();
 
@@ -309,7 +309,7 @@ namespace FilmCollection
             SaveFormVisualEffect();
 
             //_videoCollection.Save();
-            VCollection.SaveToFile();
+            RCollection.SaveToFile();
 
         }
 
@@ -349,10 +349,10 @@ namespace FilmCollection
         private void SaveFormVisualEffect()
         {
             // Сохранение состояния главной формы
-            VCollection.Options.FormState = this.WindowState.ToString();
+            RCollection.Options.FormState = this.WindowState.ToString();
             #region Сохранение состояния сплиттеров
-            VCollection.Options.scMainSplitter = scMain.SplitterDistance;
-            VCollection.Options.scTabFilmSplitter = scTabFilm.SplitterDistance;
+            RCollection.Options.scMainSplitter = scMain.SplitterDistance;
+            RCollection.Options.scTabFilmSplitter = scTabFilm.SplitterDistance;
             #endregion
 
             //#region Сохранение ширины колонок
@@ -382,9 +382,9 @@ namespace FilmCollection
 
         #region Главное меню
 
-        private void CreateBase_Click(object sender, EventArgs e) => VCollection.Maintenance.NewBase(this);
-        private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { VCollection.Maintenance.Update(this); })).Start();
-        private void CleanBase_Click(object sender, EventArgs e) => VCollection.Maintenance.CleanBase(this);
+        private void CreateBase_Click(object sender, EventArgs e) => RCollection.Maintenance.NewBase(this);
+        private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { RCollection.Maintenance.Update(this); })).Start();
+        private void CleanBase_Click(object sender, EventArgs e) => RCollection.Maintenance.CleanBase(this);
 
         private void BackupBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.BackupBase();
         private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.RecoveryBase(this);
@@ -394,7 +394,7 @@ namespace FilmCollection
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            using (Options form = new Options(VCollection))
+            using (Options form = new Options(RCollection))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -405,7 +405,7 @@ namespace FilmCollection
 
         private void btnOpenReportForm_Click(object sender, EventArgs e)
         {
-            using (Report report = new Report(VCollection))
+            using (Report report = new Report(RCollection))
                 report.ShowDialog();
         }
 
@@ -416,8 +416,8 @@ namespace FilmCollection
 
         private void btnExportHTML_Click(object sender, EventArgs e)
         {
-            Reports reportHTML = new Reports(); 
-
+            Reports reportHTML = new Reports();
+            reportHTML.Generator();
         }
 
 
@@ -545,7 +545,7 @@ namespace FilmCollection
 
                     if (destinationNode != treeFolder.TopNode)
                     {
-                        string dirPath = Path.Combine(VCollection.Options.Source, destinationNode.FullPath);
+                        string dirPath = Path.Combine(RCollection.Options.Source, destinationNode.FullPath);
 
                         if (File.Exists(Path.Combine(record.Path, record.FileName)))
                             if (Directory.Exists(dirPath))
@@ -554,7 +554,7 @@ namespace FilmCollection
                         record.DirName = destinationNode.Text;
                         record.Path = dirPath;
 
-                        VCollection.Save();
+                        RCollection.Save();
                         PrepareRefresh();
                     }
                 }
@@ -831,7 +831,7 @@ namespace FilmCollection
             if (dialog == DialogResult.OK)
             {
                 record.combineLink.recordList.Remove(record);
-                VCollection.Save();
+                RCollection.Save();
                 FormLoad();
             }
         }
@@ -865,8 +865,8 @@ namespace FilmCollection
                                       "Удаление записи", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialog == DialogResult.OK)
                 {
-                    VCollection.Remove(act);
-                    VCollection.Save();
+                    RCollection.Remove(act);
+                    RCollection.Save();
                     TableRec.ClearSelection();
                     PrepareRefresh();
                 }
@@ -952,7 +952,7 @@ namespace FilmCollection
             //dataGridView1.DataSource = new List<Combine>(_videoCollection.CombineList);
 
             List<Record> filtered = new List<Record>();
-            VCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+            RCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
             TableRec.DataSource = filtered;
 
             filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
@@ -967,9 +967,9 @@ namespace FilmCollection
                 // Флаг не распространяется на клик по корню, т.е. на "Фильмотека" - отображается все содержимое каталогов
                 filtered = (!ShowAllFiles)
                             // отобразить файлы в текущем каталоге
-                            ? filtered.FindAll(v => v.Path == VCollection.Options.Source + Path.DirectorySeparatorChar + node)
+                            ? filtered.FindAll(v => v.Path == RCollection.Options.Source + Path.DirectorySeparatorChar + node)
                             // отобразить все файлы в т.ч. и вложенные
-                            : filtered = filtered.FindAll(v => v.Path.StartsWith(VCollection.Options.Source + Path.DirectorySeparatorChar + node));
+                            : filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + node));
             }
 
 
@@ -1033,7 +1033,7 @@ namespace FilmCollection
 
         private void PrepareActor(int switch_sort)
         {
-            List<Actor> filteredAct = new List<Actor>(VCollection.ActorList);
+            List<Actor> filteredAct = new List<Actor>(RCollection.ActorList);
 
             if (tsActCountryFilter.SelectedIndex > -1)
                 filteredAct = filteredAct.FindAll(a => a.Country == (Country_Rus)tsActCountryFilter.SelectedIndex);
@@ -1046,7 +1046,7 @@ namespace FilmCollection
             // список актеров
             chkActorList.Items.Clear();
 
-            foreach (Actor item in VCollection.ActorList)
+            foreach (Actor item in RCollection.ActorList)
                 chkActorList.Items.Add(item);
         }
 
@@ -1127,8 +1127,8 @@ namespace FilmCollection
                 chkActorSelect.Items.Clear();
                 if (record.combineLink.media.ActorListID != null)
                     foreach (int ListID in record.combineLink.media.ActorListID)
-                        if (VCollection.ActorList.Exists(act => act.id == ListID))
-                            chkActorSelect.Items.Add(VCollection.ActorList.FindLast(act => act.id == ListID));
+                        if (RCollection.ActorList.Exists(act => act.id == ListID))
+                            chkActorSelect.Items.Add(RCollection.ActorList.FindLast(act => act.id == ListID));
 
                 // Record
                 tbNameRecord.Text = record.Name;
@@ -1216,7 +1216,7 @@ namespace FilmCollection
                     listViewFilmV.Items.Clear();
 
                     foreach (int recID in act.VideoID)
-                        foreach (Combine com in VCollection.CombineList.FindAll(m => m.media.Id == recID))
+                        foreach (Combine com in RCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilmV.Items.Add(new ListViewItem(
                                 new string[] { com.media.Name, com.media.CountryString, com.media.Year.ToString(), com.media.Id.ToString() }));
 
@@ -1230,7 +1230,7 @@ namespace FilmCollection
                     listViewFilm.Items.Clear();
 
                     foreach (int recID in act.VideoID)
-                        foreach (Combine com in VCollection.CombineList.FindAll(m => m.media.Id == recID))
+                        foreach (Combine com in RCollection.CombineList.FindAll(m => m.media.Id == recID))
                             listViewFilm.Items.Add(new ListViewItem(
                                 new string[] { com.media.Name, com.media.Year.ToString(), com.media.Id.ToString() }));
                 }
@@ -1546,7 +1546,7 @@ namespace FilmCollection
 
             using (OpenFileDialog fileDialog = new OpenFileDialog())
             {
-                fileDialog.InitialDirectory = Path.Combine(VCollection.Options.Source, GetNode());
+                fileDialog.InitialDirectory = Path.Combine(RCollection.Options.Source, GetNode());
                 fileDialog.Filter = FormatOpen;
                 fileDialog.Title = "Выберите файл:";
                 fileDialog.RestoreDirectory = true;
@@ -1556,9 +1556,9 @@ namespace FilmCollection
                     NameBlock();
 
                     FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
-                    if (!newFile.DirectoryName.StartsWith(VCollection.Options.Source))
+                    if (!newFile.DirectoryName.StartsWith(RCollection.Options.Source))
                     {
-                        MessageBox.Show("Файл не принадлежит источнику коллекции " + VCollection.Options.Source);
+                        MessageBox.Show("Файл не принадлежит источнику коллекции " + RCollection.Options.Source);
                         return; // Выходим из метода
                     }
 
@@ -1570,7 +1570,7 @@ namespace FilmCollection
                     tbFileName.Text = newFile.Name;
                     mtbYear.Text = DateTime.Now.Year.ToString();
 
-                    foreach (Actor item in VCollection.ActorList)
+                    foreach (Actor item in RCollection.ActorList)
                     {
                         chkActorList.Items.Add(item.FIO);
                     }
@@ -1664,11 +1664,11 @@ namespace FilmCollection
                 else
                 {
                     cm.recordList.Add(record);
-                    VCollection.Add(cm);
+                    RCollection.Add(cm);
                 }
             }
 
-            VCollection.Save();
+            RCollection.Save();
 
             FormLoad();
 
@@ -1684,8 +1684,8 @@ namespace FilmCollection
             Combine cm = null;
             if (cbNameMedia.SelectedItem != null)
             {
-                if (VCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
-                    cm = VCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
+                if (RCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
+                    cm = RCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
             }
             else
             {
@@ -1719,7 +1719,7 @@ namespace FilmCollection
                 {
                     foreach (int actorID in cm.media.ActorListID)
                     {
-                        foreach (Actor act in VCollection.ActorList)
+                        foreach (Actor act in RCollection.ActorList)
                         {
                             if (act.id == actorID)
                             {
@@ -1733,7 +1733,7 @@ namespace FilmCollection
                 }
                 else
                 {
-                    foreach (Actor act in VCollection.ActorList)
+                    foreach (Actor act in RCollection.ActorList)
                     {
                         foreach (int filmID in act.VideoID)
                         {
@@ -1763,7 +1763,7 @@ namespace FilmCollection
             {
                 List<Media> tmp = new List<Media>();    // промежуточный список для ускорения построение списка
 
-                foreach (var item in VCollection.CombineList) // создаем список фильмов для функции авто поиска
+                foreach (var item in RCollection.CombineList) // создаем список фильмов для функции авто поиска
                     tmp.Add(item.media);
 
                 cbNameMedia.Items.AddRange(tmp.ToArray());
@@ -1778,8 +1778,8 @@ namespace FilmCollection
             Combine cm = null;
             if (cbNameMedia.SelectedItem != null)
             {
-                if (VCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
-                    cm = VCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
+                if (RCollection.CombineList.Exists(m => m.media.Name == cbNameMedia.SelectedItem.ToString()))
+                    cm = RCollection.CombineList.FindLast(m => m.media.Name == cbNameMedia.SelectedItem.ToString());
             }
 
             if (cm != null)
@@ -1792,8 +1792,8 @@ namespace FilmCollection
                 chkActorSelect.Items.Clear();
                 if (cm.media.ActorListID != null)
                     foreach (int ListID in cm.media.ActorListID)
-                        if (VCollection.ActorList.Exists(act => act.id == ListID))
-                            chkActorSelect.Items.Add(VCollection.ActorList.FindLast(act => act.id == ListID));
+                        if (RCollection.ActorList.Exists(act => act.id == ListID))
+                            chkActorSelect.Items.Add(RCollection.ActorList.FindLast(act => act.id == ListID));
             }
         }
 
@@ -2026,9 +2026,9 @@ namespace FilmCollection
         private void CreateTree()       // Построение дерева
         {
             treeFolder.Nodes.Clear();                                  // Очистка дерева
-            int SourceLength = VCollection.Options.Source.Length; // Получение длинны пути
+            int SourceLength = RCollection.Options.Source.Length; // Получение длинны пути
 
-            var test = (from cm in VCollection.CombineList
+            var test = (from cm in RCollection.CombineList
                         let recList = cm.recordList
                         from rec in recList
                         where rec.Visible == true   //orderby rec
@@ -2362,18 +2362,18 @@ namespace FilmCollection
                 cmNew.media.Category = CategoryVideo.Series;
 
                 List<Record> filtered = new List<Record>();
-                VCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+                RCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
-                filtered = filtered.FindAll(v => v.Path.StartsWith(VCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
+                filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
 
                 foreach (Record rec in filtered)
                     cmNew.recordList.Add(rec);
 
                 foreach (Record rec in filtered)
-                    VCollection.CombineList.Remove(rec.combineLink);
+                    RCollection.CombineList.Remove(rec.combineLink);
 
-                VCollection.CombineList.Add(cmNew);
-                VCollection.Save();
+                RCollection.CombineList.Add(cmNew);
+                RCollection.Save();
 
                 string treeFolderPath = treeFolder.SelectedNode.FullPath;
 
@@ -2400,25 +2400,25 @@ namespace FilmCollection
 
 
             List<Record> filtered = new List<Record>();
-            VCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+            RCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
-            filtered = filtered.FindAll(v => v.Path.StartsWith(VCollection.Options.Source + Path.DirectorySeparatorChar + treeFolderPath));
+            filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + treeFolderPath));
 
             foreach (Record rec in filtered)
                 cmNew.recordList.Add(rec);
 
             foreach (Record rec in filtered)
-                VCollection.CombineList.Remove(rec.combineLink);
+                RCollection.CombineList.Remove(rec.combineLink);
 
             foreach (Record rec in filtered)
             {
                 rec.combineLink = cmNew;
             }
 
-            VCollection.CombineList.Add(cmNew);
+            RCollection.CombineList.Add(cmNew);
             //_videoCollection.Save();
-            VCollection.Save();
-            VCollection.SaveToFile();
+            RCollection.Save();
+            RCollection.SaveToFile();
 
             FormLoad(true);
 
@@ -2427,10 +2427,10 @@ namespace FilmCollection
 
         private void UpdateCatalogInfo_Click(object sender, EventArgs e)
         {
-            var cmList = (from cm in VCollection.CombineList
+            var cmList = (from cm in RCollection.CombineList
                           let recList = cm.recordList
                           from rec in recList
-                          where rec.Path.StartsWith(VCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                          where rec.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
                           where rec.Visible == true
                           select rec.combineLink);    //.Distinct<Combine>();
 
@@ -2443,7 +2443,7 @@ namespace FilmCollection
             //DownloadDetails.GetInfo(rec);
             //DownloadDetails.GetInfo(rec, _videoCollection);
 
-            VCollection.Save();
+            RCollection.Save();
             PrepareRefresh();
         }
 
@@ -2468,9 +2468,9 @@ namespace FilmCollection
                     {
                         Actor currentAct = newMedia.ActorList[i];
 
-                        if (VCollection.ActorList.Exists(x => x.FIO == currentAct.FIO))
+                        if (RCollection.ActorList.Exists(x => x.FIO == currentAct.FIO))
                         {
-                            Actor actColl = VCollection.ActorList.FindLast(x => x.FIO == currentAct.FIO);
+                            Actor actColl = RCollection.ActorList.FindLast(x => x.FIO == currentAct.FIO);
                             newMedia.ActorList.Remove(currentAct);
                             newMedia.ActorList.Add(actColl);
                             newMedia.ActorListID.Add(actColl.id);
@@ -2479,14 +2479,14 @@ namespace FilmCollection
                         {
                             currentAct.id = RecordCollection.GetActorID();
                             newMedia.ActorListID.Add(currentAct.id);
-                            VCollection.ActorList.Add(currentAct);
+                            RCollection.ActorList.Add(currentAct);
                         }
 
                     }
 
                     record.combineLink.media = (Media)newMedia.Clone();
-                    VCollection.Save();
-                    VCollection.SaveToFile();
+                    RCollection.Save();
+                    RCollection.SaveToFile();
                     PrepareRefresh();
                     SelectRec();
                 }
@@ -2593,7 +2593,7 @@ namespace FilmCollection
             actor.FIO = tbFIO.Text;
 
             if (act == null)
-                foreach (Actor item in VCollection.ActorList)
+                foreach (Actor item in RCollection.ActorList)
                 {
                     if (item.Equals(actor))
                     {
@@ -2615,7 +2615,7 @@ namespace FilmCollection
                 {
                     int VideoID = Convert.ToInt32(eachItem.SubItems[2].Text);
                     actor.VideoID_Add(VideoID);
-                    VCollection.CombineList.FindLast(m => m.media.Id == VideoID).media.ActorListID_Add(actor.id);
+                    RCollection.CombineList.FindLast(m => m.media.Id == VideoID).media.ActorListID_Add(actor.id);
                 }
             }
             else
@@ -2626,12 +2626,12 @@ namespace FilmCollection
 
             if (act == null)
             {
-                VCollection.Add(actor);
-                VCollection.Save();
+                RCollection.Add(actor);
+                RCollection.Save();
             }
             else
             {
-                VCollection.Save();
+                RCollection.Save();
             }
 
             dgvTableActors.Enabled = true;
@@ -2818,7 +2818,7 @@ namespace FilmCollection
 
         private void imageViewer_Description(object sender, EventArgs e)    // Вывод описания
         {
-            Combine cm = VCollection.CombineList.FindLast(v => v.media.Pic == GetPicName(sender));
+            Combine cm = RCollection.CombineList.FindLast(v => v.media.Pic == GetPicName(sender));
 
             if (cm != null)
             {
