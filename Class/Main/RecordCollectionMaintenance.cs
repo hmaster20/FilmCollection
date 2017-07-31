@@ -72,6 +72,8 @@ namespace FilmCollection
             }
 
             CurrentRC().Save();
+            CurrentRC().SaveToFile();
+
             //main.BeginInvoke((MethodInvoker)(() => main.FormLoad()));
             main.FormLoad();
         }
