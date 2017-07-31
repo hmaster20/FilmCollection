@@ -16,7 +16,7 @@ namespace FilmCollection
         public static void SerializeAndSaveToMemory(object serializeObject)
         {
             if (serializeObject == null)
-                throw new ArgumentNullException("serializeObject", "serializeObject не можеть быть null");
+                throw new ArgumentNullException("serializeObject", "serializeObject не может быть null");
 
             try
             {

@@ -6,7 +6,6 @@
 - MVC or MVP
 - подумать о необходимости убирать фокус при переключении вкладок (возможно нет необходимости)
 - переместить настройки в область метаданных (модуль программы пользователя 62)
-- сделать загрузку информации отдельным потоком
 - механизм автоматического обновления
 - добавить возможность проверки наличия и получение обновлений
 - продумать экспорт Media, импорт и синхронизацию
@@ -24,7 +23,6 @@
 - продумать поисковый механизм (есть проблема при поиске последующего элемента, если включена фильтрация)
 - обеспечить возможность восстановления удаленной записи (уведомлять об удалении записи но не файла)
 - добавить переименование файлов (массовое по маске)
-- Сделать расчет для прогресс бара
 - разработать форму настроек приложения
 - Сделать настраиваемый фильтр для добавления файлов в процессе создания базы (mkv,avi, *)
 - Сделать опцию настройки и добавления столбцов // this.customersDataGridView.Columns[0].Visible = false;
@@ -34,6 +32,8 @@
 - продумать использование FileWatcher
 - использование доп.информации о файлах (кодеки)
 - продумать возможность интеграции данных в SQL
+
+
 
 
 
@@ -1313,19 +1313,9 @@ If the user controls do things like connect to data sources, you might want to a
 
 
 
-				private void btnGenerateReport_Click(object sender, System.EventArgs e)
+		private void btnGenerateReport_Click(object sender, System.EventArgs e)
 		{
-			this.Cursor = Cursors.WaitCursor;
-			grpReport.Enabled = false;
-			pnlDB.Enabled = false;
-			btnGenerateReport.Enabled = false;
-			SaveFieldAttributes(selectedField);
-			SaveSectionAttributes(selectedSection);
 
-			Report report = new Report();
-			report.ReportTitle = txtReportTitle.Text;
-			report.ReportFont = cmbReportFont.Text;
-			report.IncludeTotal = chkOverAllTotal.Checked;
 
 			foreach(object obj in chkLstFields.CheckedItems) 
 			{
@@ -1350,16 +1340,7 @@ If the user controls do things like connect to data sources, you might want to a
 				}
 			}
 
-			report.ReportSource = dataSet;
-			this.Cursor = Cursors.Default;
-			DialogResult res = saveFileDialog1.ShowDialog(this);
-			if(res == DialogResult.OK) 
-			{
-				this.Cursor = Cursors.WaitCursor;
-				report.SaveReport(saveFileDialog1.FileName);
-				this.Cursor = Cursors.Default;
-			}
-			grpReport.Enabled = true;
-			pnlDB.Enabled = true;
-			btnGenerateReport.Enabled = true;
+
+
+
 		}
