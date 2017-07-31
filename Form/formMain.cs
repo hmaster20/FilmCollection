@@ -2455,11 +2455,14 @@ namespace FilmCollection
 
         private void UpdateInfo()
         {
+            (new System.Threading.Thread(delegate () { upd(this); })).Start();
+        }
+
+        void upd(MainForm mainForm)
+        {
             Record record = GetSelectedRecord();
             if (record != null)
             {
-                CardRecordPreview_Clear();
-
                 Media newMedia = DownloadDetails.GetInfo(record);
 
                 if (newMedia != null)
@@ -2485,12 +2488,24 @@ namespace FilmCollection
                     }
 
                     record.combineLink.media = (Media)newMedia.Clone();
-                    RCollection.Save();
-                    RCollection.SaveToFile();
-                    PrepareRefresh();
-                    SelectRec();
+
+                    mainForm.BeginInvoke((MethodInvoker)(() =>
+                    {
+                        CardRecordPreview_Clear();
+                        RCollection.Save();
+                        RCollection.SaveToFile();
+                        PrepareRefresh();
+                        SelectRec();
+                    }));
+
+                    //CardRecordPreview_Clear();
+                    //RCollection.Save();
+                    //RCollection.SaveToFile();
+                    //PrepareRefresh();
+                    //SelectRec();
                 }
             }
+
         }
 
 
