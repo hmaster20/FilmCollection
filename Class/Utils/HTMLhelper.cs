@@ -38,6 +38,52 @@ namespace FilmCollection
         public string ChartValueHeader = "Value";
         #endregion
 
+
+        public void Generator()
+        {
+
+            Reports reportHTML = new Reports();
+            reportHTML.ReportTitle = "Название отчета";
+            reportHTML.ReportFont = "Arial";
+            reportHTML.IncludeTotal = true;
+
+
+            //Create Section
+            Section release = new Section("Release", "Release: ");
+
+            //Create SubSection
+            Section project = new Section("Project", "ProjectID: ");
+
+            //Add the sections to the report
+            release.SubSection = project;
+            reportHTML.Sections.Add(release);
+
+            //Add report fields to the report object.
+            reportHTML.ReportFields.Add(new Field("TicketNo", "Ticket", 50, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("CreatedBy", "CreatedBy", 150));
+            reportHTML.ReportFields.Add(new Field("AssignedTo", "AssignedTo"));
+            reportHTML.ReportFields.Add(new Field("Release", "Release", 200));
+            reportHTML.ReportFields.Add(new Field("Project", "Project", 150, ALIGN.RIGHT));
+
+            //Generate and save the report
+            reportHTML.SaveReport(@"X:\test\Report.htm");
+
+
+            //report.ReportSource = dataSet;
+            //this.Cursor = Cursors.Default;
+            //DialogResult res = saveFileDialog1.ShowDialog(this);
+            //if (res == DialogResult.OK)
+            //{
+            //    this.Cursor = Cursors.WaitCursor;
+            //    report.SaveReport(saveFileDialog1.FileName);
+            //    this.Cursor = Cursors.Default;
+            //}
+            //grpReport.Enabled = true;
+            //pnlDB.Enabled = true;
+            //btnGenerateReport.Enabled = true;
+        }
+
+
         //Constructor 
         public Reports()
         {
@@ -547,13 +593,13 @@ namespace FilmCollection
             {
                 criteria = criteria.Substring(3);
             }
-            foreach (DataRow dr in dataSet.Tables[0].Select(criteria))
-            {
-                if (!distinctValues.Contains(dr[columnName].ToString()))
-                {
-                    distinctValues.Add(dr[columnName].ToString());
-                }
-            }
+            //foreach (DataRow dr in dataSet.Tables[0].Select(criteria))
+            //{
+            //    if (!distinctValues.Contains(dr[columnName].ToString()))
+            //    {
+            //        distinctValues.Add(dr[columnName].ToString());
+            //    }
+            //}
             return distinctValues;
         }
 
@@ -603,6 +649,7 @@ namespace FilmCollection
         #endregion
 
     }
+
 
     /// <summary>
     /// Class to hold Report section details
