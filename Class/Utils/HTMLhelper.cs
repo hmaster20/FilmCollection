@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Collections;
 using System.Text;
 using System.IO;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace FilmCollection
 {
@@ -13,33 +15,120 @@ namespace FilmCollection
     /// </summary>
     public class Reports
     {
-        #region Class level variables
-        private DataSet reportSource;
-        private ArrayList sections;
-        private string reportTitle;
-        private string newline;
-        private ArrayList reportFields;
-        private int iLevel = 0;
-        private string gradientStyle;
-        private StringBuilder htmlContent;
-        public string ReportFont;
-        private Hashtable totalList;
-        public ArrayList TotalFields;
-        public bool IncludeTotal;
+        private DataSet reportSource { get; set; }
+        private ArrayList sections { get; set; }
+        private string reportTitle { get; set; }
+        private string newline { get; set; }
+        private ArrayList reportFields { get; set; }
+        private int iLevel { get; set; } = 0;
+        private string gradientStyle { get; set; }
+        private StringBuilder htmlContent { get; set; }
+        public string ReportFont { get; set; }
+        private Hashtable totalList { get; set; }
+        public ArrayList TotalFields { get; set; }
+        public bool IncludeTotal { get; set; }
+
         //Chart fields
-        public bool IncludeChart;
-        public string ChartTitle;
-        public bool ChartShowAtBottom;
-        public string ChartChangeOnField;
-        public string ChartValueField = "Count";
-        public bool ChartShowBorder;
-        public string ChartLabelHeader = "Label";
-        public string ChartPercentageHeader = "Percentage";
-        public string ChartValueHeader = "Value";
-        #endregion
+        public bool IncludeChart { get; set; }
+        public string ChartTitle { get; set; }
+        public bool ChartShowAtBottom { get; set; }
+        public string ChartChangeOnField { get; set; }
+        public string ChartValueField { get; set; } = "Count";
+        public bool ChartShowBorder { get; set; }
+        public string ChartLabelHeader { get; set; } = "Label";
+        public string ChartPercentageHeader { get; set; } = "Percentage";
+        public string ChartValueHeader { get; set; } = "Value";
 
 
-        public void Generator()
+
+        //static DataTable ConvertListToDataTable(List<string[]> list)
+        //{
+        //    // New table.
+        //    DataTable table = new DataTable();
+
+        //    // Get max columns.
+        //    int columns = 0;
+        //    foreach (var array in list)
+        //    {
+        //        if (array.Length > columns)
+        //        {
+        //            columns = array.Length;
+        //        }
+        //    }
+
+        //    // Add columns.
+        //    for (int i = 0; i < columns; i++)
+        //    {
+        //        table.Columns.Add();
+        //    }
+
+        //    // Add rows.
+        //    foreach (var array in list)
+        //    {
+        //        table.Rows.Add(array);
+        //    }
+
+        //    return table;
+        //}
+
+
+
+        public DataSet CreateDataSet<T>(List<T> list)
+        {
+            //list is nothing or has nothing, return nothing (or add exception handling)
+            if (list == null || list.Count == 0) { return null; }
+
+            //get the type of the first obj in the list
+            var obj = list[0].GetType();
+
+            //now grab all properties
+            var properties = obj.GetProperties();
+
+            //make sure the obj has properties, return nothing (or add exception handling)
+            if (properties.Length == 0) { return null; }
+
+            //it does so create the dataset and table
+            var dataSet = new DataSet();
+            var dataTable = new DataTable();
+
+            //now build the columns from the properties
+            var columns = new DataColumn[properties.Length];
+            for (int i = 0; i < properties.Length; i++)
+            {
+                columns[i] = new DataColumn(properties[i].Name, properties[i].PropertyType);
+            }
+
+            //add columns to table
+            dataTable.Columns.AddRange(columns);
+
+            //now add the list values to the table
+            foreach (var item in list)
+            {
+                //create a new row from table
+                var dataRow = dataTable.NewRow();
+
+                //now we have to iterate thru each property of the item and retrieve it's value for the corresponding row's cell
+                var itemProperties = item.GetType().GetProperties();
+
+                for (int i = 0; i < itemProperties.Length; i++)
+                {
+                    dataRow[i] = itemProperties[i].GetValue(item, null);
+                }
+
+                //now add the populated row to the table
+                dataTable.Rows.Add(dataRow);
+            }
+
+            //add table to dataset
+            dataSet.Tables.Add(dataTable);
+
+            //return dataset
+            return dataSet;
+        }
+
+
+        public void Generator(RecordCollection rCollection)
+        //public void Generator(DataGridView tableRec)
         {
 
             Reports reportHTML = new Reports();
@@ -47,40 +136,78 @@ namespace FilmCollection
             reportHTML.ReportFont = "Arial";
             reportHTML.IncludeTotal = true;
 
+            List<Record> filtered = new List<Record>();
+            rCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
-            //Create Section
-            Section release = new Section("Release", "Release: ");
+
+
+
+            reportHTML.ReportSource = CreateDataSet(filtered);
+
+
+
+
+            ////Create Section
+            //Section release = new Section("Release", "Release: ");
 
             //Create SubSection
             Section project = new Section("Project", "ProjectID: ");
 
             //Add the sections to the report
-            release.SubSection = project;
-            reportHTML.Sections.Add(release);
+            //release.SubSection = project;
+            //reportHTML.Sections.Add(release);
 
             //Add report fields to the report object.
-            reportHTML.ReportFields.Add(new Field("TicketNo", "Ticket", 50, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("CreatedBy", "CreatedBy", 150));
-            reportHTML.ReportFields.Add(new Field("AssignedTo", "AssignedTo"));
-            reportHTML.ReportFields.Add(new Field("Release", "Release", 200));
-            reportHTML.ReportFields.Add(new Field("Project", "Project", 150, ALIGN.RIGHT));
+            //reportHTML.ReportFields.Add(new Field("TicketNo", "Ticket", 50, ALIGN.RIGHT));
+            //reportHTML.ReportFields.Add(new Field("CreatedBy", "CreatedBy", 150));
+            //reportHTML.ReportFields.Add(new Field("AssignedTo", "AssignedTo"));
+            //reportHTML.ReportFields.Add(new Field("Release", "Release", 200));
+            //reportHTML.ReportFields.Add(new Field("Project", "Project", 150, ALIGN.RIGHT));
+
+
+
+
+            //foreach (object obj in chkLstFields.CheckedItems)
+            //{
+            //    Field field = (Field)fieldProps[obj.ToString()];
+            //    report.ReportFields.Add(field);
+            //    if (field.isTotalField)
+            //        report.TotalFields.Add(field.FieldName);
+            //}
+
+            var obj = filtered[0].GetType();
+            var properties = obj.GetProperties();
+            //var columns = new DataColumn[properties.Length];
+            for (int i = 0; i < properties.Length; i++)
+            {
+
+                reportHTML.ReportFields.Add(new Field(properties[i].Name, properties[i].PropertyType.ToString(), 50, ALIGN.RIGHT));
+
+                //columns[i] = new DataColumn(properties[i].Name, properties[i].PropertyType);
+            }
+
+
+
+
+            //Section section = null;
+            //foreach (object obj in lstGroupBy.Items)
+            //{
+            //    if (report.Sections.Count == 0)
+            //    {
+            //        section = (Section)sectionProps[obj.ToString()];
+            //        report.Sections.Add(section);
+            //    }
+            //    else
+            //    {
+            //        section.SubSection = (Section)sectionProps[obj.ToString()];
+            //        section = section.SubSection;
+            //    }
+            //}
+
 
             //Generate and save the report
             reportHTML.SaveReport(@"X:\test\Report.htm");
 
-
-            //report.ReportSource = dataSet;
-            //this.Cursor = Cursors.Default;
-            //DialogResult res = saveFileDialog1.ShowDialog(this);
-            //if (res == DialogResult.OK)
-            //{
-            //    this.Cursor = Cursors.WaitCursor;
-            //    report.SaveReport(saveFileDialog1.FileName);
-            //    this.Cursor = Cursors.Default;
-            //}
-            //grpReport.Enabled = true;
-            //pnlDB.Enabled = true;
-            //btnGenerateReport.Enabled = true;
         }
 
 
@@ -411,6 +538,8 @@ namespace FilmCollection
             return ht;
         }
 
+ 
+
         /// <summary>
         /// Method to generate BarChart
         /// </summary>
@@ -593,13 +722,13 @@ namespace FilmCollection
             {
                 criteria = criteria.Substring(3);
             }
-            //foreach (DataRow dr in dataSet.Tables[0].Select(criteria))
-            //{
-            //    if (!distinctValues.Contains(dr[columnName].ToString()))
-            //    {
-            //        distinctValues.Add(dr[columnName].ToString());
-            //    }
-            //}
+            foreach (DataRow dr in dataSet.Tables[0].Select(criteria))
+            {
+                if (!distinctValues.Contains(dr[columnName].ToString()))
+                {
+                    distinctValues.Add(dr[columnName].ToString());
+                }
+            }
             return distinctValues;
         }
 

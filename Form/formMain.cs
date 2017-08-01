@@ -417,7 +417,7 @@ namespace FilmCollection
         private void btnExportHTML_Click(object sender, EventArgs e)
         {
             Reports reportHTML = new Reports();
-            reportHTML.Generator();
+            reportHTML.Generator(RCollection);
         }
 
 
