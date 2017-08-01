@@ -148,13 +148,13 @@ namespace FilmCollection
 
 
             ////Create Section
-            //Section release = new Section("Release", "Release: ");
+            Section release = new Section("Release", "Release: ");
 
             //Create SubSection
             Section project = new Section("Project", "ProjectID: ");
 
             //Add the sections to the report
-            //release.SubSection = project;
+            release.SubSection = project;
             //reportHTML.Sections.Add(release);
 
             //Add report fields to the report object.
@@ -175,18 +175,46 @@ namespace FilmCollection
             //        report.TotalFields.Add(field.FieldName);
             //}
 
-            var obj = filtered[0].GetType();
-            var properties = obj.GetProperties();
-            //var columns = new DataColumn[properties.Length];
-            for (int i = 0; i < properties.Length; i++)
-            {
+            //var obj = filtered[0].GetType();
+            //var properties = obj.GetProperties();
+            //for (int i = 0; i < properties.Length; i++)
+            //{
+            //    if (properties[i].Name == "Visible" || properties[i].Name == "combineLink")
+            //    {
+            //        continue;
+            //    }
+            //    //reportHTML.ReportFields.Add(new Field(properties[i].Name, properties[i].PropertyType.ToString(), 50, ALIGN.RIGHT));
+            //    reportHTML.ReportFields.Add(new Field(properties[i].Name, properties[i].Name, 50, ALIGN.RIGHT));
+            //}
 
-                reportHTML.ReportFields.Add(new Field(properties[i].Name, properties[i].PropertyType.ToString(), 50, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("Name", "Название", 20, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("FileName", "Название файла", 20, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("DirName", "Каталог", 20, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("Path", "Полный путь", 50, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("mName", "mName", 20, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("mDescription", "Описание", 120, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("mCountry", "Страна", 20, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("mGenre", "Жанр", 20, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("mCategory", "Категория", 20, ALIGN.RIGHT));
+            reportHTML.ReportFields.Add(new Field("TimeString", "TimeString", 20, ALIGN.RIGHT));
 
-                //columns[i] = new DataColumn(properties[i].Name, properties[i].PropertyType);
-            }
 
-
+            //<TD  bgcolor = 'White'  WIDTH = 50  ALIGN = 'RIGHT'  class='ColumnHeaderStyle'><b>Visible</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>Name</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>FileName</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>DirName</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>Extension</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>Path</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>combineLink</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mName</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mDescription</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mPic</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mCountry</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mGenre</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mCategory</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mYear</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>TimeVideoSpan</b></TD>
+            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>TimeString</b></TD>
 
 
             //Section section = null;
@@ -204,9 +232,31 @@ namespace FilmCollection
             //    }
             //}
 
+            using (SaveFileDialog fileDialog = new SaveFileDialog())
+            {
+                fileDialog.InitialDirectory = Environment.SpecialFolder.Desktop.ToString(); //Path.Combine(RCollection.Options.Source, GetNode());
+                fileDialog.Filter = "Web-страница (*.htm)|*.htm";
+                fileDialog.Title = "Выберите файл:";
+                fileDialog.RestoreDirectory = true;
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
+                    reportHTML.SaveReport(fileDialog.FileName);
+
+                    //Stream myStream;
+                    //if ((myStream = fileDialog.OpenFile()) != null)
+                    //{
+                    //    // Code to write the stream goes here.
+                    //    myStream.Close();
+                    //}
+
+
+                }
+            }
 
             //Generate and save the report
-            reportHTML.SaveReport(@"X:\test\Report.htm");
+            //reportHTML.SaveReport(@"X:\test\Report.htm");
 
         }
 
@@ -310,15 +360,22 @@ namespace FilmCollection
         /// </summary>
         private void WriteTitle()
         {
-            htmlContent.Append("<HTML><HEAD><TITLE>Report - " + reportTitle + "</TITLE></HEAD>" + newline);
-            htmlContent.Append("<STYLE>" + newline);
+            htmlContent.Append("<!DOCTYPE html PUBLIC ' -//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>" + newline);
+            htmlContent.Append("<html xmlns='http://www.w3.org/1999/xhtml' lang='ru-RU' xmlns:og='http://ogp.me/ns#' xmlns:fb='http://ogp.me/ns/fb#' xmlns:article='http://ogp.me/ns/article#'>" + newline);
+            htmlContent.Append("<head profile='http://gmpg.org/xfn/11'>" + newline);
+            htmlContent.Append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>" + newline);
+            htmlContent.Append("<title>Report - " + reportTitle + "</title>" + newline);
+            htmlContent.Append("<meta name='author' content='Бирюков Сергей'/>" + newline);
+            htmlContent.Append("<meta name='copyright' content='Бирюков Сергей'/>" + newline);
+            htmlContent.Append("<style>" + newline);
             htmlContent.Append(" .TableStyle { border-collapse: collapse } " + newline);
             htmlContent.Append(" .TitleStyle { font-family: " + ReportFont + "; font-size:15pt } " + newline);
             htmlContent.Append(" .SectionHeader {font-family: " + ReportFont + "; font-size:10pt } " + newline);
             htmlContent.Append(" .DetailHeader {font-family: " + ReportFont + "; font-size:9pt } " + newline);
             htmlContent.Append(" .DetailData  {font-family: " + ReportFont + "; font-size:9pt } " + newline);
             htmlContent.Append(" .ColumnHeaderStyle  {font-family: " + ReportFont + "; font-size:9pt; border-style:outset; border-width:1} " + newline);
-            htmlContent.Append("</STYLE>" + newline);
+            htmlContent.Append("</style>" + newline);
+            htmlContent.Append("</head>" + newline);
             htmlContent.Append("<BODY TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 BOTTOMMARGIN=0>" + newline);
             htmlContent.Append("<TABLE Width='100%' style='FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=#a9d4ff,endColorStr=#ffffff)' Cellpadding=5><TR><TD>");
             htmlContent.Append("<font face='" + ReportFont + "' size=6>" + ReportTitle + "</font>");
