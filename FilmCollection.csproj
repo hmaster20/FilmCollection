@@ -272,6 +272,12 @@
     <Content Include="Resources\Report.png" />
     <Content Include="Resources\save.png" />
     <Content Include="Resources\viewfiles.png" />
+    <Content Include="Resources\web\asc.gif" />
+    <Content Include="Resources\web\bg.gif" />
+    <Content Include="Resources\web\desc.gif" />
+    <Content Include="Resources\web\jquery-latest.js" />
+    <Content Include="Resources\web\jquery.js" />
+    <Content Include="Resources\web\style.css" />
     <Content Include="Описание\Разработка.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +308,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
