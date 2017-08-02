@@ -241,8 +241,9 @@ namespace FilmCollection
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    //FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
                     reportHTML.SaveReport(fileDialog.FileName);
+
+                    //FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
 
                     //Stream myStream;
                     //if ((myStream = fileDialog.OpenFile()) != null)
@@ -250,8 +251,6 @@ namespace FilmCollection
                     //    // Code to write the stream goes here.
                     //    myStream.Close();
                     //}
-
-
                 }
             }
 
@@ -332,9 +331,7 @@ namespace FilmCollection
             return htmlContent.ToString();
         }
 
-        /// <summary>
-        /// Generates and Saves the report into a file.
-        /// </summary>
+        /// <summary>Создание и сохранение отчета в файл.</summary>
         /// <param name="fileName">HTML Report file name</param>
         /// <returns>On success returns true</returns>
         public bool SaveReport(string fileName)
@@ -367,20 +364,47 @@ namespace FilmCollection
             htmlContent.Append("<title>Report - " + reportTitle + "</title>" + newline);
             htmlContent.Append("<meta name='author' content='Бирюков Сергей'/>" + newline);
             htmlContent.Append("<meta name='copyright' content='Бирюков Сергей'/>" + newline);
-            htmlContent.Append("<style>" + newline);
-            htmlContent.Append(" .TableStyle { border-collapse: collapse } " + newline);
-            htmlContent.Append(" .TitleStyle { font-family: " + ReportFont + "; font-size:15pt } " + newline);
-            htmlContent.Append(" .SectionHeader {font-family: " + ReportFont + "; font-size:10pt } " + newline);
-            htmlContent.Append(" .DetailHeader {font-family: " + ReportFont + "; font-size:9pt } " + newline);
-            htmlContent.Append(" .DetailData  {font-family: " + ReportFont + "; font-size:9pt } " + newline);
-            htmlContent.Append(" .ColumnHeaderStyle  {font-family: " + ReportFont + "; font-size:9pt; border-style:outset; border-width:1} " + newline);
-            htmlContent.Append("</style>" + newline);
+
+            htmlContent.Append("<link rel='stylesheet' href='files/style.css' type='text/css' id='' media='print, projection, screen'>" + newline);
+            htmlContent.Append("<script type='text/javascript' src='files/jquery-latest.js'></script>" + newline);
+            htmlContent.Append("<script type='text/javascript' src='files /jquery.js'></script>" + newline);
+            htmlContent.Append("<script type='text/javascript' id='js'>$(document).ready(function() {$('table').tablesorter({sortList: [[0, 0],[2,0]]});}); </script>" + newline);
+
+            //htmlContent.Append("<style>" + newline);
+            //htmlContent.Append(" .TableStyle { border-collapse: collapse } " + newline);
+            //htmlContent.Append(" .TitleStyle { font-family: " + ReportFont + "; font-size:15pt } " + newline);
+            //htmlContent.Append(" .SectionHeader {font-family: " + ReportFont + "; font-size:10pt } " + newline);
+            //htmlContent.Append(" .DetailHeader {font-family: " + ReportFont + "; font-size:9pt } " + newline);
+            //htmlContent.Append(" .DetailData  {font-family: " + ReportFont + "; font-size:9pt } " + newline);
+            //htmlContent.Append(" .ColumnHeaderStyle  {font-family: " + ReportFont + "; font-size:9pt; border-style:outset; border-width:1} " + newline);
+            //htmlContent.Append("</style>" + newline);
             htmlContent.Append("</head>" + newline);
-            htmlContent.Append("<BODY TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 BOTTOMMARGIN=0>" + newline);
+            htmlContent.Append("<body TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 BOTTOMMARGIN=0>" + newline);
             htmlContent.Append("<TABLE Width='100%' style='FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=#a9d4ff,endColorStr=#ffffff)' Cellpadding=5><TR><TD>");
             htmlContent.Append("<font face='" + ReportFont + "' size=6>" + ReportTitle + "</font>");
             htmlContent.Append("</TD></TR></TABLE>" + newline);
         }
+
+
+
+//        <table class="tablesorter" cellspacing="1">
+//<thead>
+//<TR>
+//<th class="header">Название</th>
+//<th class="header">Название файла</th>
+//<th class="header">Каталог</th>
+//<th class="header">Полный путь</th>
+//<th class="header">mName</th>
+//<th class="header">Описание</th>
+// <th class="header">Страна</th>
+// <th class="header">Жанр</th>
+// <th class="header">Категория</th>
+//<th class="header">TimeString</th>
+//</TR>
+//	</thead>
+//			<tbody>
+//<TR>
+//  <TD bgcolor = 'White'  WIDTH=20  ALIGN='RIGHT'  VALIGN='top' class='DetailData'>-03-25</TD>
 
         /// <summary>
         /// Generates all section contents
@@ -400,7 +424,8 @@ namespace FilmCollection
                 dummySection.ChartValueField = this.ChartValueField;
                 dummySection.ChartValueHeader = this.ChartValueHeader;
                 dummySection.IncludeChart = this.IncludeChart;
-                htmlContent.Append("<TABLE Width='100%' class='TableStyle'  cellspacing=0 cellpadding=5 border=0>" + newline);
+                //htmlContent.Append("<table Width='100%' class='TableStyle' cellspacing=0 cellpadding=5 border=0>" + newline);
+                htmlContent.Append("<table class='tablesorter' cellspacing='1'>" + newline);
                 if (this.IncludeChart && !this.ChartShowAtBottom)
                     GenerateBarChart("", dummySection);
                 Hashtable total = WriteSectionDetail(null, "");
@@ -411,14 +436,14 @@ namespace FilmCollection
                 }
                 if (this.IncludeChart && this.ChartShowAtBottom)
                     GenerateBarChart("", dummySection);
-                htmlContent.Append("</TABLE></BODY></HTML>");
+                htmlContent.Append("</table></body></html>");
             }
             foreach (Section section in sections)
             {
                 iLevel = 0;
-                htmlContent.Append("<TABLE Width='100%' class='TableStyle'  cellspacing=0 cellpadding=5 border=0>" + newline);
+                htmlContent.Append("<table Width='100%' class='TableStyle'  cellspacing=0 cellpadding=5 border=0>" + newline);
                 RecurseSections(section, "");
-                htmlContent.Append("</TABLE></BODY></HTML>");
+                htmlContent.Append("</table></body></html>");
             }
         }
 
@@ -595,7 +620,7 @@ namespace FilmCollection
             return ht;
         }
 
- 
+
 
         /// <summary>
         /// Method to generate BarChart
@@ -935,32 +960,20 @@ namespace FilmCollection
             {
                 switch (value)
                 {
-                    case ALIGN.LEFT:
-                        alignment = "LEFT";
-                        break;
-                    case ALIGN.RIGHT:
-                        alignment = "RIGHT";
-                        break;
-                    case ALIGN.CENTER:
-                        alignment = "CENTER";
-                        break;
-                    default:
-                        alignment = "LEFT";
-                        break;
+                    case ALIGN.LEFT: alignment = "LEFT"; break;
+                    case ALIGN.RIGHT: alignment = "RIGHT"; break;
+                    case ALIGN.CENTER: alignment = "CENTER"; break;
+                    default: alignment = "LEFT"; break;
                 }
             }
             get
             {
                 switch (alignment)
                 {
-                    case "LEFT":
-                        return ALIGN.LEFT;
-                    case "RIGHT":
-                        return ALIGN.RIGHT;
-                    case "CENTER":
-                        return ALIGN.CENTER;
-                    default:
-                        return ALIGN.LEFT;
+                    case "LEFT": return ALIGN.LEFT;
+                    case "RIGHT": return ALIGN.RIGHT;
+                    case "CENTER": return ALIGN.CENTER;
+                    default: return ALIGN.LEFT;
                 }
             }
         }
