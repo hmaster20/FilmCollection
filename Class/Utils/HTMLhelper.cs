@@ -237,10 +237,35 @@ namespace FilmCollection
                 fileDialog.InitialDirectory = Environment.SpecialFolder.Desktop.ToString(); //Path.Combine(RCollection.Options.Source, GetNode());
                 fileDialog.Filter = "Web-страница (*.htm)|*.htm";
                 fileDialog.Title = "Выберите файл:";
+                fileDialog.FileName = "Отчет";
                 fileDialog.RestoreDirectory = true;
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    string currentFolder = fileDialog.FileName.Substring(0, fileDialog.FileName.LastIndexOf('\\'));
+
+                    string currentFolder2 = System.IO.Path.GetDirectoryName(fileDialog.FileName);
+                    FileInfo fileInfo = new FileInfo(fileDialog.FileName);
+                    string name = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
+                    file = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
+
+                    string targetDir = Path.Combine(Path.GetDirectoryName(fileDialog.FileName), Getfolder);
+
+                    if (!Directory.Exists(targetDir))
+                    {
+                        Directory.CreateDirectory(targetDir);
+                    }
+
+                    string sdfg = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+                    string webfiles = sdfg+ "\\Resources\\web";
+
+
+                    foreach (var file in Directory.GetFiles(webfiles))
+                        File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)));
+
+
+
+
                     reportHTML.SaveReport(fileDialog.FileName);
 
                     //FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
@@ -253,12 +278,24 @@ namespace FilmCollection
                     //}
                 }
             }
-
             //Generate and save the report
             //reportHTML.SaveReport(@"X:\test\Report.htm");
-
         }
 
+        private string file { get; set; } = "";
+        //private string getfolder;
+        public string Getfolder
+        {
+            get
+            {
+                return file + "_files";
+            }
+
+            //set
+            //{
+            //    getfolder = value;
+            //}
+        }
 
         //Constructor 
         public Reports()
@@ -309,6 +346,8 @@ namespace FilmCollection
             get { return reportFields; }
             set { reportFields = value; }
         }
+
+
         #endregion
 
         #region Methods
@@ -365,9 +404,13 @@ namespace FilmCollection
             htmlContent.Append("<meta name='author' content='Бирюков Сергей'/>" + newline);
             htmlContent.Append("<meta name='copyright' content='Бирюков Сергей'/>" + newline);
 
-            htmlContent.Append("<link rel='stylesheet' href='files/style.css' type='text/css' id='' media='print, projection, screen'>" + newline);
-            htmlContent.Append("<script type='text/javascript' src='files/jquery-latest.js'></script>" + newline);
-            htmlContent.Append("<script type='text/javascript' src='files /jquery.js'></script>" + newline);
+            //htmlContent.Append("<link rel='stylesheet' href='files/style.css' type='text/css' id='' media='print, projection, screen'>" + newline);
+            //htmlContent.Append("<script type='text/javascript' src='files/jquery-latest.js'></script>" + newline);
+            //htmlContent.Append("<script type='text/javascript' src='files /jquery.js'></script>" + newline);
+
+            htmlContent.Append("<link rel='stylesheet' href='" + Getfolder + "/style.css' type='text/css' id='' media='print, projection, screen'>" + newline);
+            htmlContent.Append("<script type='text/javascript' src='" + Getfolder + "/jquery-latest.js'></script>" + newline);
+            htmlContent.Append("<script type='text/javascript' src='" + Getfolder + "/jquery.js'></script>" + newline);
             htmlContent.Append("<script type='text/javascript' id='js'>$(document).ready(function() {$('table').tablesorter({sortList: [[0, 0],[2,0]]});}); </script>" + newline);
 
             //htmlContent.Append("<style>" + newline);

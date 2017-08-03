@@ -272,12 +272,24 @@
     <Content Include="Resources\Report.png" />
     <Content Include="Resources\save.png" />
     <Content Include="Resources\viewfiles.png" />
-    <Content Include="Resources\web\asc.gif" />
-    <Content Include="Resources\web\bg.gif" />
-    <Content Include="Resources\web\desc.gif" />
-    <Content Include="Resources\web\jquery-latest.js" />
-    <Content Include="Resources\web\jquery.js" />
-    <Content Include="Resources\web\style.css" />
+    <Content Include="Resources\web\asc.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\web\bg.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\web\desc.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\web\jquery-latest.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\web\jquery.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\web\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Описание\Разработка.txt" />
   </ItemGroup>
   <ItemGroup>
