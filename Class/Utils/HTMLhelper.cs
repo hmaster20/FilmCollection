@@ -9,71 +9,38 @@ using System.Windows.Forms;
 
 namespace FilmCollection
 {
-
-    /// <summary>
-    /// Holds the report details and Methods to generate report.
-    /// </summary>
-    public class Reports
+    public static class Reports
     {
-        private DataSet reportSource { get; set; }
-        private ArrayList sections { get; set; }
-        private string reportTitle { get; set; }
-        private string newline { get; set; }
-        private ArrayList reportFields { get; set; }
-        private int iLevel { get; set; } = 0;
-        private string gradientStyle { get; set; }
-        private StringBuilder htmlContent { get; set; }
-        public string ReportFont { get; set; }
-        private Hashtable totalList { get; set; }
-        public ArrayList TotalFields { get; set; }
-        public bool IncludeTotal { get; set; }
+        public static DataSet ReportSource { get; set; }
+        public static string ReportTitle { get; set; }
+        public static ArrayList Sections { get; set; } = new ArrayList();
+        public static ArrayList ReportFields { get; set; } = new ArrayList();
+        public static ArrayList TotalFields { get; set; } = new ArrayList();
+        private static Hashtable totalList { get; set; } = new Hashtable();
+        private static StringBuilder htmlContent { get; set; } = new StringBuilder();
+        private static string newline { get; set; } = "\n";
+        private static string gradientStyle { get; set; } = "FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=BackColor,endColorStr=#ffffff)";
+        public static string ReportFont { get; set; } = "Arial";
+        private static int iLevel { get; set; } = 0;
+        public static bool IncludeTotal { get; set; }
 
         //Chart fields
-        public bool IncludeChart { get; set; }
-        public string ChartTitle { get; set; }
-        public bool ChartShowAtBottom { get; set; }
-        public string ChartChangeOnField { get; set; }
-        public string ChartValueField { get; set; } = "Count";
-        public bool ChartShowBorder { get; set; }
-        public string ChartLabelHeader { get; set; } = "Label";
-        public string ChartPercentageHeader { get; set; } = "Percentage";
-        public string ChartValueHeader { get; set; } = "Value";
+        public static bool IncludeChart { get; set; }
+        public static string ChartTitle { get; set; }
+        public static bool ChartShowAtBottom { get; set; }
+        public static string ChartChangeOnField { get; set; }
+        public static string ChartValueField { get; set; } = "Count";
+        public static bool ChartShowBorder { get; set; }
+        public static string ChartLabelHeader { get; set; } = "Label";
+        public static string ChartPercentageHeader { get; set; } = "Percentage";
+        public static string ChartValueHeader { get; set; } = "Value";
 
+        //Folder report
+        private static string fileReport { get; set; }
+        public static string Getfolder() => fileReport + "_files";
 
-
-        //static DataTable ConvertListToDataTable(List<string[]> list)
-        //{
-        //    // New table.
-        //    DataTable table = new DataTable();
-
-        //    // Get max columns.
-        //    int columns = 0;
-        //    foreach (var array in list)
-        //    {
-        //        if (array.Length > columns)
-        //        {
-        //            columns = array.Length;
-        //        }
-        //    }
-
-        //    // Add columns.
-        //    for (int i = 0; i < columns; i++)
-        //    {
-        //        table.Columns.Add();
-        //    }
-
-        //    // Add rows.
-        //    foreach (var array in list)
-        //    {
-        //        table.Rows.Add(array);
-        //    }
-
-        //    return table;
-        //}
-
-
-
-        public DataSet CreateDataSet<T>(List<T> list)
+        
+        public static DataSet CreateDataSet<T>(List<T> list)
         {
             //list is nothing or has nothing, return nothing (or add exception handling)
             if (list == null || list.Count == 0) { return null; }
@@ -127,44 +94,31 @@ namespace FilmCollection
         }
 
 
-        public void Generator(RecordCollection rCollection)
-        //public void Generator(DataGridView tableRec)
+        public static void Generator(RecordCollection rCollection)
         {
-
-            Reports reportHTML = new Reports();
-            reportHTML.ReportTitle = "Название отчета";
-            reportHTML.ReportFont = "Arial";
-            reportHTML.IncludeTotal = true;
+            ReportTitle = "Название отчета";
+            ReportFont = "Arial";
+            IncludeTotal = true;
 
             List<Record> filtered = new List<Record>();
             rCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
+            ReportSource = CreateDataSet(filtered);
 
-
-
-            reportHTML.ReportSource = CreateDataSet(filtered);
-
-
-
-
-            ////Create Section
+            //Create Section
             Section release = new Section("Release", "Release: ");
-
             //Create SubSection
             Section project = new Section("Project", "ProjectID: ");
 
             //Add the sections to the report
             release.SubSection = project;
             //reportHTML.Sections.Add(release);
-
             //Add report fields to the report object.
             //reportHTML.ReportFields.Add(new Field("TicketNo", "Ticket", 50, ALIGN.RIGHT));
             //reportHTML.ReportFields.Add(new Field("CreatedBy", "CreatedBy", 150));
             //reportHTML.ReportFields.Add(new Field("AssignedTo", "AssignedTo"));
             //reportHTML.ReportFields.Add(new Field("Release", "Release", 200));
             //reportHTML.ReportFields.Add(new Field("Project", "Project", 150, ALIGN.RIGHT));
-
-
 
 
             //foreach (object obj in chkLstFields.CheckedItems)
@@ -187,34 +141,17 @@ namespace FilmCollection
             //    reportHTML.ReportFields.Add(new Field(properties[i].Name, properties[i].Name, 50, ALIGN.RIGHT));
             //}
 
-            reportHTML.ReportFields.Add(new Field("Name", "Название", 20, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("FileName", "Название файла", 20, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("DirName", "Каталог", 20, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("Path", "Полный путь", 50, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("mName", "mName", 20, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("mDescription", "Описание", 120, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("mCountry", "Страна", 20, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("mGenre", "Жанр", 20, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("mCategory", "Категория", 20, ALIGN.RIGHT));
-            reportHTML.ReportFields.Add(new Field("TimeString", "TimeString", 20, ALIGN.RIGHT));
-
-
-            //<TD  bgcolor = 'White'  WIDTH = 50  ALIGN = 'RIGHT'  class='ColumnHeaderStyle'><b>Visible</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>Name</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>FileName</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>DirName</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>Extension</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>Path</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>combineLink</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mName</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mDescription</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mPic</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mCountry</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mGenre</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mCategory</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>mYear</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>TimeVideoSpan</b></TD>
-            //<TD bgcolor = 'White'  WIDTH=50  ALIGN='RIGHT'  class='ColumnHeaderStyle'><b>TimeString</b></TD>
+            ReportFields.Add(new Field("mName", "Название", 20, ALIGN.RIGHT));
+            //ReportFields.Add(new Field("Name", "Название", 20, ALIGN.RIGHT));
+            ReportFields.Add(new Field("FileName", "Название файла", 20, ALIGN.RIGHT));
+            //ReportFields.Add(new Field("DirName", "Каталог", 20, ALIGN.RIGHT));
+            ReportFields.Add(new Field("Path", "Полный путь", 50, ALIGN.RIGHT));
+            //ReportFields.Add(new Field("mName", "mName", 20, ALIGN.RIGHT));
+            ReportFields.Add(new Field("mDescription", "Описание", 170, ALIGN.RIGHT));
+            ReportFields.Add(new Field("mCountry", "Страна", 20, ALIGN.RIGHT));
+            ReportFields.Add(new Field("mGenre", "Жанр", 20, ALIGN.RIGHT));
+            ReportFields.Add(new Field("mCategory", "Категория", 20, ALIGN.RIGHT));
+            ReportFields.Add(new Field("TimeString", "TimeString", 20, ALIGN.RIGHT));
 
 
             //Section section = null;
@@ -247,9 +184,10 @@ namespace FilmCollection
                     string currentFolder2 = System.IO.Path.GetDirectoryName(fileDialog.FileName);
                     FileInfo fileInfo = new FileInfo(fileDialog.FileName);
                     string name = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
-                    file = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
 
-                    string targetDir = Path.Combine(Path.GetDirectoryName(fileDialog.FileName), Getfolder);
+                    fileReport = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
+
+                    string targetDir = Path.Combine(Path.GetDirectoryName(fileDialog.FileName), Getfolder());
 
                     if (!Directory.Exists(targetDir))
                     {
@@ -257,109 +195,33 @@ namespace FilmCollection
                     }
 
                     string sdfg = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-                    string webfiles = sdfg+ "\\Resources\\web";
+                    string webfiles = sdfg + "\\Resources\\web";
 
 
                     foreach (var file in Directory.GetFiles(webfiles))
-                        File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)));
+                        File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)), true);
 
-
-
-
-                    reportHTML.SaveReport(fileDialog.FileName);
-
-                    //FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
-
-                    //Stream myStream;
-                    //if ((myStream = fileDialog.OpenFile()) != null)
-                    //{
-                    //    // Code to write the stream goes here.
-                    //    myStream.Close();
-                    //}
+                    SaveReport(fileDialog.FileName);
                 }
             }
-            //Generate and save the report
-            //reportHTML.SaveReport(@"X:\test\Report.htm");
-        }
-
-        private string file { get; set; } = "";
-        //private string getfolder;
-        public string Getfolder
-        {
-            get
-            {
-                return file + "_files";
-            }
-
-            //set
-            //{
-            //    getfolder = value;
-            //}
-        }
-
-        //Constructor 
-        public Reports()
-        {
-            htmlContent = new StringBuilder();
-            newline = "\n";
-            sections = new ArrayList();
-            reportFields = new ArrayList();
-            ReportFont = "Arial";
-            gradientStyle = "FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=BackColor,endColorStr=#ffffff)";
-            totalList = new Hashtable();
-            TotalFields = new ArrayList();
-        }
-
-        #region Public Properties
-        /// <summary>
-        /// Gets or Sets report source as DataSet.
-        /// </summary>
-        public DataSet ReportSource
-        {
-            get { return reportSource; }
-            set { reportSource = value; }
-        }
-
-        /// <summary>
-        /// Gets or Sets Report sections as ArrayList. Contains of objects of Section class.
-        /// </summary>
-        public ArrayList Sections
-        {
-            get { return sections; }
-            set { sections = value; }
-        }
-
-        /// <summary>
-        /// Gets or Sets Report title as string.
-        /// </summary>
-        public string ReportTitle
-        {
-            get { return reportTitle; }
-            set { reportTitle = value; }
-        }
-
-        /// <summary>
-        /// Gets or Sets report fields as ArrayList. Contains objects of Field class.
-        /// </summary>
-        public ArrayList ReportFields
-        {
-            get { return reportFields; }
-            set { reportFields = value; }
         }
 
 
-        #endregion
+
+
+
+
 
         #region Methods
         /// <summary>
         /// Generates the HTML Content for the given ReportSource.
         /// </summary>
         /// <returns>HTML String</returns>
-        public string GenerateReport()
+        public static string GenerateReport()
         {
-            foreach (Field fld in this.ReportFields)
+            foreach (Field fld in ReportFields)
             {
-                if (!this.TotalFields.Contains(fld.FieldName) && fld.isTotalField)
+                if (!TotalFields.Contains(fld.FieldName) && fld.isTotalField)
                 {
                     TotalFields.Add(fld.FieldName);
                 }
@@ -373,7 +235,7 @@ namespace FilmCollection
         /// <summary>Создание и сохранение отчета в файл.</summary>
         /// <param name="fileName">HTML Report file name</param>
         /// <returns>On success returns true</returns>
-        public bool SaveReport(string fileName)
+        public static bool SaveReport(string fileName)
         {
             try
             {
@@ -394,13 +256,13 @@ namespace FilmCollection
         /// <summary>
         /// Writes CSS and HTML title.
         /// </summary>
-        private void WriteTitle()
+        private static void WriteTitle()
         {
             htmlContent.Append("<!DOCTYPE html PUBLIC ' -//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>" + newline);
             htmlContent.Append("<html xmlns='http://www.w3.org/1999/xhtml' lang='ru-RU' xmlns:og='http://ogp.me/ns#' xmlns:fb='http://ogp.me/ns/fb#' xmlns:article='http://ogp.me/ns/article#'>" + newline);
             htmlContent.Append("<head profile='http://gmpg.org/xfn/11'>" + newline);
             htmlContent.Append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>" + newline);
-            htmlContent.Append("<title>Report - " + reportTitle + "</title>" + newline);
+            htmlContent.Append("<title>Report - " + ReportTitle + "</title>" + newline);
             htmlContent.Append("<meta name='author' content='Бирюков Сергей'/>" + newline);
             htmlContent.Append("<meta name='copyright' content='Бирюков Сергей'/>" + newline);
 
@@ -408,9 +270,9 @@ namespace FilmCollection
             //htmlContent.Append("<script type='text/javascript' src='files/jquery-latest.js'></script>" + newline);
             //htmlContent.Append("<script type='text/javascript' src='files /jquery.js'></script>" + newline);
 
-            htmlContent.Append("<link rel='stylesheet' href='" + Getfolder + "/style.css' type='text/css' id='' media='print, projection, screen'>" + newline);
-            htmlContent.Append("<script type='text/javascript' src='" + Getfolder + "/jquery-latest.js'></script>" + newline);
-            htmlContent.Append("<script type='text/javascript' src='" + Getfolder + "/jquery.js'></script>" + newline);
+            htmlContent.Append("<link rel='stylesheet' href='" + Getfolder() + "/style.css' type='text/css' id='' media='print, projection, screen'>" + newline);
+            htmlContent.Append("<script type='text/javascript' src='" + Getfolder() + "/jquery-latest.js'></script>" + newline);
+            htmlContent.Append("<script type='text/javascript' src='" + Getfolder() + "/jquery.js'></script>" + newline);
             htmlContent.Append("<script type='text/javascript' id='js'>$(document).ready(function() {$('table').tablesorter({sortList: [[0, 0],[2,0]]});}); </script>" + newline);
 
             //htmlContent.Append("<style>" + newline);
@@ -429,59 +291,36 @@ namespace FilmCollection
         }
 
 
-
-//        <table class="tablesorter" cellspacing="1">
-//<thead>
-//<TR>
-//<th class="header">Название</th>
-//<th class="header">Название файла</th>
-//<th class="header">Каталог</th>
-//<th class="header">Полный путь</th>
-//<th class="header">mName</th>
-//<th class="header">Описание</th>
-// <th class="header">Страна</th>
-// <th class="header">Жанр</th>
-// <th class="header">Категория</th>
-//<th class="header">TimeString</th>
-//</TR>
-//	</thead>
-//			<tbody>
-//<TR>
-//  <TD bgcolor = 'White'  WIDTH=20  ALIGN='RIGHT'  VALIGN='top' class='DetailData'>-03-25</TD>
-
-        /// <summary>
-        /// Generates all section contents
-        /// </summary>
-        private void WriteSections()
+        private static void WriteSections()//Заполняет содержимое таблицы
         {
-            if (sections.Count == 0)
+            if (Sections.Count == 0)
             {
                 Section dummySection = new Section();
                 dummySection.Level = 5;
-                dummySection.ChartChangeOnField = this.ChartChangeOnField;
-                dummySection.ChartLabelHeader = this.ChartLabelHeader;
-                dummySection.ChartPercentageHeader = this.ChartPercentageHeader;
-                dummySection.ChartShowAtBottom = this.ChartShowAtBottom;
-                dummySection.ChartShowBorder = this.ChartShowAtBottom;
-                dummySection.ChartTitle = this.ChartTitle;
-                dummySection.ChartValueField = this.ChartValueField;
-                dummySection.ChartValueHeader = this.ChartValueHeader;
-                dummySection.IncludeChart = this.IncludeChart;
+                dummySection.ChartChangeOnField = ChartChangeOnField;
+                dummySection.ChartLabelHeader = ChartLabelHeader;
+                dummySection.ChartPercentageHeader = ChartPercentageHeader;
+                dummySection.ChartShowAtBottom = ChartShowAtBottom;
+                dummySection.ChartShowBorder = ChartShowAtBottom;
+                dummySection.ChartTitle = ChartTitle;
+                dummySection.ChartValueField = ChartValueField;
+                dummySection.ChartValueHeader = ChartValueHeader;
+                dummySection.IncludeChart = IncludeChart;
                 //htmlContent.Append("<table Width='100%' class='TableStyle' cellspacing=0 cellpadding=5 border=0>" + newline);
                 htmlContent.Append("<table class='tablesorter' cellspacing='1'>" + newline);
-                if (this.IncludeChart && !this.ChartShowAtBottom)
+                if (IncludeChart && !ChartShowAtBottom)
                     GenerateBarChart("", dummySection);
                 Hashtable total = WriteSectionDetail(null, "");
-                if (this.IncludeTotal)
+                if (IncludeTotal)
                 {
                     dummySection.IncludeTotal = true;
-                    WriteSectionFooter(dummySection, total);
+                    //WriteSectionFooter(dummySection, total);
                 }
-                if (this.IncludeChart && this.ChartShowAtBottom)
+                if (IncludeChart && ChartShowAtBottom)
                     GenerateBarChart("", dummySection);
-                htmlContent.Append("</table></body></html>");
+                htmlContent.Append("</tbody></table></body></html>");
             }
-            foreach (Section section in sections)
+            foreach (Section section in Sections)
             {
                 iLevel = 0;
                 htmlContent.Append("<table Width='100%' class='TableStyle'  cellspacing=0 cellpadding=5 border=0>" + newline);
@@ -495,7 +334,7 @@ namespace FilmCollection
         /// </summary>
         /// <param name="section">The section details as Section object</param>
         /// <param name="sectionValue">section group field data</param>
-        private void WriteSectionHeader(Section section, string sectionValue)
+        private static void WriteSectionHeader(Section section, string sectionValue)
         {
             string bg = section.backColor;
             string style = " style=\"font-family: " + ReportFont + "; font-weight:bold; font-size:";
@@ -504,7 +343,7 @@ namespace FilmCollection
                 style += "; " + gradientStyle.Replace("BackColor", bg) + "\"";
             else style += "\" bgcolor='" + bg + "' ";
 
-            htmlContent.Append("<TR><TD colspan='" + this.ReportFields.Count + "' " + style + " >");
+            htmlContent.Append("<TR><TD colspan='" + ReportFields.Count + "' " + style + " >");
             htmlContent.Append(section.TitlePrefix + sectionValue);
             htmlContent.Append("</TD></TR>" + newline);
         }
@@ -514,7 +353,7 @@ namespace FilmCollection
         /// </summary>
         /// <param name="section">the section details</param>
         /// <param name="criteria">the section selection criteria</param>
-        private Hashtable WriteSectionDetail(Section section, string criteria)
+        private static Hashtable WriteSectionDetail(Section section, string criteria)
         {
             Hashtable totalArray = new Hashtable();
             totalArray = PrepareData(totalArray);
@@ -525,17 +364,21 @@ namespace FilmCollection
             try
             {
                 //Draw DetailHeader
+                htmlContent.Append("<thead>" + newline);
                 htmlContent.Append("<TR>" + newline);
                 string cellParams = "";
-                foreach (Field field in this.reportFields)
+                foreach (Field field in ReportFields)
                 {
                     cellParams = " bgcolor='" + field.headerBackColor + "' ";
                     if (field.Width != 0)
                         cellParams += " WIDTH=" + field.Width + " ";
                     cellParams += " ALIGN='" + field.alignment + "' ";
-                    htmlContent.Append("  <TD " + cellParams + " class='ColumnHeaderStyle'><b>" + field.HeaderName + "</b></TD>" + newline);
+                    //htmlContent.Append("  <TD " + cellParams + " class='ColumnHeaderStyle'><b>" + field.HeaderName + "</b></TD>" + newline);
+                    htmlContent.Append("  <th class='header'>" + field.HeaderName + "</th>" + newline);
                 }
                 htmlContent.Append("</TR>" + newline);
+                htmlContent.Append("</thead>" + newline);
+                htmlContent.Append("<tbody>" + newline);
 
                 //Draw Data
                 if (criteria == null || criteria.Trim() == "")
@@ -544,16 +387,16 @@ namespace FilmCollection
                     criteria = criteria.Substring(3);
 
 
-                foreach (DataRow dr in reportSource.Tables[0].Select(criteria))
+                foreach (DataRow dr in ReportSource.Tables[0].Select(criteria))
                 {
                     htmlContent.Append("<TR>" + newline);
-                    foreach (Field field in this.reportFields)
+                    foreach (Field field in ReportFields)
                     {
                         cellParams = " bgcolor='" + field.backColor + "' ";
                         if (field.Width != 0)
                             cellParams += " WIDTH=" + field.Width + " ";
                         //if total field, by default set to RIGHT align.
-                        if (this.TotalFields.Contains(field.FieldName))
+                        if (TotalFields.Contains(field.FieldName))
                             cellParams += " align='right' ";
                         cellParams += " ALIGN='" + field.alignment + "' ";
                         htmlContent.Append("  <TD " + cellParams + " VALIGN='top' class='DetailData'>" + dr[field.FieldName] + "</TD>" + newline);
@@ -584,14 +427,14 @@ namespace FilmCollection
         /// Method to write section footer information.
         /// </summary>
         /// <param name="section">The section details</param></param>
-        private void WriteSectionFooter(Section section, Hashtable totalArray)
+        private static void WriteSectionFooter(Section section, Hashtable totalArray)
         {
             string cellParams = "";
             //Include Total row if specified.
             if (section.IncludeTotal)
             {
                 htmlContent.Append("<TR>" + newline);
-                foreach (Field field in this.reportFields)
+                foreach (Field field in ReportFields)
                 {
                     cellParams = "";
                     if (field.Width != 0)
@@ -614,7 +457,7 @@ namespace FilmCollection
         /// <summary>
         /// Writes the HTML closing tags
         /// </summary>
-        private void WriteFooter()
+        private static void WriteFooter()
         {
             htmlContent.Append("<BR>");
         }
@@ -624,11 +467,11 @@ namespace FilmCollection
         /// </summary>
         /// <param name="section">the section details</param>
         /// <param name="criteria">section data selection criteria</param>
-        private Hashtable RecurseSections(Section section, string criteria)
+        private static Hashtable RecurseSections(Section section, string criteria)
         {
             iLevel++;
             section.Level = iLevel;
-            ArrayList result = GetDistinctValues(this.reportSource, section.GroupBy, criteria);
+            ArrayList result = GetDistinctValues(ReportSource, section.GroupBy, criteria);
             Hashtable ht = new Hashtable();
             PrepareData(ht);
             foreach (object obj in result)
@@ -658,7 +501,7 @@ namespace FilmCollection
                 section.isChartCreated = false;
             }
             if (section.Level < 2)
-                htmlContent.Append("<TR><TD colspan='" + this.ReportFields.Count + "'>&nbsp;</TD></TR>");
+                htmlContent.Append("<TR><TD colspan='" + ReportFields.Count + "'>&nbsp;</TD></TR>");
 
             return ht;
         }
@@ -672,14 +515,14 @@ namespace FilmCollection
         /// <param name="changeOnField">Y-Axis data field</param>
         /// <param name="valueField">X-Axis data field (Send "count" as value for reporting record count)</param>
         /// <param name="showBorder">Enable or disable chart border</param>
-        private void GenerateBarChart(string criteria, Section section)
+        private static void GenerateBarChart(string criteria, Section section)
         {
             string changeOnField = section.ChartChangeOnField;
             string valueField = section.ChartValueField;
             bool showBorder = section.ChartShowBorder;
             section.isChartCreated = true;
             string[] colors = { "#ff0000", "#ffff00", "#ff00ff", "#00ff00", "#00ffff", "#0000ff", "#ff0f0f", "#f0f000", "#ff00f0", "#0f00f0" };
-            htmlContent.Append("<TR><TD colspan='" + this.ReportFields.Count + "' align=CENTER>" + newline);
+            htmlContent.Append("<TR><TD colspan='" + ReportFields.Count + "' align=CENTER>" + newline);
             htmlContent.Append("<!--- Chart Table starts here -->" + newline);
             if (showBorder)
             {
@@ -695,7 +538,7 @@ namespace FilmCollection
             }
             try
             {
-                ArrayList result = GetDistinctValuesForChart(this.reportSource, criteria, changeOnField, valueField);
+                ArrayList result = GetDistinctValuesForChart(ReportSource, criteria, changeOnField, valueField);
                 ArrayList labels = (ArrayList)result[0];
                 ArrayList values = (ArrayList)result[1];
                 float total = 0;
@@ -786,7 +629,7 @@ namespace FilmCollection
         /// <param name="changeOnField">Column name</param>
         /// <param name="valueField">Column name</param>
         /// <returns>List of distinct labels and values</returns>
-        private ArrayList GetDistinctValuesForChart(DataSet dataSet, string criteria, string changeOnField, string valueField)
+        private static ArrayList GetDistinctValuesForChart(DataSet dataSet, string criteria, string changeOnField, string valueField)
         {
             ArrayList result = new ArrayList();
             ArrayList distinctValues = new ArrayList();
@@ -810,7 +653,7 @@ namespace FilmCollection
                 criteria += " and ";
             foreach (object obj in distinctValues)
             {
-                DataRow[] rows = reportSource.Tables[0].Select(criteria + changeOnField + "='" + obj.ToString().Replace("'", "''") + "' ");
+                DataRow[] rows = ReportSource.Tables[0].Select(criteria + changeOnField + "='" + obj.ToString().Replace("'", "''") + "' ");
                 if (valueField.Trim().ToUpper() == "COUNT")
                 {
                     totalValues.Add(rows.Length.ToString());
@@ -836,7 +679,7 @@ namespace FilmCollection
         /// <param name="columnName">Column name</param>
         /// <param name="criteria">Data selection criteria</param>
         /// <returns>List of distinct values</returns>
-        private ArrayList GetDistinctValues(DataSet dataSet, string columnName, string criteria)
+        private static ArrayList GetDistinctValues(DataSet dataSet, string columnName, string criteria)
         {
             ArrayList distinctValues = new ArrayList();
             if (criteria == null || criteria.Trim() == "")
@@ -858,7 +701,7 @@ namespace FilmCollection
         }
 
 
-        private Hashtable PrepareData(Hashtable totalArray)
+        private static Hashtable PrepareData(Hashtable totalArray)
         {
             foreach (object obj in TotalFields)
             {
@@ -870,7 +713,7 @@ namespace FilmCollection
             return totalArray;
         }
 
-        private Hashtable AccumulateTotal(Hashtable totalTable1, Hashtable totalTable2)
+        private static Hashtable AccumulateTotal(Hashtable totalTable1, Hashtable totalTable2)
         {
             foreach (object totalField in TotalFields)
             {
@@ -880,7 +723,7 @@ namespace FilmCollection
             return totalTable1;
         }
 
-        private string getFontSize(int level)
+        private static string getFontSize(int level)
         {
             string fontSize = "";
             switch (level)

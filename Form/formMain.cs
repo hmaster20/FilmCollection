@@ -414,11 +414,7 @@ namespace FilmCollection
             // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
         }
 
-        private void btnExportHTML_Click(object sender, EventArgs e)
-        {
-            Reports reportHTML = new Reports();
-            reportHTML.Generator(RCollection);
-        }
+        private void btnExportHTML_Click(object sender, EventArgs e) => Reports.Generator(RCollection);
 
 
         private void About_Click(object sender, EventArgs e) => AboutFC();
