@@ -112,33 +112,43 @@ namespace FilmCollection
         public static RecordCollection Load(bool fromFile = false)
         {
             RecordCollection result;
+
+            //if (fromFile)
+            //{
+            //    result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
+            //}
+            //else
+            //{
+            //    result = XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+            //}
+
             try
             {
-                //result = (fromFile) 
-                //    ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
-                //    : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+                result = (fromFile)
+                    ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
+                    : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+            }
+            catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки при десериализации. \n" + ex.Message); }
 
-                if (fromFile)
-                {
-                    result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
-                }
-                else
-                {
-                    result = XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
-                }
 
-                Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
+            Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
 
+            try
+            {
                 foreach (Combine com in result.CombineList)
                 {
                     combineDic.Add(com.media.Id, com);
                     foreach (var record in com.recordList)
                         record.combineLink = com;           // привязываем record.combineLink к родителю
                 }
+            }
+            catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки с индексами медиа-файлов. \n" + ex.Message); }
 
-                Dictionary<int, Actor> actorDic = new Dictionary<int, Actor>();
-                //result.ActorList.ForEach(act => actorDic.Add(act.id, act));  
 
+            Dictionary<int, Actor> actorDic = new Dictionary<int, Actor>();
+
+            try
+            {
                 foreach (Actor actor in result.ActorList)
                 {
                     actorDic.Add(actor.id, actor);
@@ -154,13 +164,9 @@ namespace FilmCollection
 
                 if (actorDic.Count > 0) SetActorID(actorDic.Keys.Max());
                 if (combineDic.Count > 0) SetMediaID(combineDic.Keys.Max());
+            }
+            catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки файла базы. \n" + ex.Message); }
 
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Ошибка на этапе загрузки файла базы. \n" + ex.Message);
-                //return new RecordCollection();
-            }
 
             _recordCollection = result;
             return result;
