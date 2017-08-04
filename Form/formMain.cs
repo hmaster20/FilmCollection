@@ -411,9 +411,10 @@ namespace FilmCollection
 
         private void btnReport_Click(object sender, EventArgs e)
         {
-            // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
+            // Сформировать отчет в формате excel
         }
 
+        // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
         private void btnExportHTML_Click(object sender, EventArgs e) => Reports.Generator(RCollection);
 
 
@@ -1542,7 +1543,8 @@ namespace FilmCollection
 
             using (OpenFileDialog fileDialog = new OpenFileDialog())
             {
-                fileDialog.InitialDirectory = Path.Combine(RCollection.Options.Source, GetNode());
+                fileDialog.InitialDirectory = RCollection.Options.Source;
+                //fileDialog.InitialDirectory = Path.Combine(RCollection.Options.Source, GetNode());
                 fileDialog.Filter = FormatOpen;
                 fileDialog.Title = "Выберите файл:";
                 fileDialog.RestoreDirectory = true;
