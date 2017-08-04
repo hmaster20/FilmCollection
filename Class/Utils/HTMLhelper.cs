@@ -39,7 +39,7 @@ namespace FilmCollection
         private static string fileReport { get; set; }
         public static string Getfolder() => fileReport + "_files";
 
-        
+
         public static DataSet CreateDataSet<T>(List<T> list)
         {
             //list is nothing or has nothing, return nothing (or add exception handling)
@@ -147,7 +147,7 @@ namespace FilmCollection
             //ReportFields.Add(new Field("DirName", "Каталог", 20, ALIGN.RIGHT));
             ReportFields.Add(new Field("Path", "Полный путь", 50, ALIGN.RIGHT));
             //ReportFields.Add(new Field("mName", "mName", 20, ALIGN.RIGHT));
-            ReportFields.Add(new Field("mDescription", "Описание", 170, ALIGN.RIGHT));
+            ReportFields.Add(new Field("mDescription", "Описание", 170, ALIGN.LEFT));
             ReportFields.Add(new Field("mCountry", "Страна", 20, ALIGN.RIGHT));
             ReportFields.Add(new Field("mGenre", "Жанр", 20, ALIGN.RIGHT));
             ReportFields.Add(new Field("mCategory", "Категория", 20, ALIGN.RIGHT));
@@ -179,6 +179,15 @@ namespace FilmCollection
 
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
+                    if (File.Exists(fileDialog.FileName))
+                    {
+                        try
+                        {
+                            File.Delete(fileDialog.FileName);
+                        }
+                        catch (Exception ex) { Logs.Log("Невозможно удалить файл отчета", ex); }
+                    }
+
                     string currentFolder = fileDialog.FileName.Substring(0, fileDialog.FileName.LastIndexOf('\\'));
 
                     string currentFolder2 = System.IO.Path.GetDirectoryName(fileDialog.FileName);
@@ -228,7 +237,7 @@ namespace FilmCollection
             }
             WriteTitle();
             WriteSections();
-            WriteFooter();
+            //WriteFooter();
             return htmlContent.ToString();
         }
 
@@ -258,7 +267,7 @@ namespace FilmCollection
         /// </summary>
         private static void WriteTitle()
         {
-            htmlContent.Append("<!DOCTYPE html PUBLIC ' -//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>" + newline);
+            //htmlContent.Append("<!DOCTYPE html PUBLIC ' -//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>" + newline);
             htmlContent.Append("<html xmlns='http://www.w3.org/1999/xhtml' lang='ru-RU' xmlns:og='http://ogp.me/ns#' xmlns:fb='http://ogp.me/ns/fb#' xmlns:article='http://ogp.me/ns/article#'>" + newline);
             htmlContent.Append("<head profile='http://gmpg.org/xfn/11'>" + newline);
             htmlContent.Append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>" + newline);
@@ -284,7 +293,8 @@ namespace FilmCollection
             //htmlContent.Append(" .ColumnHeaderStyle  {font-family: " + ReportFont + "; font-size:9pt; border-style:outset; border-width:1} " + newline);
             //htmlContent.Append("</style>" + newline);
             htmlContent.Append("</head>" + newline);
-            htmlContent.Append("<body TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 BOTTOMMARGIN=0>" + newline);
+            //htmlContent.Append("<body TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 BOTTOMMARGIN=0>" + newline);
+            htmlContent.Append("<body>" + newline);
             htmlContent.Append("<TABLE Width='100%' style='FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=#a9d4ff,endColorStr=#ffffff)' Cellpadding=5><TR><TD>");
             htmlContent.Append("<font face='" + ReportFont + "' size=6>" + ReportTitle + "</font>");
             htmlContent.Append("</TD></TR></TABLE>" + newline);
