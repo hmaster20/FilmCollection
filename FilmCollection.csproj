@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
+    <Compile Include="Class\Utils\CSVhelper.cs" />
     <Compile Include="Class\Utils\FileDetails.cs" />
     <Compile Include="Class\Utils\HTMLhelper.cs" />
     <Compile Include="Class\Utils\InputLanguages.cs" />
