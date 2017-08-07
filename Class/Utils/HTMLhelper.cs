@@ -211,6 +211,7 @@ namespace FilmCollection
                         File.Copy(file, Path.Combine(targetDir, Path.GetFileName(file)), true);
 
                     SaveReport(fileDialog.FileName);
+                    System.Diagnostics.Process.Start(fileDialog.FileName);
                 }
             }
         }
