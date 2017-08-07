@@ -1,45 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace FilmCollection.Class.Utils
+namespace FilmCollection
 {
     static class CSVhelper
     {
-        public static string ToCsv<T>(string separator, IEnumerable<T> objectlist)
+        public static void toCSV(RecordCollection RC)
         {
-            Type t = typeof(T);
-            FieldInfo[] fields = t.GetFields();
+            //Encoding encoding = Encoding.GetEncoding("windows-1251");
+            
+            string filePath = @"X:\test.csv";
 
-            string header = String.Join(separator, fields.Select(f => f.Name).ToArray());
+            List<Record> filtered = new List<Record>();
+            RC.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
             StringBuilder csvdata = new StringBuilder();
-            csvdata.AppendLine(header);
+            string head = "Название;Название файла;Полный путь;Описание;Страна;Жанр;Категория;Продолжительность";
+            csvdata.AppendLine(head);
 
-            foreach (var obj in objectlist)
-                csvdata.AppendLine(ToCsvFields(separator, fields, obj));
-
-            return csvdata.ToString();
-        }
-
-        public static string ToCsvFields(string separator, FieldInfo[] fields, object o)
-        {
-            StringBuilder linie = new StringBuilder();
-
-            foreach (var f in fields)
+            foreach (Record rec in filtered)
             {
-                if (linie.Length > 0)
-                    linie.Append(separator);
-
-                var x = f.GetValue(o);
-
-                if (x != null)
-                    linie.Append(x.ToString());
+                var newLine = $"{rec.mName};{rec.FileName};{rec.Path};{rec.mDescription};{rec.mCountry};{rec.mGenre};{rec.mCategory};{rec.TimeString}";
+                csvdata.AppendLine(newLine);                  
             }
-
-            return linie.ToString();
+            File.WriteAllText(filePath, csvdata.ToString(), Encoding.GetEncoding(1251));
         }
     }
 }

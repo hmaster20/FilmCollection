@@ -619,9 +619,8 @@
             // 
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(187, 22);
-            this.btnReport.Text = "Отчет";
-            this.btnReport.Visible = false;
-            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+            this.btnReport.Text = "Экспорт в CSV(Excel)";
+            this.btnReport.Click += new System.EventHandler(this.btnReportCSV_Click);
             // 
             // ts3
             // 

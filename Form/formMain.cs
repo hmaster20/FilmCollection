@@ -409,12 +409,8 @@ namespace FilmCollection
                 report.ShowDialog();
         }
 
-        private void btnReport_Click(object sender, EventArgs e)
-        {
-            // Сформировать отчет в формате excel
-        }
+        private void btnReportCSV_Click(object sender, EventArgs e) => CSVhelper.toCSV(RCollection);
 
-        // Сформировать отчет в формате HTML и открыть его в браузере по умолчанию 
         private void btnExportHTML_Click(object sender, EventArgs e) => Reports.Generator(RCollection);
 
 
