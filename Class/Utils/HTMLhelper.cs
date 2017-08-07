@@ -421,7 +421,7 @@ namespace FilmCollection
                                 float.Parse(dr[totalField.ToString()].ToString());
                         }
                     }
-                    catch (Exception exp)
+                    catch (Exception)
                     {
                         ;//to-do: show error message at total field
                     }
