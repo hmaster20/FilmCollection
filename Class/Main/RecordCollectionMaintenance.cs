@@ -29,13 +29,6 @@ namespace FilmCollection
                     main.treeFolder.Nodes.Clear();       // очищаем иерархию
                     main.TableRec.ClearSelection();      // выключаем селекты таблицы
                     main.PrepareRefresh();               // сбрасываем старые значения таблицы
-
-                    //main.BeginInvoke((MethodInvoker)(() =>
-                    //{
-                    //    main.treeFolder.Nodes.Clear();       // очищаем иерархию
-                    //    main.TableRec.ClearSelection();      // выключаем селекты таблицы
-                    //    main.PrepareRefresh();               // сбрасываем старые значения таблицы
-                    //}));
                 }
                 else
                 {
@@ -65,7 +58,7 @@ namespace FilmCollection
                 RecordCollection.SetInstance(rc);
                 CurrentRC().Options.Source = directory.FullName;   // Сохранение каталога фильмов
 
-                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
+                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.getFormat().Contains(Path.GetExtension(s.ToString())));
 
                 foreach (FileInfo file in myFiles)
                     CreateCombine(file);
@@ -74,7 +67,6 @@ namespace FilmCollection
             CurrentRC().Save();
             CurrentRC().SaveToFile();
 
-            //main.BeginInvoke((MethodInvoker)(() => main.FormLoad()));
             main.FormLoad();
         }
 
@@ -112,7 +104,7 @@ namespace FilmCollection
                             }));
                         }
 
-                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.FormatAdd().Contains(Path.GetExtension(s.ToString())));
+                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
 
                         main.BeginInvoke((MethodInvoker)(() =>
                         {
@@ -121,20 +113,20 @@ namespace FilmCollection
                             main.FindStatusLabel.Text = myFiles.Count().ToString();
                         }));
 
-                        List<FileInfo> ff = new List<FileInfo>();
-                        ff = myFiles.ToList();
+                        List<FileInfo> files = new List<FileInfo>();
+                        files = myFiles.ToList();
 
                         int findCount = 0;
 
-                        for (int i = 0; i < ff.Count; i++)
+                        for (int i = 0; i < files.Count; i++)
                         {
                             main.BeginInvoke((MethodInvoker)(() =>
                             {
                                 main.tsProgressBar.Value = i;
-                                main.FindStatusLabel.Text = i.ToString() + " из " + ff.Count.ToString();
+                                main.FindStatusLabel.Text = i.ToString() + " из " + files.Count.ToString();
                             }));
 
-                            FileInfo file = ff[i];
+                            FileInfo file = files[i];
                             Record record = new Record();
                             record.FileName = file.Name;                            // полное название файла (film.avi)
                             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
