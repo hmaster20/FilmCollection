@@ -23,14 +23,14 @@ namespace FilmCollection
         public const string BaseName = "VideoList.xml";
 
         /// <summary>Метод генерирует массив вида ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx"</summary>
-        public static List<string> FormatAdd()
+        public static List<string> getFormat()
         {
-            List<string> FormatAdd = new List<string>();
+            List<string> Format = new List<string>();
             foreach (var item in Enum.GetValues(typeof(MediaFormat)))
             {
-                FormatAdd.Add("." + item.ToString());
+                Format.Add("." + item.ToString());
             }
-            return FormatAdd;
+            return Format;
         }
 
         /// <summary>Метод генерирует строку вида "Видео (*.avi, *.mkv, *.mp4, ..)|*.avi;*.mkv;*.mp4;*.wmv;*.webm;*.rm;*.mpg;*.flv;*.divx|Все файлы (*.*) | *.*"</summary>
@@ -46,10 +46,8 @@ namespace FilmCollection
         }
 
         /// <summary>Каталог изображений</summary>
-        public static string PicsFolder()
-        {
-            return  Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
-        }
+        public static string PicsFolder() => Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
+  
 
         /// <summary>Путь к корневой папке</summary>
         public string Source { get; set; } 
