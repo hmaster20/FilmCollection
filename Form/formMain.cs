@@ -94,7 +94,7 @@ namespace FilmCollection
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение поисковых индексов
 
-            FormatAdd = RecordOptions.FormatAdd();  // формат открытия файлов
+            FormatAdd = RecordOptions.getFormat();  // формат открытия файлов
             FormatOpen = RecordOptions.FormatOpen();// список форматов файлов
             PicsFolder = RecordOptions.PicsFolder();//Каталог изображений
 
@@ -982,15 +982,21 @@ namespace FilmCollection
 
             RefreshTable(filtered);
 
-            if (filtered.Count != 0)
-            {
-                if (TableRec.Rows.Count > 0)
-                {
-                    TableRec.Rows[0].Selected = true;
-                }
-                SelectRecord(TableRec, filtered[0]);
-                SelectRec();
-            }
+            //if (filtered.Count != 0)
+            //{
+            //    if (TableRec.Rows.Count > 0)
+            //    {
+            //        TableRec.Rows[0].Selected = true;
+            //    }
+            //    SelectRecord(TableRec, filtered[0]);
+            //    SelectRec();
+            //}
+
+
+            //if ((filtered.Count != 0) &&  (TableRec.Rows.Count > 0))
+            //    SelectRec();
+        
+
 
 
 
@@ -1138,6 +1144,7 @@ namespace FilmCollection
             {
                 Record record = null;
                 if (dgv.SelectedRows[0].DataBoundItem is Record) record = dgv.SelectedRows[0].DataBoundItem as Record;
+                //if (dgv.CurrentRow.DataBoundItem is Record) record = dgv.CurrentRow.DataBoundItem as Record;
                 if (record != null) return record;
             }
             return null;
@@ -2489,14 +2496,9 @@ namespace FilmCollection
                         RCollection.Save();
                         RCollection.SaveToFile();
                         PrepareRefresh();
+                        SelectRecord(TableRec, record);
                         SelectRec();
                     }));
-
-                    //CardRecordPreview_Clear();
-                    //RCollection.Save();
-                    //RCollection.SaveToFile();
-                    //PrepareRefresh();
-                    //SelectRec();
                 }
             }
 
@@ -2957,6 +2959,23 @@ namespace FilmCollection
                 Delete();
                 e.Handled = true;
             }
+        }
+
+        private void TableRec_SelectionChanged(object sender, EventArgs e)
+        {
+            Debug.Print("TableRec_SelectionChanged");
+
+            Record record = new Record();
+            if (TableRec.SelectedRows.Count > 0 && TableRec.SelectedRows[0].DataBoundItem is Record)
+            {
+                record = TableRec.SelectedRows[0].DataBoundItem as Record;
+                Debug.Print(record.mName);
+            }
+            else
+            {
+                Debug.Print("record = null");
+            }
+  
         }
 
 
