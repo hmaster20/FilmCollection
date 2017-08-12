@@ -2777,7 +2777,10 @@ namespace FilmCollection
                     {
                         if (m_AddImageDelegate != null)
                         {
-                            Invoke(m_AddImageDelegate, imageFilename);
+                            if (this != null)
+                            {
+                                Invoke(m_AddImageDelegate, imageFilename);
+                            }                            
                         }
                     }
                     else
