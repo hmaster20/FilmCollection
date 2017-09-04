@@ -27,36 +27,36 @@ namespace FilmCollection
         private void btnParse_Click(object sender, EventArgs e)
         {
             string file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
-
-
+            
             XDocument xml = XDocument.Load(file);
 
             var nodes = (from n in xml.Descendants("media")
                          select n.Element("Id").Value
                  ).ToList();
 
-            List<string> nn = new List<string>();
-            nn = nodes;
+            //// поиск самих дубликатов
+            //var duplicatesSs = nodes.GroupBy(s => s)
+            //    .SelectMany(grp => grp.Skip(1)).ToList();
 
-
-
-            var duplicatesSs = nodes.GroupBy(s => s)
-                .SelectMany(grp => grp.Skip(1)).ToList();
-
+            // поиск видов дубликатов по наименованию 
             var querys = nodes.GroupBy(x => x)
                 .Where(g => g.Count() > 1)
                 .Select(y => y.Key)
                 .ToList();
 
+            //var duplicateKeys = nodes.GroupBy(x => x)
+            //    .Where(group => group.Count() > 1)
+            //    .Select(group => group.Key)
+            //    .ToList();
+
+
+            // поиск видов дубликатов и их количества
             var queryss = nodes.GroupBy(x => x)
               .Where(g => g.Count() > 1)
               .Select(y => new { Element = y.Key, Counter = y.Count() })
               .ToList();
 
-            var duplicateKeys = nn.GroupBy(x => x)
-                        .Where(group => group.Count() > 1)
-                        .Select(group => group.Key)
-                        .ToList();
+
 
 
 
@@ -71,15 +71,14 @@ namespace FilmCollection
 
                 foreach (var node in nodesErr)
                 {
-                    Console.WriteLine(node.Trim());
+                    listView1.Items.Add(node);
+                    listBox1.Items.Add(node);
+                    //Console.WriteLine(node.Trim());
                 }
 
             }
-
-
-
-
-
+            
+            
 
 
             XDocument xml2 = XDocument.Load(file);
@@ -98,12 +97,14 @@ namespace FilmCollection
 
 
 
+
+
+
             //foreach (var item in nodes)
             //{
             //    Console.WriteLine(item.Trim());
             //}
-
-
+            
 
             //XmlTextReader reader = new XmlTextReader(file);
             //while (reader.Read())
