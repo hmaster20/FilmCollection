@@ -2981,6 +2981,12 @@ namespace FilmCollection
   
         }
 
+        private void btnReindexerForm_Click(object sender, EventArgs e)
+        {
+            using (formReindexer reindex = new formReindexer())
+                reindex.ShowDialog();
+        }
+
 
         //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
         //{
