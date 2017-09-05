@@ -17,6 +17,10 @@ namespace FilmCollection
         public formReindexer()
         {
             InitializeComponent();
+
+            dataGridView2.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
+            dataGridView2.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
+            dataGridView2.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
         }
 
         public formReindexer(RecordCollection _videoCollection)
@@ -27,12 +31,12 @@ namespace FilmCollection
         private void btnParse_Click(object sender, EventArgs e)
         {
             string file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
-            
+
             XDocument xml = XDocument.Load(file);
 
             var nodes = (from n in xml.Descendants("media")
                          select n.Element("Id").Value
-                 ).ToList();
+                         ).ToList();
 
             //// поиск самих дубликатов
             //var duplicatesSs = nodes.GroupBy(s => s)
@@ -44,19 +48,38 @@ namespace FilmCollection
                 .Select(y => y.Key)
                 .ToList();
 
-            //var duplicateKeys = nodes.GroupBy(x => x)
-            //    .Where(group => group.Count() > 1)
-            //    .Select(group => group.Key)
-            //    .ToList();
-
-
             // поиск видов дубликатов и их количества
             var queryss = nodes.GroupBy(x => x)
               .Where(g => g.Count() > 1)
               .Select(y => new { Element = y.Key, Counter = y.Count() })
               .ToList();
 
+            Dictionary <string, int> ss = new Dictionary<string, int>();
 
+            for (int i = 0; i < queryss.Count; i++)
+            {
+                ss.Add(queryss[i].Element, queryss[i].Counter);
+            }
+
+            listBox2.DataSource = new BindingSource(ss, null);
+            listBox2.DisplayMember = "Value";
+            listBox2.ValueMember = "Key";
+
+
+            foreach (KeyValuePair<string, int> kvp in ss)
+            {
+                ListViewItem lvi = listView2.Items.Add(kvp.Key);
+                string temp = string.Join(", ", kvp.Value);
+                lvi.SubItems.Add(temp);
+            }
+
+
+            dataGridView1.DataSource = ss.ToArray();
+            dataGridView1.Update();
+
+
+
+    
 
 
 
@@ -71,20 +94,58 @@ namespace FilmCollection
 
                 foreach (var node in nodesErr)
                 {
-                    listView1.Items.Add(node);
-                    listBox1.Items.Add(node);
-                    //Console.WriteLine(node.Trim());
+                    listView1.Items.Add(node.Trim());
+                    listBox1.Items.Add(node.Trim());
                 }
-
             }
-            
-            
+
+
+
+            Dictionary<string, int> newDic = new Dictionary<string, int>();
+
+            foreach (var item in querys)
+            {
+                var nodesErr = (from n in xmlErr.Descendants("media")
+                                where n.Element("Id").Value == item //"0"
+                                select new { Name = n.Element("Name").Value, ID = n.Element("Id").Value }
+                                );
+
+                foreach (var items in nodesErr)
+                {
+                    newDic.Add(items.Name, Convert.ToInt32(items.ID));
+                }
+     
+            }
+
+            // TableRec.DataSource = filtered;
+
+            dataGridView2.DataSource = newDic.ToArray();
+           
+            dataGridView3.DataSource = newDic.ToArray().OrderBy(c => c.Value).ThenBy(c => c.Key);
+
+
+
+            //dataGridView2.Update();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             XDocument xml2 = XDocument.Load(file);
 
             var ActorNodes = (from n in xml2.Descendants("Actor")
-                         select n.Element("id").Value
+                              select n.Element("id").Value
                          ).ToList();
 
             List<string> nn2 = new List<string>();
@@ -104,7 +165,7 @@ namespace FilmCollection
             //{
             //    Console.WriteLine(item.Trim());
             //}
-            
+
 
             //XmlTextReader reader = new XmlTextReader(file);
             //while (reader.Read())
