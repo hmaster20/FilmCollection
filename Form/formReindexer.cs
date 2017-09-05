@@ -120,9 +120,10 @@ namespace FilmCollection
             // TableRec.DataSource = filtered;
 
             dataGridView2.DataSource = newDic.ToArray();
-           
-            dataGridView3.DataSource = newDic.ToArray().OrderBy(c => c.Value).ThenBy(c => c.Key);
 
+            //dataGridView3.DataSource = newDic.ToArray().OrderBy(c => c.Value).ThenBy(c => c.Key);
+
+            labelErrorCount.Text = "Количество ошибочныx элементов: " + newDic.Count + " !";
 
 
             //dataGridView2.Update();
@@ -178,6 +179,23 @@ namespace FilmCollection
             //        Console.WriteLine(reader.Value.Trim());
             //    }
             //}
+        }
+
+        private void btnFix_Click(object sender, EventArgs e)
+        {
+            XDocument xml = XDocument.Load(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName));
+
+            List<string> nodes = (from n in xml.Descendants("media")
+                         select n.Element("Id").Value
+                         ).ToList();
+
+            List<int> ID = new List<int>();
+            ID = nodes.Select(int.Parse).ToList();
+
+
+            int maxAge = ID.Max();
+
+
         }
     }
 }

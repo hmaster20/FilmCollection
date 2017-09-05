@@ -40,35 +40,41 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.labelErrorCount = new System.Windows.Forms.Label();
+            this.groupBoxCheck = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.groupBoxCheck.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnParse
             // 
-            this.btnParse.Location = new System.Drawing.Point(37, 33);
+            this.btnParse.Location = new System.Drawing.Point(15, 23);
             this.btnParse.Name = "btnParse";
-            this.btnParse.Size = new System.Drawing.Size(75, 23);
+            this.btnParse.Size = new System.Drawing.Size(143, 23);
             this.btnParse.TabIndex = 0;
-            this.btnParse.Text = "Проверка";
+            this.btnParse.Text = "Выполнить проверку";
             this.btnParse.UseVisualStyleBackColor = true;
             this.btnParse.Click += new System.EventHandler(this.btnParse_Click);
             // 
             // btnFix
             // 
-            this.btnFix.Location = new System.Drawing.Point(347, 33);
+            this.btnFix.Image = global::FilmCollection.Properties.Resources.check;
+            this.btnFix.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFix.Location = new System.Drawing.Point(320, 369);
             this.btnFix.Name = "btnFix";
-            this.btnFix.Size = new System.Drawing.Size(75, 23);
+            this.btnFix.Size = new System.Drawing.Size(104, 23);
             this.btnFix.TabIndex = 1;
             this.btnFix.Text = "Исправить";
             this.btnFix.UseVisualStyleBackColor = true;
+            this.btnFix.Click += new System.EventHandler(this.btnFix_Click);
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(37, 72);
+            this.listView1.Location = new System.Drawing.Point(685, 180);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(184, 251);
+            this.listView1.Size = new System.Drawing.Size(184, 182);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
@@ -76,9 +82,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(238, 72);
+            this.listBox1.Location = new System.Drawing.Point(876, 180);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(184, 251);
+            this.listBox1.Size = new System.Drawing.Size(184, 186);
             this.listBox1.TabIndex = 3;
             // 
             // listBox2
@@ -109,7 +115,7 @@
             // listBox3
             // 
             this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(685, 113);
+            this.listBox3.Location = new System.Drawing.Point(685, 12);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(166, 108);
             this.listBox3.TabIndex = 7;
@@ -127,13 +133,13 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.dataGridView2.Location = new System.Drawing.Point(685, 227);
+            this.dataGridView2.Location = new System.Drawing.Point(15, 61);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(364, 150);
+            this.dataGridView2.Size = new System.Drawing.Size(397, 240);
             this.dataGridView2.TabIndex = 8;
             // 
             // Column1
@@ -153,18 +159,38 @@
             // dataGridView3
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(685, 383);
+            this.dataGridView3.Location = new System.Drawing.Point(857, 12);
             this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(364, 150);
+            this.dataGridView3.Size = new System.Drawing.Size(203, 150);
             this.dataGridView3.TabIndex = 9;
+            // 
+            // labelErrorCount
+            // 
+            this.labelErrorCount.Location = new System.Drawing.Point(12, 310);
+            this.labelErrorCount.Name = "labelErrorCount";
+            this.labelErrorCount.Size = new System.Drawing.Size(395, 20);
+            this.labelErrorCount.TabIndex = 10;
+            this.labelErrorCount.Text = "Найдено ошибочных элементов";
+            // 
+            // groupBoxCheck
+            // 
+            this.groupBoxCheck.Controls.Add(this.dataGridView2);
+            this.groupBoxCheck.Controls.Add(this.labelErrorCount);
+            this.groupBoxCheck.Controls.Add(this.btnParse);
+            this.groupBoxCheck.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxCheck.Name = "groupBoxCheck";
+            this.groupBoxCheck.Size = new System.Drawing.Size(428, 337);
+            this.groupBoxCheck.TabIndex = 11;
+            this.groupBoxCheck.TabStop = false;
+            this.groupBoxCheck.Text = "Проверка базы";
             // 
             // formReindexer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 555);
+            this.ClientSize = new System.Drawing.Size(1073, 404);
+            this.Controls.Add(this.groupBoxCheck);
             this.Controls.Add(this.dataGridView3);
-            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.listBox3);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.dataGridView1);
@@ -172,12 +198,15 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnFix);
-            this.Controls.Add(this.btnParse);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "formReindexer";
             this.Text = "Reindexer";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.groupBoxCheck.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -196,5 +225,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.Label labelErrorCount;
+        private System.Windows.Forms.GroupBox groupBoxCheck;
     }
 }
