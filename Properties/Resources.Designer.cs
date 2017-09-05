@@ -19,7 +19,7 @@ namespace FilmCollection.Properties {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -101,19 +101,29 @@ namespace FilmCollection.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 1.0
-        ///	Новый функционал: добавлена форма, позволяющая выбрать правильный фильм при загрузки из интернета
-        ///	Новый функционал: добавлено ведение журнала ошибок
-        ///	Новый функционал: добавлено автоматическое ежедневное резервирование базы в папке Bak в формате *.zip
-        ///	Ошибки: устранена ошибка сохранения коллекции из памяти
-        ///	Ошибки: устранена ошибка загрузки постеров из интернета
-        ///	Ошибки: устранена ошибка при обновлении базы
-        ///	Ошибки: устранены ошибки механизма управления списком актеров из карточки фильма
-        ///	Оши [остаток строки не уместился]&quot;;.
+        ///   Ищет локализованную строку, похожую на 1.1 beta
+        ///	Новый функционал: добавлен настраиваемый фильтр форматов файлов (mkv,avi, *)
+        ///	Новый функционал: добавлена возможность создания отчета в формате html
+        ///	Новый функционал: добавлена возможность создания отчета в формате CSV
+        ///	Изменение кодовой базы: добавлена детализированная обработка ошибок при загрузке базы
+        ///	Ошибки: устранена ошибка которая выводит сообщение Connection CLosed при отсутствии фильма в интернете
+        ///
+        ///1.0 beta (2017-07-31)
+        ///	Новый функционал: добавлена форма, позволяющая выбрать прав [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string ChangeLog {
             get {
                 return ResourceManager.GetString("ChangeLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap check {
+            get {
+                object obj = ResourceManager.GetObject("check", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

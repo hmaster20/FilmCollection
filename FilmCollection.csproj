@@ -253,6 +253,7 @@
     <Content Include="Resources\add.png" />
     <Content Include="Resources\attention.png" />
     <Content Include="Resources\change.png" />
+    <Content Include="Resources\check.png" />
     <Content Include="Resources\collapse.png" />
     <Content Include="Resources\cursorEN.cur" />
     <Content Include="Resources\cursorRU.cur" />
