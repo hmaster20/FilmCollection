@@ -42,6 +42,7 @@
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.labelErrorCount = new System.Windows.Forms.Label();
             this.groupBoxCheck = new System.Windows.Forms.GroupBox();
+            this.listBox4 = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -92,7 +93,7 @@
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(464, 12);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(215, 95);
+            this.listBox2.Size = new System.Drawing.Size(103, 95);
             this.listBox2.TabIndex = 4;
             // 
             // dataGridView1
@@ -166,7 +167,8 @@
             // 
             // labelErrorCount
             // 
-            this.labelErrorCount.Location = new System.Drawing.Point(12, 310);
+            this.labelErrorCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelErrorCount.Location = new System.Drawing.Point(13, 308);
             this.labelErrorCount.Name = "labelErrorCount";
             this.labelErrorCount.Size = new System.Drawing.Size(395, 20);
             this.labelErrorCount.TabIndex = 10;
@@ -184,11 +186,20 @@
             this.groupBoxCheck.TabStop = false;
             this.groupBoxCheck.Text = "Проверка базы";
             // 
+            // listBox4
+            // 
+            this.listBox4.FormattingEnabled = true;
+            this.listBox4.Location = new System.Drawing.Point(573, 12);
+            this.listBox4.Name = "listBox4";
+            this.listBox4.Size = new System.Drawing.Size(106, 95);
+            this.listBox4.TabIndex = 12;
+            // 
             // formReindexer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1073, 404);
+            this.Controls.Add(this.listBox4);
             this.Controls.Add(this.groupBoxCheck);
             this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.listBox3);
@@ -227,5 +238,6 @@
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.Label labelErrorCount;
         private System.Windows.Forms.GroupBox groupBoxCheck;
+        private System.Windows.Forms.ListBox listBox4;
     }
 }
