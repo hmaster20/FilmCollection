@@ -1,5 +1,6 @@
 ﻿Направление для разработки:
 =====================================================
+- исправить механизм обновления из интерента. ломаются индексы
 - произошла блокировка (переход в режим редактирования) при выходе из свернутого состояния, при этом не открыты панель редактирования
 - добавить блокировку кнопки удалить при пустом списке
 - MVC or MVP
@@ -1338,3 +1339,150 @@ If the user controls do things like connect to data sources, you might want to a
 
             return table;
         }
+
+
+============================================================================================================================
+Парсер XML
+
+
+
+      private void btnParse_Click(object sender, EventArgs e)
+        {
+            string file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
+
+            XDocument xml = XDocument.Load(file);
+
+            var nodes = (from n in xml.Descendants("media")
+                         select n.Element("Id").Value
+                         ).ToList();
+
+            //// поиск самих дубликатов
+            //var duplicatesSs = nodes.GroupBy(s => s)
+            //    .SelectMany(grp => grp.Skip(1)).ToList();
+
+            // поиск видов дубликатов по наименованию 
+            var querys = nodes.GroupBy(x => x)
+                .Where(g => g.Count() > 1)
+                .Select(y => y.Key)
+                .ToList();
+
+            for (int i = 0; i < querys.Count; i++)
+            {
+                CountID.Add(querys[i]);
+            }         
+
+            // поиск видов дубликатов и их количества
+            var queryss = nodes.GroupBy(x => x)
+              .Where(g => g.Count() > 1)
+              .Select(y => new { Element = y.Key, Counter = y.Count() })
+              .ToList();
+
+            Dictionary<string, int> ss = new Dictionary<string, int>();
+
+            for (int i = 0; i < queryss.Count; i++)
+            {
+                ss.Add(queryss[i].Element, queryss[i].Counter);
+            }
+
+            listBox2.DataSource = new BindingSource(ss, null);
+            listBox2.DisplayMember = "Value";
+            listBox2.ValueMember = "Key";
+
+            listBox4.DataSource = new BindingSource(ss, null);
+            listBox4.DisplayMember = "Key";
+            listBox4.ValueMember = "Value";
+
+
+            foreach (KeyValuePair<string, int> kvp in ss)
+            {
+                ListViewItem lvi = listView2.Items.Add(kvp.Key);
+                string temp = string.Join(", ", kvp.Value);
+                lvi.SubItems.Add(temp);
+            }
+
+
+            dataGridView1.DataSource = ss.ToArray();
+            dataGridView1.Update();
+
+            
+            XDocument xmlErr = XDocument.Load(file);
+
+            foreach (var item in querys)
+            {
+                var nodesErr = (from n in xmlErr.Descendants("media")
+                                where n.Element("Id").Value == item //"0"
+                                select n.Element("Name").Value
+                                ).ToList();
+
+                foreach (var node in nodesErr)
+                {
+                    listView1.Items.Add(node.Trim());
+                    listBox1.Items.Add(node.Trim());
+                }
+            }
+
+
+
+            Dictionary<string, int> newDic = new Dictionary<string, int>();
+
+            foreach (var item in querys)
+            {
+                var nodesErr = (from n in xmlErr.Descendants("media")
+                                where n.Element("Id").Value == item //"0"
+                                select new { Name = n.Element("Name").Value, ID = n.Element("Id").Value }
+                                );
+
+                foreach (var items in nodesErr)
+                {
+                    newDic.Add(items.Name, Convert.ToInt32(items.ID));
+                }
+
+            }
+
+            // сортировка словаря
+            var sortedDic = (from c in newDic
+                             orderby c.Key ascending
+                             orderby c.Value ascending
+                             select c);
+
+            dataGridView2.DataSource = sortedDic.ToArray();
+            //dataGridView2.Update();
+            labelErrorCount.Text = "Количество ошибочныx элементов: " + newDic.Count;
+
+
+
+
+            var ActorNodes = (from n in XDocument.Load(file).Descendants("Actor")
+                              select n.Element("id").Value
+                         ).ToList();
+
+            List<string> nn2 = new List<string>();
+            nn2 = ActorNodes;
+
+            var duplicateKeys2 = nn2.GroupBy(x => x)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key);
+
+
+
+
+
+            //foreach (var item in nodes)
+            //{
+            //    Console.WriteLine(item.Trim());
+            //}
+
+
+            //XmlTextReader reader = new XmlTextReader(file);
+            //while (reader.Read())
+            //{
+            //    if (reader.ReadToDescendant("title"))
+            //    {
+            //        reader.Read();//this moves reader to next node which is text 
+            //                      //result = reader.Value; //this might give value than 
+            //                      //break;
+            //        Console.WriteLine(reader.Value.Trim());
+            //    }
+            //}
+        }
+
