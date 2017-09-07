@@ -30,22 +30,12 @@
         {
             this.btnParse = new System.Windows.Forms.Button();
             this.btnFix = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.listBox3 = new System.Windows.Forms.ListBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.labelErrorCount = new System.Windows.Forms.Label();
             this.groupBoxCheck = new System.Windows.Forms.GroupBox();
-            this.listBox4 = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBoxCheck.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +51,8 @@
             // 
             // btnFix
             // 
+            this.btnFix.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnFix.Enabled = false;
             this.btnFix.Image = global::FilmCollection.Properties.Resources.check;
             this.btnFix.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnFix.Location = new System.Drawing.Point(320, 369);
@@ -70,56 +62,6 @@
             this.btnFix.Text = "Исправить";
             this.btnFix.UseVisualStyleBackColor = true;
             this.btnFix.Click += new System.EventHandler(this.btnFix_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(685, 180);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(184, 182);
-            this.listView1.TabIndex = 2;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(876, 180);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(184, 186);
-            this.listBox1.TabIndex = 3;
-            // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(464, 12);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(103, 95);
-            this.listBox2.TabIndex = 4;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(464, 113);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(215, 105);
-            this.dataGridView1.TabIndex = 5;
-            // 
-            // listView2
-            // 
-            this.listView2.Location = new System.Drawing.Point(464, 226);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(215, 97);
-            this.listView2.TabIndex = 6;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Tile;
-            // 
-            // listBox3
-            // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(685, 12);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(166, 108);
-            this.listBox3.TabIndex = 7;
             // 
             // dataGridView2
             // 
@@ -157,14 +99,6 @@
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             // 
-            // dataGridView3
-            // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(857, 12);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(203, 150);
-            this.dataGridView3.TabIndex = 9;
-            // 
             // labelErrorCount
             // 
             this.labelErrorCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -186,37 +120,20 @@
             this.groupBoxCheck.TabStop = false;
             this.groupBoxCheck.Text = "Проверка базы";
             // 
-            // listBox4
-            // 
-            this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(573, 12);
-            this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(106, 95);
-            this.listBox4.TabIndex = 12;
-            // 
             // formReindexer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1073, 404);
-            this.Controls.Add(this.listBox4);
+            this.ClientSize = new System.Drawing.Size(456, 404);
             this.Controls.Add(this.groupBoxCheck);
-            this.Controls.Add(this.dataGridView3);
-            this.Controls.Add(this.listBox3);
-            this.Controls.Add(this.listView2);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnFix);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "formReindexer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Reindexer";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBoxCheck.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -226,18 +143,10 @@
 
         private System.Windows.Forms.Button btnParse;
         private System.Windows.Forms.Button btnFix;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.Label labelErrorCount;
         private System.Windows.Forms.GroupBox groupBoxCheck;
-        private System.Windows.Forms.ListBox listBox4;
     }
 }
