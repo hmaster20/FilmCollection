@@ -409,6 +409,18 @@ namespace FilmCollection
                 report.ShowDialog();
         }
 
+        private void btnReindexerForm_Click(object sender, EventArgs e)
+        {
+            using (formReindexer reindex = new formReindexer())
+            {
+                if ((reindex.ShowDialog() == DialogResult.OK) && (reindex.status))
+                {
+                    FormLoad(true);
+                }
+            }
+        }
+
+
         private void btnReportCSV_Click(object sender, EventArgs e) => CSVhelper.toCSV(RCollection);
 
         private void btnExportHTML_Click(object sender, EventArgs e) => Reports.Generator(RCollection);
@@ -995,7 +1007,7 @@ namespace FilmCollection
 
             //if ((filtered.Count != 0) &&  (TableRec.Rows.Count > 0))
             //    SelectRec();
-        
+
 
 
 
@@ -2780,7 +2792,7 @@ namespace FilmCollection
                             if (this != null)
                             {
                                 Invoke(m_AddImageDelegate, imageFilename);
-                            }                            
+                            }
                         }
                     }
                     else
@@ -2978,14 +2990,9 @@ namespace FilmCollection
             {
                 Debug.Print("record = null");
             }
-  
+
         }
 
-        private void btnReindexerForm_Click(object sender, EventArgs e)
-        {
-            using (formReindexer reindex = new formReindexer())
-                reindex.ShowDialog();
-        }
 
 
         //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
