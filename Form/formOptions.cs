@@ -122,7 +122,5 @@ namespace FilmCollection
             //    MessageBox.Show("Test");
             //}
         }
-
-
     }
 }

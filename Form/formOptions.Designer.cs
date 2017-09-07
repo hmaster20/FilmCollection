@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gBoxOptions = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.lCatalogPath = new System.Windows.Forms.Label();
             this.lBasePath = new System.Windows.Forms.Label();
             this.lCatalog = new System.Windows.Forms.Label();
@@ -36,18 +37,17 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.gBoxRecColumn = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.clBoxColumnCurrent = new System.Windows.Forms.CheckedListBox();
             this.clBoxColumn = new System.Windows.Forms.CheckedListBox();
+            this.ColRemove = new System.Windows.Forms.Button();
+            this.ColAdd = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.clBoxFormats = new System.Windows.Forms.CheckedListBox();
-            this.ColAdd = new System.Windows.Forms.Button();
-            this.ColRemove = new System.Windows.Forms.Button();
-            this.clBoxColumnCurrent = new System.Windows.Forms.CheckedListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -66,6 +66,17 @@
             this.gBoxOptions.TabIndex = 0;
             this.gBoxOptions.TabStop = false;
             this.gBoxOptions.Text = "Параметры";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(19, 77);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(191, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "Разрешить сворачивнаие в трей";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // lCatalogPath
             // 
@@ -140,16 +151,33 @@
             this.gBoxRecColumn.TabStop = false;
             this.gBoxRecColumn.Text = "Настройка столбцов фильмотеки";
             // 
-            // checkBox1
+            // label2
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(19, 77);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(191, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Разрешить сворачивнаие в трей";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(189, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Активные столбцы";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Все столбцы";
+            // 
+            // clBoxColumnCurrent
+            // 
+            this.clBoxColumnCurrent.BackColor = System.Drawing.SystemColors.Control;
+            this.clBoxColumnCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.clBoxColumnCurrent.FormattingEnabled = true;
+            this.clBoxColumnCurrent.Location = new System.Drawing.Point(191, 46);
+            this.clBoxColumnCurrent.Name = "clBoxColumnCurrent";
+            this.clBoxColumnCurrent.Size = new System.Drawing.Size(120, 182);
+            this.clBoxColumnCurrent.TabIndex = 6;
             // 
             // clBoxColumn
             // 
@@ -159,6 +187,26 @@
             this.clBoxColumn.Name = "clBoxColumn";
             this.clBoxColumn.Size = new System.Drawing.Size(120, 184);
             this.clBoxColumn.TabIndex = 6;
+            // 
+            // ColRemove
+            // 
+            this.ColRemove.Location = new System.Drawing.Point(150, 124);
+            this.ColRemove.Name = "ColRemove";
+            this.ColRemove.Size = new System.Drawing.Size(35, 23);
+            this.ColRemove.TabIndex = 8;
+            this.ColRemove.Text = "<<";
+            this.ColRemove.UseVisualStyleBackColor = true;
+            this.ColRemove.Click += new System.EventHandler(this.ColRemove_Click);
+            // 
+            // ColAdd
+            // 
+            this.ColAdd.Location = new System.Drawing.Point(150, 95);
+            this.ColAdd.Name = "ColAdd";
+            this.ColAdd.Size = new System.Drawing.Size(35, 23);
+            this.ColAdd.TabIndex = 8;
+            this.ColAdd.Text = ">>";
+            this.ColAdd.UseVisualStyleBackColor = true;
+            this.ColAdd.Click += new System.EventHandler(this.ColAdd_Click);
             // 
             // textBox1
             // 
@@ -207,54 +255,6 @@
             this.clBoxFormats.Name = "clBoxFormats";
             this.clBoxFormats.Size = new System.Drawing.Size(120, 182);
             this.clBoxFormats.TabIndex = 6;
-            // 
-            // ColAdd
-            // 
-            this.ColAdd.Location = new System.Drawing.Point(150, 95);
-            this.ColAdd.Name = "ColAdd";
-            this.ColAdd.Size = new System.Drawing.Size(35, 23);
-            this.ColAdd.TabIndex = 8;
-            this.ColAdd.Text = ">>";
-            this.ColAdd.UseVisualStyleBackColor = true;
-            this.ColAdd.Click += new System.EventHandler(this.ColAdd_Click);
-            // 
-            // ColRemove
-            // 
-            this.ColRemove.Location = new System.Drawing.Point(150, 124);
-            this.ColRemove.Name = "ColRemove";
-            this.ColRemove.Size = new System.Drawing.Size(35, 23);
-            this.ColRemove.TabIndex = 8;
-            this.ColRemove.Text = "<<";
-            this.ColRemove.UseVisualStyleBackColor = true;
-            this.ColRemove.Click += new System.EventHandler(this.ColRemove_Click);
-            // 
-            // clBoxColumnCurrent
-            // 
-            this.clBoxColumnCurrent.BackColor = System.Drawing.SystemColors.Control;
-            this.clBoxColumnCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.clBoxColumnCurrent.FormattingEnabled = true;
-            this.clBoxColumnCurrent.Location = new System.Drawing.Point(191, 46);
-            this.clBoxColumnCurrent.Name = "clBoxColumnCurrent";
-            this.clBoxColumnCurrent.Size = new System.Drawing.Size(120, 182);
-            this.clBoxColumnCurrent.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Все столбцы";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(189, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Активные столбцы";
             // 
             // Options
             // 
