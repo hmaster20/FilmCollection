@@ -24,6 +24,26 @@ namespace FilmCollection
 
             mediaList.ForEach(x => listMedia.Items.Add(x));
 
+
+
+
+
+            foreach (Media m in mediaList)
+            {
+                string[] row = { m.Name, m.Year.ToString(), m.CountryString, m.GenreString };
+                var listViewItem = new ListViewItem(row);
+                listView3.Items.Add(listViewItem);
+            }
+
+            //foreach (Media m in mediaList)
+            //{
+            //    ListViewItem lvi = new ListViewItem(new string[] { m.Name, m.Year.ToString(), m.CountryString, m.GenreString });
+            //    listView4.Items.Add(lvi);
+            //}
+
+
+
+
             if (record != null)
             {
                 labelRecordName.Text = record.FileName;
