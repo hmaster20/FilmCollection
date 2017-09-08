@@ -2499,8 +2499,9 @@ namespace FilmCollection
                         }
 
                     }
-
+                    int id = record.combineLink.media.Id;
                     record.combineLink.media = (Media)newMedia.Clone();
+                    record.combineLink.media.Id = id;
 
                     mainForm.BeginInvoke((MethodInvoker)(() =>
                     {
