@@ -13,6 +13,8 @@ namespace FilmCollection
     public partial class formSelectMedia : Form
     {
         internal Media media = null;
+        private List<Media> mediaList = null;
+        //private Media mediaSelected = null;
 
         public formSelectMedia(List<Media> mediaList, Record record)
         {
@@ -21,28 +23,21 @@ namespace FilmCollection
 
             if (mediaList == null)
                 throw new ArgumentNullException("mediaList", "mediaList не может содержать null");
-
-            mediaList.ForEach(x => listMedia.Items.Add(x));
-
-
-
-
-
+            
+            this.mediaList = mediaList;
+            
             foreach (Media m in mediaList)
             {
                 string[] row = { m.Name, m.Year.ToString(), m.CountryString, m.GenreString };
                 var listViewItem = new ListViewItem(row);
-                listView3.Items.Add(listViewItem);
+                listMedia.Items.Add(listViewItem);
             }
-
             //foreach (Media m in mediaList)
             //{
             //    ListViewItem lvi = new ListViewItem(new string[] { m.Name, m.Year.ToString(), m.CountryString, m.GenreString });
             //    listView4.Items.Add(lvi);
             //}
-
-
-
+            
 
             if (record != null)
             {
@@ -52,7 +47,11 @@ namespace FilmCollection
             {
                 labelRecordName.Text = "";
             }
-            listMedia.SelectedIndex = 0;
+
+            // сброс выбора
+            // listMedia.SelectedIndex = 0;
+            this.listMedia.LostFocus += (s, e) => this.listMedia.SelectedIndices.Clear();
+
 
             SelectMediaInfo.InVisibleButton();
 
@@ -63,20 +62,34 @@ namespace FilmCollection
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            media = (Media)listMedia.SelectedItem;
+          //media = (Media)listMedia.SelectedItem;
             DialogResult = DialogResult.OK;
-
         }
 
-        private void listRecord_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SelectMediaInfo.update((Media)listMedia.SelectedItem);
-        }
+        //private void listRecord_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    SelectMediaInfo.update((Media)listMedia.SelectedItem);
+        //}
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             SelectMediaInfo.Clear();
             media = null;
+        }
+
+        private void listView3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listMedia.SelectedItems.Count > 0)
+            {
+                var ss = listMedia.Items.IndexOf(listMedia.SelectedItems[0]);
+                Console.WriteLine("индекс строки = " + ss);
+                if (mediaList != null && mediaList.Count > 0)
+                {
+                    SelectMediaInfo.update(mediaList[ss]);
+                    // mediaSelected = mediaList[ss];
+                    media = mediaList[ss];
+                }
+            }
         }
     }
 }

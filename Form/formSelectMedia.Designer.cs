@@ -29,19 +29,18 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listMedia = new System.Windows.Forms.ListBox();
+            this.listMedia = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelRecordName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.listView3 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SelectMediaInfo = new FilmCollection.ucMediaInfo();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -62,7 +61,6 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listView3);
             this.splitContainer1.Panel2.Controls.Add(this.listMedia);
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
@@ -70,15 +68,46 @@
             this.splitContainer1.SplitterDistance = 397;
             this.splitContainer1.TabIndex = 0;
             // 
-            // listMedia
+            // listMediaView
             // 
-            this.listMedia.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listMedia.FormattingEnabled = true;
+            this.listMedia.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listMedia.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listMedia.FullRowSelect = true;
+            this.listMedia.LabelWrap = false;
             this.listMedia.Location = new System.Drawing.Point(0, 52);
-            this.listMedia.Name = "listMedia";
-            this.listMedia.Size = new System.Drawing.Size(382, 173);
-            this.listMedia.TabIndex = 0;
-            this.listMedia.SelectedIndexChanged += new System.EventHandler(this.listRecord_SelectedIndexChanged);
+            this.listMedia.MultiSelect = false;
+            this.listMedia.Name = "listMediaView";
+            this.listMedia.ShowGroups = false;
+            this.listMedia.Size = new System.Drawing.Size(382, 547);
+            this.listMedia.TabIndex = 5;
+            this.listMedia.UseCompatibleStateImageBehavior = false;
+            this.listMedia.View = System.Windows.Forms.View.Details;
+            this.listMedia.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Название";
+            this.columnHeader1.Width = 145;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Год";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader2.Width = 50;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Страна";
+            this.columnHeader3.Width = 85;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Жанр";
+            this.columnHeader4.Width = 80;
             // 
             // panel2
             // 
@@ -142,36 +171,6 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // listView3
-            // 
-            this.listView3.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.listView3.FullRowSelect = true;
-            this.listView3.Location = new System.Drawing.Point(3, 300);
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(368, 272);
-            this.listView3.TabIndex = 5;
-            this.listView3.UseCompatibleStateImageBehavior = false;
-            this.listView3.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Название";
-            this.columnHeader1.Width = 100;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Год";
-            this.columnHeader2.Width = 50;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Страна";
-            this.columnHeader3.Width = 100;
-            // 
             // SelectMediaInfo
             // 
             this.SelectMediaInfo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -179,11 +178,6 @@
             this.SelectMediaInfo.Name = "SelectMediaInfo";
             this.SelectMediaInfo.Size = new System.Drawing.Size(397, 655);
             this.SelectMediaInfo.TabIndex = 0;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Жанр";
-            this.columnHeader4.Width = 100;
             // 
             // formSelectMedia
             // 
@@ -211,13 +205,12 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel1;
         private ucMediaInfo SelectMediaInfo;
-        private System.Windows.Forms.ListBox listMedia;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelRecordName;
-        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView listMedia;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
