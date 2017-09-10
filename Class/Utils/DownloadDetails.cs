@@ -21,16 +21,9 @@ namespace FilmCollection
         public static Media GetInfo(Record record)
         {
             Media media = record.combineLink.media;
-
             _media = (Media)media.Clone();
 
-            string webQuery = "";
-
-            if (_media.Category == CategoryVideo.Series)
-                webQuery = SERIES;
-            else
-                webQuery = FILMS;
-
+            string webQuery = (_media.Category == CategoryVideo.Series) ? SERIES : FILMS;
             string htmlPage = GetHtml(webQuery + media.Name);
 
             //MatchCollection mc = Regex.Matches(htmlPage, "(<a href=.*?searchitem__item__pic__img.*?>)", RegexOptions.IgnoreCase);
@@ -57,14 +50,7 @@ namespace FilmCollection
 
                     if (!string.IsNullOrEmpty(Link_txt))
                     {
-                        string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
-
-                        DownloadCountry(sourcestring);
-                        DownloadYear(sourcestring);
-                        DownloadGenre(sourcestring);
-                        DownloadDescription(sourcestring);
-                        DownloadActor(sourcestring);
-                        DownloadPicTemp(sourcestring);
+                        DownloadModule(Link_txt);
                     }
                     MList.Add(_media);
                 }
@@ -83,14 +69,7 @@ namespace FilmCollection
 
                 if (!string.IsNullOrEmpty(PicWeb) && !string.IsNullOrEmpty(Link_txt)) // для более полного соответствия искомому фильму
                 {
-                    string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
-
-                    DownloadCountry(sourcestring);
-                    DownloadYear(sourcestring);
-                    DownloadGenre(sourcestring);
-                    DownloadDescription(sourcestring);
-                    DownloadActor(sourcestring);
-                    DownloadPic(sourcestring);
+                    DownloadModule(Link_txt);
                 }
             }
             else
@@ -99,6 +78,20 @@ namespace FilmCollection
             }
             return _media;
         }
+
+        private static void DownloadModule(string Link_txt)
+        {
+            string sourcestring = GetHtml("https://afisha.mail.ru" + Link_txt);
+            DownloadCountry(sourcestring);
+            DownloadYear(sourcestring);
+            DownloadGenre(sourcestring);
+            DownloadDescription(sourcestring);
+            DownloadActor(sourcestring);
+            DownloadPic(sourcestring);
+            //DownloadName(sourcestring);
+        }
+
+
 
         private static void OpenFormSelectMedia(List<Media> MList, Record record)
         {
@@ -159,6 +152,29 @@ namespace FilmCollection
         private static bool StringIsValid2(string str)   // учитывает наличие пробела
         {
             return !string.IsNullOrEmpty(str) && Regex.IsMatch(str, "^[А-Яа-я ]+$");
+        }
+
+        private static void DownloadName(string sourcestring)
+        {
+            MatchCollection mcName = Regex.Matches(sourcestring, "(movieabout__name.*?</h1>)", RegexOptions.IgnoreCase);
+            foreach (Match m in mcName)
+            {
+                string strt = m.ToString();
+                strt = strt.Remove(0, strt.IndexOf('>') + 1);
+                strt = strt.Remove(strt.IndexOf('<'), (strt.Length - strt.IndexOf('<')));
+                _media.Name = strt;
+                break;
+            }
+
+
+            //string pattern = "(.*)(movieabout__name\".*?>)(.*)(</h1>)(.*)";
+            //string input = sourcestring;
+            //MatchCollection matches = Regex.Matches(input, pattern);
+
+            //foreach (Match match in matches)
+            //{
+            //    _media.Name = match.Groups[3].Value;
+            //}
         }
 
         private static void DownloadCountry(string sourcestring)
