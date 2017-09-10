@@ -39,10 +39,6 @@ namespace FilmCollection
             this.listMedia.LostFocus += (s, e) => this.listMedia.SelectedIndices.Clear();
 
             SelectMediaInfo.InVisibleButton();
-
-            //listMedia.Items.Clear();
-            //foreach (Media _media in MList)
-            //    listMedia.Items.Add(new ListViewItem(new string[] {_media.Name, _media.CountryString, _media.Year.ToString() }));
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -57,10 +53,9 @@ namespace FilmCollection
             media = null;
         }
 
-        private void listView3_SelectedIndexChanged(object sender, EventArgs e)
+        private void listMedia_SelectedIndexChanged(object sender, EventArgs e)
         {
             //SelectMediaInfo.update((Media)listMedia.SelectedItem);
-
             if (listMedia.SelectedItems.Count > 0)
             {
                 var indexSelected = listMedia.Items.IndexOf(listMedia.SelectedItems[0]);
@@ -74,4 +69,3 @@ namespace FilmCollection
         }
     }
 }
-

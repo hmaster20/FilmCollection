@@ -94,7 +94,7 @@
             this.listMedia.TabIndex = 5;
             this.listMedia.UseCompatibleStateImageBehavior = false;
             this.listMedia.View = System.Windows.Forms.View.Details;
-            this.listMedia.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
+            this.listMedia.SelectedIndexChanged += new System.EventHandler(this.listMedia_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
