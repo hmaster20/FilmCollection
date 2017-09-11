@@ -38,7 +38,8 @@ namespace FilmCollection
                 DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
                 if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
 
-                main.BeginInvoke((MethodInvoker)(() => main.ChangeStatusMenuButton(false)));
+                //main.BeginInvoke((MethodInvoker)(() => main.ChangeStatusMenuButton(false)));
+                main.BeginInvoke((MethodInvoker)(() => main.ChangeStatusMenuButton()));
             }
         }
 

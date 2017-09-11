@@ -104,7 +104,7 @@ namespace FilmCollection
                         {
                             _media = (Media)form.media.Clone();
                             string currentPicFile = _media.GetFilename;
-                            _media.Pic = _media.Name;
+                            //_media.Pic = _media.Name;
 
                             string newPicFile = _media.GetFilename;
 

@@ -80,6 +80,8 @@
             this.btnOpenCatalogDB = new System.Windows.Forms.ToolStripMenuItem();
             this.ts6 = new System.Windows.Forms.ToolStripSeparator();
             this.btnOpenReportForm = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnReindexerForm = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHistory = new System.Windows.Forms.ToolStripMenuItem();
@@ -258,8 +260,6 @@
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.ucView = new FilmCollection.ucMediaInfo();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnReindexerForm = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -655,7 +655,7 @@
             this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.btnAdd.Size = new System.Drawing.Size(152, 22);
+            this.btnAdd.Size = new System.Drawing.Size(149, 22);
             this.btnAdd.Text = "Добавить";
             this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
@@ -664,7 +664,7 @@
             this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
             this.btnChange.Name = "btnChange";
             this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnChange.Size = new System.Drawing.Size(152, 22);
+            this.btnChange.Size = new System.Drawing.Size(149, 22);
             this.btnChange.Text = "Изменить";
             this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
             // 
@@ -673,21 +673,21 @@
             this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnDelete.Size = new System.Drawing.Size(152, 22);
+            this.btnDelete.Size = new System.Drawing.Size(149, 22);
             this.btnDelete.Text = "Удалить";
             this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // ts4
             // 
             this.ts4.Name = "ts4";
-            this.ts4.Size = new System.Drawing.Size(149, 6);
+            this.ts4.Size = new System.Drawing.Size(146, 6);
             // 
             // поискToolStripMenuItem
             // 
             this.поискToolStripMenuItem.Image = global::FilmCollection.Properties.Resources.find;
             this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
             this.поискToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.поискToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.поискToolStripMenuItem.Text = "Поиск";
             this.поискToolStripMenuItem.Click += new System.EventHandler(this.tsFind_Click);
             // 
@@ -756,6 +756,18 @@
             this.btnOpenReportForm.Size = new System.Drawing.Size(196, 22);
             this.btnOpenReportForm.Text = "Отчет";
             this.btnOpenReportForm.Click += new System.EventHandler(this.btnOpenReportForm_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(193, 6);
+            // 
+            // btnReindexerForm
+            // 
+            this.btnReindexerForm.Name = "btnReindexerForm";
+            this.btnReindexerForm.Size = new System.Drawing.Size(196, 22);
+            this.btnReindexerForm.Text = "Проверка индексов";
+            this.btnReindexerForm.Click += new System.EventHandler(this.btnReindexerForm_Click);
             // 
             // MenuHelp
             // 
@@ -1758,8 +1770,8 @@
             // scTabActors.Panel2
             // 
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
+            this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
             this.scTabActors.Size = new System.Drawing.Size(966, 608);
             this.scTabActors.SplitterDistance = 537;
             this.scTabActors.TabIndex = 1;
@@ -2221,6 +2233,7 @@
             // 
             // tbFIO
             // 
+            this.tbFIO.BackColor = System.Drawing.SystemColors.Window;
             this.tbFIO.Location = new System.Drawing.Point(98, 23);
             this.tbFIO.Name = "tbFIO";
             this.tbFIO.Size = new System.Drawing.Size(279, 20);
@@ -2642,18 +2655,6 @@
             this.ucView.Name = "ucView";
             this.ucView.Size = new System.Drawing.Size(368, 606);
             this.ucView.TabIndex = 0;
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(193, 6);
-            // 
-            // btnReindexerForm
-            // 
-            this.btnReindexerForm.Name = "btnReindexerForm";
-            this.btnReindexerForm.Size = new System.Drawing.Size(196, 22);
-            this.btnReindexerForm.Text = "Проверка индексов";
-            this.btnReindexerForm.Click += new System.EventHandler(this.btnReindexerForm_Click);
             // 
             // MainForm
             // 

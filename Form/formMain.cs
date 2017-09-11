@@ -197,7 +197,9 @@ namespace FilmCollection
         {
             // загрузка параметров из файла конфигурации
             RecordOptions.ToTray = Settings.Default.ToTray;
-            ChangeStatusMenuButton(FormLoad(true));
+            //ChangeStatusMenuButton(FormLoad(true));
+            FormLoad(true);
+            ChangeStatusMenuButton();
             LastNode = Settings.Default.TreeFolderSelect;
             PrepareRefresh();
         }
@@ -284,8 +286,18 @@ namespace FilmCollection
             return state;
         }
 
-        public void ChangeStatusMenuButton(bool state)
+        //public void ChangeStatusMenuButton(bool state)
+        public void ChangeStatusMenuButton()
         {
+            bool state = false;
+            switch (tabControlNumber())
+            {
+                case 0: if (TableRec.Rows.Count > 0) { state = true; }; break;
+                case 1: if (dgvTableActors.Rows.Count > 0) { state = true; }; break;
+                case 2: if (flowLayoutPanelMain.Controls.Count > 0) { state = true; }; break;
+                default: break;
+            }            
+
             tsAdd.Enabled = state;
             tsChange.Enabled = state;
             tsRemove.Enabled = state;
@@ -770,6 +782,7 @@ namespace FilmCollection
 
         private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
         {
+            ChangeStatusMenuButton();
             // e.Cancel = !CheckAccess();
             e.Cancel = tabControlisBlock;
         }
@@ -2610,19 +2623,28 @@ namespace FilmCollection
 
         private void SaveActor()
         {
-            Actor actor;
+            Actor actor = null;
             Actor act = GetSelectedActor();
             actor = (act == null) ? new Actor() : act;
+
+            //if (!string.IsNullOrWhiteSpace(textbox.text))
+            //return String.IsNullOrEmpty(value) || value.Trim().Length == 0;
+
+            if (tbFIO.Text.Trim().Length == 0)
+            {
+                tbFIO.BackColor = Color.MistyRose;
+                return;
+            }
 
             actor.FIO = tbFIO.Text;
 
             if (act == null)
-                foreach (Actor item in RCollection.ActorList)
+                foreach (Actor _act in RCollection.ActorList)
                 {
-                    if (item.Equals(actor))
+                    if (_act.Equals(actor))
                     {
                         MessageBox.Show("\"" + actor.FIO + "\" уже есть в списке актеров!");
-                        return; // Выходим
+                        return;
                     }
                 }
 
