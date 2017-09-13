@@ -199,9 +199,12 @@ namespace FilmCollection
             RecordOptions.ToTray = Settings.Default.ToTray;
             //ChangeStatusMenuButton(FormLoad(true));
             FormLoad(true);
-            ChangeStatusMenuButton();
+            UpdateStatusMenuButton();
             LastNode = Settings.Default.TreeFolderSelect;
             PrepareRefresh();
+            AddFolder();    // загрузка постеров 
+            LoadFormVisualEffect();
+            Form_Tooltip();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -273,21 +276,15 @@ namespace FilmCollection
                     tssLabel.Text = "Коллекция из " + RCollection.CombineList.Count.ToString() + " элементов";
                     PrepareRefresh();
                     CreateTree();
-
                     state = true;
                 }
-
-                timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1
-
-                LoadFormVisualEffect();
-                Form_Tooltip();
-                AddFolder();    // загрузка постеров               
+                timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1 
             }
             return state;
         }
 
         //public void ChangeStatusMenuButton(bool state)
-        public void ChangeStatusMenuButton()
+        public void UpdateStatusMenuButton()
         {
             bool state = false;
             switch (tabControlNumber())
@@ -321,8 +318,12 @@ namespace FilmCollection
             SaveFormVisualEffect();
 
             //_videoCollection.Save();
-            RCollection.SaveToFile();
 
+            // Если сохранять нечего то выходим
+            if (RCollection != null && RCollection.CombineList.Count != 0)
+            {
+                RCollection.SaveToFile();
+            }
         }
 
         private void LoadFormVisualEffect()
@@ -782,7 +783,7 @@ namespace FilmCollection
 
         private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)// проверка возможности переключения TabControl
         {
-            ChangeStatusMenuButton();
+            UpdateStatusMenuButton();
             // e.Cancel = !CheckAccess();
             e.Cancel = tabControlisBlock;
         }
