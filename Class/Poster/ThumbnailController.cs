@@ -13,12 +13,11 @@ namespace FilmCollection
 
     public class ThumbnailImageEventArgs : EventArgs
     {
+        internal int Size;
         public ThumbnailImageEventArgs(int _size)
         {
             Size = _size;
         }
-
-        internal int Size;
     }
 
     public class ThumbnailControllerEventArgs : EventArgs
