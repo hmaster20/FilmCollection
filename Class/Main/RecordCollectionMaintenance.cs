@@ -39,7 +39,7 @@ namespace FilmCollection
                 if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
 
                 //main.BeginInvoke((MethodInvoker)(() => main.ChangeStatusMenuButton(false)));
-                main.BeginInvoke((MethodInvoker)(() => main.ChangeStatusMenuButton()));
+                main.BeginInvoke((MethodInvoker)(() => main.UpdateStatusMenuButton()));
             }
         }
 
