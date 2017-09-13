@@ -197,14 +197,12 @@ namespace FilmCollection
         {
             // загрузка параметров из файла конфигурации
             RecordOptions.ToTray = Settings.Default.ToTray;
-            //ChangeStatusMenuButton(FormLoad(true));
+            LastNode = Settings.Default.TreeFolderSelect;
             FormLoad(true);
             UpdateStatusMenuButton();
-            LastNode = Settings.Default.TreeFolderSelect;
-            PrepareRefresh();
-            AddFolder();    // загрузка постеров 
+            ReloadPoster();
             LoadFormVisualEffect();
-            Form_Tooltip();
+            toolinfo.SetToolTip(btnFileNameEdit, "Разблокировать для переименования файла");// Всплывающая подсказка
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -278,12 +276,11 @@ namespace FilmCollection
                     CreateTree();
                     state = true;
                 }
-                timerLoad.Enabled = true;               // Исключение раннего селекта treeFolder и фильтра dataGridView1 
+                timerLoad.Enabled = true;   // Исключение раннего селекта treeFolder и фильтра dataGridView1 
             }
             return state;
         }
 
-        //public void ChangeStatusMenuButton(bool state)
         public void UpdateStatusMenuButton()
         {
             bool state = false;
@@ -293,18 +290,13 @@ namespace FilmCollection
                 case 1: if (dgvTableActors.Rows.Count > 0) { state = true; }; break;
                 case 2: if (flowLayoutPanelMain.Controls.Count > 0) { state = true; }; break;
                 default: break;
-            }            
+            }
 
             tsAdd.Enabled = state;
             tsChange.Enabled = state;
             tsRemove.Enabled = state;
             tsFind.Enabled = state;
             tsFindbyName.Enabled = state;
-        }
-
-        private void Form_Tooltip()     // Всплывающая подсказка
-        {
-            toolinfo.SetToolTip(btnFileNameEdit, "Разблокировать для переименования файла");
         }
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -905,7 +897,7 @@ namespace FilmCollection
                     if (File.Exists(filePath))
                     {
                         File.Delete(filePath);
-                        AddFolder();    // перезагрузка постеров  
+                        ReloadPoster();    // перезагрузка постеров  
                     }
                 }
             }
@@ -994,8 +986,10 @@ namespace FilmCollection
 
             if (isTabFilm())
             {
-                if (column > -1) SortRecord(filtered, column);
-                else SortRecord(filtered, tscbSort.SelectedIndex);
+                if (column > -1)
+                    SortRecord(filtered, column);
+                else
+                    SortRecord(filtered, tscbSort.SelectedIndex);
 
                 PrepareActor(-1);
             }
@@ -1007,37 +1001,6 @@ namespace FilmCollection
             // продумать обновление актеров
 
             RefreshTable(filtered);
-
-            //if (filtered.Count != 0)
-            //{
-            //    if (TableRec.Rows.Count > 0)
-            //    {
-            //        TableRec.Rows[0].Selected = true;
-            //    }
-            //    SelectRecord(TableRec, filtered[0]);
-            //    SelectRec();
-            //}
-
-
-            //if ((filtered.Count != 0) &&  (TableRec.Rows.Count > 0))
-            //    SelectRec();
-
-
-
-
-
-            //if (selected != null)
-            //{
-            //    SelectRecord(TableRec, selected);
-            //}
-            //else
-            //{
-            //    if (filtered.Count != 0)
-            //    {
-            //        SelectRecord(TableRec, filtered[0]);
-            //    }
-            //}
-
         }
 
         private static void SortRecord(List<Record> filtered, int switch_sort)  // Сортировка по столбцам
@@ -1065,7 +1028,6 @@ namespace FilmCollection
 
             SortActor(filteredAct, switch_sort);
 
-            // dgvTableActors.DataSource = null;
             dgvTableActors.DataSource = filteredAct;
 
             // список актеров
@@ -2770,7 +2732,7 @@ namespace FilmCollection
             m_Controller.CancelScanning = true;
         }
 
-        private void AddFolder()    // сканирование указанного каталога
+        private void ReloadPoster()    // сканирование указанного каталога
         {
             this.flowLayoutPanelMain.Controls.Clear();
             m_Controller.AddFolder(PicsFolder);
