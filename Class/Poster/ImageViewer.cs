@@ -7,9 +7,8 @@ namespace FilmCollection
 {
     public partial class ImageViewer : UserControl
     {
-        private Image m_Image;
+        private Image m_Image { get; set; }
         private string m_ImageLocation;
-
         private bool m_IsThumbnail;
         private bool m_IsActive;
 
@@ -19,12 +18,6 @@ namespace FilmCollection
             m_IsActive = false;
 
             InitializeComponent();
-        }
-
-        public Image Image
-        {
-            set { m_Image = value; }
-            get { return m_Image; }
         }
 
         public string ImageLocation
