@@ -12,12 +12,12 @@ namespace FilmCollection
             id = _id;
             source = _source;
         }
-        private int id { get; set; }
-        private string source { get; set; }
 
-        public override string ToString()
-        {
-            return source; 
-        }
+        //public int Id { get => id; set => id = value; }
+        private int id;
+        public int Id { get => id; }
+
+        private string source { get; set; }
+        public string Source { get => source; }
     }
 }
