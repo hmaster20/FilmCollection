@@ -84,48 +84,48 @@ namespace FilmCollection
         }
 
         // Convert a byte array to an Object
-        public static Object ByteArrayToObject(byte[] arrBytes)
-        {
-            using (var memStream = new MemoryStream())
-            {
-                var binForm = new BinaryFormatter();
-                memStream.Write(arrBytes, 0, arrBytes.Length);
-                memStream.Seek(0, SeekOrigin.Begin);
-                var obj = binForm.Deserialize(memStream);
-                return obj;
-            }
-        }
+        //public static Object ByteArrayToObject(byte[] arrBytes)
+        //{
+        //    using (var memStream = new MemoryStream())
+        //    {
+        //        var binForm = new BinaryFormatter();
+        //        memStream.Write(arrBytes, 0, arrBytes.Length);
+        //        memStream.Seek(0, SeekOrigin.Begin);
+        //        var obj = binForm.Deserialize(memStream);
+        //        return obj;
+        //    }
+        //}
 
 
 
-        public static bool ByteArrayToFile(string fileName, byte[] byteArray)
-        {
-            try
-            {
-                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
-                {
-                    fs.Write(byteArray, 0, byteArray.Length);
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception caught in process: {0}", ex);
-                return false;
-            }
-        }
+        //public static bool ByteArrayToFile(string fileName, byte[] byteArray)
+        //{
+        //    try
+        //    {
+        //        using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+        //        {
+        //            fs.Write(byteArray, 0, byteArray.Length);
+        //            return true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Exception caught in process: {0}", ex);
+        //        return false;
+        //    }
+        //}
 
 
 
-        private static byte[] arrBytes;
+        //private static byte[] arrBytes;
 
-        public static void test()
-        {
-            //You can use:
-            File.WriteAllBytes("Foo.txt", arrBytes); // Requires System.IO
-            //If you have an enumerable and not an array, you can use:
-            //File.WriteAllBytes("Foo.txt", arrBytes.ToArray()); // Requires System.Linq
-        }
+        //public static void test()
+        //{
+        //    //You can use:
+        //    File.WriteAllBytes("Foo.txt", arrBytes); // Requires System.IO
+        //    //If you have an enumerable and not an array, you can use:
+        //    //File.WriteAllBytes("Foo.txt", arrBytes.ToArray()); // Requires System.Linq
+        //}
 
 
 
