@@ -7,7 +7,17 @@ namespace FilmCollection
 {
     public class Sources
     {
-        public int id { get; set; }
-        public string source { get; set; }
+        public Sources(int _id, string _source)
+        {
+            id = _id;
+            source = _source;
+        }
+        private int id { get; set; }
+        private string source { get; set; }
+
+        public override string ToString()
+        {
+            return source; 
+        }
     }
 }
