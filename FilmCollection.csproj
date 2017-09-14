@@ -226,7 +226,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="help.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
