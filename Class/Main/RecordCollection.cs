@@ -101,10 +101,17 @@ namespace FilmCollection
 
         #region Источники файлов
         public List<Sources> SourceList { get; }
-        public void AddSource(string source) => SourceList.Add(new Sources(GetSourceID(), source));
+        public int AddSource(string source)
+        {
+            if (!SourceList.Exists(x => x.Source == source))
+            {
+                SourceList.Add(new Sources(GetSourceID(), source));
+            }
+            return SourceList.First(x => x.Source == source).Id;
+        }
         
         private static int SourceID { get; set; }
-        public static int GetSourceID() => ++SourceID;           // создание следующего номера        
+        public static int GetSourceID() => ++SourceID;     
         public static void ResetSourceID() => SourceID = 0;
         public static void SetSourceID(int value) => SourceID = value;
         #endregion

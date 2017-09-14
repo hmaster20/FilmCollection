@@ -2419,7 +2419,8 @@ namespace FilmCollection
             var cmList = (from cm in RCollection.CombineList
                           let recList = cm.recordList
                           from rec in recList
-                          where rec.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                              //where rec.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
+                          where rec.Path.StartsWith(RCollection.SourceList.First(x => x.Id == rec.SourceID).Source + Path.DirectorySeparatorChar + GetNode())
                           where rec.Visible == true
                           select rec.combineLink);    //.Distinct<Combine>();
 

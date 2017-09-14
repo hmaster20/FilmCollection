@@ -12,6 +12,7 @@ namespace FilmCollection
         public string DirName { get; set; }     // Название папки в которой расположен файл
         public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
         public string Path { get; set; }        // Путь к файлу
+        public int SourceID { get; set; }       // Идентификатор пути к корневому каталогу
 
 
         #region Для отображения в таблице
@@ -64,7 +65,7 @@ namespace FilmCollection
                 //if (temp.FileName == this.FileName
                 //&& temp.Path == this.Path)
 
-                if (rec.FileName == this.FileName && rec.Path == this.Path)
+                if (rec.FileName == this.FileName && rec.Path == this.Path && rec.SourceID == this.SourceID)
                 {
                     return true;
                 }

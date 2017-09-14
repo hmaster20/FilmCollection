@@ -50,7 +50,7 @@ namespace FilmCollection
   
 
         /// <summary>Путь к корневой папке</summary>
-        public string Source { get; set; } 
+        //public string Source { get; set; } 
 
         public int scMainSplitter { get; set; }     // Сохранение параметров сплиттеров
         public int scTabFilmSplitter { get; set; }
