@@ -57,6 +57,7 @@ namespace FilmCollection
                 RecordCollection rc = new RecordCollection();
                 RecordCollection.SetInstance(rc);
                 CurrentRC().Options.Source = directory.FullName;   // Сохранение каталога фильмов
+                CurrentRC().AddSource(directory.FullName);
 
                 var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.getFormat().Contains(Path.GetExtension(s.ToString())));
 
@@ -72,7 +73,8 @@ namespace FilmCollection
 
         public void Update(MainForm main)
         {
-            if (string.IsNullOrEmpty(CurrentRC().Options.Source))  // Если есть информация о корневой папки коллекции
+            //if (string.IsNullOrEmpty(CurrentRC().Options.Source) && !(CurrentRC().SourceList.Count > 0) )  // Если есть информация о корневой папки коллекции
+            if (CurrentRC().SourceList.Count < 1)
             {
                 main.BeginInvoke((MethodInvoker)(() =>
                 MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)));
@@ -81,93 +83,109 @@ namespace FilmCollection
             {
                 try
                 {
-                    RecordCollection RC = new RecordCollection();
-                    RC = (RecordCollection)CurrentRC().Clone();
-
-                    DirectoryInfo directory = new DirectoryInfo(RC.Options.Source);
-
-                    if (directory.Exists)   // проверяем доступность каталога
+                    RecordCollection RC = (RecordCollection)CurrentRC().Clone();
+                    foreach (Sources _source in CurrentRC().SourceList)
                     {
-                        main.BeginInvoke((MethodInvoker)(() =>
-                        {
-                            main.tsProgressBar.Visible = true;
-                            main.tsProgressBar.Maximum = RC.CombineList.Count;
-                        }));
-
-                        for (int i = 0; i < RC.CombineList.Count; i++)
-                        {
-                            RC.CombineList[i].invisibleRecord(); // скрываем файлы
-                            main.BeginInvoke((MethodInvoker)(() =>
-                            {
-                                main.tsProgressBar.Value = i;
-                                main.FindStatusLabel.Text = i.ToString() + " из " + RC.CombineList.Count.ToString();
-                            }));
-                        }
-
-                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
-
-                        main.BeginInvoke((MethodInvoker)(() =>
-                        {
-                            main.tsProgressBar.Value = 0;
-                            main.tsProgressBar.Maximum = myFiles.Count();
-                            main.FindStatusLabel.Text = myFiles.Count().ToString();
-                        }));
-
-                        List<FileInfo> files = new List<FileInfo>();
-                        files = myFiles.ToList();
-
-                        int findCount = 0;
-
-                        for (int i = 0; i < files.Count; i++)
-                        {
-                            main.BeginInvoke((MethodInvoker)(() =>
-                            {
-                                main.tsProgressBar.Value = i;
-                                main.FindStatusLabel.Text = i.ToString() + " из " + files.Count.ToString();
-                            }));
-
-                            FileInfo file = files[i];
-                            Record record = new Record();
-                            record.FileName = file.Name;                            // полное название файла (film.avi)
-                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-
-                            if (!RecordExist(record))
-                            {
-                                findCount++;
-                                CreateCombine(file); // если файла нет в коллекции, создаем
-                            }
-                        }
-
-                        main.BeginInvoke((MethodInvoker)(() =>
-                        {
-                            main.tsProgressBar.Value = 0;
-                            main.tsProgressBar.Enabled = false;
-                            main.tsProgressBar.Visible = false;
-                            main.FindStatusLabel.Text = "";
-                        }));
-
-                        DialogResult result = MessageBox.Show("Сведения в каталоге обновлены. Применить обновление ?", "Обновление каталога", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                        if (result != DialogResult.OK)
-                        {
-                            return;
-                        }
-
-                        CurrentRC().Save();
-                        CurrentRC().SaveToFile();
-
-                        string message = (findCount > 0)
-                            ? ("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!")
-                            : ("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
-                        MessageBox.Show(message);
-
-                        main.BeginInvoke((MethodInvoker)(() => main.FormLoad(true)));
+                        creatro(main, RC, _source);
                     }
-                    else
-                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
                 }
                 catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
             }
         }
+
+
+        void creatro(MainForm main, RecordCollection RC, Sources source)
+        {
+            //DirectoryInfo directory = new DirectoryInfo(RC.Options.Source);
+            DirectoryInfo directory = new DirectoryInfo(source.ToString());
+
+            if (directory.Exists)   // проверяем доступность каталога
+            {
+                main.BeginInvoke((MethodInvoker)(() =>
+                {
+                    main.tsProgressBar.Visible = true;
+                    main.tsProgressBar.Maximum = RC.CombineList.Count;
+                }));
+
+                for (int i = 0; i < RC.CombineList.Count; i++)
+                {
+                    RC.CombineList[i].invisibleRecord(); // скрываем файлы
+                    main.BeginInvoke((MethodInvoker)(() =>
+                    {
+                        main.tsProgressBar.Value = i;
+                        main.FindStatusLabel.Text = i.ToString() + " из " + RC.CombineList.Count.ToString();
+                    }));
+                }
+
+                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
+
+                main.BeginInvoke((MethodInvoker)(() =>
+                {
+                    main.tsProgressBar.Value = 0;
+                    main.tsProgressBar.Maximum = myFiles.Count();
+                    main.FindStatusLabel.Text = myFiles.Count().ToString();
+                }));
+
+                List<FileInfo> files = new List<FileInfo>();
+                files = myFiles.ToList();
+
+                int findCount = 0;
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    main.BeginInvoke((MethodInvoker)(() =>
+                    {
+                        main.tsProgressBar.Value = i;
+                        main.FindStatusLabel.Text = i.ToString() + " из " + files.Count.ToString();
+                    }));
+
+                    FileInfo file = files[i];
+                    Record record = new Record();
+                    record.FileName = file.Name;                            // полное название файла (film.avi)
+                    record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+
+                    if (!RecordExist(record))
+                    {
+                        findCount++;
+                        CreateCombine(file); // если файла нет в коллекции, создаем
+                    }
+                }
+
+                main.BeginInvoke((MethodInvoker)(() =>
+                {
+                    main.tsProgressBar.Value = 0;
+                    main.tsProgressBar.Enabled = false;
+                    main.tsProgressBar.Visible = false;
+                    main.FindStatusLabel.Text = "";
+                }));
+
+                DialogResult result = MessageBox.Show("Сведения в каталоге обновлены. Применить обновление ?", "Обновление каталога", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+
+                CurrentRC().Save();
+                CurrentRC().SaveToFile();
+
+                string message = (findCount > 0)
+                    ? ("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!")
+                    : ("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                MessageBox.Show(message);
+
+                main.BeginInvoke((MethodInvoker)(() => main.FormLoad(true)));
+            }
+            else
+                MessageBox.Show("Каталог " + directory + " не обнаружен!");
+        }
+
+
+
+
+
+
+
+
 
         private bool RecordExist(Record record)
         {
