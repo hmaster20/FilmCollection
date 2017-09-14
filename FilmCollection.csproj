@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
+    <Compile Include="Class\Main\_Sources.cs" />
     <Compile Include="Class\Utils\CSVhelper.cs" />
     <Compile Include="Class\Utils\FileDetails.cs" />
     <Compile Include="Class\Utils\HTMLhelper.cs" />
@@ -225,6 +226,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="help.chm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

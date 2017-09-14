@@ -37,6 +37,7 @@ namespace FilmCollection
         {
             ActorList = new List<Actor>();      // Создание списка актеров
             CombineList = new List<Combine>();  // Создание смешанного списка Record & Media
+            SourceList = new List<Sources>();   // Создание списка источников данных
         }
 
         public void Clear()
@@ -95,6 +96,12 @@ namespace FilmCollection
         public static int GetActorID() => ++ActorID;        // Генерация идентификатора  // return ++ActorID;
         public static void ResetActorID() => ActorID = 0;      // обнуление идентификатора
         public static void SetActorID(int value) => ActorID = value;
+        #endregion
+
+
+        #region Источники файлов
+        public List<Sources> SourceList { get; }
+        public void Add(Sources source) => SourceList.Add(source);
         #endregion
 
 
