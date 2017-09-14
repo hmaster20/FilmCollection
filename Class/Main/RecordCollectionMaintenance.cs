@@ -56,13 +56,12 @@ namespace FilmCollection
             {
                 RecordCollection rc = new RecordCollection();
                 RecordCollection.SetInstance(rc);
-                CurrentRC().Options.Source = directory.FullName;   // Сохранение каталога фильмов
-                CurrentRC().AddSource(directory.FullName);
+                //CurrentRC().Options.Source = directory.FullName;   // Сохранение каталога фильмов
+                //CurrentRC().AddSource(directory.FullName);
+                int id = CurrentRC().AddSource(directory.FullName);
 
-                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(s => RecordOptions.getFormat().Contains(Path.GetExtension(s.ToString())));
-
-                foreach (FileInfo file in myFiles)
-                    CreateCombine(file);
+                foreach (FileInfo file in GetFilesFrom(directory))
+                    CreateCombine(file, id);
             }
 
             CurrentRC().Save();
@@ -84,25 +83,23 @@ namespace FilmCollection
                 try
                 {
                     RecordCollection RC = (RecordCollection)CurrentRC().Clone();
-                    foreach (Sources _source in CurrentRC().SourceList)
-                    {
-                        creatro(main, RC, _source);
-                    }
+                    foreach (Sources source in CurrentRC().SourceList)
+                        Creator(main, RC, source);
                 }
                 catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
             }
         }
 
 
-        void creatro(MainForm main, RecordCollection RC, Sources source)
+        void Creator(MainForm main, RecordCollection RC, Sources source)
         {
             //DirectoryInfo directory = new DirectoryInfo(RC.Options.Source);
-            DirectoryInfo directory = new DirectoryInfo(source.ToString());
+            DirectoryInfo directory = new DirectoryInfo(source.Source);
 
             if (directory.Exists)   // проверяем доступность каталога
             {
                 main.BeginInvoke((MethodInvoker)(() =>
-                {
+                {   // Инициализация прогресс бара
                     main.tsProgressBar.Visible = true;
                     main.tsProgressBar.Maximum = RC.CombineList.Count;
                 }));
@@ -117,17 +114,17 @@ namespace FilmCollection
                     }));
                 }
 
-                var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
+                IEnumerable<FileInfo> AllMediaFiles = GetFilesFrom(directory);
 
                 main.BeginInvoke((MethodInvoker)(() =>
                 {
                     main.tsProgressBar.Value = 0;
-                    main.tsProgressBar.Maximum = myFiles.Count();
-                    main.FindStatusLabel.Text = myFiles.Count().ToString();
+                    main.tsProgressBar.Maximum = AllMediaFiles.Count();
+                    main.FindStatusLabel.Text = AllMediaFiles.Count().ToString();
                 }));
 
                 List<FileInfo> files = new List<FileInfo>();
-                files = myFiles.ToList();
+                files = AllMediaFiles.ToList();
 
                 int findCount = 0;
 
@@ -142,12 +139,14 @@ namespace FilmCollection
                     FileInfo file = files[i];
                     Record record = new Record();
                     record.FileName = file.Name;                            // полное название файла (film.avi)
-                    record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                    //record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                    record.Path = file.DirectoryName.Remove(0, source.Source.Length);
+                    record.SourceID = source.Id;
 
                     if (!RecordExist(record))
                     {
                         findCount++;
-                        CreateCombine(file); // если файла нет в коллекции, создаем
+                        CreateCombine(file, source.Id); // если файла нет в коллекции, создаем
                     }
                 }
 
@@ -179,13 +178,10 @@ namespace FilmCollection
                 MessageBox.Show("Каталог " + directory + " не обнаружен!");
         }
 
-
-
-
-
-
-
-
+        private static IEnumerable<FileInfo> GetFilesFrom(DirectoryInfo directory)
+        {
+            return directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
+        }
 
         private bool RecordExist(Record record)
         {
@@ -203,11 +199,11 @@ namespace FilmCollection
             return false;           // иначе файла нет файл есть
         }
 
-        private void CreateCombine(FileInfo file)
+        private void CreateCombine(FileInfo file, int id)
         {
             Combine cm = new Combine();
 
-            Record record = CreateRecord(file);
+            Record record = CreateRecord(file, id);
 
             record.combineLink = cm;
             cm.recordList.Add(record);
@@ -217,7 +213,7 @@ namespace FilmCollection
             CurrentRC().Add(cm);
         }
 
-        public static Record CreateRecord(FileInfo file)
+        public Record CreateRecord(FileInfo file, int id)
         {
             Record record = new Record();
             record.Name = getRecordName(file);
@@ -226,8 +222,10 @@ namespace FilmCollection
             record.Visible = true;              // видимость
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
             record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-            record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                    //record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
                                                                     // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+            record.Path = file.DirectoryName.Remove(0, CurrentRC().SourceList.First(x=>x.Id == id).Source.Length);
+            record.SourceID = id;
             return record;
         }
 
