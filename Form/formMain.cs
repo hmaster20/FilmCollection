@@ -633,7 +633,7 @@ namespace FilmCollection
 
         private void TableRightSelect(object sender, DataGridViewCellMouseEventArgs e)
         {
-            // организован селект правой кнопкой мыши
+            // организовано выделение правой кнопкой мыши
             if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Right)
             {
                 DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
@@ -649,7 +649,7 @@ namespace FilmCollection
 
         private void TableLeftSelect(object sender, DataGridViewCellMouseEventArgs e)
         {
-            // организован селект левой кнопкой мыши
+            // организовано выделение левой кнопкой мыши
             if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Left)
             {
                 //var senderGrid = (DataGridView)sender;

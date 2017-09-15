@@ -13,11 +13,10 @@ namespace FilmCollection
             source = _source;
         }
 
-        //public int Id { get => id; set => id = value; }
         private int id;
-        public int Id { get => id; }
+        public int Id { get { return id; } }
 
         private string source { get; set; }
-        public string Source { get => source; }
+        public string Source { get { return source; } }
     }
 }
