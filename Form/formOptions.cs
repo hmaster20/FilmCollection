@@ -26,10 +26,10 @@ namespace FilmCollection
             if (_videoCollection == null)
                 throw new ArgumentNullException("_videoCollection", "_videoCollection не может содержать null");
 
-            if (_videoCollection.Options.Source != null)
-            {
-                lBasePath.Text = _videoCollection.Options.Source;
-            }
+            //if (_videoCollection.Options.Source != null)
+            //{
+            //    lBasePath.Text = _videoCollection.Options.Source;
+            //}
             lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
 
             //foreach (DataColumn dc in dataSet.Tables[0].Columns)
