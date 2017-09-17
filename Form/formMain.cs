@@ -555,7 +555,8 @@ namespace FilmCollection
 
                     if (destinationNode != treeFolder.TopNode)
                     {
-                        string dirPath = Path.Combine(RCollection.Options.Source, destinationNode.FullPath);
+                        string dirPath = "";
+                        //string dirPath = Path.Combine(RCollection.Options.Source, destinationNode.FullPath);
 
                         if (File.Exists(Path.Combine(record.Path, record.FileName)))
                             if (Directory.Exists(dirPath))
@@ -976,11 +977,13 @@ namespace FilmCollection
             {
                 string node = GetNode();
                 // Флаг не распространяется на клик по корню, т.е. на "Фильмотека" - отображается все содержимое каталогов
-                filtered = (!ShowAllFiles)
-                            // отобразить файлы в текущем каталоге
-                            ? filtered.FindAll(v => v.Path == RCollection.Options.Source + Path.DirectorySeparatorChar + node)
-                            // отобразить все файлы в т.ч. и вложенные
-                            : filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + node));
+                //filtered = (!ShowAllFiles)
+                //            // отобразить файлы в текущем каталоге
+                //            ? filtered.FindAll(v => v.Path == RCollection.Options.Source + Path.DirectorySeparatorChar + node)
+                //            // отобразить все файлы в т.ч. и вложенные
+                //            : filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + node));
+
+
             }
 
 
@@ -1534,7 +1537,7 @@ namespace FilmCollection
 
             using (OpenFileDialog fileDialog = new OpenFileDialog())
             {
-                fileDialog.InitialDirectory = RCollection.Options.Source;
+                //fileDialog.InitialDirectory = RCollection.Options.Source;
                 //fileDialog.InitialDirectory = Path.Combine(RCollection.Options.Source, GetNode());
                 fileDialog.Filter = FormatOpen;
                 fileDialog.Title = "Выберите файл:";
@@ -1545,11 +1548,11 @@ namespace FilmCollection
                     NameBlock();
 
                     FileInfo newFile = new FileInfo(fileDialog.FileName); // получаем доступ к файлу
-                    if (!newFile.DirectoryName.StartsWith(RCollection.Options.Source))
-                    {
-                        MessageBox.Show("Файл не принадлежит источнику коллекции " + RCollection.Options.Source);
-                        return; // Выходим из метода
-                    }
+                    //if (!newFile.DirectoryName.StartsWith(RCollection.Options.Source))
+                    //{
+                    //    MessageBox.Show("Файл не принадлежит источнику коллекции " + RCollection.Options.Source);
+                    //    return; // Выходим из метода
+                    //}
 
                     CardRecordEdit_Clear();
 
@@ -1607,7 +1610,15 @@ namespace FilmCollection
             if (fsInfo != null) // Создание нового фильма
             {
                 cm = GetMedia();
-                record = RecordCollectionMaintenance.CreateRecord(fsInfo);
+
+                //fsInfo.DirectoryName.Contains(x)
+                //int id = RCollection.SourceList.First(x => fsInfo.DirectoryName.Contains(x.Source)).Id;
+                if (RCollection.SourceList.Exists(x => fsInfo.DirectoryName.Contains(x.Source)))
+                {
+                    int id = RCollection.SourceList.First(x => fsInfo.DirectoryName.Contains(x.Source)).Id;
+                }
+                return;
+                //record = RecordCollectionMaintenance.CreateRecord(fsInfo,);
             }
             else // редактирование имеющегося фильма
             {
@@ -2014,22 +2025,39 @@ namespace FilmCollection
 
         private void CreateTree()       // Построение дерева
         {
-            treeFolder.Nodes.Clear();                                  // Очистка дерева
-            int SourceLength = RCollection.Options.Source.Length; // Получение длинны пути
-
-            var test = (from cm in RCollection.CombineList
-                        let recList = cm.recordList
-                        from rec in recList
-                        where rec.Visible == true   //orderby rec
-                        select rec.Path).Distinct<string>().OrderBy(name => name);
-
-            List<string> pathList = new List<string>() { "Фильмотека" };
-            pathList.AddRange(test.Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList()); //Обрезка пути C:\temp\1\11 -> 1\11  
-
-            PopulateTreeView(treeFolder, pathList, Path.DirectorySeparatorChar, pathList.Count);
+            List<string> pathList = new List<string>();
+            if (RCollection.SourceList != null && RCollection.SourceList.Count > 0)
+            {
+                foreach (Sources src in RCollection.SourceList)
+                {
+                    if (src.Source != null)
+                    {
+                        //pathList.Add("Фильмотека");
+                        pathList.Add(src.Source);
+                        int SourceLength = src.Source.Length;
+                        pathList.AddRange((from cm in RCollection.CombineList
+                                           let recList = cm.recordList
+                                           from rec in recList
+                                           where rec.Visible == true   //orderby rec
+                                           select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > 0).ToList());
+                        //select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList());
+                        for (int i = 0; i < pathList.Count; i++)
+                        {
+                            pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
+                        }
+                        PopulateTreeView(pathList);
+                        //PopulateTreeView(treeFolder, pathList, Path.DirectorySeparatorChar, pathList.Count);
+                    }
+                    else break;
+                }
+            }
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
             // TreeFast(paths);
         }
+
+
+
+
 
         //private void TreeFastT(IEnumerable<string> paths)
         //{
@@ -2153,8 +2181,86 @@ namespace FilmCollection
         //    //treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
         //}
 
-        private void PopulateTreeView(TreeView treeView, IEnumerable<string> paths, char pathSeparator, int count)  // Построение дерева
+        private void PopulateTreeView(List<string> pathList)  // Построение дерева
         {
+            treeFolder.Nodes.Clear();
+
+            TreeNode trv = new TreeNode();
+            TreeNode lastNode = null;
+            string subPathAgg;
+
+            for (int i = 0; i < pathList.Count; i++)
+            {
+                if (i != 0)
+                {
+                    subPathAgg = string.Empty;
+                    foreach (string subPath in pathList[i].Split(Path.DirectorySeparatorChar))
+                    {
+                        subPathAgg += subPath + Path.DirectorySeparatorChar;
+
+                        TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+                        if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                            if (lastNode == null)
+                            {
+                                lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                            }
+                            else
+                            {
+                                lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                            }
+                        else lastNode = nodes[0];
+                    }
+                    lastNode = null;
+                }
+                else
+                {
+                    subPathAgg = string.Empty;
+                    subPathAgg += pathList[i] + Path.DirectorySeparatorChar;
+                    // TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+                    lastNode = trv.Nodes.Add(subPathAgg, pathList[i]);
+                    lastNode.ToolTipText = "Основаня база";
+                    lastNode = null;
+                }
+            }
+
+
+            //foreach (string path in pathList)
+            //{
+            //    subPathAgg = string.Empty;
+            //    foreach (string subPath in path.Split(Path.DirectorySeparatorChar))
+            //    {
+            //        subPathAgg += subPath + Path.DirectorySeparatorChar;
+
+            //        TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+            //        if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+            //            if (lastNode == null)
+            //            {
+            //                lastNode = trv.Nodes.Add(subPathAgg, subPath);
+            //                lastNode.ToolTipText = "Tester";
+            //                //lastNode = trv.Nodes.Add(subPathAgg, subPath);
+            //            }
+            //            else
+            //            {
+            //                lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+            //            }
+            //        else lastNode = nodes[0];
+            //    }
+            //    lastNode = null;
+            //}
+
+            List<TreeNode> _ListTree = new List<TreeNode>();
+            foreach (TreeNode node in trv.Nodes)    // проход по корневым нодам
+                _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
+
+
+            //treeView.BeginUpdate();
+            treeFolder.Nodes.AddRange(_ListTree.ToArray());
+            treeFolder.ShowNodeToolTips = true;
+
+
             //Employee emp = new Employee();
 
             //foreach (string path in paths)
@@ -2237,7 +2343,6 @@ namespace FilmCollection
 
 
 
-
             //for (int i = PathD.Length; i > 0; i--)
             //{
             //    Employee emp = new Employee();
@@ -2249,49 +2354,6 @@ namespace FilmCollection
             //        if (!item.Equals(emp)) _treeViewColletion.Add(emp);   // если нет в списке то добавляем
             //    }
             //}
-
-
-
-
-
-
-
-            TreeNode trv = new TreeNode();
-
-            TreeNode lastNode = null;
-            string subPathAgg;
-
-            foreach (string path in paths)
-            {
-                subPathAgg = string.Empty;
-                foreach (string subPath in path.Split(pathSeparator))
-                {
-                    subPathAgg += subPath + pathSeparator;
-
-                    TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
-
-                    if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
-                        if (lastNode == null)
-                        {
-                            lastNode = trv.Nodes.Add(subPathAgg, subPath);
-                        }
-                        else
-                        {
-                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
-                        }
-                    else lastNode = nodes[0];
-                }
-                lastNode = null;
-            }
-
-            List<TreeNode> _ListTree = new List<TreeNode>();
-
-            foreach (TreeNode node in trv.Nodes)    // проход по корневым нодам
-                _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
-
-
-            //treeView.BeginUpdate();
-            treeView.Nodes.AddRange(_ListTree.ToArray());
         }
 
         #endregion
@@ -2353,7 +2415,7 @@ namespace FilmCollection
                 List<Record> filtered = new List<Record>();
                 RCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
-                filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
+                //filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + treeFolder.SelectedNode.FullPath));
 
                 foreach (Record rec in filtered)
                     cmNew.recordList.Add(rec);
@@ -2391,7 +2453,7 @@ namespace FilmCollection
             List<Record> filtered = new List<Record>();
             RCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
 
-            filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + treeFolderPath));
+            //filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + treeFolderPath));
 
             foreach (Record rec in filtered)
                 cmNew.recordList.Add(rec);
