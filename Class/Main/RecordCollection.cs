@@ -105,7 +105,12 @@ namespace FilmCollection
         {
             if (!SourceList.Exists(x => x.Source == source))
             {
-                SourceList.Add(new Sources(GetSourceID(), source));
+                Sources src = new Sources();
+                src.Id = GetSourceID();
+                src.Source = source;
+                SourceList.Add(src);
+
+                //SourceList.Add(new Sources(GetSourceID(), source));
             }
             return SourceList.First(x => x.Source == source).Id;
         }
