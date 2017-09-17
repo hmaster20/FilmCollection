@@ -6,7 +6,7 @@
       <Value Profile="(Default)">Фильмотека</Value>
     </Setting>
     <Setting Name="ToTray" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
