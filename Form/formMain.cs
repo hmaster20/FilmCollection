@@ -2193,45 +2193,88 @@ namespace FilmCollection
             TreeNode lastNode = null;
             string subPathAgg;
 
-            for (int i = 0; i < pathList.Count; i++)
+            TreeNode RootNode = null;
+
+            RootNode = lastNode = trv.Nodes.Add(RCollection.SourceList[0].Source, RCollection.SourceList[0].Source);
+            lastNode.ToolTipText = "Основная база";
+
+            for (int i = 1; i < pathList.Count; i++)
             {
-                if (i != 0)
+                // if (i != 0)
+                // {
+                subPathAgg = string.Empty;
+
+
+                string path = pathList[i];
+
+                if (path.Contains(RCollection.SourceList[0].Source))
                 {
-                    subPathAgg = string.Empty;
-                    foreach (string subPath in pathList[i].Split(Path.DirectorySeparatorChar))
+                    //lastNode = (TreeNode)RootNode.Clone();
+                    path = path.Remove(0, RCollection.SourceList[0].Source.Length).TrimStart(Path.DirectorySeparatorChar);
+                }
+                string[] str = pathList[i].Split(Path.DirectorySeparatorChar);
+                for (int arr = 0; arr < str.Count(); arr++)
+                {
+                    if (arr != 0)
                     {
-                        subPathAgg += subPath + Path.DirectorySeparatorChar;
-                        if (RCollection.SourceList[0].Source.Contains(subPath))
-                        {
-                            continue;
-                        }
-
-                        TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
-
-
-                        if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                        TreeNode[] nodes = trv.Nodes.Find(str[arr], true);
+                        if (nodes.Length == 0) 
                             if (lastNode == null)
                             {
-                                lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                                lastNode = trv.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
                             }
                             else
-                            {
-                                lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                            {   // Если нет конкретной ноды то добавляем
+                                lastNode = lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
                             }
                         else lastNode = nodes[0];
                     }
-                    lastNode = null;
+                    else
+                    {
+                        lastNode = trv.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
+                    }
                 }
-                else
-                {
-                    subPathAgg = string.Empty;
-                    subPathAgg += pathList[i] + Path.DirectorySeparatorChar;
-                    // TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+                
 
-                    lastNode = trv.Nodes.Add(subPathAgg, pathList[i]);
-                    lastNode.ToolTipText = "Основная база";
-                    //lastNode = null;
-                }
+
+                //foreach (string subPath in pathList[i].Split(Path.DirectorySeparatorChar))
+                ////foreach (string subPath in path.Split(Path.DirectorySeparatorChar))
+                //{
+                //    subPathAgg += subPath + Path.DirectorySeparatorChar;
+
+                //    //if (RCollection.SourceList[0].Source.Contains(subPath))
+                //    //{
+                //    //    continue;
+                //    //}
+
+                //    TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+
+                //    if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                //        if (lastNode == null)
+                //        {
+                //            lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                //        }
+                //        else
+                //        {   // Если нет конкретной ноды то добавляем
+                //            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                //        }
+                //    else lastNode = nodes[0];
+                //}
+                //lastNode = null;
+
+
+                //}
+                //else
+                //{
+                //    subPathAgg = string.Empty;
+                //    subPathAgg += pathList[i] + Path.DirectorySeparatorChar;
+                //    // TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+                //    lastNode = trv.Nodes.Add(subPathAgg, pathList[i]);
+                //    lastNode.ToolTipText = "Основная база";
+                //    //lastNode = null;
+                //}
             }
 
 
