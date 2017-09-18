@@ -2043,7 +2043,11 @@ namespace FilmCollection
                         //select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList());
                         for (int i = 0; i < pathList.Count; i++)
                         {
-                            pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
+                            if (i != 0)
+                            {
+                                pathList[i] = src.Source + pathList[i];
+                            }
+                            //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
                         }
                         PopulateTreeView(pathList);
                         //PopulateTreeView(treeFolder, pathList, Path.DirectorySeparatorChar, pathList.Count);
@@ -2197,8 +2201,13 @@ namespace FilmCollection
                     foreach (string subPath in pathList[i].Split(Path.DirectorySeparatorChar))
                     {
                         subPathAgg += subPath + Path.DirectorySeparatorChar;
+                        if (RCollection.SourceList[0].Source.Contains(subPath))
+                        {
+                            continue;
+                        }
 
                         TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
 
                         if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
                             if (lastNode == null)
@@ -2220,8 +2229,8 @@ namespace FilmCollection
                     // TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
 
                     lastNode = trv.Nodes.Add(subPathAgg, pathList[i]);
-                    lastNode.ToolTipText = "Основаня база";
-                    lastNode = null;
+                    lastNode.ToolTipText = "Основная база";
+                    //lastNode = null;
                 }
             }
 
