@@ -2185,6 +2185,19 @@ namespace FilmCollection
         //    //treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
         //}
 
+        public void PrintNodesRecursive(TreeNode oParentNode)
+        {
+            Debug.Print("Вывод узла: " + oParentNode.Text);
+            //Console.WriteLine(oParentNode.Text);
+
+            // Start recursion on all subnodes.
+            foreach (TreeNode oSubNode in oParentNode.Nodes)
+            {
+                PrintNodesRecursive(oSubNode);
+            }
+        }
+
+
         private void PopulateTreeView(List<string> pathList)  // Построение дерева
         {
             treeFolder.Nodes.Clear();
@@ -2200,41 +2213,109 @@ namespace FilmCollection
 
             for (int i = 1; i < pathList.Count; i++)
             {
-                // if (i != 0)
-                // {
-                subPathAgg = string.Empty;
-
 
                 string path = pathList[i];
-
                 if (path.Contains(RCollection.SourceList[0].Source))
-                {
-                    //lastNode = (TreeNode)RootNode.Clone();
                     path = path.Remove(0, RCollection.SourceList[0].Source.Length).TrimStart(Path.DirectorySeparatorChar);
-                }
-                string[] str = pathList[i].Split(Path.DirectorySeparatorChar);
-                for (int arr = 0; arr < str.Count(); arr++)
+
+                path = path.TrimStart(Path.DirectorySeparatorChar);
+
+
+                if (path.Split(Path.DirectorySeparatorChar).Count() > 1)
                 {
-                    if (arr != 0)
+                    string[] str = path.Split(Path.DirectorySeparatorChar);
+
+                    // lastNode = trv.Nodes.Find(RCollection.SourceList[0].Source, true);
+
+                    TreeNode[] nodess = lastNode.Nodes.Find(str[0], true);
+                    TreeNode[] treeNodes = lastNode.Nodes
+                                    .Cast<TreeNode>()
+                                    .Where(r => r.Text == str[0])
+                                    .ToArray();
+
+                    Debug.Print("Print 1");
+                    if (lastNode != null) PrintNodesRecursive(lastNode);
+
+                    if (treeNodes.Length != 0) // если узел уже есть то не добавляем
                     {
-                        TreeNode[] nodes = trv.Nodes.Find(str[arr], true);
-                        if (nodes.Length == 0) 
-                            if (lastNode == null)
-                            {
-                                lastNode = trv.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
-                            }
-                            else
-                            {   // Если нет конкретной ноды то добавляем
-                                lastNode = lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
-                            }
-                        else lastNode = nodes[0];
+                        lastNode = treeNodes[0];
                     }
                     else
                     {
-                        lastNode = trv.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
+                        lastNode = lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
                     }
+
+                    Debug.Print("Print 2");
+                    if (lastNode != null) PrintNodesRecursive(lastNode);
+
+                    for (int arr = 1; arr < str.Count(); arr++)
+                    {
+                        TreeNode[] nodes = lastNode.Nodes
+                            .Cast<TreeNode>()
+                            .Where(r => r.Text == str[arr])
+                            .ToArray();
+                        //TreeNode[] nodes = trv.Nodes.Find(str[arr], true);
+
+                        if (nodes.Length == 0)
+                            lastNode = lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
+                        else lastNode = nodes[0];
+                    }
+                    //lastNode = null;
                 }
-                
+                else
+                {
+                    lastNode.Nodes.Add(path + Path.DirectorySeparatorChar, path);
+                }
+
+
+
+
+
+
+
+                //// if (i != 0)
+                //// {
+                //subPathAgg = string.Empty;
+
+
+                //string path = pathList[i];
+
+                //if (path.Contains(RCollection.SourceList[0].Source))
+                //{
+                //    //lastNode = (TreeNode)RootNode.Clone();
+                //    path = path.Remove(0, RCollection.SourceList[0].Source.Length).TrimStart(Path.DirectorySeparatorChar);
+                //}
+                //string[] str = pathList[i].Split(Path.DirectorySeparatorChar);
+                //for (int arr = 0; arr < str.Count(); arr++)
+                //{
+                //    if (arr != 0)
+                //    {
+                //        TreeNode[] nodes = trv.Nodes.Find(str[arr], true);
+                //        if (nodes.Length == 0) 
+                //            if (lastNode == null)
+                //            {
+                //                lastNode = trv.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
+                //            }
+                //            else
+                //            {   // Если нет конкретной ноды то добавляем
+                //                lastNode = lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
+                //            }
+                //        else lastNode = nodes[0];
+                //    }
+                //    else
+                //    {
+                //        lastNode = trv.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
+                //    }
+                //}
+
+
+
+
+
+
+
+
+
 
 
                 //foreach (string subPath in pathList[i].Split(Path.DirectorySeparatorChar))
