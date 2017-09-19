@@ -221,10 +221,14 @@ namespace FilmCollection
             record.Path = file.DirectoryName;   // полный путь (C:\Folder)
             record.Visible = true;              // видимость
             record.Extension = file.Extension.Trim('.');            // расширение файла (avi)
-            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                                                                    //record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
                                                                     //record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
                                                                     // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-            record.Path = file.DirectoryName.Remove(0, CurrentRC().SourceList.First(x=>x.Id == id).Source.Length);
+                                                                    //record.Path = file.DirectoryName.Remove(0, CurrentRC().SourceList.First(x => x.Id == id).Source.Length + 1);
+                                                                    //  
+            int dlina = CurrentRC().SourceList[0].Source.Length;
+            string sss = CurrentRC().SourceList[0].Source;
+            if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) record.Path = file.DirectoryName.Substring(dlina + 1);
             record.SourceID = id;
             return record;
         }

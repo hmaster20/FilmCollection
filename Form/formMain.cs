@@ -2023,7 +2023,7 @@ namespace FilmCollection
 
         #region Дерево (treeFolder)
 
-        private void CreateTree()       // Построение дерева
+        private void CreateTree()   // Подготовка структуры дерева
         {
             List<string> pathList = new List<string>();
             if (RCollection.SourceList != null && RCollection.SourceList.Count > 0)
@@ -2041,6 +2041,9 @@ namespace FilmCollection
                                            where rec.Visible == true   //orderby rec
                                            select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > 0).ToList());
                         //select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList());
+
+                        pathList.Select(x => x).Distinct();
+
                         for (int i = 0; i < pathList.Count; i++)
                         {
                             if (i != 0)
@@ -2050,154 +2053,12 @@ namespace FilmCollection
                             //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
                         }
                         PopulateTreeView(pathList);
-                        //PopulateTreeView(treeFolder, pathList, Path.DirectorySeparatorChar, pathList.Count);
                     }
                     else break;
                 }
             }
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
-            // TreeFast(paths);
         }
-
-
-
-
-
-        //private void TreeFastT(IEnumerable<string> paths)
-        //{
-        //    // подумать об использовании анонимного класса!
-        //    int pathCount = 0;
-        //    Catalog emp = new Catalog();
-        //    foreach (string path in paths)
-        //    {
-        //        string[] PathD = path.Split(Path.DirectorySeparatorChar);
-        //        if (PathD.Length == 1)  // Корневые папки без поддиректорий
-        //        {
-        //            emp.Name = PathD[0];
-        //            emp.ParentId = (int?)null; // родителя нет
-
-        //            if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
-        //            {
-        //                emp.nodeId = pathCount;
-        //                _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-        //                pathCount++;
-        //            }
-        //            else
-        //            {
-        //                bool isElement = false; // элемента нет
-
-        //                for (int i = 0; i < _treeViewColletion.Employees.Count; i++)
-        //                {
-        //                    if (_treeViewColletion.Employees[i].Equals(emp))
-        //                    { // если есть то выводим инфу и будем использовать его id
-        //                        //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
-        //                        // emp.ParentId = id;
-        //                        isElement = true;
-        //                        break;
-        //                    }
-        //                }
-        //                if (!isElement) // если элемента нет, то создаем                       
-        //                //if (!_treeViewColletion.Employees.Exists(x => x == emp))
-        //                {
-        //                    emp.nodeId = pathCount;
-        //                    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-        //                    pathCount++;
-        //                }
-        //            }
-        //        }
-        //        else // папки с поддиректориями
-        //        {
-        //            List<int> parent = new List<int>();
-
-        //            for (int i = 0; i < PathD.Length; i++)
-        //            {
-        //                emp.Name = PathD[i];
-        //                //emp.ParentId = (i != 0) ? (i - 1) : (int?)null;
-        //                if (i == 0)
-        //                {
-        //                    emp.ParentId = (int?)null;
-        //                }
-        //                else
-        //                {
-        //                    //Employee emps = new Employee(); // ВЫЧИСЛЯЕТСЯ ID родителя
-        //                    //emps = _treeViewColletion.Employees.Find(x => x.Name == PathD[i - 1]);
-        //                    // emp.ParentId = emps.nodeId;
-        //                    emp.ParentId = parent[i - 1];
-        //                }
-
-        //                if (_treeViewColletion.Employees.Count < 1) // если коллекции нет, создаем элемент
-        //                {
-        //                    parent.Add(pathCount);  // добавили id родителя List<int> parent 
-        //                    emp.nodeId = pathCount;
-        //                    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-        //                    pathCount++;
-        //                }
-        //                else
-        //                {
-        //                    // Проверяем наличие элемента
-        //                    bool isElement = false; // элемента нет
-
-        //                    for (int j = 0; j < _treeViewColletion.Employees.Count; j++)
-        //                    {
-        //                        if (_treeViewColletion.Employees[j].Equals(emp))
-        //                        { // если есть то выводим инфу и будем использовать его id
-        //                          //MessageBox.Show("Объект " + emp.Name + " есть в базе под номером: " + emp.nodeId);
-
-        //                            // !!!!Неправильно выбирается элемент!!!! .Берется текущий id вместо id того который в базе.
-
-        //                            Catalog emps = _treeViewColletion.Employees.Find(x => emp.Name == x.Name && emp.ParentId == x.ParentId);
-        //                            if (emps != null) { parent.Add(emps.nodeId); }
-        //                            //isElement = true;
-        //                            // добавили id родителя List<int> parent 
-        //                            break;
-        //                        }
-        //                    }
-        //                    if (!isElement) // если элемента нет, то создаем                       
-        //                    {
-        //                        parent.Add(pathCount);  // добавили id родителя List<int> parent 
-        //                        emp.nodeId = pathCount;
-
-        //                        _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-        //                        pathCount++;
-        //                    }
-        //                    //if (!_treeViewColletion.Employees.Exists(x => x == emp))
-        //                    //{
-        //                    //    emp.nodeId = pathCount;
-        //                    //    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-        //                    //    pathCount++;
-        //                    //}
-        //                }
-        //            }
-
-
-
-        //        }
-        //    }
-
-        //    MessageBox.Show(_treeViewColletion.Employees.Count.ToString());
-        //    // Define functions needed by the load method
-        //    Func<Catalog, int> getId = (x => x.nodeId);
-        //    Func<Catalog, int?> getParentId = (x => x.ParentId);
-        //    Func<Catalog, string> getDisplayName = (x => x.Name);
-
-
-        //    // Load items into TreeViewFast
-        //    //treeViewFast1.LoadItems(_treeViewColletion.Employees, getId, getParentId, getDisplayName);
-        //}
-
-        //PrintNodesRecursive(lastNode);
-        public void PrintNodesRecursive(TreeNode oParentNode)
-        {
-            Debug.Print("Вывод узла: " + oParentNode.Text);
-            //Console.WriteLine(oParentNode.Text);
-
-            // Start recursion on all subnodes.
-            foreach (TreeNode oSubNode in oParentNode.Nodes)
-            {
-                PrintNodesRecursive(oSubNode);
-            }
-        }
-
 
         private void PopulateTreeView(List<string> pathList)  // Построение дерева
         {
@@ -2219,8 +2080,11 @@ namespace FilmCollection
                     if (str.Count() > 1)
                     {
                         TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
+                        TreeNode[] nodesss2 = lastNode.Nodes.Find(str[0], true);
+                        TreeNode[] nodesss = trv.Nodes.Find(str[0], true);
 
-                        if (treeNodes.Length != 0) // если узел уже есть то не добавляем
+                        //lastNode = (treeNodes.Length != 0) ? treeNodes[0] : (RootNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0])); //если узел есть сохраняем, если нет, добавляем
+                        if (treeNodes.Length != 0)
                         {
                             lastNode = treeNodes[0];
                         }
@@ -2252,103 +2116,6 @@ namespace FilmCollection
             treeFolder.Nodes.AddRange(_ListTree.ToArray());
             treeFolder.ShowNodeToolTips = true;
             treeFolder.EndUpdate();
-
-
-
-
-            //Employee emp = new Employee();
-
-            //foreach (string path in paths)
-            //{
-            //    string[] PathD = path.Split(pathSeparator);
-            //    if (PathD.Length == 1)
-            //    {
-            //        emp.Name = PathD[0];
-            //        emp.ParentId = (int?)null;
-
-            //        if (_treeViewColletion.Employees.Count > 0)
-            //        {
-            //            for (int e = 0; e < _treeViewColletion.Employees.Count; e++)
-            //            {
-            //                if (!_treeViewColletion.Employees[e].Equals(emp))
-            //                {
-            //                    emp.nodeId = pathCount;
-            //                    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-            //                    pathCount++;
-            //                    //break;
-            //                }
-            //                //return;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            emp.nodeId = pathCount;
-            //            _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-            //            pathCount++;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        for (int i = 0; i < PathD.Length; i++)
-            //        {
-            //            emp.Name = PathD[i];
-            //            emp.ParentId = (i != 0) ? (i - 1) : (int?)null;
-
-            //            //emp.Parent = (i != 0) ? PathD[i - 1] : ""; // сокращенная нотация if (i != 0) { emp.Parent =  PathD[i - 1]} ...
-            //            if (_treeViewColletion.Employees.Count > 0)
-            //            {
-            //                for (int e = 0; e < _treeViewColletion.Employees.Count; e++)
-            //                {
-            //                    if (!_treeViewColletion.Employees[e].Equals(emp))
-            //                    {
-            //                        emp.nodeId = pathCount;
-            //                        _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-            //                        pathCount++;
-            //                        //break;
-            //                        //return;
-            //                    }
-
-            //                    //return;
-            //                }
-            //                // foreach (Employee item in _treeViewColletion.Employees)
-            //                // {
-            //                //if(!item.Equals(emp)) _treeViewColletion.Add(emp);   // если нет в списке то добавляем
-            //                //if (!item.Equals(emp))
-            //                //{
-            //                //    emp.nodeId = pathCount;
-            //                //    //_treeViewColletion.Add(emp);
-            //                //    _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-            //                //    pathCount++;
-            //                //    return;
-            //                //}
-            //                // }
-            //            }
-            //            else
-            //            {
-            //                emp.nodeId = pathCount;
-            //                _treeViewColletion.Add(emp.nodeId, emp.ParentId, emp.Name);
-            //                pathCount++;
-            //            }
-            //            //emp = null;
-            //        }
-            //    }
-            //}
-
-
-
-
-
-            //for (int i = PathD.Length; i > 0; i--)
-            //{
-            //    Employee emp = new Employee();
-            //    emp.Name = PathD[i];
-            //    emp.Parent = (i != 0) ? PathD[i - 1] : ""; // сокращенная нотация if (i != 0) { emp.Parent =  PathD[i - 1]} ...
-
-            //    foreach (Employee item in _treeViewColletion.Employees)
-            //    {
-            //        if (!item.Equals(emp)) _treeViewColletion.Add(emp);   // если нет в списке то добавляем
-            //    }
-            //}
         }
 
         #endregion
