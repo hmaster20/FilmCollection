@@ -1496,3 +1496,52 @@ If the user controls do things like connect to data sources, you might want to a
             //}
         }
 
+
+
+
+============================================================================================================================
+Старый рабочий код построения дерева для одной базы
+
+
+            treeFolder.Nodes.Clear();
+
+            TreeNode trv = new TreeNode();
+            TreeNode lastNode = null;
+            string subPathAgg;
+
+            TreeNode RootNode = null;
+
+
+            foreach (string path in pathList)
+            {
+                subPathAgg = string.Empty;
+                foreach (string subPath in path.Split(Path.DirectorySeparatorChar))
+                {
+                    subPathAgg += subPath + Path.DirectorySeparatorChar;
+
+                    TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+                    if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                        if (lastNode == null)
+                        {
+                            lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                            lastNode.ToolTipText = "Tester";
+                            //lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                        }
+                        else
+                        {
+                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                        }
+                    else lastNode = nodes[0];
+                }
+                lastNode = null;
+            }
+
+            List<TreeNode> _ListTree = new List<TreeNode>();
+            foreach (TreeNode node in trv.Nodes)    // проход по корневым нодам
+                _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
+
+
+            //treeView.BeginUpdate();
+            treeFolder.Nodes.AddRange(_ListTree.ToArray());
+            treeFolder.ShowNodeToolTips = true;

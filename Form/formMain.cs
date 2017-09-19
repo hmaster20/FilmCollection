@@ -2212,57 +2212,48 @@ namespace FilmCollection
 
             for (int i = 1; i < pathList.Count; i++)
             {
-                string path = pathList[i];
-                if (path.Contains(RCollection.SourceList[0].Source))
-                    path = path.Remove(0, RCollection.SourceList[0].Source.Length).TrimStart(Path.DirectorySeparatorChar);
-
-
-
-                if (path.Split(Path.DirectorySeparatorChar).Count() > 1)
+                if (pathList[i].Contains(RCollection.SourceList[0].Source))
                 {
-                    string[] str = path.Split(Path.DirectorySeparatorChar);
+                    string[] str = pathList[i].Remove(0, RCollection.SourceList[0].Source.Length).TrimStart(Path.DirectorySeparatorChar).Split(Path.DirectorySeparatorChar);
 
-                    TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
-
-
-                    if (treeNodes.Length != 0) // если узел уже есть то не добавляем
+                    if (str.Count() > 1)
                     {
-                        lastNode = treeNodes[0];
+                        TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
+
+                        if (treeNodes.Length != 0) // если узел уже есть то не добавляем
+                        {
+                            lastNode = treeNodes[0];
+                        }
+                        else
+                        {
+                            lastNode = RootNode;
+                            lastNode = lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
+                        }
+
+                        for (int arr = 1; arr < str.Count(); arr++)
+                        {   // Поиск текущего узла, если нет, то создаем, если есть, то запоминаем (выбыираме с нулевым индексом -> nodes[0])
+                            TreeNode[] nodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[arr]).ToArray();
+                            lastNode = (nodes.Length == 0) ? lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]) : nodes[0];
+                        }
                     }
                     else
                     {
                         lastNode = RootNode;
-                        lastNode = lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
+                        lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
                     }
-
-                    for (int arr = 1; arr < str.Count(); arr++)
-                    {
-                        TreeNode[] nodes = lastNode.Nodes
-                            .Cast<TreeNode>()
-                            .Where(r => r.Text == str[arr])
-                            .ToArray();
-
-                        if (nodes.Length == 0)
-                            lastNode = lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]);
-                        else lastNode = nodes[0];
-                    }
-                }
-                else
-                {
-                    lastNode = RootNode;
-                    lastNode.Nodes.Add(path + Path.DirectorySeparatorChar, path);
                 }
             }
-
-
             List<TreeNode> _ListTree = new List<TreeNode>();
             foreach (TreeNode node in trv.Nodes)    // проход по корневым нодам
                 _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
 
-
-            //treeView.BeginUpdate();
+            treeFolder.BeginUpdate();
+            //treeFolder.Nodes.Insert(trv.Nodes.Count, trv);
             treeFolder.Nodes.AddRange(_ListTree.ToArray());
             treeFolder.ShowNodeToolTips = true;
+            treeFolder.EndUpdate();
+
+
 
 
             //Employee emp = new Employee();
