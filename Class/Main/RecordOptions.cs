@@ -48,10 +48,6 @@ namespace FilmCollection
         /// <summary>Каталог изображений</summary>
         public static string PicsFolder() => Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
   
-
-        /// <summary>Путь к корневой папке</summary>
-        //public string Source { get; set; } 
-
         public int scMainSplitter { get; set; }     // Сохранение параметров сплиттеров
         public int scTabFilmSplitter { get; set; }
 
