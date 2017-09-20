@@ -109,8 +109,12 @@ namespace FilmCollection
                     RC.CombineList[i].invisibleRecord(); // скрываем файлы
                     main.BeginInvoke((MethodInvoker)(() =>
                     {
-                        main.tsProgressBar.Value = i;
-                        main.FindStatusLabel.Text = i.ToString() + " из " + RC.CombineList.Count.ToString();
+                        if (i <= main.tsProgressBar.Maximum)    // Обработка возможной ошибки
+                        {
+                            main.tsProgressBar.Value = i;
+                            main.FindStatusLabel.Text = i.ToString() + " из " + RC.CombineList.Count.ToString();
+                        }
+
                     }));
                 }
 

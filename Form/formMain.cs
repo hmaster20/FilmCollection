@@ -399,7 +399,7 @@ namespace FilmCollection
 
         private void btnOptions_Click(object sender, EventArgs e)
         {
-            using (Options form = new Options(RCollection))
+            using (Options form = new Options(RCollection, this))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {

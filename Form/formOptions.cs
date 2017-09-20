@@ -12,10 +12,8 @@ namespace FilmCollection
 {
     public partial class Options : Form
     {
-        public Options()
-        {
-            InitializeComponent();
-        }
+        private MainForm mainForm;
+        private RecordCollection VC;
 
         public Options(RecordCollection _videoCollection)
         {
@@ -57,9 +55,11 @@ namespace FilmCollection
 
         }
 
-
-
-
+        public Options(RecordCollection _videoCollection, MainForm mainForm) : this(_videoCollection)
+        {
+            this.VC = _videoCollection;
+            this.mainForm = mainForm;
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -85,14 +85,14 @@ namespace FilmCollection
                 foreach (var item in clBoxColumn.CheckedItems.OfType<string>().ToList())
                 {
                     clBoxColumnCurrent.Items.Add(item);
-                    clBoxColumn.Items.Remove(item);                
+                    clBoxColumn.Items.Remove(item);
                 }
             }
 
-            if (clBoxColumn.SelectedItems.Count>0)
+            if (clBoxColumn.SelectedItems.Count > 0)
             {
                 clBoxColumnCurrent.Items.Add(clBoxColumn.SelectedItem);
-                clBoxColumn.Items.Remove(clBoxColumn.SelectedItem);     
+                clBoxColumn.Items.Remove(clBoxColumn.SelectedItem);
             }
         }
 
@@ -122,5 +122,35 @@ namespace FilmCollection
             //    MessageBox.Show("Test");
             //}
         }
+
+        private void btnAddSource_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
+            {
+                fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+                fbDialog.ShowNewFolderButton = false;
+
+                DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+                if (dialogStatus == DialogResult.OK)
+                {
+                    string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
+                    DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
+                    if (directory.Exists)
+                        if (VC != null)
+                        {
+                            int id = VC.AddSource(directory.FullName);
+                            (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm); })).Start();
+                        }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
     }
 }

@@ -48,6 +48,9 @@
             this.button5 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.clBoxFormats = new System.Windows.Forms.CheckedListBox();
+            this.btnAddSource = new System.Windows.Forms.Button();
+            this.btnDelSource = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -256,11 +259,41 @@
             this.clBoxFormats.Size = new System.Drawing.Size(120, 182);
             this.clBoxFormats.TabIndex = 6;
             // 
+            // btnAddSource
+            // 
+            this.btnAddSource.Location = new System.Drawing.Point(842, 77);
+            this.btnAddSource.Name = "btnAddSource";
+            this.btnAddSource.Size = new System.Drawing.Size(75, 23);
+            this.btnAddSource.TabIndex = 15;
+            this.btnAddSource.Text = "Добавить";
+            this.btnAddSource.UseVisualStyleBackColor = true;
+            this.btnAddSource.Click += new System.EventHandler(this.btnAddSource_Click);
+            // 
+            // btnDelSource
+            // 
+            this.btnDelSource.Location = new System.Drawing.Point(842, 107);
+            this.btnDelSource.Name = "btnDelSource";
+            this.btnDelSource.Size = new System.Drawing.Size(75, 23);
+            this.btnDelSource.TabIndex = 15;
+            this.btnDelSource.Text = "Удалить";
+            this.btnDelSource.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(599, 77);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(237, 134);
+            this.listBox1.TabIndex = 16;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 428);
+            this.ClientSize = new System.Drawing.Size(929, 428);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.btnDelSource);
+            this.Controls.Add(this.btnAddSource);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gBoxRecColumn);
             this.Controls.Add(this.button3);
@@ -306,5 +339,8 @@
         private System.Windows.Forms.Button ColAdd;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnAddSource;
+        private System.Windows.Forms.Button btnDelSource;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
