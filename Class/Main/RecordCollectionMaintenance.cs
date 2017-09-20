@@ -72,22 +72,22 @@ namespace FilmCollection
 
         public void Update(MainForm main)
         {
-            //if (string.IsNullOrEmpty(CurrentRC().Options.Source) && !(CurrentRC().SourceList.Count > 0) )  // Если есть информация о корневой папки коллекции
-            if (CurrentRC().SourceList.Count < 1)
+            try
             {
-                main.BeginInvoke((MethodInvoker)(() =>
-                MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)));
-            }
-            else
-            {
-                try
+                //if (string.IsNullOrEmpty(CurrentRC().Options.Source) && !(CurrentRC().SourceList.Count > 0) )  // Если есть информация о корневой папки коллекции
+                if (CurrentRC().SourceList.Count < 1)
+                {
+                    main.BeginInvoke((MethodInvoker)(() =>
+                    MessageBox.Show(Form.ActiveForm, "Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)));
+                }
+                else
                 {
                     RecordCollection RC = (RecordCollection)CurrentRC().Clone();
                     foreach (Sources source in CurrentRC().SourceList)
                         Creator(main, RC, source);
                 }
-                catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
             }
+            catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
         }
 
 
