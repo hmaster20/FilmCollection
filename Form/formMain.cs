@@ -273,7 +273,7 @@ namespace FilmCollection
                 {
                     tssLabel.Text = "Коллекция из " + RCollection.CombineList.Count.ToString() + " элементов";
                     PrepareRefresh();
-                    CreateTree();
+                    TreeViewPrepare();
                     state = true;
                 }
                 timerLoad.Enabled = true;   // Исключение раннего селекта treeFolder и фильтра dataGridView1 
@@ -2023,7 +2023,7 @@ namespace FilmCollection
 
         #region Дерево (treeFolder)
 
-        private void CreateTree()   // Подготовка структуры дерева
+        private void TreeViewPrepare()   // Подготовка структуры дерева
         {
             List<string> pathList = new List<string>();
             if (RCollection.SourceList != null && RCollection.SourceList.Count > 0)
@@ -2052,7 +2052,7 @@ namespace FilmCollection
                             }
                             //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
                         }
-                        PopulateTreeView(pathList);
+                        TreeViewBuilder(pathList);
                     }
                     else break;
                 }
@@ -2060,7 +2060,7 @@ namespace FilmCollection
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
-        private void PopulateTreeView(List<string> pathList)  // Построение дерева
+        private void TreeViewBuilder(List<string> pathList)  // Построение дерева
         {
             treeFolder.Nodes.Clear();
 
@@ -2079,14 +2079,20 @@ namespace FilmCollection
 
                     if (str.Count() > 1)
                     {
+                        string aa = str[0];
                         TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
-                        TreeNode[] nodesss2 = lastNode.Nodes.Find(str[0], true);
-                        TreeNode[] nodesss = trv.Nodes.Find(str[0], true);
+
+                        string subPathAgg= str[0] + Path.DirectorySeparatorChar;
+                        TreeNode[] nodesTrv = trv.Nodes.Find(subPathAgg, true);
+                        TreeNode[] nodesRoot = RootNode.Nodes.Find(subPathAgg, true);
+
 
                         //lastNode = (treeNodes.Length != 0) ? treeNodes[0] : (RootNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0])); //если узел есть сохраняем, если нет, добавляем
-                        if (treeNodes.Length != 0)
+                        //if (treeNodes.Length != 0)
+                        if (nodesRoot.Length != 0)
                         {
-                            lastNode = treeNodes[0];
+                            //lastNode = treeNodes[0];
+                            lastNode = nodesRoot[0];
                         }
                         else
                         {
