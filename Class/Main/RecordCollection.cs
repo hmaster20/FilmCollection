@@ -186,8 +186,10 @@ namespace FilmCollection
                     }
                 }
 
+                // Установка текущего значения счетчика
                 if (actorDic.Count > 0) SetActorID(actorDic.Keys.Max());
                 if (combineDic.Count > 0) SetMediaID(combineDic.Keys.Max());
+                if (result.SourceList.Count > 0) SetSourceID(result.SourceList.Max(x=>x.Id)+1);
             }
             catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки файла базы. \n" + ex.Message); }
 
