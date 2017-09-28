@@ -476,6 +476,8 @@ namespace FilmCollection
 
         private void UpdateInfo_Click(object sender, EventArgs e) => UpdateInfo();
 
+        private void ShowChart_Click(object sender, EventArgs e) => ShowCharts();
+
         #endregion
 
 
@@ -1410,20 +1412,6 @@ namespace FilmCollection
 
 
         #region Поисковый механизм
-
-        //private void FindFull()
-        //{
-        //    try
-        //    {
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.ToString()); ;
-        //    }
-        //}
-
         private void Find(int cell)
         {
             try
@@ -2082,7 +2070,7 @@ namespace FilmCollection
                         string aa = str[0];
                         TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
 
-                        string subPathAgg= str[0] + Path.DirectorySeparatorChar;
+                        string subPathAgg = str[0] + Path.DirectorySeparatorChar;
                         TreeNode[] nodesTrv = trv.Nodes.Find(subPathAgg, true);
                         TreeNode[] nodesRoot = RootNode.Nodes.Find(subPathAgg, true);
 
@@ -2267,6 +2255,21 @@ namespace FilmCollection
             PrepareRefresh();
         }
 
+
+        #endregion
+
+        #region отображение схемы по одному фильму
+
+        private void ShowCharts()
+        {
+            Record record = GetSelectedRecord();
+            if (record != null)
+            {
+                panelScheme.BringToFront();
+                //panelView.BringToFront();
+                //ucView.update(record, this);
+            }
+        }
 
         #endregion
 
@@ -2809,7 +2812,6 @@ namespace FilmCollection
             }
 
         }
-
 
 
         //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)

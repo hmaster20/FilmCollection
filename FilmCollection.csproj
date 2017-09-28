@@ -192,6 +192,12 @@
     <Compile Include="Form\ucMediaInfo.Designer.cs">
       <DependentUpon>ucMediaInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\ucChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Form\ucChart.Designer.cs">
+      <DependentUpon>ucChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Class\Main\_Record.cs" />
@@ -231,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\ucMediaInfo.resx">
       <DependentUpon>ucMediaInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ucChart.resx">
+      <DependentUpon>ucChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
