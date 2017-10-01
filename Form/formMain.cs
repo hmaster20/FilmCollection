@@ -958,6 +958,11 @@ namespace FilmCollection
                 //            ? filtered.FindAll(v => v.Path == RCollection.Options.Source + Path.DirectorySeparatorChar + node)
                 //            // отобразить все файлы в т.ч. и вложенные
                 //            : filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + node));
+
+                //string selecteNode = RCollection.SourceList[0].Source + Path.DirectorySeparatorChar + node;
+                //filtered = (!ShowAllFiles) ? filtered.FindAll(v => v.Path == selecteNode) : filtered.FindAll(v => v.Path.StartsWith(selecteNode));
+                //filtered = (!ShowAllFiles) ? filtered.FindAll(v => v.Path == node) : filtered.FindAll(v => v.Path.StartsWith(node));
+                filtered = (!ShowAllFiles) ? filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path) == node) : filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path).StartsWith(node));
             }
 
             if (isTabFilm())
