@@ -735,9 +735,6 @@ namespace FilmCollection
                 Add();
                 e.Handled = true;
             }
-
-
-
         }
 
         private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -906,29 +903,6 @@ namespace FilmCollection
             }
         }
 
-
-        //private void OLD_Add_rec(object sender, EventArgs e)        // добавление новой записи
-        //{
-        //    EditForm form = new EditForm();
-        //    if (form.ShowDialog() == DialogResult.OK)
-        //    {
-        //        //_videoCollection.Add(form.rec);
-        //        _videoCollection.Save();
-        //        PrepareRefresh();
-        //    }
-        //}
-
-        //private void OLD_Change_rec(object sender, EventArgs e)     // Изменить запись
-        //{
-        //    Record record = GetSelectedRecord();
-        //    if (new EditForm(record).ShowDialog() == DialogResult.OK)
-        //    {
-        //        _videoCollection.Save();
-        //        PrepareRefresh();      //Должно быть обновление вместо фильтра
-        //    }
-        //}
-
-
         private void Filter(object sender, EventArgs e)     // При выборе фильтра > сброс фильтра по дереву и таблице
         {
             TableRec.ClearSelection();
@@ -984,10 +958,7 @@ namespace FilmCollection
                 //            ? filtered.FindAll(v => v.Path == RCollection.Options.Source + Path.DirectorySeparatorChar + node)
                 //            // отобразить все файлы в т.ч. и вложенные
                 //            : filtered = filtered.FindAll(v => v.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + node));
-
-
             }
-
 
             if (isTabFilm())
             {
@@ -2041,6 +2012,7 @@ namespace FilmCollection
                             //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
                         }
                         TreeViewBuilder(pathList);
+                        Debug.Print("Проход создания дерева");
                     }
                     else break;
                 }
@@ -2266,8 +2238,7 @@ namespace FilmCollection
             if (record != null)
             {
                 panelScheme.BringToFront();
-                //panelView.BringToFront();
-                //ucView.update(record, this);
+                ucScheme.update(record);
             }
         }
 
@@ -2811,6 +2782,15 @@ namespace FilmCollection
                 Debug.Print("record = null");
             }
 
+        }
+
+        private void cOpenCurrentFolder_Click(object sender, EventArgs e)
+        {
+            string dirPath = treeFolder.SelectedNode.FullPath;
+            if (Directory.Exists(dirPath))
+            {
+                Process.Start(@dirPath);
+            }
         }
 
 

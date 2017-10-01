@@ -95,15 +95,15 @@
             this.TreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.сCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
             this.сExpandAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tcSep1 = new System.Windows.Forms.ToolStripSeparator();
             this.cExpandSelectNode = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tcSep2 = new System.Windows.Forms.ToolStripSeparator();
             this.cShowSelcetNodeAllFiles = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.tcSep3 = new System.Windows.Forms.ToolStripSeparator();
             this.cRenameFolder = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.tcSep4 = new System.Windows.Forms.ToolStripSeparator();
             this.UpdateCatalogInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.tcSep5 = new System.Windows.Forms.ToolStripSeparator();
             this.ChangeCatalogTypeVideo = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeCatalogTypeVideo2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -114,10 +114,10 @@
             this.btnResetFilterRec = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
-            this.panelScheme = new System.Windows.Forms.Panel();
-            this.ucScheme = new FilmCollection.ucChart();
             this.panelView = new System.Windows.Forms.Panel();
             this.ucView = new FilmCollection.ucMediaInfo();
+            this.panelScheme = new System.Windows.Forms.Panel();
+            this.ucScheme = new FilmCollection.ucChart();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.rtDescription = new System.Windows.Forms.RichTextBox();
@@ -264,6 +264,8 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tcSep6 = new System.Windows.Forms.ToolStripSeparator();
+            this.cOpenCurrentFolder = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -276,8 +278,8 @@
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
             this.menuTableRec.SuspendLayout();
-            this.panelScheme.SuspendLayout();
             this.panelView.SuspendLayout();
+            this.panelScheme.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
@@ -859,19 +861,21 @@
             this.TreeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сCollapseAll,
             this.сExpandAll,
-            this.toolStripSeparator2,
+            this.tcSep1,
             this.cExpandSelectNode,
-            this.toolStripSeparator3,
+            this.tcSep2,
             this.cShowSelcetNodeAllFiles,
-            this.toolStripSeparator8,
+            this.tcSep3,
             this.cRenameFolder,
-            this.toolStripSeparator7,
+            this.tcSep4,
+            this.cOpenCurrentFolder,
+            this.tcSep5,
             this.UpdateCatalogInfo,
-            this.toolStripSeparator11,
+            this.tcSep6,
             this.ChangeCatalogTypeVideo,
             this.ChangeCatalogTypeVideo2});
             this.TreeMenu.Name = "contextTreeMenu";
-            this.TreeMenu.Size = new System.Drawing.Size(370, 210);
+            this.TreeMenu.Size = new System.Drawing.Size(370, 260);
             // 
             // сCollapseAll
             // 
@@ -889,10 +893,10 @@
             this.сExpandAll.Text = "Развернуть все";
             this.сExpandAll.Click += new System.EventHandler(this.сExpandAll_Click);
             // 
-            // toolStripSeparator2
+            // tcSep1
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(366, 6);
+            this.tcSep1.Name = "tcSep1";
+            this.tcSep1.Size = new System.Drawing.Size(366, 6);
             // 
             // cExpandSelectNode
             // 
@@ -902,10 +906,10 @@
             this.cExpandSelectNode.Text = "Развернуть ветку";
             this.cExpandSelectNode.Click += new System.EventHandler(this.cExpandSelectNode_Click);
             // 
-            // toolStripSeparator3
+            // tcSep2
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(366, 6);
+            this.tcSep2.Name = "tcSep2";
+            this.tcSep2.Size = new System.Drawing.Size(366, 6);
             // 
             // cShowSelcetNodeAllFiles
             // 
@@ -915,23 +919,23 @@
             this.cShowSelcetNodeAllFiles.Text = "Отобразить все вложенные файлы";
             this.cShowSelcetNodeAllFiles.Click += new System.EventHandler(this.cShowSelcetNodeAllFiles_Click);
             // 
-            // toolStripSeparator8
+            // tcSep3
             // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(366, 6);
+            this.tcSep3.Name = "tcSep3";
+            this.tcSep3.Size = new System.Drawing.Size(366, 6);
             // 
             // cRenameFolder
             // 
             this.cRenameFolder.Image = global::FilmCollection.Properties.Resources.FolderEdit;
             this.cRenameFolder.Name = "cRenameFolder";
             this.cRenameFolder.Size = new System.Drawing.Size(369, 22);
-            this.cRenameFolder.Text = "Переименовать";
+            this.cRenameFolder.Text = "Переименовать папку";
             this.cRenameFolder.Click += new System.EventHandler(this.cRenameFolder_Click);
             // 
-            // toolStripSeparator7
+            // tcSep4
             // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(366, 6);
+            this.tcSep4.Name = "tcSep4";
+            this.tcSep4.Size = new System.Drawing.Size(366, 6);
             // 
             // UpdateCatalogInfo
             // 
@@ -941,10 +945,10 @@
             this.UpdateCatalogInfo.Text = "Обновить информацию в каталоге";
             this.UpdateCatalogInfo.Click += new System.EventHandler(this.UpdateCatalogInfo_Click);
             // 
-            // toolStripSeparator11
+            // tcSep5
             // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(366, 6);
+            this.tcSep5.Name = "tcSep5";
+            this.tcSep5.Size = new System.Drawing.Size(366, 6);
             // 
             // ChangeCatalogTypeVideo
             // 
@@ -1009,8 +1013,8 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.scTabFilm.Panel2.Controls.Add(this.panelScheme);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
+            this.scTabFilm.Panel2.Controls.Add(this.panelScheme);
             this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
@@ -1082,23 +1086,6 @@
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
-            // panelScheme
-            // 
-            this.panelScheme.Controls.Add(this.ucScheme);
-            this.panelScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelScheme.Location = new System.Drawing.Point(0, 0);
-            this.panelScheme.Name = "panelScheme";
-            this.panelScheme.Size = new System.Drawing.Size(368, 606);
-            this.panelScheme.TabIndex = 1;
-            // 
-            // ucScheme
-            // 
-            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucScheme.Location = new System.Drawing.Point(0, 0);
-            this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 606);
-            this.ucScheme.TabIndex = 0;
-            // 
             // panelView
             // 
             this.panelView.Controls.Add(this.ucView);
@@ -1115,6 +1102,23 @@
             this.ucView.Name = "ucView";
             this.ucView.Size = new System.Drawing.Size(368, 606);
             this.ucView.TabIndex = 0;
+            // 
+            // panelScheme
+            // 
+            this.panelScheme.Controls.Add(this.ucScheme);
+            this.panelScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelScheme.Location = new System.Drawing.Point(0, 0);
+            this.panelScheme.Name = "panelScheme";
+            this.panelScheme.Size = new System.Drawing.Size(368, 606);
+            this.panelScheme.TabIndex = 1;
+            // 
+            // ucScheme
+            // 
+            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucScheme.Location = new System.Drawing.Point(0, 0);
+            this.ucScheme.Name = "ucScheme";
+            this.ucScheme.Size = new System.Drawing.Size(368, 606);
+            this.ucScheme.TabIndex = 0;
             // 
             // panelEdit
             // 
@@ -2693,6 +2697,19 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
+            // tcSep6
+            // 
+            this.tcSep6.Name = "tcSep6";
+            this.tcSep6.Size = new System.Drawing.Size(366, 6);
+            // 
+            // cOpenCurrentFolder
+            // 
+            this.cOpenCurrentFolder.Image = global::FilmCollection.Properties.Resources.Folder;
+            this.cOpenCurrentFolder.Name = "cOpenCurrentFolder";
+            this.cOpenCurrentFolder.Size = new System.Drawing.Size(369, 22);
+            this.cOpenCurrentFolder.Text = "Открыть папку";
+            this.cOpenCurrentFolder.Click += new System.EventHandler(this.cOpenCurrentFolder_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2726,8 +2743,8 @@
             this.scTabFilm.ResumeLayout(false);
             this.menuTableRec.ResumeLayout(false);
             this.menuTableRec.PerformLayout();
-            this.panelScheme.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
+            this.panelScheme.ResumeLayout(false);
             this.panelEdit.ResumeLayout(false);
             this.gMedia.ResumeLayout(false);
             this.gMedia.PerformLayout();
@@ -2840,9 +2857,9 @@
         private System.Windows.Forms.ContextMenuStrip TreeMenu;
         private System.Windows.Forms.ToolStripMenuItem сCollapseAll;
         private System.Windows.Forms.ToolStripMenuItem сExpandAll;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator tcSep1;
         private System.Windows.Forms.ToolStripMenuItem cExpandSelectNode;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator tcSep2;
         private System.Windows.Forms.ToolStripMenuItem cShowSelcetNodeAllFiles;
         private System.Windows.Forms.ToolStripMenuItem MenuChange;
         private System.Windows.Forms.ToolStrip mainMenuIcon;
@@ -2907,7 +2924,7 @@
         private System.Windows.Forms.ColumnHeader colYear;
         private System.Windows.Forms.TabPage tabImage;
         private System.Windows.Forms.ToolStripTextBox tsFindbyName;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripSeparator tcSep3;
         private System.Windows.Forms.ToolStripMenuItem cRenameFolder;
         private System.Windows.Forms.Panel panelFolder;
         private System.Windows.Forms.Button btnSaveFolder;
@@ -2925,7 +2942,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnCleanDB;
         private System.Windows.Forms.ToolStripMenuItem UpdateFIlmInfo;
         private System.Windows.Forms.ToolStripSeparator cSep4;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripSeparator tcSep4;
         private System.Windows.Forms.ToolStripMenuItem UpdateCatalogInfo;
         private System.Windows.Forms.Button btnGetTime;
         private System.Windows.Forms.MaskedTextBox mtbTime;
@@ -2933,7 +2950,7 @@
         private System.Windows.Forms.TextBox tbNameRecord;
         private System.Windows.Forms.GroupBox gRecord;
         private System.Windows.Forms.Label lblNameR;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripSeparator tcSep5;
         private System.Windows.Forms.ToolStripMenuItem ChangeCatalogTypeVideo;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel panelViewAct;
@@ -3011,6 +3028,8 @@
         private System.Windows.Forms.ToolStripMenuItem ShowChart;
         private System.Windows.Forms.Panel panelScheme;
         private ucChart ucScheme;
+        private System.Windows.Forms.ToolStripMenuItem cOpenCurrentFolder;
+        private System.Windows.Forms.ToolStripSeparator tcSep6;
     }
 }
 
