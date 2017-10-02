@@ -17,18 +17,20 @@ namespace FilmCollection
 {
     public partial class ucChart : UserControl
     {
-        public ucChart() { InitializeComponent(); }
+        private MainForm main { get; set; }
+        private Dictionary<string, string> rcDic { get; set; }
 
-
-        public void update(Record _record)
+        public ucChart()
         {
-            //this.record = _record;
-            //ShowCharts();
+            InitializeComponent();
+        }
 
-            Dictionary<string, string> rcDic = new Dictionary<string, string>();
+        internal void update(Record _record, MainForm mainForm)
+        {
+            main = mainForm;
 
+            rcDic = new Dictionary<string, string>();
             RecordCollection _videoCollection = RecordCollection.GetInstance();
-
             List<Actor> acts = new List<Actor>();
 
             if (_record.combineLink.media.ActorListID != null)
@@ -40,30 +42,31 @@ namespace FilmCollection
             {
                 foreach (Actor act in acts)
                 {
-                    //rcDic.Add(_record.combineLink.media.Name, act.FIO);
                     rcDic.Add(act.FIO, _record.combineLink.media.Name);
                 }
                 Show(rcDic);
             }
         }
 
+
+
         private void Show(Dictionary<string, string> rcDic)
         {
-            Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            GViewer viewer = new GViewer();
+            Graph graph = new Graph("graph");
+            string RootNode = rcDic.Values.First();
 
             foreach (var item in rcDic)
             {
                 graph.AddEdge(item.Value, item.Key);
             }
-            //string f = rcDic.Keys.First();
-            string f = rcDic.Values.First();
 
-            graph.FindNode(f).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Gray;
-            Microsoft.Msagl.Drawing.Node c = graph.FindNode(f);
+            graph.FindNode(RootNode).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Gray;
+            Microsoft.Msagl.Drawing.Node c = graph.FindNode(RootNode);
             c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
             c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
             viewer.Graph = graph;
+            viewer.CurrentLayoutMethod = LayoutMethod.MDS;
             viewer.MouseDoubleClick += Viewer_MouseDoubleClick;
             this.SuspendLayout();
             viewer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -77,21 +80,36 @@ namespace FilmCollection
             if (viewer.SelectedObject is Node)
             {
                 Node node = viewer.SelectedObject as Node;
-                //...do works here
-                Debug.Print(node.Id);
-                viewer.Graph.FindNode(node.Id).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
-                //viewer.Graph.FindNode(node.Id).AddInEdge(new Edge(node.Id, "asd", "asd"));
-                //viewer.Graph.FindNode(node.Id).Attr.
-                //viewer.Graph.AddEdge();
-
-                Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
-                //create the graph content 
-                //graph.AddEdge("Test" + ee, "B");
-                //viewer.Graph.AddEdge("Test" + ee, "B");
+                viewer.Graph.FindNode(node.Id).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Gray;
+                //Debug.Print(node.Id);
+                //Debug.Print(node.Label.Text);
+                if (main != null)
+                {
+                    main.SelectActor(node.Id);
+                }
             }
         }
 
 
+        void Test_Tree(object sender, EventArgs e)
+        {
+            GViewer viewer = new GViewer();
+            var tree = new PhyloTree();
+            var edge = (PhyloEdge)tree.AddEdge("a", "b");
+            //edge.Length = 0.8;
+            edge = (PhyloEdge)tree.AddEdge("a", "c");
+            //edge.Length = 0.2;
+            tree.AddEdge("c", "d");
+            tree.AddEdge("c", "e");
+            tree.AddEdge("c", "f");
+            tree.AddEdge("e", "0");
+            tree.AddEdge("e", "1");
+            tree.AddEdge("e", "2");
+
+            viewer.Graph = tree;
+            viewer.LayoutAlgorithmSettingsButtonVisible = false;
+            this.Controls.Add(viewer);
+        }
 
 
         private void SaveToImage(object sender, EventArgs e)
@@ -143,6 +161,7 @@ namespace FilmCollection
             //show the form 
             //form.ShowDialog();
         }
+
 
     }
 }
