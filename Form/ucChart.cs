@@ -6,19 +6,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Msagl.GraphViewerGdi;
+using Microsoft.Msagl.Drawing;
+using System.Diagnostics;
+using System.Drawing.Imaging;
+//using Microsoft.Msagl.Core.Layout;
 //using Microsoft.Msagl;
 
 namespace FilmCollection
 {
     public partial class ucChart : UserControl
     {
-        //public ucChart()
-        //{
-        //    InitializeComponent();
-        //    ShowCharts();
-        //}
-
-        public ucChart() => InitializeComponent();
+        public ucChart() { InitializeComponent(); }
 
 
         public void update(Record _record)
@@ -65,12 +64,50 @@ namespace FilmCollection
             c.Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleGreen;
             c.Attr.Shape = Microsoft.Msagl.Drawing.Shape.Diamond;
             viewer.Graph = graph;
+            viewer.MouseDoubleClick += Viewer_MouseDoubleClick;
             this.SuspendLayout();
             viewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Controls.Add(viewer);
             this.ResumeLayout();
         }
 
+        private void Viewer_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            GViewer viewer = sender as GViewer;
+            if (viewer.SelectedObject is Node)
+            {
+                Node node = viewer.SelectedObject as Node;
+                //...do works here
+                Debug.Print(node.Id);
+                viewer.Graph.FindNode(node.Id).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
+                //viewer.Graph.FindNode(node.Id).AddInEdge(new Edge(node.Id, "asd", "asd"));
+                //viewer.Graph.FindNode(node.Id).Attr.
+                //viewer.Graph.AddEdge();
+
+                Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
+                //create the graph content 
+                //graph.AddEdge("Test" + ee, "B");
+                //viewer.Graph.AddEdge("Test" + ee, "B");
+            }
+        }
+
+
+
+
+        private void SaveToImage(object sender, EventArgs e)
+        {
+            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("");
+            graph.AddEdge("A", "B");
+            graph.AddEdge("A", "B");
+            graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+            graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Blue;
+            Microsoft.Msagl.GraphViewerGdi.GraphRenderer renderer = new Microsoft.Msagl.GraphViewerGdi.GraphRenderer(graph);
+            renderer.CalculateLayout();
+            int width = 50;
+            Bitmap bitmap = new Bitmap(width, (int)(graph.Height * (width / graph.Width)), PixelFormat.Format32bppPArgb);
+            renderer.Render(bitmap);
+            bitmap.Save("test.png");
+        }
 
 
 
