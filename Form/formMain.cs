@@ -2243,7 +2243,7 @@ namespace FilmCollection
             if (record != null)
             {
                 tabControl2.SelectTab(tabDiagram);
-                ucDiagr.update(record);
+                ucDiagr.update(record, this);
                 // panelScheme.BringToFront();
                 // ucScheme.update(record);
             }
