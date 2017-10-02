@@ -102,8 +102,10 @@
             this.tcSep3 = new System.Windows.Forms.ToolStripSeparator();
             this.cRenameFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.tcSep4 = new System.Windows.Forms.ToolStripSeparator();
-            this.UpdateCatalogInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.cOpenCurrentFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.tcSep5 = new System.Windows.Forms.ToolStripSeparator();
+            this.UpdateCatalogInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.tcSep6 = new System.Windows.Forms.ToolStripSeparator();
             this.ChangeCatalogTypeVideo = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeCatalogTypeVideo2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -115,9 +117,7 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelView = new System.Windows.Forms.Panel();
-            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelScheme = new System.Windows.Forms.Panel();
-            this.ucScheme = new FilmCollection.ucChart();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.rtDescription = new System.Windows.Forms.RichTextBox();
@@ -264,8 +264,10 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tcSep6 = new System.Windows.Forms.ToolStripSeparator();
-            this.cOpenCurrentFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabDiagram = new System.Windows.Forms.TabPage();
+            this.ucView = new FilmCollection.ucMediaInfo();
+            this.ucScheme = new FilmCollection.ucChart();
+            this.ucDiagr = new FilmCollection.ucChart();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -310,6 +312,7 @@
             this.scMain.SuspendLayout();
             this.mainMenuIcon.SuspendLayout();
             this.TrayMenu.SuspendLayout();
+            this.tabDiagram.SuspendLayout();
             this.SuspendLayout();
             // 
             // TableRec
@@ -875,7 +878,7 @@
             this.ChangeCatalogTypeVideo,
             this.ChangeCatalogTypeVideo2});
             this.TreeMenu.Name = "contextTreeMenu";
-            this.TreeMenu.Size = new System.Drawing.Size(370, 260);
+            this.TreeMenu.Size = new System.Drawing.Size(370, 238);
             // 
             // сCollapseAll
             // 
@@ -937,6 +940,19 @@
             this.tcSep4.Name = "tcSep4";
             this.tcSep4.Size = new System.Drawing.Size(366, 6);
             // 
+            // cOpenCurrentFolder
+            // 
+            this.cOpenCurrentFolder.Image = global::FilmCollection.Properties.Resources.Folder;
+            this.cOpenCurrentFolder.Name = "cOpenCurrentFolder";
+            this.cOpenCurrentFolder.Size = new System.Drawing.Size(369, 22);
+            this.cOpenCurrentFolder.Text = "Открыть папку";
+            this.cOpenCurrentFolder.Click += new System.EventHandler(this.cOpenCurrentFolder_Click);
+            // 
+            // tcSep5
+            // 
+            this.tcSep5.Name = "tcSep5";
+            this.tcSep5.Size = new System.Drawing.Size(366, 6);
+            // 
             // UpdateCatalogInfo
             // 
             this.UpdateCatalogInfo.Image = global::FilmCollection.Properties.Resources.grabber;
@@ -945,10 +961,10 @@
             this.UpdateCatalogInfo.Text = "Обновить информацию в каталоге";
             this.UpdateCatalogInfo.Click += new System.EventHandler(this.UpdateCatalogInfo_Click);
             // 
-            // tcSep5
+            // tcSep6
             // 
-            this.tcSep5.Name = "tcSep5";
-            this.tcSep5.Size = new System.Drawing.Size(366, 6);
+            this.tcSep6.Name = "tcSep6";
+            this.tcSep6.Size = new System.Drawing.Size(366, 6);
             // 
             // ChangeCatalogTypeVideo
             // 
@@ -971,6 +987,7 @@
             this.tabControl2.Controls.Add(this.tabFilm);
             this.tabControl2.Controls.Add(this.tabActors);
             this.tabControl2.Controls.Add(this.tabImage);
+            this.tabControl2.Controls.Add(this.tabDiagram);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
@@ -1095,14 +1112,6 @@
             this.panelView.Size = new System.Drawing.Size(368, 606);
             this.panelView.TabIndex = 57;
             // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
-            // 
             // panelScheme
             // 
             this.panelScheme.Controls.Add(this.ucScheme);
@@ -1111,14 +1120,6 @@
             this.panelScheme.Name = "panelScheme";
             this.panelScheme.Size = new System.Drawing.Size(368, 606);
             this.panelScheme.TabIndex = 1;
-            // 
-            // ucScheme
-            // 
-            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucScheme.Location = new System.Drawing.Point(0, 0);
-            this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 606);
-            this.ucScheme.TabIndex = 0;
             // 
             // panelEdit
             // 
@@ -2697,18 +2698,39 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // tcSep6
+            // tabDiagram
             // 
-            this.tcSep6.Name = "tcSep6";
-            this.tcSep6.Size = new System.Drawing.Size(366, 6);
+            this.tabDiagram.BackColor = System.Drawing.SystemColors.Control;
+            this.tabDiagram.Controls.Add(this.ucDiagr);
+            this.tabDiagram.Location = new System.Drawing.Point(4, 22);
+            this.tabDiagram.Name = "tabDiagram";
+            this.tabDiagram.Size = new System.Drawing.Size(972, 614);
+            this.tabDiagram.TabIndex = 5;
+            this.tabDiagram.Text = "Диаграмма";
             // 
-            // cOpenCurrentFolder
+            // ucView
             // 
-            this.cOpenCurrentFolder.Image = global::FilmCollection.Properties.Resources.Folder;
-            this.cOpenCurrentFolder.Name = "cOpenCurrentFolder";
-            this.cOpenCurrentFolder.Size = new System.Drawing.Size(369, 22);
-            this.cOpenCurrentFolder.Text = "Открыть папку";
-            this.cOpenCurrentFolder.Click += new System.EventHandler(this.cOpenCurrentFolder_Click);
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
+            // ucScheme
+            // 
+            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucScheme.Location = new System.Drawing.Point(0, 0);
+            this.ucScheme.Name = "ucScheme";
+            this.ucScheme.Size = new System.Drawing.Size(368, 606);
+            this.ucScheme.TabIndex = 0;
+            // 
+            // ucDiagr
+            // 
+            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
+            this.ucDiagr.Name = "ucDiagr";
+            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
+            this.ucDiagr.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -2785,6 +2807,7 @@
             this.mainMenuIcon.ResumeLayout(false);
             this.mainMenuIcon.PerformLayout();
             this.TrayMenu.ResumeLayout(false);
+            this.tabDiagram.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3030,6 +3053,8 @@
         private ucChart ucScheme;
         private System.Windows.Forms.ToolStripMenuItem cOpenCurrentFolder;
         private System.Windows.Forms.ToolStripSeparator tcSep6;
+        private System.Windows.Forms.TabPage tabDiagram;
+        private ucChart ucDiagr;
     }
 }
 

@@ -2238,12 +2238,14 @@ namespace FilmCollection
         #region отображение схемы по одному фильму
 
         private void ShowCharts()
-        {
+        {          
             Record record = GetSelectedRecord();
             if (record != null)
             {
-                panelScheme.BringToFront();
-                ucScheme.update(record);
+                tabControl2.SelectTab(tabDiagram);
+                ucDiagr.update(record);
+                // panelScheme.BringToFront();
+                // ucScheme.update(record);
             }
         }
 
