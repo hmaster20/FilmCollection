@@ -135,7 +135,14 @@ namespace FilmCollection
                 using (WebClient client = new WebClient())
                 {
                     using (StreamReader reader = new StreamReader(client.OpenRead(url)))
-                        return reader.ReadToEnd();
+                    {
+                        if (reader != null)
+                        {
+                            return reader.ReadToEnd();
+                        }                    
+                    }  
+                    //Необработанное исключение типа "System.IO.IOException" в System.dll
+                    //Дополнительные сведения: Неожиданный EOF или 0 байт из транспортного потока.
                 }
             }
             catch (WebException ex) { Logs.Log("В интернете отсутствует запрошенная информация (WebException).\n", ex); }
