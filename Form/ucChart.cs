@@ -68,10 +68,25 @@ namespace FilmCollection
             viewer.Graph = graph;
             viewer.CurrentLayoutMethod = LayoutMethod.MDS;
             viewer.MouseDoubleClick += Viewer_MouseDoubleClick;
+            viewer.MouseClick += Viewer_MouseClick;
             this.SuspendLayout();
             viewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Controls.Add(viewer);
             this.ResumeLayout();
+        }
+
+        private void Viewer_MouseClick(object sender, MouseEventArgs e)
+        {
+            GViewer viewer = sender as GViewer;
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (viewer.SelectedObject is Node)
+                {
+                    Node node = viewer.SelectedObject as Node;
+                    Debug.Print(node.Id);
+                    ChartMenu.Show(viewer, new Point(e.X, e.Y));
+                }
+            }
         }
 
         private void Viewer_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -162,6 +177,18 @@ namespace FilmCollection
             //form.ShowDialog();
         }
 
-
+        private void tsDetails_Click(object sender, EventArgs e)
+        {
+            GViewer viewer = sender as GViewer;
+            if (viewer.SelectedObject is Node)
+            {
+                Node node = viewer.SelectedObject as Node;
+                viewer.Graph.FindNode(node.Id).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Gray;
+                if (main != null)
+                {                    
+                    main.SelectActor(node.Id);
+                }
+            }
+        }
     }
 }
