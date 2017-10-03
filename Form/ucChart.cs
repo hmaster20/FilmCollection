@@ -42,7 +42,10 @@ namespace FilmCollection
             {
                 foreach (Actor act in acts)
                 {
-                    rcDic.Add(act.FIO, _record.combineLink.media.Name);
+                    if (!rcDic.ContainsKey(act.FIO))
+                    {
+                        rcDic.Add(act.FIO, _record.combineLink.media.Name);
+                    }
                 }
                 Show(rcDic);
             }
@@ -75,6 +78,8 @@ namespace FilmCollection
             this.ResumeLayout();
         }
 
+        private GViewer _viewer { get; set; }
+
         private void Viewer_MouseClick(object sender, MouseEventArgs e)
         {
             GViewer viewer = sender as GViewer;
@@ -82,6 +87,7 @@ namespace FilmCollection
             {
                 if (viewer.SelectedObject is Node)
                 {
+                    _viewer = viewer;
                     Node node = viewer.SelectedObject as Node;
                     Debug.Print(node.Id);
                     ChartMenu.Show(viewer, new Point(e.X, e.Y));
@@ -179,15 +185,27 @@ namespace FilmCollection
 
         private void tsDetails_Click(object sender, EventArgs e)
         {
-            GViewer viewer = sender as GViewer;
-            if (viewer.SelectedObject is Node)
+            if (_viewer.SelectedObject is Node)
             {
-                Node node = viewer.SelectedObject as Node;
-                viewer.Graph.FindNode(node.Id).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Gray;
-                if (main != null)
-                {                    
-                    main.SelectActor(node.Id);
-                }
+                Node node = _viewer.SelectedObject as Node;
+                RecordCollection _videoCollection = RecordCollection.GetInstance();
+                List<Actor> acts = new List<Actor>();
+
+                if (_videoCollection.ActorList.Exists(x => x.FIO == node.Id))
+                {
+                    if (_videoCollection.ActorList.First(x => x.FIO == node.Id).VideoID.Count > 0)
+                    {
+                        foreach (int ListID in _videoCollection.ActorList.First(x => x.FIO == node.Id).VideoID)
+                        {
+                            string film = _videoCollection.CombineList.First(x => x.media.Id == ListID).media.Name;
+                            if (!rcDic.ContainsKey(film))
+                            {
+                                rcDic.Add(film, node.Id);
+                            }                            
+                        }
+                        Show(rcDic);
+                    }
+                } 
             }
         }
     }
