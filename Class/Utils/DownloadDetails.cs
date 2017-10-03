@@ -139,8 +139,8 @@ namespace FilmCollection
                         if (reader != null)
                         {
                             return reader.ReadToEnd();
-                        }                    
-                    }  
+                        }
+                    }
                     //Необработанное исключение типа "System.IO.IOException" в System.dll
                     //Дополнительные сведения: Неожиданный EOF или 0 байт из транспортного потока.
                 }
@@ -337,52 +337,33 @@ namespace FilmCollection
 
             foreach (Match m in mcDesc)
             {
-                string ssss = m.ToString();
-                if (ssss.IndexOf("<a href") != -1)
+                string ActorsFragment = m.ToString();
+                if (ActorsFragment.IndexOf("<a href") != -1)
                 {
-                    ssss = ssss.Substring(ssss.IndexOf("<a href"));
+                    ActorsFragment = ActorsFragment.Substring(ActorsFragment.IndexOf("<a href"));
                 }
-                string[] ActorArray = ssss.Split(new string[] { ">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
+                string[] ActorArray = ActorsFragment.Split(new string[] { ">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (string ActorItem in ActorArray)
                 {
                     if (StringIsValid2(ActorItem))
                     {
-                        Actor actor = new Actor();
-                        actor.FIO = ActorItem;
-                        actor.Country = _media.Country;
-                        actor.VideoID_Add(_media.Id);
-                        _media.ActorList.Add(actor);
-
-
-                        //Actor actor;
-
-                        //RecordCollection _videoCollection = RecordCollection.GetInstance();
-
-                        //if (!(_videoCollection.ActorList.Exists(act => act.FIO == ActorItem)))
-                        //{
-                        //    actor = new Actor();
-                        //    actor.id = RecordCollection.GetActorID();
-                        //    actor.FIO = ActorItem;
-                        //    actor.Country = _media.Country;
-                        //    actor.VideoID_Add(_media.Id);
-
-                        //    //_media.ActorListID_Add(actor.id);
-                        //    _media.ActorList.Add(actor);
-
-                        //    //_videoCollection.ActorList.Add(actor);
-                        //}
-                        //else
-                        //{
-                        //    actor = _videoCollection.ActorList.FindLast(act => act.FIO == ActorItem);
-                        //    if (!actor.VideoID.Contains(_media.Id))
-                        //    {
-                        //        actor.VideoID_Add(_media.Id);
-                        //        _media.ActorListID_Add(actor.id);
-                        //    }
-                        //}
+                        if (_media.ActorList.Exists(x => x.FIO == ActorItem))
+                        {
+                            Actor _actor = null;
+                            _actor = _media.ActorList.First(x => x.FIO == ActorItem);
+                            _actor.Country = _media.Country;
+                            _actor.VideoID_Add(_media.Id);
+                        }
+                        else
+                        {
+                            Actor actor = new Actor();
+                            actor.FIO = ActorItem;
+                            actor.Country = _media.Country;
+                            actor.VideoID_Add(_media.Id);
+                            _media.ActorList.Add(actor);
+                        }
                     }
-
                 }
             }
         }
