@@ -1,6 +1,7 @@
 ﻿using Shell32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -348,6 +349,8 @@ namespace FilmCollection
                 {
                     if (StringIsValid2(ActorItem))
                     {
+                        Debug.Print("Обработка актера: " + ActorItem);
+
                         if (_media.ActorList.Exists(x => x.FIO == ActorItem))
                         {
                             Actor _actor = null;
@@ -355,12 +358,26 @@ namespace FilmCollection
                             _actor.Country = _media.Country;
                             _actor.VideoID_Add(_media.Id);
                         }
-                        else
+
+                        RecordCollection _videoCollection = RecordCollection.GetInstance();
+                        if (_videoCollection.ActorList.Exists(x=>x.FIO == ActorItem))
+                        {
+                            Actor _actor = null;
+                            _actor = _videoCollection.ActorList.First(x => x.FIO == ActorItem);
+                            _actor.Country = _media.Country;
+                            _actor.VideoID_Add(_media.Id);
+                            _media.ActorList.Add(_actor);
+                        }
+
+                        if (!(_videoCollection.ActorList.Exists(x => x.FIO == ActorItem)) && !(_media.ActorList.Exists(x => x.FIO == ActorItem)))
                         {
                             Actor actor = new Actor();
+                            actor.id = RecordCollection.GetActorID();
                             actor.FIO = ActorItem;
                             actor.Country = _media.Country;
                             actor.VideoID_Add(_media.Id);
+                            _videoCollection.Add(actor);
+                            _videoCollection.Save();
                             _media.ActorList.Add(actor);
                         }
                     }
