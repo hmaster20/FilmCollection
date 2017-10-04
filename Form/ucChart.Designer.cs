@@ -31,15 +31,17 @@
             this.components = new System.ComponentModel.Container();
             this.ChartMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoLayoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChartMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // ChartMenu
             // 
             this.ChartMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsDetails});
+            this.tsDetails,
+            this.redoLayoutToolStripMenuItem});
             this.ChartMenu.Name = "ChartMenu";
-            this.ChartMenu.Size = new System.Drawing.Size(163, 48);
+            this.ChartMenu.Size = new System.Drawing.Size(163, 70);
             // 
             // tsDetails
             // 
@@ -47,6 +49,13 @@
             this.tsDetails.Size = new System.Drawing.Size(162, 22);
             this.tsDetails.Text = "Детализировать";
             this.tsDetails.Click += new System.EventHandler(this.tsDetails_Click);
+            // 
+            // redoLayoutToolStripMenuItem
+            // 
+            this.redoLayoutToolStripMenuItem.Name = "redoLayoutToolStripMenuItem";
+            this.redoLayoutToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.redoLayoutToolStripMenuItem.Text = "Redo layout";
+            this.redoLayoutToolStripMenuItem.Click += new System.EventHandler(this.redoLayout_Click);
             // 
             // ucChart
             // 
@@ -63,5 +72,6 @@
 
         private System.Windows.Forms.ContextMenuStrip ChartMenu;
         private System.Windows.Forms.ToolStripMenuItem tsDetails;
+        private System.Windows.Forms.ToolStripMenuItem redoLayoutToolStripMenuItem;
     }
 }
