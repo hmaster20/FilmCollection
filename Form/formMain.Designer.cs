@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TableRec = new System.Windows.Forms.DataGridView();
             this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -269,8 +268,6 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -2556,9 +2553,7 @@
             this.toolStripSeparator5,
             this.tsFind,
             this.tsFindbyName,
-            this.tsHidePanel,
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.tsHidePanel});
             this.mainMenuIcon.Location = new System.Drawing.Point(0, 24);
             this.mainMenuIcon.Name = "mainMenuIcon";
             this.mainMenuIcon.Size = new System.Drawing.Size(1175, 25);
@@ -2736,26 +2731,6 @@
             this.Exit.Size = new System.Drawing.Size(154, 22);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // MainForm
             // 
@@ -3080,8 +3055,6 @@
         private System.Windows.Forms.ToolStripSeparator tcSep6;
         private System.Windows.Forms.TabPage tabDiagram;
         private ucChart ucDiagr;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 
