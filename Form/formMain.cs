@@ -2800,6 +2800,16 @@ namespace FilmCollection
             }
         }
 
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            ucDiagr.button1_Click(sender, e);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            ucDiagr.button2_Click(sender, e);
+        }
+
 
         //private void MainForm_InputLanguageChanged(object sender, InputLanguageChangedEventArgs e)
         //{

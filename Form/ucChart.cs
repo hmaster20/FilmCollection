@@ -23,7 +23,53 @@ namespace FilmCollection
         public ucChart()
         {
             InitializeComponent();
+            SuspendLayout();
+            Controls.Add(viewer);
+            viewer.Dock = DockStyle.Fill;
+            viewer.LayoutAlgorithmSettingsButtonVisible = false;
+            ResumeLayout();
         }
+        GViewer viewer = new GViewer();
+
+       public void button1_Click(object sender, EventArgs e)
+        {
+            var tree = new PhyloTree();
+            var edge = (PhyloEdge)tree.AddEdge("a", "b");
+            //edge.Length = 0.8;
+            edge = (PhyloEdge)tree.AddEdge("a", "c");
+            //edge.Length = 0.2;
+            tree.AddEdge("c", "d");
+            tree.AddEdge("c", "e");
+            tree.AddEdge("c", "f");
+            tree.AddEdge("e", "0");
+            tree.AddEdge("e", "1");
+            tree.AddEdge("e", "2");
+
+            viewer.Graph = tree;
+        }
+
+
+        public void button2_Click(object sender, EventArgs e)
+        {
+            var tree = new PhyloTree();
+            var edge = (PhyloEdge)tree.AddEdge("a", "b");
+            //edge.Length = 0.8;
+            edge = (PhyloEdge)tree.AddEdge("a", "c");
+            //edge.Length = 0.2;
+            tree.AddEdge("z", "d");
+            tree.AddEdge("z", "e");
+            tree.AddEdge("z", "f");
+            tree.AddEdge("z", "0");
+            tree.AddEdge("e", "1");
+            tree.AddEdge("e", "2");
+
+            viewer.Graph = tree;
+        }
+
+
+
+
+
 
         internal void update(Record _record, MainForm mainForm)
         {
@@ -181,6 +227,16 @@ namespace FilmCollection
             //form.ResumeLayout();
             //show the form 
             //form.ShowDialog();
+        }
+
+
+        private static void Viewer_MouseUp(object sender, MouseEventArgs e)
+        {
+            var gviewer = (Microsoft.Msagl.GraphViewerGdi.GViewer)sender;
+            var dnode = gviewer.ObjectUnderMouseCursor as Microsoft.Msagl.GraphViewerGdi.DNode;
+            if (dnode == null) return;
+            if (dnode.Node.LabelText == "C")
+                MessageBox.Show("C is clicked");
         }
 
         private void tsDetails_Click(object sender, EventArgs e)

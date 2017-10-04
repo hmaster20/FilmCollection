@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.TableRec = new System.Windows.Forms.DataGridView();
             this.cmnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnDirName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -117,7 +118,9 @@
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
             this.panelView = new System.Windows.Forms.Panel();
+            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelScheme = new System.Windows.Forms.Panel();
+            this.ucScheme = new FilmCollection.ucChart();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.rtDescription = new System.Windows.Forms.RichTextBox();
@@ -241,6 +244,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
+            this.tabDiagram = new System.Windows.Forms.TabPage();
+            this.ucDiagr = new FilmCollection.ucChart();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.mainMenuIcon = new System.Windows.Forms.ToolStrip();
@@ -264,10 +269,8 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabDiagram = new System.Windows.Forms.TabPage();
-            this.ucView = new FilmCollection.ucMediaInfo();
-            this.ucScheme = new FilmCollection.ucChart();
-            this.ucDiagr = new FilmCollection.ucChart();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -306,13 +309,13 @@
             this.panelMain.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
+            this.tabDiagram.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
             this.mainMenuIcon.SuspendLayout();
             this.TrayMenu.SuspendLayout();
-            this.tabDiagram.SuspendLayout();
             this.SuspendLayout();
             // 
             // TableRec
@@ -1112,6 +1115,14 @@
             this.panelView.Size = new System.Drawing.Size(368, 606);
             this.panelView.TabIndex = 57;
             // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
             // panelScheme
             // 
             this.panelScheme.Controls.Add(this.ucScheme);
@@ -1120,6 +1131,14 @@
             this.panelScheme.Name = "panelScheme";
             this.panelScheme.Size = new System.Drawing.Size(368, 606);
             this.panelScheme.TabIndex = 1;
+            // 
+            // ucScheme
+            // 
+            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucScheme.Location = new System.Drawing.Point(0, 0);
+            this.ucScheme.Name = "ucScheme";
+            this.ucScheme.Size = new System.Drawing.Size(368, 606);
+            this.ucScheme.TabIndex = 0;
             // 
             // panelEdit
             // 
@@ -2480,6 +2499,24 @@
             this.trackBarSize.Value = 2;
             this.trackBarSize.ValueChanged += new System.EventHandler(this.trackBarSize_ValueChanged);
             // 
+            // tabDiagram
+            // 
+            this.tabDiagram.BackColor = System.Drawing.SystemColors.Control;
+            this.tabDiagram.Controls.Add(this.ucDiagr);
+            this.tabDiagram.Location = new System.Drawing.Point(4, 22);
+            this.tabDiagram.Name = "tabDiagram";
+            this.tabDiagram.Size = new System.Drawing.Size(972, 614);
+            this.tabDiagram.TabIndex = 5;
+            this.tabDiagram.Text = "Диаграмма";
+            // 
+            // ucDiagr
+            // 
+            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
+            this.ucDiagr.Name = "ucDiagr";
+            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
+            this.ucDiagr.TabIndex = 0;
+            // 
             // timerLoad
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
@@ -2519,7 +2556,9 @@
             this.toolStripSeparator5,
             this.tsFind,
             this.tsFindbyName,
-            this.tsHidePanel});
+            this.tsHidePanel,
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.mainMenuIcon.Location = new System.Drawing.Point(0, 24);
             this.mainMenuIcon.Name = "mainMenuIcon";
             this.mainMenuIcon.Size = new System.Drawing.Size(1175, 25);
@@ -2698,39 +2737,25 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // tabDiagram
+            // toolStripButton1
             // 
-            this.tabDiagram.BackColor = System.Drawing.SystemColors.Control;
-            this.tabDiagram.Controls.Add(this.ucDiagr);
-            this.tabDiagram.Location = new System.Drawing.Point(4, 22);
-            this.tabDiagram.Name = "tabDiagram";
-            this.tabDiagram.Size = new System.Drawing.Size(972, 614);
-            this.tabDiagram.TabIndex = 5;
-            this.tabDiagram.Text = "Диаграмма";
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
-            // ucView
+            // toolStripButton2
             // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
-            // 
-            // ucScheme
-            // 
-            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucScheme.Location = new System.Drawing.Point(0, 0);
-            this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 606);
-            this.ucScheme.TabIndex = 0;
-            // 
-            // ucDiagr
-            // 
-            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
-            this.ucDiagr.Name = "ucDiagr";
-            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
-            this.ucDiagr.TabIndex = 0;
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // MainForm
             // 
@@ -2800,6 +2825,7 @@
             this.panelMain.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).EndInit();
+            this.tabDiagram.ResumeLayout(false);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
@@ -2807,7 +2833,6 @@
             this.mainMenuIcon.ResumeLayout(false);
             this.mainMenuIcon.PerformLayout();
             this.TrayMenu.ResumeLayout(false);
-            this.tabDiagram.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3055,6 +3080,8 @@
         private System.Windows.Forms.ToolStripSeparator tcSep6;
         private System.Windows.Forms.TabPage tabDiagram;
         private ucChart ucDiagr;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 
