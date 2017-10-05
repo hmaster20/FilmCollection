@@ -62,7 +62,7 @@ namespace FilmCollection
                 Console.WriteLine("индекс строки = " + indexSelected);
                 if (mediaList != null && mediaList.Count > 0)
                 {
-                    SelectMediaInfo.update(mediaList[indexSelected]);
+                    SelectMediaInfo.updatePreview(mediaList[indexSelected]);
                     media = mediaList[indexSelected];
                 }
             }
