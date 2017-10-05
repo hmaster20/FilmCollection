@@ -15,6 +15,7 @@ namespace FilmCollection
     {
         private Record record { get; set; }
         private MainForm main { get; set; }
+        private RecordCollection _videoCollection { get; set; } = RecordCollection.GetInstance();
 
         public ucMediaInfo()
         {
@@ -25,14 +26,11 @@ namespace FilmCollection
 
         public void update(Record _record, MainForm main)
         {
-            RecordCollection _videoCollection = RecordCollection.GetInstance();
-
-            this.main = main;
-            this.record = _record;
-
             if (_record != null)
             {
-                // Панель описания
+                this.main = main;
+                this.record = _record;
+
                 tbfName.Text = _record.mName;
                 tbfDesc.Text = _record.mDescription;
                 tbfYear.Text = Convert.ToString(_record.mYear);
@@ -48,13 +46,10 @@ namespace FilmCollection
         }
 
 
-        public void update(Media _media)
+        public void updatePreview(Media _media)
         {
-            RecordCollection _videoCollection = RecordCollection.GetInstance();
-
             if (_media != null)
             {
-                // Панель описания
                 tbfName.Text = _media.Name;
                 tbfDesc.Text = _media.Description;
                 tbfYear.Text = Convert.ToString(_media.Year);
@@ -62,11 +57,8 @@ namespace FilmCollection
                 GetPic(_media);
                 btnPlay.Enabled = false;
                 lbActors.Items.Clear();
-
-                lbActors.Items.Clear();
                 if (_media.ActorList != null)
                     _media.ActorList.ForEach(x => lbActors.Items.Add(x));
-
             }
         }
 
@@ -111,10 +103,7 @@ namespace FilmCollection
 
         private void lbActors_DoubleClick(object sender, EventArgs e)
         {
-            if (record != null && main != null)
-            {
-                main.SelectActor(lbActors.SelectedItem.ToString());
-            }
+            if (record != null && main != null) main.SelectActor(lbActors.SelectedItem.ToString());
         }
 
         public void Clear()
