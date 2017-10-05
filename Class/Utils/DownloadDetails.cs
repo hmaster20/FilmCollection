@@ -19,8 +19,10 @@ namespace FilmCollection
 
         static Media _media { get; set; }
 
-        public static Media GetInfo(Record record)
+        public static void GetInfo(Record record, MainForm mainForm)
         {
+            if (record == null) return;
+
             Media media = record.combineLink.media;
             _media = (Media)media.Clone();
 
@@ -73,12 +75,106 @@ namespace FilmCollection
                     DownloadModule(Link_txt);
                 }
             }
-            else
+
+            if (_media != null)
             {
-                _media = null;
+                Approve();
+
+                _media.Id = record.combineLink.media.Id;
+              record.combineLink.media = _media;
+
+                mainForm.BeginInvoke((MethodInvoker)(() =>
+                {
+                    CardRecordPreview_Clear();
+                    RCollection.Save();
+                    RCollection.SaveToFile();
+                    PrepareRefresh();
+                    SelectRecord(TableRec, record);
+                    SelectRec();
+                }));
             }
-            return _media;
+
+
+
         }
+
+
+        private static void Approve()
+        {
+            if (_media != null)
+            {
+                List<string> Actors = new List<string>();
+                _media.ActorList.ForEach(act => Actors.Add(act.FIO));
+                _media.ActorList.Clear();
+
+                foreach (string actorFIO in Actors)
+                {
+                    if (_media.ActorList.Exists(x => x.FIO == actorFIO))
+                    {
+                        Actor _actor = null;
+                        _actor = _media.ActorList.First(x => x.FIO == actorFIO);
+                        _actor.Country = _media.Country;
+                        _actor.VideoID_Add(_media.Id);
+                    }
+
+                    RecordCollection _videoCollection = RecordCollection.GetInstance();
+                    if (_videoCollection.ActorList.Exists(x => x.FIO == actorFIO))
+                    {
+                        Actor _actor = null;
+                        _actor = _videoCollection.ActorList.First(x => x.FIO == actorFIO);
+                        _actor.Country = _media.Country;
+                        _actor.VideoID_Add(_media.Id);
+                        _media.ActorList.Add(_actor);
+                    }
+
+                    if (!(_videoCollection.ActorList.Exists(x => x.FIO == actorFIO)) && !(_media.ActorList.Exists(x => x.FIO == actorFIO)))
+                    {
+                        Actor actor = new Actor();
+                        actor.id = RecordCollection.GetActorID();
+                        actor.FIO = actorFIO;
+                        actor.Country = _media.Country;
+                        actor.VideoID_Add(_media.Id);
+                        _media.ActorList.Add(actor);
+                        _videoCollection.Add(actor);
+                        //_videoCollection.Save();
+                    }
+                }
+            }
+
+
+            // Полная обработка актера
+            //if (_media.ActorList.Exists(x => x.FIO == ActorItem))
+            //{
+            //    Actor _actor = null;
+            //    _actor = _media.ActorList.First(x => x.FIO == ActorItem);
+            //    _actor.Country = _media.Country;
+            //    _actor.VideoID_Add(_media.Id);
+            //}
+
+            //RecordCollection _videoCollection = RecordCollection.GetInstance();
+            //if (_videoCollection.ActorList.Exists(x=>x.FIO == ActorItem))
+            //{
+            //    Actor _actor = null;
+            //    _actor = _videoCollection.ActorList.First(x => x.FIO == ActorItem);
+            //    _actor.Country = _media.Country;
+            //    _actor.VideoID_Add(_media.Id);
+            //    _media.ActorList.Add(_actor);
+            //}
+
+            //if (!(_videoCollection.ActorList.Exists(x => x.FIO == ActorItem)) && !(_media.ActorList.Exists(x => x.FIO == ActorItem)))
+            //{
+            //    Actor actor = new Actor();
+            //    actor.id = RecordCollection.GetActorID();
+            //    actor.FIO = ActorItem;
+            //    actor.Country = _media.Country;
+            //    actor.VideoID_Add(_media.Id);
+            //    _media.ActorList.Add(actor);
+            //    _videoCollection.Add(actor);
+            //    //_videoCollection.Save();
+            //}
+
+        }
+
 
         private static void DownloadModule(string Link_txt)
         {
@@ -91,7 +187,6 @@ namespace FilmCollection
             DownloadPic(sourcestring);
             //DownloadName(sourcestring);
         }
-
 
 
         private static void OpenFormSelectMedia(List<Media> MList, Record record)
@@ -351,35 +446,10 @@ namespace FilmCollection
                     {
                         Debug.Print("Обработка актера: " + ActorItem);
 
-                        if (_media.ActorList.Exists(x => x.FIO == ActorItem))
-                        {
-                            Actor _actor = null;
-                            _actor = _media.ActorList.First(x => x.FIO == ActorItem);
-                            _actor.Country = _media.Country;
-                            _actor.VideoID_Add(_media.Id);
-                        }
-
-                        RecordCollection _videoCollection = RecordCollection.GetInstance();
-                        if (_videoCollection.ActorList.Exists(x=>x.FIO == ActorItem))
-                        {
-                            Actor _actor = null;
-                            _actor = _videoCollection.ActorList.First(x => x.FIO == ActorItem);
-                            _actor.Country = _media.Country;
-                            _actor.VideoID_Add(_media.Id);
-                            _media.ActorList.Add(_actor);
-                        }
-
-                        if (!(_videoCollection.ActorList.Exists(x => x.FIO == ActorItem)) && !(_media.ActorList.Exists(x => x.FIO == ActorItem)))
-                        {
-                            Actor actor = new Actor();
-                            actor.id = RecordCollection.GetActorID();
-                            actor.FIO = ActorItem;
-                            actor.Country = _media.Country;
-                            actor.VideoID_Add(_media.Id);
-                            _videoCollection.Add(actor);
-                            _videoCollection.Save();
-                            _media.ActorList.Add(actor);
-                        }
+                        // Подготовка актеров для предварительного выбора
+                        Actor actor = new Actor();
+                        actor.FIO = ActorItem;
+                         _media.ActorList.Add(actor);
                     }
                 }
             }
