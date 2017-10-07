@@ -78,28 +78,37 @@ namespace FilmCollection
 
             if (_media != null)
             {
-                Approve();
+                ApproveActors();
+                ApprovePic();
 
                 _media.Id = record.combineLink.media.Id;
-              record.combineLink.media = _media;
+                record.combineLink.media = _media;
 
-                mainForm.BeginInvoke((MethodInvoker)(() =>
-                {
-                    CardRecordPreview_Clear();
-                    RCollection.Save();
-                    RCollection.SaveToFile();
-                    PrepareRefresh();
-                    SelectRecord(TableRec, record);
-                    SelectRec();
-                }));
+                mainForm.BeginInvoke((MethodInvoker)(() => { mainForm.AfterUpdateRefresh(record); }));
             }
-
-
-
         }
 
 
-        private static void Approve()
+        private static void ApprovePic()
+        {
+            Debug.Print(_media.GetFilename);
+
+            if (File.Exists(_media.GetFilename))
+            {
+                string oldName = _media.GetFilename;
+                _media.Pic = _media.Name;
+                string newName = _media.GetFilename;
+                File.Move(@oldName, @newName);
+            }
+
+            string[] files = Directory.GetFiles(_media.GetDirectory, _media.Name + "_*");
+            for (int i = 0; i < files.Length; i++)
+            {
+                File.Delete(files[i]);
+            }
+        }
+
+        private static void ApproveActors()
         {
             if (_media != null)
             {
@@ -140,39 +149,6 @@ namespace FilmCollection
                     }
                 }
             }
-
-
-            // Полная обработка актера
-            //if (_media.ActorList.Exists(x => x.FIO == ActorItem))
-            //{
-            //    Actor _actor = null;
-            //    _actor = _media.ActorList.First(x => x.FIO == ActorItem);
-            //    _actor.Country = _media.Country;
-            //    _actor.VideoID_Add(_media.Id);
-            //}
-
-            //RecordCollection _videoCollection = RecordCollection.GetInstance();
-            //if (_videoCollection.ActorList.Exists(x=>x.FIO == ActorItem))
-            //{
-            //    Actor _actor = null;
-            //    _actor = _videoCollection.ActorList.First(x => x.FIO == ActorItem);
-            //    _actor.Country = _media.Country;
-            //    _actor.VideoID_Add(_media.Id);
-            //    _media.ActorList.Add(_actor);
-            //}
-
-            //if (!(_videoCollection.ActorList.Exists(x => x.FIO == ActorItem)) && !(_media.ActorList.Exists(x => x.FIO == ActorItem)))
-            //{
-            //    Actor actor = new Actor();
-            //    actor.id = RecordCollection.GetActorID();
-            //    actor.FIO = ActorItem;
-            //    actor.Country = _media.Country;
-            //    actor.VideoID_Add(_media.Id);
-            //    _media.ActorList.Add(actor);
-            //    _videoCollection.Add(actor);
-            //    //_videoCollection.Save();
-            //}
-
         }
 
 
@@ -185,7 +161,6 @@ namespace FilmCollection
             DownloadDescription(sourcestring);
             DownloadActor(sourcestring);
             DownloadPic(sourcestring);
-            //DownloadName(sourcestring);
         }
 
 
@@ -196,26 +171,7 @@ namespace FilmCollection
                 switch (form.ShowDialog())
                 {
                     case DialogResult.OK:
-                        if (form.media != null)
-                        {
-                            _media = (Media)form.media.Clone();
-                            string currentPicFile = _media.GetFilename;
-                            //_media.Pic = _media.Name;
-
-                            string newPicFile = _media.GetFilename;
-
-                            if (File.Exists(newPicFile))
-                                File.Delete(newPicFile);
-
-                            if (File.Exists(currentPicFile))
-                                File.Copy(currentPicFile, newPicFile);
-
-                            foreach (Media m in MList)
-                            {
-                                if (File.Exists(m.GetFilename))
-                                    File.Delete(m.GetFilename);
-                            }
-                        }
+                        if (form.media != null) _media = (Media)form.media.Clone();
                         break;
                     case DialogResult.Cancel: _media = null; break;
                     default: break;
@@ -449,7 +405,7 @@ namespace FilmCollection
                         // Подготовка актеров для предварительного выбора
                         Actor actor = new Actor();
                         actor.FIO = ActorItem;
-                         _media.ActorList.Add(actor);
+                        _media.ActorList.Add(actor);
                     }
                 }
             }
@@ -468,10 +424,12 @@ namespace FilmCollection
                 {
                     try
                     {
+                        string tmp = _media.Pic;
                         _media.Pic = _media.Name;
 
-                        if (File.Exists(_media.GetFilename))
-                            File.Delete(_media.GetFilename);
+                        if (File.Exists(_media.GetFilename)) File.Delete(_media.GetFilename);
+
+                        _media.Pic = tmp;
 
                         if (PicPath.StartsWith("http"))                //if (PicWeb.Contains("http"))
                         {
@@ -489,44 +447,6 @@ namespace FilmCollection
                 }
             }
         }
-
-
-        private static void DownloadPicTemp(string sourcestring)
-        {
-            MatchCollection Pics = Regex.Matches(sourcestring, "(<img src=.*?class=\"movieabout__pic__img\")", RegexOptions.IgnoreCase);
-
-            foreach (Match Pic in Pics)
-            {
-                string PicPath = Pic.ToString();
-                PicPath = PicPath.Remove(0, PicPath.IndexOf('"') + 1);
-                PicPath = PicPath.Remove(PicPath.IndexOf('"'), PicPath.Length - PicPath.IndexOf('"'));
-                if (!string.IsNullOrEmpty(PicPath))
-                {
-                    try
-                    {
-                        //_media.Pic = _media.Name;
-
-                        if (File.Exists(_media.GetFilename))
-                            File.Delete(_media.GetFilename);
-
-                        if (PicPath.StartsWith("http"))                //if (PicWeb.Contains("http"))
-                        {
-                            //string path = _media.GetFilename;
-                            using (WebClient webClient = new WebClient())
-                                webClient.DownloadFile(PicPath, _media.GetFilename);
-                        }
-
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                        //break;
-                        throw new ArgumentNullException(ex.Message + "\nПричина: " + ex.InnerException.Message);
-                    }
-                }
-            }
-        }
-
 
     }
 }
