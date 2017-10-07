@@ -148,6 +148,7 @@ namespace FilmCollection
 
         }
 
+
         #region Управление курсором (Методы управления)
         private void timerCursor_Tick(object sender, EventArgs e)
         {
@@ -2224,7 +2225,7 @@ namespace FilmCollection
 
             foreach (Combine cm in cmList.Distinct().ToList())
                 foreach (Record rec in cm.recordList)
-                    (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(rec); })).Start();
+                    (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(rec, this); })).Start();
             //DownloadDetails.GetInfo(rec);
             //DownloadDetails.GetInfo(rec, _videoCollection);
 
@@ -2257,57 +2258,18 @@ namespace FilmCollection
 
         private void UpdateInfo()
         {
-            // (new System.Threading.Thread(delegate () { upd(this); })).Start();
             (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(GetSelectedRecord(), this); })).Start();
         }
 
-        //void upd(MainForm mainForm)
-        //{
-        //    Record record = GetSelectedRecord();
-        //    if (record != null)
-        //    {
-        //        Media newMedia = DownloadDetails.GetInfo(record);
-
-        //        if (newMedia != null)
-        //        {
-        //            //for (int i = 0; i < newMedia.ActorList.Count; i++)
-        //            //{
-        //            //    Actor currentAct = newMedia.ActorList[i];
-
-        //            //    if (RCollection.ActorList.Exists(x => x.FIO == currentAct.FIO))
-        //            //    {
-        //            //        Actor actColl = RCollection.ActorList.FindLast(x => x.FIO == currentAct.FIO);
-        //            //        newMedia.ActorList.Remove(currentAct);
-        //            //        newMedia.ActorList.Add(actColl);
-        //            //        newMedia.ActorListID.Add(actColl.id);
-        //            //    }
-        //            //    else
-        //            //    {
-        //            //        currentAct.id = RecordCollection.GetActorID();
-        //            //        newMedia.ActorListID.Add(currentAct.id);
-        //            //        RCollection.ActorList.Add(currentAct);
-        //            //    }
-
-        //            //}
-
-        //            //int id = record.combineLink.media.Id;
-        //            //record.combineLink.media = (Media)newMedia.Clone();
-        //            //record.combineLink.media.Id = id;
-
-        //            //mainForm.BeginInvoke((MethodInvoker)(() =>
-        //            //{
-        //            //    CardRecordPreview_Clear();
-        //            //    RCollection.Save();
-        //            //    RCollection.SaveToFile();
-        //            //    PrepareRefresh();
-        //            //    SelectRecord(TableRec, record);
-        //            //    SelectRec();
-        //            //}));
-        //        }
-        //    }
-
-        //}
-
+        internal void AfterUpdateRefresh(Record record)
+        {
+            CardRecordPreview_Clear();
+            RCollection.Save();
+            RCollection.SaveToFile();
+            PrepareRefresh();
+            SelectRecord(TableRec, record);
+            SelectRec();
+        }
 
         private void btnGetTime_Click(object sender, EventArgs e)
         {
