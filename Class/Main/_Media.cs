@@ -190,6 +190,17 @@ namespace FilmCollection
             }
         }
 
+        [XmlIgnore]
+        public string GetDirectory
+        {
+            get
+            {
+                Debug.Print(Pic);
+                return Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
+            }
+        }
+
+
         public object Clone()
         {
             return this.MemberwiseClone();
