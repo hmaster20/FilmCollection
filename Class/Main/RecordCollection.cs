@@ -16,9 +16,17 @@ namespace FilmCollection
         private static RecordCollection _recordCollection;
         public static RecordCollection GetInstance()
         {
-            if (_recordCollection == null)
-                _recordCollection = Load(true);
-            return _recordCollection;
+            try
+            {
+                if (_recordCollection == null)
+                    _recordCollection = Load(true);
+                return _recordCollection;
+            }
+            catch (ApplicationException ex)
+            {
+                Logs.Log("При загрузки экземпляра коллекции произошла ошибка:", ex);
+                return null;
+            }
         }
 
         public static bool status()
@@ -114,9 +122,9 @@ namespace FilmCollection
             }
             return SourceList.First(x => x.Source == source).Id;
         }
-        
+
         private static int SourceID { get; set; }
-        public static int GetSourceID() => ++SourceID;     
+        public static int GetSourceID() => ++SourceID;
         public static void ResetSourceID() => SourceID = 0;
         public static void SetSourceID(int value) => SourceID = value;
         #endregion
@@ -136,27 +144,16 @@ namespace FilmCollection
         public static RecordCollection Load(bool fromFile = false)
         {
             RecordCollection result;
-
-            //if (fromFile)
-            //{
-            //    result = RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
-            //}
-            //else
-            //{
-            //    result = XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
-            //}
-
             try
             {
                 result = (fromFile)
                     ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
                     : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
             }
-            catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки при десериализации. \n" + ex.Message); }
-
+            catch (Exception ex) { throw new ApplicationException($"Ошибка на этапе загрузки при десериализации. \n{ex.Message}"); }
+            
 
             Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
-
             try
             {
                 foreach (Combine com in result.CombineList)
@@ -167,10 +164,9 @@ namespace FilmCollection
                 }
             }
             catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки с индексами медиа-файлов. \n" + ex.Message); }
-
+            
 
             Dictionary<int, Actor> actorDic = new Dictionary<int, Actor>();
-
             try
             {
                 foreach (Actor actor in result.ActorList)
@@ -189,10 +185,10 @@ namespace FilmCollection
                 // Установка текущего значения счетчика
                 if (actorDic.Count > 0) SetActorID(actorDic.Keys.Max());
                 if (combineDic.Count > 0) SetMediaID(combineDic.Keys.Max());
-                if (result.SourceList.Count > 0) SetSourceID(result.SourceList.Max(x=>x.Id)+1);
+                if (result.SourceList.Count > 0) SetSourceID(result.SourceList.Max(x => x.Id) + 1);
             }
             catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки файла базы. \n" + ex.Message); }
-
+            
 
             _recordCollection = result;
             return result;
