@@ -1,11 +1,9 @@
-﻿using Shell32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -43,7 +41,6 @@ namespace FilmCollection
                     _media.Name = media.Name;
                     _media.Pic = "" + media.Name + "_" + i;
 
-                    //string[] subStrings = mc[i].ToString().Split('"', '(', ')');
                     List<string> arrayPath = new List<string>(mc[i].ToString().Split('"', '(', ')'));
 
                     string Link_txt = arrayPath.FindLast(p => p.StartsWith("/cinema/") && p.EndsWith("/"));
@@ -80,10 +77,8 @@ namespace FilmCollection
             {
                 ApproveActors();
                 ApprovePic();
-
                 _media.Id = record.combineLink.media.Id;
                 record.combineLink.media = _media;
-
                 mainForm.BeginInvoke((MethodInvoker)(() => { mainForm.AfterUpdateRefresh(record); }));
             }
         }
@@ -112,21 +107,14 @@ namespace FilmCollection
         {
             if (_media != null)
             {
+                RecordCollection _videoCollection = RecordCollection.GetInstance();
                 List<string> Actors = new List<string>();
                 _media.ActorList.ForEach(act => Actors.Add(act.FIO));
                 _media.ActorList.Clear();
+                _media.ActorListID.Clear();
 
                 foreach (string actorFIO in Actors)
                 {
-                    if (_media.ActorList.Exists(x => x.FIO == actorFIO))
-                    {
-                        Actor _actor = null;
-                        _actor = _media.ActorList.First(x => x.FIO == actorFIO);
-                        _actor.Country = _media.Country;
-                        _actor.VideoID_Add(_media.Id);
-                    }
-
-                    RecordCollection _videoCollection = RecordCollection.GetInstance();
                     if (_videoCollection.ActorList.Exists(x => x.FIO == actorFIO))
                     {
                         Actor _actor = null;
@@ -134,6 +122,7 @@ namespace FilmCollection
                         _actor.Country = _media.Country;
                         _actor.VideoID_Add(_media.Id);
                         _media.ActorList.Add(_actor);
+                        _media.ActorListID.Add(_actor.id);
                     }
 
                     if (!(_videoCollection.ActorList.Exists(x => x.FIO == actorFIO)) && !(_media.ActorList.Exists(x => x.FIO == actorFIO)))
@@ -144,8 +133,8 @@ namespace FilmCollection
                         actor.Country = _media.Country;
                         actor.VideoID_Add(_media.Id);
                         _media.ActorList.Add(actor);
+                        _media.ActorListID.Add(actor.id);
                         _videoCollection.Add(actor);
-                        //_videoCollection.Save();
                     }
                 }
             }
@@ -394,19 +383,13 @@ namespace FilmCollection
                 {
                     ActorsFragment = ActorsFragment.Substring(ActorsFragment.IndexOf("<a href"));
                 }
-                string[] ActorArray = ActorsFragment.Split(new string[] { ">", "</a>", }, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (string ActorItem in ActorArray)
+                List<string> ActorsPrep = ActorsFragment.Split(new string[] { ">", "</a>", }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                ActorsPrep.RemoveAll(x => !StringIsValid2(x));
+                if (ActorsPrep.Count >0)
                 {
-                    if (StringIsValid2(ActorItem))
-                    {
-                        Debug.Print("Обработка актера: " + ActorItem);
-
-                        // Подготовка актеров для предварительного выбора
-                        Actor actor = new Actor();
-                        actor.FIO = ActorItem;
-                        _media.ActorList.Add(actor);
-                    }
+                    _media.ActorList.Clear();
+                    ActorsPrep.ForEach(x => _media.ActorList.Add(new Actor(x)));
                 }
             }
         }
@@ -447,6 +430,5 @@ namespace FilmCollection
                 }
             }
         }
-
     }
 }
