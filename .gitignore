@@ -1,4 +1,6 @@
 /obj/
 /bin/
 /.vs/
-!/Library/*
+/FC/obj/
+/FC/bin/
+!/FC/Library/*
