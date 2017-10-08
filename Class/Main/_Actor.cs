@@ -14,6 +14,11 @@ namespace FilmCollection
             CombineList = new List<Combine>();
         }
 
+        public Actor(string fio = "") : this ()
+        {
+            if (!string.IsNullOrWhiteSpace(fio)) { FIO = fio; }
+        }
+
         /// <summary>Уникальный идентификатор объекта Actor</summary>
         public int id { get; set; }
 
@@ -37,12 +42,10 @@ namespace FilmCollection
         public string BIO { get; set; }     // ссылка на страницу с биографией
 
         public override string ToString() => FIO;
-
-
+        
 
         [XmlIgnore]
         public List<Combine> CombineList { get; }
-        //public List<Combine> CombineList { get; set; } // TEST
 
 
         #region Обработка Страны
@@ -85,9 +88,6 @@ namespace FilmCollection
             get { return _videoID; }
             private set { _videoID = value; }
         }
-
-        //private List<int> _videoID { get; set; }    // Список фильмов (ID) в которых играет актер
-        //public ReadOnlyCollection<int> VideoID { get { return _videoID.AsReadOnly(); } }
 
 
         /// <summary>Этот метод проверяет наличие элемента в списке, если его нет, то выполняется добавление id.</summary>
