@@ -2256,10 +2256,7 @@ namespace FilmCollection
 
         #region обработка информации по одному фильму
 
-        private void UpdateInfo()
-        {
-            (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(GetSelectedRecord(), this); })).Start();
-        }
+        private void UpdateInfo() => (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(GetSelectedRecord(), this); })).Start();
 
         internal void AfterUpdateRefresh(Record record)
         {
