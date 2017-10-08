@@ -1546,3 +1546,15 @@ If the user controls do things like connect to data sources, you might want to a
             //treeView.BeginUpdate();
             treeFolder.Nodes.AddRange(_ListTree.ToArray());
             treeFolder.ShowNodeToolTips = true;
+
+
+
+============================================================================================================================
+			  //Удалить часть элементов массива
+                for (int i = 0; i < ActorArray.Length; i++)
+                {
+                    if (!StringIsValid2(ActorArray[i]))
+                    {
+                        ActorArray = ActorArray.Where(name => name != ActorArray[i]).ToArray();
+                    }
+                }
