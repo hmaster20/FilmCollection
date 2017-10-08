@@ -214,7 +214,6 @@ namespace FilmCollection
                 break;
             }
 
-
             //string pattern = "(.*)(movieabout__name\".*?>)(.*)(</h1>)(.*)";
             //string input = sourcestring;
             //MatchCollection matches = Regex.Matches(input, pattern);
