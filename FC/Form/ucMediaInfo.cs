@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -15,7 +11,7 @@ namespace FilmCollection
     {
         private Record record { get; set; }
         private MainForm main { get; set; }
-        private RecordCollection _videoCollection { get; set; } = RecordCollection.GetInstance();
+        private RecordCollection _videoCollection { get; set; }
 
         public ucMediaInfo()
         {
@@ -30,6 +26,7 @@ namespace FilmCollection
             {
                 this.main = main;
                 this.record = _record;
+                this._videoCollection = RecordCollection.GetInstance();
 
                 tbfName.Text = _record.mName;
                 tbfDesc.Text = _record.mDescription;
@@ -38,13 +35,12 @@ namespace FilmCollection
                 GetPic(_record.combineLink.media);
                 btnPlay.Enabled = true;
                 lbActors.Items.Clear();
-                if (_record.combineLink.media.ActorListID != null)
+                if (_record.combineLink.media.ActorListID != null && _videoCollection != null)
                     foreach (int ListID in _record.combineLink.media.ActorListID)
                         if (_videoCollection.ActorList.Exists(act => act.id == ListID))
                             lbActors.Items.Add(_videoCollection.ActorList.FindLast(act => act.id == ListID));
             }
         }
-
 
         public void updatePreview(Media _media)
         {
@@ -61,7 +57,6 @@ namespace FilmCollection
                     _media.ActorList.ForEach(x => lbActors.Items.Add(x));
             }
         }
-
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
@@ -98,7 +93,6 @@ namespace FilmCollection
             {
                 pbImage.Image = null;
             }
-
         }
 
         private void lbActors_DoubleClick(object sender, EventArgs e)
