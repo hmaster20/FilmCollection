@@ -24,10 +24,11 @@ namespace FilmCollection
             if (_videoCollection == null)
                 throw new ArgumentNullException("_videoCollection", "_videoCollection не может содержать null");
 
-            //if (_videoCollection.Options.Source != null)
-            //{
-            //    lBasePath.Text = _videoCollection.Options.Source;
-            //}
+            if (_videoCollection.SourceList.Count > 0)
+            {
+                _videoCollection.SourceList.ForEach(x => listBox1.Items.Add(x.Source));                
+            }
+
             lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
 
             //foreach (DataColumn dc in dataSet.Tables[0].Columns)
@@ -37,22 +38,14 @@ namespace FilmCollection
 
             RecordOptions.getFormat().ForEach(x => clBoxFormats.Items.Add(x));
 
-
-            //clBoxColumn.Items.AddRange
-
             List<Record> list = new List<Record>();
-
-            //var obj = list[0].GetType();
             var obj = list.GetType();
 
-            //now grab all properties
             var properties = obj.GetProperties();
-
             for (int i = 0; i < properties.Length; i++)
             {
                 clBoxColumn.Items.Add(properties[i].Name);
             }
-
         }
 
         public Options(RecordCollection _videoCollection, MainForm mainForm) : this(_videoCollection)
@@ -68,14 +61,7 @@ namespace FilmCollection
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
-            {
-                RecordOptions.ToTray = true;
-            }
-            else
-            {
-                RecordOptions.ToTray = false;
-            }
+            RecordOptions.ToTray = (checkBox1.Checked) ? true : false;
         }
 
         private void ColAdd_Click(object sender, EventArgs e)
@@ -146,11 +132,6 @@ namespace FilmCollection
         }
 
 
-
-
-
-
-
-
+        
     }
 }

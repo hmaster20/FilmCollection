@@ -82,19 +82,20 @@ namespace FilmCollection
                 }
                 else
                 {
-                    RecordCollection RC = (RecordCollection)CurrentRC().Clone();
+                    //RecordCollection RC = (RecordCollection)CurrentRC().Clone();
+                    //foreach (Sources source in CurrentRC().SourceList)
+                    //    Creator(main, RC, source);
                     foreach (Sources source in CurrentRC().SourceList)
-                        Creator(main, RC, source);
+                        Creator(main, CurrentRC(), source);
                 }
             }
             catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
         }
 
 
-        void Creator(MainForm main, RecordCollection RC, Sources source)
+        void Creator(MainForm main, RecordCollection RC, Sources src)
         {
-            //DirectoryInfo directory = new DirectoryInfo(RC.Options.Source);
-            DirectoryInfo directory = new DirectoryInfo(source.Source);
+            DirectoryInfo directory = new DirectoryInfo(src.Source);
 
             if (directory.Exists)   // проверяем доступность каталога
             {
@@ -114,7 +115,6 @@ namespace FilmCollection
                             main.tsProgressBar.Value = i;
                             main.FindStatusLabel.Text = i.ToString() + " из " + RC.CombineList.Count.ToString();
                         }
-
                     }));
                 }
 
@@ -144,13 +144,13 @@ namespace FilmCollection
                     Record record = new Record();
                     record.FileName = file.Name;                            // полное название файла (film.avi)
                     //record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                    record.Path = file.DirectoryName.Remove(0, source.Source.Length);
-                    record.SourceID = source.Id;
+                    record.Path = file.DirectoryName.Remove(0, src.Source.Length);
+                    record.SourceID = src.Id;
 
                     if (!RecordExist(record))
                     {
                         findCount++;
-                        CreateCombine(file, source.Id); // если файла нет в коллекции, создаем
+                        CreateCombine(file, src.Id); // если файла нет в коллекции, создаем
                     }
                 }
 
