@@ -274,7 +274,7 @@ namespace FilmCollection
                 {
                     tssLabel.Text = "Коллекция из " + RCollection.CombineList.Count.ToString() + " элементов";
                     PrepareRefresh();
-                    TreeViewPrepare();
+                    TreeViewCreator();
                     state = true;
                 }
                 timerLoad.Enabled = true;   // Исключение раннего селекта treeFolder и фильтра dataGridView1 
@@ -1988,68 +1988,84 @@ namespace FilmCollection
 
         #region Дерево (treeFolder)
 
-        private void TreeViewPrepare()   // Подготовка структуры дерева
+        private void TreeViewCreator()
         {
-            List<string> ListGlobal = new List<string>();
-
+            TreeNode CollectionNode = new TreeNode();
+            CollectionNode.Nodes.Add("Фильмотека");
             if (RCollection.SourceList != null && RCollection.SourceList.Count > 0)
             {
                 foreach (Sources src in RCollection.SourceList)
                 {
-                    if (src.Source != null)
+                    if (!string.IsNullOrWhiteSpace(src.Source))
                     {
-                        List<string> pathList = new List<string>();
-                        //pathList.Add("Фильмотека");
-                        pathList.Add(src.Source);
-                        int SourceLength = src.Source.Length;
-                        pathList.AddRange((from cm in RCollection.CombineList
-                                           let recList = cm.recordList
-                                           from rec in recList
-                                           where rec.Visible == true   //orderby rec
-                                           select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > 0).ToList());
-                        //select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList());
-
-                        pathList.Select(x => x).Distinct();
-
-                        for (int i = 0; i < pathList.Count; i++)
-                        {
-                            if (i != 0)
-                            {
-                                pathList[i] = src.Source + pathList[i];
-                            }
-                            //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
-                        }
-                        ListGlobal.AddRange(pathList);
-                        //TreeViewBuilder(pathList);
-                        Debug.Print("Проход создания дерева для ветки: " + src.Source);
+                        List<string> pathList = PathListBuilder(src);
+                        TreeNode Node = TreeNodeBuilder(pathList);
+                        CollectionNode.Nodes.Add(Node);
                     }
-                    else break;
                 }
             }
-            TreeViewBuilder(ListGlobal);
+            TreeViewBuilder(CollectionNode);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
-        private void TreeViewBuilder(List<string> pathList)  // Построение дерева
-        {
-            treeFolder.Nodes.Clear();
 
+        /// <summary>Построени списка путей к каталогам фильмов на основе текущего источника</summary>
+        /// <param name="src">Источник файлов (путь)</param>
+        /// <returns>Список фильмов</returns>
+        private List<string> PathListBuilder(Sources src)
+        {
+            List<string> pathList = new List<string>();
+            pathList.Add(src.Source);
+            int SourceLength = src.Source.Length;
+            pathList.AddRange((from cm in RCollection.CombineList
+                               let recList = cm.recordList
+                               from rec in recList
+                               where rec.Visible == true   //orderby rec
+                               select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > 0).ToList());
+            //select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList());
+
+            pathList.Select(x => x).Distinct();
+
+            for (int i = 0; i < pathList.Count; i++)
+            {
+                if (i != 0)
+                {
+                    pathList[i] = src.Source + pathList[i];
+                }
+                //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
+            }
+            Debug.Print("Выполнен проход создания списка каталогов для ветки: " + src.Source);
+            return pathList;
+        }
+
+
+        /// <summary>Создание узлов на основе списка</summary>
+        /// <param name="pathList">Список каталогов</param>
+        /// <returns>Возращает готовый узел</returns>
+        private TreeNode TreeNodeBuilder(List<string> pathList)
+        {
             TreeNode trv = new TreeNode();
             TreeNode lastNode = null;
             TreeNode RootNode = null;
 
+            string NodeName = pathList[0];
 
-
-            RootNode = lastNode = trv.Nodes.Add(RCollection.SourceList[0].Source, RCollection.SourceList[0].Source);
+            RootNode = lastNode = trv.Nodes.Add(NodeName);
             lastNode.ToolTipText = "Основная база";
 
             for (int i = 1; i < pathList.Count; i++)
             {
-                if (pathList[i].Contains(RCollection.SourceList[0].Source))
+                if (pathList[i].Contains(NodeName))
                 {
-                    string[] str = pathList[i].Remove(0, RCollection.SourceList[0].Source.Length).TrimStart(Path.DirectorySeparatorChar).Split(Path.DirectorySeparatorChar);
+                    string[] str = pathList[i].Remove(0, NodeName.Length).TrimStart(Path.DirectorySeparatorChar).Split(Path.DirectorySeparatorChar);
 
-                    if (str.Count() > 1)
+                    if (str.Count() < 1)
+                    {
+                        // Это корень узла
+                        lastNode = RootNode;
+                        lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
+                    }
+                    else
                     {
                         string aa = str[0];
                         TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
@@ -2077,15 +2093,19 @@ namespace FilmCollection
                             lastNode = (nodes.Length == 0) ? lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]) : nodes[0];
                         }
                     }
-                    else
-                    {
-                        lastNode = RootNode;
-                        lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
-                    }
                 }
             }
+            return trv;
+        }
+
+        /// <summary>Отображение TreeNode в дереве</summary>
+        /// <param name="collectionNode">Набор узлов</param>
+        private void TreeViewBuilder(TreeNode collectionNode)
+        {
+            treeFolder.Nodes.Clear();
+
             List<TreeNode> _ListTree = new List<TreeNode>();
-            foreach (TreeNode node in trv.Nodes)    // проход по корневым нодам
+            foreach (TreeNode node in collectionNode.Nodes)    // проход по корневым нодам
                 _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
 
             treeFolder.BeginUpdate();
@@ -2244,7 +2264,7 @@ namespace FilmCollection
         #region отображение схемы по одному фильму
 
         private void ShowCharts()
-        {          
+        {
             Record record = GetSelectedRecord();
             if (record != null)
             {
