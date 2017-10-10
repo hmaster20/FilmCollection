@@ -1990,13 +1990,15 @@ namespace FilmCollection
 
         private void TreeViewPrepare()   // Подготовка структуры дерева
         {
-            List<string> pathList = new List<string>();
+            List<string> ListGlobal = new List<string>();
+
             if (RCollection.SourceList != null && RCollection.SourceList.Count > 0)
             {
                 foreach (Sources src in RCollection.SourceList)
                 {
                     if (src.Source != null)
                     {
+                        List<string> pathList = new List<string>();
                         //pathList.Add("Фильмотека");
                         pathList.Add(src.Source);
                         int SourceLength = src.Source.Length;
@@ -2017,12 +2019,14 @@ namespace FilmCollection
                             }
                             //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
                         }
-                        TreeViewBuilder(pathList);
-                        Debug.Print("Проход создания дерева");
+                        ListGlobal.AddRange(pathList);
+                        //TreeViewBuilder(pathList);
+                        Debug.Print("Проход создания дерева для ветки: " + src.Source);
                     }
                     else break;
                 }
             }
+            TreeViewBuilder(ListGlobal);
             //treeFolder.AfterSelect += treeFolder_AfterSelect;
         }
 
@@ -2033,6 +2037,8 @@ namespace FilmCollection
             TreeNode trv = new TreeNode();
             TreeNode lastNode = null;
             TreeNode RootNode = null;
+
+
 
             RootNode = lastNode = trv.Nodes.Add(RCollection.SourceList[0].Source, RCollection.SourceList[0].Source);
             lastNode.ToolTipText = "Основная база";
@@ -2049,7 +2055,7 @@ namespace FilmCollection
                         TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
 
                         string subPathAgg = str[0] + Path.DirectorySeparatorChar;
-                        TreeNode[] nodesTrv = trv.Nodes.Find(subPathAgg, true);
+                        //TreeNode[] nodesTrv = trv.Nodes.Find(subPathAgg, true);
                         TreeNode[] nodesRoot = RootNode.Nodes.Find(subPathAgg, true);
 
 
@@ -2057,7 +2063,6 @@ namespace FilmCollection
                         //if (treeNodes.Length != 0)
                         if (nodesRoot.Length != 0)
                         {
-                            //lastNode = treeNodes[0];
                             lastNode = nodesRoot[0];
                         }
                         else
