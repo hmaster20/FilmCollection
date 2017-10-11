@@ -924,57 +924,55 @@ namespace FilmCollection
             return (LastNode == null) ? "" : LastNode;
         }
 
-        private bool checkNode()
-        {
-            string nodeName = (GetNode());
+        //private bool checkNode()
+        //{
+        //    string nodeName = (GetNode());
 
-            if (!string.IsNullOrEmpty(nodeName) && nodeName != "Фильмотека")
-                return true;
-            return false;
-        }
+        //    if (!string.IsNullOrEmpty(nodeName) && nodeName != "Фильмотека")
+        //        return true;
+        //    return false;
+        //}
 
         public void PrepareRefresh(bool ShowAllFiles = false, int column = -1)
         {
-            Record selected = GetSelectedRecord();
-
-            // List<Record> filtered = _videoCollection.VideoList;
-            //dataGridView1.DataSource = new List<Combine>(_videoCollection.CombineList);
-
             List<Record> filtered = new List<Record>();
             RCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
-            //filtered.ForEach(x => x.Path = (RCollection.SourceList.FindLast(s => s.Id == x.SourceID).Source + x.Path));
-            //foreach (var item in filtered)s
-            //{
-            //    string ss = RCollection.SourceList.FindLast(s => s.Id == item.SourceID).Source;
-            //    item.Path = ss + item.Path;
-            //}
 
-
-            TableRec.DataSource = filtered;
-            
-
-            filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
-
-            filtered = (tscbTypeFilter.SelectedIndex != 0)  // фильтрация по типу: Фильм, Мультфильм..
+            filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);    // фильтрация по видимости, т.е. фильм не удален
+            filtered = (tscbTypeFilter.SelectedIndex != 0)                          // фильтрация по типу: Фильм, Мультфильм..
                 ? filtered.FindAll(v => v.mCategory == ((CategoryVideo_Rus)(tscbTypeFilter.SelectedIndex - 1)).ToString())
                 : filtered;
 
-            if (checkNode())
-            {   
-                // Флаг не распространяется на клик по корню, т.е. на "Фильмотека" - отображается все содержимое каталогов
-                string node = GetNode();
+
+            if (getLevelSelected() != null)
+            {
                 var rootNode = FindRootNode(treeFolder.SelectedNode);
                 int id = RCollection.SourceList.First(x => x.Source == rootNode.Text).Id;
 
-                if (!ShowAllFiles)
+                if (getLevelSelected() == 0)
                 {
-                    filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path) == node);
+                    filtered = filtered.FindAll(v => v.SourceID == id);
                 }
-                else
+
+                if (getLevelSelected() != 0)
                 {
-                    filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path).StartsWith(node));
+                    if (!ShowAllFiles)
+                    {
+                        filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path) == GetNode());
+                    }
+                    else
+                    {
+                        filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path).StartsWith(GetNode()));
+                    }
                 }
             }
+
+
+
+
+
+
+
 
             if (isTabFilm())
             {
@@ -993,6 +991,20 @@ namespace FilmCollection
             // продумать обновление актеров
 
             RefreshTable(filtered);
+        }
+
+        private int? getLevelSelected()
+        {
+            int? level = null;
+            if (treeFolder != null && treeFolder.Nodes.Count > 0)
+            {
+                if (treeFolder.SelectedNode != null && treeFolder.SelectedNode.IsSelected)
+                {
+                    level = treeFolder.SelectedNode.Level;
+                    Debug.Print("Level: " + treeFolder.SelectedNode.Level.ToString());
+                }
+            }
+            return level;
         }
 
         private TreeNode FindRootNode(TreeNode treeNode)
@@ -2010,7 +2022,7 @@ namespace FilmCollection
         private void TreeViewCreator()
         {
             treeFolder.BeginUpdate();
-            treeFolder.Nodes.Clear();           
+            treeFolder.Nodes.Clear();
             treeFolder.Nodes.AddRange(new TreeBuilder(RCollection).TreeViewCreator());
             treeFolder.ShowNodeToolTips = true;
             treeFolder.EndUpdate();
