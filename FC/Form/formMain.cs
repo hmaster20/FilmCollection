@@ -1991,7 +1991,11 @@ namespace FilmCollection
         private void TreeViewCreator()
         {
             TreeNode CollectionNode = new TreeNode();
-            CollectionNode.Nodes.Add("Фильмотека");
+            //TreeNode CollectionNode = new TreeNode();
+            //CollectionNode.Nodes.Add("Фильмотека");
+            //TreeNode CollectionNode = new TreeNode("Фильмотека");
+            //TreeNode CollectionNode = new TreeNode().Nodes.Add("");
+            //CollectionNode.Nodes.Add("Фильмотека");
             if (RCollection.SourceList != null && RCollection.SourceList.Count > 0)
             {
                 foreach (Sources src in RCollection.SourceList)
@@ -2016,23 +2020,17 @@ namespace FilmCollection
         {
             List<string> pathList = new List<string>();
             pathList.Add(src.Source);
-            int SourceLength = src.Source.Length;
             pathList.AddRange((from cm in RCollection.CombineList
                                let recList = cm.recordList
                                from rec in recList
-                               where rec.Visible == true   //orderby rec
-                               select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > 0).ToList());
-            //select rec.Path).Distinct().OrderBy(name => name).Where(n => n.Length > SourceLength).Select(n => n.Substring(SourceLength + 1)).ToList());
-
+                               where rec.Visible == true
+                               where rec.SourceID == src.Id
+                               select rec.Path).OrderBy(name => name).Where(n => n.Length > 0).ToList());
             pathList.Select(x => x).Distinct();
 
-            for (int i = 0; i < pathList.Count; i++)
+            for (int i = 1; i < pathList.Count; i++)
             {
-                if (i != 0)
-                {
-                    pathList[i] = src.Source + pathList[i];
-                }
-                //pathList[i] = pathList[i].TrimStart(Path.DirectorySeparatorChar);
+                pathList[i] = src.Source + pathList[i];
             }
             Debug.Print("Выполнен проход создания списка каталогов для ветки: " + src.Source);
             return pathList;
@@ -2044,14 +2042,12 @@ namespace FilmCollection
         /// <returns>Возращает готовый узел</returns>
         private TreeNode TreeNodeBuilder(List<string> pathList)
         {
-            TreeNode trv = new TreeNode();
-            TreeNode lastNode = null;
-            TreeNode RootNode = null;
-
             string NodeName = pathList[0];
 
-            RootNode = lastNode = trv.Nodes.Add(NodeName);
-            lastNode.ToolTipText = "Основная база";
+            TreeNode RootNode = new TreeNode(NodeName);
+            TreeNode lastNode = null;
+            lastNode = RootNode;
+            //lastNode.ToolTipText = "Основная база";
 
             for (int i = 1; i < pathList.Count; i++)
             {
@@ -2064,19 +2060,11 @@ namespace FilmCollection
                         // Это корень узла
                         lastNode = RootNode;
                         lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
+                        Debug.Print("Родит. нода: " + lastNode.Parent.ToString()); ;
                     }
                     else
                     {
-                        string aa = str[0];
-                        TreeNode[] treeNodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[0]).ToArray();  // Поиск узла
-
-                        string subPathAgg = str[0] + Path.DirectorySeparatorChar;
-                        //TreeNode[] nodesTrv = trv.Nodes.Find(subPathAgg, true);
-                        TreeNode[] nodesRoot = RootNode.Nodes.Find(subPathAgg, true);
-
-
-                        //lastNode = (treeNodes.Length != 0) ? treeNodes[0] : (RootNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0])); //если узел есть сохраняем, если нет, добавляем
-                        //if (treeNodes.Length != 0)
+                        TreeNode[] nodesRoot = RootNode.Nodes.Find((str[0] + Path.DirectorySeparatorChar), true);
                         if (nodesRoot.Length != 0)
                         {
                             lastNode = nodesRoot[0];
@@ -2092,16 +2080,23 @@ namespace FilmCollection
                             TreeNode[] nodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[arr]).ToArray();
                             lastNode = (nodes.Length == 0) ? lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]) : nodes[0];
                         }
+                        Debug.Print("Родит. нода: " + lastNode.Parent.ToString());
                     }
                 }
             }
-            return trv;
+            return RootNode;
         }
 
         /// <summary>Отображение TreeNode в дереве</summary>
         /// <param name="collectionNode">Набор узлов</param>
         private void TreeViewBuilder(TreeNode collectionNode)
         {
+            //treeFolder.BeginUpdate();
+            //treeFolder.Nodes.Clear();
+            //treeFolder.Nodes.Add(collectionNode);
+            //treeFolder.EndUpdate();
+
+
             treeFolder.Nodes.Clear();
 
             List<TreeNode> _ListTree = new List<TreeNode>();
