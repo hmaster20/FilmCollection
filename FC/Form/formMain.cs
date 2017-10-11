@@ -942,7 +942,16 @@ namespace FilmCollection
 
             List<Record> filtered = new List<Record>();
             RCollection.CombineList.ForEach(r => filtered.AddRange(r.recordList));
+            //filtered.ForEach(x => x.Path = (RCollection.SourceList.FindLast(s => s.Id == x.SourceID).Source + x.Path));
+            //foreach (var item in filtered)s
+            //{
+            //    string ss = RCollection.SourceList.FindLast(s => s.Id == item.SourceID).Source;
+            //    item.Path = ss + item.Path;
+            //}
+
+
             TableRec.DataSource = filtered;
+            
 
             filtered = filtered.FindAll(v => v.Visible == !cbIsVisible.Checked);
 
@@ -963,7 +972,24 @@ namespace FilmCollection
                 //string selecteNode = RCollection.SourceList[0].Source + Path.DirectorySeparatorChar + node;
                 //filtered = (!ShowAllFiles) ? filtered.FindAll(v => v.Path == selecteNode) : filtered.FindAll(v => v.Path.StartsWith(selecteNode));
                 //filtered = (!ShowAllFiles) ? filtered.FindAll(v => v.Path == node) : filtered.FindAll(v => v.Path.StartsWith(node));
-                filtered = (!ShowAllFiles) ? filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path) == node) : filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path).StartsWith(node));
+
+                //filtered = (!ShowAllFiles) ? filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path) == node) : filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path).StartsWith(node));
+
+                // int id = RCollection.SourceList.FindLast(x => x.Source == node).Id;
+
+                var rootNode = FindRootNode(treeFolder.SelectedNode);
+                int id = RCollection.SourceList.First(x => x.Source == rootNode.Text).Id;
+
+                if (!ShowAllFiles)
+                {
+                    filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path) == node);
+                    //filtered = filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path) == node);
+                }
+                else
+                {
+                    filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path).StartsWith(node));
+                    //filtered = filtered.FindAll(v => (RCollection.SourceList[0].Source + v.Path).StartsWith(node));
+                }
             }
 
             if (isTabFilm())
@@ -983,6 +1009,15 @@ namespace FilmCollection
             // продумать обновление актеров
 
             RefreshTable(filtered);
+        }
+
+        private TreeNode FindRootNode(TreeNode treeNode)
+        {
+            while (treeNode.Parent != null)
+            {
+                treeNode = treeNode.Parent;
+            }
+            return treeNode;
         }
 
         private static void SortRecord(List<Record> filtered, int switch_sort)  // Сортировка по столбцам
@@ -2045,8 +2080,7 @@ namespace FilmCollection
             string NodeName = pathList[0];
 
             TreeNode RootNode = new TreeNode(NodeName);
-            TreeNode lastNode = null;
-            lastNode = RootNode;
+            TreeNode lastNode = RootNode;
             //lastNode.ToolTipText = "Основная база";
 
             for (int i = 1; i < pathList.Count; i++)
@@ -2060,7 +2094,6 @@ namespace FilmCollection
                         // Это корень узла
                         lastNode = RootNode;
                         lastNode.Nodes.Add(str[0] + Path.DirectorySeparatorChar, str[0]);
-                        Debug.Print("Родит. нода: " + lastNode.Parent.ToString()); ;
                     }
                     else
                     {
@@ -2080,7 +2113,6 @@ namespace FilmCollection
                             TreeNode[] nodes = lastNode.Nodes.Cast<TreeNode>().Where(r => r.Text == str[arr]).ToArray();
                             lastNode = (nodes.Length == 0) ? lastNode.Nodes.Add(str[arr] + Path.DirectorySeparatorChar, str[arr]) : nodes[0];
                         }
-                        Debug.Print("Родит. нода: " + lastNode.Parent.ToString());
                     }
                 }
             }
@@ -2091,17 +2123,11 @@ namespace FilmCollection
         /// <param name="collectionNode">Набор узлов</param>
         private void TreeViewBuilder(TreeNode collectionNode)
         {
-            //treeFolder.BeginUpdate();
-            //treeFolder.Nodes.Clear();
-            //treeFolder.Nodes.Add(collectionNode);
-            //treeFolder.EndUpdate();
-
-
             treeFolder.Nodes.Clear();
 
             List<TreeNode> _ListTree = new List<TreeNode>();
-            foreach (TreeNode node in collectionNode.Nodes)    // проход по корневым нодам
-                _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
+            foreach (TreeNode node in collectionNode.Nodes)     // проход по корневым нодам
+                _ListTree.Add(node);                            // добавление корневой ноды, содержащей все под-ноды
 
             treeFolder.BeginUpdate();
             //treeFolder.Nodes.Insert(trv.Nodes.Count, trv);
