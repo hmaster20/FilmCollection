@@ -125,7 +125,10 @@ namespace FilmCollection
                         if (VC != null)
                         {
                             int id = VC.AddSource(directory.FullName);
-                            (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm); })).Start();
+                            //(new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm); })).Start();
+
+                            (new System.Threading.Thread(delegate () { VC.Maintenance.Creator(mainForm, VC, VC.SourceList.FindLast(x => x.Id ==id)); })).Start();
+                            //VC.Maintenance.Creator(main, CurrentRC(), source);
                         }
                 }
             }

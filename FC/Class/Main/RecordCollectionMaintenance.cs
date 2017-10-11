@@ -93,7 +93,7 @@ namespace FilmCollection
         }
 
 
-        void Creator(MainForm main, RecordCollection RC, Sources src)
+        public void Creator(MainForm main, RecordCollection RC, Sources src)
         {
             DirectoryInfo directory = new DirectoryInfo(src.Source);
 
