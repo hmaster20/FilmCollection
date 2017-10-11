@@ -105,6 +105,11 @@ namespace FilmCollection
                     main.tsProgressBar.Maximum = RC.CombineList.Count;
                 }));
 
+                if (RC.CombineList.Count < 1)
+                {
+                    return;
+                }
+
                 for (int i = 0; i < RC.CombineList.Count; i++)
                 {
                     RC.CombineList[i].invisibleRecord(); // скрываем файлы
