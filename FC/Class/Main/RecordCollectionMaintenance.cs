@@ -56,9 +56,7 @@ namespace FilmCollection
             {
                 RecordCollection rc = new RecordCollection();
                 RecordCollection.SetInstance(rc);
-                //CurrentRC().Options.Source = directory.FullName;   // Сохранение каталога фильмов
-                //CurrentRC().AddSource(directory.FullName);
-                int id = CurrentRC().AddSource(directory.FullName);
+                int id = CurrentRC().AddSource(directory.FullName);// Сохранение каталога фильмов
 
                 foreach (FileInfo file in GetFilesFrom(directory))
                     CreateCombine(file, id);
@@ -127,8 +125,7 @@ namespace FilmCollection
                     main.FindStatusLabel.Text = AllMediaFiles.Count().ToString();
                 }));
 
-                List<FileInfo> files = new List<FileInfo>();
-                files = AllMediaFiles.ToList();
+                List<FileInfo> files = AllMediaFiles.ToList();
 
                 int findCount = 0;
 

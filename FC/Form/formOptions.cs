@@ -146,7 +146,7 @@ namespace FilmCollection
 
                             (new System.Threading.Thread(delegate () { VC.Maintenance.PreUpdate(mainForm); })).Start();
 
-                            (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
+                           // (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
                         }
                 }
             }
