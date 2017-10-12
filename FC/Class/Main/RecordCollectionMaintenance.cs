@@ -70,7 +70,7 @@ namespace FilmCollection
             main.FormLoad();
         }
 
-        public void Update(MainForm main)
+        public void PreUpdate(MainForm main)
         {
             try
             {
@@ -82,19 +82,19 @@ namespace FilmCollection
                 }
                 else
                 {
-                    //RecordCollection RC = (RecordCollection)CurrentRC().Clone();
-                    //foreach (Sources source in CurrentRC().SourceList)
-                    //    Creator(main, RC, source);
                     foreach (Sources source in CurrentRC().SourceList)
-                        Creator(main, CurrentRC(), source);
+                        Update(main, CurrentRC(), source);
                 }
             }
             catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
         }
 
 
-        public void Creator(MainForm main, RecordCollection RC, Sources src)
+        public void Update(MainForm main, RecordCollection RC, Sources src)
         {
+            if (RC.CombineList.Count < 1)
+                return;
+
             DirectoryInfo directory = new DirectoryInfo(src.Source);
 
             if (directory.Exists)   // проверяем доступность каталога
@@ -104,11 +104,6 @@ namespace FilmCollection
                     main.tsProgressBar.Visible = true;
                     main.tsProgressBar.Maximum = RC.CombineList.Count;
                 }));
-
-                if (RC.CombineList.Count < 1)
-                {
-                    return;
-                }
 
                 for (int i = 0; i < RC.CombineList.Count; i++)
                 {

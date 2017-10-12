@@ -389,7 +389,7 @@ namespace FilmCollection
         #region Главное меню
 
         private void CreateBase_Click(object sender, EventArgs e) => RCollection.Maintenance.NewBase(this);
-        private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { RCollection.Maintenance.Update(this); })).Start();
+        private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { RCollection.Maintenance.PreUpdate(this); })).Start();
         private void CleanBase_Click(object sender, EventArgs e) => RCollection.Maintenance.CleanBase(this);
 
         private void BackupBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.BackupBase();

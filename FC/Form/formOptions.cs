@@ -24,9 +24,17 @@ namespace FilmCollection
             if (_videoCollection == null)
                 throw new ArgumentNullException("_videoCollection", "_videoCollection не может содержать null");
 
-            if (_videoCollection.SourceList.Count > 0)
+            ListUpdate(_videoCollection);
+
+            if (_videoCollection.SourceList.Count < 1)
             {
-                _videoCollection.SourceList.ForEach(x => listBox1.Items.Add(x.Source));                
+                btnAddSource.Enabled = false;
+                btnDelSource.Enabled = false;
+            }
+            else
+            {
+                btnAddSource.Enabled = true;
+                btnDelSource.Enabled = true;
             }
 
             lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
@@ -45,6 +53,15 @@ namespace FilmCollection
             for (int i = 0; i < properties.Length; i++)
             {
                 clBoxColumn.Items.Add(properties[i].Name);
+            }
+        }
+
+        private void ListUpdate(RecordCollection _videoCollection)
+        {
+            listBox1.Items.Clear();
+            if (_videoCollection.SourceList.Count > 0)
+            {
+                _videoCollection.SourceList.ForEach(x => listBox1.Items.Add(x.Source));
             }
         }
 
@@ -125,16 +142,16 @@ namespace FilmCollection
                         if (VC != null)
                         {
                             int id = VC.AddSource(directory.FullName);
-                            //(new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm); })).Start();
+                            ListUpdate(VC);
 
-                            (new System.Threading.Thread(delegate () { VC.Maintenance.Creator(mainForm, VC, VC.SourceList.FindLast(x => x.Id ==id)); })).Start();
-                            //VC.Maintenance.Creator(main, CurrentRC(), source);
+                            (new System.Threading.Thread(delegate () { VC.Maintenance.PreUpdate(mainForm); })).Start();
+
+                            (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
                         }
                 }
             }
         }
 
 
-        
     }
 }
