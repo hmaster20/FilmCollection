@@ -58,10 +58,10 @@ namespace FilmCollection
 
         private void ListUpdate(RecordCollection _videoCollection)
         {
-            listBox1.Items.Clear();
+            listBase.Items.Clear();
             if (_videoCollection.SourceList.Count > 0)
             {
-                _videoCollection.SourceList.ForEach(x => listBox1.Items.Add(x.Source));
+                _videoCollection.SourceList.ForEach(x => listBase.Items.Add(x.Source));
             }
         }
 
