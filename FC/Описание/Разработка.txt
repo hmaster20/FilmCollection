@@ -1,0 +1,1560 @@
+﻿Направление для разработки:
+=====================================================
+- баг построения дерева при налии нескольких баз
+- добавить остановку потока создания постеров
+- обнаружено странное поведение при удалении объектов, при каждом втором объекте наблюдается резкое увеличение потребелния памяти
+- обнаружена утечка памяти при удалении фильма, вызвана сбоем при обновлении (пересоздании) постеров
+- добавить возможность выбора нескольких источников фильмотеки 
+- продумать возможность использования мета тегов
+- продумать возможность сковзного поиска по базе (по xml), в т.ч. по описанию фильма
+- сделать вывод реальных названий найденых фильмовы при загрузке информации из интернета
+- сделать механизм проверки и очистки индексов ActorListID
+- произошла блокировка (переход в режим редактирования) при выходе из свернутого состояния, при этом не открыты панель редактирования
+- добавить блокировку кнопки удалить при пустом списке
+- MVC or MVP
+- подумать о необходимости убирать фокус при переключении вкладок (возможно нет необходимости)
+- переместить настройки в область метаданных (модуль программы пользователя 62)
+- добавить возможность проверки наличия и получение обновлений
+- сделать корректный механизм сортировки баз данных для восстановления
+- протестировать скорость генерации дерева
+- продумать синхронизацию актёров и медиа при изменении или очистки списка актеров (SaveToMedia(Combine cm))
+- при селекте по актеру сделать обработку чтобы правильно выполнялось отображение фильма, в т.ч. разворачивались нужные каталоги в иерархии
+- не разворачивается иерархия при отображении одного(!) найденного фильма (FindAndSelect_Record)
+- доработать журнал протоколирования (автоматическая отправка логов, кол-во элементов в базе, время работы)
+- продумать возможность кэширования базы XML, использование Lazy
+- при изменении любого поля и дальнейшем селекте выводить уведомление (yes,no) 
+		если да возвращаться в редактор, 
+		если нет выводить содержимое селекта (не пользоваться блокировкой)
+- предусмотреть отдельные механизмы удаления списка файлов, списка актеров
+- продумать поисковый механизм (есть проблема при поиске последующего элемента, если включена фильтрация)
+- обеспечить возможность восстановления удаленной записи (уведомлять об удалении записи но не файла)
+- добавить переименование файлов (массовое по маске)
+- разработать форму настроек приложения
+- Сделать опцию настройки и добавления столбцов // this.customersDataGridView.Columns[0].Visible = false;
+- Сериализация в форматах: XML, bin
+- продумать использование FileWatcher
+- использование доп.информации о файлах (кодеки)
+- продумать возможность интеграции данных в SQL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###########################################################################################################
+ private void DeleteRec_Click(object sender, EventArgs e)
+       
+             * Кто поможет написать код для удалении строк из DataGridView,
+             * что бы после рефреша формы или проекта не строка с такой ID больше не появлялся в списке DataGridView.
+             * если удалить все то так:
+             * dataGridView1.Rows.Clear();
+             * dataGridView1.Refresh();
+             * если конкретную строчку то надо знать ее индекс
+             * dataGridView1.Rows.RemoveAt(индекс строки);
+             * dataGridView1.Refresh();
+             * можно удалить и имея объект row
+             * dataGridView1.Rows.Remove(row);
+             * dataGridView1.Refresh();
+             * дополнительно вам надо ее еще и из базы удалить. 
+             * Необходимо знать уникальный идентификатор записи в базе (обычно Id), выполнить запрос на удаление
+             */
+
+
+               //Regex my_reg = new Regex("[0-9]+");
+                // string out_string = my_reg.Replace(_videoCollection.VideoList[i].Name, "");
+
+                //FindCinema(_videoCollection.VideoList[i].Name)
+                //s = Regex.Replace(s, "[^0-9.]", "");
+
+                // удалить все цифры
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-]", string.Empty);
+                //vудалить все цифры и точки
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[\d-.]", string.Empty);
+                //vудалить все что не цифры и не буквы, кроме тире
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[^a-zA-Z0-9 -]", string.Empty);
+
+                //удаление всех латинских букв, цифр, подчеркивания, точки, скобок
+                //var output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
+
+                // Удаление всех латинских букв, цифр, подчеркивания, точки, скобок
+                //string output = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z0-9_.()]", string.Empty);
+
+                /*
+                string output2 = Regex.Replace(_videoCollection.VideoList[i].Name, @"[a-zA-Z_.()]", string.Empty);
+                string output = Regex.Replace(output2, @"[0-9]{4}", string.Empty);
+                output = output.Trim(); //убираем пробелы вначале и конце
+                MessageBox.Show(output);
+                */
+
+
+//MessageBox.Show(month + "/" + day + "/" + year);
+
+//maskDateOfBirth.
+// \d{ 2}/\d{ 2}/\d{ 4}
+//  00/00/0000
+
+//string regReplace = tbFind.Text.Replace("*", "");//замена вхождения * 
+//Regex regex = new Regex(regReplace, RegexOptions.IgnoreCase);
+
+
+//    if (regex.IsMatch(row.Cells[cell].Value.ToString()))
+//    {
+//        i++;
+//        dgvSelected.Add(row.Cells[cell].RowIndex);
+//        row.Selected = true;
+//        //break; //Требуется для выбора одно строки
+//    }
+
+//Regex regex = new Regex(@"\b([0-2][0-9][0-1][0-9]1[8-9][0-9][0-9])");
+//Match match = regex.Match(maskDateOfBirth.Text);
+//if (match.Success)
+//{
+//    // Console.WriteLine(match.Value);
+//    MessageBox.Show(match.Value);
+//}
+
+
+
+
+      private void listCreate()
+        {
+            listView1.View = View.Details;
+            listView1.MultiSelect = false;
+            listView1.FullRowSelect = true;
+            listView1.Columns.Add("Название");
+            listView1.Columns.Add("Каталог");
+            listView1.Columns.Add("Год");
+            listView1.Columns.Add("Страна");
+            listView1.Columns.Add("Жанр");
+            listView1.Columns.Add("Категория");
+            listView1.Columns.Add("Время");
+            listView1.Columns.Add("Файл");
+            listView1.Items.Clear();
+            for (int i = 0; i < _videoCollection.VideoList.Count; i++)
+            {
+                listView1.Items.Add(_videoCollection.VideoList[i].Name);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].DirName);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Year.ToString());
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CountryString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].GenreString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].CategoryString);
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].Time.ToString());
+                listView1.Items[i].SubItems.Add(_videoCollection.VideoList[i].FileName);
+            }
+
+        }
+
+
+		            //base.OnPaint(e);
+            //Pen penBorder = new Pen(Color.Gray, 1);
+            //Rectangle rectBorder = new Rectangle(e.ClipRectangle.X, e.ClipRectangle.Y, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            //e.Graphics.DrawRectangle(penBorder, rectBorder);
+
+            //Rectangle textRec = new Rectangle(e.ClipRectangle.X + 1, e.ClipRectangle.Y + 1, e.ClipRectangle.Width - 1, e.ClipRectangle.Height - 1);
+            //TextRenderer.DrawText(e.Graphics, Text, this.Font, textRec, this.ForeColor, this.BackColor, TextFormatFlags.Default);
+
+            //    toolStripTextBox1.BorderStyle = BorderStyle.None;
+            //    Pen p = new Pen(SystemColors.ControlDark, 5);
+            //    Graphics g = e.Graphics;
+            //    g.DrawRectangle(p, new Rectangle(20, -15, 129, 90));
+
+
+
+			//try
+            //{
+            //    string[] dateComponents = maskDateOfBirth.Text.Split('.');
+            //    string month = dateComponents[0].Trim();
+            //    string day = dateComponents[1].Trim();
+            //    string year = dateComponents[2].Trim();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+
+
+
+
+			//DirectoryInfo directory = new DirectoryInfo(Directory.GetCurrentDirectory());
+            //FileInfo[] files = directory.GetFiles("VideoList_*.xml", SearchOption.AllDirectories);
+
+            //for (int i = 0; i < files.Length; i++)
+            //{
+            //    // listView1.Items.Add(files[i].Name).BackColor = (files[i].Length > 2) ? Color.Green : Color.Red;
+            //    // listView1.Items.Add(files[i].Name).Font = new Font(listView1.Font, FontStyle.Strikeout);
+
+            //    if (files[i].Length < 2)
+            //    {
+            //        listView1.Items.Add(files[i].Name).Font = new Font(listView1.Font, FontStyle.Strikeout);
+            //        continue;
+            //    }
+            //    listView1.Items.Add(files[i].Name);
+            //}
+
+
+
+
+
+
+
+			
+            //IEnumerable<FileInfo> Bases = directory.GetFiles("VideoList_*.xml").Where(f => !f.Name.Contains("BAD"));
+            //int BaseCount = Bases.Count();
+
+            //for (int i = 0; i < BaseCount; i++)
+            //{
+            //    string[] subStrings = files[i].ToString().Split('_');
+
+            //    // Дата файла
+            //    if (files[i].Length < 2)
+            //        listView1.Items.Add(subStrings[1]).Font = new Font(listView1.Font, FontStyle.Strikeout);
+            //    else
+            //        listView1.Items.Add(subStrings[1]);
+            //    //listView1.Items[i].SubItems.Add(subStrings[1]);
+
+            //    // Время создания файла
+            //    listView1.Items[i].SubItems.Add(subStrings[2].Remove(subStrings[2].Length - 4, 4));
+
+            //    // Размер файла базы
+            //    long Size = files[i].Length;
+            //    string _size = "";
+            //    if (Size <= 1024) _size = Size.ToString() + " Байт";
+            //    else if (Size > 1024 && Size <= 1024 * 1024) _size = (Math.Round((float)Size / 1024)).ToString() + " КБ";
+            //    else if (Size > 1024 * 1024) _size = Math.Round(((double)Size / (1024 * 1024)), 1).ToString() + " МБ";
+            //    listView1.Items[i].SubItems.Add(_size);
+            //}
+
+
+
+
+=================================================================================================================================================
+
+
+
+
+			
+
+//public Record()
+//{
+//    //ActorID = new List<int>();          // Создание списка ID
+//}
+
+// public int Id { get; set; }             // Уникальный идентификатор
+
+
+//private int _year;                      // Год выпуска
+//public int Year
+//{
+//    get { return _year; }
+//    set { _year = (Enumerable.Range(1800, DateTime.Now.Year).Contains(value)) ? value : DateTime.Now.Year; }
+//}
+
+
+//private int _time;                      // Время (в минутах)
+//public int Time
+//{
+//    get { return _time; }
+//    set { _time = (value < 0) ? 0 : value; }
+//}
+
+// public string Description { get; set; } = ""; // Описание файла (сюжет)        
+// public string Pic { get; set; } = "";
+
+
+//#region Список ID актеров
+
+//private List<int> _actorID;     // Объявление ID актеров
+//public List<int> ActorID
+//{
+//    get { return _actorID; }
+//    set { _actorID = value; }
+//}
+
+
+//public void Add(int id)
+//{
+//    ActorID.Add(id);
+//}
+
+//public void Remove(int id)
+//{
+//    ActorID.Remove(id);
+//}
+
+//public void ClearID()
+//{
+//    ActorID.Clear();
+//}
+
+//#endregion
+
+
+
+//public static int CompareByYear(Record a, Record b)
+//{
+//    if (a.Year == b.Year)
+//        return CompareByName(a, b);
+//    return (a.Year - b.Year);
+//}
+
+
+
+//public static int CompareByYear(Record a, Record b)     // Сравнение по году
+//{
+//    if (a.Year != "" && b.Year != "")
+//    {
+//        string aYearString = a.Year.Substring(0, 4);
+//        string bYearString = b.Year.Substring(0, 4);
+
+//        if (aYearString == bYearString)
+//            return CompareByName(a, b);
+//        int aYear = 0;
+//        int bYear = 0;
+//        if (int.TryParse(aYearString, out aYear) && int.TryParse(bYearString, out bYear))
+//            return (int)((bYear - aYear) * 100);
+//    }
+//    return CompareByName(a, b);
+//}
+
+
+//public static int CompareByTime(Record a, Record b)     // Сравнение по времени записи
+//{
+//    if (a.Time == b.Time)
+//        return CompareByName(a, b);
+//    return (int)((b.Time - a.Time) * 100);
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=================================================================================================================================================
+Вверх и вниз для checkListBox
+
+
+      private void btnMoveUp_Click(object sender, System.EventArgs e)
+        {
+            int index = chkActorList.SelectedIndices[0];
+            if (index != 0)
+            {
+                ArrayList list = new ArrayList();
+                CheckedListBox cb = new CheckedListBox();
+                cb.Items.AddRange(chkActorList.Items);
+                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
+                {
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
+                }
+                list.AddRange(chkActorList.Items);
+                ArrayList newlist = new ArrayList(list);
+                newlist[index] = list[index - 1];
+                newlist[index - 1] = list[index];
+                chkActorList.Items.Clear();
+                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                for (int i = 0; i < cb.CheckedItems.Count; i++)
+                {
+                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                }
+                chkActorList.SelectedItem = chkActorList.Items[index - 1];
+            }
+        }
+
+        private void btnMoveDown_Click(object sender, System.EventArgs e)
+        {
+            int index = chkActorList.SelectedIndices[0];
+            if (index != chkActorList.Items.Count - 1)
+            {
+                CheckedListBox cb = new CheckedListBox();
+                cb.Items.AddRange(chkActorList.Items);
+                for (int i = 0; i < chkActorList.CheckedItems.Count; i++)
+                {
+                    cb.SetItemCheckState(cb.Items.IndexOf(chkActorList.CheckedItems[i]), CheckState.Checked);
+                }
+                ArrayList list = new ArrayList();
+                list.AddRange(chkActorList.Items);
+                ArrayList newlist = new ArrayList(list);
+                newlist[index] = list[index + 1];
+                newlist[index + 1] = list[index];
+                chkActorList.Items.Clear();
+                chkActorList.Items.AddRange((string[])newlist.ToArray(typeof(string)));
+                for (int i = 0; i < cb.CheckedItems.Count; i++)
+                {
+                    chkActorList.SetItemCheckState(chkActorList.Items.IndexOf(cb.CheckedItems[i]), CheckState.Checked);
+                }
+                chkActorList.SelectedItem = chkActorList.Items[index + 1];
+            }
+        }
+
+
+
+=================================================================================================================================================
+Построение дерева
+
+		private void CreateTree()      
+        {
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load(RecordOptions.BaseName);                // Получения файла базы
+
+            //int SourceLength = _videoCollection.Options.Source.Length;  // Получение длинны пути
+
+            //XmlNodeList nodeList = doc.GetElementsByTagName("Path");        // Чтение элементов "Path"
+
+            //treeFolder.Nodes.Clear();                                       // Очистка дерева
+
+            //var paths = new List<string>();                                 // Создание списка
+            //paths.Add("Фильмотека");
+
+            //foreach (XmlNode node in nodeList)                              // Заполнение списка для формирования дерева
+            //{
+            //    try
+            //    {
+            //        string temp = "";
+            //        if (node.ChildNodes[0].Value.Length > SourceLength)     // длинна патча, не должна превышать полного пути к директории
+            //            if (-1 != node.ChildNodes[0].Value.Substring(SourceLength).IndexOf(Path.DirectorySeparatorChar))
+            //            {
+            //                temp = node.ChildNodes[0].Value.Substring(SourceLength + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+            //                if (temp.Length != 0)
+            //                {
+            //                    string tt = node.ChildNodes[0].Value.Substring(SourceLength + 1);
+            //                    if (!paths.Exists(x => x == tt)) paths.Add(tt);
+            //                }
+            //            }
+            //    }
+            //    catch (NullReferenceException e)
+            //    {
+            //        MessageBox.Show(e.Message + " " + node.Name + " - не заполнен!");
+            //    }
+            //}
+
+            PopulateTreeView(treeFolder, str3, Path.DirectorySeparatorChar, str3.Count);
+
+            //PopulateTreeView(treeFolder, paths, Path.DirectorySeparatorChar, paths.Count);
+            //treeFolder.AfterSelect += treeFolder_AfterSelect;
+            // TreeFast(paths);
+        }
+
+		
+=================================================================================================================================================
+Построение дерева (2 версия)
+
+
+		  private void CreateTree()       // Построение дерева
+        {
+            treeFolder.Nodes.Clear();                                  // Очистка дерева
+            int SourceLength = _videoCollection.Options.Source.Length; // Получение длинны пути
+ 
+            List<Record> listRecord = new List<Record>();
+            _videoCollection.CombineList.ForEach(combine => listRecord.AddRange(combine.recordList));
+              
+
+            List<string> listPath = new List<string>();
+
+            foreach (Record rec in listRecord)
+                if (rec.Visible == true)
+                    listPath.Add(rec.Path);
+
+            List<string> listPathDistinct = listPath.Distinct().ToList();
+
+            listPathDistinct.Sort();
+
+            List<string> listForTreeView = new List<string>() { "Фильмотека" };
+
+            //listForTreeView.Add("Фильмотека");
+
+            try
+            {
+                for (int i = 0; i < listPathDistinct.Count; i++)
+                {
+                    if (listPathDistinct[i].Substring(SourceLength).Length > 0)
+                        listForTreeView.Add(listPathDistinct[i].Substring(SourceLength + 1));   //Обрезка строку путь C:\temp\1\11 -> 1\11
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            PopulateTreeView(treeFolder, listForTreeView, Path.DirectorySeparatorChar, listForTreeView.Count);
+
+            //treeFolder.AfterSelect += treeFolder_AfterSelect;
+            // TreeFast(paths);
+        }
+
+
+
+
+
+=================================================================================================================================================
+		/// <summary>
+        /// Этот метод передаёт привет столько раз, сколько скажите.
+        /// </summary>
+        /// <param name="repeat">Сколько раз передать привет</param>
+        /// <returns>Сама строка с приветами</returns>
+        public string HelloHabr(int repeat)
+        {
+            string result = "";
+            for (int i = 0; i < repeat; i++)
+            {
+                result += "Hello!\n";
+            }
+            return result;
+        }
+
+=================================================================================================================================================
+		   Icon icon = new Icon("FC.ico");
+           this.Icon = icon;
+
+		   Icon myIcon = new Icon("Resources/myIcon.ico");
+
+		   var bmp = new Bitmap(WindowsFormsApplication1.Properties.Resources.myimage);
+
+		   Image myImage = Resources.myImage;
+		   Bitmap bmp = new Bitmap(Resources.myImage);
+
+			ResourceManager rm = Resources.ResourceManager;
+			Bitmap myImage = (Bitmap)rm.GetObject("myImage");
+
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Catrig));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+
+=================================================================================================================================================
+
+			   pictureBox3.Cursor = new Cursor(new MemoryStream(Properties.Resources.BULLSEYE));
+
+=================================================================================================================================================
+
+			               this.TopMost = true; // делает форму поверх всех окон, достучаться к отладчику невозможно
+
+
+=================================================================================================================================================
+		private void timerLANG_Tick(object sender, EventArgs e)
+        {
+            if (InputLanguages.GetKeyboardLayoutId() == "ENU")
+            {
+                using (var memoryStream = new MemoryStream(Properties.Resources.cursorEN))
+                {
+                    tbFind.Cursor = new Cursor(memoryStream);
+                }
+            }
+            else
+            {
+                using (var memoryStream = new MemoryStream(Properties.Resources.cursorRU))
+                {
+                    tbFind.Cursor = new Cursor(memoryStream);
+                }
+            }
+        }
+
+
+
+=================================================================================================================================================
+		 //MessageBox.Show(dgvTableRec.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+
+
+
+
+
+=================================================================================================================================================
+		   
+        ///// <summary>Разрешение контекстного меню</summary>
+        //private void GetMenuDgv(DataGridViewCellMouseEventArgs e)
+        //{
+        //    if (e.ColumnIndex > -1 && e.RowIndex > -1)
+        //    {
+        //        DataGridView dgv = GetDgv();
+        //        dgv.CurrentCell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //        dgv.Rows[e.RowIndex].Selected = true;
+        //        dgv.Focus();
+        //        dgv.ContextMenuStrip = TabMenu;
+        //        //if (e.ColumnIndex > -1 && e.RowIndex > -1) dgvTable.CurrentCell = dgvTable[e.ColumnIndex, e.RowIndex];
+        //    }
+        //    else
+        //    {
+        //        TableRec.ContextMenuStrip = null;
+        //        TableRec.ClearSelection();
+        //    }
+        //}  
+
+
+        //private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // при клике выполняется выбор строки и открывается меню
+        //{
+        //    if (e.Button == MouseButtons.Right)
+        //    {
+        //        Int32 rowToDelete = TableRec.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+
+        //        //var hti = TableRec.HitTest(e.X, e.Y);
+        //        //TableRec.ClearSelection();
+        //        //TableRec.Rows[hti.RowIndex].Selected = true;
+        //    }
+
+        //    try
+        //    {
+        //        if (e.RowIndex < 0)
+        //        {
+        //            return;
+        //        }
+
+        //        DataGridView dgv = GetDgv();
+        //        dgv.Rows[e.RowIndex].Selected = true;
+
+        //        if (!RecTabSelect())
+        //        {
+        //            // если это таблица актеров, то доп.обработка не нужна
+        //            if (e.Button == MouseButtons.Right)
+        //                GetMenuDgv(e);
+        //        }
+        //        else
+        //        {
+        //            // TableRec.CurrentCell = TableRec.Rows[e.RowIndex].Cells[e.ColumnIndex];
+        //            // TableRec.Focus();
+
+
+        //            //TableRec.Rows[e.RowIndex].Selected = true;   // главное действие выполняет эта строка
+
+        //            if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
+        //            {
+        //                if (e.Button == MouseButtons.Left && e.Clicks == 2)
+        //                    SelectRecord_Info(sender, e);
+        //            }
+        //            else
+        //            {
+        //                FindNextButton_Lock();
+
+        //                if (e.Button == MouseButtons.Right)
+        //                    GetMenuDgv(e);
+
+        //                if (e.Button == MouseButtons.Left)
+        //                {
+        //                    if (e.ColumnIndex != 7)
+        //                    {
+        //                        //if (dgv != null && dgv.SelectedRows.Count > 0 && dgv.SelectedRows[0].Index > -1)
+        //                        if (isRows())
+        //                            if (dgv.SelectedRows[0].Index == e.RowIndex)
+        //                            {
+        //                                TableRec.DoDragDrop(e.RowIndex, DragDropEffects.Copy);
+        //                            }
+        //                        SelectRecord_Info(sender, e);
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception Ex) { MessageBox.Show(Ex.Message); }
+        //}
+
+
+
+
+
+=================================================================================================================================================
+
+		public static string GetHtmlString(string url, string login = "", string password = "", Dictionary<string, string> queries = null)
+        {
+            WebClient client = new WebClient();
+            if (login != "" && password != "")
+                client.Credentials = new NetworkCredential(login, password);
+            client.Proxy = null;
+            if (queries != null)
+            {
+                client.QueryString = new System.Collections.Specialized.NameValueCollection();
+                foreach (string key in queries.Keys)
+                    client.QueryString.Add(key, queries[key]);
+            }
+            client.Encoding = System.Text.Encoding.GetEncoding("utf-8");
+            client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0");
+            return client.DownloadString(url);
+        }
+
+
+
+=================================================================================================================================================
+
+		Bitmap pic = new Bitmap(VideoTag.ImageSize * tagPics.Count, VideoTag.ImageSize);
+            using (Graphics g = Graphics.FromImage(pic))
+                for (int i = 0; i < tagPics.Count; i++)
+                    g.DrawImage(tagPics[i], i * VideoTag.ImageSize, 0, VideoTag.ImageSize, VideoTag.ImageSize);
+
+
+
+=================================================================================================================================================
+
+				/Assembly assembly = Assembly.LoadFrom(filePath);
+                ////Version ver = assembly.GetName().Version;
+                //ver = assembly.GetName().Version;
+
+
+
+
+                //AppDomain dom = AppDomain.CreateDomain("some");
+                ////AssemblyName assemblyName = new AssemblyName();
+                ////assemblyName.CodeBase = filePath;
+                ////Assembly assembly = dom.Load(assemblyName);
+                ////Type[] types = assembly.GetTypes();
+                //ver = assembly.GetName().Version;
+                //AppDomain.Unload(dom);
+
+
+=================================================================================================================================================
+
+изменение стиля DGV
+
+            //DataGridViewCellStyle currencyCellStyle = new DataGridViewCellStyle();
+            //dgvMerge.Rows[e.RowIndex].DefaultCellStyle = currencyCellStyle; // сброс на параметры по умолчанию
+
+
+            ////dgvMerge.Rows[e.RowIndex].DefaultCellStyle.Font = new Font(dgvMerge.Font, FontStyle.Underline);
+            ////dgvMerge.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.SteelBlue;
+			////currentRow.DefaultCellStyle.ForeColor = Color.Silver;
+
+
+=================================================================================================================================================
+
+
+		* Порядок отработки кликов для DGV:
+         * MouseDown
+         * CellMouseDown
+         * -- SelectionChanged
+         * CellClick
+         * MouseClick
+         * CellMouseClick
+         */
+
+
+// - CellMouseDown: True  - кнопка нажата но не отпущена
+// - CellClick: True
+// - CellValueChanged: 5False
+
+
+=================================================================================================================================================
+
+
+                    //// синхронизация листов
+                    //foreach (TVChannel tvc in channelsForMerge)
+                    //{
+                    //    if (!TVchannelExist(tvc))
+                    //    {
+                    //        channels.Add(tvc);
+                    //    }
+                    //}
+
+=================================================================================================================================================
+
+
+          //double val;
+            //Control edit = dgvTV.EditingControl;
+            //if (edit != null && !Double.TryParse(e.FormattedValue.ToString(), out val))
+            //{
+            //    e.Cancel = true;
+            //    errorProvider.SetError(edit, "Numeric value required");
+            //    errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
+            //    errorProvider.SetIconPadding(edit, -20); // icon displays on left side of cell
+            //}
+
+
+            //if (e.ColumnIndex != -1)
+            //{
+            //    if (e.ColumnIndex == 0)
+            //    {
+            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
+            //    }
+
+            //    if (e.ColumnIndex == 1)
+            //    {
+            //        string columnName = dgvTV.Columns[e.ColumnIndex].Name;
+            //    }
+
+
+            //}
+
+
+            //if (!this.Validates(e.FormattedValue)) //run some custom validation on the value in that cell
+            //{
+            //    this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = "Error";
+            //    e.Cancel = true; //will prevent user from leaving cell, may not be the greatest idea, you can decide that yourself.
+            //}
+
+
+            //DataGridViewCell aa = c.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            // CheckErrorCell(aa);
+
+
+
+
+
+
+			                //if (e.ColumnIndex != 3)
+                //{       
+                //    if (edit != null && (!ValidatorText(e.FormattedValue.ToString())))
+                //    {
+                //        CelleError(e, edit);
+                //    }
+                //    else
+                //    {
+                //        errorProvider.Clear();
+                //    }
+                //}
+                //else
+                //{
+                //    if (edit != null && (!ValidatorUDP(e.FormattedValue.ToString())))
+                //    {
+                //        CelleError(e, edit);
+                //    }
+                //    else
+                //    {
+                //        errorProvider.Clear();
+                //    }
+                //}  
+
+	
+	
+	 private void CelleError(DataGridViewCellValidatingEventArgs e, Control edit)
+        {
+            e.Cancel = true;
+            errorProvider.SetError(edit, "Неверно заполнена ячейка");
+            errorProvider.SetIconAlignment(edit, ErrorIconAlignment.MiddleRight);
+            errorProvider.SetIconPadding(edit, -20);
+        }
+
+=================================================================================================================================================
+
+Старый тестовый код из файла XmlSerializeHelper.cs
+
+        //private static FileStream GetStream(FileStream stream)
+        //{
+        //    if (stream.Length > 0)
+        //    {
+        //        stream.Position = 0;
+        //        while (stream.Position != stream.Length)
+        //        {
+        //            MessageBox.Show("stream.Position = " + stream.Position);
+        //        }
+
+        //        //for (int i = 0; i < stream.Length; i++)
+        //        //{
+
+        //        //    if (stream.Position == 0) MessageBox.Show("stream.Position = " + stream.Position);
+        //        //    if (stream.Position == 300) MessageBox.Show("stream.Position = 300 = " + stream.Position);
+        //        //    if (stream.Position == (stream.Length - 1)) MessageBox.Show("stream.Final = " + stream.Position);
+        //        //}
+        //    }
+        //    return stream;
+        //}
+
+        //public static T LoadAndDeserialize<T>(this string filename)
+        //{
+        //    if (!File.Exists(filename))
+        //        throw new Exception("File not exist");
+
+        //    XmlSerializer serializer = new XmlSerializer(typeof(T));
+        //    try
+        //    {
+        //        using (FileStream stream = new FileStream(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename), FileMode.Open))
+        //        {
+        //            // MessageBox.Show("Чтение потока. Финальная позиция: " + Convert.ToString(stream.Position) + ", длина потока: " + Convert.ToString(stream.Length));
+
+        //            //int data;
+        //            //long test = 0;
+        //            //long total = stream.Length;
+        //            //while ((data = stream.ReadByte()) != -1)
+        //            //{
+        //            //    test++;
+        //            //    if (test % 1000 == 0)
+        //            //    {
+        //            //        MessageBox.Show("Позиция : " + Convert.ToString(stream.Position) + ", Финальная позиция: " + Convert.ToString(stream.Length) + " dd:" + Convert.ToString(((int)(test * 100 / total))));
+        //            //    }
+
+        //            //}
+
+        //            return (T)serializer.Deserialize(stream);
+
+        //            //int data;
+        //            //long test = 0;
+        //            //long total = stream.Length;
+        //            //while ((data = stream.ReadByte()) != -1)
+        //            //{
+        //            //  test++;
+        //            //    if (test % 10000 == 0)
+        //            //    {
+        //            //        // WorkerCB.ReportProgress((int)(test * 100 / total));
+        //            //    }
+        //            //}
+        //        }
+        //    }
+        //    //catch
+        //    //{
+        //    //    throw new Exception("Error during deserializing");
+        //    //}
+        //    catch (Exception e)
+        //    {
+        //        MessageBox.Show(e.Message);
+        //        throw new Exception("Error during deserializing");
+        //    }
+        //}
+
+
+
+=================================================================================================================================================
+
+		       //using (MemoryStream stream = new MemoryStream())
+                //{
+                //    serializer.Serialize(stream, objectToSerialize);
+                //}
+
+
+				
+=================================================================================================================================================
+
+
+
+       //public void Save()
+        //{
+        //    Debug.Print(this.Options.Source);
+
+        //    // создаем новый поток
+        //    // Thread myThread = new Thread(new ThreadStart(Saver));
+        //    // myThread.Start(); // запускаем поток
+
+        //    //string filename = ...
+        //    //myClass a = new myClass();
+        //    //myClass b = (myClass)a.Clone();
+
+        //    RecordCollection RC = (RecordCollection)this.Clone();            
+        //    Thread thread = new Thread(() => Saver(RC));
+        //    thread.Start();
+        //    Thread.Sleep(5);
+        //}
+
+        //void Saver(RecordCollection th)
+        //{
+        //    XmlSerializeHelper.SerializeAndSave(RecordOptions.BaseName, th);
+        //}
+
+
+=================================================================================================================================================
+
+
+
+
+
+		public static void SerializeAndSaveMemory(object objectToSerialize)
+        {
+            // MemoryStream streamCollection = SerializeToStream(objectToSerialize);
+
+            //XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
+            try
+            {
+                //using (MemoryStream stream = new MemoryStream())
+                //{
+                //    serializer.Serialize(stream, objectToSerialize);
+                //}
+
+
+                //serializer.Serialize(streamCollection, objectToSerialize);
+
+                streamCollection.Position = 0;
+                new XmlSerializer(objectToSerialize.GetType()).Serialize(streamCollection, objectToSerialize);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+
+=================================================================================================================================================
+
+        public static bool SerializeAndSave(string filename, object objectToSerialize)
+        {
+            XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
+            try
+            {
+                string FileWithPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename);
+
+                using (FileStream stream = new FileStream(FileWithPath, FileMode.Create))
+                {
+                    serializer.Serialize(stream, objectToSerialize);
+                }
+
+                SerializeAndSaveMemory(objectToSerialize);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+
+        public static void SerializeAndSaveMemory(object objectToSerialize)
+        {
+            XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
+            try
+            {
+                //using (MemoryStream stream = new MemoryStream())
+                //{
+                //    serializer.Serialize(stream, objectToSerialize);
+                //}
+               streamCollection.Position = 0;
+                serializer.Serialize(streamCollection, objectToSerialize);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+
+=================================================================================================================================================
+
+
+
+		
+        public static RecordCollection LoadSelector()
+        {
+            if (streamCollection != null && streamCollection.Length != 0)
+            {
+                return LoadAndDeserializeMemory<RecordCollection>();
+                // RecordCollection RC = (RecordCollection)DeserializeFromStream(streamCollection);
+                // return RC;
+            }
+            else
+            {
+                return LoadAndDeserialize<RecordCollection>(RecordOptions.BaseName);
+            }
+        }
+
+
+=================================================================================================================================================
+
+	Необработанное исключение типа "System.ObjectDisposedException" в System.Windows.Forms.dll
+   {"Доступ к ликвидированному объекту невозможен.\r\nИмя объекта: \"MainForm\"."}
+      65:   AddFolderIntern(folderPath);
+	 103:	OnAdd(this, new ThumbnailControllerEventArgs(file));
+	3196:	AddImage(e.ImageFilename);
+	3227:	this.Invoke(m_AddImageDelegate, imageFilename); 
+   
+   в System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)
+   в System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)
+   в FilmCollection.MainForm.AddImage(String imageFilename) в R:\Repository\FilmCollection\Form\formMain.cs:строка 3227
+   в FilmCollection.MainForm.m_Controller_OnAdd(Object sender, ThumbnailControllerEventArgs e) в R:\Repository\FilmCollection\Form\formMain.cs:строка 3196
+   в FilmCollection.ThumbnailController.AddFolderIntern(String folderPath) в R:\Repository\FilmCollection\Class\Poster\ThumbnailController.cs:строка 103
+   в FilmCollection.ThumbnailController.AddFolder(Object folderPath) в R:\Repository\FilmCollection\Class\Poster\ThumbnailController.cs:строка 65  
+   
+   в System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   в System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   в System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   в System.Threading.ThreadHelper.ThreadStart(Object obj)
+
+
+   =================================================================================================================================================
+
+
+   
+        static AutoResetEvent autoEvent;
+
+        static void DoWork()
+        {
+            Console.WriteLine("   worker thread started, now waiting on event...");//save to Memory
+            autoEvent.WaitOne();
+            Console.WriteLine("   worker thread reactivated, now exiting...");
+        }
+
+        static void Run()
+        {
+            autoEvent = new AutoResetEvent(false);
+
+            Console.WriteLine("main thread starting worker thread...");//Сохранение
+            Thread t = new Thread(DoWork);
+            t.Start();
+
+            Console.WriteLine("main thread sleeping for 1 second...");
+
+            Thread.Sleep(1000);
+
+            Console.WriteLine("main thread signaling worker thread...");
+            autoEvent.Set();
+        }
+
+
+   =================================================================================================================================================
+
+
+		/// <summary>Сериализация (сохранение объекта) в файл</summary>
+        public static bool SerializeAndSave(string filename, object objectToSerialize)
+        {
+            try
+            {
+                using (FileStream stream = new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename)), FileMode.Create))
+                {
+                    new XmlSerializer(objectToSerialize.GetType()).Serialize(stream, objectToSerialize);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+
+   =================================================================================================================================================
+
+
+	public static T LoadAndDeserializeMemory<T>()
+        {
+            if (streamCollection == null)
+                throw new Exception("Некорректный поток");
+
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+                //streamCollection.Seek(0, SeekOrigin.Begin);
+                streamCollection.Position = 0;
+                return (T)serializer.Deserialize(streamCollection);
+
+                // var t = (T)serializer.Deserialize(streamCollection);
+                // return t;
+            }
+            catch (Exception ex) { throw new Exception(ex.Message + "\nПричина: " + ex.InnerException.Message); }
+
+        }
+
+
+   =================================================================================================================================================
+
+		 Logs.Log(string.Format($"При загрузки базы произошла ошибка: {ex}"));
+
+
+ =================================================================================================================================================
+
+
+
+That's perfectly reasonable.
+
+If you're concerned about keeping around resources you're no longer using, you can add a Panel and add or remove the control from there.
+
+E.g.
+
+try
+{
+    panel.SuspendLayout();
+    panel.Controls.Remove(userControl1);
+    panel.Controls.Add(userControl2);
+}
+finally
+{
+    panel.ResumeLayout();
+}
+
+If the user controls do things like connect to data sources, you might want to actually dispose and recreate them. Really depends on how complex the controls are. If they're just capturing a few properties, your current solution is fine.
+
+
+
+ =================================================================================================================================================
+
+
+    //mainForm.BeginInvoke((Action)(() =>
+                        //{
+                        //    mainForm.tsProgressBar.Value = mainForm.tsProgressBar.Value + 1;
+                        //}));
+
+                        //Action action = () =>
+                        //{
+                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
+                        //};
+                        //Dispatcher.BeginInvoke(action);
+
+                        //Dispatcher.BeginInvoke((Action)(() =>
+                        //{
+                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
+                        //}));
+
+                        //Dispatcher.BeginInvoke(new ThreadStart(delegate
+                        //{
+                        //    tsProgressBar.Value = tsProgressBar.Value + 1;
+                        //}));
+
+                        //this.Invoke(() => { button3.Text = DateTime.Now.ToString(); });
+
+                        //    mainForm.BeginInvoke((Action)(() => { mainForm.tsProgressBar.Value ++;}));
+
+
+ =================================================================================================================================================
+
+
+		/// <summary>Добавить обновление базы</summary>
+        private void UpdateBase()
+        {
+            //this.Invoke(new Thr.ThreadStart(delegate
+            //{
+            //    if (_videoCollection.Update())
+            //    {
+            //        FormLoad(true);
+            //    }
+            //}));
+
+            //(new System.Threading.Thread(delegate ()
+            //{
+            //    if (_videoCollection.Update(this))
+            //    {
+            //        FormLoad(true);
+            //    }
+            //})).Start();
+
+
+            (new System.Threading.Thread(delegate () { VCollection.Update(this); })).Start();
+        }
+
+
+ =================================================================================================================================================
+
+
+		
+        #region Старый механизм обновления базы
+        private void OldUpdateBase()
+        {
+            if (VCollection.Options.Source == null || VCollection.Options.Source == "")  // Если есть информация о корневой папки коллекции
+            {
+                MessageBox.Show("Необходимо создать базу данных.");
+            }
+            else
+            {
+                try
+                {
+                    int findCount = 0;
+
+                    if (VCollection.Options.Source == null)
+                    {
+                        MessageBox.Show("Файл базы испорчен!");
+                        return;
+                    }
+                    DirectoryInfo directory = new DirectoryInfo(VCollection.Options.Source);
+
+                    if (directory.Exists)   // проверяем доступность каталога
+                    {
+                        foreach (Combine _combine in VCollection.CombineList)
+                            _combine.invisibleRecord(); // скрываем файлы
+
+                        var myFiles = directory.GetFiles("*.*", SearchOption.AllDirectories)
+                                                  .Where(s => FormatAdd.Contains(Path.GetExtension(s.ToString())));
+
+                        //foreach (FileInfo file in directory.GetFiles("*", SearchOption.AllDirectories))
+                        foreach (FileInfo file in myFiles)
+                        {
+                            Record record = new Record();
+                            record.FileName = file.Name;                            // полное название файла (film.avi)
+                            record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+
+                            if (!RecordExist(record))
+                            {
+                                findCount++;
+                                CreateCombine(file); // если файла нет в коллекции, создаем     
+                            }
+
+                        }
+                        VCollection.Save();
+                        VCollection.SaveToFile();
+
+                        FormLoad(true);
+
+                        if (findCount > 0)
+                        {
+                            MessageBox.Show("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                        }
+
+                    }
+                    else
+                        MessageBox.Show("Каталог " + directory + " не обнаружен!");
+                }
+                catch (Exception ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
+            }
+        }
+
+        private bool RecordExist(Record record)
+        {
+            List<Record> list = new List<Record>();
+            VCollection.CombineList.ForEach(combine => list.AddRange(combine.recordList));
+
+            foreach (Record rec in list)    // проверка наличия файла
+            {
+                if (rec.Equals(record))
+                {
+                    VCollection.CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
+                    return true;    // если файл есть
+                }
+            }
+            return false;           // иначе файла нет файл есть
+        }
+        #endregion
+
+
+
+
+ =================================================================================================================================================
+
+
+
+
+		        static DataTable ConvertListToDataTable(List<string[]> list)
+        {
+            // New table.
+            DataTable table = new DataTable();
+
+            // Get max columns.
+            int columns = 0;
+            foreach (var array in list)
+            {
+                if (array.Length > columns)
+                {
+                    columns = array.Length;
+                }
+            }
+
+            // Add columns.
+            for (int i = 0; i < columns; i++)
+            {
+                table.Columns.Add();
+            }
+
+            // Add rows.
+            foreach (var array in list)
+            {
+                table.Rows.Add(array);
+            }
+
+            return table;
+        }
+
+
+============================================================================================================================
+Парсер XML
+
+
+
+      private void btnParse_Click(object sender, EventArgs e)
+        {
+            string file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
+
+            XDocument xml = XDocument.Load(file);
+
+            var nodes = (from n in xml.Descendants("media")
+                         select n.Element("Id").Value
+                         ).ToList();
+
+            //// поиск самих дубликатов
+            //var duplicatesSs = nodes.GroupBy(s => s)
+            //    .SelectMany(grp => grp.Skip(1)).ToList();
+
+            // поиск видов дубликатов по наименованию 
+            var querys = nodes.GroupBy(x => x)
+                .Where(g => g.Count() > 1)
+                .Select(y => y.Key)
+                .ToList();
+
+            for (int i = 0; i < querys.Count; i++)
+            {
+                CountID.Add(querys[i]);
+            }         
+
+            // поиск видов дубликатов и их количества
+            var queryss = nodes.GroupBy(x => x)
+              .Where(g => g.Count() > 1)
+              .Select(y => new { Element = y.Key, Counter = y.Count() })
+              .ToList();
+
+            Dictionary<string, int> ss = new Dictionary<string, int>();
+
+            for (int i = 0; i < queryss.Count; i++)
+            {
+                ss.Add(queryss[i].Element, queryss[i].Counter);
+            }
+
+            listBox2.DataSource = new BindingSource(ss, null);
+            listBox2.DisplayMember = "Value";
+            listBox2.ValueMember = "Key";
+
+            listBox4.DataSource = new BindingSource(ss, null);
+            listBox4.DisplayMember = "Key";
+            listBox4.ValueMember = "Value";
+
+
+            foreach (KeyValuePair<string, int> kvp in ss)
+            {
+                ListViewItem lvi = listView2.Items.Add(kvp.Key);
+                string temp = string.Join(", ", kvp.Value);
+                lvi.SubItems.Add(temp);
+            }
+
+
+            dataGridView1.DataSource = ss.ToArray();
+            dataGridView1.Update();
+
+            
+            XDocument xmlErr = XDocument.Load(file);
+
+            foreach (var item in querys)
+            {
+                var nodesErr = (from n in xmlErr.Descendants("media")
+                                where n.Element("Id").Value == item //"0"
+                                select n.Element("Name").Value
+                                ).ToList();
+
+                foreach (var node in nodesErr)
+                {
+                    listView1.Items.Add(node.Trim());
+                    listBox1.Items.Add(node.Trim());
+                }
+            }
+
+
+
+            Dictionary<string, int> newDic = new Dictionary<string, int>();
+
+            foreach (var item in querys)
+            {
+                var nodesErr = (from n in xmlErr.Descendants("media")
+                                where n.Element("Id").Value == item //"0"
+                                select new { Name = n.Element("Name").Value, ID = n.Element("Id").Value }
+                                );
+
+                foreach (var items in nodesErr)
+                {
+                    newDic.Add(items.Name, Convert.ToInt32(items.ID));
+                }
+
+            }
+
+            // сортировка словаря
+            var sortedDic = (from c in newDic
+                             orderby c.Key ascending
+                             orderby c.Value ascending
+                             select c);
+
+            dataGridView2.DataSource = sortedDic.ToArray();
+            //dataGridView2.Update();
+            labelErrorCount.Text = "Количество ошибочныx элементов: " + newDic.Count;
+
+
+
+
+            var ActorNodes = (from n in XDocument.Load(file).Descendants("Actor")
+                              select n.Element("id").Value
+                         ).ToList();
+
+            List<string> nn2 = new List<string>();
+            nn2 = ActorNodes;
+
+            var duplicateKeys2 = nn2.GroupBy(x => x)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key);
+
+
+
+
+
+            //foreach (var item in nodes)
+            //{
+            //    Console.WriteLine(item.Trim());
+            //}
+
+
+            //XmlTextReader reader = new XmlTextReader(file);
+            //while (reader.Read())
+            //{
+            //    if (reader.ReadToDescendant("title"))
+            //    {
+            //        reader.Read();//this moves reader to next node which is text 
+            //                      //result = reader.Value; //this might give value than 
+            //                      //break;
+            //        Console.WriteLine(reader.Value.Trim());
+            //    }
+            //}
+        }
+
+
+
+
+============================================================================================================================
+Старый рабочий код построения дерева для одной базы
+
+
+            treeFolder.Nodes.Clear();
+
+            TreeNode trv = new TreeNode();
+            TreeNode lastNode = null;
+            string subPathAgg;
+
+            TreeNode RootNode = null;
+
+
+            foreach (string path in pathList)
+            {
+                subPathAgg = string.Empty;
+                foreach (string subPath in path.Split(Path.DirectorySeparatorChar))
+                {
+                    subPathAgg += subPath + Path.DirectorySeparatorChar;
+
+                    TreeNode[] nodes = trv.Nodes.Find(subPathAgg, true);
+
+                    if (nodes.Length == 0)  // lastNode = (lastNode == null) ? trv.Nodes.Add(subPathAgg, subPath) : lastNode.Nodes.Add(subPathAgg, subPath);
+                        if (lastNode == null)
+                        {
+                            lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                            lastNode.ToolTipText = "Tester";
+                            //lastNode = trv.Nodes.Add(subPathAgg, subPath);
+                        }
+                        else
+                        {
+                            lastNode = lastNode.Nodes.Add(subPathAgg, subPath);
+                        }
+                    else lastNode = nodes[0];
+                }
+                lastNode = null;
+            }
+
+            List<TreeNode> _ListTree = new List<TreeNode>();
+            foreach (TreeNode node in trv.Nodes)    // проход по корневым нодам
+                _ListTree.Add(node);                // добавление корневой ноды, содержащей все под-ноды
+
+
+            //treeView.BeginUpdate();
+            treeFolder.Nodes.AddRange(_ListTree.ToArray());
+            treeFolder.ShowNodeToolTips = true;
+
+
+
+============================================================================================================================
+			  //Удалить часть элементов массива
+                for (int i = 0; i < ActorArray.Length; i++)
+                {
+                    if (!StringIsValid2(ActorArray[i]))
+                    {
+                        ActorArray = ActorArray.Where(name => name != ActorArray[i]).ToArray();
+                    }
+                }
