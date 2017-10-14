@@ -31,9 +31,7 @@
             this.gBoxOptions = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.lCatalogPath = new System.Windows.Forms.Label();
-            this.lBasePath = new System.Windows.Forms.Label();
             this.lCatalog = new System.Windows.Forms.Label();
-            this.lBase = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.gBoxRecColumn = new System.Windows.Forms.GroupBox();
@@ -68,12 +66,10 @@
             // 
             this.gBoxOptions.Controls.Add(this.checkBox1);
             this.gBoxOptions.Controls.Add(this.lCatalogPath);
-            this.gBoxOptions.Controls.Add(this.lBasePath);
             this.gBoxOptions.Controls.Add(this.lCatalog);
-            this.gBoxOptions.Controls.Add(this.lBase);
-            this.gBoxOptions.Location = new System.Drawing.Point(20, 176);
+            this.gBoxOptions.Location = new System.Drawing.Point(20, 199);
             this.gBoxOptions.Name = "gBoxOptions";
-            this.gBoxOptions.Size = new System.Drawing.Size(507, 100);
+            this.gBoxOptions.Size = new System.Drawing.Size(507, 83);
             this.gBoxOptions.TabIndex = 0;
             this.gBoxOptions.TabStop = false;
             this.gBoxOptions.Text = "Параметры";
@@ -81,7 +77,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(19, 77);
+            this.checkBox1.Location = new System.Drawing.Point(19, 52);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(191, 17);
             this.checkBox1.TabIndex = 9;
@@ -92,40 +88,21 @@
             // lCatalogPath
             // 
             this.lCatalogPath.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lCatalogPath.Location = new System.Drawing.Point(70, 50);
+            this.lCatalogPath.Location = new System.Drawing.Point(70, 25);
             this.lCatalogPath.Name = "lCatalogPath";
             this.lCatalogPath.Size = new System.Drawing.Size(418, 13);
             this.lCatalogPath.TabIndex = 1;
             this.lCatalogPath.Text = "Путь к каталогу фильмотеки";
             // 
-            // lBasePath
-            // 
-            this.lBasePath.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lBasePath.Location = new System.Drawing.Point(70, 24);
-            this.lBasePath.Name = "lBasePath";
-            this.lBasePath.Size = new System.Drawing.Size(418, 13);
-            this.lBasePath.TabIndex = 1;
-            this.lBasePath.Text = "Путь к файлу базы";
-            // 
             // lCatalog
             // 
             this.lCatalog.AutoSize = true;
             this.lCatalog.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lCatalog.Location = new System.Drawing.Point(16, 50);
+            this.lCatalog.Location = new System.Drawing.Point(16, 25);
             this.lCatalog.Name = "lCatalog";
             this.lCatalog.Size = new System.Drawing.Size(51, 13);
             this.lCatalog.TabIndex = 2;
             this.lCatalog.Text = "Каталог:";
-            // 
-            // lBase
-            // 
-            this.lBase.AutoSize = true;
-            this.lBase.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lBase.Location = new System.Drawing.Point(16, 24);
-            this.lBase.Name = "lBase";
-            this.lBase.Size = new System.Drawing.Size(35, 13);
-            this.lBase.TabIndex = 1;
-            this.lBase.Text = "База:";
             // 
             // button1
             // 
@@ -157,7 +134,7 @@
             this.gBoxRecColumn.Controls.Add(this.ColAdd);
             this.gBoxRecColumn.Location = new System.Drawing.Point(13, 9);
             this.gBoxRecColumn.Name = "gBoxRecColumn";
-            this.gBoxRecColumn.Size = new System.Drawing.Size(322, 264);
+            this.gBoxRecColumn.Size = new System.Drawing.Size(336, 264);
             this.gBoxRecColumn.TabIndex = 5;
             this.gBoxRecColumn.TabStop = false;
             this.gBoxRecColumn.Text = "Настройка столбцов фильмотеки";
@@ -237,11 +214,11 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(10, 233);
+            this.button5.Location = new System.Drawing.Point(136, 49);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(120, 23);
+            this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 11;
-            this.button5.Text = "Удалить выбранные";
+            this.button5.Text = "Удалить";
             this.button5.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -252,7 +229,7 @@
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(221, 264);
+            this.groupBox1.Size = new System.Drawing.Size(222, 270);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Добавление новых форматов";
@@ -264,7 +241,7 @@
             this.clBoxFormats.FormattingEnabled = true;
             this.clBoxFormats.Location = new System.Drawing.Point(10, 45);
             this.clBoxFormats.Name = "clBoxFormats";
-            this.clBoxFormats.Size = new System.Drawing.Size(120, 182);
+            this.clBoxFormats.Size = new System.Drawing.Size(120, 212);
             this.clBoxFormats.TabIndex = 6;
             // 
             // btnAddSource
@@ -291,7 +268,7 @@
             this.listBase.FormattingEnabled = true;
             this.listBase.Location = new System.Drawing.Point(20, 17);
             this.listBase.Name = "listBase";
-            this.listBase.Size = new System.Drawing.Size(416, 147);
+            this.listBase.Size = new System.Drawing.Size(416, 173);
             this.listBase.TabIndex = 16;
             // 
             // tabControl1
@@ -355,6 +332,7 @@
             this.Name = "Options";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Параметры";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Options_FormClosing);
             this.gBoxOptions.ResumeLayout(false);
@@ -377,11 +355,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label lCatalog;
-        private System.Windows.Forms.Label lBase;
         private System.Windows.Forms.GroupBox gBoxRecColumn;
         private System.Windows.Forms.CheckedListBox clBoxColumn;
         private System.Windows.Forms.Label lCatalogPath;
-        private System.Windows.Forms.Label lBasePath;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button4;
