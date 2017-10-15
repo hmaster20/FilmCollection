@@ -26,6 +26,5 @@ namespace FilmCollection
             foreach (Record record in recordList)
                 record.Visible = false;
         }
-
     }
 }
