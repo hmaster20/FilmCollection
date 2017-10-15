@@ -87,7 +87,7 @@ namespace FilmCollection
             TableRec.AutoGenerateColumns = false;    // Отключение автоматического заполнения таблицы
             TableRec.DefaultCellStyle.SelectionBackColor = Color.Silver;    // Цвет фона выбранной строки
             TableRec.DefaultCellStyle.SelectionForeColor = Color.Black;     // Цвета текста выбранной строки
-            TableRec.Columns[7].DefaultCellStyle.SelectionForeColor = Color.Blue;    // цвет текста выбранной строки нужного столбца
+            TableRec.Columns[TableRec.Columns.Count - 1].DefaultCellStyle.SelectionForeColor = Color.Blue;    // цвет текста выбранной строки нужного столбца
 
             panelView.BringToFront();  // Отображение панели описания
 
@@ -530,43 +530,24 @@ namespace FilmCollection
         {
             Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
             TreeNode destinationNode = treeFolder.GetNodeAt(pt);
-            //TreeNode dragedNode = new TreeNode();
 
             Record record = GetSelectedRecord();
             if (record != null)
             {
                 try
                 {
-                    //if (destinationNode.Level == 0 && destinationNode.Index == 0)
-                    //{ //если условие верно, то это главный узел - "Фильмотека"
-                    //  //MessageBox.Show(destinationNode.FullPath);
-                    //}
-                    //else
-                    //{
-                    //    string dirPath = Path.Combine(_videoCollection.Options.Source, destinationNode.FullPath);
-
-                    //    if (File.Exists(Path.Combine(record.Path, record.FileName)))
-                    //        if (Directory.Exists(dirPath))
-                    //            File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
-
-                    //    record.DirName = destinationNode.Text;
-                    //    record.Path = dirPath;
-
-                    //    _videoCollection.Save();
-                    //    PrepareRefresh();
-                    //}
-
-                    if (destinationNode != treeFolder.TopNode)
+                    if (destinationNode != treeFolder.TopNode)  //если условие верно, то это главный узел - "Фильмотека"
                     {
                         string dirPath = "";
+                        dirPath = destinationNode.FullPath;
                         //string dirPath = Path.Combine(RCollection.Options.Source, destinationNode.FullPath);
 
-                        if (File.Exists(Path.Combine(record.Path, record.FileName)))
+                        if (File.Exists(Path.Combine(record.FilePath, record.FileName)))
                             if (Directory.Exists(dirPath))
-                                File.Move(Path.Combine(record.Path, record.FileName), Path.Combine(dirPath, record.FileName));
+                                File.Move(Path.Combine(record.FilePath, record.FileName), Path.Combine(dirPath, record.FileName));
 
-                        record.DirName = destinationNode.Text;
-                        record.Path = dirPath;
+                        //record.DirName = destinationNode.Text;
+                        record.FilePath = dirPath;
 
                         RCollection.Save();
                         PrepareRefresh();
@@ -740,7 +721,7 @@ namespace FilmCollection
 
         private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 7) PlayRecord();
+            if (e.ColumnIndex == (TableRec.Columns.Count - 1)) PlayRecord();
         }
 
 
@@ -820,8 +801,10 @@ namespace FilmCollection
         /// <summary>Редактирование записи</summary>
         private void Edit()
         {
-            if (isTabFilm()) panelEdit.BringToFront();
-            else panelEditAct.BringToFront();
+            if (isTabFilm())
+                panelEdit.BringToFront();
+            else
+                panelEditAct.BringToFront();
         }
 
         private void Delete()
@@ -958,11 +941,11 @@ namespace FilmCollection
                 {
                     if (!ShowAllFiles)
                     {
-                        filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path) == GetNode());
+                        filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.FilePath) == GetNode());
                     }
                     else
                     {
-                        filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.Path).StartsWith(GetNode()));
+                        filtered = filtered.FindAll(v => (RCollection.SourceList.FindLast(x => x.Id == id).Source + v.FilePath).StartsWith(GetNode()));
                     }
                 }
             }
@@ -1021,13 +1004,12 @@ namespace FilmCollection
             switch (switch_sort)
             {
                 case 0: filtered.Sort(Record.CompareByName); break;
-                case 1: filtered.Sort(Record.CompareByCatalog); break;
-                case 2: filtered.Sort(Record.CompareByYear); break;
-                case 3: filtered.Sort(Record.CompareByCountry); break;
-                case 4: filtered.Sort(Record.CompareByGenre); break;
-                case 5: filtered.Sort(Record.CompareByCategory); break;
-                case 6: filtered.Sort(Record.CompareByTime); break;
-                case 7: filtered.Sort(Record.CompareByFileName); break;
+                case 1: filtered.Sort(Record.CompareByYear); break;
+                case 2: filtered.Sort(Record.CompareByCountry); break;
+                case 3: filtered.Sort(Record.CompareByGenre); break;
+                case 4: filtered.Sort(Record.CompareByCategory); break;
+                case 5: filtered.Sort(Record.CompareByTime); break;
+                case 6: filtered.Sort(Record.CompareByFileName); break;
                 default: break;
             }
         }
@@ -1086,7 +1068,7 @@ namespace FilmCollection
 
                         }
                         if ((row.DataBoundItem as Record).Visible == true)
-                            row.Cells[7].Style.ForeColor = Color.Blue;
+                            row.Cells[TableRec.Columns.Count - 1].Style.ForeColor = Color.Blue;
                     }
                 }
             }
@@ -1134,7 +1116,8 @@ namespace FilmCollection
                 tbNameRecord.Text = record.Name;
                 mtbTime.Text = record.TimeVideoSpan.ToString();
                 tbFileName.Text = record.FileName;
-                tbFilePath.Text = (record.Path + Path.DirectorySeparatorChar + record.FileName);
+                //tbFilePath.Text = (RCollection.SourceList.FindLast(x => x.Id == record.SourceID).Source + record.FilePath + Path.DirectorySeparatorChar + record.FileName);
+                tbFilePath.Text = record.getFilePath();
             }
         }
 
@@ -1298,7 +1281,8 @@ namespace FilmCollection
             Record record = GetSelectedRecord();
             if (record != null)
             {
-                string filePath = Path.Combine(record.Path, record.FileName);
+                string filePath = record.getFilePath();
+                //string filePath = Path.Combine(RCollection.SourceList.FindLast(x => x.Id == record.SourceID).Source, Path.Combine(record.FilePath, record.FileName));
                 if (!File.Exists(filePath))
                 {
                     MessageBox.Show("Файл \"" + filePath + "\" не найден!");
@@ -1632,21 +1616,7 @@ namespace FilmCollection
                 record.TimeVideoSpan = TimeSpan.Parse("0");
             }
 
-            if (record.FileName != tbFileName.Text)
-            {
-                if (File.Exists(record.Path + Path.DirectorySeparatorChar + record.FileName))
-                {
-                    File.Move(record.Path + Path.DirectorySeparatorChar + record.FileName,
-                              record.Path + Path.DirectorySeparatorChar + tbFileName.Text);
-                    record.FileName = tbFileName.Text;
-                    record.Extension = Path.GetExtension(record.Path + Path.DirectorySeparatorChar + tbFileName.Text).Trim('.');
-                }
-                else
-                {
-                    MessageBox.Show("Файл " + record.FileName + " не найден!");
-                }
-            }
-            else record.FileName = tbFileName.Text;
+            if (record.FileName != tbFileName.Text) record.reName(tbFileName.Text);
 
             if (fsInfo != null)
             {
@@ -1722,7 +1692,6 @@ namespace FilmCollection
                                 act.VideoID.Remove(cm.media.Id);
                             }
                         }
-
                     }
                     cm.media.ActorListID_Clear();
                     cm.media.ActorList.Clear();
@@ -1742,10 +1711,6 @@ namespace FilmCollection
                     }
                     cm.media.ActorList.Clear();
                 }
-
-                //List<int> originalActorListID = new List<int>(cm.media.ActorListID);
-
-
             }
         }
 
@@ -1913,17 +1878,13 @@ namespace FilmCollection
 
         #region Панель просмотра
 
-        //private void Play_Click(object sender, EventArgs e)  // запуск файла
-        //{
-        //    PlayRecord();
-        //}
 
         private void PlayRecord()
         {
             Record record = GetSelectedRecord();
             if (record != null) // убрать возможность нажатия при отсутствии селекта
             {
-                string _file = (record.Path + Path.DirectorySeparatorChar + record.FileName);
+                string _file = (record.FilePath + Path.DirectorySeparatorChar + record.FileName);
                 if (File.Exists(_file))
                 {
                     Process.Start(_file);
@@ -2154,7 +2115,7 @@ namespace FilmCollection
                           let recList = cm.recordList
                           from rec in recList
                               //where rec.Path.StartsWith(RCollection.Options.Source + Path.DirectorySeparatorChar + GetNode())
-                          where rec.Path.StartsWith(RCollection.SourceList.First(x => x.Id == rec.SourceID).Source + Path.DirectorySeparatorChar + GetNode())
+                          where rec.FilePath.StartsWith(RCollection.SourceList.First(x => x.Id == rec.SourceID).Source + Path.DirectorySeparatorChar + GetNode())
                           where rec.Visible == true
                           select rec.combineLink);    //.Distinct<Combine>();
 
