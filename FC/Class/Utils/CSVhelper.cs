@@ -24,7 +24,7 @@ namespace FilmCollection
 
             foreach (Record rec in filtered)
             {
-                var newLine = $"{rec.mName};{rec.FileName};{rec.Path};{rec.mDescription};{rec.mCountry};{rec.mGenre};{rec.mCategory};{rec.TimeString}";
+                var newLine = $"{rec.mName};{rec.FileName};{rec.FilePath};{rec.mDescription};{rec.mCountry};{rec.mGenre};{rec.mCategory};{rec.TimeString}";
                 csvdata.AppendLine(newLine);                  
             }
             File.WriteAllText(filePath, csvdata.ToString(), Encoding.GetEncoding(1251));

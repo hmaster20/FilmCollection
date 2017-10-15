@@ -144,9 +144,9 @@ namespace FilmCollection
 
             foreach (Record item in filtered)
             {
-                if (charter.ContainsKey(item.Extension))
+                if (charter.ContainsKey(item.FileExt))
                 {
-                    charter[item.Extension] = ++charter[item.Extension];
+                    charter[item.FileExt] = ++charter[item.FileExt];
                 }
             }
 
