@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Xml.Serialization;
 
 namespace FilmCollection
@@ -9,11 +12,42 @@ namespace FilmCollection
         public bool Visible { get; set; }       // Видимость записи
         public string Name { get; set; }        // Название Фильма
         public string FileName { get; set; }    // Название файла
-        public string DirName { get; set; }     // Название папки в которой расположен файл
-        public string Extension { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
-        public string Path { get; set; }        // Путь к файлу
+        public string FileExt { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
+        public string FilePath { get; set; }        // Путь к файлу
         public int SourceID { get; set; }       // Идентификатор пути к корневому каталогу
 
+
+        public string getFilePath()
+        {
+            return Path.Combine((RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source).Trim(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), FileName));
+        }
+
+        public void reName(string NewFileName)
+        {
+            if (File.Exists(getFilePath()))
+            {
+                File.Move(getFilePath(), Path.Combine(RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source, Path.Combine(FilePath, NewFileName)));
+                FileName = NewFileName;
+                FileExt = Path.GetExtension(getFilePath()).Trim('.');
+            }
+            else
+            {
+                MessageBox.Show("Файл " + FileName + " не найден!");
+            }
+        }
+
+        public void play()
+        {
+            string _file = getFilePath();
+            if (File.Exists(_file))
+            {
+                Process.Start(_file);
+            }
+            else
+            {
+                MessageBox.Show("Отсутствует файл: " + _file);
+            }
+        }
 
         #region Для отображения в таблице
         [XmlIgnore]
@@ -60,19 +94,7 @@ namespace FilmCollection
         {
             if (rec != null)
             {
-                //Record temp;
-                //temp = (Record)rec;
-                //if (temp.FileName == this.FileName
-                //&& temp.Path == this.Path)
-
-                if (rec.FileName == this.FileName && rec.Path == this.Path && rec.SourceID == this.SourceID)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return (rec.FileName == this.FileName && rec.FilePath == this.FilePath && rec.SourceID == this.SourceID) ? true : false;
             }
             return false;
         }
@@ -82,13 +104,6 @@ namespace FilmCollection
             if (recordA == null || recordB == null)
                 throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
             return string.Compare(recordA.Name, recordB.Name);
-        }
-
-        public static int CompareByCatalog(Record recordA, Record recordB)  // Сравнение по каталогу
-        {
-            if (recordA == null || recordB == null)
-                throw new ArgumentNullException("recordA", "recordA и recordB не может содержать null");
-            return string.Compare(recordA.DirName, recordB.DirName);
         }
 
         public static int CompareByYear(Record recordA, Record recordB)

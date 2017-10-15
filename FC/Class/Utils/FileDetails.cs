@@ -16,10 +16,10 @@ namespace FilmCollection
             if (record != null)
             {
                 Shell shell = new Shell();
-                Folder folder = shell.NameSpace(record.Path);
+                Folder folder = shell.NameSpace(record.FilePath);
                 foreach (FolderItem2 _file in folder.Items())
                 {
-                    if (_file.Name == record.FileName.Remove(record.FileName.LastIndexOf(record.Extension) - 1, record.Extension.Length + 1))
+                    if (_file.Name == record.FileName.Remove(record.FileName.LastIndexOf(record.FileExt) - 1, record.FileExt.Length + 1))
                     {
                         double nanoseconds;
                         double.TryParse(Convert.ToString(_file.ExtendedProperty("System.Media.Duration")), out nanoseconds);
