@@ -17,16 +17,17 @@ namespace FilmCollection
         public int SourceID { get; set; }       // Идентификатор пути к корневому каталогу
 
 
-        public string getFilePath()
+        public string getFilePath(string _file = "")
         {
-            return Path.Combine((RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source).Trim(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), FileName));
+            if (string.IsNullOrWhiteSpace(_file)) _file = FileName;
+            return Path.Combine((RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source).Trim(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
         }
 
         public void reName(string NewFileName)
         {
             if (File.Exists(getFilePath()))
             {
-                File.Move(getFilePath(), Path.Combine(RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source, Path.Combine(FilePath, NewFileName)));
+                File.Move(getFilePath(), getFilePath(NewFileName));
                 FileName = NewFileName;
                 FileExt = Path.GetExtension(getFilePath()).Trim('.');
             }
