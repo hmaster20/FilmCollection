@@ -426,7 +426,6 @@ namespace FilmCollection
             }
         }
 
-
         private void btnReportCSV_Click(object sender, EventArgs e) => CSVhelper.toCSV(RCollection);
 
         private void btnExportHTML_Click(object sender, EventArgs e) => Reports.Generator(RCollection);
@@ -587,8 +586,6 @@ namespace FilmCollection
         //}
 
 
-
-
         private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 1
         {
             Debug.WriteLine(" - CellMouseDown");
@@ -596,7 +593,7 @@ namespace FilmCollection
             if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
             {
                 if (e.Button == MouseButtons.Left && e.Clicks == 2)
-                    SelectRec();//SelectRecord_Info(sender, e);
+                    SelectRec();
             }
             else
             {
@@ -628,7 +625,7 @@ namespace FilmCollection
                     c.DataGridView.CurrentCell = c;
                     c.Selected = true;
                 }
-                SelectRec(); // SelectRecord_Info(sender, e);
+                SelectRec();
             }
         }
 
@@ -637,24 +634,6 @@ namespace FilmCollection
             // организовано выделение левой кнопкой мыши
             if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Left)
             {
-                //var senderGrid = (DataGridView)sender;
-
-                //var dataGridView = (sender as DataGridView);
-                //DataGridViewRow row = dataGridView.Rows[e.RowIndex];
-                //if (!row.Selected)
-                //{
-                //    row.DataGridView.ClearSelection();
-                //    row.Selected = true;
-                //}
-
-                //DataGridViewCell cell = dataGridView.Rows[e.RowIndex].Cells[0];
-                //if (!cell.Selected)
-                //{
-                //    cell.DataGridView.ClearSelection();
-                //    cell.DataGridView.CurrentCell = cell;
-                //    cell.Selected = true;
-                //}
-
                 DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
                 if (!c.Selected)
                 {
@@ -662,7 +641,7 @@ namespace FilmCollection
                     c.DataGridView.CurrentCell = c;
                     c.Selected = true;
                 }
-                SelectRec(); //SelectRecord_Info(sender, e);
+                SelectRec();
             }
         }
 
@@ -721,9 +700,12 @@ namespace FilmCollection
 
         private void TableRec_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == (TableRec.Columns.Count - 1)) PlayRecord();
+            if (e.ColumnIndex == (TableRec.Columns.Count - 1))
+            {
+                Record record = GetSelectedRecord();
+                if (record != null) record.play();
+            }
         }
-
 
 
         #endregion
@@ -1877,24 +1859,6 @@ namespace FilmCollection
 
 
         #region Панель просмотра
-
-
-        private void PlayRecord()
-        {
-            Record record = GetSelectedRecord();
-            if (record != null) // убрать возможность нажатия при отсутствии селекта
-            {
-                string _file = (record.FilePath + Path.DirectorySeparatorChar + record.FileName);
-                if (File.Exists(_file))
-                {
-                    Process.Start(_file);
-                }
-                else
-                {
-                    MessageBox.Show("Отсутствует файл: " + _file);
-                }
-            }
-        }
 
         private void linkBIOv_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

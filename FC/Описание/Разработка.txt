@@ -1,5 +1,6 @@
 ﻿Направление для разработки:
 =====================================================
+- private void treeFolder_DragDrop(object sender, DragEventArgs e) - протестировать на предмет корректировки перемещения
 - баг построения дерева при налии нескольких баз
 - добавить остановку потока создания постеров
 - обнаружено странное поведение при удалении объектов, при каждом втором объекте наблюдается резкое увеличение потребелния памяти
@@ -1558,3 +1559,28 @@ If the user controls do things like connect to data sources, you might want to a
                         ActorArray = ActorArray.Where(name => name != ActorArray[i]).ToArray();
                     }
                 }
+
+
+============================================================================================================================
+        public bool Equals(Record rec)
+        {
+            if (rec != null)
+            {
+                //Record temp;
+                //temp = (Record)rec;
+                //if (temp.FileName == this.FileName
+                //&& temp.Path == this.Path)
+
+                return (rec.FileName == this.FileName && rec.FilePath == this.FilePath && rec.SourceID == this.SourceID) ? true : false;
+
+                //if (rec.FileName == this.FileName && rec.FilePath == this.FilePath && rec.SourceID == this.SourceID)
+                //{
+                //    return true;
+                //}
+                //else
+                //{
+                //    return false;
+                //}
+            }
+            return false;
+        }
