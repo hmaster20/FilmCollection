@@ -60,18 +60,7 @@ namespace FilmCollection
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (record != null)
-            {
-                string _file = (record.Path + Path.DirectorySeparatorChar + record.FileName);
-                if (File.Exists(_file))
-                {
-                    Process.Start(_file);
-                }
-                else
-                {
-                    MessageBox.Show("Отсутствует файл: " + _file);
-                }
-            }
+            if (record != null) record.play();
         }
 
         private void GetPic(Media _media)
