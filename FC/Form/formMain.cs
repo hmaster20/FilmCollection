@@ -537,17 +537,22 @@ namespace FilmCollection
                 {
                     if (destinationNode != treeFolder.TopNode)  //если условие верно, то это главный узел - "Фильмотека"
                     {
-                        string dirPath = "";
-                        dirPath = destinationNode.FullPath;
-                        //string dirPath = Path.Combine(RCollection.Options.Source, destinationNode.FullPath);
-
-                        if (File.Exists(Path.Combine(record.FilePath, record.FileName)))
+                        string dirPath = destinationNode.FullPath;
+                        if (File.Exists(record.getFilePath()))
                             if (Directory.Exists(dirPath))
-                                File.Move(Path.Combine(record.FilePath, record.FileName), Path.Combine(dirPath, record.FileName));
-
-                        //record.DirName = destinationNode.Text;
-                        record.FilePath = dirPath;
-
+                            {
+                                foreach (var item in RCollection.SourceList)
+                                {
+                                    if (dirPath.Contains(item.Source))
+                                    {
+                                        string pathFile = dirPath.Remove(0, item.Source.Length);
+                                        string newPath = Path.Combine(item.Source.Trim(Path.DirectorySeparatorChar), Path.Combine(pathFile.Trim(Path.DirectorySeparatorChar), record.FileName));
+                                        File.Move(record.getFilePath(), newPath);
+                                        record.FilePath = pathFile;
+                                        break;
+                                    }
+                                }    
+                            }
                         RCollection.Save();
                         PrepareRefresh();
                     }
