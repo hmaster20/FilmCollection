@@ -1578,8 +1578,6 @@ namespace FilmCollection
             {
                 cm = GetMedia();
 
-                //fsInfo.DirectoryName.Contains(x)
-                //int id = RCollection.SourceList.First(x => fsInfo.DirectoryName.Contains(x.Source)).Id;
                 if (RCollection.SourceList.Exists(x => fsInfo.DirectoryName.Contains(x.Source)))
                 {
                     int id = RCollection.SourceList.First(x => fsInfo.DirectoryName.Contains(x.Source)).Id;
@@ -1622,6 +1620,7 @@ namespace FilmCollection
             }
 
             RCollection.Save();
+            //RCollection.SaveToFile()
 
             FormLoad();
 

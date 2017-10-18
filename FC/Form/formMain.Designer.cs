@@ -92,6 +92,7 @@
             this.ts8 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.treeFolder = new System.Windows.Forms.TreeView();
+            this.imageLst = new System.Windows.Forms.ImageList(this.components);
             this.TreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.сCollapseAll = new System.Windows.Forms.ToolStripMenuItem();
             this.сExpandAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -265,7 +266,6 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageLst = new System.Windows.Forms.ImageList(this.components);
             this.ucView = new FilmCollection.ucMediaInfo();
             this.ucScheme = new FilmCollection.ucChart();
             this.ucDiagr = new FilmCollection.ucChart();
@@ -842,7 +842,7 @@
             // 
             this.treeFolder.AllowDrop = true;
             this.treeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeFolder.ImageIndex = 4;
+            this.treeFolder.ImageIndex = 1;
             this.treeFolder.ImageList = this.imageLst;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
             this.treeFolder.Name = "treeFolder";
@@ -852,6 +852,21 @@
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
             this.treeFolder.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragDrop);
             this.treeFolder.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragEnter);
+            // 
+            // imageLst
+            // 
+            this.imageLst.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageLst.ImageStream")));
+            this.imageLst.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageLst.Images.SetKeyName(0, "stock_folder-move.png");
+            this.imageLst.Images.SetKeyName(1, "folder.png");
+            this.imageLst.Images.SetKeyName(2, "Folder Music.png");
+            this.imageLst.Images.SetKeyName(3, "blue-folder-horizontal.png");
+            this.imageLst.Images.SetKeyName(4, "stock_folder-move_2.png");
+            this.imageLst.Images.SetKeyName(5, "folder2.png");
+            this.imageLst.Images.SetKeyName(6, "folder_page.png");
+            this.imageLst.Images.SetKeyName(7, "Folder.gif");
+            this.imageLst.Images.SetKeyName(8, "tree_folder_closed.png");
+            this.imageLst.Images.SetKeyName(9, "tree_folder_open.gif");
             // 
             // TreeMenu
             // 
@@ -1024,10 +1039,10 @@
             // scTabFilm.Panel2
             // 
             this.scTabFilm.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelView);
             this.scTabFilm.Panel2.Controls.Add(this.panelFolder);
             this.scTabFilm.Panel2.Controls.Add(this.panelScheme);
-            this.scTabFilm.Panel2.Controls.Add(this.panelEdit);
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.scTabFilm.Panel2MinSize = 200;
@@ -2700,17 +2715,6 @@
             this.Exit.Size = new System.Drawing.Size(154, 22);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
-            // 
-            // imageLst
-            // 
-            this.imageLst.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageLst.ImageStream")));
-            this.imageLst.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageLst.Images.SetKeyName(0, "stock_folder-move.png");
-            this.imageLst.Images.SetKeyName(1, "Folder Music.png");
-            this.imageLst.Images.SetKeyName(2, "blue-folder-horizontal.png");
-            this.imageLst.Images.SetKeyName(3, "stock_folder-move_2.png");
-            this.imageLst.Images.SetKeyName(4, "folder.png");
-            this.imageLst.Images.SetKeyName(5, "folder2.png");
             // 
             // ucView
             // 
