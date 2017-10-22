@@ -117,17 +117,6 @@
             this.btnResetFilterRec = new System.Windows.Forms.ToolStripMenuItem();
             this.tscbTypeFilter = new System.Windows.Forms.ToolStripComboBox();
             this.tscbSort = new System.Windows.Forms.ToolStripComboBox();
-            this.panelView = new System.Windows.Forms.Panel();
-            this.panelFolder = new System.Windows.Forms.Panel();
-            this.btnSaveFolder = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.panelScheme = new System.Windows.Forms.Panel();
             this.panelEdit = new System.Windows.Forms.Panel();
             this.gMedia = new System.Windows.Forms.GroupBox();
             this.rtDescription = new System.Windows.Forms.RichTextBox();
@@ -166,6 +155,19 @@
             this.tbNameRecord = new System.Windows.Forms.TextBox();
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
+            this.panelView = new System.Windows.Forms.Panel();
+            this.ucView = new FilmCollection.ucMediaInfo();
+            this.panelFolder = new System.Windows.Forms.Panel();
+            this.btnSaveFolder = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panelScheme = new System.Windows.Forms.Panel();
+            this.ucScheme = new FilmCollection.ucChart();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -243,6 +245,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.tabDiagram = new System.Windows.Forms.TabPage();
+            this.ucDiagr = new FilmCollection.ucChart();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.mainMenuIcon = new System.Windows.Forms.ToolStrip();
@@ -266,9 +269,6 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.ucView = new FilmCollection.ucMediaInfo();
-            this.ucScheme = new FilmCollection.ucChart();
-            this.ucDiagr = new FilmCollection.ucChart();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -281,13 +281,13 @@
             this.scTabFilm.Panel2.SuspendLayout();
             this.scTabFilm.SuspendLayout();
             this.menuTableRec.SuspendLayout();
-            this.panelView.SuspendLayout();
-            this.panelFolder.SuspendLayout();
-            this.panelScheme.SuspendLayout();
             this.panelEdit.SuspendLayout();
             this.gMedia.SuspendLayout();
             this.panelEditTitle.SuspendLayout();
             this.gRecord.SuspendLayout();
+            this.panelView.SuspendLayout();
+            this.panelFolder.SuspendLayout();
+            this.panelScheme.SuspendLayout();
             this.panelFind.SuspendLayout();
             this.panelFindTitle.SuspendLayout();
             this.tabActors.SuspendLayout();
@@ -849,6 +849,7 @@
             this.treeFolder.SelectedImageIndex = 0;
             this.treeFolder.Size = new System.Drawing.Size(191, 640);
             this.treeFolder.TabIndex = 22;
+            this.treeFolder.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeFolder_ItemDrag);
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
             this.treeFolder.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragDrop);
             this.treeFolder.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeFolder_DragEnter);
@@ -1110,120 +1111,6 @@
             this.tscbSort.Name = "tscbSort";
             this.tscbSort.Size = new System.Drawing.Size(121, 23);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
-            // 
-            // panelView
-            // 
-            this.panelView.Controls.Add(this.ucView);
-            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelView.Location = new System.Drawing.Point(0, 0);
-            this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 606);
-            this.panelView.TabIndex = 57;
-            // 
-            // panelFolder
-            // 
-            this.panelFolder.Controls.Add(this.btnSaveFolder);
-            this.panelFolder.Controls.Add(this.button2);
-            this.panelFolder.Controls.Add(this.button3);
-            this.panelFolder.Controls.Add(this.label17);
-            this.panelFolder.Controls.Add(this.label16);
-            this.panelFolder.Controls.Add(this.textBox4);
-            this.panelFolder.Controls.Add(this.textBox3);
-            this.panelFolder.Controls.Add(this.label7);
-            this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFolder.Location = new System.Drawing.Point(0, 0);
-            this.panelFolder.Name = "panelFolder";
-            this.panelFolder.Size = new System.Drawing.Size(368, 606);
-            this.panelFolder.TabIndex = 59;
-            // 
-            // btnSaveFolder
-            // 
-            this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveFolder.Image = global::FilmCollection.Properties.Resources.save;
-            this.btnSaveFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveFolder.Location = new System.Drawing.Point(253, 165);
-            this.btnSaveFolder.Name = "btnSaveFolder";
-            this.btnSaveFolder.Size = new System.Drawing.Size(86, 23);
-            this.btnSaveFolder.TabIndex = 60;
-            this.btnSaveFolder.Text = "Сохранить";
-            this.btnSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveFolder.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(253, 194);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 23);
-            this.button2.TabIndex = 59;
-            this.button2.Text = "Отмена";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            // 
-            // button3
-            // 
-            this.button3.Image = global::FilmCollection.Properties.Resources.add;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(28, 165);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 23);
-            this.button3.TabIndex = 58;
-            this.button3.Text = "Добавить";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(29, 43);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(98, 13);
-            this.label17.TabIndex = 4;
-            this.label17.Text = "Текущий каталог:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(29, 88);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(188, 13);
-            this.label16.TabIndex = 4;
-            this.label16.Text = "Укажите новое название каталога:";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(28, 62);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(311, 20);
-            this.textBox4.TabIndex = 3;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(28, 107);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(311, 20);
-            this.textBox3.TabIndex = 3;
-            // 
-            // label7
-            // 
-            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(0, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(368, 27);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Панель изменения каталога";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelScheme
-            // 
-            this.panelScheme.Controls.Add(this.ucScheme);
-            this.panelScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelScheme.Location = new System.Drawing.Point(0, 0);
-            this.panelScheme.Name = "panelScheme";
-            this.panelScheme.Size = new System.Drawing.Size(368, 606);
-            this.panelScheme.TabIndex = 1;
             // 
             // panelEdit
             // 
@@ -1660,6 +1547,136 @@
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // panelView
+            // 
+            this.panelView.Controls.Add(this.ucView);
+            this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelView.Location = new System.Drawing.Point(0, 0);
+            this.panelView.Name = "panelView";
+            this.panelView.Size = new System.Drawing.Size(368, 606);
+            this.panelView.TabIndex = 57;
+            // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
+            // panelFolder
+            // 
+            this.panelFolder.Controls.Add(this.btnSaveFolder);
+            this.panelFolder.Controls.Add(this.button2);
+            this.panelFolder.Controls.Add(this.button3);
+            this.panelFolder.Controls.Add(this.label17);
+            this.panelFolder.Controls.Add(this.label16);
+            this.panelFolder.Controls.Add(this.textBox4);
+            this.panelFolder.Controls.Add(this.textBox3);
+            this.panelFolder.Controls.Add(this.label7);
+            this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelFolder.Location = new System.Drawing.Point(0, 0);
+            this.panelFolder.Name = "panelFolder";
+            this.panelFolder.Size = new System.Drawing.Size(368, 606);
+            this.panelFolder.TabIndex = 59;
+            // 
+            // btnSaveFolder
+            // 
+            this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveFolder.Image = global::FilmCollection.Properties.Resources.save;
+            this.btnSaveFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveFolder.Location = new System.Drawing.Point(253, 165);
+            this.btnSaveFolder.Name = "btnSaveFolder";
+            this.btnSaveFolder.Size = new System.Drawing.Size(86, 23);
+            this.btnSaveFolder.TabIndex = 60;
+            this.btnSaveFolder.Text = "Сохранить";
+            this.btnSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveFolder.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(253, 194);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.TabIndex = 59;
+            this.button2.Text = "Отмена";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            // 
+            // button3
+            // 
+            this.button3.Image = global::FilmCollection.Properties.Resources.add;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(28, 165);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(81, 23);
+            this.button3.TabIndex = 58;
+            this.button3.Text = "Добавить";
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(29, 43);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(98, 13);
+            this.label17.TabIndex = 4;
+            this.label17.Text = "Текущий каталог:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(29, 88);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(188, 13);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "Укажите новое название каталога:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(28, 62);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
+            this.textBox4.Size = new System.Drawing.Size(311, 20);
+            this.textBox4.TabIndex = 3;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(28, 107);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(311, 20);
+            this.textBox3.TabIndex = 3;
+            // 
+            // label7
+            // 
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(368, 27);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Панель изменения каталога";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelScheme
+            // 
+            this.panelScheme.Controls.Add(this.ucScheme);
+            this.panelScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelScheme.Location = new System.Drawing.Point(0, 0);
+            this.panelScheme.Name = "panelScheme";
+            this.panelScheme.Size = new System.Drawing.Size(368, 606);
+            this.panelScheme.TabIndex = 1;
+            // 
+            // ucScheme
+            // 
+            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucScheme.Location = new System.Drawing.Point(0, 0);
+            this.ucScheme.Name = "ucScheme";
+            this.ucScheme.Size = new System.Drawing.Size(368, 606);
+            this.ucScheme.TabIndex = 0;
             // 
             // panelFind
             // 
@@ -2498,6 +2515,14 @@
             this.tabDiagram.TabIndex = 5;
             this.tabDiagram.Text = "Диаграмма";
             // 
+            // ucDiagr
+            // 
+            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
+            this.ucDiagr.Name = "ucDiagr";
+            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
+            this.ucDiagr.TabIndex = 0;
+            // 
             // timerLoad
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
@@ -2716,30 +2741,6 @@
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
-            // 
-            // ucScheme
-            // 
-            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucScheme.Location = new System.Drawing.Point(0, 0);
-            this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 606);
-            this.ucScheme.TabIndex = 0;
-            // 
-            // ucDiagr
-            // 
-            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
-            this.ucDiagr.Name = "ucDiagr";
-            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
-            this.ucDiagr.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2773,16 +2774,16 @@
             this.scTabFilm.ResumeLayout(false);
             this.menuTableRec.ResumeLayout(false);
             this.menuTableRec.PerformLayout();
-            this.panelView.ResumeLayout(false);
-            this.panelFolder.ResumeLayout(false);
-            this.panelFolder.PerformLayout();
-            this.panelScheme.ResumeLayout(false);
             this.panelEdit.ResumeLayout(false);
             this.gMedia.ResumeLayout(false);
             this.gMedia.PerformLayout();
             this.panelEditTitle.ResumeLayout(false);
             this.gRecord.ResumeLayout(false);
             this.gRecord.PerformLayout();
+            this.panelView.ResumeLayout(false);
+            this.panelFolder.ResumeLayout(false);
+            this.panelFolder.PerformLayout();
+            this.panelScheme.ResumeLayout(false);
             this.panelFind.ResumeLayout(false);
             this.panelFind.PerformLayout();
             this.panelFindTitle.ResumeLayout(false);

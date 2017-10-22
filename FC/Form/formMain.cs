@@ -527,44 +527,127 @@ namespace FilmCollection
 
         private void treeFolder_DragDrop(object sender, DragEventArgs e)// здесь функционал DragDrop DGV to TreeView
         {
-            Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
-            TreeNode destinationNode = treeFolder.GetNodeAt(pt);
-
-            Record record = GetSelectedRecord();
-            if (record != null)
+            TreeNode SourceNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode");
+            if (SourceNode != null)
             {
+                Point pt = ((TreeView)sender).PointToClient(new Point(e.X, e.Y));
+                TreeNode DestinationNode = ((TreeView)sender).GetNodeAt(pt);
                 try
                 {
-                    if (destinationNode != treeFolder.TopNode)  //если условие верно, то это главный узел - "Фильмотека"
+                    int sourceIndex = SourceNode.Index;
+                    int destIndex = DestinationNode.Index;
+                    if (SourceNode.Level == 1 && DestinationNode.Level == 1)
                     {
-                        string dirPath = destinationNode.FullPath;
-                        if (File.Exists(record.getFilePath()))
-                            if (Directory.Exists(dirPath))
+                        if (sourceIndex < destIndex)
+                        {
+                            TreeNode parentNode = SourceNode.Parent;
+                            SourceNode.Remove();
+                            DestinationNode.Remove();
+                            parentNode.Nodes.Insert(sourceIndex, DestinationNode);
+                            parentNode.Nodes.Insert(destIndex, SourceNode);
+                        }
+                        else
+                        {
+                            TreeNode parentNode = SourceNode.Parent;
+                            SourceNode.Remove();
+                            DestinationNode.Remove();
+                            parentNode.Nodes.Insert(sourceIndex - 1, DestinationNode);
+                            parentNode.Nodes.Insert(destIndex, SourceNode);
+                        }
+                    }
+                    else if (SourceNode.Level == 2 && DestinationNode.Level == 2)
+                    {
+                        if (SourceNode.Parent == DestinationNode.Parent)
+                        {
+                            if (sourceIndex < destIndex)
                             {
-                                foreach (var item in RCollection.SourceList)
-                                {
-                                    if (dirPath.Contains(item.Source))
-                                    {
-                                        string pathFile = dirPath.Remove(0, item.Source.Length);
-                                        string newPath = Path.Combine(item.Source.Trim(Path.DirectorySeparatorChar), Path.Combine(pathFile.Trim(Path.DirectorySeparatorChar), record.FileName));
-                                        File.Move(record.getFilePath(), newPath);
-                                        record.FilePath = pathFile;
-                                        break;
-                                    }
-                                }    
+                                TreeNode parentNode = SourceNode.Parent;
+                                SourceNode.Remove();
+                                DestinationNode.Remove();
+                                parentNode.Nodes.Insert(sourceIndex, DestinationNode);
+                                parentNode.Nodes.Insert(destIndex, SourceNode);
                             }
-                        RCollection.Save();
-                        PrepareRefresh();
+                            else
+                            {
+                                TreeNode parentNode = SourceNode.Parent;
+                                SourceNode.Remove();
+                                DestinationNode.Remove();
+                                parentNode.Nodes.Insert(sourceIndex - 1, DestinationNode);
+                                parentNode.Nodes.Insert(destIndex, SourceNode);
+                            }
+                        }
+                        else
+                        {
+                            TreeNode addNode = DestinationNode.Parent;
+                            SourceNode.Remove();
+                            addNode.Nodes.Insert(destIndex, SourceNode);
+                        }
+                    }
+                    else if (SourceNode.Level == 2 && DestinationNode.Level == 1)
+                    {
+                        if (DestinationNode.Nodes.Count == 0)
+                        {
+                            SourceNode.Remove();
+                            DestinationNode.Nodes.Insert(0, SourceNode);
+                        }
+                        else
+                        {
+                            int i = DestinationNode.LastNode.Index;
+                            SourceNode.Remove();
+                            DestinationNode.Nodes.Insert(i + 1, SourceNode);
+                        }
                     }
                 }
-                catch (ApplicationException ex) { Logs.Log("Произошла ошибка при перемещении Drag&Drop:", ex); }
+                catch { MessageBox.Show("Drag on node..."); }
             }
+            else
+            {
+                Point pt = treeFolder.PointToClient(new Point(e.X, e.Y));
+                TreeNode destinationNode = treeFolder.GetNodeAt(pt);
+
+                Record record = GetSelectedRecord();
+                if (record != null)
+                {
+                    try
+                    {
+                        if (destinationNode != treeFolder.TopNode)  //если условие верно, то это главный узел - "Фильмотека"
+                        {
+                            string dirPath = destinationNode.FullPath;
+                            if (File.Exists(record.getFilePath()))
+                                if (Directory.Exists(dirPath))
+                                {
+                                    foreach (var item in RCollection.SourceList)
+                                    {
+                                        if (dirPath.Contains(item.Source))
+                                        {
+                                            string pathFile = dirPath.Remove(0, item.Source.Length);
+                                            string newPath = Path.Combine(item.Source.Trim(Path.DirectorySeparatorChar), Path.Combine(pathFile.Trim(Path.DirectorySeparatorChar), record.FileName));
+                                            File.Move(record.getFilePath(), newPath);
+                                            record.FilePath = pathFile;
+                                            break;
+                                        }
+                                    }
+                                }
+                            RCollection.Save();
+                            PrepareRefresh();
+                        }
+                    }
+                    catch (ApplicationException ex) { Logs.Log("Произошла ошибка при перемещении Drag&Drop:", ex); }
+                }
+            }            
         }
 
         private void treeFolder_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Copy;
+            //e.Effect = DragDropEffects.Copy;
+            e.Effect = DragDropEffects.Move;
         }
+
+        private void treeFolder_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            DoDragDrop(e.Item, DragDropEffects.Move);
+        }
+
 
 
         /// <summary>Проверка размещения панели на верхнем уровне</summary>
