@@ -536,7 +536,7 @@ namespace FilmCollection
                 {
                     int sourceIndex = SourceNode.Index;
                     int destIndex = DestinationNode.Index;
-                    if (SourceNode.Level == 1 && DestinationNode.Level == 1)
+                    if (SourceNode.Level == 0 && DestinationNode.Level == 0)
                     {
                         if (sourceIndex < destIndex)
                         {
@@ -555,7 +555,7 @@ namespace FilmCollection
                             parentNode.Nodes.Insert(destIndex, SourceNode);
                         }
                     }
-                    else if (SourceNode.Level == 2 && DestinationNode.Level == 2)
+                    else if (SourceNode.Level > 0 && DestinationNode.Level > 0)
                     {
                         if (SourceNode.Parent == DestinationNode.Parent)
                         {
@@ -583,7 +583,7 @@ namespace FilmCollection
                             addNode.Nodes.Insert(destIndex, SourceNode);
                         }
                     }
-                    else if (SourceNode.Level == 2 && DestinationNode.Level == 1)
+                    else if (SourceNode.Level > 0 && DestinationNode.Level == 0)
                     {
                         if (DestinationNode.Nodes.Count == 0)
                         {
@@ -648,8 +648,7 @@ namespace FilmCollection
             DoDragDrop(e.Item, DragDropEffects.Move);
         }
 
-
-
+        
         /// <summary>Проверка размещения панели на верхнем уровне</summary>
         private bool IsControlAtFront(Control control)
         {
