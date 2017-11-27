@@ -37,6 +37,8 @@ namespace FilmCollection
 
         //private TreeViewFast.Controls.TreeViewFast treeViewFast1;
 
+        Stopwatch TimeCounter;
+
         #endregion
 
 
@@ -146,8 +148,23 @@ namespace FilmCollection
             helpProvider.SetShowHelp(panelFind, true);
             #endregion
 
+            TimeCounter = Stopwatch.StartNew();
         }
 
+        private void timerForDateTime_Tick(object sender, EventArgs e)
+        {
+            TimeSpan aa = DateTime.UtcNow - Process.GetCurrentProcess().StartTime.ToUniversalTime();
+            var str = string.Format("{0:00}:{1:00}:{2:00}", aa.Hours, aa.Minutes, aa.Seconds);
+            tssWorkTime.Text = str;
+            
+            tssDayTime.Text = System.DateTime.Now.ToString();
+
+            //tssWorkTime.Text = TimeCounter.Elapsed.ToString();
+            TimeSpan ts = TimeCounter.Elapsed;
+            var tt = ts.ToString("mm\\:ss\\.ff");
+            //string.Format("{0}:{1}", Math.Floor(ts.TotalMinutes), ts.ToString("ss\\.ff"));
+            var bb = string.Format("{0}:{1}", Math.Floor(ts.TotalMinutes), ts.ToString("ss\\.ff"));
+        }
 
         #region Управление курсором (Методы управления)
         private void timerCursor_Tick(object sender, EventArgs e)

@@ -156,7 +156,6 @@
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
-            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelFolder = new System.Windows.Forms.Panel();
             this.btnSaveFolder = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -167,7 +166,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panelScheme = new System.Windows.Forms.Panel();
-            this.ucScheme = new FilmCollection.ucChart();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -245,7 +243,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.tabDiagram = new System.Windows.Forms.TabPage();
-            this.ucDiagr = new FilmCollection.ucChart();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.mainMenuIcon = new System.Windows.Forms.ToolStrip();
@@ -269,6 +266,12 @@
             this.About = new System.Windows.Forms.ToolStripMenuItem();
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tssDayTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssWorkTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ucView = new FilmCollection.ucMediaInfo();
+            this.ucScheme = new FilmCollection.ucChart();
+            this.ucDiagr = new FilmCollection.ucChart();
+            this.timerForDateTime = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -524,7 +527,9 @@
             this.statusLine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel,
             this.tsProgressBar,
-            this.FindStatusLabel});
+            this.FindStatusLabel,
+            this.tssDayTime,
+            this.tssWorkTime});
             this.statusLine.Location = new System.Drawing.Point(0, 689);
             this.statusLine.Name = "statusLine";
             this.statusLine.Size = new System.Drawing.Size(1175, 22);
@@ -1557,14 +1562,6 @@
             this.panelView.Size = new System.Drawing.Size(368, 606);
             this.panelView.TabIndex = 57;
             // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
-            // 
             // panelFolder
             // 
             this.panelFolder.Controls.Add(this.btnSaveFolder);
@@ -1669,14 +1666,6 @@
             this.panelScheme.Name = "panelScheme";
             this.panelScheme.Size = new System.Drawing.Size(368, 606);
             this.panelScheme.TabIndex = 1;
-            // 
-            // ucScheme
-            // 
-            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucScheme.Location = new System.Drawing.Point(0, 0);
-            this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 606);
-            this.ucScheme.TabIndex = 0;
             // 
             // panelFind
             // 
@@ -2515,14 +2504,6 @@
             this.tabDiagram.TabIndex = 5;
             this.tabDiagram.Text = "Диаграмма";
             // 
-            // ucDiagr
-            // 
-            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
-            this.ucDiagr.Name = "ucDiagr";
-            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
-            this.ucDiagr.TabIndex = 0;
-            // 
             // timerLoad
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
@@ -2740,6 +2721,51 @@
             this.Exit.Size = new System.Drawing.Size(154, 22);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            // 
+            // tssDayTime
+            // 
+            this.tssDayTime.AutoSize = false;
+            this.tssDayTime.Name = "tssDayTime";
+            this.tssDayTime.Size = new System.Drawing.Size(120, 17);
+            this.tssDayTime.Text = "dayTime";
+            // 
+            // tssWorkTime
+            // 
+            this.tssWorkTime.AutoSize = false;
+            this.tssWorkTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.tssWorkTime.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
+            this.tssWorkTime.Name = "tssWorkTime";
+            this.tssWorkTime.Size = new System.Drawing.Size(120, 17);
+            this.tssWorkTime.Text = "WorkTime";
+            // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
+            // ucScheme
+            // 
+            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucScheme.Location = new System.Drawing.Point(0, 0);
+            this.ucScheme.Name = "ucScheme";
+            this.ucScheme.Size = new System.Drawing.Size(368, 606);
+            this.ucScheme.TabIndex = 0;
+            // 
+            // ucDiagr
+            // 
+            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
+            this.ucDiagr.Name = "ucDiagr";
+            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
+            this.ucDiagr.TabIndex = 0;
+            // 
+            // timerForDateTime
+            // 
+            this.timerForDateTime.Enabled = true;
+            this.timerForDateTime.Tick += new System.EventHandler(this.timerForDateTime_Tick);
             // 
             // MainForm
             // 
@@ -3064,6 +3090,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmnFileName;
         private System.Windows.Forms.ImageList imageLst;
+        private System.Windows.Forms.ToolStripStatusLabel tssDayTime;
+        private System.Windows.Forms.ToolStripStatusLabel tssWorkTime;
+        private System.Windows.Forms.Timer timerForDateTime;
     }
 }
 
