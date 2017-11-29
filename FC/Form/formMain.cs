@@ -155,7 +155,7 @@ namespace FilmCollection
         {
             TimeSpan aa = DateTime.UtcNow - Process.GetCurrentProcess().StartTime.ToUniversalTime();
             var str = string.Format("{0:00}:{1:00}:{2:00}", aa.Hours, aa.Minutes, aa.Seconds);
-            tssWorkTime.Text = str;
+            tssWorkTime.Text = "Время работы: " + str;
             
             tssDayTime.Text = System.DateTime.Now.ToString();
 
