@@ -68,6 +68,9 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FilmCollection">
+      <HintPath>obj\x86\Debug\FilmCollection.exe</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\Ionic.Zip.Reduced.dll</HintPath>
@@ -169,6 +172,12 @@
     <Compile Include="Form\formReport.Designer.cs">
       <DependentUpon>formReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\formSelectCatalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\formSelectCatalog.Designer.cs">
+      <DependentUpon>formSelectCatalog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\formSelectMedia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +207,12 @@
     </Compile>
     <Compile Include="Form\ucChart.Designer.cs">
       <DependentUpon>ucChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ucSelectCatalog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Form\ucSelectCatalog.Designer.cs">
+      <DependentUpon>ucSelectCatalog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +245,9 @@
     <EmbeddedResource Include="Form\formReport.resx">
       <DependentUpon>formReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\formSelectCatalog.resx">
+      <DependentUpon>formSelectCatalog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\formSelectMedia.resx">
       <DependentUpon>formSelectMedia.cs</DependentUpon>
     </EmbeddedResource>
@@ -241,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\ucChart.resx">
       <DependentUpon>ucChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ucSelectCatalog.resx">
+      <DependentUpon>ucSelectCatalog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
