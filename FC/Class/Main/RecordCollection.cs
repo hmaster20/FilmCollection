@@ -6,6 +6,8 @@ using System.Linq;
 
 namespace FilmCollection
 {
+#pragma warning disable CS0436
+
     /// <summary>Класс управления коллекцией фильмотеки, состоящей из фильмов (CombineList) и актеров (ActorList)</summary>
     public class RecordCollection : ICloneable
     {
@@ -146,9 +148,20 @@ namespace FilmCollection
             RecordCollection result;
             try
             {
-                result = (fromFile)
-                    ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
-                    : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+                if (fromFile)
+                {
+                    //result = (RecordCollection)RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>();
+                    result = XmlSerializeHelper.LoadAndDeserialize<RecordCollection>();
+
+                }
+                else
+                {
+                    result = XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+                }
+
+                //result = (fromFile)
+                //    ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
+                //    : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
             }
             catch (Exception ex) { throw new ApplicationException($"Ошибка на этапе загрузки при десериализации. \n{ex.Message}"); }
             
@@ -195,4 +208,6 @@ namespace FilmCollection
         }
         #endregion
     }
+
+#pragma warning restore CS0436
 }

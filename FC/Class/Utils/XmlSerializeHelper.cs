@@ -43,8 +43,12 @@ namespace FilmCollection
 
 
         #region Загрузка путем десериализации
-        public static T LoadAndDeserialize<T>(this string fileName)
+        //public static T LoadAndDeserialize<T>(this string fileName)
+
+        public static T LoadAndDeserialize<T>()
         {
+            string fileName = RecordOptions.BaseName;
+
             if (!File.Exists(fileName))
                 throw new ArgumentException("Файл базы не существует!");
 
