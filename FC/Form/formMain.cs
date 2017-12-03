@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 
 namespace FilmCollection
 {
+#pragma warning disable CS0436
+
     public partial class MainForm : Form
     {
         #region Общедоступные свойства
@@ -2754,4 +2756,6 @@ namespace FilmCollection
         //    this.Cursor = Cursors.Arrow;
         //}
     }
+
+#pragma warning restore CS0436
 }

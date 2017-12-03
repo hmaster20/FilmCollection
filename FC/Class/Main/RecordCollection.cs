@@ -6,8 +6,6 @@ using System.Linq;
 
 namespace FilmCollection
 {
-#pragma warning disable CS0436
-
     /// <summary>Класс управления коллекцией фильмотеки, состоящей из фильмов (CombineList) и актеров (ActorList)</summary>
     public class RecordCollection : ICloneable
     {
@@ -208,6 +206,4 @@ namespace FilmCollection
         }
         #endregion
     }
-
-#pragma warning restore CS0436
 }

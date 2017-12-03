@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace FilmCollection
 {
-   static class BinSerializeHelper
+    static class BinSerializeHelper
     {
 
 
