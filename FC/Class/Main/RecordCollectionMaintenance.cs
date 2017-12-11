@@ -262,6 +262,13 @@ namespace FilmCollection
             }
         }
 
+        public static int RecoveryFilesExist()
+        {
+            DirectoryInfo directory = new DirectoryInfo(Directory.GetCurrentDirectory());
+            FileInfo[] files = directory.GetFiles("VideoList_*.xml", SearchOption.AllDirectories);
+            return files.Length;
+        }
+
         public static void RecoveryBase(MainForm main)
         {
             using (RecoveryForm form = new RecoveryForm())
