@@ -156,7 +156,7 @@ namespace FilmCollection
             TimeSpan aa = DateTime.UtcNow - Process.GetCurrentProcess().StartTime.ToUniversalTime();
             var str = string.Format("{0:00}:{1:00}:{2:00}", aa.Hours, aa.Minutes, aa.Seconds);
             tssWorkTime.Text = "Время работы: " + str;
-            
+
             tssDayTime.Text = System.DateTime.Now.ToString();
 
             //tssWorkTime.Text = TimeCounter.Elapsed.ToString();
@@ -315,6 +315,10 @@ namespace FilmCollection
             tsRemove.Enabled = state;
             tsFind.Enabled = state;
             tsFindbyName.Enabled = state;
+            menuTableRec.Enabled = state;
+            cbIsVisible.Enabled = state;
+            menuTableAct.Enabled = state;
+            trackBarSize.Enabled = state;
         }
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -651,7 +655,7 @@ namespace FilmCollection
                     }
                     catch (ApplicationException ex) { Logs.Log("Произошла ошибка при перемещении Drag&Drop:", ex); }
                 }
-            }            
+            }
         }
 
         private void treeFolder_DragEnter(object sender, DragEventArgs e)
@@ -665,7 +669,7 @@ namespace FilmCollection
             DoDragDrop(e.Item, DragDropEffects.Move);
         }
 
-        
+
         /// <summary>Проверка размещения панели на верхнем уровне</summary>
         private bool IsControlAtFront(Control control)
         {
