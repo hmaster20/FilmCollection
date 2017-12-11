@@ -149,6 +149,22 @@ namespace FilmCollection
             #endregion
 
             TimeCounter = Stopwatch.StartNew();
+
+            ExistRecoveryDB();
+        }
+
+        private void ExistRecoveryDB()
+        {
+            bool state;
+            if (RecordCollectionMaintenance.RecoveryFilesExist() < 1) {
+                state = false;
+            }
+            else
+            {
+                state = true;
+            }
+            tsRecoveryDB.Enabled = state;
+            btnRecoveryBase.Enabled = state;
         }
 
         private void timerForDateTime_Tick(object sender, EventArgs e)
@@ -413,7 +429,12 @@ namespace FilmCollection
         private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { RCollection.Maintenance.PreUpdate(this); })).Start();
         private void CleanBase_Click(object sender, EventArgs e) => RCollection.Maintenance.CleanBase(this);
 
-        private void BackupBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.BackupBase();
+        private void BackupBase_Click(object sender, EventArgs e)
+        {
+            RecordCollectionMaintenance.BackupBase();
+            ExistRecoveryDB();
+        }
+        
         private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.RecoveryBase(this);
         private void Exit_Click(object sender, EventArgs e) => Close();
 
