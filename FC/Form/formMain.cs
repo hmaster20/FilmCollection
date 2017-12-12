@@ -156,7 +156,8 @@ namespace FilmCollection
         private void ExistRecoveryDB()
         {
             bool state;
-            if (RecordCollectionMaintenance.RecoveryFilesExist() < 1) {
+            if (RecordCollectionMaintenance.RecoveryFilesExist() < 1)
+            {
                 state = false;
             }
             else
@@ -232,7 +233,23 @@ namespace FilmCollection
             // загрузка параметров из файла конфигурации
             RecordOptions.ToTray = Settings.Default.ToTray;
             LastNode = Settings.Default.TreeFolderSelect;
+
+            //bool state = FormLoad(true);
+
             FormLoad(true);
+
+            //bool state;
+            //if (RCollection != null && RCollection.CombineList.Count > 0)
+            //{
+            //    state = true;
+            //}
+            //else
+            //{
+            //    state = false;
+            //}
+            //tsUpdateDB.Enabled = state;
+            //btnUpdateBase.Enabled = state;
+
             UpdateStatusMenuButton();
             ReloadPoster();
             LoadFormVisualEffect();
@@ -336,6 +353,18 @@ namespace FilmCollection
             cbIsVisible.Enabled = state;
             menuTableAct.Enabled = state;
             trackBarSize.Enabled = state;
+
+            bool StateCollection;
+            if (RCollection != null && RCollection.CombineList.Count > 0)
+            {
+                StateCollection = true;
+            }
+            else
+            {
+                StateCollection = false;
+            }
+            tsUpdateDB.Enabled = StateCollection;
+            btnUpdateBase.Enabled = StateCollection;
         }
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -435,7 +464,7 @@ namespace FilmCollection
             RecordCollectionMaintenance.BackupBase();
             ExistRecoveryDB();
         }
-        
+
         private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.RecoveryBase(this);
         private void Exit_Click(object sender, EventArgs e) => Close();
 
