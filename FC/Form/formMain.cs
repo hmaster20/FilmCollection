@@ -320,9 +320,10 @@ namespace FilmCollection
             bool state = false;
             switch (tabControlNumber())
             {
-                case 0: if (TableRec.Rows.Count > 0) { state = true; }; break;
-                case 1: if (dgvTableActors.Rows.Count > 0) { state = true; }; break;
-                case 2: if (flowLayoutPanelMain.Controls.Count > 0) { state = true; }; break;
+                case 0: if (TableRec.Rows.Count > 0) { state = true; }; tsHidePanel.Enabled = true; break;
+                case 1: if (dgvTableActors.Rows.Count > 0) { state = true; }; tsHidePanel.Enabled = true; break;
+                case 2: if (flowLayoutPanelMain.Controls.Count > 0) { state = true; }; tsHidePanel.Enabled = false; break;
+                case 3: tsHidePanel.Enabled = false; break;
                 default: break;
             }
 
