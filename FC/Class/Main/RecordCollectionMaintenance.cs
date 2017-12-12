@@ -181,7 +181,8 @@ namespace FilmCollection
 
         private static IEnumerable<FileInfo> GetFilesFrom(DirectoryInfo directory)
         {
-            return directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
+            //return directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
+            return directory.EnumerateFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
         }
 
         private bool RecordExist(Record record)
@@ -269,7 +270,7 @@ namespace FilmCollection
                 try
                 {
                     string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                        + DateTime.Now.ToString("_ddMMyyyy_HHmmss_error")
+                        + DateTime.Now.ToString("-Error-ddMMyyyy-HHmmss")
                         + Path.GetExtension(RecordOptions.BaseName);
 
                     File.Move(RecordOptions.BaseName, FileBase);
