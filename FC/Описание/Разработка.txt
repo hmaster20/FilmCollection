@@ -29,7 +29,7 @@
 - разработать форму настроек приложения
 - Сделать опцию настройки и добавления столбцов // this.customersDataGridView.Columns[0].Visible = false;
 - Сериализация в форматах: XML, bin
-- продумать использование FileWatcher
+- продумать использование FileWatcher - актуально для запущенной программы (или продумать фоновое сканирование каталогов и сравнение с базой)
 - использование доп.информации о файлах (кодеки)
 - продумать возможность интеграции данных в SQL
 
@@ -1593,3 +1593,33 @@ If the user controls do things like connect to data sources, you might want to a
 ============================================================================================================================
 #pragma warning disable CS0436
 #pragma warning restore CS0436
+
+============================================================================================================================
+Get the current process and set its priority.
+System.Diagnostics.Process.GetCurrentProcess().PriorityClass = System.Diagnostics.ProcessPriorityClass.Low;
+
+============================================================================================================================
+Yes, don't use Directory.GetFiles(path, searchPattern, SearchOption.AllDirectories) because:
+
+It returns the result in a single very large array - not particularly efficient
+Blocks whilst the operation is in progress - not too friendly
+You might want to check out the MS's BackgroundWorker forms designer component. It will:
+
+Allow to perform a lengthy operation independant of the application's main thread
+Provide a way to report progress via events
+Hides thread creation/management complexity
+
+Assume you have a method called EnumFolders(string path).
+
+Your worker method should start getting a directory listing for the top level of the server's c:\.  
+Then iterate each entry for a folder entry. If you find a folder then you should invoke EnumFolders with the path of the child folder. 
+Notify your UI of progress by using the BackgroundWorkers event system. Rinse and repeat. This is known as recursion.
+
+============================================================================================================================
+https://stackoverflow.com/questions/18652966/why-is-this-c-sharp-code-so-slow-optimisation-on-directory-file-searching-add
+============================================================================================================================
+
+The EnumerateFiles and GetFiles methods differ as follows: 
+When you use EnumerateFiles, you can start enumerating the collection of  FileInfo objects before the whole collection is returned; 
+when you use GetFiles, you must wait for the whole array of FileInfo objects to be returned before you can access the array. 
+Therefore, when you are working with many files and directories, EnumerateFiles can be more efficient.
