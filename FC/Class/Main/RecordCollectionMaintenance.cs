@@ -262,6 +262,22 @@ namespace FilmCollection
             }
         }
 
+        public static void CrashBase()
+        {
+            if (File.Exists(RecordOptions.BaseName))
+            {
+                try
+                {
+                    string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                        + DateTime.Now.ToString("_ddMMyyyy_HHmmss_error")
+                        + Path.GetExtension(RecordOptions.BaseName);
+
+                    File.Move(RecordOptions.BaseName, FileBase);
+                }
+                catch (IOException ex) { Logs.Log("Произошла ошибка при переименовании сбойного файла базы:", ex); }
+            }
+        }
+
         public static int RecoveryFilesExist()
         {
             DirectoryInfo directory = new DirectoryInfo(Directory.GetCurrentDirectory());

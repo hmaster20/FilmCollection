@@ -150,8 +150,10 @@ namespace FilmCollection
                     ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
                     : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
             }
-            catch (Exception ex) { throw new ApplicationException($"Ошибка на этапе загрузки при десериализации. \n{ex.Message}"); }
-            
+            catch (Exception ex) {
+                RecordCollectionMaintenance.CrashBase();
+                throw new ApplicationException($"Ошибка на этапе загрузки при десериализации. \n{ex.Message}");
+            }            
 
             Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
             try
