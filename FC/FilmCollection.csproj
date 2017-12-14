@@ -187,6 +187,12 @@
     <Compile Include="Form\formReindexer.Designer.cs">
       <DependentUpon>formReindexer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\fromChangeText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\fromChangeText.Designer.cs">
+      <DependentUpon>fromChangeText.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\ucMediaInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\fromChangeLog.resx">
       <DependentUpon>fromChangeLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\fromChangeText.resx">
+      <DependentUpon>fromChangeText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\ucMediaInfo.resx">
       <DependentUpon>ucMediaInfo.cs</DependentUpon>
