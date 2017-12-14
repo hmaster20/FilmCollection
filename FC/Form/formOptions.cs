@@ -29,12 +29,12 @@ namespace FilmCollection
             if (_videoCollection.SourceList.Count < 1)
             {
                 btnAddSource.Enabled = false;
-                btnDelSource.Enabled = false;
+                btnChangeSource.Enabled = false;
             }
             else
             {
                 btnAddSource.Enabled = true;
-                btnDelSource.Enabled = true;
+                btnChangeSource.Enabled = true;
             }
 
             lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
@@ -68,8 +68,9 @@ namespace FilmCollection
             foreach (var item in Enum.GetValues(typeof(CategoryVideo_Rus)))
             {
                 lbtpCategory.Items.Add(item);
-            }          
+            }
 
+            btnChangeSource.Enabled = false;
 
         }
 
@@ -163,7 +164,7 @@ namespace FilmCollection
 
                             (new System.Threading.Thread(delegate () { VC.Maintenance.PreUpdate(mainForm); })).Start();
 
-                           // (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
+                            // (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
                         }
                 }
             }
@@ -188,9 +189,44 @@ namespace FilmCollection
             g.DrawString(_tabPage.Text, SystemFonts.DefaultFont, Brushes.Black, _tabBounds, new StringFormat(_stringFlags));
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
-        {
 
+        private void btnChangeSource_Click(object sender, EventArgs e)
+        {
+            using (fromChangeText form = new fromChangeText())
+            {
+                var item = listBase.SelectedItems[0];
+
+                if (!string.IsNullOrWhiteSpace(item.ToString()))
+                {
+                    form.tbChangeText.Text = item.ToString();
+
+                    if (form.ShowDialog() == DialogResult.OK && VC != null)
+                    {
+                        string newSource = form.tbChangeText.Text;
+                        Sources oldSource = VC.SourceList.FindLast(x => x.Source == item.ToString());
+                        oldSource.Source = newSource;
+
+                        // добавить сохранение в файл, перезагрузку списка базы и после нажатия кнопки ок параметров, перечитать всю базу
+
+                    }
+                }
+            }
         }
+
+
+        private void listBase_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (listBase.SelectedItems.Count > 0)
+            {
+                var item = listBase.SelectedItems[0];
+
+                if (!string.IsNullOrWhiteSpace(item.ToString()))
+                {
+                    btnChangeSource.Enabled = true;
+                }
+            }
+        }
+
+
     }
 }

@@ -47,10 +47,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.clBoxFormats = new System.Windows.Forms.CheckedListBox();
             this.btnAddSource = new System.Windows.Forms.Button();
-            this.btnDelSource = new System.Windows.Forms.Button();
+            this.btnChangeSource = new System.Windows.Forms.Button();
             this.listBase = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnDelSource = new System.Windows.Forms.Button();
             this.tabPage8 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -68,10 +69,10 @@
             this.tpCountry = new System.Windows.Forms.TabPage();
             this.lbtpCountry = new System.Windows.Forms.ListBox();
             this.tpGenre = new System.Windows.Forms.TabPage();
-            this.tpCategory = new System.Windows.Forms.TabPage();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
             this.lbtpGenre = new System.Windows.Forms.ListBox();
+            this.tpCategory = new System.Windows.Forms.TabPage();
             this.lbtpCategory = new System.Windows.Forms.ListBox();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -282,14 +283,15 @@
             this.btnAddSource.UseVisualStyleBackColor = true;
             this.btnAddSource.Click += new System.EventHandler(this.btnAddSource_Click);
             // 
-            // btnDelSource
+            // btnChangeSource
             // 
-            this.btnDelSource.Location = new System.Drawing.Point(452, 46);
-            this.btnDelSource.Name = "btnDelSource";
-            this.btnDelSource.Size = new System.Drawing.Size(75, 23);
-            this.btnDelSource.TabIndex = 15;
-            this.btnDelSource.Text = "Удалить";
-            this.btnDelSource.UseVisualStyleBackColor = true;
+            this.btnChangeSource.Location = new System.Drawing.Point(452, 46);
+            this.btnChangeSource.Name = "btnChangeSource";
+            this.btnChangeSource.Size = new System.Drawing.Size(75, 23);
+            this.btnChangeSource.TabIndex = 15;
+            this.btnChangeSource.Text = "Изменить";
+            this.btnChangeSource.UseVisualStyleBackColor = true;
+            this.btnChangeSource.Click += new System.EventHandler(this.btnChangeSource_Click);
             // 
             // listBase
             // 
@@ -298,6 +300,7 @@
             this.listBase.Name = "listBase";
             this.listBase.Size = new System.Drawing.Size(416, 225);
             this.listBase.TabIndex = 16;
+            this.listBase.SelectedValueChanged += new System.EventHandler(this.listBase_SelectedValueChanged);
             // 
             // tabControl1
             // 
@@ -320,12 +323,22 @@
             this.tabPage1.Controls.Add(this.listBase);
             this.tabPage1.Controls.Add(this.btnAddSource);
             this.tabPage1.Controls.Add(this.btnDelSource);
+            this.tabPage1.Controls.Add(this.btnChangeSource);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(545, 293);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Источник файлов";
+            // 
+            // btnDelSource
+            // 
+            this.btnDelSource.Location = new System.Drawing.Point(452, 75);
+            this.btnDelSource.Name = "btnDelSource";
+            this.btnDelSource.Size = new System.Drawing.Size(75, 23);
+            this.btnDelSource.TabIndex = 15;
+            this.btnDelSource.Text = "Удалить";
+            this.btnDelSource.UseVisualStyleBackColor = true;
             // 
             // tabPage8
             // 
@@ -362,7 +375,6 @@
             this.button2.Size = new System.Drawing.Size(29, 23);
             this.button2.TabIndex = 14;
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // textBox2
             // 
@@ -502,6 +514,15 @@
             this.tpGenre.TabIndex = 1;
             this.tpGenre.Text = "Жанры";
             // 
+            // lbtpGenre
+            // 
+            this.lbtpGenre.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbtpGenre.FormattingEnabled = true;
+            this.lbtpGenre.Location = new System.Drawing.Point(3, 3);
+            this.lbtpGenre.Name = "lbtpGenre";
+            this.lbtpGenre.Size = new System.Drawing.Size(411, 279);
+            this.lbtpGenre.TabIndex = 0;
+            // 
             // tpCategory
             // 
             this.tpCategory.BackColor = System.Drawing.SystemColors.Control;
@@ -512,6 +533,15 @@
             this.tpCategory.TabIndex = 2;
             this.tpCategory.Text = "Категории";
             // 
+            // lbtpCategory
+            // 
+            this.lbtpCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbtpCategory.FormattingEnabled = true;
+            this.lbtpCategory.Location = new System.Drawing.Point(0, 0);
+            this.lbtpCategory.Name = "lbtpCategory";
+            this.lbtpCategory.Size = new System.Drawing.Size(417, 285);
+            this.lbtpCategory.TabIndex = 0;
+            // 
             // tabPage9
             // 
             this.tabPage9.BackColor = System.Drawing.SystemColors.Control;
@@ -521,24 +551,6 @@
             this.tabPage9.Size = new System.Drawing.Size(545, 293);
             this.tabPage9.TabIndex = 5;
             this.tabPage9.Text = "Прочие";
-            // 
-            // lbtpGenre
-            // 
-            this.lbtpGenre.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbtpGenre.FormattingEnabled = true;
-            this.lbtpGenre.Location = new System.Drawing.Point(3, 3);
-            this.lbtpGenre.Name = "lbtpGenre";
-            this.lbtpGenre.Size = new System.Drawing.Size(411, 279);
-            this.lbtpGenre.TabIndex = 0;
-            // 
-            // lbtpCategory
-            // 
-            this.lbtpCategory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbtpCategory.FormattingEnabled = true;
-            this.lbtpCategory.Location = new System.Drawing.Point(0, 0);
-            this.lbtpCategory.Name = "lbtpCategory";
-            this.lbtpCategory.Size = new System.Drawing.Size(417, 285);
-            this.lbtpCategory.TabIndex = 0;
             // 
             // Options
             // 
@@ -604,7 +616,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAddSource;
-        private System.Windows.Forms.Button btnDelSource;
+        private System.Windows.Forms.Button btnChangeSource;
         private System.Windows.Forms.ListBox listBase;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -629,5 +641,6 @@
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.ListBox lbtpGenre;
         private System.Windows.Forms.ListBox lbtpCategory;
+        private System.Windows.Forms.Button btnDelSource;
     }
 }
