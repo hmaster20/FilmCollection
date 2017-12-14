@@ -53,6 +53,23 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -60,16 +77,23 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.tabPage8.SuspendLayout();
+            this.tabPage9.SuspendLayout();
             this.SuspendLayout();
             // 
             // gBoxOptions
             // 
-            this.gBoxOptions.Controls.Add(this.checkBox1);
             this.gBoxOptions.Controls.Add(this.lCatalogPath);
             this.gBoxOptions.Controls.Add(this.lCatalog);
-            this.gBoxOptions.Location = new System.Drawing.Point(20, 199);
+            this.gBoxOptions.Location = new System.Drawing.Point(13, 175);
             this.gBoxOptions.Name = "gBoxOptions";
-            this.gBoxOptions.Size = new System.Drawing.Size(507, 83);
+            this.gBoxOptions.Size = new System.Drawing.Size(520, 92);
             this.gBoxOptions.TabIndex = 0;
             this.gBoxOptions.TabStop = false;
             this.gBoxOptions.Text = "Параметры";
@@ -77,7 +101,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(19, 52);
+            this.checkBox1.Location = new System.Drawing.Point(20, 24);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(191, 17);
             this.checkBox1.TabIndex = 9;
@@ -88,9 +112,9 @@
             // lCatalogPath
             // 
             this.lCatalogPath.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lCatalogPath.Location = new System.Drawing.Point(70, 25);
+            this.lCatalogPath.Location = new System.Drawing.Point(11, 42);
             this.lCatalogPath.Name = "lCatalogPath";
-            this.lCatalogPath.Size = new System.Drawing.Size(418, 13);
+            this.lCatalogPath.Size = new System.Drawing.Size(383, 13);
             this.lCatalogPath.TabIndex = 1;
             this.lCatalogPath.Text = "Путь к каталогу фильмотеки";
             // 
@@ -98,11 +122,11 @@
             // 
             this.lCatalog.AutoSize = true;
             this.lCatalog.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lCatalog.Location = new System.Drawing.Point(16, 25);
+            this.lCatalog.Location = new System.Drawing.Point(11, 27);
             this.lCatalog.Name = "lCatalog";
-            this.lCatalog.Size = new System.Drawing.Size(51, 13);
+            this.lCatalog.Size = new System.Drawing.Size(149, 13);
             this.lCatalog.TabIndex = 2;
-            this.lCatalog.Text = "Каталог:";
+            this.lCatalog.Text = "Расположение файла базы:";
             // 
             // button1
             // 
@@ -268,14 +292,17 @@
             this.listBase.FormattingEnabled = true;
             this.listBase.Location = new System.Drawing.Point(20, 17);
             this.listBase.Name = "listBase";
-            this.listBase.Size = new System.Drawing.Size(416, 173);
+            this.listBase.Size = new System.Drawing.Size(416, 225);
             this.listBase.TabIndex = 16;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage8);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage9);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
@@ -287,7 +314,6 @@
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(this.listBase);
-            this.tabPage1.Controls.Add(this.gBoxOptions);
             this.tabPage1.Controls.Add(this.btnAddSource);
             this.tabPage1.Controls.Add(this.btnDelSource);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -295,7 +321,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(545, 293);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Пути к базам";
+            this.tabPage1.Text = "Источник файлов";
             // 
             // tabPage2
             // 
@@ -318,11 +344,182 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Столбцы";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.tabControl2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(545, 293);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Справочники";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Alignment = System.Windows.Forms.TabAlignment.Left;
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Controls.Add(this.tabPage7);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControl2.ItemSize = new System.Drawing.Size(25, 120);
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Multiline = true;
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(545, 293);
+            this.tabControl2.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl2.TabIndex = 0;
+            this.tabControl2.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl2_DrawItem);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.listBox1);
+            this.tabPage5.Location = new System.Drawing.Point(124, 4);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(417, 285);
+            this.tabPage5.TabIndex = 0;
+            this.tabPage5.Text = "Страны";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage6.Location = new System.Drawing.Point(124, 4);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(417, 285);
+            this.tabPage6.TabIndex = 1;
+            this.tabPage6.Text = "Жанры";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage7.Location = new System.Drawing.Point(124, 4);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(417, 285);
+            this.tabPage7.TabIndex = 2;
+            this.tabPage7.Text = "Категории";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(20, 28);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(323, 17);
+            this.checkBox2.TabIndex = 9;
+            this.checkBox2.Text = "Разрешить автоматическое резервное копирование базы";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.numericUpDown2);
+            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.checkBox2);
+            this.groupBox2.Location = new System.Drawing.Point(13, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(520, 147);
+            this.groupBox2.TabIndex = 18;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Резервное копирование";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(471, 110);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(29, 23);
+            this.button2.TabIndex = 14;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(187, 112);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(278, 20);
+            this.textBox2.TabIndex = 13;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(167, 81);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(54, 20);
+            this.numericUpDown2.TabIndex = 12;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(167, 49);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(54, 20);
+            this.numericUpDown1.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(20, 115);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(160, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Каталог для резервных копий";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(139, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Интервал между копиями";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(114, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Хранить число копий";
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage8.Controls.Add(this.gBoxOptions);
+            this.tabPage8.Controls.Add(this.groupBox2);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(545, 293);
+            this.tabPage8.TabIndex = 4;
+            this.tabPage8.Text = "Резервное копирование";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(6, 6);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(120, 95);
+            this.listBox1.TabIndex = 0;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage9.Controls.Add(this.checkBox1);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Size = new System.Drawing.Size(545, 293);
+            this.tabPage9.TabIndex = 5;
+            this.tabPage9.Text = "Прочие";
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 395);
+            this.ClientSize = new System.Drawing.Size(580, 394);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
@@ -345,6 +542,16 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -376,5 +583,22 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TabPage tabPage9;
     }
 }

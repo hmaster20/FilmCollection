@@ -152,6 +152,116 @@ namespace FilmCollection
             }
         }
 
+        private void tabControl2_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            TabPage _tabPage = tabControl2.TabPages[e.Index];
+            Rectangle _tabBounds = tabControl2.GetTabRect(e.Index);
+            if (e.State == DrawItemState.Selected)
+            {
+                g.FillRectangle(Brushes.White, e.Bounds);
+            }
+            else
+            {
+                g.FillRectangle(Brushes.WhiteSmoke, e.Bounds);
+            }
+            StringFormat _stringFlags = new StringFormat();
+            _stringFlags.Alignment = StringAlignment.Center;
+            _stringFlags.LineAlignment = StringAlignment.Center;
+            g.DrawString(_tabPage.Text, SystemFonts.DefaultFont, Brushes.Black, _tabBounds, new StringFormat(_stringFlags));
 
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ///////////////////////////////////////////////////////////////////
+
+
+            //Graphics g = e.Graphics;
+            //Brush _textBrush;
+
+            //TabPage _tabPage = tabControl2.TabPages[e.Index];
+            //Rectangle _tabBounds = tabControl2.GetTabRect(e.Index);
+
+            //if (e.State == DrawItemState.Selected)
+            //{
+            //    _textBrush = new SolidBrush(Color.LightBlue);
+            //    g.FillRectangle(Brushes.LightGray, e.Bounds);
+            //}
+            //else
+            //{
+            //    _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
+            //    e.DrawBackground();
+            //}
+            //Font _tabFont = new Font("Arial", (float)10.0, FontStyle.Bold, GraphicsUnit.Pixel);
+
+
+            //StringFormat _stringFlags = new StringFormat();
+            //_stringFlags.Alignment = StringAlignment.Center;
+            //_stringFlags.LineAlignment = StringAlignment.Center;
+            //g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
+
+
+
+
+            ///////////////////////////////////////////////////////////////////
+
+
+
+
+            //Graphics g = e.Graphics;
+            //Brush _textBrush;
+
+            //// Get the item from the collection.
+            //// Получить элемент из коллекции.
+            //TabPage _tabPage = tabControl2.TabPages[e.Index];
+
+            //// Get the real bounds for the tab rectangle.
+            //// Получите реальные границы прямоугольника вкладки.
+            //Rectangle _tabBounds = tabControl1.GetTabRect(e.Index);
+
+            //if (e.State == DrawItemState.Selected)
+            //{
+
+            //    // Draw a different background color, and don't paint a focus rectangle.
+            //    // Нарисуйте другой цвет фона и не нарисуйте прямоугольник фокуса.
+            //    _textBrush = new SolidBrush(Color.Red);
+            //    //g.FillRectangle(Brushes.Gray, e.Bounds);
+            //}
+            //else
+            //{
+            //    _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
+            //    e.DrawBackground();
+            //}
+
+            //// Use our own font.
+            //// Используйте наш собственный шрифт.
+            ////Font _tabFont = new Font("Arial", (float)10.0, FontStyle.Bold, GraphicsUnit.Pixel);
+            //Font _tabFont = new Font("Microsoft Sans Serif", (float)10.0, FontStyle.Bold, GraphicsUnit.Pixel);
+
+
+            //// Draw string. Center the text.
+            //// Строка рисования. Центрируйте текст.
+            //StringFormat _stringFlags = new StringFormat();
+            //_stringFlags.Alignment = StringAlignment.Center;
+            //_stringFlags.LineAlignment = StringAlignment.Center;
+            //g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

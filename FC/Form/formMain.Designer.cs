@@ -158,6 +158,7 @@
             this.btnGetTime = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
             this.panelView = new System.Windows.Forms.Panel();
+            this.ucView = new FilmCollection.ucMediaInfo();
             this.panelFolder = new System.Windows.Forms.Panel();
             this.btnSaveFolder = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -168,6 +169,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panelScheme = new System.Windows.Forms.Panel();
+            this.ucScheme = new FilmCollection.ucChart();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -245,6 +247,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.tabDiagram = new System.Windows.Forms.TabPage();
+            this.ucDiagr = new FilmCollection.ucChart();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.mainMenuIcon = new System.Windows.Forms.ToolStrip();
@@ -269,9 +272,6 @@
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timerForDateTime = new System.Windows.Forms.Timer(this.components);
-            this.ucView = new FilmCollection.ucMediaInfo();
-            this.ucScheme = new FilmCollection.ucChart();
-            this.ucDiagr = new FilmCollection.ucChart();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -1578,6 +1578,14 @@
             this.panelView.Size = new System.Drawing.Size(368, 606);
             this.panelView.TabIndex = 57;
             // 
+            // ucView
+            // 
+            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Name = "ucView";
+            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.TabIndex = 0;
+            // 
             // panelFolder
             // 
             this.panelFolder.Controls.Add(this.btnSaveFolder);
@@ -1682,6 +1690,14 @@
             this.panelScheme.Name = "panelScheme";
             this.panelScheme.Size = new System.Drawing.Size(368, 606);
             this.panelScheme.TabIndex = 1;
+            // 
+            // ucScheme
+            // 
+            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucScheme.Location = new System.Drawing.Point(0, 0);
+            this.ucScheme.Name = "ucScheme";
+            this.ucScheme.Size = new System.Drawing.Size(368, 606);
+            this.ucScheme.TabIndex = 0;
             // 
             // panelFind
             // 
@@ -2520,6 +2536,14 @@
             this.tabDiagram.TabIndex = 5;
             this.tabDiagram.Text = "Диаграмма";
             // 
+            // ucDiagr
+            // 
+            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
+            this.ucDiagr.Name = "ucDiagr";
+            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
+            this.ucDiagr.TabIndex = 0;
+            // 
             // timerLoad
             // 
             this.timerLoad.Tick += new System.EventHandler(this.T_Tick);
@@ -2742,30 +2766,6 @@
             // 
             this.timerForDateTime.Enabled = true;
             this.timerForDateTime.Tick += new System.EventHandler(this.timerForDateTime_Tick);
-            // 
-            // ucView
-            // 
-            this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
-            this.ucView.TabIndex = 0;
-            // 
-            // ucScheme
-            // 
-            this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucScheme.Location = new System.Drawing.Point(0, 0);
-            this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 606);
-            this.ucScheme.TabIndex = 0;
-            // 
-            // ucDiagr
-            // 
-            this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucDiagr.Location = new System.Drawing.Point(0, 0);
-            this.ucDiagr.Name = "ucDiagr";
-            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
-            this.ucDiagr.TabIndex = 0;
             // 
             // MainForm
             // 
