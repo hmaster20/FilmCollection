@@ -206,8 +206,10 @@ namespace FilmCollection
                         Sources oldSource = VC.SourceList.FindLast(x => x.Source == item.ToString());
                         oldSource.Source = newSource;
 
-                        // добавить сохранение в файл, перезагрузку списка базы и после нажатия кнопки ок параметров, перечитать всю базу
+                        VC.Save();
+                        mainForm.FormLoad();
 
+                        listBase.Items[listBase.SelectedIndex] = newSource;
                     }
                 }
             }
