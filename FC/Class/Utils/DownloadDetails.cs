@@ -424,7 +424,8 @@ namespace FilmCollection
                     catch (Exception ex)
                     {
                         //break;
-                        throw new ArgumentNullException(ex.Message + "\nПричина: " + ex.InnerException.Message);
+                        //throw new ArgumentNullException(ex.Message + "\nПричина: " + ex.InnerException.Message);
+                        throw new ApplicationException(ex.Message + "\nПричина: " + ex.InnerException.Message);
                     }
                 }
             }
