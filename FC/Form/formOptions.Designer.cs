@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gBoxOptions = new System.Windows.Forms.GroupBox();
             this.lCatalogPath = new System.Windows.Forms.Label();
             this.lCatalog = new System.Windows.Forms.Label();
@@ -73,6 +74,9 @@
             this.tpCategory = new System.Windows.Forms.TabPage();
             this.lbtpCategory = new System.Windows.Forms.ListBox();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsPathFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.gBoxOptions.SuspendLayout();
             this.gBoxRecColumn.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -90,6 +94,7 @@
             this.tpGenre.SuspendLayout();
             this.tpCategory.SuspendLayout();
             this.tabPage9.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gBoxOptions
@@ -552,6 +557,29 @@
             this.tabPage9.TabIndex = 5;
             this.tabPage9.Text = "Прочие";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsPathFolder,
+            this.tsSelectFolder});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.ShowImageMargin = false;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 70);
+            // 
+            // tsPathFolder
+            // 
+            this.tsPathFolder.Name = "tsPathFolder";
+            this.tsPathFolder.Size = new System.Drawing.Size(141, 22);
+            this.tsPathFolder.Text = "Указать путь";
+            this.tsPathFolder.Click += new System.EventHandler(this.tsPathFolder_Click);
+            // 
+            // tsSelectFolder
+            // 
+            this.tsSelectFolder.Name = "tsSelectFolder";
+            this.tsSelectFolder.Size = new System.Drawing.Size(141, 22);
+            this.tsSelectFolder.Text = "Выбрать каталог";
+            this.tsSelectFolder.Click += new System.EventHandler(this.btnAddSource_);
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -591,6 +619,7 @@
             this.tpCategory.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -642,5 +671,8 @@
         private System.Windows.Forms.ListBox lbtpGenre;
         private System.Windows.Forms.ListBox lbtpCategory;
         private System.Windows.Forms.Button btnDelSource;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsPathFolder;
+        private System.Windows.Forms.ToolStripMenuItem tsSelectFolder;
     }
 }
