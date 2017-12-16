@@ -146,6 +146,27 @@ namespace FilmCollection
 
         private void btnAddSource_Click(object sender, EventArgs e)
         {
+            Button btnSender = (Button)sender;
+            Point ptLowerLeft = new Point(0, btnSender.Height);
+            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
+            contextMenuStrip1.Show(ptLowerLeft);
+
+        }
+
+        private void tsPathFolder_Click(object sender, EventArgs e)
+        {
+            using (fromChangeText form = new fromChangeText())
+            {
+                if (form.ShowDialog() == DialogResult.OK && VC != null)
+                {
+                    string newSource = form.tbChangeText.Text;
+                    CreateNewSource(newSource);
+                }
+            }
+        }
+
+        private void btnAddSource_(object sender, EventArgs e)
+        {
             using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
             {
                 fbDialog.Description = "Укажите расположение файлов мультимедиа:";
@@ -155,19 +176,24 @@ namespace FilmCollection
                 if (dialogStatus == DialogResult.OK)
                 {
                     string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
-                    DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-                    if (directory.Exists)
-                        if (VC != null)
-                        {
-                            int id = VC.AddSource(directory.FullName);
-                            ListUpdate(VC);
-
-                            (new System.Threading.Thread(delegate () { VC.Maintenance.PreUpdate(mainForm); })).Start();
-
-                            // (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
-                        }
+                    CreateNewSource(folderName);
                 }
             }
+        }
+
+        private void CreateNewSource(string folderName)
+        {
+            DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
+            if (directory.Exists)
+                if (VC != null)
+                {
+                    int id = VC.AddSource(directory.FullName);
+                    ListUpdate(VC);
+
+                    (new System.Threading.Thread(delegate () { VC.Maintenance.PreUpdate(mainForm); })).Start();
+
+                    // (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
+                }
         }
 
         private void tabControl2_DrawItem(object sender, DrawItemEventArgs e)
@@ -207,7 +233,8 @@ namespace FilmCollection
                         oldSource.Source = newSource;
 
                         VC.Save();
-                        mainForm.FormLoad();
+                        VC.SaveToFile();
+                        mainForm.FormLoad(true);
 
                         listBase.Items[listBase.SelectedIndex] = newSource;
                     }
