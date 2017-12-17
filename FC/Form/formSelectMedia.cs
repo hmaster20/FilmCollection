@@ -38,12 +38,21 @@ namespace FilmCollection
             if (record != null)
             {
                 string resultString = Regex.Match(record.FileName, @"[0-9]{4}").Value;
-                MessageBox.Show(resultString);
+                //MessageBox.Show(resultString);
+
                 //var iii = listMedia.Items.IndexOfKey(resultString);
                 //MessageBox.Show(iii.ToString());
                 //var lll = listMedia.Items.Find(resultString, true);
                 var lll = listMedia.FindItemWithText(resultString);
+                listMedia.EnsureVisible(lll.Index);
                 lll.Selected = true;
+                lll.Focused = true;
+                listMedia.Select();
+
+                //this.listMedia.Items[lll.Index].Focused = true;
+                //this.listMedia.Items[lll.Index].Selected = true;
+
+
                 //MessageBox.Show(lll.ToString());
 
             }
