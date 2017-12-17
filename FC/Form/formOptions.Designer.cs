@@ -74,7 +74,7 @@
             this.tpCategory = new System.Windows.Forms.TabPage();
             this.lbtpCategory = new System.Windows.Forms.ListBox();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuAdd = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsPathFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.tsSelectFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.gBoxOptions.SuspendLayout();
@@ -94,7 +94,7 @@
             this.tpGenre.SuspendLayout();
             this.tpCategory.SuspendLayout();
             this.tabPage9.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuAdd.SuspendLayout();
             this.SuspendLayout();
             // 
             // gBoxOptions
@@ -557,14 +557,14 @@
             this.tabPage9.TabIndex = 5;
             this.tabPage9.Text = "Прочие";
             // 
-            // contextMenuStrip1
+            // contextMenuAdd
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuAdd.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsPathFolder,
             this.tsSelectFolder});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 70);
+            this.contextMenuAdd.Name = "contextMenuStrip1";
+            this.contextMenuAdd.ShowImageMargin = false;
+            this.contextMenuAdd.Size = new System.Drawing.Size(142, 48);
             // 
             // tsPathFolder
             // 
@@ -619,7 +619,7 @@
             this.tpCategory.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuAdd.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -671,7 +671,7 @@
         private System.Windows.Forms.ListBox lbtpGenre;
         private System.Windows.Forms.ListBox lbtpCategory;
         private System.Windows.Forms.Button btnDelSource;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuAdd;
         private System.Windows.Forms.ToolStripMenuItem tsPathFolder;
         private System.Windows.Forms.ToolStripMenuItem tsSelectFolder;
     }
