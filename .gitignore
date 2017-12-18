@@ -4,3 +4,5 @@
 /FC/obj/
 /FC/bin/
 !/FC/Library/*
+FC.Wizard/bin/
+FC.Wizard/obj/
