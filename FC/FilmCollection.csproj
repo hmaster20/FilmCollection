@@ -257,6 +257,9 @@
     <EmbeddedResource Include="Form\ucChart.resx">
       <DependentUpon>ucChart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\Wizard.resx">
+      <DependentUpon>Wizard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
