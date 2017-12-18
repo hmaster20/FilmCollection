@@ -272,9 +272,7 @@
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timerForDateTime = new System.Windows.Forms.Timer(this.components);
-            this.MenuSelectBase = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsEnterPathCatalog = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSelectCatalog = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -320,7 +318,6 @@
             this.scMain.SuspendLayout();
             this.mainMenuIcon.SuspendLayout();
             this.TrayMenu.SuspendLayout();
-            this.MenuSelectBase.SuspendLayout();
             this.SuspendLayout();
             // 
             // TableRec
@@ -2585,9 +2582,10 @@
             this.tsChange,
             this.tsRemove,
             this.toolStripSeparator5,
+            this.tsHidePanel,
+            this.toolStripSeparator2,
             this.tsFind,
-            this.tsFindbyName,
-            this.tsHidePanel});
+            this.tsFindbyName});
             this.mainMenuIcon.Location = new System.Drawing.Point(0, 24);
             this.mainMenuIcon.Name = "mainMenuIcon";
             this.mainMenuIcon.Size = new System.Drawing.Size(1175, 25);
@@ -2771,25 +2769,10 @@
             this.timerForDateTime.Enabled = true;
             this.timerForDateTime.Tick += new System.EventHandler(this.timerForDateTime_Tick);
             // 
-            // MenuSelectBase
+            // toolStripSeparator2
             // 
-            this.MenuSelectBase.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsEnterPathCatalog,
-            this.tsSelectCatalog});
-            this.MenuSelectBase.Name = "MenuSelectBase";
-            this.MenuSelectBase.Size = new System.Drawing.Size(203, 48);
-            // 
-            // tsEnterPathCatalog
-            // 
-            this.tsEnterPathCatalog.Name = "tsEnterPathCatalog";
-            this.tsEnterPathCatalog.Size = new System.Drawing.Size(202, 22);
-            this.tsEnterPathCatalog.Text = "Указать путь к каталогу";
-            // 
-            // tsSelectCatalog
-            // 
-            this.tsSelectCatalog.Name = "tsSelectCatalog";
-            this.tsSelectCatalog.Size = new System.Drawing.Size(202, 22);
-            this.tsSelectCatalog.Text = "Выбрать каталог";
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // MainForm
             // 
@@ -2867,7 +2850,6 @@
             this.mainMenuIcon.ResumeLayout(false);
             this.mainMenuIcon.PerformLayout();
             this.TrayMenu.ResumeLayout(false);
-            this.MenuSelectBase.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3118,9 +3100,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tssDayTime;
         private System.Windows.Forms.ToolStripStatusLabel tssWorkTime;
         private System.Windows.Forms.Timer timerForDateTime;
-        private System.Windows.Forms.ContextMenuStrip MenuSelectBase;
-        private System.Windows.Forms.ToolStripMenuItem tsEnterPathCatalog;
-        private System.Windows.Forms.ToolStripMenuItem tsSelectCatalog;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

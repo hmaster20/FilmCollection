@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FC.Setup", "FC.Setup\FC.Setup.vdproj", "{59610BC7-58A2-4FFB-AC37-66EC65BF4FA4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -9,6 +9,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FC.Setup", "FC.Setup\FC.Set
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmCollection", "FC\FilmCollection.csproj", "{71390507-A2FE-4174-8D01-C37CC565B48F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Wizard", "FC.Wizard\FC.Wizard.csproj", "{0693A920-2A0B-457B-B288-1A0455E7FD5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,18 @@ Global
 		{71390507-A2FE-4174-8D01-C37CC565B48F}.Release|Mixed Platforms.Build.0 = Release|x86
 		{71390507-A2FE-4174-8D01-C37CC565B48F}.Release|x86.ActiveCfg = Release|x86
 		{71390507-A2FE-4174-8D01-C37CC565B48F}.Release|x86.Build.0 = Release|x86
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Debug|x86.Build.0 = Debug|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Release|x86.ActiveCfg = Release|Any CPU
+		{0693A920-2A0B-457B-B288-1A0455E7FD5A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
