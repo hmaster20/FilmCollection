@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Forms;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     public static class Logs
     {

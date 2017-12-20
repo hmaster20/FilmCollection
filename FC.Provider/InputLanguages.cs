@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     static class InputLanguages
     {

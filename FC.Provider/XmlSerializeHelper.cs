@@ -5,12 +5,11 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     public static class XmlSerializeHelper
     {
         static MemoryStream streamCollection { get; set; }
-
 
         #region Сохранение путем сериализации
         public static void SerializeAndSaveToMemory(object serializeObject)
@@ -32,7 +31,7 @@ namespace FilmCollection
         {
             lock (locker)
             {
-                using (FileStream stream = new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName)), FileMode.Create))
+                using (FileStream stream = new FileStream((Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), Generic.GetBaseName())), FileMode.Create))
                 {
                     streamCollection.Position = 0;
                     streamCollection.CopyTo(stream);
