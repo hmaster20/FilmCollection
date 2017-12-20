@@ -46,16 +46,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Wizard.cs">
+    <Compile Include="Form\Wizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Wizard.Designer.cs">
+    <Compile Include="Form\Wizard.Designer.cs">
       <DependentUpon>Wizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizard97.cs">
+    <Compile Include="Form\Wizard97.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Wizard97.Designer.cs">
+    <Compile Include="Form\Wizard97.Designer.cs">
       <DependentUpon>Wizard97.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -64,10 +64,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizard.resx">
+    <EmbeddedResource Include="Form\Wizard.resx">
       <DependentUpon>Wizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizard97.resx">
+    <EmbeddedResource Include="Form\Wizard97.resx">
       <DependentUpon>Wizard97.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -84,7 +84,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Description.txt" />
+    <Content Include="Pics\WizardLogo_128.png" />
     <Content Include="Pics\WizardLogo_64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

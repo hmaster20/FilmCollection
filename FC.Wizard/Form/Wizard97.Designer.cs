@@ -40,7 +40,7 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.wizardPageContainer1 = new AeroWizard.WizardPageContainer();
             this.wizardPage1 = new AeroWizard.WizardPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.wizardPage2 = new AeroWizard.WizardPage();
             this.wizardPage3 = new AeroWizard.WizardPage();
             this.startEndPicture = new System.Windows.Forms.PictureBox();
@@ -181,22 +181,20 @@
             // 
             // wizardPage1
             // 
-            this.wizardPage1.Controls.Add(this.textBox1);
+            this.wizardPage1.Controls.Add(this.label1);
             this.wizardPage1.Name = "wizardPage1";
             this.wizardPage1.Size = new System.Drawing.Size(316, 254);
             this.wizardPage1.TabIndex = 0;
             this.wizardPage1.Text = "Welcom";
             this.wizardPage1.Initialize += new System.EventHandler<AeroWizard.WizardPageInitEventArgs>(this.wizardPage1_Initialize);
             // 
-            // textBox1
+            // label1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(7, 4);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(304, 246);
-            this.textBox1.TabIndex = 0;
+            this.label1.Location = new System.Drawing.Point(7, 1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(304, 252);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
             // 
             // wizardPage2
             // 
@@ -217,11 +215,12 @@
             // 
             // startEndPicture
             // 
-            this.startEndPicture.BackColor = System.Drawing.Color.Navy;
+            this.startEndPicture.BackColor = System.Drawing.Color.LightSteelBlue;
             this.startEndPicture.Dock = System.Windows.Forms.DockStyle.Left;
-            this.startEndPicture.Image = global::FC.Wizard.Properties.Resources.WizardLogo_64;
+            this.startEndPicture.Image = global::FC.Wizard.Properties.Resources.WizardLogo_128;
             this.startEndPicture.Location = new System.Drawing.Point(0, 59);
             this.startEndPicture.Name = "startEndPicture";
+            this.startEndPicture.Padding = new System.Windows.Forms.Padding(17);
             this.startEndPicture.Size = new System.Drawing.Size(164, 254);
             this.startEndPicture.TabIndex = 6;
             this.startEndPicture.TabStop = false;
@@ -251,7 +250,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.wizardPageContainer1)).EndInit();
             this.wizardPageContainer1.ResumeLayout(false);
             this.wizardPage1.ResumeLayout(false);
-            this.wizardPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.startEndPicture)).EndInit();
             this.ResumeLayout(false);
 
@@ -274,6 +272,6 @@
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.PictureBox startEndPicture;
         private System.Windows.Forms.PictureBox headerImage;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -5,6 +5,12 @@ namespace FC.Wizard
 {
     public partial class Wizard97 : Form
     {
+        private const string Description = @"
+Вас приветствует
+Мастер создания
+базы
+        ";
+
         public Wizard97()
         {
             InitializeComponent();
@@ -15,6 +21,8 @@ namespace FC.Wizard
             cancelButton.Text = "Отмена";
 
             wizardPage1.Text = "Добро пожаловать!";
+            //textBox1.Text = Description;
+            label1.Text = Description;
         }
 
         private void wizardPageContainer1_Finished(object sender, EventArgs e)
