@@ -366,7 +366,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Provider\FC.Provider.csproj">
+      <Project>{13C020AD-F1B6-4E0F-94B1-003CC5AFE5EC}</Project>
+      <Name>FC.Provider</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

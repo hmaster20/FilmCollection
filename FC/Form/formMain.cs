@@ -14,6 +14,7 @@ using Shell32;
 using Thr = System.Threading;
 using System.Windows.Threading;
 using System.Threading.Tasks;
+using FC.Provider;
 
 namespace FilmCollection
 {

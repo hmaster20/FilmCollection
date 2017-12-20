@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.Linq;
+using FC.Provider;
 
 namespace FilmCollection
 {
