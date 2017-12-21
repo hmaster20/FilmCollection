@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     /// <summary>Класс содержит информацию о физических файлах.</summary>
     public class Record
@@ -34,7 +34,7 @@ namespace FilmCollection
             }
             else
             {
-                MessageBox.Show("Файл " + FileName + " не найден!");
+                Logs.Log("Файл " + FileName + " не найден!", null);
             }
         }
 
@@ -47,7 +47,7 @@ namespace FilmCollection
             }
             else
             {
-                MessageBox.Show("Отсутствует файл: " + _file);
+                Logs.Log("Отсутствует файл: " + _file, null);
             }
         }
 

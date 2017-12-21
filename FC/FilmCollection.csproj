@@ -97,16 +97,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
-    <Compile Include="Class\Main\_Sources.cs" />
     <Compile Include="Class\Utils\CSVhelper.cs" />
     <Compile Include="Class\Utils\FileDetails.cs" />
     <Compile Include="Class\Utils\HTMLhelper.cs" />
-    <Compile Include="Class\Utils\InputLanguages.cs" />
     <Compile Include="Class\Utils\DownloadDetails.cs" />
     <Compile Include="Class\Utils\TreeBuilder.cs" />
     <Compile Include="Class\Main\_Combine.cs" />
     <Compile Include="Class\Main\_Actor.cs" />
-    <Compile Include="Class\Main\Enum.cs" />
     <Compile Include="Class\Main\_Media.cs" />
     <Compile Include="Class\Main\RecordOptions.cs" />
     <Compile Include="Form\formAbout.cs">
@@ -183,9 +180,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Class\Main\_Record.cs" />
     <Compile Include="Class\Main\RecordCollection.cs" />
-    <Compile Include="Class\Utils\XmlSerializeHelper.cs" />
     <EmbeddedResource Include="Form\formAbout.resx">
       <DependentUpon>formAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -250,7 +245,6 @@
   <ItemGroup>
     <Content Include="ChangeLog.txt" />
     <Content Include="FC.ico" />
-    <Content Include="Library\Ionic.Zip.Reduced.dll" />
     <Content Include="Library\Microsoft.Msagl.dll" />
     <Content Include="Library\Microsoft.Msagl.Drawing.dll" />
     <Content Include="Library\Microsoft.Msagl.GraphViewerGdi.dll" />

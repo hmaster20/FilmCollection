@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     /// <summary>Источник файлов (коллекции) - по сути путь к каталогу базы</summary>
     public class Sources

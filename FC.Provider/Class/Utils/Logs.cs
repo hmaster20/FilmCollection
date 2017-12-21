@@ -25,6 +25,13 @@ namespace FC.Provider
 
                 // Почитать habrahabr.ru/post/98638/
             }
+            else
+            {
+                File.AppendAllText("log.txt", "\r\n-------------------");
+                File.AppendAllText("log.txt", (string.Format($"\r\n{DateTime.Now.ToString("yyyy.MM.dd_HH:mm:ss")}\r\n")));
+                File.AppendAllText("log.txt", message);
+                File.AppendAllText("log.txt", "\r\n");
+            }
         }
     }
 }
