@@ -11,8 +11,8 @@ namespace FC.Provider
     public class RecordCollection : ICloneable
     {
         [XmlElement]
-        public RecordOptions Options { get; set; } = new RecordOptions();
-        public RecordCollectionMaintenance Maintenance { get; set; } = new RecordCollectionMaintenance();
+        public RecordOptions Options { get; set; }
+        public RecordCollectionMaintenance Maintenance { get; set; }
 
         private static RecordCollection _recordCollection;
         public static RecordCollection GetInstance()
@@ -47,6 +47,8 @@ namespace FC.Provider
             ActorList = new List<Actor>();      // Создание списка актеров
             CombineList = new List<Combine>();  // Создание смешанного списка Record & Media
             SourceList = new List<Sources>();   // Создание списка источников данных
+            Maintenance = new RecordCollectionMaintenance();
+            Options = new RecordOptions();
         }
 
         public void Clear()
@@ -151,10 +153,11 @@ namespace FC.Provider
                     ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
                     : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 RecordCollectionMaintenance.CrashBase();
                 throw new ApplicationException($"Ошибка на этапе загрузки при десериализации. \n{ex.Message}");
-            }            
+            }
 
             Dictionary<int, Combine> combineDic = new Dictionary<int, Combine>();
             try
@@ -167,7 +170,7 @@ namespace FC.Provider
                 }
             }
             catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки с индексами медиа-файлов. \n" + ex.Message); }
-            
+
 
             Dictionary<int, Actor> actorDic = new Dictionary<int, Actor>();
             try
@@ -191,7 +194,7 @@ namespace FC.Provider
                 if (result.SourceList.Count > 0) SetSourceID(result.SourceList.Max(x => x.Id) + 1);
             }
             catch (Exception ex) { throw new ApplicationException("Ошибка на этапе загрузки файла базы. \n" + ex.Message); }
-            
+
 
             _recordCollection = result;
             return result;

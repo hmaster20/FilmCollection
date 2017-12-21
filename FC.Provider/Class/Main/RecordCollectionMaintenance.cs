@@ -10,6 +10,14 @@ namespace FC.Provider
 {
     public class RecordCollectionMaintenance
     {
+        //private Form main { get; set; }
+
+        //public RecordCollectionMaintenance(Form mainForm)
+        //{
+        //    main = mainForm;
+        //}
+
+ 
         private RecordCollection CurrentRC() => RecordCollection.GetInstance();
 
         public void NewBase(MainForm main)
