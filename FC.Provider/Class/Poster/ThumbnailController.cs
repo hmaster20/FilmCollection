@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     public delegate void ThumbnailImageEventHandler(object sender, ThumbnailImageEventArgs e);
     public delegate void ThumbnailControllerEventHandler(object sender, ThumbnailControllerEventArgs e);
@@ -27,7 +27,7 @@ namespace FilmCollection
             ImageFilename = _filename;
         }
 
-        internal string ImageFilename;
+        public string ImageFilename;
     }
 
     public class ThumbnailController

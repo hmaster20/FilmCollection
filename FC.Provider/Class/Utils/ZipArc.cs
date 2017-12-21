@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Ionic.Zip;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Ionic.Zip;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     public static class ZipArc
     {
@@ -34,7 +34,7 @@ namespace FilmCollection
             {
                 using (ZipFile zip = new ZipFile())
                 {
-                    zip.AddFile(RecordOptions.BaseName);
+                    zip.AddFile(Generic.GetBaseName());
                     zip.Save(zipName);
                 }
             }

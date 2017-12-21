@@ -26,7 +26,5 @@ namespace FC.Provider
         {
             return baseName;
         }
-
-        //public static string BaseName { get => baseName; set => baseName = value; }
     }
 }

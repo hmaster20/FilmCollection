@@ -11,7 +11,7 @@ using System.IO;
 using Ionic.Zip;
 
 
-namespace FilmCollection
+namespace FC.Provider
 {
     public class WebClientWithTimeout : WebClient
     {
@@ -49,7 +49,7 @@ namespace FilmCollection
 
 
 
-    class UpdateService
+    public class UpdateService
     {
        static void getUpdate()
         {

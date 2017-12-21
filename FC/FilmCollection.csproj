@@ -68,10 +68,6 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Library\Ionic.Zip.Reduced.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Msagl, Version=3.0.0.0, Culture=neutral, PublicKeyToken=640c57aa40e7ae7d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\Microsoft.Msagl.dll</HintPath>
@@ -108,30 +104,11 @@
     <Compile Include="Class\Utils\InputLanguages.cs" />
     <Compile Include="Class\Utils\DownloadDetails.cs" />
     <Compile Include="Class\Utils\TreeBuilder.cs" />
-    <Compile Include="Class\Utils\ZipArc.cs" />
-    <Compile Include="Class_Test\ManagedObjectMMF.cs" />
-    <Compile Include="Class_Test\MemoryMapped.cs" />
-    <Compile Include="Class_Test\UpdateService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Class\Poster\ImageViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Class\Poster\ImageViewer.Designer.cs">
-      <DependentUpon>ImageViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Class\Main\_Combine.cs" />
     <Compile Include="Class\Main\_Actor.cs" />
-    <Compile Include="Class\Poster\ThumbnailController.cs" />
-    <Compile Include="Class_Test\BinSerializeHelper.cs" />
     <Compile Include="Class\Main\Enum.cs" />
     <Compile Include="Class\Main\_Media.cs" />
     <Compile Include="Class\Main\RecordOptions.cs" />
-    <Compile Include="Class_Test\MyTextBox.cs" />
-    <Compile Include="Class_Test\TreeViewColletion.cs" />
-    <Compile Include="Class_Test\TreeViewFast.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Form\formAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -209,10 +186,6 @@
     <Compile Include="Class\Main\_Record.cs" />
     <Compile Include="Class\Main\RecordCollection.cs" />
     <Compile Include="Class\Utils\XmlSerializeHelper.cs" />
-    <EmbeddedResource Include="Class\Poster\ImageViewer.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ImageViewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\formAbout.resx">
       <DependentUpon>formAbout.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,4 +1,4 @@
-namespace FilmCollection
+namespace FC.Provider
 {
     partial class ImageViewer
     {
