@@ -456,9 +456,39 @@ namespace FilmCollection
 
         #region Главное меню
 
-        private void CreateBase_Click(object sender, EventArgs e) => RCollection.Maintenance.NewBase(this);
-        private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { RCollection.Maintenance.PreUpdate(this); })).Start();
-        private void CleanBase_Click(object sender, EventArgs e) => RCollection.Maintenance.CleanBase(this);
+        private void CreateBase_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
+            {
+                fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+                fbDialog.ShowNewFolderButton = false;
+
+                RCollection.Maintenance.NewBase(fbDialog);
+                //RCollection.Maintenance.NewBase(fbDialog.ShowDialog());
+
+                //DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+                //if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
+
+                UpdateStatusMenuButton();
+                FormLoad();
+            }
+        }
+
+        private void UpdateBase_Click(object sender, EventArgs e)
+        {
+            // => (new System.Threading.Thread(delegate () { RCollection.Maintenance.PreUpdate(this); })).Start();
+            RCollection.Maintenance.PreUpdate(this);
+        }
+
+        private void CleanBase_Click(object sender, EventArgs e)
+        {
+            RCollection.Maintenance.CleanBase();
+
+            TableRec.ClearSelection();      // выключаем селекты таблицы
+            PrepareRefresh();               // сбрасываем старые значения таблицы
+            MessageBox.Show("Очистка выполнена!");
+        }
+
 
         private void BackupBase_Click(object sender, EventArgs e)
         {
@@ -466,7 +496,19 @@ namespace FilmCollection
             ExistRecoveryDB();
         }
 
-        private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.RecoveryBase(this);
+        private void RecoveryBase_Click(object sender, EventArgs e)
+        {
+            using (RecoveryForm form = new RecoveryForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    RecordCollectionMaintenance.RecoveryBase(form.recoverBase);
+                    MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
+                    FormLoad(true);
+                }
+            }
+        }
+
         private void Exit_Click(object sender, EventArgs e) => Close();
 
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
@@ -517,7 +559,7 @@ namespace FilmCollection
 
         private static void History()
         {
-            using (fromChangeLog formLog = new fromChangeLog())
+            using (fromChangeLog formLog = new fromChangeLog())c
                 formLog.ShowDialog();
         }
 

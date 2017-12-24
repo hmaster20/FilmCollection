@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace FC.Provider
 {
-    static class InputLanguages
+    public static class InputLanguages
     {
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]

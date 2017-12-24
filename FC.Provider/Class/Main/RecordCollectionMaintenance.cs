@@ -17,65 +17,79 @@ namespace FC.Provider
         //    main = mainForm;
         //}
 
- 
+
         private RecordCollection CurrentRC() => RecordCollection.GetInstance();
 
-        public void NewBase(MainForm main)
+        public void NewBase(FolderBrowserDialog fbDialog)
         {
-            using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
+            if (File.Exists(RecordOptions.BaseName) && (RecordCollection.status())) // Если база есть, то запрашиваем удаление
             {
-                fbDialog.Description = "Укажите расположение файлов мультимедиа:";
-                fbDialog.ShowNewFolderButton = false;
+                DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No) BackupBase();
 
-                if (File.Exists(RecordOptions.BaseName) && (RecordCollection.status())) // Если база есть, то запрашиваем удаление
-                {
-                    DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.No) BackupBase();
-
-                    File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                    if (RecordCollection.status()) CurrentRC().Clear();       // очищаем коллекцию
-
-                    main.treeFolder.Nodes.Clear();       // очищаем иерархию
-                    main.TableRec.ClearSelection();      // выключаем селекты таблицы
-                    main.PrepareRefresh();               // сбрасываем старые значения таблицы
-                }
-                else
-                {
-                    File.Create(RecordOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
-                }
-
-                DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
-                if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
-
-                main.BeginInvoke((MethodInvoker)(() => main.UpdateStatusMenuButton()));
+                File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                if (RecordCollection.status()) CurrentRC().Clear();       // очищаем коллекцию                    
             }
-        }
-
-        private void CreateBase(FolderBrowserDialog fbDialog, MainForm main)
-        {
-            string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
-
-            DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
-                                                                MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-
-            if (CheckfolderName == DialogResult.Cancel) NewBase(main);
-
-            DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
-            if (directory.Exists)
+            else
             {
-                RecordCollection rc = new RecordCollection();
-                RecordCollection.SetInstance(rc);
-                int id = CurrentRC().AddSource(directory.FullName);// Сохранение каталога фильмов
-
-                foreach (FileInfo file in GetFilesFrom(directory))
-                    CreateCombine(file, id);
+                File.Create(RecordOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
             }
 
-            CurrentRC().Save();
-            CurrentRC().SaveToFile();
+            DialogResult dialogStatus = fbDialog.ShowDialog();  
+            if (dialogStatus == DialogResult.OK)// Запрашиваем новый каталог с коллекцией видео
+            {
+                string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
 
-            main.FormLoad();
+                DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
+                                                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+                if (CheckfolderName == DialogResult.Cancel) NewBase(fbDialog);
+
+                DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
+                if (directory.Exists)
+                {
+                    RecordCollection rc = new RecordCollection();
+                    RecordCollection.SetInstance(rc);
+                    int id = CurrentRC().AddSource(directory.FullName);// Сохранение каталога фильмов
+
+                    foreach (FileInfo file in GetFilesFrom(directory))
+                        CreateCombine(file, id);
+                }
+
+                CurrentRC().Save();
+                CurrentRC().SaveToFile();
+
+                //main.FormLoad();
+            }
+              
+
+
+
+            //using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
+            //{
+            //    fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+            //    fbDialog.ShowNewFolderButton = false;
+
+            //    if (File.Exists(RecordOptions.BaseName) && (RecordCollection.status())) // Если база есть, то запрашиваем удаление
+            //    {
+            //        DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //        if (result == DialogResult.No) BackupBase();
+
+            //        File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+            //        if (RecordCollection.status()) CurrentRC().Clear();       // очищаем коллекцию                    
+            //    }
+            //    else
+            //    {
+            //        File.Create(RecordOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
+            //    }
+
+            //    DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+            //    if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
+
+            //    main.BeginInvoke((MethodInvoker)(() => main.UpdateStatusMenuButton()));
+            //}
         }
+
 
         public void PreUpdate(MainForm main)
         {
@@ -232,14 +246,14 @@ namespace FC.Provider
             record.FilePath = file.DirectoryName;   // полный путь (C:\Folder)
             record.Visible = true;              // видимость
             record.FileExt = file.Extension.Trim('.');            // расширение файла (avi)
-                                                                    //record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
-                                                                    //record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
-                                                                    // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
-                                                                    //record.Path = file.DirectoryName.Remove(0, CurrentRC().SourceList.First(x => x.Id == id).Source.Length + 1);
-                                                                    //  
-                                                                    //int dlina = CurrentRC().SourceList[0].Source.Length;
-                                                                    //string sss = CurrentRC().SourceList[0].Source;
-                                                                    //if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) record.Path = file.DirectoryName.Substring(dlina + 1);
+                                                                  //record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                                                                  //record.DirName = file.Directory.Name;                   // папка с фильмом (Folder)
+                                                                  // if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) strr = file.DirectoryName.Substring(dlinna + 1); //Обрезка строку путь C:\temp\1\11 -> 1\11
+                                                                  //record.Path = file.DirectoryName.Remove(0, CurrentRC().SourceList.First(x => x.Id == id).Source.Length + 1);
+                                                                  //  
+                                                                  //int dlina = CurrentRC().SourceList[0].Source.Length;
+                                                                  //string sss = CurrentRC().SourceList[0].Source;
+                                                                  //if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) record.Path = file.DirectoryName.Substring(dlina + 1);
             record.FilePath = file.DirectoryName.Remove(0, CurrentRC().SourceList.First(x => x.Id == id).Source.Length);
             record.SourceID = id;
             return record;
@@ -295,32 +309,45 @@ namespace FC.Provider
             return files.Length;
         }
 
-        public static void RecoveryBase(MainForm main)
+        public static void RecoveryBase(string recoverBase)
         {
-            using (RecoveryForm form = new RecoveryForm())
+            try
             {
-                if (form.ShowDialog() == DialogResult.OK)
+                if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
                 {
-                    try
-                    {
-                        if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
-                        {
-                            string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
-                                + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
-                                + Path.GetExtension(RecordOptions.BaseName);
-                            File.Copy(RecordOptions.BaseName, BadFileBase);
-                        }
-                        File.Copy(form.recoverBase, RecordOptions.BaseName, true);
-                    }
-                    catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
-
-                    MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
-                    main.BeginInvoke((MethodInvoker)(() => main.FormLoad(true)));
+                    string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                        + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
+                        + Path.GetExtension(RecordOptions.BaseName);
+                    File.Copy(RecordOptions.BaseName, BadFileBase);
                 }
+                File.Copy(recoverBase, RecordOptions.BaseName, true);
             }
+            catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
+
+            //using (RecoveryForm form = new RecoveryForm())
+            //{
+            //    if (form.ShowDialog() == DialogResult.OK)
+            //    {
+            //        try
+            //        {
+            //            if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
+            //            {
+            //                string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+            //                    + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
+            //                    + Path.GetExtension(RecordOptions.BaseName);
+            //                File.Copy(RecordOptions.BaseName, BadFileBase);
+            //            }
+            //            File.Copy(form.recoverBase, RecordOptions.BaseName, true);
+            //        }
+            //        catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
+
+            //        MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
+            //        main.BeginInvoke((MethodInvoker)(() => main.FormLoad(true)));
+            //    }
+            //}
         }
 
-        public void CleanBase(MainForm main)   // очистка базы путем удаления старых файлов видео
+        public void CleanBase()   // очистка базы путем удаления старых файлов видео
         {
             for (int i = 0; i < CurrentRC().CombineList.Count; i++)
             {
@@ -332,13 +359,13 @@ namespace FC.Provider
             }
 
             CurrentRC().Save();
-            main.BeginInvoke((MethodInvoker)(() =>
-            {
-                // main.treeFolder.Nodes.Clear();       // очищаем иерархию (добавить обработку очистки дерева)
-                main.TableRec.ClearSelection();      // выключаем селекты таблицы
-                main.PrepareRefresh();               // сбрасываем старые значения таблицы
-            }));
-            MessageBox.Show("Очистка выполнена!");
+            //main.BeginInvoke((MethodInvoker)(() =>
+            //{
+            //    // main.treeFolder.Nodes.Clear();       // очищаем иерархию (добавить обработку очистки дерева)
+            //    main.TableRec.ClearSelection();      // выключаем селекты таблицы
+            //    main.PrepareRefresh();               // сбрасываем старые значения таблицы
+            //}));
+            //MessageBox.Show("Очистка выполнена!");
         }
     }
 }
