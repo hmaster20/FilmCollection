@@ -559,7 +559,7 @@ namespace FilmCollection
 
         private static void History()
         {
-            using (fromChangeLog formLog = new fromChangeLog())c
+            using (fromChangeLog formLog = new fromChangeLog())
                 formLog.ShowDialog();
         }
 
