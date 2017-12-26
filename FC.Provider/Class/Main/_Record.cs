@@ -12,8 +12,8 @@ namespace FC.Provider
         public bool Visible { get; set; }       // Видимость записи
         public string Name { get; set; }        // Название Фильма
         public string FileName { get; set; }    // Название файла
-        public string FileExt { get; set; }   // Расширение (тип) файла (avi, mkv, mpeg)
-        public string FilePath { get; set; }        // Путь к файлу
+        public string FileExt { get; set; }     // Расширение (тип) файла (avi, mkv, mpeg)
+        public string FilePath { get; set; }    // Путь к файлу
         public int SourceID { get; set; }       // Идентификатор пути к корневому каталогу
 
 
@@ -21,7 +21,7 @@ namespace FC.Provider
         {
             if (string.IsNullOrWhiteSpace(_file)) _file = FileName;
             //return Path.Combine((RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source).Trim(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
-            return Path.Combine((RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source).TrimEnd(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
+            return Path.Combine((RecordCollection.CurrentInstance().SourceList.FindLast(x => x.Id == SourceID).Source).TrimEnd(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
         }
 
         public void reName(string NewFileName)

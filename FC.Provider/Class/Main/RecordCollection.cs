@@ -15,7 +15,7 @@ namespace FC.Provider
         public RecordCollectionMaintenance Maintenance { get; set; }
 
         private static RecordCollection _recordCollection;
-        public static RecordCollection GetInstance()
+        public static RecordCollection CurrentInstance()
         {
             try
             {

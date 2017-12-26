@@ -17,7 +17,7 @@ namespace FC.Provider
 {
     public partial class ucChart : UserControl
     {
-        private MainForm main { get; set; }
+        //private MainForm main { get; set; }
         private Dictionary<string, string> rcDic { get; set; }
 
         public ucChart()
@@ -25,12 +25,12 @@ namespace FC.Provider
             InitializeComponent();
         }
 
-        internal void update(Record _record, MainForm mainForm)
+        public void update(Record _record)
         {
-            main = mainForm;
+            //main = mainForm;
 
             rcDic = new Dictionary<string, string>();
-            RecordCollection _videoCollection = RecordCollection.GetInstance();
+            RecordCollection _videoCollection = RecordCollection.CurrentInstance();
             List<Actor> acts = new List<Actor>();
 
             if (_record.combineLink.media.ActorListID != null)
@@ -108,10 +108,14 @@ namespace FC.Provider
                 viewer.Graph.FindNode(node.Id).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Gray;
                 //Debug.Print(node.Id);
                 //Debug.Print(node.Label.Text);
-                if (main != null)
-                {
-                    main.SelectActor(node.Id);
-                }
+                //if (main != null)
+                //{
+                //    main.SelectActor(node.Id);
+                //}
+
+                // Возможно использовать события
+                MessageBox.Show("Для передачи выбранного селекта в main возможно использовать события");
+
             }
         }
 
@@ -229,7 +233,7 @@ namespace FC.Provider
             if (gViewer.SelectedObject is Node)
             {
                 Node node = gViewer.SelectedObject as Node;
-                RecordCollection _videoCollection = RecordCollection.GetInstance();
+                RecordCollection _videoCollection = RecordCollection.CurrentInstance();
                 List<Actor> acts = new List<Actor>();
 
                 if (_videoCollection.ActorList.Exists(x => x.FIO == node.Id) && _videoCollection.ActorList.First(x => x.FIO == node.Id).VideoID.Count > 0)

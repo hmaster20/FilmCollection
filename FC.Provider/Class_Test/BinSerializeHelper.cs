@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 //using System.Windows;
 using System.Windows.Forms;
 
-namespace FilmCollection
+namespace FC.Provider
 {
    static class BinSerializeHelper
     {

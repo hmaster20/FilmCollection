@@ -20,7 +20,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Diagr\ucChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\Diagr\ucChart.Designer.cs">
+      <DependentUpon>ucChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class\Main\Enum.cs" />
     <Compile Include="Class\Main\RecordCollection.cs" />
     <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
@@ -99,6 +105,9 @@
     <Compile Include="Class\Utils\ZipArc.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Class\Diagr\ucChart.resx">
+      <DependentUpon>ucChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Class\Poster\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>
       <SubType>Designer</SubType>

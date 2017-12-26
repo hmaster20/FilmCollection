@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FilmCollection
+namespace FC.Provider
 {
     public class Catalog
     {

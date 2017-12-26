@@ -17,9 +17,9 @@ namespace FC.Provider
 
         static Media _media { get; set; }
 
-        public static void GetInfo(Record record, MainForm mainForm)
+        public static Record GetInfo(Record record)
         {
-            if (record == null) return;
+            if (record == null) return null;
 
             Media media = record.combineLink.media;
             _media = (Media)media.Clone();
@@ -54,7 +54,8 @@ namespace FC.Provider
                     }
                     MList.Add(_media);
                 }
-                OpenFormSelectMedia(MList, record);
+                //OpenFormSelectMedia(MList, record);
+                MessageBox.Show("OpenFormSelectMedia - временно отключен!");
             }
             else if (mc.Count == 1)
             {
@@ -79,7 +80,12 @@ namespace FC.Provider
                 ApprovePic();
                 _media.Id = record.combineLink.media.Id;
                 record.combineLink.media = _media;
-                mainForm.BeginInvoke((MethodInvoker)(() => { mainForm.AfterUpdateRefresh(record); }));
+                //mainForm.BeginInvoke((MethodInvoker)(() => { mainForm.AfterUpdateRefresh(record); }));
+                return record;
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -107,7 +113,7 @@ namespace FC.Provider
         {
             if (_media != null)
             {
-                RecordCollection _videoCollection = RecordCollection.GetInstance();
+                RecordCollection _videoCollection = RecordCollection.CurrentInstance();
                 List<string> Actors = new List<string>();
                 _media.ActorList.ForEach(act => Actors.Add(act.FIO));
                 _media.ActorList.Clear();
@@ -153,20 +159,20 @@ namespace FC.Provider
         }
 
 
-        private static void OpenFormSelectMedia(List<Media> MList, Record record)
-        {
-            using (formSelectMedia form = new formSelectMedia(MList, record))
-            {
-                switch (form.ShowDialog())
-                {
-                    case DialogResult.OK:
-                        if (form.media != null) _media = (Media)form.media.Clone();
-                        break;
-                    case DialogResult.Cancel: _media = null; break;
-                    default: break;
-                }
-            }
-        }
+        //private static void OpenFormSelectMedia(List<Media> MList, Record record)
+        //{
+        //    using (formSelectMedia form = new formSelectMedia(MList, record))
+        //    {
+        //        switch (form.ShowDialog())
+        //        {
+        //            case DialogResult.OK:
+        //                if (form.media != null) _media = (Media)form.media.Clone();
+        //                break;
+        //            case DialogResult.Cancel: _media = null; break;
+        //            default: break;
+        //        }
+        //    }
+        //}
 
         /// <summary>получение веб-страницы</summary><param name="url"></param><returns></returns>
         private static string GetHtml(string url)
