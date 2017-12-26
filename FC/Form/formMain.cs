@@ -476,8 +476,107 @@ namespace FilmCollection
 
         private void UpdateBase_Click(object sender, EventArgs e)
         {
-            // => (new System.Threading.Thread(delegate () { RCollection.Maintenance.PreUpdate(this); })).Start();
-            RCollection.Maintenance.PreUpdate(this);
+            UPD();
+        }
+
+        public void UPD()
+        {
+            try
+            {
+                if (RCollection.SourceList.Count < 1)
+                {
+                    MessageBox.Show("Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    //foreach (Sources source in CurrentRC().SourceList)
+                    //   Update(CurrentRC(), source);
+
+                    foreach (Sources src in RCollection.SourceList)
+                    {
+                        int Counter = RCollection.CombineList.Count;
+                        if (Counter < 1)
+                        {
+                            DirectoryInfo directory = new DirectoryInfo(src.Source);
+                            if (directory.Exists)
+                            {
+                                tsProgressBar.Visible = true;
+                                tsProgressBar.Maximum = Counter;
+
+                                for (int i = 0; i < Counter; i++)
+                                {
+                                    RCollection.CombineList[i].invisibleRecord(); // скрываем файлы
+
+                                    if (i <= tsProgressBar.Maximum)    // Обработка возможной ошибки
+                                    {
+                                        tsProgressBar.Value = i;
+                                        FindStatusLabel.Text = i + " из " + Counter;
+                                    }
+                                }
+
+                                IEnumerable<FileInfo> AllMediaFiles = RecordCollectionMaintenance.GetFilesFrom(directory);
+
+                                tsProgressBar.Value = 0;
+                                tsProgressBar.Maximum = AllMediaFiles.Count();
+                                FindStatusLabel.Text = AllMediaFiles.Count().ToString();
+
+                                List<FileInfo> files = AllMediaFiles.ToList();
+
+                                int findCount = 0;
+
+                                for (int i = 0; i < files.Count; i++)
+                                {
+                                    tsProgressBar.Value = i;
+                                    FindStatusLabel.Text = i.ToString() + " из " + files.Count.ToString();
+
+
+                                    FileInfo file = files[i];
+                                    Record record = new Record();
+                                    record.FileName = file.Name;                            // полное название файла (film.avi)
+                                    //record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                                    record.FilePath = file.DirectoryName.Remove(0, src.Source.Length);
+                                    record.SourceID = src.Id;
+
+                                    if (!RCollection.Maintenance.RecordExist(record))
+                                    {
+                                        findCount++;
+                                        RCollection.Maintenance.CreateCombine(file, src.Id); // если файла нет в коллекции, создаем
+                                    }
+                                }
+
+                                tsProgressBar.Value = 0;
+                                tsProgressBar.Enabled = false;
+                                tsProgressBar.Visible = false;
+                                FindStatusLabel.Text = "";
+
+
+                                DialogResult result = MessageBox.Show("Сведения в каталоге обновлены. Применить обновление ?", "Обновление каталога", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                                if (result != DialogResult.OK)
+                                {
+                                    return;
+                                }
+
+                                RCollection.Save();
+                                RCollection.SaveToFile();
+
+                                string message = (findCount > 0)
+                                    ? ("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!")
+                                    : ("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                                MessageBox.Show(message);
+
+                                FormLoad(true);
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Каталог " + directory + " не обнаружен!");
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
         }
 
         private void CleanBase_Click(object sender, EventArgs e)
@@ -2287,9 +2386,17 @@ namespace FilmCollection
             //foreach (Combine cm in cmList.Distinct().ToList())
             //    DownloadDetails.GetInfo(cm.media, _videoCollection);
 
+            //foreach (Combine cm in cmList.Distinct().ToList())
+            //    foreach (Record rec in cm.recordList)
+            //        (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(rec, this); })).Start();
+
             foreach (Combine cm in cmList.Distinct().ToList())
                 foreach (Record rec in cm.recordList)
-                    (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(rec, this); })).Start();
+                    if (DownloadDetails.GetInfo(GetSelectedRecord()) != null)
+                    {
+                        AfterUpdateRefresh(DownloadDetails.GetInfo(GetSelectedRecord()));
+                    }
+
             //DownloadDetails.GetInfo(rec);
             //DownloadDetails.GetInfo(rec, _videoCollection);
 
@@ -2309,7 +2416,7 @@ namespace FilmCollection
             if (record != null)
             {
                 tabControl2.SelectTab(tabDiagram);
-                ucDiagr.update(record, this);
+                ucDiagr.update(record);
 
                 // panelScheme.BringToFront();
                 // ucScheme.update(record);
@@ -2321,7 +2428,17 @@ namespace FilmCollection
 
         #region обработка информации по одному фильму
 
-        private void UpdateInfo() => (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(GetSelectedRecord(), this); })).Start();
+        //private void UpdateInfo() => (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(GetSelectedRecord(), this); })).Start();
+        private void UpdateInfo()
+        {
+           //DownloadDetails.GetInfo(GetSelectedRecord(), this);
+           // AfterUpdateRefresh(record);
+
+            if (DownloadDetails.GetInfo(GetSelectedRecord()) != null)
+            {
+                AfterUpdateRefresh(DownloadDetails.GetInfo(GetSelectedRecord()));
+            }
+        }
 
         internal void AfterUpdateRefresh(Record record)
         {

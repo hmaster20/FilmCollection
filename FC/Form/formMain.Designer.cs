@@ -1,4 +1,6 @@
-﻿namespace FilmCollection
+﻿using FC.Provider;
+
+namespace FilmCollection
 {
     partial class MainForm
     {
@@ -169,7 +171,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panelScheme = new System.Windows.Forms.Panel();
-            this.ucScheme = new FilmCollection.ucChart();
+            this.ucScheme = new FC.Provider.ucChart();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -247,7 +249,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.tabDiagram = new System.Windows.Forms.TabPage();
-            this.ucDiagr = new FilmCollection.ucChart();
+            this.ucDiagr = new FC.Provider.ucChart();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.mainMenuIcon = new System.Windows.Forms.ToolStrip();

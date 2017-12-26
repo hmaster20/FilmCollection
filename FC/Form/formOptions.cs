@@ -191,7 +191,8 @@ namespace FilmCollection
                     int id = VC.AddSource(directory.FullName);
                     ListUpdate(VC);
 
-                    (new System.Threading.Thread(delegate () { VC.Maintenance.PreUpdate(mainForm); })).Start();
+                    mainForm.UPD();
+                    //(new System.Threading.Thread(delegate () { VC.Maintenance.PreUpdate(mainForm); })).Start();
 
                     // (new System.Threading.Thread(delegate () { VC.Maintenance.Update(mainForm, VC, VC.SourceList.FindLast(x => x.Id == id)); })).Start();
                 }

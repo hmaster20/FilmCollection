@@ -27,7 +27,7 @@ namespace FilmCollection
             {
                 this.main = main;
                 this.record = _record;
-                this._videoCollection = RecordCollection.GetInstance();
+                this._videoCollection = RecordCollection.CurrentInstance();
 
                 tbfName.Text = _record.mName;
                 tbfDesc.Text = _record.mDescription;
