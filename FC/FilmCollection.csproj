@@ -310,22 +310,22 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>@echo off
-echo $(ConfigurationName) &gt; buildenv.tmp
-echo $(Configuration) &gt;&gt; buildenv.tmp
-echo $(Platform) &gt;&gt; buildenv.tmp
-echo $(BuildDefinitionName) &gt;&gt; buildenv.tmp
-echo $(SolutionDir) &gt;&gt; buildenv.tmp
-echo $(SolutionPath) &gt;&gt; buildenv.tmp
-echo $(SolutionName) &gt;&gt; buildenv.tmp
-echo $(SolutionFileName) &gt;&gt; buildenv.tmp
-echo $(ProjectDir) &gt;&gt; buildenv.tmp
-echo $(ProjectName) &gt;&gt; buildenv.tmp
-echo $(ProjectFileName) &gt;&gt; buildenv.tmp
-echo $(TargetPath) &gt;&gt; buildenv.tmp
-echo $(TargetName) &gt;&gt; buildenv.tmp
-echo $(TargetFileName) &gt;&gt; buildenv.tmp
-echo $(AssemblyName) &gt;&gt; buildenv.tmp
-echo $(CodePage) &gt;&gt; buildenv.tmp</PostBuildEvent>
+echo $(ConfigurationName)
+echo $(Configuration)
+echo $(Platform)
+echo $(BuildDefinitionName)
+echo $(SolutionDir)
+echo $(SolutionPath)
+echo $(SolutionName)
+echo $(SolutionFileName)
+echo $(ProjectDir)
+echo $(ProjectName)
+echo $(ProjectFileName)
+echo $(TargetPath)
+echo $(TargetName)
+echo $(TargetFileName)
+echo $(AssemblyName)
+echo $(CodePage)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
