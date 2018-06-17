@@ -50,7 +50,16 @@ namespace FC.Provider
                                where rec.Visible == true
                                where rec.SourceID == src.Id
                                select rec.FilePath).OrderBy(name => name).Where(n => n.Length > 0).ToList());
-            pathList.Select(x => x).Distinct();
+            //pathList.Select(x => x).Distinct();
+
+            //for (int i = 1; i < pathList.Count; i++)
+            //{
+            //    pathList[i] = src.Source + pathList[i];
+            //}
+            //Debug.Print("Выполнен проход создания списка каталогов для ветки: " + src.Source);
+            //return pathList;
+
+            pathList = pathList.Select(x => x).Distinct().ToList();
 
             for (int i = 1; i < pathList.Count; i++)
             {

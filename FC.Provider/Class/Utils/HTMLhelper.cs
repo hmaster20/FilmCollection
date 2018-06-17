@@ -192,7 +192,7 @@ namespace FC.Provider
 
                     string currentFolder2 = System.IO.Path.GetDirectoryName(fileDialog.FileName);
                     FileInfo fileInfo = new FileInfo(fileDialog.FileName);
-                    string name = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
+                    //string name = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
 
                     fileReport = fileInfo.Name.Substring(0, fileInfo.Name.LastIndexOf(fileInfo.Extension));
 

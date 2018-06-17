@@ -24,7 +24,8 @@ namespace FC.Provider
             else
             {
                 //Debug.Print("Directory.Exists(BackFolder) = " + Directory.Exists(BackFolder));
-                return true;
+                //return true;
+                return false;
             }
         }
 

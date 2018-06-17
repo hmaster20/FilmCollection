@@ -495,7 +495,7 @@ namespace FilmCollection
                     foreach (Sources src in RCollection.SourceList)
                     {
                         int Counter = RCollection.CombineList.Count;
-                        if (Counter < 1)
+                        if (Counter > 1)
                         {
                             DirectoryInfo directory = new DirectoryInfo(src.Source);
                             if (directory.Exists)

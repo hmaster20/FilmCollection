@@ -101,7 +101,8 @@ namespace FC.Provider
 
                 if (img != null)
                 {
-                    OnAdd(this, new ThumbnailControllerEventArgs(file));
+                    //OnAdd(this, new ThumbnailControllerEventArgs(file));
+                    OnAdd?.Invoke(this, new ThumbnailControllerEventArgs(file));
 
                     img.Dispose();
                 }

@@ -34,7 +34,7 @@ namespace FC.Provider
                 {
                     //The web server may return 500(Internal Server Error) if the user agent header is missing.
                     wc.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)");
-                    somestring = wc.DownloadString("http://www.example.com/somefile.txt");
+                    //somestring = wc.DownloadString("http://www.example.com/somefile.txt");
                 }
             }
             catch (WebException we)
