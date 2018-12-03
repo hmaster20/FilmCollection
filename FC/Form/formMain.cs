@@ -14,11 +14,10 @@ using Shell32;
 using Thr = System.Threading;
 using System.Windows.Threading;
 using System.Threading.Tasks;
+using FC.Provider;
 
 namespace FilmCollection
 {
-#pragma warning disable CS0436
-
     public partial class MainForm : Form
     {
         #region Общедоступные свойства
@@ -151,6 +150,23 @@ namespace FilmCollection
             #endregion
 
             TimeCounter = Stopwatch.StartNew();
+
+            ExistRecoveryDB();
+        }
+
+        private void ExistRecoveryDB()
+        {
+            bool state;
+            if (RecordCollectionMaintenance.RecoveryFilesExist() < 1)
+            {
+                state = false;
+            }
+            else
+            {
+                state = true;
+            }
+            tsRecoveryDB.Enabled = state;
+            btnRecoveryBase.Enabled = state;
         }
 
         private void timerForDateTime_Tick(object sender, EventArgs e)
@@ -158,7 +174,7 @@ namespace FilmCollection
             TimeSpan aa = DateTime.UtcNow - Process.GetCurrentProcess().StartTime.ToUniversalTime();
             var str = string.Format("{0:00}:{1:00}:{2:00}", aa.Hours, aa.Minutes, aa.Seconds);
             tssWorkTime.Text = "Время работы: " + str;
-            
+
             tssDayTime.Text = System.DateTime.Now.ToString();
 
             //tssWorkTime.Text = TimeCounter.Elapsed.ToString();
@@ -218,7 +234,23 @@ namespace FilmCollection
             // загрузка параметров из файла конфигурации
             RecordOptions.ToTray = Settings.Default.ToTray;
             LastNode = Settings.Default.TreeFolderSelect;
+
+            //bool state = FormLoad(true);
+
             FormLoad(true);
+
+            //bool state;
+            //if (RCollection != null && RCollection.CombineList.Count > 0)
+            //{
+            //    state = true;
+            //}
+            //else
+            //{
+            //    state = false;
+            //}
+            //tsUpdateDB.Enabled = state;
+            //btnUpdateBase.Enabled = state;
+
             UpdateStatusMenuButton();
             ReloadPoster();
             LoadFormVisualEffect();
@@ -306,9 +338,10 @@ namespace FilmCollection
             bool state = false;
             switch (tabControlNumber())
             {
-                case 0: if (TableRec.Rows.Count > 0) { state = true; }; break;
-                case 1: if (dgvTableActors.Rows.Count > 0) { state = true; }; break;
-                case 2: if (flowLayoutPanelMain.Controls.Count > 0) { state = true; }; break;
+                case 0: if (TableRec.Rows.Count > 0) { state = true; }; tsHidePanel.Enabled = true; break;
+                case 1: if (dgvTableActors.Rows.Count > 0) { state = true; }; tsHidePanel.Enabled = true; break;
+                case 2: if (flowLayoutPanelMain.Controls.Count > 0) { state = true; }; tsHidePanel.Enabled = false; break;
+                case 3: tsHidePanel.Enabled = false; break;
                 default: break;
             }
 
@@ -317,6 +350,22 @@ namespace FilmCollection
             tsRemove.Enabled = state;
             tsFind.Enabled = state;
             tsFindbyName.Enabled = state;
+            menuTableRec.Enabled = state;
+            cbIsVisible.Enabled = state;
+            menuTableAct.Enabled = state;
+            trackBarSize.Enabled = state;
+
+            bool StateCollection;
+            if (RCollection != null && RCollection.CombineList.Count > 0)
+            {
+                StateCollection = true;
+            }
+            else
+            {
+                StateCollection = false;
+            }
+            tsUpdateDB.Enabled = StateCollection;
+            btnUpdateBase.Enabled = StateCollection;
         }
 
         private void FormClose(FormClosingEventArgs e)    // обработка события Close()
@@ -407,12 +456,158 @@ namespace FilmCollection
 
         #region Главное меню
 
-        private void CreateBase_Click(object sender, EventArgs e) => RCollection.Maintenance.NewBase(this);
-        private void UpdateBase_Click(object sender, EventArgs e) => (new System.Threading.Thread(delegate () { RCollection.Maintenance.PreUpdate(this); })).Start();
-        private void CleanBase_Click(object sender, EventArgs e) => RCollection.Maintenance.CleanBase(this);
+        private void CreateBase_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog fbDialog = new FolderBrowserDialog())
+            {
+                fbDialog.Description = "Укажите расположение файлов мультимедиа:";
+                fbDialog.ShowNewFolderButton = false;
 
-        private void BackupBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.BackupBase();
-        private void RecoveryBase_Click(object sender, EventArgs e) => RecordCollectionMaintenance.RecoveryBase(this);
+                RCollection.Maintenance.NewBase(fbDialog);
+                //RCollection.Maintenance.NewBase(fbDialog.ShowDialog());
+
+                //DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
+                //if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
+
+                UpdateStatusMenuButton();
+                FormLoad();
+            }
+        }
+
+        private void UpdateBase_Click(object sender, EventArgs e)
+        {
+            UPD();
+        }
+
+        public void UPD()
+        {
+            try
+            {
+                if (RCollection.SourceList.Count < 1)
+                {
+                    MessageBox.Show("Перед обновлением необходимо создать базу данных!", "Обновление коллекции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    //foreach (Sources source in CurrentRC().SourceList)
+                    //   Update(CurrentRC(), source);
+
+                    foreach (Sources src in RCollection.SourceList)
+                    {
+                        int Counter = RCollection.CombineList.Count;
+                        if (Counter > 1)
+                        {
+                            DirectoryInfo directory = new DirectoryInfo(src.Source);
+                            if (directory.Exists)
+                            {
+                                tsProgressBar.Visible = true;
+                                tsProgressBar.Maximum = Counter;
+
+                                for (int i = 0; i < Counter; i++)
+                                {
+                                    RCollection.CombineList[i].invisibleRecord(); // скрываем файлы
+
+                                    if (i <= tsProgressBar.Maximum)    // Обработка возможной ошибки
+                                    {
+                                        tsProgressBar.Value = i;
+                                        FindStatusLabel.Text = i + " из " + Counter;
+                                    }
+                                }
+
+                                IEnumerable<FileInfo> AllMediaFiles = RecordCollectionMaintenance.GetFilesFrom(directory);
+
+                                tsProgressBar.Value = 0;
+                                tsProgressBar.Maximum = AllMediaFiles.Count();
+                                FindStatusLabel.Text = AllMediaFiles.Count().ToString();
+
+                                List<FileInfo> files = AllMediaFiles.ToList();
+
+                                int findCount = 0;
+
+                                for (int i = 0; i < files.Count; i++)
+                                {
+                                    tsProgressBar.Value = i;
+                                    FindStatusLabel.Text = i.ToString() + " из " + files.Count.ToString();
+
+
+                                    FileInfo file = files[i];
+                                    Record record = new Record();
+                                    record.FileName = file.Name;                            // полное название файла (film.avi)
+                                    //record.Path = file.DirectoryName;                       // полный путь (C:\Folder)
+                                    record.FilePath = file.DirectoryName.Remove(0, src.Source.Length);
+                                    record.SourceID = src.Id;
+
+                                    if (!RCollection.Maintenance.RecordExist(record))
+                                    {
+                                        findCount++;
+                                        RCollection.Maintenance.CreateCombine(file, src.Id); // если файла нет в коллекции, создаем
+                                    }
+                                }
+
+                                tsProgressBar.Value = 0;
+                                tsProgressBar.Enabled = false;
+                                tsProgressBar.Visible = false;
+                                FindStatusLabel.Text = "";
+
+
+                                DialogResult result = MessageBox.Show("Сведения в каталоге обновлены. Применить обновление ?", "Обновление каталога", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                                if (result != DialogResult.OK)
+                                {
+                                    return;
+                                }
+
+                                RCollection.Save();
+                                RCollection.SaveToFile();
+
+                                string message = (findCount > 0)
+                                    ? ("Обновлены сведения в каталоге \"" + directory + "\" для " + findCount + " файла(-ов)!")
+                                    : ("Сведения о файлах в каталоге \"" + directory + "\" обновлены!");
+                                MessageBox.Show(message);
+
+                                FormLoad(true);
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Каталог " + directory + " не обнаружен!");
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (ApplicationException ex) { Logs.Log("При обновлении базы произошла ошибка:", ex); }
+        }
+
+        private void CleanBase_Click(object sender, EventArgs e)
+        {
+            RCollection.Maintenance.CleanBase();
+
+            TableRec.ClearSelection();      // выключаем селекты таблицы
+            PrepareRefresh();               // сбрасываем старые значения таблицы
+            MessageBox.Show("Очистка выполнена!");
+        }
+
+
+        private void BackupBase_Click(object sender, EventArgs e)
+        {
+            RecordCollectionMaintenance.BackupBase();
+            ExistRecoveryDB();
+        }
+
+        private void RecoveryBase_Click(object sender, EventArgs e)
+        {
+            using (RecoveryForm form = new RecoveryForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    RecordCollectionMaintenance.RecoveryBase(form.recoverBase);
+                    MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
+                    FormLoad(true);
+                }
+            }
+        }
+
         private void Exit_Click(object sender, EventArgs e) => Close();
 
         private void btnOpenCatalogDB_Click(object sender, EventArgs e) => OpenFolderDB();
@@ -653,7 +848,7 @@ namespace FilmCollection
                     }
                     catch (ApplicationException ex) { Logs.Log("Произошла ошибка при перемещении Drag&Drop:", ex); }
                 }
-            }            
+            }
         }
 
         private void treeFolder_DragEnter(object sender, DragEventArgs e)
@@ -667,7 +862,7 @@ namespace FilmCollection
             DoDragDrop(e.Item, DragDropEffects.Move);
         }
 
-        
+
         /// <summary>Проверка размещения панели на верхнем уровне</summary>
         private bool IsControlAtFront(Control control)
         {
@@ -2191,9 +2386,17 @@ namespace FilmCollection
             //foreach (Combine cm in cmList.Distinct().ToList())
             //    DownloadDetails.GetInfo(cm.media, _videoCollection);
 
+            //foreach (Combine cm in cmList.Distinct().ToList())
+            //    foreach (Record rec in cm.recordList)
+            //        (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(rec, this); })).Start();
+
             foreach (Combine cm in cmList.Distinct().ToList())
                 foreach (Record rec in cm.recordList)
-                    (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(rec, this); })).Start();
+                    if (DownloadDetails.GetInfo(GetSelectedRecord()) != null)
+                    {
+                        AfterUpdateRefresh(DownloadDetails.GetInfo(GetSelectedRecord()));
+                    }
+
             //DownloadDetails.GetInfo(rec);
             //DownloadDetails.GetInfo(rec, _videoCollection);
 
@@ -2213,7 +2416,7 @@ namespace FilmCollection
             if (record != null)
             {
                 tabControl2.SelectTab(tabDiagram);
-                ucDiagr.update(record, this);
+                ucDiagr.update(record);
 
                 // panelScheme.BringToFront();
                 // ucScheme.update(record);
@@ -2225,7 +2428,17 @@ namespace FilmCollection
 
         #region обработка информации по одному фильму
 
-        private void UpdateInfo() => (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(GetSelectedRecord(), this); })).Start();
+        //private void UpdateInfo() => (new System.Threading.Thread(delegate () { DownloadDetails.GetInfo(GetSelectedRecord(), this); })).Start();
+        private void UpdateInfo()
+        {
+           //DownloadDetails.GetInfo(GetSelectedRecord(), this);
+           // AfterUpdateRefresh(record);
+
+            if (DownloadDetails.GetInfo(GetSelectedRecord()) != null)
+            {
+                AfterUpdateRefresh(DownloadDetails.GetInfo(GetSelectedRecord()));
+            }
+        }
 
         internal void AfterUpdateRefresh(Record record)
         {
@@ -2756,6 +2969,4 @@ namespace FilmCollection
         //    this.Cursor = Cursors.Arrow;
         //}
     }
-
-#pragma warning restore CS0436
 }

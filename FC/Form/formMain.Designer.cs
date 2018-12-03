@@ -1,4 +1,6 @@
-﻿namespace FilmCollection
+﻿using FC.Provider;
+
+namespace FilmCollection
 {
     partial class MainForm
     {
@@ -169,7 +171,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panelScheme = new System.Windows.Forms.Panel();
-            this.ucScheme = new FilmCollection.ucChart();
+            this.ucScheme = new FC.Provider.ucChart();
             this.panelFind = new System.Windows.Forms.Panel();
             this.cbFullFind = new System.Windows.Forms.CheckBox();
             this.btnHidePanel = new System.Windows.Forms.Button();
@@ -247,7 +249,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.tabDiagram = new System.Windows.Forms.TabPage();
-            this.ucDiagr = new FilmCollection.ucChart();
+            this.ucDiagr = new FC.Provider.ucChart();
             this.timerLoad = new System.Windows.Forms.Timer(this.components);
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.mainMenuIcon = new System.Windows.Forms.ToolStrip();
@@ -272,6 +274,7 @@
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timerForDateTime = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -2581,9 +2584,10 @@
             this.tsChange,
             this.tsRemove,
             this.toolStripSeparator5,
+            this.tsHidePanel,
+            this.toolStripSeparator2,
             this.tsFind,
-            this.tsFindbyName,
-            this.tsHidePanel});
+            this.tsFindbyName});
             this.mainMenuIcon.Location = new System.Drawing.Point(0, 24);
             this.mainMenuIcon.Name = "mainMenuIcon";
             this.mainMenuIcon.Size = new System.Drawing.Size(1175, 25);
@@ -2766,6 +2770,11 @@
             // 
             this.timerForDateTime.Enabled = true;
             this.timerForDateTime.Tick += new System.EventHandler(this.timerForDateTime_Tick);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // MainForm
             // 
@@ -3093,6 +3102,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tssDayTime;
         private System.Windows.Forms.ToolStripStatusLabel tssWorkTime;
         private System.Windows.Forms.Timer timerForDateTime;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

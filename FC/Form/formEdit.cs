@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC.Provider;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,44 +33,44 @@ namespace FilmCollection
             "Комедия"});
         }
 
-        public EditForm(Record record)  // Переопределенный конструктор по умолчанию
-        {
-            InitializeComponent();
+        //public EditForm(Record record)  // Переопределенный конструктор по умолчанию
+        //{
+        //    InitializeComponent();
 
-            cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
-            "Фильм",
-            "Сериал",
-            "Мультфильм"});
+        //    cBoxTypeVideo.Items.AddRange(new object[] {     // Создание списка для типа записи (Фильм. Сериал, Мультфильм)
+        //    "Фильм",
+        //    "Сериал",
+        //    "Мультфильм"});
 
-            cBoxGenre.Items.AddRange(new object[] {         // Создание списка жанров
-            "Боевик",
-            "Вестерн",
-            "Комедия"});
+        //    cBoxGenre.Items.AddRange(new object[] {         // Создание списка жанров
+        //    "Боевик",
+        //    "Вестерн",
+        //    "Комедия"});
 
-            //rec = record;
+        //    //rec = record;
 
-            //tbName.Text = record.Name;
-           // tbYear.Text = record.Year;
-           // tbCountry.Text = record.Country;
-           // numericTime.Value = record.Time;
-           // tbDescription.Text = record.Description;
-            //tbFileName.Text = record.FileName;
+        //    //tbName.Text = record.Name;
+        //   // tbYear.Text = record.Year;
+        //   // tbCountry.Text = record.Country;
+        //   // numericTime.Value = record.Time;
+        //   // tbDescription.Text = record.Description;
+        //    //tbFileName.Text = record.FileName;
 
-            //switch (record.Category)
-            //{
-            //    case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
-            //    case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
-            //    case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
-            //}
+        //    //switch (record.Category)
+        //    //{
+        //    //    case CategoryVideo.Film: cBoxTypeVideo.SelectedIndex = 0; break;
+        //    //    case CategoryVideo.Series: cBoxTypeVideo.SelectedIndex = 1; break;
+        //    //    case CategoryVideo.Cartoon: cBoxTypeVideo.SelectedIndex = 2; break;
+        //    //}
 
-            //switch (record.GenreVideo)
-            //{
-            //    case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
-            //    case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
-            //    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
-            //}
+        //    //switch (record.GenreVideo)
+        //    //{
+        //    //    case GenreVideo.Action: cBoxGenre.SelectedIndex = 0; break;
+        //    //    case GenreVideo.Vestern: cBoxGenre.SelectedIndex = 1; break;
+        //    //    case GenreVideo.Comedy: cBoxGenre.SelectedIndex = 2; break;
+        //    //}
 
-        }
+        //}
 
 
         private void btnEditOk_Click(object sender, EventArgs e)    // Сохранение измененных параметров

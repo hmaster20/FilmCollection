@@ -36,15 +36,14 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <DocumentationFile>
     </DocumentationFile>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -69,25 +68,6 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FilmCollection">
-      <HintPath>obj\x86\Debug\FilmCollection.exe</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Library\Ionic.Zip.Reduced.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Msagl, Version=3.0.0.0, Culture=neutral, PublicKeyToken=640c57aa40e7ae7d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Library\Microsoft.Msagl.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Msagl.Drawing, Version=3.0.0.0, Culture=neutral, PublicKeyToken=8a3d7c21d5fa1306, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Library\Microsoft.Msagl.Drawing.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Msagl.GraphViewerGdi, Version=3.0.0.0, Culture=neutral, PublicKeyToken=fffc27ea4058b3a1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Library\Microsoft.Msagl.GraphViewerGdi.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -104,39 +84,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
-    <Compile Include="Class\Main\_Sources.cs" />
-    <Compile Include="Class\Utils\CSVhelper.cs" />
-    <Compile Include="Class\Utils\FileDetails.cs" />
-    <Compile Include="Class\Utils\HTMLhelper.cs" />
-    <Compile Include="Class\Utils\InputLanguages.cs" />
-    <Compile Include="Class\Utils\Logs.cs" />
-    <Compile Include="Class\Utils\DownloadDetails.cs" />
-    <Compile Include="Class\Utils\TreeBuilder.cs" />
-    <Compile Include="Class\Utils\ZipArc.cs" />
-    <Compile Include="Class_Test\ManagedObjectMMF.cs" />
-    <Compile Include="Class_Test\MemoryMapped.cs" />
-    <Compile Include="Class_Test\UpdateService.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Class\Poster\ImageViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Class\Poster\ImageViewer.Designer.cs">
-      <DependentUpon>ImageViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Class\Main\_Combine.cs" />
-    <Compile Include="Class\Main\_Actor.cs" />
-    <Compile Include="Class\Poster\ThumbnailController.cs" />
-    <Compile Include="Class_Test\BinSerializeHelper.cs" />
-    <Compile Include="Class\Main\Enum.cs" />
-    <Compile Include="Class\Main\_Media.cs" />
-    <Compile Include="Class\Main\RecordOptions.cs" />
-    <Compile Include="Class_Test\MyTextBox.cs" />
-    <Compile Include="Class_Test\TreeViewColletion.cs" />
-    <Compile Include="Class_Test\TreeViewFast.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Form\formAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,12 +120,6 @@
     <Compile Include="Form\formReport.Designer.cs">
       <DependentUpon>formReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\formSelectCatalog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\formSelectCatalog.Designer.cs">
-      <DependentUpon>formSelectCatalog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form\formSelectMedia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,39 +138,20 @@
     <Compile Include="Form\formReindexer.Designer.cs">
       <DependentUpon>formReindexer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\fromChangeText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\fromChangeText.Designer.cs">
+      <DependentUpon>fromChangeText.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\ucMediaInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Form\ucMediaInfo.Designer.cs">
       <DependentUpon>ucMediaInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\ucChart.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Form\ucChart.Designer.cs">
-      <DependentUpon>ucChart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form\ucSelectCatalog.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Form\ucSelectCatalog.Designer.cs">
-      <DependentUpon>ucSelectCatalog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Class\Main\_Record.cs" />
-    <Compile Include="Class\Main\RecordCollection.cs" />
-    <Compile Include="Class\Utils\XmlSerializeHelper.cs" />
-    <Compile Include="Wizard\Wizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Wizard\Wizard.Designer.cs">
-      <DependentUpon>Wizard.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Class\Poster\ImageViewer.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ImageViewer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\formAbout.resx">
       <DependentUpon>formAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,31 +174,22 @@
     <EmbeddedResource Include="Form\formReport.resx">
       <DependentUpon>formReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\formSelectCatalog.resx">
-      <DependentUpon>formSelectCatalog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form\formSelectMedia.resx">
       <DependentUpon>formSelectMedia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\fromChangeLog.resx">
       <DependentUpon>fromChangeLog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form\fromChangeText.resx">
+      <DependentUpon>fromChangeText.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\ucMediaInfo.resx">
       <DependentUpon>ucMediaInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\ucChart.resx">
-      <DependentUpon>ucChart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\ucSelectCatalog.resx">
-      <DependentUpon>ucSelectCatalog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizard\Wizard.resx">
-      <DependentUpon>Wizard.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="help.chm">
@@ -300,10 +213,6 @@
   <ItemGroup>
     <Content Include="ChangeLog.txt" />
     <Content Include="FC.ico" />
-    <Content Include="Library\Ionic.Zip.Reduced.dll" />
-    <Content Include="Library\Microsoft.Msagl.dll" />
-    <Content Include="Library\Microsoft.Msagl.Drawing.dll" />
-    <Content Include="Library\Microsoft.Msagl.GraphViewerGdi.dll" />
     <Content Include="Pics\noPic.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -388,7 +297,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FC.Provider\FC.Provider.csproj">
+      <Project>{13C020AD-F1B6-4E0F-94B1-003CC5AFE5EC}</Project>
+      <Name>FC.Provider</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -396,22 +310,22 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>@echo off
-echo $(ConfigurationName) &gt; buildenv.tmp
-echo $(Configuration) &gt;&gt; buildenv.tmp
-echo $(Platform) &gt;&gt; buildenv.tmp
-echo $(BuildDefinitionName) &gt;&gt; buildenv.tmp
-echo $(SolutionDir) &gt;&gt; buildenv.tmp
-echo $(SolutionPath) &gt;&gt; buildenv.tmp
-echo $(SolutionName) &gt;&gt; buildenv.tmp
-echo $(SolutionFileName) &gt;&gt; buildenv.tmp
-echo $(ProjectDir) &gt;&gt; buildenv.tmp
-echo $(ProjectName) &gt;&gt; buildenv.tmp
-echo $(ProjectFileName) &gt;&gt; buildenv.tmp
-echo $(TargetPath) &gt;&gt; buildenv.tmp
-echo $(TargetName) &gt;&gt; buildenv.tmp
-echo $(TargetFileName) &gt;&gt; buildenv.tmp
-echo $(AssemblyName) &gt;&gt; buildenv.tmp
-echo $(CodePage) &gt;&gt; buildenv.tmp</PostBuildEvent>
+echo $(ConfigurationName)
+echo $(Configuration)
+echo $(Platform)
+echo $(BuildDefinitionName)
+echo $(SolutionDir)
+echo $(SolutionPath)
+echo $(SolutionName)
+echo $(SolutionFileName)
+echo $(ProjectDir)
+echo $(ProjectName)
+echo $(ProjectFileName)
+echo $(TargetPath)
+echo $(TargetName)
+echo $(TargetFileName)
+echo $(AssemblyName)
+echo $(CodePage)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

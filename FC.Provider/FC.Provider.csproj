@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{13C020AD-F1B6-4E0F-94B1-003CC5AFE5EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FC.Provider</RootNamespace>
+    <AssemblyName>FC.Provider</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.Shell32">
+      <HintPath>..\FC\obj\x86\Debug\Interop.Shell32.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Msagl, Version=3.0.0.0, Culture=neutral, PublicKeyToken=640c57aa40e7ae7d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Msagl.1.0.2\lib\net40\Microsoft.Msagl.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Msagl.Drawing, Version=3.0.0.0, Culture=neutral, PublicKeyToken=8a3d7c21d5fa1306, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Msagl.Drawing.1.0.2\lib\net40\Microsoft.Msagl.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Msagl.GraphViewerGdi, Version=3.0.0.0, Culture=neutral, PublicKeyToken=fffc27ea4058b3a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Msagl.GraphViewerGDI.1.0.2\lib\net40\Microsoft.Msagl.GraphViewerGdi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\Diagr\ucChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\Diagr\ucChart.Designer.cs">
+      <DependentUpon>ucChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\Main\Enum.cs" />
+    <Compile Include="Class\Main\RecordCollection.cs" />
+    <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
+    <Compile Include="Class\Main\RecordOptions.cs" />
+    <Compile Include="Class\Main\_Actor.cs" />
+    <Compile Include="Class\Main\_Combine.cs" />
+    <Compile Include="Class\Main\_Media.cs" />
+    <Compile Include="Class\Main\_Record.cs" />
+    <Compile Include="Class\Main\_Sources.cs" />
+    <Compile Include="Class_Test\BinSerializeHelper.cs" />
+    <Compile Include="Class_Test\ManagedObjectMMF.cs" />
+    <Compile Include="Class_Test\MemoryMapped.cs" />
+    <Compile Include="Class_Test\MyTextBox.cs" />
+    <Compile Include="Class_Test\TreeViewColletion.cs" />
+    <Compile Include="Class_Test\TreeViewFast.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Class_Test\UpdateService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Generic.cs" />
+    <Compile Include="Class\Poster\ImageViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class\Poster\ImageViewer.Designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\Poster\ThumbnailController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Class\Utils\CSVhelper.cs" />
+    <Compile Include="Class\Utils\DownloadDetails.cs" />
+    <Compile Include="Class\Utils\FileDetails.cs" />
+    <Compile Include="Class\Utils\HTMLhelper.cs" />
+    <Compile Include="Class\Utils\InputLanguages.cs" />
+    <Compile Include="Class\Utils\Logs.cs" />
+    <Compile Include="Class\Utils\TreeBuilder.cs" />
+    <Compile Include="Class\Utils\XmlSerializeHelper.cs" />
+    <Compile Include="Class\Utils\ZipArc.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Class\Diagr\ucChart.resx">
+      <DependentUpon>ucChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Class\Poster\ImageViewer.resx">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

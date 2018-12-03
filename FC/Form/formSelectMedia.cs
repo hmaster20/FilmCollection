@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC.Provider;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace FilmCollection
@@ -34,6 +36,27 @@ namespace FilmCollection
             }
 
             labelRecordName.Text = (record != null) ? record.FileName : "";
+            if (record != null)
+            {
+                string resultString = Regex.Match(record.FileName, @"[0-9]{4}").Value;
+                //MessageBox.Show(resultString);
+
+                //var iii = listMedia.Items.IndexOfKey(resultString);
+                //MessageBox.Show(iii.ToString());
+                //var lll = listMedia.Items.Find(resultString, true);
+                var lll = listMedia.FindItemWithText(resultString);
+                listMedia.EnsureVisible(lll.Index);
+                lll.Selected = true;
+                lll.Focused = true;
+                listMedia.Select();
+
+                //this.listMedia.Items[lll.Index].Focused = true;
+                //this.listMedia.Items[lll.Index].Selected = true;
+
+
+                //MessageBox.Show(lll.ToString());
+
+            }
 
             // listMedia.SelectedIndex = 0;
             this.listMedia.LostFocus += (s, e) => this.listMedia.SelectedIndices.Clear();

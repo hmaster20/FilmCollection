@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC.Provider;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,10 +63,14 @@ namespace FilmCollection
             }
 
             // сортировка словаря
-            var sortedDic = (from c in newDic
-                             orderby c.Key ascending
-                             orderby c.Value ascending
-                             select c);
+            //var sortedDic = (from c in newDic
+            //                 orderby c.Key ascending
+            //                 orderby c.Value ascending
+            //                 select c);
+
+            var sortedDic = (from item in newDic
+                             orderby item.Key ascending, item.Value ascending
+                             select item);
 
             dataGridView2.DataSource = sortedDic.ToArray();
             //dataGridView2.Update();
