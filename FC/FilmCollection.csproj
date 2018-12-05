@@ -192,9 +192,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="help.chm">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -211,7 +208,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChangeLog.txt" />
     <Content Include="FC.ico" />
     <Content Include="Pics\noPic.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
