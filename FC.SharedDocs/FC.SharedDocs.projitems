@@ -15,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)ChangeLog.txt" />
+    <Content Include="$(MSBuildThisFileDirectory)Описание\Разработка.txt" />
   </ItemGroup>
 </Project>
