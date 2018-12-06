@@ -14,12 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FC.Provider", "FC.Provider\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmCollection", "FC\FilmCollection.csproj", "{71390507-A2FE-4174-8D01-C37CC565B48F}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FC.SharedDocs", "FC.SharedDocs\FC.SharedDocs.shproj", "{59713A57-7426-4152-8C0B-0B98EC7EC7C2}"
-EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		FC.SharedDocs\FC.SharedDocs.projitems*{59713a57-7426-4152-8c0b-0b98ec7ec7c2}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
