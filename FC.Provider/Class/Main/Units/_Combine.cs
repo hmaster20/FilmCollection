@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Units
 {
     /// <summary>Связывающий класс для объединения Media (информации о фильме) и Record (самого файла видео)</summary>
     public class Combine

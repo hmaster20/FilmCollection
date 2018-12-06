@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FC.Provider.Class.Main.Collection;
+using FC.Provider.Class.Main.Units;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace FC.Provider
         private static string fileReport { get; set; }
         public static string Getfolder() => fileReport + "_files";
 
-        public static void toCSV(RecordCollection RC)
+        public static void toCSV(CollectionRecord RC)
         {
             using (SaveFileDialog fileDialog = new SaveFileDialog())
             {

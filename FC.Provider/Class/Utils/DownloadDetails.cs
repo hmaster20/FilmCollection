@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FC.Provider.Class.Main.Collection;
+using FC.Provider.Class.Main.Units;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -113,7 +115,7 @@ namespace FC.Provider
         {
             if (_media != null)
             {
-                RecordCollection _videoCollection = RecordCollection.CurrentInstance();
+                CollectionRecord _videoCollection = CollectionRecord.CurrentInstance();
                 List<string> Actors = new List<string>();
                 _media.ActorList.ForEach(act => Actors.Add(act.FIO));
                 _media.ActorList.Clear();
@@ -134,7 +136,7 @@ namespace FC.Provider
                     if (!(_videoCollection.ActorList.Exists(x => x.FIO == actorFIO)) && !(_media.ActorList.Exists(x => x.FIO == actorFIO)))
                     {
                         Actor actor = new Actor();
-                        actor.id = RecordCollection.GetActorID();
+                        actor.id = CollectionRecord.GetActorID();
                         actor.FIO = actorFIO;
                         actor.Country = _media.Country;
                         actor.VideoID_Add(_media.Id);

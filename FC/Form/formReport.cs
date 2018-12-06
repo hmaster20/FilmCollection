@@ -1,4 +1,6 @@
 ﻿using FC.Provider;
+using FC.Provider.Class.Main.Collection;
+using FC.Provider.Class.Main.Units;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,14 +12,14 @@ namespace FilmCollection
 {
     public partial class Report : Form
     {
-        RecordCollection videoCollection { get; set; }     // Доступ к коллекции
+        CollectionRecord videoCollection { get; set; }     // Доступ к коллекции
 
         public Report()
         {
             InitializeComponent();
         }
 
-        public Report(RecordCollection сollection)
+        public Report(CollectionRecord сollection)
         {
             InitializeComponent();
 

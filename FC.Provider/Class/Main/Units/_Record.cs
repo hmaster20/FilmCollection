@@ -1,10 +1,11 @@
-﻿using System;
+﻿using FC.Provider.Class.Main.Collection;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Units
 {
     /// <summary>Класс содержит информацию о физических файлах.</summary>
     public class Record
@@ -21,7 +22,7 @@ namespace FC.Provider
         {
             if (string.IsNullOrWhiteSpace(_file)) _file = FileName;
             //return Path.Combine((RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source).Trim(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
-            return Path.Combine((RecordCollection.CurrentInstance().SourceList.FindLast(x => x.Id == SourceID).Source).TrimEnd(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
+            return Path.Combine((CollectionRecord.CurrentInstance().SourceList.FindLast(x => x.Id == SourceID).Source).TrimEnd(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
         }
 
         public void reName(string NewFileName)

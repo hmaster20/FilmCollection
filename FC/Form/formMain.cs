@@ -15,6 +15,8 @@ using Thr = System.Threading;
 using System.Windows.Threading;
 using System.Threading.Tasks;
 using FC.Provider;
+using FC.Provider.Class.Main.Collection;
+using FC.Provider.Class.Main.Units;
 
 namespace FilmCollection
 {
@@ -22,9 +24,14 @@ namespace FilmCollection
     {
         #region Общедоступные свойства
 
-        RecordCollection RCollection { get; set; }     // Доступ к коллекции
+        /// <summary>Коллекция фильмотеки</summary>
+        CollectionRecord RCollection { get; set; }
+
         // TreeViewColletion _treeViewColletion { get; set; }  // Доступ к коллекции
-        FileInfo fsInfo { get; set; } = null;       // для нового файла, добавляемого в базу
+
+        /// <summary>новый файл, добавляемый в базу</summary>
+        FileInfo fsInfo { get; set; } = null;
+
         int FindCount { get; set; }                 // Счетчик найденных строк
         public List<int> dgvSelected { get; }  //Индексы найденных строк
         public string FormatOpen { get; }       //Формат открытия файлов
@@ -80,7 +87,7 @@ namespace FilmCollection
 
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
-            RCollection = new RecordCollection();      // Доступ к коллекции
+            RCollection = new CollectionRecord();      // Доступ к коллекции
             //_treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
 
             dgvTableActors.AutoGenerateColumns = false; // Отключение автоматического заполнения таблицы
@@ -97,9 +104,9 @@ namespace FilmCollection
             tscbTypeFilter.SelectedIndex = 0;       // Выбор фильтра по умолчанию
             dgvSelected = new List<int>();          // хранение поисковых индексов
 
-            FormatAdd = RecordOptions.getFormat();  // формат открытия файлов
-            FormatOpen = RecordOptions.FormatOpen();// список форматов файлов
-            PicsFolder = RecordOptions.PicsFolder();//Каталог изображений
+            FormatAdd = CollectionOptions.getFormat();  // формат открытия файлов
+            FormatOpen = CollectionOptions.FormatOpen();// список форматов файлов
+            PicsFolder = CollectionOptions.PicsFolder();//Каталог изображений
 
             // Создание списка на основе перечисления
             foreach (var item in Enum.GetValues(typeof(CategoryVideo_Rus)))
@@ -115,8 +122,8 @@ namespace FilmCollection
                 tsActCountryFilter.Items.Add(item);
             }
 
-            btnOptions.Visible = RecordOptions.isDebug;
-            btnActors.Visible = RecordOptions.isDebug;
+            btnOptions.Visible = CollectionOptions.isDebug;
+            btnActors.Visible = CollectionOptions.isDebug;
 
             #region Постеры
             this.buttonCancel.Enabled = false;
@@ -157,7 +164,7 @@ namespace FilmCollection
         private void ExistRecoveryDB()
         {
             bool state;
-            if (RecordCollectionMaintenance.RecoveryFilesExist() < 1)
+            if (CollectionService.RecoveryFilesExist() < 1)
             {
                 state = false;
             }
@@ -232,7 +239,7 @@ namespace FilmCollection
         private void Main_Load(object sender, EventArgs e)
         {
             // загрузка параметров из файла конфигурации
-            RecordOptions.ToTray = Settings.Default.ToTray;
+            CollectionOptions.ToTray = Settings.Default.ToTray;
             LastNode = Settings.Default.TreeFolderSelect;
 
             //bool state = FormLoad(true);
@@ -261,7 +268,7 @@ namespace FilmCollection
         {
             // сохранение параметров в файл конфигурации
             Settings.Default.TreeFolderSelect = GetNode();
-            Settings.Default.ToTray = RecordOptions.ToTray;
+            Settings.Default.ToTray = CollectionOptions.ToTray;
             Settings.Default.Save();
         }
         #endregion
@@ -271,7 +278,7 @@ namespace FilmCollection
         private void MainForm_Resize(object sender, EventArgs e)
         {
             // проверяем наше окно, и если оно было свернуто, делаем событие        
-            if (WindowState == FormWindowState.Minimized && RecordOptions.ToTray)
+            if (WindowState == FormWindowState.Minimized && CollectionOptions.ToTray)
             {
                 //Hide();
                 Tray.BalloonTipTitle = "Программа была спрятана";
@@ -305,13 +312,13 @@ namespace FilmCollection
         {
             bool state = false;
 
-            if (File.Exists(RecordOptions.BaseName))    // Если база создана, то загружаем
+            if (File.Exists(CollectionOptions.BaseName))    // Если база создана, то загружаем
             {
                 RCollection.Clear();
 
                 try
                 {
-                    RCollection = RecordCollection.Load(LoadfromFile);
+                    RCollection = CollectionRecord.Load(LoadfromFile);
                     ZipArc.CreateBackup();
                 }
                 catch (ApplicationException ex)
@@ -423,10 +430,11 @@ namespace FilmCollection
         private void SaveFormVisualEffect()
         {
             // Сохранение состояния главной формы
-            RCollection.Options.FormState = this.WindowState.ToString();
+            CollectionOptions.FormState = this.WindowState.ToString();
             #region Сохранение состояния сплиттеров
-            RCollection.Options.scMainSplitter = scMain.SplitterDistance;
-            RCollection.Options.scTabFilmSplitter = scTabFilm.SplitterDistance;
+            CollectionOptions.scMainSplitter = scMain.SplitterDistance;
+            CollectionOptions.scTabFilmSplitter = scTabFilm.SplitterDistance;
+            CollectionOptions.scTabFilmSplitter = scTabFilm.SplitterDistance;
             #endregion
 
             //#region Сохранение ширины колонок
@@ -514,7 +522,7 @@ namespace FilmCollection
                                     }
                                 }
 
-                                IEnumerable<FileInfo> AllMediaFiles = RecordCollectionMaintenance.GetFilesFrom(directory);
+                                IEnumerable<FileInfo> AllMediaFiles = CollectionService.GetFilesFrom(directory);
 
                                 tsProgressBar.Value = 0;
                                 tsProgressBar.Maximum = AllMediaFiles.Count();
@@ -591,7 +599,7 @@ namespace FilmCollection
 
         private void BackupBase_Click(object sender, EventArgs e)
         {
-            RecordCollectionMaintenance.BackupBase();
+            CollectionService.BackupBase();
             ExistRecoveryDB();
         }
 
@@ -601,7 +609,7 @@ namespace FilmCollection
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    RecordCollectionMaintenance.RecoveryBase(form.recoverBase);
+                    CollectionService.RecoveryBase(form.recoverBase);
                     MessageBox.Show("База восстановлена из резервной копии:\n" + form.recoverBase + " ");
                     FormLoad(true);
                 }
@@ -1596,7 +1604,7 @@ namespace FilmCollection
 
         private void OpenFolderDB()
         {
-            string filePath = RecordOptions.BaseName;
+            string filePath = CollectionOptions.BaseName;
             if (!File.Exists(filePath))
                 return;
 
@@ -1938,7 +1946,7 @@ namespace FilmCollection
             else
             {
                 cm = new Combine();
-                cm.media.Id = RecordCollection.GetMediaID();
+                cm.media.Id = CollectionRecord.GetMediaID();
             }
             return cm;
         }
@@ -2343,7 +2351,7 @@ namespace FilmCollection
 
             Combine cmNew = new Combine();
             cmNew.media.Name = FolderName;
-            cmNew.media.Id = RecordCollection.GetMediaID();
+            cmNew.media.Id = CollectionRecord.GetMediaID();
             cmNew.media.Category = CategoryVideo.Series;
 
 
@@ -2571,7 +2579,7 @@ namespace FilmCollection
             actor.DateOfBirth = maskDateOfBirth.Text;
             actor.DateOfDeath = maskDateOfDeath.Text;
             actor.Country = (Country_Rus)cBoxCountryActor.SelectedIndex;
-            actor.id = RecordCollection.GetActorID();
+            actor.id = CollectionRecord.GetActorID();
 
             if (listViewFilm.Items.Count > 0)
             {

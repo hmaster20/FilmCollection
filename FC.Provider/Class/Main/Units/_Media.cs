@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Units
 {
     /// <summary>Класс содержит информацию о произведениях: фильма, сериалах, мультфильмах и т.д.</summary>
     public class Media : ICloneable

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Units
 {
     /// <summary>Список форматов: avi, mkv, ..</summary>
     public enum MediaFormat

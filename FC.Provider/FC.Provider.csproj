@@ -65,15 +65,15 @@
     <Compile Include="Class\Diagr\ucChart.Designer.cs">
       <DependentUpon>ucChart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class\Main\Enum.cs" />
-    <Compile Include="Class\Main\RecordCollection.cs" />
-    <Compile Include="Class\Main\RecordCollectionMaintenance.cs" />
-    <Compile Include="Class\Main\RecordOptions.cs" />
-    <Compile Include="Class\Main\_Actor.cs" />
-    <Compile Include="Class\Main\_Combine.cs" />
-    <Compile Include="Class\Main\_Media.cs" />
-    <Compile Include="Class\Main\_Record.cs" />
-    <Compile Include="Class\Main\_Sources.cs" />
+    <Compile Include="Class\Main\Units\Enum.cs" />
+    <Compile Include="Class\Main\Collection\CollectionRecord.cs" />
+    <Compile Include="Class\Main\Collection\CollectionService.cs" />
+    <Compile Include="Class\Main\Collection\CollectionOptions.cs" />
+    <Compile Include="Class\Main\Units\_Actor.cs" />
+    <Compile Include="Class\Main\Units\_Combine.cs" />
+    <Compile Include="Class\Main\Units\_Media.cs" />
+    <Compile Include="Class\Main\Units\_Record.cs" />
+    <Compile Include="Class\Main\Units\_Sources.cs" />
     <Compile Include="Class_Test\BinSerializeHelper.cs" />
     <Compile Include="Class_Test\ManagedObjectMMF.cs" />
     <Compile Include="Class_Test\MemoryMapped.cs" />

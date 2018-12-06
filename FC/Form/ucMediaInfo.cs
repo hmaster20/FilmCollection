@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using FC.Provider;
+using FC.Provider.Class.Main.Units;
+using FC.Provider.Class.Main.Collection;
 
 namespace FilmCollection
 {
@@ -12,7 +14,7 @@ namespace FilmCollection
     {
         private Record record { get; set; }
         private MainForm main { get; set; }
-        private RecordCollection _videoCollection { get; set; }
+        private CollectionRecord _videoCollection { get; set; }
 
         public ucMediaInfo()
         {
@@ -27,7 +29,7 @@ namespace FilmCollection
             {
                 this.main = main;
                 this.record = _record;
-                this._videoCollection = RecordCollection.CurrentInstance();
+                this._videoCollection = CollectionRecord.CurrentInstance();
 
                 tbfName.Text = _record.mName;
                 tbfDesc.Text = _record.mDescription;

@@ -27,7 +27,6 @@ namespace FC.Provider
     {
        static void downdloadwithTimeout()
         {
-            string somestring;
             try
             {
                 using (WebClient wc = new WebClientWithTimeout())

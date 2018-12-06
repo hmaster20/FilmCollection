@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FC.Provider.Class.Main.Collection;
+using FC.Provider.Class.Main.Units;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,9 +12,9 @@ namespace FC.Provider
 {
     public class TreeBuilder
     {
-        private RecordCollection RCollection;
+        private CollectionRecord RCollection;
 
-        public TreeBuilder(RecordCollection rCollection)
+        public TreeBuilder(CollectionRecord rCollection)
         {
             this.RCollection = rCollection;
         }

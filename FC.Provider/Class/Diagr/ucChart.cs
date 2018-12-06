@@ -10,6 +10,8 @@ using Microsoft.Msagl.GraphViewerGdi;
 using Microsoft.Msagl.Drawing;
 using System.Diagnostics;
 using System.Drawing.Imaging;
+using FC.Provider.Class.Main.Units;
+using FC.Provider.Class.Main.Collection;
 //using Microsoft.Msagl.Core.Layout;
 //using Microsoft.Msagl;
 
@@ -30,7 +32,7 @@ namespace FC.Provider
             //main = mainForm;
 
             rcDic = new Dictionary<string, string>();
-            RecordCollection _videoCollection = RecordCollection.CurrentInstance();
+            CollectionRecord _videoCollection = CollectionRecord.CurrentInstance();
             List<Actor> acts = new List<Actor>();
 
             if (_record.combineLink.media.ActorListID != null)
@@ -233,7 +235,7 @@ namespace FC.Provider
             if (gViewer.SelectedObject is Node)
             {
                 Node node = gViewer.SelectedObject as Node;
-                RecordCollection _videoCollection = RecordCollection.CurrentInstance();
+                CollectionRecord _videoCollection = CollectionRecord.CurrentInstance();
                 List<Actor> acts = new List<Actor>();
 
                 if (_videoCollection.ActorList.Exists(x => x.FIO == node.Id) && _videoCollection.ActorList.First(x => x.FIO == node.Id).VideoID.Count > 0)

@@ -3,11 +3,12 @@ using System.IO;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Windows.Forms;
+using FC.Provider.Class.Main.Units;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Collection
 {
     /// <summary>Параметры настроек программы</summary>
-    public class RecordOptions
+    public static class CollectionOptions
     {
         public static bool isDebug { get; set; } =
 #if DEBUG
@@ -20,7 +21,7 @@ namespace FC.Provider
         [XmlIgnore]
         //public static string BaseName { get; } = "VideoList.xml";
         //static readonly string BaseName = "VideoList.xml";
-        public const string BaseName = "VideoList.xml";
+        public static string BaseName = "VideoList.xml";
 
         /// <summary>Метод генерирует массив вида ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx"</summary>
         public static List<string> getFormat()
@@ -48,24 +49,24 @@ namespace FC.Provider
         /// <summary>Каталог изображений</summary>
         public static string PicsFolder() => Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
   
-        public int scMainSplitter { get; set; }     // Сохранение параметров сплиттеров
-        public int scTabFilmSplitter { get; set; }
+        public static int scMainSplitter { get; set; }     // Сохранение параметров сплиттеров
+        public static int scTabFilmSplitter { get; set; }
 
-        public string ColumnsWidth { get; set; }   // Поле сохранения параметра ширины колонок
+        public static string ColumnsWidth { get; set; }   // Поле сохранения параметра ширины колонок
 
         [XmlAttribute]
-        public string FormState { get; set; }       // Поле сохранения состояния главной формы
+        public static string FormState { get; set; }       // Поле сохранения состояния главной формы
 
         public static bool ToTray { get; set; }
 
 
         // Тестовое ПОЛЕ
-        private string _txt = "";
-        [XmlElement]
-        public string Txt
-        {
-            get { return _txt; }
-            set { _txt = value; }
-        }
+        //private string _txt = "";
+        //[XmlElement]
+        //public string Txt
+        //{
+        //    get { return _txt; }
+        //    set { _txt = value; }
+        //}
     }
 }
