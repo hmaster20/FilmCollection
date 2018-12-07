@@ -4,18 +4,22 @@ using System.Xml.Serialization;
 using System.Windows.Forms;
 using System.Linq;
 using FC.Provider;
+using FC.Provider.Class.Main.Units;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Collection
 {
     /// <summary>Класс управления коллекцией фильмотеки, состоящей из фильмов (CombineList) и актеров (ActorList)</summary>
-    public class RecordCollection : ICloneable
+    public class CollectionRecord : ICloneable
     {
-        [XmlElement]
-        public RecordOptions Options { get; set; }
-        public RecordCollectionMaintenance Maintenance { get; set; }
+        // Конфигурация параметров отключена. Нужно использовать app.config для хранения динамических параметров приложения 
+        //[XmlElement]
+        //public CollectionOptions Options { get; set; }
 
-        private static RecordCollection _recordCollection;
-        public static RecordCollection CurrentInstance()
+        public CollectionService Maintenance { get; set; }
+        private static CollectionRecord _recordCollection { get; set; }
+
+
+        public static CollectionRecord CurrentInstance()
         {
             try
             {
@@ -36,19 +40,18 @@ namespace FC.Provider
             return status;
         }
 
-        public static void SetInstance(RecordCollection rc)
+        public static void SetInstance(CollectionRecord rc)
         {
-            if (_recordCollection == null)
-                _recordCollection = rc;
+            if (_recordCollection == null) _recordCollection = rc;
         }
 
-        public RecordCollection()
+        public CollectionRecord()
         {
             ActorList = new List<Actor>();      // Создание списка актеров
             CombineList = new List<Combine>();  // Создание смешанного списка Record & Media
             SourceList = new List<Sources>();   // Создание списка источников данных
-            Maintenance = new RecordCollectionMaintenance();
-            Options = new RecordOptions();
+            Maintenance = new CollectionService();
+            //Options = new CollectionOptions();
         }
 
         public void Clear()
@@ -144,18 +147,18 @@ namespace FC.Provider
 
         /// <summary>Загрузка (деСериализация) объектов из файла XML</summary>
         /// <returns>Возвращает коллекцию RecordCollection</returns>
-        public static RecordCollection Load(bool fromFile = false)
+        public static CollectionRecord Load(bool fromFile = false)
         {
-            RecordCollection result;
+            CollectionRecord result;
             try
             {
                 result = (fromFile)
-                    ? RecordOptions.BaseName.LoadAndDeserialize<RecordCollection>()
-                    : XmlSerializeHelper.LoadAndDeserializeMemory<RecordCollection>();
+                    ? CollectionOptions.BaseName.LoadAndDeserialize<CollectionRecord>()
+                    : XmlSerializeHelper.LoadAndDeserializeMemory<CollectionRecord>();
             }
             catch (Exception ex)
             {
-                RecordCollectionMaintenance.CrashBase();
+                CollectionService.CrashBase();
                 throw new ApplicationException($"Ошибка на этапе загрузки при десериализации. \n{ex.Message}");
             }
 

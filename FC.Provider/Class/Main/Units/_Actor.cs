@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Units
 {
     /// <summary>Класс содержит информацию об актерах</summary>
     public class Actor : IComparable<Actor>

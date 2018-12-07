@@ -6,6 +6,8 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using FC.Provider.Class.Main.Collection;
+using FC.Provider.Class.Main.Units;
 
 namespace FC.Provider
 {
@@ -94,7 +96,7 @@ namespace FC.Provider
         }
 
 
-        public static void Generator(RecordCollection rCollection)
+        public static void Generator(CollectionRecord rCollection)
         {
             ReportTitle = "Название отчета";
             ReportFont = "Arial";

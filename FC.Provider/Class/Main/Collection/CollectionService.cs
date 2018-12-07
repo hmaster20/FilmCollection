@@ -1,4 +1,5 @@
 ﻿using FC.Provider;
+using FC.Provider.Class.Main.Units;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,23 +7,24 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace FC.Provider
+namespace FC.Provider.Class.Main.Collection
 {
-    public class RecordCollectionMaintenance
+    /// <summary>Класс обслуживания базы фильмотеки</summary>
+    public class CollectionService
     {
         public void NewBase(FolderBrowserDialog fbDialog)
         {
-            if (File.Exists(RecordOptions.BaseName) && (RecordCollection.status())) // Если база есть, то запрашиваем удаление
+            if (File.Exists(CollectionOptions.BaseName) && (CollectionRecord.status())) // Если база есть, то запрашиваем удаление
             {
                 DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
 
-                File.WriteAllText(RecordOptions.BaseName, string.Empty); // Затираем содержимое файла базы
-                if (RecordCollection.status()) RecordCollection.CurrentInstance().Clear();       // очищаем коллекцию                    
+                File.WriteAllText(CollectionOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                if (CollectionRecord.status()) CollectionRecord.CurrentInstance().Clear();       // очищаем коллекцию                    
             }
             else
             {
-                File.Create(RecordOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
+                File.Create(CollectionOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
             }
 
             DialogResult dialogStatus = fbDialog.ShowDialog();
@@ -38,16 +40,16 @@ namespace FC.Provider
                 DirectoryInfo directory = new DirectoryInfo(folderName);    //создание объекта для доступа к содержимому папки
                 if (directory.Exists)
                 {
-                    RecordCollection rc = new RecordCollection();
-                    RecordCollection.SetInstance(rc);
-                    int id = RecordCollection.CurrentInstance().AddSource(directory.FullName);// Сохранение каталога фильмов
+                    CollectionRecord rc = new CollectionRecord();
+                    CollectionRecord.SetInstance(rc);
+                    int id = CollectionRecord.CurrentInstance().AddSource(directory.FullName);// Сохранение каталога фильмов
 
                     foreach (FileInfo file in GetFilesFrom(directory))
                         CreateCombine(file, id);
                 }
 
-                RecordCollection.CurrentInstance().Save();
-                RecordCollection.CurrentInstance().SaveToFile();
+                CollectionRecord.CurrentInstance().Save();
+                CollectionRecord.CurrentInstance().SaveToFile();
                 //main.FormLoad();
             }
         }
@@ -91,7 +93,7 @@ namespace FC.Provider
 
 
 
-        public void Update(RecordCollection RC, Sources src)
+        public void Update(CollectionRecord RC, Sources src)
         {
 
             //if (RC.CombineList.Count < 1)
@@ -186,19 +188,19 @@ namespace FC.Provider
         public static IEnumerable<FileInfo> GetFilesFrom(DirectoryInfo directory)
         {
             //return directory.GetFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
-            return directory.EnumerateFiles("*.*", SearchOption.AllDirectories).Where(file => RecordOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
+            return directory.EnumerateFiles("*.*", SearchOption.AllDirectories).Where(file => CollectionOptions.getFormat().Contains(Path.GetExtension(file.ToString())));
         }
 
         public bool RecordExist(Record record)
         {
             List<Record> list = new List<Record>();
-            RecordCollection.CurrentInstance().CombineList.ForEach(combine => list.AddRange(combine.recordList));
+            CollectionRecord.CurrentInstance().CombineList.ForEach(combine => list.AddRange(combine.recordList));
 
             foreach (Record rec in list)    // проверка наличия файла
             {
                 if (rec.Equals(record))
                 {
-                    RecordCollection.CurrentInstance().CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
+                    CollectionRecord.CurrentInstance().CombineList.FindLast(x => x.media == rec.combineLink.media).recordList.FindLast(y => y == rec).Visible = true;
                     return true;    // если файл есть
                 }
             }
@@ -214,9 +216,9 @@ namespace FC.Provider
             record.combineLink = cm;
             cm.recordList.Add(record);
             cm.media.Name = record.Name;
-            cm.media.Id = RecordCollection.GetMediaID();
+            cm.media.Id = CollectionRecord.GetMediaID();
 
-            RecordCollection.CurrentInstance().Add(cm);
+            CollectionRecord.CurrentInstance().Add(cm);
         }
 
         public Record CreateRecord(FileInfo file, int id)
@@ -235,7 +237,7 @@ namespace FC.Provider
                                                                   //int dlina = CurrentRC().SourceList[0].Source.Length;
                                                                   //string sss = CurrentRC().SourceList[0].Source;
                                                                   //if (-1 != file.DirectoryName.Substring(dlina).IndexOf('\\')) record.Path = file.DirectoryName.Substring(dlina + 1);
-            record.FilePath = file.DirectoryName.Remove(0, RecordCollection.CurrentInstance().SourceList.First(x => x.Id == id).Source.Length);
+            record.FilePath = file.DirectoryName.Remove(0, CollectionRecord.CurrentInstance().SourceList.First(x => x.Id == id).Source.Length);
             record.SourceID = id;
             return record;
         }
@@ -251,15 +253,15 @@ namespace FC.Provider
 
         public static void BackupBase()
         {
-            if (File.Exists(RecordOptions.BaseName)) // если есть, что резервировать...
+            if (File.Exists(CollectionOptions.BaseName)) // если есть, что резервировать...
             {
                 try
                 {   // создаем резервную копию
-                    string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                    string FileBase = Path.GetFileNameWithoutExtension(CollectionOptions.BaseName)
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
-                        + Path.GetExtension(RecordOptions.BaseName);
+                        + Path.GetExtension(CollectionOptions.BaseName);
 
-                    File.Copy(RecordOptions.BaseName, FileBase);
+                    File.Copy(CollectionOptions.BaseName, FileBase);
 
                     MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
                 }
@@ -269,15 +271,15 @@ namespace FC.Provider
 
         public static void CrashBase()
         {
-            if (File.Exists(RecordOptions.BaseName))
+            if (File.Exists(CollectionOptions.BaseName))
             {
                 try
                 {
-                    string FileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                    string FileBase = Path.GetFileNameWithoutExtension(CollectionOptions.BaseName)
                         + DateTime.Now.ToString("-Error-ddMMyyyy-HHmmss")
-                        + Path.GetExtension(RecordOptions.BaseName);
+                        + Path.GetExtension(CollectionOptions.BaseName);
 
-                    File.Move(RecordOptions.BaseName, FileBase);
+                    File.Move(CollectionOptions.BaseName, FileBase);
                 }
                 catch (IOException ex) { Logs.Log("Произошла ошибка при переименовании сбойного файла базы:", ex); }
             }
@@ -294,14 +296,14 @@ namespace FC.Provider
         {
             try
             {
-                if (File.Exists(RecordOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
+                if (File.Exists(CollectionOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
                 {
-                    string BadFileBase = Path.GetFileNameWithoutExtension(RecordOptions.BaseName)
+                    string BadFileBase = Path.GetFileNameWithoutExtension(CollectionOptions.BaseName)
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
-                        + Path.GetExtension(RecordOptions.BaseName);
-                    File.Copy(RecordOptions.BaseName, BadFileBase);
+                        + Path.GetExtension(CollectionOptions.BaseName);
+                    File.Copy(CollectionOptions.BaseName, BadFileBase);
                 }
-                File.Copy(recoverBase, RecordOptions.BaseName, true);
+                File.Copy(recoverBase, CollectionOptions.BaseName, true);
             }
             catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
 
@@ -330,16 +332,16 @@ namespace FC.Provider
 
         public void CleanBase()   // очистка базы путем удаления старых файлов видео
         {
-            for (int i = 0; i < RecordCollection.CurrentInstance().CombineList.Count; i++)
+            for (int i = 0; i < CollectionRecord.CurrentInstance().CombineList.Count; i++)
             {
-                RecordCollection.CurrentInstance().CombineList[i].DeleteOldRecord();
-                if (RecordCollection.CurrentInstance().CombineList[i].recordList.Count == 0)
+                CollectionRecord.CurrentInstance().CombineList[i].DeleteOldRecord();
+                if (CollectionRecord.CurrentInstance().CombineList[i].recordList.Count == 0)
                 {
-                    RecordCollection.CurrentInstance().CombineList.Remove(RecordCollection.CurrentInstance().CombineList[i]);
+                    CollectionRecord.CurrentInstance().CombineList.Remove(CollectionRecord.CurrentInstance().CombineList[i]);
                 }
             }
 
-            RecordCollection.CurrentInstance().Save();
+            CollectionRecord.CurrentInstance().Save();
             //main.BeginInvoke((MethodInvoker)(() =>
             //{
             //    // main.treeFolder.Nodes.Clear();       // очищаем иерархию (добавить обработку очистки дерева)

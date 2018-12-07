@@ -1,4 +1,6 @@
 ﻿using FC.Provider;
+using FC.Provider.Class.Main.Collection;
+using FC.Provider.Class.Main.Units;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +16,13 @@ namespace FilmCollection
     public partial class Options : Form
     {
         private MainForm mainForm;
-        private RecordCollection VC;
+        private CollectionRecord VC;
 
-        public Options(RecordCollection _videoCollection)
+        public Options(CollectionRecord _videoCollection)
         {
             InitializeComponent();
 
-            checkBox1.Checked = RecordOptions.ToTray;
+            checkBox1.Checked = CollectionOptions.ToTray;
 
             if (_videoCollection == null)
                 throw new ArgumentNullException("_videoCollection", "_videoCollection не может содержать null");
@@ -38,14 +40,14 @@ namespace FilmCollection
                 btnChangeSource.Enabled = true;
             }
 
-            lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
+            lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), CollectionOptions.BaseName);
 
             //foreach (DataColumn dc in dataSet.Tables[0].Columns)
             //{
             //    checkedListBox1.Items.Add(dc.ColumnName);
             //}
 
-            RecordOptions.getFormat().ForEach(x => clBoxFormats.Items.Add(x));
+            CollectionOptions.getFormat().ForEach(x => clBoxFormats.Items.Add(x));
 
             List<Record> list = new List<Record>();
             var obj = list.GetType();
@@ -56,7 +58,7 @@ namespace FilmCollection
                 clBoxColumn.Items.Add(properties[i].Name);
             }
 
-            foreach (var item in RecordOptions.getFormat())
+            foreach (var item in CollectionOptions.getFormat())
             {
                 lbtpCountry.Items.Add(item);
             }
@@ -75,7 +77,7 @@ namespace FilmCollection
 
         }
 
-        private void ListUpdate(RecordCollection _videoCollection)
+        private void ListUpdate(CollectionRecord _videoCollection)
         {
             listBase.Items.Clear();
             if (_videoCollection.SourceList.Count > 0)
@@ -84,7 +86,7 @@ namespace FilmCollection
             }
         }
 
-        public Options(RecordCollection _videoCollection, MainForm mainForm) : this(_videoCollection)
+        public Options(CollectionRecord _videoCollection, MainForm mainForm) : this(_videoCollection)
         {
             this.VC = _videoCollection;
             this.mainForm = mainForm;
@@ -97,7 +99,7 @@ namespace FilmCollection
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            RecordOptions.ToTray = (checkBox1.Checked) ? true : false;
+            CollectionOptions.ToTray = (checkBox1.Checked) ? true : false;
         }
 
         private void ColAdd_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using FC.Provider;
+using FC.Provider.Class.Main.Collection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace FilmCollection
 
         private void btnParse_Click(object sender, EventArgs e)
         {
-            string file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
+            string file = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), CollectionOptions.BaseName);
 
             var nodes = (from n in XDocument.Load(file).Descendants("media")
                          select n.Element("Id").Value
@@ -93,7 +94,7 @@ namespace FilmCollection
 
         private void btnFix_Click(object sender, EventArgs e)
         {
-            string PathFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), RecordOptions.BaseName);
+            string PathFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), CollectionOptions.BaseName);
 
             XDocument xml = XDocument.Load(PathFile);
 
