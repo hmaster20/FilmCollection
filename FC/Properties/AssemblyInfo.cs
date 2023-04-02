@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FilmCollection")]
-[assembly: AssemblyCopyright("Copyright © 2016-2018 Бирюков Сергей")]
+[assembly: AssemblyCopyright("Copyright © 2016-2023 Бирюков Сергей")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

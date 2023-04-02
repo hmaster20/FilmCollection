@@ -23,13 +23,16 @@ namespace FilmCollection
         {
             InitializeComponent();
 
-            this.Text = String.Format("О программе {0}", AssemblyTitle);
+            this.Text = String.Format("О программе - {0}", AssemblyTitle);
 
             lName.Text = AssemblyTitle;
             lVersion.Text = String.Format("Версия {0}", AssemblyVersion);
             lCopyright.Text = AssemblyCopyright;
 
             textBoxDescription.Text = AssemblyDescription;
+
+            // https://stackoverflow.com/questions/2973165/autoscalemode-problems-with-changed-default-font
+            this.AutoScaleMode = AutoScaleMode.Font;
         }
 
 
