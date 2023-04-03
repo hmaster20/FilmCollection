@@ -28,5 +28,6 @@ build-prod:
   stage: build-prduction
   script:
     - echo "This job runs in merge request pipelines"
+  when: manual
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
