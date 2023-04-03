@@ -45,8 +45,8 @@
             // btnOk
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(343, 342);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOk.Location = new System.Drawing.Point(343, 359);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(100, 28);
             this.btnOk.TabIndex = 0;
@@ -57,7 +57,7 @@
             // 
             this.pBoxLogo.Image = global::FilmCollection.Properties.Resources.FilmCollectionLogo;
             this.pBoxLogo.Location = new System.Drawing.Point(16, 11);
-            this.pBoxLogo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pBoxLogo.Margin = new System.Windows.Forms.Padding(4);
             this.pBoxLogo.Name = "pBoxLogo";
             this.pBoxLogo.Size = new System.Drawing.Size(143, 129);
             this.pBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -68,10 +68,10 @@
             // 
             this.groupBox1.Controls.Add(this.textBoxDescription);
             this.groupBox1.Location = new System.Drawing.Point(16, 164);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(427, 171);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(427, 187);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Информация о программе";
@@ -84,6 +84,7 @@
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxDescription.Size = new System.Drawing.Size(407, 135);
             this.textBoxDescription.TabIndex = 24;
             this.textBoxDescription.TabStop = false;
@@ -140,8 +141,8 @@
             // 
             // btnLicense
             // 
-            this.btnLicense.Location = new System.Drawing.Point(16, 342);
-            this.btnLicense.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLicense.Location = new System.Drawing.Point(16, 359);
+            this.btnLicense.Margin = new System.Windows.Forms.Padding(4);
             this.btnLicense.Name = "btnLicense";
             this.btnLicense.Size = new System.Drawing.Size(100, 28);
             this.btnLicense.TabIndex = 27;
@@ -153,7 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 385);
+            this.ClientSize = new System.Drawing.Size(459, 399);
             this.ControlBox = false;
             this.Controls.Add(this.btnLicense);
             this.Controls.Add(this.lName);
@@ -165,7 +166,7 @@
             this.Controls.Add(this.pBoxLogo);
             this.Controls.Add(this.btnOk);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "formAbout";

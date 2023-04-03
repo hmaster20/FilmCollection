@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Фильмотека")]
-[assembly: AssemblyDescription("Фильмотека - это специализированная программа для учета и хранения информации о фильмах и связанных с ними материалов. Программа  распространяется бесплатно по принципу «As is» («Как есть») без каких-либо гарантий на бесперебойную работу и отсутствие ошибок. Пожелания, предложения и информацию об ошибках направляйте по адресу: support@it-enginer.ru")]
+[assembly: AssemblyDescription("Фильмотека - это специализированная программа для учета, хранения информации о фильмах и связанных с ними материалов. \r\nПрограмма  распространяется бесплатно по принципу «As is» («Как есть») без каких-либо гарантий на бесперебойную работу, отсутствие ошибок основывается на лицензии GNU GPL v2.0. \r\nПожелания, предложения и информацию об ошибках направляйте по адресу: support@it-enginer.ru")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FilmCollection")]
@@ -35,7 +35,7 @@ using System.Runtime.InteropServices;
 //
 
 #if DEBUG
-[assembly: AssemblyVersion("1.3.*")]
+[assembly: AssemblyVersion("0.4.*")]
 #else
 [assembly: AssemblyVersion("1.3")]
 #endif

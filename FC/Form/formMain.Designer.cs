@@ -342,13 +342,13 @@ namespace FilmCollection
             this.cmnFileName});
             this.TableRec.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableRec.Location = new System.Drawing.Point(0, 32);
-            this.TableRec.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TableRec.Margin = new System.Windows.Forms.Padding(4);
             this.TableRec.MultiSelect = false;
             this.TableRec.Name = "TableRec";
             this.TableRec.ReadOnly = true;
             this.TableRec.RowHeadersVisible = false;
             this.TableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TableRec.Size = new System.Drawing.Size(978, 720);
+            this.TableRec.Size = new System.Drawing.Size(977, 720);
             this.TableRec.TabIndex = 12;
             this.TableRec.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TableRec_CellContentDoubleClick);
             this.TableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Table_CellMouseDown);
@@ -873,7 +873,7 @@ namespace FilmCollection
             this.treeFolder.ImageIndex = 1;
             this.treeFolder.ImageList = this.imageLst;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
-            this.treeFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeFolder.Margin = new System.Windows.Forms.Padding(4);
             this.treeFolder.Name = "treeFolder";
             this.treeFolder.SelectedImageIndex = 0;
             this.treeFolder.Size = new System.Drawing.Size(191, 791);
@@ -1030,7 +1030,7 @@ namespace FilmCollection
             this.tabControl2.Controls.Add(this.tabDiagram);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
-            this.tabControl2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(1371, 791);
@@ -1043,9 +1043,9 @@ namespace FilmCollection
             // 
             this.tabFilm.Controls.Add(this.scTabFilm);
             this.tabFilm.Location = new System.Drawing.Point(4, 25);
-            this.tabFilm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabFilm.Margin = new System.Windows.Forms.Padding(4);
             this.tabFilm.Name = "tabFilm";
-            this.tabFilm.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabFilm.Padding = new System.Windows.Forms.Padding(4);
             this.tabFilm.Size = new System.Drawing.Size(1363, 762);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
@@ -1059,7 +1059,7 @@ namespace FilmCollection
             this.scTabFilm.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.scTabFilm.IsSplitterFixed = true;
             this.scTabFilm.Location = new System.Drawing.Point(4, 4);
-            this.scTabFilm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scTabFilm.Margin = new System.Windows.Forms.Padding(4);
             this.scTabFilm.Name = "scTabFilm";
             // 
             // scTabFilm.Panel1
@@ -1081,7 +1081,7 @@ namespace FilmCollection
             this.scTabFilm.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.scTabFilm.Panel2MinSize = 200;
             this.scTabFilm.Size = new System.Drawing.Size(1355, 754);
-            this.scTabFilm.SplitterDistance = 980;
+            this.scTabFilm.SplitterDistance = 979;
             this.scTabFilm.SplitterWidth = 5;
             this.scTabFilm.TabIndex = 17;
             // 
@@ -1089,7 +1089,7 @@ namespace FilmCollection
             // 
             this.cbIsVisible.AutoSize = true;
             this.cbIsVisible.Location = new System.Drawing.Point(172, 7);
-            this.cbIsVisible.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbIsVisible.Margin = new System.Windows.Forms.Padding(4);
             this.cbIsVisible.Name = "cbIsVisible";
             this.cbIsVisible.Size = new System.Drawing.Size(218, 21);
             this.cbIsVisible.TabIndex = 24;
@@ -1108,7 +1108,7 @@ namespace FilmCollection
             this.menuTableRec.Location = new System.Drawing.Point(0, 0);
             this.menuTableRec.Name = "menuTableRec";
             this.menuTableRec.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuTableRec.Size = new System.Drawing.Size(978, 32);
+            this.menuTableRec.Size = new System.Drawing.Size(977, 32);
             this.menuTableRec.TabIndex = 23;
             this.menuTableRec.Text = "menuStrip1";
             // 
@@ -1159,9 +1159,9 @@ namespace FilmCollection
             this.panelEdit.Controls.Add(this.btnNew);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
-            this.panelEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelEdit.Margin = new System.Windows.Forms.Padding(4);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 752);
+            this.panelEdit.Size = new System.Drawing.Size(369, 752);
             this.panelEdit.TabIndex = 10;
             // 
             // gMedia
@@ -1187,9 +1187,9 @@ namespace FilmCollection
             this.gMedia.Controls.Add(this.chkActorSelect);
             this.gMedia.Controls.Add(this.chkActorList);
             this.gMedia.Location = new System.Drawing.Point(11, 33);
-            this.gMedia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gMedia.Margin = new System.Windows.Forms.Padding(4);
             this.gMedia.Name = "gMedia";
-            this.gMedia.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gMedia.Padding = new System.Windows.Forms.Padding(4);
             this.gMedia.Size = new System.Drawing.Size(471, 447);
             this.gMedia.TabIndex = 60;
             this.gMedia.TabStop = false;
@@ -1198,7 +1198,7 @@ namespace FilmCollection
             // rtDescription
             // 
             this.rtDescription.Location = new System.Drawing.Point(89, 139);
-            this.rtDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rtDescription.Margin = new System.Windows.Forms.Padding(4);
             this.rtDescription.Name = "rtDescription";
             this.rtDescription.Size = new System.Drawing.Size(365, 125);
             this.rtDescription.TabIndex = 61;
@@ -1211,7 +1211,7 @@ namespace FilmCollection
             this.checkNewRecord.Checked = true;
             this.checkNewRecord.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkNewRecord.Location = new System.Drawing.Point(364, 33);
-            this.checkNewRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkNewRecord.Margin = new System.Windows.Forms.Padding(4);
             this.checkNewRecord.Name = "checkNewRecord";
             this.checkNewRecord.Size = new System.Drawing.Size(91, 21);
             this.checkNewRecord.TabIndex = 60;
@@ -1226,7 +1226,7 @@ namespace FilmCollection
             this.cbNameMedia.Enabled = false;
             this.cbNameMedia.FormattingEnabled = true;
             this.cbNameMedia.Location = new System.Drawing.Point(89, 30);
-            this.cbNameMedia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbNameMedia.Margin = new System.Windows.Forms.Padding(4);
             this.cbNameMedia.Name = "cbNameMedia";
             this.cbNameMedia.Size = new System.Drawing.Size(268, 24);
             this.cbNameMedia.TabIndex = 59;
@@ -1241,7 +1241,7 @@ namespace FilmCollection
             this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxTypeVideo.FormattingEnabled = true;
             this.cBoxTypeVideo.Location = new System.Drawing.Point(323, 103);
-            this.cBoxTypeVideo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBoxTypeVideo.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
             this.cBoxTypeVideo.Size = new System.Drawing.Size(132, 24);
             this.cBoxTypeVideo.TabIndex = 42;
@@ -1254,7 +1254,7 @@ namespace FilmCollection
             this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxGenre.FormattingEnabled = true;
             this.cBoxGenre.Location = new System.Drawing.Point(89, 103);
-            this.cBoxGenre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBoxGenre.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxGenre.Name = "cBoxGenre";
             this.cBoxGenre.Size = new System.Drawing.Size(160, 24);
             this.cBoxGenre.TabIndex = 31;
@@ -1265,7 +1265,7 @@ namespace FilmCollection
             this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCountry.FormattingEnabled = true;
             this.cBoxCountry.Location = new System.Drawing.Point(251, 66);
-            this.cBoxCountry.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBoxCountry.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxCountry.Name = "cBoxCountry";
             this.cBoxCountry.Size = new System.Drawing.Size(204, 24);
             this.cBoxCountry.TabIndex = 50;
@@ -1274,7 +1274,7 @@ namespace FilmCollection
             // mtbYear
             // 
             this.mtbYear.Location = new System.Drawing.Point(89, 66);
-            this.mtbYear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mtbYear.Margin = new System.Windows.Forms.Padding(4);
             this.mtbYear.Mask = "0000";
             this.mtbYear.Name = "mtbYear";
             this.mtbYear.Size = new System.Drawing.Size(75, 22);
@@ -1350,7 +1350,7 @@ namespace FilmCollection
             this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnAddGroup.Location = new System.Drawing.Point(263, 297);
-            this.btnAddGroup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddGroup.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddGroup.Name = "btnAddGroup";
             this.btnAddGroup.Size = new System.Drawing.Size(32, 30);
             this.btnAddGroup.TabIndex = 52;
@@ -1363,7 +1363,7 @@ namespace FilmCollection
             this.btnRemoveAllGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnRemoveAllGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnRemoveAllGroup.Location = new System.Drawing.Point(263, 386);
-            this.btnRemoveAllGroup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveAllGroup.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveAllGroup.Name = "btnRemoveAllGroup";
             this.btnRemoveAllGroup.Size = new System.Drawing.Size(32, 30);
             this.btnRemoveAllGroup.TabIndex = 53;
@@ -1376,7 +1376,7 @@ namespace FilmCollection
             this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnRemoveGroup.Location = new System.Drawing.Point(263, 350);
-            this.btnRemoveGroup.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveGroup.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveGroup.Name = "btnRemoveGroup";
             this.btnRemoveGroup.Size = new System.Drawing.Size(32, 30);
             this.btnRemoveGroup.TabIndex = 53;
@@ -1408,7 +1408,7 @@ namespace FilmCollection
             // 
             this.chkActorSelect.ItemHeight = 16;
             this.chkActorSelect.Location = new System.Drawing.Point(303, 297);
-            this.chkActorSelect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkActorSelect.Margin = new System.Windows.Forms.Padding(4);
             this.chkActorSelect.Name = "chkActorSelect";
             this.chkActorSelect.Size = new System.Drawing.Size(152, 132);
             this.chkActorSelect.TabIndex = 55;
@@ -1418,7 +1418,7 @@ namespace FilmCollection
             this.chkActorList.CheckOnClick = true;
             this.chkActorList.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.chkActorList.Location = new System.Drawing.Point(89, 297);
-            this.chkActorList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkActorList.Margin = new System.Windows.Forms.Padding(4);
             this.chkActorList.MultiColumn = true;
             this.chkActorList.Name = "chkActorList";
             this.chkActorList.Size = new System.Drawing.Size(164, 123);
@@ -1429,9 +1429,9 @@ namespace FilmCollection
             this.panelEditTitle.Controls.Add(this.lblEditTitle);
             this.panelEditTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEditTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelEditTitle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelEditTitle.Margin = new System.Windows.Forms.Padding(4);
             this.panelEditTitle.Name = "panelEditTitle";
-            this.panelEditTitle.Size = new System.Drawing.Size(368, 33);
+            this.panelEditTitle.Size = new System.Drawing.Size(369, 33);
             this.panelEditTitle.TabIndex = 48;
             // 
             // lblEditTitle
@@ -1441,7 +1441,7 @@ namespace FilmCollection
             this.lblEditTitle.Location = new System.Drawing.Point(0, 0);
             this.lblEditTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEditTitle.Name = "lblEditTitle";
-            this.lblEditTitle.Size = new System.Drawing.Size(368, 33);
+            this.lblEditTitle.Size = new System.Drawing.Size(369, 33);
             this.lblEditTitle.TabIndex = 0;
             this.lblEditTitle.Text = "Панель редактирования";
             this.lblEditTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1451,8 +1451,8 @@ namespace FilmCollection
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(230, 670);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Location = new System.Drawing.Point(231, 670);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(115, 28);
             this.btnSave.TabIndex = 47;
@@ -1465,8 +1465,8 @@ namespace FilmCollection
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(230, 705);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Location = new System.Drawing.Point(231, 705);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(115, 28);
             this.btnCancel.TabIndex = 46;
@@ -1488,9 +1488,9 @@ namespace FilmCollection
             this.gRecord.Controls.Add(this.tbNameRecord);
             this.gRecord.Controls.Add(this.btnGetTime);
             this.gRecord.Location = new System.Drawing.Point(11, 487);
-            this.gRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gRecord.Margin = new System.Windows.Forms.Padding(4);
             this.gRecord.Name = "gRecord";
-            this.gRecord.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gRecord.Padding = new System.Windows.Forms.Padding(4);
             this.gRecord.Size = new System.Drawing.Size(471, 171);
             this.gRecord.TabIndex = 61;
             this.gRecord.TabStop = false;
@@ -1539,7 +1539,7 @@ namespace FilmCollection
             // mtbTime
             // 
             this.mtbTime.Location = new System.Drawing.Point(89, 59);
-            this.mtbTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mtbTime.Margin = new System.Windows.Forms.Padding(4);
             this.mtbTime.Mask = "00:00:00";
             this.mtbTime.Name = "mtbTime";
             this.mtbTime.Size = new System.Drawing.Size(99, 22);
@@ -1555,7 +1555,7 @@ namespace FilmCollection
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFileName.Enabled = false;
             this.tbFileName.Location = new System.Drawing.Point(89, 94);
-            this.tbFileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbFileName.Margin = new System.Windows.Forms.Padding(4);
             this.tbFileName.Name = "tbFileName";
             this.tbFileName.Size = new System.Drawing.Size(327, 22);
             this.tbFileName.TabIndex = 44;
@@ -1570,7 +1570,7 @@ namespace FilmCollection
             this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
             this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFileNameEdit.Location = new System.Drawing.Point(425, 90);
-            this.btnFileNameEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFileNameEdit.Margin = new System.Windows.Forms.Padding(4);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
             this.btnFileNameEdit.Size = new System.Drawing.Size(32, 31);
             this.btnFileNameEdit.TabIndex = 43;
@@ -1582,7 +1582,7 @@ namespace FilmCollection
             this.tbFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFilePath.Location = new System.Drawing.Point(89, 129);
-            this.tbFilePath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbFilePath.Margin = new System.Windows.Forms.Padding(4);
             this.tbFilePath.Name = "tbFilePath";
             this.tbFilePath.ReadOnly = true;
             this.tbFilePath.Size = new System.Drawing.Size(371, 22);
@@ -1594,7 +1594,7 @@ namespace FilmCollection
             this.tbNameRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNameRecord.Location = new System.Drawing.Point(89, 23);
-            this.tbNameRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbNameRecord.Margin = new System.Windows.Forms.Padding(4);
             this.tbNameRecord.Name = "tbNameRecord";
             this.tbNameRecord.Size = new System.Drawing.Size(371, 22);
             this.tbNameRecord.TabIndex = 27;
@@ -1604,7 +1604,7 @@ namespace FilmCollection
             // btnGetTime
             // 
             this.btnGetTime.Location = new System.Drawing.Point(201, 58);
-            this.btnGetTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGetTime.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetTime.Name = "btnGetTime";
             this.btnGetTime.Size = new System.Drawing.Size(261, 28);
             this.btnGetTime.TabIndex = 59;
@@ -1617,7 +1617,7 @@ namespace FilmCollection
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNew.Location = new System.Drawing.Point(25, 670);
-            this.btnNew.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNew.Margin = new System.Windows.Forms.Padding(4);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(108, 28);
             this.btnNew.TabIndex = 18;
@@ -1631,18 +1631,18 @@ namespace FilmCollection
             this.panelView.Controls.Add(this.ucView);
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
-            this.panelView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelView.Margin = new System.Windows.Forms.Padding(4);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 752);
+            this.panelView.Size = new System.Drawing.Size(369, 752);
             this.panelView.TabIndex = 57;
             // 
             // ucView
             // 
             this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucView.Location = new System.Drawing.Point(0, 0);
-            this.ucView.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ucView.Margin = new System.Windows.Forms.Padding(5);
             this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 752);
+            this.ucView.Size = new System.Drawing.Size(369, 752);
             this.ucView.TabIndex = 0;
             // 
             // panelFolder
@@ -1657,9 +1657,9 @@ namespace FilmCollection
             this.panelFolder.Controls.Add(this.label7);
             this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFolder.Location = new System.Drawing.Point(0, 0);
-            this.panelFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelFolder.Margin = new System.Windows.Forms.Padding(4);
             this.panelFolder.Name = "panelFolder";
-            this.panelFolder.Size = new System.Drawing.Size(368, 752);
+            this.panelFolder.Size = new System.Drawing.Size(369, 752);
             this.panelFolder.TabIndex = 59;
             // 
             // btnSaveFolder
@@ -1667,8 +1667,8 @@ namespace FilmCollection
             this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveFolder.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSaveFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveFolder.Location = new System.Drawing.Point(214, 203);
-            this.btnSaveFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveFolder.Location = new System.Drawing.Point(215, 203);
+            this.btnSaveFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveFolder.Name = "btnSaveFolder";
             this.btnSaveFolder.Size = new System.Drawing.Size(115, 28);
             this.btnSaveFolder.TabIndex = 60;
@@ -1679,8 +1679,8 @@ namespace FilmCollection
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(214, 239);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(215, 239);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(115, 28);
             this.button2.TabIndex = 59;
@@ -1693,7 +1693,7 @@ namespace FilmCollection
             this.button3.Image = global::FilmCollection.Properties.Resources.add;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button3.Location = new System.Drawing.Point(37, 203);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(108, 28);
             this.button3.TabIndex = 58;
@@ -1724,7 +1724,7 @@ namespace FilmCollection
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(37, 76);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(413, 22);
@@ -1733,7 +1733,7 @@ namespace FilmCollection
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(37, 132);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(413, 22);
             this.textBox3.TabIndex = 3;
@@ -1745,7 +1745,7 @@ namespace FilmCollection
             this.label7.Location = new System.Drawing.Point(0, 0);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(368, 33);
+            this.label7.Size = new System.Drawing.Size(369, 33);
             this.label7.TabIndex = 1;
             this.label7.Text = "Панель изменения каталога";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1755,18 +1755,18 @@ namespace FilmCollection
             this.panelScheme.Controls.Add(this.ucScheme);
             this.panelScheme.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelScheme.Location = new System.Drawing.Point(0, 0);
-            this.panelScheme.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelScheme.Margin = new System.Windows.Forms.Padding(4);
             this.panelScheme.Name = "panelScheme";
-            this.panelScheme.Size = new System.Drawing.Size(368, 752);
+            this.panelScheme.Size = new System.Drawing.Size(369, 752);
             this.panelScheme.TabIndex = 1;
             // 
             // ucScheme
             // 
             this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucScheme.Location = new System.Drawing.Point(0, 0);
-            this.ucScheme.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ucScheme.Margin = new System.Windows.Forms.Padding(5);
             this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 752);
+            this.ucScheme.Size = new System.Drawing.Size(369, 752);
             this.ucScheme.TabIndex = 0;
             // 
             // panelFind
@@ -1783,16 +1783,16 @@ namespace FilmCollection
             this.panelFind.Controls.Add(this.cbTypeFind);
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
-            this.panelFind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelFind.Margin = new System.Windows.Forms.Padding(4);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 752);
+            this.panelFind.Size = new System.Drawing.Size(369, 752);
             this.panelFind.TabIndex = 0;
             // 
             // cbFullFind
             // 
             this.cbFullFind.AutoSize = true;
             this.cbFullFind.Location = new System.Drawing.Point(53, 226);
-            this.cbFullFind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbFullFind.Margin = new System.Windows.Forms.Padding(4);
             this.cbFullFind.Name = "cbFullFind";
             this.cbFullFind.Size = new System.Drawing.Size(134, 21);
             this.cbFullFind.TabIndex = 20;
@@ -1805,9 +1805,9 @@ namespace FilmCollection
             this.btnHidePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnHidePanel.Location = new System.Drawing.Point(205, 676);
-            this.btnHidePanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnHidePanel.Margin = new System.Windows.Forms.Padding(4);
             this.btnHidePanel.Name = "btnHidePanel";
-            this.btnHidePanel.Size = new System.Drawing.Size(0, 28);
+            this.btnHidePanel.Size = new System.Drawing.Size(1, 28);
             this.btnHidePanel.TabIndex = 19;
             this.btnHidePanel.Text = "Скрыть";
             this.btnHidePanel.UseVisualStyleBackColor = true;
@@ -1816,7 +1816,7 @@ namespace FilmCollection
             // btnFindReset
             // 
             this.btnFindReset.Location = new System.Drawing.Point(77, 176);
-            this.btnFindReset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFindReset.Margin = new System.Windows.Forms.Padding(4);
             this.btnFindReset.Name = "btnFindReset";
             this.btnFindReset.Size = new System.Drawing.Size(92, 28);
             this.btnFindReset.TabIndex = 18;
@@ -1849,9 +1849,9 @@ namespace FilmCollection
             this.panelFindTitle.Controls.Add(this.lblFindTitle);
             this.panelFindTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelFindTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelFindTitle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelFindTitle.Margin = new System.Windows.Forms.Padding(4);
             this.panelFindTitle.Name = "panelFindTitle";
-            this.panelFindTitle.Size = new System.Drawing.Size(368, 33);
+            this.panelFindTitle.Size = new System.Drawing.Size(369, 33);
             this.panelFindTitle.TabIndex = 16;
             // 
             // lblFindTitle
@@ -1861,7 +1861,7 @@ namespace FilmCollection
             this.lblFindTitle.Location = new System.Drawing.Point(0, 0);
             this.lblFindTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFindTitle.Name = "lblFindTitle";
-            this.lblFindTitle.Size = new System.Drawing.Size(368, 33);
+            this.lblFindTitle.Size = new System.Drawing.Size(369, 33);
             this.lblFindTitle.TabIndex = 0;
             this.lblFindTitle.Text = "Панель поиска";
             this.lblFindTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1871,9 +1871,9 @@ namespace FilmCollection
             this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFind.Location = new System.Drawing.Point(29, 73);
-            this.tbFind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbFind.Margin = new System.Windows.Forms.Padding(4);
             this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(313, 22);
+            this.tbFind.Size = new System.Drawing.Size(314, 22);
             this.tbFind.TabIndex = 15;
             this.tbFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFind_KeyDown);
             this.tbFind.MouseEnter += new System.EventHandler(this.tbFind_MouseEnter);
@@ -1883,8 +1883,8 @@ namespace FilmCollection
             // 
             this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFindNext.Enabled = false;
-            this.btnFindNext.Location = new System.Drawing.Point(180, 167);
-            this.btnFindNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFindNext.Location = new System.Drawing.Point(181, 167);
+            this.btnFindNext.Margin = new System.Windows.Forms.Padding(4);
             this.btnFindNext.Name = "btnFindNext";
             this.btnFindNext.Size = new System.Drawing.Size(164, 28);
             this.btnFindNext.TabIndex = 14;
@@ -1896,8 +1896,8 @@ namespace FilmCollection
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFind.Enabled = false;
-            this.btnFind.Location = new System.Drawing.Point(180, 132);
-            this.btnFind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnFind.Location = new System.Drawing.Point(181, 132);
+            this.btnFind.Margin = new System.Windows.Forms.Padding(4);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(164, 28);
             this.btnFind.TabIndex = 14;
@@ -1913,7 +1913,7 @@ namespace FilmCollection
             "Название",
             "Год"});
             this.cbTypeFind.Location = new System.Drawing.Point(29, 134);
-            this.cbTypeFind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbTypeFind.Margin = new System.Windows.Forms.Padding(4);
             this.cbTypeFind.Name = "cbTypeFind";
             this.cbTypeFind.Size = new System.Drawing.Size(183, 24);
             this.cbTypeFind.TabIndex = 13;
@@ -1923,10 +1923,10 @@ namespace FilmCollection
             // 
             this.tabActors.Controls.Add(this.scTabActors);
             this.tabActors.Location = new System.Drawing.Point(4, 25);
-            this.tabActors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabActors.Margin = new System.Windows.Forms.Padding(4);
             this.tabActors.Name = "tabActors";
-            this.tabActors.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabActors.Size = new System.Drawing.Size(1299, 759);
+            this.tabActors.Padding = new System.Windows.Forms.Padding(4);
+            this.tabActors.Size = new System.Drawing.Size(1363, 762);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1938,7 +1938,7 @@ namespace FilmCollection
             this.scTabActors.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.scTabActors.IsSplitterFixed = true;
             this.scTabActors.Location = new System.Drawing.Point(4, 4);
-            this.scTabActors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scTabActors.Margin = new System.Windows.Forms.Padding(4);
             this.scTabActors.Name = "scTabActors";
             // 
             // scTabActors.Panel1
@@ -1952,8 +1952,8 @@ namespace FilmCollection
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
-            this.scTabActors.Size = new System.Drawing.Size(1291, 751);
-            this.scTabActors.SplitterDistance = 861;
+            this.scTabActors.Size = new System.Drawing.Size(1355, 754);
+            this.scTabActors.SplitterDistance = 924;
             this.scTabActors.SplitterWidth = 5;
             this.scTabActors.TabIndex = 1;
             // 
@@ -1973,13 +1973,13 @@ namespace FilmCollection
             this.colCountry});
             this.dgvTableActors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTableActors.Location = new System.Drawing.Point(0, 32);
-            this.dgvTableActors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvTableActors.Margin = new System.Windows.Forms.Padding(4);
             this.dgvTableActors.MultiSelect = false;
             this.dgvTableActors.Name = "dgvTableActors";
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(859, 717);
+            this.dgvTableActors.Size = new System.Drawing.Size(922, 720);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_CellMouseDown);
             this.dgvTableActors.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_ColumnHeaderMouseClick);
@@ -2028,7 +2028,7 @@ namespace FilmCollection
             this.menuTableAct.Location = new System.Drawing.Point(0, 0);
             this.menuTableAct.Name = "menuTableAct";
             this.menuTableAct.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuTableAct.Size = new System.Drawing.Size(859, 32);
+            this.menuTableAct.Size = new System.Drawing.Size(922, 32);
             this.menuTableAct.TabIndex = 25;
             this.menuTableAct.Text = "menuStrip1";
             // 
@@ -2071,9 +2071,9 @@ namespace FilmCollection
             this.panelEditAct.Controls.Add(this.label8);
             this.panelEditAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEditAct.Location = new System.Drawing.Point(0, 0);
-            this.panelEditAct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelEditAct.Margin = new System.Windows.Forms.Padding(4);
             this.panelEditAct.Name = "panelEditAct";
-            this.panelEditAct.Size = new System.Drawing.Size(423, 749);
+            this.panelEditAct.Size = new System.Drawing.Size(424, 752);
             this.panelEditAct.TabIndex = 0;
             // 
             // groupBox1
@@ -2084,9 +2084,9 @@ namespace FilmCollection
             this.groupBox1.Controls.Add(this.tbFilmFind);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Location = new System.Drawing.Point(27, 244);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(521, 372);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
@@ -2100,7 +2100,7 @@ namespace FilmCollection
             this.listViewFilm.FullRowSelect = true;
             this.listViewFilm.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewFilm.Location = new System.Drawing.Point(20, 23);
-            this.listViewFilm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listViewFilm.Margin = new System.Windows.Forms.Padding(4);
             this.listViewFilm.MultiSelect = false;
             this.listViewFilm.Name = "listViewFilm";
             this.listViewFilm.ShowGroups = false;
@@ -2138,7 +2138,7 @@ namespace FilmCollection
             this.lvSelectRecord.FullRowSelect = true;
             this.lvSelectRecord.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lvSelectRecord.Location = new System.Drawing.Point(20, 263);
-            this.lvSelectRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lvSelectRecord.Margin = new System.Windows.Forms.Padding(4);
             this.lvSelectRecord.MultiSelect = false;
             this.lvSelectRecord.Name = "lvSelectRecord";
             this.lvSelectRecord.ShowGroups = false;
@@ -2161,7 +2161,7 @@ namespace FilmCollection
             // tbFilmFind
             // 
             this.tbFilmFind.Location = new System.Drawing.Point(20, 215);
-            this.tbFilmFind.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbFilmFind.Margin = new System.Windows.Forms.Padding(4);
             this.tbFilmFind.Name = "tbFilmFind";
             this.tbFilmFind.Size = new System.Drawing.Size(484, 22);
             this.tbFilmFind.TabIndex = 55;
@@ -2193,9 +2193,9 @@ namespace FilmCollection
             this.gActAbout.Controls.Add(this.label13);
             this.gActAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gActAbout.Location = new System.Drawing.Point(27, 37);
-            this.gActAbout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gActAbout.Margin = new System.Windows.Forms.Padding(4);
             this.gActAbout.Name = "gActAbout";
-            this.gActAbout.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gActAbout.Padding = new System.Windows.Forms.Padding(4);
             this.gActAbout.Size = new System.Drawing.Size(521, 193);
             this.gActAbout.TabIndex = 63;
             this.gActAbout.TabStop = false;
@@ -2206,7 +2206,7 @@ namespace FilmCollection
             this.chLifeState.AutoSize = true;
             this.chLifeState.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chLifeState.Location = new System.Drawing.Point(436, 73);
-            this.chLifeState.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chLifeState.Margin = new System.Windows.Forms.Padding(4);
             this.chLifeState.Name = "chLifeState";
             this.chLifeState.Size = new System.Drawing.Size(58, 21);
             this.chLifeState.TabIndex = 61;
@@ -2219,7 +2219,7 @@ namespace FilmCollection
             this.cBoxCountryActor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCountryActor.FormattingEnabled = true;
             this.cBoxCountryActor.Location = new System.Drawing.Point(131, 111);
-            this.cBoxCountryActor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBoxCountryActor.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxCountryActor.Name = "cBoxCountryActor";
             this.cBoxCountryActor.Size = new System.Drawing.Size(373, 24);
             this.cBoxCountryActor.TabIndex = 59;
@@ -2227,7 +2227,7 @@ namespace FilmCollection
             // tbBIO
             // 
             this.tbBIO.Location = new System.Drawing.Point(131, 151);
-            this.tbBIO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbBIO.Margin = new System.Windows.Forms.Padding(4);
             this.tbBIO.Name = "tbBIO";
             this.tbBIO.Size = new System.Drawing.Size(373, 22);
             this.tbBIO.TabIndex = 55;
@@ -2236,7 +2236,7 @@ namespace FilmCollection
             // 
             this.tbFIO.BackColor = System.Drawing.SystemColors.Window;
             this.tbFIO.Location = new System.Drawing.Point(131, 28);
-            this.tbFIO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbFIO.Margin = new System.Windows.Forms.Padding(4);
             this.tbFIO.Name = "tbFIO";
             this.tbFIO.Size = new System.Drawing.Size(371, 22);
             this.tbFIO.TabIndex = 55;
@@ -2244,7 +2244,7 @@ namespace FilmCollection
             // maskDateOfBirth
             // 
             this.maskDateOfBirth.Location = new System.Drawing.Point(131, 69);
-            this.maskDateOfBirth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maskDateOfBirth.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfBirth.Mask = "00/00/0000";
             this.maskDateOfBirth.Name = "maskDateOfBirth";
             this.maskDateOfBirth.Size = new System.Drawing.Size(97, 22);
@@ -2274,7 +2274,7 @@ namespace FilmCollection
             // maskDateOfDeath
             // 
             this.maskDateOfDeath.Location = new System.Drawing.Point(268, 70);
-            this.maskDateOfDeath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maskDateOfDeath.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfDeath.Mask = "00/00/0000";
             this.maskDateOfDeath.Name = "maskDateOfDeath";
             this.maskDateOfDeath.Size = new System.Drawing.Size(160, 22);
@@ -2326,8 +2326,8 @@ namespace FilmCollection
             this.btnSaveActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveActor.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSaveActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveActor.Location = new System.Drawing.Point(251, 633);
-            this.btnSaveActor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveActor.Location = new System.Drawing.Point(252, 633);
+            this.btnSaveActor.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveActor.Name = "btnSaveActor";
             this.btnSaveActor.Size = new System.Drawing.Size(115, 28);
             this.btnSaveActor.TabIndex = 57;
@@ -2339,8 +2339,8 @@ namespace FilmCollection
             // btnCancelActor
             // 
             this.btnCancelActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelActor.Location = new System.Drawing.Point(251, 668);
-            this.btnCancelActor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelActor.Location = new System.Drawing.Point(252, 668);
+            this.btnCancelActor.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelActor.Name = "btnCancelActor";
             this.btnCancelActor.Size = new System.Drawing.Size(115, 28);
             this.btnCancelActor.TabIndex = 56;
@@ -2353,7 +2353,7 @@ namespace FilmCollection
             this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNewActor.Location = new System.Drawing.Point(63, 633);
-            this.btnNewActor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNewActor.Margin = new System.Windows.Forms.Padding(4);
             this.btnNewActor.Name = "btnNewActor";
             this.btnNewActor.Size = new System.Drawing.Size(108, 28);
             this.btnNewActor.TabIndex = 51;
@@ -2369,7 +2369,7 @@ namespace FilmCollection
             this.label8.Location = new System.Drawing.Point(0, 0);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(423, 33);
+            this.label8.Size = new System.Drawing.Size(424, 33);
             this.label8.TabIndex = 1;
             this.label8.Text = "Панель редактирования";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2381,18 +2381,18 @@ namespace FilmCollection
             this.panelViewAct.Controls.Add(this.label26);
             this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelViewAct.Location = new System.Drawing.Point(0, 0);
-            this.panelViewAct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelViewAct.Margin = new System.Windows.Forms.Padding(4);
             this.panelViewAct.Name = "panelViewAct";
-            this.panelViewAct.Size = new System.Drawing.Size(423, 749);
+            this.panelViewAct.Size = new System.Drawing.Size(424, 752);
             this.panelViewAct.TabIndex = 1;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listViewFilmV);
             this.groupBox2.Location = new System.Drawing.Point(27, 244);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(521, 372);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
@@ -2407,7 +2407,7 @@ namespace FilmCollection
             this.listViewFilmV.FullRowSelect = true;
             this.listViewFilmV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewFilmV.Location = new System.Drawing.Point(20, 23);
-            this.listViewFilmV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listViewFilmV.Margin = new System.Windows.Forms.Padding(4);
             this.listViewFilmV.MultiSelect = false;
             this.listViewFilmV.Name = "listViewFilmV";
             this.listViewFilmV.ShowGroups = false;
@@ -2447,9 +2447,9 @@ namespace FilmCollection
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox3.Location = new System.Drawing.Point(27, 37);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(521, 193);
             this.groupBox3.TabIndex = 63;
             this.groupBox3.TabStop = false;
@@ -2462,7 +2462,7 @@ namespace FilmCollection
             this.tbFIOv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbFIOv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbFIOv.Location = new System.Drawing.Point(131, 30);
-            this.tbFIOv.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbFIOv.Margin = new System.Windows.Forms.Padding(4);
             this.tbFIOv.Name = "tbFIOv";
             this.tbFIOv.ReadOnly = true;
             this.tbFIOv.Size = new System.Drawing.Size(371, 19);
@@ -2475,7 +2475,7 @@ namespace FilmCollection
             this.tbCountryAv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbCountryAv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbCountryAv.Location = new System.Drawing.Point(131, 113);
-            this.tbCountryAv.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbCountryAv.Margin = new System.Windows.Forms.Padding(4);
             this.tbCountryAv.Name = "tbCountryAv";
             this.tbCountryAv.ReadOnly = true;
             this.tbCountryAv.Size = new System.Drawing.Size(371, 19);
@@ -2486,7 +2486,7 @@ namespace FilmCollection
             this.linkBIOv.Location = new System.Drawing.Point(131, 151);
             this.linkBIOv.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkBIOv.Name = "linkBIOv";
-            this.linkBIOv.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.linkBIOv.Padding = new System.Windows.Forms.Padding(4);
             this.linkBIOv.Size = new System.Drawing.Size(375, 28);
             this.linkBIOv.TabIndex = 65;
             this.linkBIOv.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBIOv_LinkClicked);
@@ -2496,7 +2496,7 @@ namespace FilmCollection
             this.maskDateOfBirthV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskDateOfBirthV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maskDateOfBirthV.Location = new System.Drawing.Point(144, 70);
-            this.maskDateOfBirthV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maskDateOfBirthV.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfBirthV.Mask = "00/00/0000";
             this.maskDateOfBirthV.Name = "maskDateOfBirthV";
             this.maskDateOfBirthV.ReadOnly = true;
@@ -2529,7 +2529,7 @@ namespace FilmCollection
             this.maskDateOfDeathV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskDateOfDeathV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maskDateOfDeathV.Location = new System.Drawing.Point(303, 69);
-            this.maskDateOfDeathV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.maskDateOfDeathV.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfDeathV.Mask = "00/00/0000";
             this.maskDateOfDeathV.Name = "maskDateOfDeathV";
             this.maskDateOfDeathV.ReadOnly = true;
@@ -2583,7 +2583,7 @@ namespace FilmCollection
             this.label26.Location = new System.Drawing.Point(0, 0);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(423, 33);
+            this.label26.Size = new System.Drawing.Size(424, 33);
             this.label26.TabIndex = 1;
             this.label26.Text = "Информация об актере";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2594,10 +2594,10 @@ namespace FilmCollection
             this.tabImage.Controls.Add(this.panelMain);
             this.tabImage.Controls.Add(this.panel2);
             this.tabImage.Location = new System.Drawing.Point(4, 25);
-            this.tabImage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabImage.Margin = new System.Windows.Forms.Padding(4);
             this.tabImage.Name = "tabImage";
-            this.tabImage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabImage.Size = new System.Drawing.Size(1299, 759);
+            this.tabImage.Padding = new System.Windows.Forms.Padding(4);
+            this.tabImage.Size = new System.Drawing.Size(1363, 762);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             // 
@@ -2606,9 +2606,9 @@ namespace FilmCollection
             this.panelMain.Controls.Add(this.flowLayoutPanelMain);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(4, 40);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1291, 715);
+            this.panelMain.Size = new System.Drawing.Size(1355, 718);
             this.panelMain.TabIndex = 7;
             // 
             // flowLayoutPanelMain
@@ -2618,9 +2618,9 @@ namespace FilmCollection
             this.flowLayoutPanelMain.CausesValidation = false;
             this.flowLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanelMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flowLayoutPanelMain.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanelMain.Name = "flowLayoutPanelMain";
-            this.flowLayoutPanelMain.Size = new System.Drawing.Size(1291, 715);
+            this.flowLayoutPanelMain.Size = new System.Drawing.Size(1355, 718);
             this.flowLayoutPanelMain.TabIndex = 0;
             // 
             // panel2
@@ -2632,14 +2632,14 @@ namespace FilmCollection
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.panel2.Size = new System.Drawing.Size(1291, 36);
+            this.panel2.Padding = new System.Windows.Forms.Padding(4);
+            this.panel2.Size = new System.Drawing.Size(1355, 36);
             this.panel2.TabIndex = 10;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Location = new System.Drawing.Point(8, 4);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(195, 28);
             this.buttonCancel.TabIndex = 9;
@@ -2653,8 +2653,8 @@ namespace FilmCollection
             this.trackBarSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarSize.AutoSize = false;
             this.trackBarSize.LargeChange = 1;
-            this.trackBarSize.Location = new System.Drawing.Point(1115, 7);
-            this.trackBarSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trackBarSize.Location = new System.Drawing.Point(1179, 7);
+            this.trackBarSize.Margin = new System.Windows.Forms.Padding(4);
             this.trackBarSize.Maximum = 2;
             this.trackBarSize.Name = "trackBarSize";
             this.trackBarSize.Size = new System.Drawing.Size(165, 28);
@@ -2668,9 +2668,9 @@ namespace FilmCollection
             this.tabDiagram.BackColor = System.Drawing.SystemColors.Control;
             this.tabDiagram.Controls.Add(this.ucDiagr);
             this.tabDiagram.Location = new System.Drawing.Point(4, 25);
-            this.tabDiagram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabDiagram.Margin = new System.Windows.Forms.Padding(4);
             this.tabDiagram.Name = "tabDiagram";
-            this.tabDiagram.Size = new System.Drawing.Size(1299, 759);
+            this.tabDiagram.Size = new System.Drawing.Size(1363, 762);
             this.tabDiagram.TabIndex = 5;
             this.tabDiagram.Text = "Диаграмма";
             // 
@@ -2678,9 +2678,9 @@ namespace FilmCollection
             // 
             this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucDiagr.Location = new System.Drawing.Point(0, 0);
-            this.ucDiagr.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ucDiagr.Margin = new System.Windows.Forms.Padding(5);
             this.ucDiagr.Name = "ucDiagr";
-            this.ucDiagr.Size = new System.Drawing.Size(1299, 759);
+            this.ucDiagr.Size = new System.Drawing.Size(1363, 762);
             this.ucDiagr.TabIndex = 0;
             // 
             // timerLoad
@@ -2692,7 +2692,7 @@ namespace FilmCollection
             this.scMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.scMain.Location = new System.Drawing.Point(0, 55);
-            this.scMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.scMain.Margin = new System.Windows.Forms.Padding(4);
             this.scMain.Name = "scMain";
             // 
             // scMain.Panel1
@@ -2847,13 +2847,12 @@ namespace FilmCollection
             // 
             // tsFindbyName
             // 
-            this.tsFindbyName.AutoSize = false;
             this.tsFindbyName.BackColor = System.Drawing.SystemColors.Window;
             this.tsFindbyName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tsFindbyName.MaxLength = 150;
             this.tsFindbyName.Name = "tsFindbyName";
             this.tsFindbyName.Padding = new System.Windows.Forms.Padding(5);
-            this.tsFindbyName.Size = new System.Drawing.Size(187, 20);
+            this.tsFindbyName.Size = new System.Drawing.Size(177, 27);
             this.tsFindbyName.ToolTipText = "Панель быстрого поиска по названию";
             this.tsFindbyName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsFindbyName_KeyDown);
             this.tsFindbyName.MouseEnter += new System.EventHandler(this.tsFindbyName_MouseEnter);
@@ -2926,7 +2925,7 @@ namespace FilmCollection
             this.Controls.Add(this.mainMenuIcon);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.menuTableRec;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Фильмотека";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
