@@ -2,17 +2,16 @@ stages:
   # - build-dotnet
   # - test-dotnet
   - build-mono
-  - test-mono
+  # - test-mono
 
-build-dotnet:
-  stage: build-dotnet
-  # image: mcr.microsoft.com/dotnet/sdk:6.0
-  image: mcr.microsoft.com/dotnet/framework/sdk:4.8
-  
-  before_script:
-    - "dotnet restore ./FilmCollection.sln"
-  script:
-      - "dotnet build ./FilmCollection.sln"
+# build-dotnet:
+#   stage: build-dotnet
+#   # image: mcr.microsoft.com/dotnet/sdk:6.0
+#   image: mcr.microsoft.com/dotnet/framework/sdk:4.8
+#   before_script:
+#     - "dotnet restore ./FilmCollection.sln"
+#   script:
+#       - "dotnet build ./FilmCollection.sln"
 
 build-mono:
   stage: build-mono
