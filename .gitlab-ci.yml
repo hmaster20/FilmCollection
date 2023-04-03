@@ -2,7 +2,7 @@ stages:
   # - build-dotnet
   # - test-dotnet
   - build-mono
-  # - test-mono
+  - build-prduction
 
 # build-dotnet:
 #   stage: build-dotnet
@@ -15,10 +15,18 @@ stages:
 
 build-mono:
   stage: build-mono
-  image: mono:latest
+  # image: mono:latest
+  image: mono:6.10
   script:
     - nuget restore ./FilmCollection.sln
     - msbuild 
         /p:Configuration="Release"
         /p:Platform="Any CPU" 
         "./FilmCollection.sln"
+
+build-prod:
+  stage: build-prduction
+  script:
+    - echo "This job runs in merge request pipelines"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
