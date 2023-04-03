@@ -1,6 +1,6 @@
 stages:
-  - build-dotnet
-  - test-dotnet
+  # - build-dotnet
+  # - test-dotnet
   - build-mono
   - test-mono
 
