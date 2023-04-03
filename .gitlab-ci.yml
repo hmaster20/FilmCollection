@@ -23,6 +23,8 @@ build-mono:
         /p:Configuration="Release"
         /p:Platform="Any CPU" 
         "./FilmCollection.sln"
+  rules:
+    - if: $CI_COMMIT_BRANCH =~ /^(develop|release\/)/
 
 build-prod:
   stage: build-prduction
@@ -31,3 +33,4 @@ build-prod:
   when: manual
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
