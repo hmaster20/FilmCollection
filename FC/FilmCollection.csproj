@@ -282,6 +282,7 @@
     <Content Include="Resources\web\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Описание\Черновик.txt" />
     <Content Include="Описание\Разработка.txt" />
   </ItemGroup>
   <ItemGroup>
