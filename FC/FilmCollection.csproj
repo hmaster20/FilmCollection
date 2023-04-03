@@ -225,6 +225,9 @@
   <ItemGroup>
     <Content Include="ChangeLog.txt" />
     <Content Include="FC.ico" />
+    <Content Include="gpl-2.0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pics\noPic.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
