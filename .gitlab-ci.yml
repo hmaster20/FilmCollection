@@ -6,7 +6,8 @@ stages:
 
 build-dotnet:
   stage: build-dotnet
-  image: mcr.microsoft.com/dotnet/sdk:4.8
+  # image: mcr.microsoft.com/dotnet/sdk:6.0
+  image: microsoft/dotnet-framework:4.6.2
   
   before_script:
     - "dotnet restore ./FilmCollection.sln"
