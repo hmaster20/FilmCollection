@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -23,13 +25,16 @@ namespace FilmCollection
         {
             InitializeComponent();
 
-            this.Text = String.Format("О программе {0}", AssemblyTitle);
+            this.Text = String.Format("О программе - {0}", AssemblyTitle);
 
             lName.Text = AssemblyTitle;
             lVersion.Text = String.Format("Версия {0}", AssemblyVersion);
             lCopyright.Text = AssemblyCopyright;
 
             textBoxDescription.Text = AssemblyDescription;
+
+            // https://stackoverflow.com/questions/2973165/autoscalemode-problems-with-changed-default-font
+            this.AutoScaleMode = AutoScaleMode.Font; // Автомасштабирование при отклонение шрифта от 100%
         }
 
 
@@ -106,7 +111,24 @@ namespace FilmCollection
 
         private void btnLicense_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.gnu.org/licenses/gpl-2.0.html");
+            try
+            {
+                Process.Start("https://www.gnu.org/licenses/gpl-2.0.html");
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    Process.Start("gpl-2.0.txt");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        "Fatal Windows Forms Error",
+                        MessageBoxButtons.AbortRetryIgnore,
+                        MessageBoxIcon.Stop);
+                }
+            }     
         }
     }
 }

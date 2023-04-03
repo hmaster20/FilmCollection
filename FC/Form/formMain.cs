@@ -87,6 +87,8 @@ namespace FilmCollection
 
             this.MinimumSize = new Size(1160, 600);  // Установка минимального размера формы
 
+            this.AutoScaleMode = AutoScaleMode.Font; // Автомасштабирование при отклонение шрифта от 100%
+
             RCollection = new CollectionRecord();      // Доступ к коллекции
             //_treeViewColletion = new TreeViewColletion();   // Доступ к коллекции
 

@@ -1,0 +1,33 @@
+stages:
+  # - build-dotnet
+  # - test-dotnet
+  - build-mono
+  - build-prduction
+
+# build-dotnet:
+#   stage: build-dotnet
+#   # image: mcr.microsoft.com/dotnet/sdk:6.0
+#   image: mcr.microsoft.com/dotnet/framework/sdk:4.8
+#   before_script:
+#     - "dotnet restore ./FilmCollection.sln"
+#   script:
+#       - "dotnet build ./FilmCollection.sln"
+
+build-mono:
+  stage: build-mono
+  # image: mono:latest
+  image: mono:6.10
+  script:
+    - nuget restore ./FilmCollection.sln
+    - msbuild 
+        /p:Configuration="Release"
+        /p:Platform="Any CPU" 
+        "./FilmCollection.sln"
+
+build-prod:
+  stage: build-prduction
+  script:
+    - echo "This job runs in merge request pipelines"
+  when: manual
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

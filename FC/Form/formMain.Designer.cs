@@ -263,9 +263,10 @@ namespace FilmCollection
             this.tsChange = new System.Windows.Forms.ToolStripButton();
             this.tsRemove = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsHidePanel = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsFind = new System.Windows.Forms.ToolStripButton();
             this.tsFindbyName = new System.Windows.Forms.ToolStripTextBox();
-            this.tsHidePanel = new System.Windows.Forms.ToolStripButton();
             this.toolinfo = new System.Windows.Forms.ToolTip(this.components);
             this.Tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.TrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -274,7 +275,6 @@ namespace FilmCollection
             this.separator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.timerForDateTime = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.TableRec)).BeginInit();
             this.TabMenu.SuspendLayout();
             this.statusLine.SuspendLayout();
@@ -341,13 +341,14 @@ namespace FilmCollection
             this.cmnTime,
             this.cmnFileName});
             this.TableRec.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TableRec.Location = new System.Drawing.Point(0, 27);
+            this.TableRec.Location = new System.Drawing.Point(0, 32);
+            this.TableRec.Margin = new System.Windows.Forms.Padding(4);
             this.TableRec.MultiSelect = false;
             this.TableRec.Name = "TableRec";
             this.TableRec.ReadOnly = true;
             this.TableRec.RowHeadersVisible = false;
             this.TableRec.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TableRec.Size = new System.Drawing.Size(590, 579);
+            this.TableRec.Size = new System.Drawing.Size(977, 720);
             this.TableRec.TabIndex = 12;
             this.TableRec.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TableRec_CellContentDoubleClick);
             this.TableRec.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Table_CellMouseDown);
@@ -380,7 +381,7 @@ namespace FilmCollection
             this.cmnCountryString.HeaderText = "Страна";
             this.cmnCountryString.Name = "cmnCountryString";
             this.cmnCountryString.ReadOnly = true;
-            this.cmnCountryString.Width = 68;
+            this.cmnCountryString.Width = 85;
             // 
             // cmnGenreString
             // 
@@ -389,7 +390,7 @@ namespace FilmCollection
             this.cmnGenreString.HeaderText = "Жанр";
             this.cmnGenreString.Name = "cmnGenreString";
             this.cmnGenreString.ReadOnly = true;
-            this.cmnGenreString.Width = 61;
+            this.cmnGenreString.Width = 74;
             // 
             // cmnCategoryString
             // 
@@ -398,7 +399,7 @@ namespace FilmCollection
             this.cmnCategoryString.HeaderText = "Категория";
             this.cmnCategoryString.Name = "cmnCategoryString";
             this.cmnCategoryString.ReadOnly = true;
-            this.cmnCategoryString.Width = 85;
+            this.cmnCategoryString.Width = 106;
             // 
             // cmnTime
             // 
@@ -419,6 +420,7 @@ namespace FilmCollection
             // 
             // TabMenu
             // 
+            this.TabMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.TabMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cFind,
             this.cSep1,
@@ -434,27 +436,27 @@ namespace FilmCollection
             this.cSep5,
             this.ShowChart});
             this.TabMenu.Name = "contextMenuStrip1";
-            this.TabMenu.Size = new System.Drawing.Size(208, 210);
+            this.TabMenu.Size = new System.Drawing.Size(251, 242);
             this.TabMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // cFind
             // 
             this.cFind.Image = global::FilmCollection.Properties.Resources.find;
             this.cFind.Name = "cFind";
-            this.cFind.Size = new System.Drawing.Size(207, 22);
+            this.cFind.Size = new System.Drawing.Size(250, 26);
             this.cFind.Text = "Найти";
             this.cFind.Click += new System.EventHandler(this.cFind_Click);
             // 
             // cSep1
             // 
             this.cSep1.Name = "cSep1";
-            this.cSep1.Size = new System.Drawing.Size(204, 6);
+            this.cSep1.Size = new System.Drawing.Size(247, 6);
             // 
             // cAdd
             // 
             this.cAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.cAdd.Name = "cAdd";
-            this.cAdd.Size = new System.Drawing.Size(207, 22);
+            this.cAdd.Size = new System.Drawing.Size(250, 26);
             this.cAdd.Text = "Добавить";
             this.cAdd.Click += new System.EventHandler(this.AddRec_Click);
             // 
@@ -462,7 +464,7 @@ namespace FilmCollection
             // 
             this.cChange.Image = global::FilmCollection.Properties.Resources.change;
             this.cChange.Name = "cChange";
-            this.cChange.Size = new System.Drawing.Size(207, 22);
+            this.cChange.Size = new System.Drawing.Size(250, 26);
             this.cChange.Text = "Изменить";
             this.cChange.Click += new System.EventHandler(this.EditRec_Click);
             // 
@@ -470,72 +472,74 @@ namespace FilmCollection
             // 
             this.cDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.cDelete.Name = "cDelete";
-            this.cDelete.Size = new System.Drawing.Size(207, 22);
+            this.cDelete.Size = new System.Drawing.Size(250, 26);
             this.cDelete.Text = "Удалить";
             this.cDelete.Click += new System.EventHandler(this.DeleteRec_Click);
             // 
             // cSep2
             // 
             this.cSep2.Name = "cSep2";
-            this.cSep2.Size = new System.Drawing.Size(204, 6);
+            this.cSep2.Size = new System.Drawing.Size(247, 6);
             // 
             // cClearMetaData
             // 
             this.cClearMetaData.Image = global::FilmCollection.Properties.Resources.MetaClear;
             this.cClearMetaData.Name = "cClearMetaData";
-            this.cClearMetaData.Size = new System.Drawing.Size(207, 22);
+            this.cClearMetaData.Size = new System.Drawing.Size(250, 26);
             this.cClearMetaData.Text = "Очистка информации";
             this.cClearMetaData.Click += new System.EventHandler(this.cClearMetaData_Click);
             // 
             // cSep3
             // 
             this.cSep3.Name = "cSep3";
-            this.cSep3.Size = new System.Drawing.Size(204, 6);
+            this.cSep3.Size = new System.Drawing.Size(247, 6);
             // 
             // cOpenFolder
             // 
             this.cOpenFolder.Image = global::FilmCollection.Properties.Resources.Folder;
             this.cOpenFolder.Name = "cOpenFolder";
-            this.cOpenFolder.Size = new System.Drawing.Size(207, 22);
+            this.cOpenFolder.Size = new System.Drawing.Size(250, 26);
             this.cOpenFolder.Text = "Открыть папку";
             this.cOpenFolder.Click += new System.EventHandler(this.cOpenFolder_Click);
             // 
             // cSep4
             // 
             this.cSep4.Name = "cSep4";
-            this.cSep4.Size = new System.Drawing.Size(204, 6);
+            this.cSep4.Size = new System.Drawing.Size(247, 6);
             // 
             // UpdateFIlmInfo
             // 
             this.UpdateFIlmInfo.Image = global::FilmCollection.Properties.Resources.grabber;
             this.UpdateFIlmInfo.Name = "UpdateFIlmInfo";
-            this.UpdateFIlmInfo.Size = new System.Drawing.Size(207, 22);
+            this.UpdateFIlmInfo.Size = new System.Drawing.Size(250, 26);
             this.UpdateFIlmInfo.Text = "Обновить информацию";
             this.UpdateFIlmInfo.Click += new System.EventHandler(this.UpdateInfo_Click);
             // 
             // cSep5
             // 
             this.cSep5.Name = "cSep5";
-            this.cSep5.Size = new System.Drawing.Size(204, 6);
+            this.cSep5.Size = new System.Drawing.Size(247, 6);
             // 
             // ShowChart
             // 
             this.ShowChart.Name = "ShowChart";
-            this.ShowChart.Size = new System.Drawing.Size(207, 22);
+            this.ShowChart.Size = new System.Drawing.Size(250, 26);
             this.ShowChart.Text = "Показать связи";
             this.ShowChart.Click += new System.EventHandler(this.ShowChart_Click);
             // 
             // statusLine
             // 
+            this.statusLine.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusLine.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabel,
             this.tsProgressBar,
             this.FindStatusLabel,
             this.tssDayTime,
             this.tssWorkTime});
-            this.statusLine.Location = new System.Drawing.Point(0, 689);
+            this.statusLine.Location = new System.Drawing.Point(0, 846);
             this.statusLine.Name = "statusLine";
-            this.statusLine.Size = new System.Drawing.Size(1175, 22);
+            this.statusLine.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusLine.Size = new System.Drawing.Size(1567, 29);
             this.statusLine.TabIndex = 18;
             this.statusLine.Text = "statusStrip1";
             // 
@@ -543,14 +547,14 @@ namespace FilmCollection
             // 
             this.tssLabel.AutoSize = false;
             this.tssLabel.Name = "tssLabel";
-            this.tssLabel.Size = new System.Drawing.Size(200, 17);
+            this.tssLabel.Size = new System.Drawing.Size(200, 24);
             this.tssLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tsProgressBar
             // 
             this.tsProgressBar.BackColor = System.Drawing.SystemColors.Control;
             this.tsProgressBar.Name = "tsProgressBar";
-            this.tsProgressBar.Size = new System.Drawing.Size(200, 16);
+            this.tsProgressBar.Size = new System.Drawing.Size(267, 23);
             this.tsProgressBar.Visible = false;
             // 
             // FindStatusLabel
@@ -558,27 +562,26 @@ namespace FilmCollection
             this.FindStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.FindStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.FindStatusLabel.Name = "FindStatusLabel";
-            this.FindStatusLabel.Size = new System.Drawing.Size(4, 17);
+            this.FindStatusLabel.Size = new System.Drawing.Size(4, 24);
             this.FindStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tssDayTime
             // 
-            this.tssDayTime.AutoSize = false;
             this.tssDayTime.Name = "tssDayTime";
-            this.tssDayTime.Size = new System.Drawing.Size(120, 17);
+            this.tssDayTime.Size = new System.Drawing.Size(66, 24);
             this.tssDayTime.Text = "dayTime";
             // 
             // tssWorkTime
             // 
-            this.tssWorkTime.AutoSize = false;
             this.tssWorkTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.tssWorkTime.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.tssWorkTime.Name = "tssWorkTime";
-            this.tssWorkTime.Size = new System.Drawing.Size(150, 17);
+            this.tssWorkTime.Size = new System.Drawing.Size(80, 24);
             this.tssWorkTime.Text = "WorkTime";
             // 
             // mainMenu
             // 
+            this.mainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuFile,
             this.MenuChange,
@@ -586,7 +589,8 @@ namespace FilmCollection
             this.MenuHelp});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1175, 24);
+            this.mainMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.mainMenu.Size = new System.Drawing.Size(1567, 28);
             this.mainMenu.TabIndex = 10;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -604,14 +608,14 @@ namespace FilmCollection
             this.ts3,
             this.btnExit});
             this.MenuFile.Name = "MenuFile";
-            this.MenuFile.Size = new System.Drawing.Size(48, 20);
+            this.MenuFile.Size = new System.Drawing.Size(57, 24);
             this.MenuFile.Text = "Файл";
             // 
             // btnCreateBase
             // 
             this.btnCreateBase.Image = global::FilmCollection.Properties.Resources.db;
             this.btnCreateBase.Name = "btnCreateBase";
-            this.btnCreateBase.Size = new System.Drawing.Size(187, 22);
+            this.btnCreateBase.Size = new System.Drawing.Size(228, 26);
             this.btnCreateBase.Text = "Создать базу";
             this.btnCreateBase.Click += new System.EventHandler(this.CreateBase_Click);
             // 
@@ -619,20 +623,20 @@ namespace FilmCollection
             // 
             this.btnUpdateBase.Image = global::FilmCollection.Properties.Resources.dbRebuild;
             this.btnUpdateBase.Name = "btnUpdateBase";
-            this.btnUpdateBase.Size = new System.Drawing.Size(187, 22);
+            this.btnUpdateBase.Size = new System.Drawing.Size(228, 26);
             this.btnUpdateBase.Text = "Обновить базу";
             this.btnUpdateBase.Click += new System.EventHandler(this.UpdateBase_Click);
             // 
             // ts1
             // 
             this.ts1.Name = "ts1";
-            this.ts1.Size = new System.Drawing.Size(184, 6);
+            this.ts1.Size = new System.Drawing.Size(225, 6);
             // 
             // btnBackupBase
             // 
             this.btnBackupBase.Image = global::FilmCollection.Properties.Resources.dbBackup;
             this.btnBackupBase.Name = "btnBackupBase";
-            this.btnBackupBase.Size = new System.Drawing.Size(187, 22);
+            this.btnBackupBase.Size = new System.Drawing.Size(228, 26);
             this.btnBackupBase.Text = "Создать копию базы";
             this.btnBackupBase.Click += new System.EventHandler(this.BackupBase_Click);
             // 
@@ -640,40 +644,40 @@ namespace FilmCollection
             // 
             this.btnRecoveryBase.Image = global::FilmCollection.Properties.Resources.dbRecovery;
             this.btnRecoveryBase.Name = "btnRecoveryBase";
-            this.btnRecoveryBase.Size = new System.Drawing.Size(187, 22);
+            this.btnRecoveryBase.Size = new System.Drawing.Size(228, 26);
             this.btnRecoveryBase.Text = "Восстановить из...";
             this.btnRecoveryBase.Click += new System.EventHandler(this.RecoveryBase_Click);
             // 
             // ts2
             // 
             this.ts2.Name = "ts2";
-            this.ts2.Size = new System.Drawing.Size(184, 6);
+            this.ts2.Size = new System.Drawing.Size(225, 6);
             this.ts2.Visible = false;
             // 
             // btnExportHTML
             // 
             this.btnExportHTML.Name = "btnExportHTML";
-            this.btnExportHTML.Size = new System.Drawing.Size(187, 22);
+            this.btnExportHTML.Size = new System.Drawing.Size(228, 26);
             this.btnExportHTML.Text = "Экспорт в HTML";
             this.btnExportHTML.Click += new System.EventHandler(this.btnExportHTML_Click);
             // 
             // btnReport
             // 
             this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(187, 22);
+            this.btnReport.Size = new System.Drawing.Size(228, 26);
             this.btnReport.Text = "Экспорт в CSV(Excel)";
             this.btnReport.Click += new System.EventHandler(this.btnReportCSV_Click);
             // 
             // ts3
             // 
             this.ts3.Name = "ts3";
-            this.ts3.Size = new System.Drawing.Size(184, 6);
+            this.ts3.Size = new System.Drawing.Size(225, 6);
             // 
             // btnExit
             // 
             this.btnExit.Image = global::FilmCollection.Properties.Resources.ExitV2;
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(187, 22);
+            this.btnExit.Size = new System.Drawing.Size(228, 26);
             this.btnExit.Text = "Выход";
             this.btnExit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -686,7 +690,7 @@ namespace FilmCollection
             this.ts4,
             this.поискToolStripMenuItem});
             this.MenuChange.Name = "MenuChange";
-            this.MenuChange.Size = new System.Drawing.Size(59, 20);
+            this.MenuChange.Size = new System.Drawing.Size(72, 24);
             this.MenuChange.Text = "Правка";
             // 
             // btnAdd
@@ -694,7 +698,7 @@ namespace FilmCollection
             this.btnAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.ShortcutKeys = System.Windows.Forms.Keys.F3;
-            this.btnAdd.Size = new System.Drawing.Size(149, 22);
+            this.btnAdd.Size = new System.Drawing.Size(177, 26);
             this.btnAdd.Text = "Добавить";
             this.btnAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
@@ -703,7 +707,7 @@ namespace FilmCollection
             this.btnChange.Image = global::FilmCollection.Properties.Resources.change;
             this.btnChange.Name = "btnChange";
             this.btnChange.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.btnChange.Size = new System.Drawing.Size(149, 22);
+            this.btnChange.Size = new System.Drawing.Size(177, 26);
             this.btnChange.Text = "Изменить";
             this.btnChange.Click += new System.EventHandler(this.tsChange_Click);
             // 
@@ -712,21 +716,21 @@ namespace FilmCollection
             this.btnDelete.Image = global::FilmCollection.Properties.Resources.del;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.ShortcutKeys = System.Windows.Forms.Keys.F8;
-            this.btnDelete.Size = new System.Drawing.Size(149, 22);
+            this.btnDelete.Size = new System.Drawing.Size(177, 26);
             this.btnDelete.Text = "Удалить";
             this.btnDelete.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // ts4
             // 
             this.ts4.Name = "ts4";
-            this.ts4.Size = new System.Drawing.Size(146, 6);
+            this.ts4.Size = new System.Drawing.Size(174, 6);
             // 
             // поискToolStripMenuItem
             // 
             this.поискToolStripMenuItem.Image = global::FilmCollection.Properties.Resources.find;
             this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
             this.поискToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.поискToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.поискToolStripMenuItem.Text = "Поиск";
             this.поискToolStripMenuItem.Click += new System.EventHandler(this.tsFind_Click);
             // 
@@ -743,13 +747,13 @@ namespace FilmCollection
             this.toolStripSeparator1,
             this.btnReindexerForm});
             this.настройкаToolStripMenuItem.Name = "настройкаToolStripMenuItem";
-            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.настройкаToolStripMenuItem.Size = new System.Drawing.Size(95, 24);
             this.настройкаToolStripMenuItem.Text = "Настройка";
             // 
             // btnOptions
             // 
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(196, 22);
+            this.btnOptions.Size = new System.Drawing.Size(237, 26);
             this.btnOptions.Text = "Параметры";
             this.btnOptions.Visible = false;
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
@@ -757,20 +761,20 @@ namespace FilmCollection
             // btnActors
             // 
             this.btnActors.Name = "btnActors";
-            this.btnActors.Size = new System.Drawing.Size(196, 22);
+            this.btnActors.Size = new System.Drawing.Size(237, 26);
             this.btnActors.Text = "Актеры";
             this.btnActors.Visible = false;
             // 
             // ts5
             // 
             this.ts5.Name = "ts5";
-            this.ts5.Size = new System.Drawing.Size(193, 6);
+            this.ts5.Size = new System.Drawing.Size(234, 6);
             // 
             // btnCleanDB
             // 
             this.btnCleanDB.Image = global::FilmCollection.Properties.Resources.dbClear;
             this.btnCleanDB.Name = "btnCleanDB";
-            this.btnCleanDB.Size = new System.Drawing.Size(196, 22);
+            this.btnCleanDB.Size = new System.Drawing.Size(237, 26);
             this.btnCleanDB.Text = "Очистка базы";
             this.btnCleanDB.Click += new System.EventHandler(this.CleanBase_Click);
             // 
@@ -778,33 +782,33 @@ namespace FilmCollection
             // 
             this.btnOpenCatalogDB.Image = global::FilmCollection.Properties.Resources.Folder;
             this.btnOpenCatalogDB.Name = "btnOpenCatalogDB";
-            this.btnOpenCatalogDB.Size = new System.Drawing.Size(196, 22);
+            this.btnOpenCatalogDB.Size = new System.Drawing.Size(237, 26);
             this.btnOpenCatalogDB.Text = "Открыть каталог базы";
             this.btnOpenCatalogDB.Click += new System.EventHandler(this.btnOpenCatalogDB_Click);
             // 
             // ts6
             // 
             this.ts6.Name = "ts6";
-            this.ts6.Size = new System.Drawing.Size(193, 6);
+            this.ts6.Size = new System.Drawing.Size(234, 6);
             // 
             // btnOpenReportForm
             // 
             this.btnOpenReportForm.Image = global::FilmCollection.Properties.Resources.Report;
             this.btnOpenReportForm.Name = "btnOpenReportForm";
             this.btnOpenReportForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.btnOpenReportForm.Size = new System.Drawing.Size(196, 22);
+            this.btnOpenReportForm.Size = new System.Drawing.Size(237, 26);
             this.btnOpenReportForm.Text = "Отчет";
             this.btnOpenReportForm.Click += new System.EventHandler(this.btnOpenReportForm_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(193, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(234, 6);
             // 
             // btnReindexerForm
             // 
             this.btnReindexerForm.Name = "btnReindexerForm";
-            this.btnReindexerForm.Size = new System.Drawing.Size(196, 22);
+            this.btnReindexerForm.Size = new System.Drawing.Size(237, 26);
             this.btnReindexerForm.Text = "Проверка индексов";
             this.btnReindexerForm.Click += new System.EventHandler(this.btnReindexerForm_Click);
             // 
@@ -818,7 +822,7 @@ namespace FilmCollection
             this.ts8,
             this.btnAbout});
             this.MenuHelp.Name = "MenuHelp";
-            this.MenuHelp.Size = new System.Drawing.Size(65, 20);
+            this.MenuHelp.Size = new System.Drawing.Size(79, 24);
             this.MenuHelp.Text = "Справка";
             // 
             // btnHelp
@@ -826,39 +830,39 @@ namespace FilmCollection
             this.btnHelp.Image = global::FilmCollection.Properties.Resources.help_run;
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.btnHelp.Size = new System.Drawing.Size(204, 22);
+            this.btnHelp.Size = new System.Drawing.Size(251, 26);
             this.btnHelp.Text = "Справка";
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // btnHistory
             // 
             this.btnHistory.Name = "btnHistory";
-            this.btnHistory.Size = new System.Drawing.Size(204, 22);
+            this.btnHistory.Size = new System.Drawing.Size(251, 26);
             this.btnHistory.Text = "История изменений";
             this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
             // 
             // ts7
             // 
             this.ts7.Name = "ts7";
-            this.ts7.Size = new System.Drawing.Size(201, 6);
+            this.ts7.Size = new System.Drawing.Size(248, 6);
             // 
             // btnCheckUpdate
             // 
             this.btnCheckUpdate.Name = "btnCheckUpdate";
-            this.btnCheckUpdate.Size = new System.Drawing.Size(204, 22);
+            this.btnCheckUpdate.Size = new System.Drawing.Size(251, 26);
             this.btnCheckUpdate.Text = "Проверить обновления";
             this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
             // 
             // ts8
             // 
             this.ts8.Name = "ts8";
-            this.ts8.Size = new System.Drawing.Size(201, 6);
+            this.ts8.Size = new System.Drawing.Size(248, 6);
             // 
             // btnAbout
             // 
             this.btnAbout.Image = global::FilmCollection.Properties.Resources.help;
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(204, 22);
+            this.btnAbout.Size = new System.Drawing.Size(251, 26);
             this.btnAbout.Text = "О программе";
             this.btnAbout.Click += new System.EventHandler(this.About_Click);
             // 
@@ -869,9 +873,10 @@ namespace FilmCollection
             this.treeFolder.ImageIndex = 1;
             this.treeFolder.ImageList = this.imageLst;
             this.treeFolder.Location = new System.Drawing.Point(0, 0);
+            this.treeFolder.Margin = new System.Windows.Forms.Padding(4);
             this.treeFolder.Name = "treeFolder";
             this.treeFolder.SelectedImageIndex = 0;
-            this.treeFolder.Size = new System.Drawing.Size(191, 640);
+            this.treeFolder.Size = new System.Drawing.Size(191, 791);
             this.treeFolder.TabIndex = 22;
             this.treeFolder.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeFolder_ItemDrag);
             this.treeFolder.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeFolder_NodeMouseClick);
@@ -895,6 +900,7 @@ namespace FilmCollection
             // 
             // TreeMenu
             // 
+            this.TreeMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.TreeMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сCollapseAll,
             this.сExpandAll,
@@ -912,13 +918,13 @@ namespace FilmCollection
             this.ChangeCatalogTypeVideo,
             this.ChangeCatalogTypeVideo2});
             this.TreeMenu.Name = "contextTreeMenu";
-            this.TreeMenu.Size = new System.Drawing.Size(370, 238);
+            this.TreeMenu.Size = new System.Drawing.Size(456, 274);
             // 
             // сCollapseAll
             // 
             this.сCollapseAll.Image = global::FilmCollection.Properties.Resources.collapse;
             this.сCollapseAll.Name = "сCollapseAll";
-            this.сCollapseAll.Size = new System.Drawing.Size(369, 22);
+            this.сCollapseAll.Size = new System.Drawing.Size(455, 26);
             this.сCollapseAll.Text = "Свернуть все";
             this.сCollapseAll.Click += new System.EventHandler(this.сCollapseAll_Click);
             // 
@@ -926,85 +932,85 @@ namespace FilmCollection
             // 
             this.сExpandAll.Image = global::FilmCollection.Properties.Resources.expand;
             this.сExpandAll.Name = "сExpandAll";
-            this.сExpandAll.Size = new System.Drawing.Size(369, 22);
+            this.сExpandAll.Size = new System.Drawing.Size(455, 26);
             this.сExpandAll.Text = "Развернуть все";
             this.сExpandAll.Click += new System.EventHandler(this.сExpandAll_Click);
             // 
             // tcSep1
             // 
             this.tcSep1.Name = "tcSep1";
-            this.tcSep1.Size = new System.Drawing.Size(366, 6);
+            this.tcSep1.Size = new System.Drawing.Size(452, 6);
             // 
             // cExpandSelectNode
             // 
             this.cExpandSelectNode.Image = global::FilmCollection.Properties.Resources.expandNode;
             this.cExpandSelectNode.Name = "cExpandSelectNode";
-            this.cExpandSelectNode.Size = new System.Drawing.Size(369, 22);
+            this.cExpandSelectNode.Size = new System.Drawing.Size(455, 26);
             this.cExpandSelectNode.Text = "Развернуть ветку";
             this.cExpandSelectNode.Click += new System.EventHandler(this.cExpandSelectNode_Click);
             // 
             // tcSep2
             // 
             this.tcSep2.Name = "tcSep2";
-            this.tcSep2.Size = new System.Drawing.Size(366, 6);
+            this.tcSep2.Size = new System.Drawing.Size(452, 6);
             // 
             // cShowSelcetNodeAllFiles
             // 
             this.cShowSelcetNodeAllFiles.Image = global::FilmCollection.Properties.Resources.viewfiles;
             this.cShowSelcetNodeAllFiles.Name = "cShowSelcetNodeAllFiles";
-            this.cShowSelcetNodeAllFiles.Size = new System.Drawing.Size(369, 22);
+            this.cShowSelcetNodeAllFiles.Size = new System.Drawing.Size(455, 26);
             this.cShowSelcetNodeAllFiles.Text = "Отобразить все вложенные файлы";
             this.cShowSelcetNodeAllFiles.Click += new System.EventHandler(this.cShowSelcetNodeAllFiles_Click);
             // 
             // tcSep3
             // 
             this.tcSep3.Name = "tcSep3";
-            this.tcSep3.Size = new System.Drawing.Size(366, 6);
+            this.tcSep3.Size = new System.Drawing.Size(452, 6);
             // 
             // cRenameFolder
             // 
             this.cRenameFolder.Image = global::FilmCollection.Properties.Resources.FolderEdit;
             this.cRenameFolder.Name = "cRenameFolder";
-            this.cRenameFolder.Size = new System.Drawing.Size(369, 22);
+            this.cRenameFolder.Size = new System.Drawing.Size(455, 26);
             this.cRenameFolder.Text = "Переименовать папку";
             this.cRenameFolder.Click += new System.EventHandler(this.cRenameFolder_Click);
             // 
             // tcSep4
             // 
             this.tcSep4.Name = "tcSep4";
-            this.tcSep4.Size = new System.Drawing.Size(366, 6);
+            this.tcSep4.Size = new System.Drawing.Size(452, 6);
             // 
             // cOpenCurrentFolder
             // 
             this.cOpenCurrentFolder.Image = global::FilmCollection.Properties.Resources.Folder;
             this.cOpenCurrentFolder.Name = "cOpenCurrentFolder";
-            this.cOpenCurrentFolder.Size = new System.Drawing.Size(369, 22);
+            this.cOpenCurrentFolder.Size = new System.Drawing.Size(455, 26);
             this.cOpenCurrentFolder.Text = "Открыть папку";
             this.cOpenCurrentFolder.Click += new System.EventHandler(this.cOpenCurrentFolder_Click);
             // 
             // tcSep5
             // 
             this.tcSep5.Name = "tcSep5";
-            this.tcSep5.Size = new System.Drawing.Size(366, 6);
+            this.tcSep5.Size = new System.Drawing.Size(452, 6);
             // 
             // UpdateCatalogInfo
             // 
             this.UpdateCatalogInfo.Image = global::FilmCollection.Properties.Resources.grabber;
             this.UpdateCatalogInfo.Name = "UpdateCatalogInfo";
-            this.UpdateCatalogInfo.Size = new System.Drawing.Size(369, 22);
+            this.UpdateCatalogInfo.Size = new System.Drawing.Size(455, 26);
             this.UpdateCatalogInfo.Text = "Обновить информацию в каталоге";
             this.UpdateCatalogInfo.Click += new System.EventHandler(this.UpdateCatalogInfo_Click);
             // 
             // tcSep6
             // 
             this.tcSep6.Name = "tcSep6";
-            this.tcSep6.Size = new System.Drawing.Size(366, 6);
+            this.tcSep6.Size = new System.Drawing.Size(452, 6);
             // 
             // ChangeCatalogTypeVideo
             // 
             this.ChangeCatalogTypeVideo.Image = global::FilmCollection.Properties.Resources.fileSelect;
             this.ChangeCatalogTypeVideo.Name = "ChangeCatalogTypeVideo";
-            this.ChangeCatalogTypeVideo.Size = new System.Drawing.Size(369, 22);
+            this.ChangeCatalogTypeVideo.Size = new System.Drawing.Size(455, 26);
             this.ChangeCatalogTypeVideo.Text = "Сделать каталог сериалом на основе выбранного";
             this.ChangeCatalogTypeVideo.Click += new System.EventHandler(this.ChangeCatalogTypeVideo_Click);
             // 
@@ -1012,7 +1018,7 @@ namespace FilmCollection
             // 
             this.ChangeCatalogTypeVideo2.Image = global::FilmCollection.Properties.Resources.folderSelect;
             this.ChangeCatalogTypeVideo2.Name = "ChangeCatalogTypeVideo2";
-            this.ChangeCatalogTypeVideo2.Size = new System.Drawing.Size(369, 22);
+            this.ChangeCatalogTypeVideo2.Size = new System.Drawing.Size(455, 26);
             this.ChangeCatalogTypeVideo2.Text = "Сделать каталог сериалом на основе имени каталога";
             this.ChangeCatalogTypeVideo2.Click += new System.EventHandler(this.ChangeCatalogTypeVideo2_Click);
             // 
@@ -1024,9 +1030,10 @@ namespace FilmCollection
             this.tabControl2.Controls.Add(this.tabDiagram);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(980, 640);
+            this.tabControl2.Size = new System.Drawing.Size(1371, 791);
             this.tabControl2.TabIndex = 11;
             this.tabControl2.SelectedIndexChanged += new System.EventHandler(this.SelectActor_Info);
             this.tabControl2.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl2_Selecting);
@@ -1035,10 +1042,11 @@ namespace FilmCollection
             // tabFilm
             // 
             this.tabFilm.Controls.Add(this.scTabFilm);
-            this.tabFilm.Location = new System.Drawing.Point(4, 22);
+            this.tabFilm.Location = new System.Drawing.Point(4, 25);
+            this.tabFilm.Margin = new System.Windows.Forms.Padding(4);
             this.tabFilm.Name = "tabFilm";
-            this.tabFilm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFilm.Size = new System.Drawing.Size(972, 614);
+            this.tabFilm.Padding = new System.Windows.Forms.Padding(4);
+            this.tabFilm.Size = new System.Drawing.Size(1363, 762);
             this.tabFilm.TabIndex = 0;
             this.tabFilm.Text = "Фильмотека";
             this.tabFilm.UseVisualStyleBackColor = true;
@@ -1050,7 +1058,8 @@ namespace FilmCollection
             this.scTabFilm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scTabFilm.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.scTabFilm.IsSplitterFixed = true;
-            this.scTabFilm.Location = new System.Drawing.Point(3, 3);
+            this.scTabFilm.Location = new System.Drawing.Point(4, 4);
+            this.scTabFilm.Margin = new System.Windows.Forms.Padding(4);
             this.scTabFilm.Name = "scTabFilm";
             // 
             // scTabFilm.Panel1
@@ -1071,16 +1080,18 @@ namespace FilmCollection
             this.scTabFilm.Panel2.Controls.Add(this.panelFind);
             this.scTabFilm.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.scTabFilm.Panel2MinSize = 200;
-            this.scTabFilm.Size = new System.Drawing.Size(966, 608);
-            this.scTabFilm.SplitterDistance = 592;
+            this.scTabFilm.Size = new System.Drawing.Size(1355, 754);
+            this.scTabFilm.SplitterDistance = 979;
+            this.scTabFilm.SplitterWidth = 5;
             this.scTabFilm.TabIndex = 17;
             // 
             // cbIsVisible
             // 
             this.cbIsVisible.AutoSize = true;
-            this.cbIsVisible.Location = new System.Drawing.Point(129, 6);
+            this.cbIsVisible.Location = new System.Drawing.Point(172, 7);
+            this.cbIsVisible.Margin = new System.Windows.Forms.Padding(4);
             this.cbIsVisible.Name = "cbIsVisible";
-            this.cbIsVisible.Size = new System.Drawing.Size(171, 17);
+            this.cbIsVisible.Size = new System.Drawing.Size(218, 21);
             this.cbIsVisible.TabIndex = 24;
             this.cbIsVisible.Text = "Показать только удаленные";
             this.cbIsVisible.UseVisualStyleBackColor = true;
@@ -1089,13 +1100,15 @@ namespace FilmCollection
             // menuTableRec
             // 
             this.menuTableRec.BackColor = System.Drawing.SystemColors.Control;
+            this.menuTableRec.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuTableRec.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnResetFilterRec,
             this.tscbTypeFilter,
             this.tscbSort});
             this.menuTableRec.Location = new System.Drawing.Point(0, 0);
             this.menuTableRec.Name = "menuTableRec";
-            this.menuTableRec.Size = new System.Drawing.Size(590, 27);
+            this.menuTableRec.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuTableRec.Size = new System.Drawing.Size(977, 32);
             this.menuTableRec.TabIndex = 23;
             this.menuTableRec.Text = "menuStrip1";
             // 
@@ -1103,7 +1116,7 @@ namespace FilmCollection
             // 
             this.btnResetFilterRec.Image = global::FilmCollection.Properties.Resources.resetFiltr;
             this.btnResetFilterRec.Name = "btnResetFilterRec";
-            this.btnResetFilterRec.Size = new System.Drawing.Size(120, 23);
+            this.btnResetFilterRec.Size = new System.Drawing.Size(146, 28);
             this.btnResetFilterRec.Text = "Сброс фильтра";
             this.btnResetFilterRec.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
@@ -1117,7 +1130,7 @@ namespace FilmCollection
             "Сериалы",
             "Мульты"});
             this.tscbTypeFilter.Name = "tscbTypeFilter";
-            this.tscbTypeFilter.Size = new System.Drawing.Size(121, 23);
+            this.tscbTypeFilter.Size = new System.Drawing.Size(160, 28);
             this.tscbTypeFilter.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
             // tscbSort
@@ -1133,7 +1146,7 @@ namespace FilmCollection
             "По времени",
             "По файлу"});
             this.tscbSort.Name = "tscbSort";
-            this.tscbSort.Size = new System.Drawing.Size(121, 23);
+            this.tscbSort.Size = new System.Drawing.Size(160, 28);
             this.tscbSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
             // panelEdit
@@ -1146,8 +1159,9 @@ namespace FilmCollection
             this.panelEdit.Controls.Add(this.btnNew);
             this.panelEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEdit.Location = new System.Drawing.Point(0, 0);
+            this.panelEdit.Margin = new System.Windows.Forms.Padding(4);
             this.panelEdit.Name = "panelEdit";
-            this.panelEdit.Size = new System.Drawing.Size(368, 606);
+            this.panelEdit.Size = new System.Drawing.Size(369, 752);
             this.panelEdit.TabIndex = 10;
             // 
             // gMedia
@@ -1172,18 +1186,21 @@ namespace FilmCollection
             this.gMedia.Controls.Add(this.lblActorsSelect);
             this.gMedia.Controls.Add(this.chkActorSelect);
             this.gMedia.Controls.Add(this.chkActorList);
-            this.gMedia.Location = new System.Drawing.Point(8, 27);
+            this.gMedia.Location = new System.Drawing.Point(11, 33);
+            this.gMedia.Margin = new System.Windows.Forms.Padding(4);
             this.gMedia.Name = "gMedia";
-            this.gMedia.Size = new System.Drawing.Size(353, 363);
+            this.gMedia.Padding = new System.Windows.Forms.Padding(4);
+            this.gMedia.Size = new System.Drawing.Size(471, 447);
             this.gMedia.TabIndex = 60;
             this.gMedia.TabStop = false;
             this.gMedia.Text = "Общая информация";
             // 
             // rtDescription
             // 
-            this.rtDescription.Location = new System.Drawing.Point(67, 113);
+            this.rtDescription.Location = new System.Drawing.Point(89, 139);
+            this.rtDescription.Margin = new System.Windows.Forms.Padding(4);
             this.rtDescription.Name = "rtDescription";
-            this.rtDescription.Size = new System.Drawing.Size(275, 102);
+            this.rtDescription.Size = new System.Drawing.Size(365, 125);
             this.rtDescription.TabIndex = 61;
             this.rtDescription.Text = "";
             this.rtDescription.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
@@ -1193,9 +1210,10 @@ namespace FilmCollection
             this.checkNewRecord.AutoSize = true;
             this.checkNewRecord.Checked = true;
             this.checkNewRecord.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkNewRecord.Location = new System.Drawing.Point(273, 27);
+            this.checkNewRecord.Location = new System.Drawing.Point(364, 33);
+            this.checkNewRecord.Margin = new System.Windows.Forms.Padding(4);
             this.checkNewRecord.Name = "checkNewRecord";
-            this.checkNewRecord.Size = new System.Drawing.Size(74, 17);
+            this.checkNewRecord.Size = new System.Drawing.Size(91, 21);
             this.checkNewRecord.TabIndex = 60;
             this.checkNewRecord.Text = "привязка";
             this.checkNewRecord.UseVisualStyleBackColor = true;
@@ -1207,9 +1225,10 @@ namespace FilmCollection
             this.cbNameMedia.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbNameMedia.Enabled = false;
             this.cbNameMedia.FormattingEnabled = true;
-            this.cbNameMedia.Location = new System.Drawing.Point(67, 24);
+            this.cbNameMedia.Location = new System.Drawing.Point(89, 30);
+            this.cbNameMedia.Margin = new System.Windows.Forms.Padding(4);
             this.cbNameMedia.Name = "cbNameMedia";
-            this.cbNameMedia.Size = new System.Drawing.Size(202, 21);
+            this.cbNameMedia.Size = new System.Drawing.Size(268, 24);
             this.cbNameMedia.TabIndex = 59;
             this.cbNameMedia.SelectedIndexChanged += new System.EventHandler(this.cBoxNameMedia_SelectedIndexChanged);
             this.cbNameMedia.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
@@ -1221,9 +1240,10 @@ namespace FilmCollection
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxTypeVideo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxTypeVideo.FormattingEnabled = true;
-            this.cBoxTypeVideo.Location = new System.Drawing.Point(242, 84);
+            this.cBoxTypeVideo.Location = new System.Drawing.Point(323, 103);
+            this.cBoxTypeVideo.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxTypeVideo.Name = "cBoxTypeVideo";
-            this.cBoxTypeVideo.Size = new System.Drawing.Size(100, 21);
+            this.cBoxTypeVideo.Size = new System.Drawing.Size(132, 24);
             this.cBoxTypeVideo.TabIndex = 42;
             this.cBoxTypeVideo.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -1233,9 +1253,10 @@ namespace FilmCollection
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxGenre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxGenre.FormattingEnabled = true;
-            this.cBoxGenre.Location = new System.Drawing.Point(67, 84);
+            this.cBoxGenre.Location = new System.Drawing.Point(89, 103);
+            this.cBoxGenre.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxGenre.Name = "cBoxGenre";
-            this.cBoxGenre.Size = new System.Drawing.Size(121, 21);
+            this.cBoxGenre.Size = new System.Drawing.Size(160, 24);
             this.cBoxGenre.TabIndex = 31;
             this.cBoxGenre.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -1243,18 +1264,20 @@ namespace FilmCollection
             // 
             this.cBoxCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCountry.FormattingEnabled = true;
-            this.cBoxCountry.Location = new System.Drawing.Point(188, 54);
+            this.cBoxCountry.Location = new System.Drawing.Point(251, 66);
+            this.cBoxCountry.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxCountry.Name = "cBoxCountry";
-            this.cBoxCountry.Size = new System.Drawing.Size(154, 21);
+            this.cBoxCountry.Size = new System.Drawing.Size(204, 24);
             this.cBoxCountry.TabIndex = 50;
             this.cBoxCountry.SelectionChangeCommitted += new System.EventHandler(this.UserModifiedChanged);
             // 
             // mtbYear
             // 
-            this.mtbYear.Location = new System.Drawing.Point(67, 54);
+            this.mtbYear.Location = new System.Drawing.Point(89, 66);
+            this.mtbYear.Margin = new System.Windows.Forms.Padding(4);
             this.mtbYear.Mask = "0000";
             this.mtbYear.Name = "mtbYear";
-            this.mtbYear.Size = new System.Drawing.Size(57, 20);
+            this.mtbYear.Size = new System.Drawing.Size(75, 22);
             this.mtbYear.TabIndex = 49;
             this.mtbYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.mtbYear.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
@@ -1265,54 +1288,60 @@ namespace FilmCollection
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(9, 116);
+            this.lblDescription.Location = new System.Drawing.Point(12, 143);
+            this.lblDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(57, 13);
+            this.lblDescription.Size = new System.Drawing.Size(74, 17);
             this.lblDescription.TabIndex = 25;
             this.lblDescription.Text = "Описание";
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(4, 28);
+            this.lblName.Location = new System.Drawing.Point(5, 34);
+            this.lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(60, 13);
+            this.lblName.Size = new System.Drawing.Size(76, 17);
             this.lblName.TabIndex = 19;
             this.lblName.Text = " Название";
             // 
             // lblCountry
             // 
             this.lblCountry.AutoSize = true;
-            this.lblCountry.Location = new System.Drawing.Point(143, 57);
+            this.lblCountry.Location = new System.Drawing.Point(191, 70);
+            this.lblCountry.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCountry.Name = "lblCountry";
-            this.lblCountry.Size = new System.Drawing.Size(43, 13);
+            this.lblCountry.Size = new System.Drawing.Size(56, 17);
             this.lblCountry.TabIndex = 21;
             this.lblCountry.Text = "Страна";
             // 
             // lblGenre
             // 
             this.lblGenre.AutoSize = true;
-            this.lblGenre.Location = new System.Drawing.Point(27, 88);
+            this.lblGenre.Location = new System.Drawing.Point(36, 108);
+            this.lblGenre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblGenre.Name = "lblGenre";
-            this.lblGenre.Size = new System.Drawing.Size(36, 13);
+            this.lblGenre.Size = new System.Drawing.Size(45, 17);
             this.lblGenre.TabIndex = 22;
             this.lblGenre.Text = "Жанр";
             // 
             // lblTypeVideo
             // 
             this.lblTypeVideo.AutoSize = true;
-            this.lblTypeVideo.Location = new System.Drawing.Point(212, 87);
+            this.lblTypeVideo.Location = new System.Drawing.Point(283, 107);
+            this.lblTypeVideo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTypeVideo.Name = "lblTypeVideo";
-            this.lblTypeVideo.Size = new System.Drawing.Size(26, 13);
+            this.lblTypeVideo.Size = new System.Drawing.Size(33, 17);
             this.lblTypeVideo.TabIndex = 23;
             this.lblTypeVideo.Text = "Тип";
             // 
             // lblYear
             // 
             this.lblYear.AutoSize = true;
-            this.lblYear.Location = new System.Drawing.Point(35, 57);
+            this.lblYear.Location = new System.Drawing.Point(47, 70);
+            this.lblYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblYear.Name = "lblYear";
-            this.lblYear.Size = new System.Drawing.Size(25, 13);
+            this.lblYear.Size = new System.Drawing.Size(32, 17);
             this.lblYear.TabIndex = 20;
             this.lblYear.Text = "Год";
             // 
@@ -1320,9 +1349,10 @@ namespace FilmCollection
             // 
             this.btnAddGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnAddGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnAddGroup.Location = new System.Drawing.Point(197, 241);
+            this.btnAddGroup.Location = new System.Drawing.Point(263, 297);
+            this.btnAddGroup.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddGroup.Name = "btnAddGroup";
-            this.btnAddGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnAddGroup.Size = new System.Drawing.Size(32, 30);
             this.btnAddGroup.TabIndex = 52;
             this.btnAddGroup.Text = ">";
             this.btnAddGroup.UseVisualStyleBackColor = false;
@@ -1332,9 +1362,10 @@ namespace FilmCollection
             // 
             this.btnRemoveAllGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnRemoveAllGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemoveAllGroup.Location = new System.Drawing.Point(197, 314);
+            this.btnRemoveAllGroup.Location = new System.Drawing.Point(263, 386);
+            this.btnRemoveAllGroup.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveAllGroup.Name = "btnRemoveAllGroup";
-            this.btnRemoveAllGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveAllGroup.Size = new System.Drawing.Size(32, 30);
             this.btnRemoveAllGroup.TabIndex = 53;
             this.btnRemoveAllGroup.Text = "<<";
             this.btnRemoveAllGroup.UseVisualStyleBackColor = false;
@@ -1344,9 +1375,10 @@ namespace FilmCollection
             // 
             this.btnRemoveGroup.BackColor = System.Drawing.Color.LightGray;
             this.btnRemoveGroup.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRemoveGroup.Location = new System.Drawing.Point(197, 284);
+            this.btnRemoveGroup.Location = new System.Drawing.Point(263, 350);
+            this.btnRemoveGroup.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveGroup.Name = "btnRemoveGroup";
-            this.btnRemoveGroup.Size = new System.Drawing.Size(24, 24);
+            this.btnRemoveGroup.Size = new System.Drawing.Size(32, 30);
             this.btnRemoveGroup.TabIndex = 53;
             this.btnRemoveGroup.Text = "<";
             this.btnRemoveGroup.UseVisualStyleBackColor = false;
@@ -1354,37 +1386,42 @@ namespace FilmCollection
             // 
             // lblActorsAll
             // 
-            this.lblActorsAll.Location = new System.Drawing.Point(70, 218);
+            this.lblActorsAll.Location = new System.Drawing.Point(93, 268);
+            this.lblActorsAll.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActorsAll.Name = "lblActorsAll";
-            this.lblActorsAll.Size = new System.Drawing.Size(100, 22);
+            this.lblActorsAll.Size = new System.Drawing.Size(133, 27);
             this.lblActorsAll.TabIndex = 54;
             this.lblActorsAll.Text = "Список актеров:";
             this.lblActorsAll.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblActorsSelect
             // 
-            this.lblActorsSelect.Location = new System.Drawing.Point(224, 218);
+            this.lblActorsSelect.Location = new System.Drawing.Point(299, 268);
+            this.lblActorsSelect.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActorsSelect.Name = "lblActorsSelect";
-            this.lblActorsSelect.Size = new System.Drawing.Size(124, 23);
+            this.lblActorsSelect.Size = new System.Drawing.Size(165, 28);
             this.lblActorsSelect.TabIndex = 56;
             this.lblActorsSelect.Text = "Снимались в фильме:";
             this.lblActorsSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // chkActorSelect
             // 
-            this.chkActorSelect.Location = new System.Drawing.Point(227, 241);
+            this.chkActorSelect.ItemHeight = 16;
+            this.chkActorSelect.Location = new System.Drawing.Point(303, 297);
+            this.chkActorSelect.Margin = new System.Windows.Forms.Padding(4);
             this.chkActorSelect.Name = "chkActorSelect";
-            this.chkActorSelect.Size = new System.Drawing.Size(115, 108);
+            this.chkActorSelect.Size = new System.Drawing.Size(152, 132);
             this.chkActorSelect.TabIndex = 55;
             // 
             // chkActorList
             // 
             this.chkActorList.CheckOnClick = true;
             this.chkActorList.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.chkActorList.Location = new System.Drawing.Point(67, 241);
+            this.chkActorList.Location = new System.Drawing.Point(89, 297);
+            this.chkActorList.Margin = new System.Windows.Forms.Padding(4);
             this.chkActorList.MultiColumn = true;
             this.chkActorList.Name = "chkActorList";
-            this.chkActorList.Size = new System.Drawing.Size(124, 109);
+            this.chkActorList.Size = new System.Drawing.Size(164, 123);
             this.chkActorList.TabIndex = 51;
             // 
             // panelEditTitle
@@ -1392,8 +1429,9 @@ namespace FilmCollection
             this.panelEditTitle.Controls.Add(this.lblEditTitle);
             this.panelEditTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEditTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelEditTitle.Margin = new System.Windows.Forms.Padding(4);
             this.panelEditTitle.Name = "panelEditTitle";
-            this.panelEditTitle.Size = new System.Drawing.Size(368, 27);
+            this.panelEditTitle.Size = new System.Drawing.Size(369, 33);
             this.panelEditTitle.TabIndex = 48;
             // 
             // lblEditTitle
@@ -1401,8 +1439,9 @@ namespace FilmCollection
             this.lblEditTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEditTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblEditTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblEditTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEditTitle.Name = "lblEditTitle";
-            this.lblEditTitle.Size = new System.Drawing.Size(368, 27);
+            this.lblEditTitle.Size = new System.Drawing.Size(369, 33);
             this.lblEditTitle.TabIndex = 0;
             this.lblEditTitle.Text = "Панель редактирования";
             this.lblEditTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1412,9 +1451,10 @@ namespace FilmCollection
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(265, 544);
+            this.btnSave.Location = new System.Drawing.Point(231, 670);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(86, 23);
+            this.btnSave.Size = new System.Drawing.Size(115, 28);
             this.btnSave.TabIndex = 47;
             this.btnSave.Text = "Сохранить";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1425,9 +1465,10 @@ namespace FilmCollection
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(265, 573);
+            this.btnCancel.Location = new System.Drawing.Point(231, 705);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(86, 23);
+            this.btnCancel.Size = new System.Drawing.Size(115, 28);
             this.btnCancel.TabIndex = 46;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -1446,9 +1487,11 @@ namespace FilmCollection
             this.gRecord.Controls.Add(this.tbFilePath);
             this.gRecord.Controls.Add(this.tbNameRecord);
             this.gRecord.Controls.Add(this.btnGetTime);
-            this.gRecord.Location = new System.Drawing.Point(8, 396);
+            this.gRecord.Location = new System.Drawing.Point(11, 487);
+            this.gRecord.Margin = new System.Windows.Forms.Padding(4);
             this.gRecord.Name = "gRecord";
-            this.gRecord.Size = new System.Drawing.Size(353, 139);
+            this.gRecord.Padding = new System.Windows.Forms.Padding(4);
+            this.gRecord.Size = new System.Drawing.Size(471, 171);
             this.gRecord.TabIndex = 61;
             this.gRecord.TabStop = false;
             this.gRecord.Text = "Информация о файле";
@@ -1456,45 +1499,50 @@ namespace FilmCollection
             // lblFilePath
             // 
             this.lblFilePath.AutoSize = true;
-            this.lblFilePath.Location = new System.Drawing.Point(33, 108);
+            this.lblFilePath.Location = new System.Drawing.Point(44, 133);
+            this.lblFilePath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFilePath.Name = "lblFilePath";
-            this.lblFilePath.Size = new System.Drawing.Size(31, 13);
+            this.lblFilePath.Size = new System.Drawing.Size(39, 17);
             this.lblFilePath.TabIndex = 19;
             this.lblFilePath.Text = "Путь";
             // 
             // lblNameR
             // 
             this.lblNameR.AutoSize = true;
-            this.lblNameR.Location = new System.Drawing.Point(6, 22);
+            this.lblNameR.Location = new System.Drawing.Point(8, 27);
+            this.lblNameR.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNameR.Name = "lblNameR";
-            this.lblNameR.Size = new System.Drawing.Size(60, 13);
+            this.lblNameR.Size = new System.Drawing.Size(76, 17);
             this.lblNameR.TabIndex = 19;
             this.lblNameR.Text = " Название";
             // 
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(22, 51);
+            this.lblTime.Location = new System.Drawing.Point(29, 63);
+            this.lblTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(40, 13);
+            this.lblTime.Size = new System.Drawing.Size(50, 17);
             this.lblTime.TabIndex = 24;
             this.lblTime.Text = "Время";
             // 
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(3, 79);
+            this.lblFileName.Location = new System.Drawing.Point(4, 97);
+            this.lblFileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileName.Name = "lblFileName";
-            this.lblFileName.Size = new System.Drawing.Size(64, 13);
+            this.lblFileName.Size = new System.Drawing.Size(82, 17);
             this.lblFileName.TabIndex = 26;
             this.lblFileName.Text = "Имя файла";
             // 
             // mtbTime
             // 
-            this.mtbTime.Location = new System.Drawing.Point(67, 48);
+            this.mtbTime.Location = new System.Drawing.Point(89, 59);
+            this.mtbTime.Margin = new System.Windows.Forms.Padding(4);
             this.mtbTime.Mask = "00:00:00";
             this.mtbTime.Name = "mtbTime";
-            this.mtbTime.Size = new System.Drawing.Size(75, 20);
+            this.mtbTime.Size = new System.Drawing.Size(99, 22);
             this.mtbTime.TabIndex = 49;
             this.mtbTime.Text = "000000";
             this.mtbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1506,9 +1554,10 @@ namespace FilmCollection
             this.tbFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFileName.Enabled = false;
-            this.tbFileName.Location = new System.Drawing.Point(67, 76);
+            this.tbFileName.Location = new System.Drawing.Point(89, 94);
+            this.tbFileName.Margin = new System.Windows.Forms.Padding(4);
             this.tbFileName.Name = "tbFileName";
-            this.tbFileName.Size = new System.Drawing.Size(246, 20);
+            this.tbFileName.Size = new System.Drawing.Size(327, 22);
             this.tbFileName.TabIndex = 44;
             this.tbFileName.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             this.tbFileName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbYear_KeyDown);
@@ -1520,9 +1569,10 @@ namespace FilmCollection
             this.btnFileNameEdit.ForeColor = System.Drawing.SystemColors.Control;
             this.btnFileNameEdit.Image = global::FilmCollection.Properties.Resources._lock;
             this.btnFileNameEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnFileNameEdit.Location = new System.Drawing.Point(319, 73);
+            this.btnFileNameEdit.Location = new System.Drawing.Point(425, 90);
+            this.btnFileNameEdit.Margin = new System.Windows.Forms.Padding(4);
             this.btnFileNameEdit.Name = "btnFileNameEdit";
-            this.btnFileNameEdit.Size = new System.Drawing.Size(24, 25);
+            this.btnFileNameEdit.Size = new System.Drawing.Size(32, 31);
             this.btnFileNameEdit.TabIndex = 43;
             this.btnFileNameEdit.UseVisualStyleBackColor = true;
             this.btnFileNameEdit.Click += new System.EventHandler(this.FileNameEdit_Unlock);
@@ -1531,10 +1581,11 @@ namespace FilmCollection
             // 
             this.tbFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFilePath.Location = new System.Drawing.Point(67, 105);
+            this.tbFilePath.Location = new System.Drawing.Point(89, 129);
+            this.tbFilePath.Margin = new System.Windows.Forms.Padding(4);
             this.tbFilePath.Name = "tbFilePath";
             this.tbFilePath.ReadOnly = true;
-            this.tbFilePath.Size = new System.Drawing.Size(279, 20);
+            this.tbFilePath.Size = new System.Drawing.Size(371, 22);
             this.tbFilePath.TabIndex = 27;
             this.tbFilePath.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             // 
@@ -1542,18 +1593,20 @@ namespace FilmCollection
             // 
             this.tbNameRecord.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbNameRecord.Location = new System.Drawing.Point(67, 19);
+            this.tbNameRecord.Location = new System.Drawing.Point(89, 23);
+            this.tbNameRecord.Margin = new System.Windows.Forms.Padding(4);
             this.tbNameRecord.Name = "tbNameRecord";
-            this.tbNameRecord.Size = new System.Drawing.Size(279, 20);
+            this.tbNameRecord.Size = new System.Drawing.Size(371, 22);
             this.tbNameRecord.TabIndex = 27;
             this.tbNameRecord.ModifiedChanged += new System.EventHandler(this.UserModifiedChanged);
             this.tbNameRecord.KeyDown += new System.Windows.Forms.KeyEventHandler(this.mtbYear_KeyDown);
             // 
             // btnGetTime
             // 
-            this.btnGetTime.Location = new System.Drawing.Point(151, 47);
+            this.btnGetTime.Location = new System.Drawing.Point(201, 58);
+            this.btnGetTime.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetTime.Name = "btnGetTime";
-            this.btnGetTime.Size = new System.Drawing.Size(196, 23);
+            this.btnGetTime.Size = new System.Drawing.Size(261, 28);
             this.btnGetTime.TabIndex = 59;
             this.btnGetTime.Text = "Получить время из файла";
             this.btnGetTime.UseVisualStyleBackColor = true;
@@ -1563,9 +1616,10 @@ namespace FilmCollection
             // 
             this.btnNew.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(19, 544);
+            this.btnNew.Location = new System.Drawing.Point(25, 670);
+            this.btnNew.Margin = new System.Windows.Forms.Padding(4);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(81, 23);
+            this.btnNew.Size = new System.Drawing.Size(108, 28);
             this.btnNew.TabIndex = 18;
             this.btnNew.Text = "Добавить";
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1577,16 +1631,18 @@ namespace FilmCollection
             this.panelView.Controls.Add(this.ucView);
             this.panelView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelView.Location = new System.Drawing.Point(0, 0);
+            this.panelView.Margin = new System.Windows.Forms.Padding(4);
             this.panelView.Name = "panelView";
-            this.panelView.Size = new System.Drawing.Size(368, 606);
+            this.panelView.Size = new System.Drawing.Size(369, 752);
             this.panelView.TabIndex = 57;
             // 
             // ucView
             // 
             this.ucView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucView.Location = new System.Drawing.Point(0, 0);
+            this.ucView.Margin = new System.Windows.Forms.Padding(5);
             this.ucView.Name = "ucView";
-            this.ucView.Size = new System.Drawing.Size(368, 606);
+            this.ucView.Size = new System.Drawing.Size(369, 752);
             this.ucView.TabIndex = 0;
             // 
             // panelFolder
@@ -1601,8 +1657,9 @@ namespace FilmCollection
             this.panelFolder.Controls.Add(this.label7);
             this.panelFolder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFolder.Location = new System.Drawing.Point(0, 0);
+            this.panelFolder.Margin = new System.Windows.Forms.Padding(4);
             this.panelFolder.Name = "panelFolder";
-            this.panelFolder.Size = new System.Drawing.Size(368, 606);
+            this.panelFolder.Size = new System.Drawing.Size(369, 752);
             this.panelFolder.TabIndex = 59;
             // 
             // btnSaveFolder
@@ -1610,9 +1667,10 @@ namespace FilmCollection
             this.btnSaveFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveFolder.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSaveFolder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveFolder.Location = new System.Drawing.Point(253, 165);
+            this.btnSaveFolder.Location = new System.Drawing.Point(215, 203);
+            this.btnSaveFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveFolder.Name = "btnSaveFolder";
-            this.btnSaveFolder.Size = new System.Drawing.Size(86, 23);
+            this.btnSaveFolder.Size = new System.Drawing.Size(115, 28);
             this.btnSaveFolder.TabIndex = 60;
             this.btnSaveFolder.Text = "Сохранить";
             this.btnSaveFolder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1621,9 +1679,10 @@ namespace FilmCollection
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(253, 194);
+            this.button2.Location = new System.Drawing.Point(215, 239);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.Size = new System.Drawing.Size(115, 28);
             this.button2.TabIndex = 59;
             this.button2.Text = "Отмена";
             this.button2.UseVisualStyleBackColor = true;
@@ -1633,9 +1692,10 @@ namespace FilmCollection
             // 
             this.button3.Image = global::FilmCollection.Properties.Resources.add;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(28, 165);
+            this.button3.Location = new System.Drawing.Point(37, 203);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 23);
+            this.button3.Size = new System.Drawing.Size(108, 28);
             this.button3.TabIndex = 58;
             this.button3.Text = "Добавить";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1644,34 +1704,38 @@ namespace FilmCollection
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(29, 43);
+            this.label17.Location = new System.Drawing.Point(39, 53);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(98, 13);
+            this.label17.Size = new System.Drawing.Size(125, 17);
             this.label17.TabIndex = 4;
             this.label17.Text = "Текущий каталог:";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(29, 88);
+            this.label16.Location = new System.Drawing.Point(39, 108);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(188, 13);
+            this.label16.Size = new System.Drawing.Size(240, 17);
             this.label16.TabIndex = 4;
             this.label16.Text = "Укажите новое название каталога:";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(28, 62);
+            this.textBox4.Location = new System.Drawing.Point(37, 76);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(311, 20);
+            this.textBox4.Size = new System.Drawing.Size(413, 22);
             this.textBox4.TabIndex = 3;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(28, 107);
+            this.textBox3.Location = new System.Drawing.Point(37, 132);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(311, 20);
+            this.textBox3.Size = new System.Drawing.Size(413, 22);
             this.textBox3.TabIndex = 3;
             // 
             // label7
@@ -1679,8 +1743,9 @@ namespace FilmCollection
             this.label7.Dock = System.Windows.Forms.DockStyle.Top;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(368, 27);
+            this.label7.Size = new System.Drawing.Size(369, 33);
             this.label7.TabIndex = 1;
             this.label7.Text = "Панель изменения каталога";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1690,16 +1755,18 @@ namespace FilmCollection
             this.panelScheme.Controls.Add(this.ucScheme);
             this.panelScheme.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelScheme.Location = new System.Drawing.Point(0, 0);
+            this.panelScheme.Margin = new System.Windows.Forms.Padding(4);
             this.panelScheme.Name = "panelScheme";
-            this.panelScheme.Size = new System.Drawing.Size(368, 606);
+            this.panelScheme.Size = new System.Drawing.Size(369, 752);
             this.panelScheme.TabIndex = 1;
             // 
             // ucScheme
             // 
             this.ucScheme.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucScheme.Location = new System.Drawing.Point(0, 0);
+            this.ucScheme.Margin = new System.Windows.Forms.Padding(5);
             this.ucScheme.Name = "ucScheme";
-            this.ucScheme.Size = new System.Drawing.Size(368, 606);
+            this.ucScheme.Size = new System.Drawing.Size(369, 752);
             this.ucScheme.TabIndex = 0;
             // 
             // panelFind
@@ -1716,16 +1783,18 @@ namespace FilmCollection
             this.panelFind.Controls.Add(this.cbTypeFind);
             this.panelFind.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFind.Location = new System.Drawing.Point(0, 0);
+            this.panelFind.Margin = new System.Windows.Forms.Padding(4);
             this.panelFind.Name = "panelFind";
-            this.panelFind.Size = new System.Drawing.Size(368, 606);
+            this.panelFind.Size = new System.Drawing.Size(369, 752);
             this.panelFind.TabIndex = 0;
             // 
             // cbFullFind
             // 
             this.cbFullFind.AutoSize = true;
-            this.cbFullFind.Location = new System.Drawing.Point(40, 184);
+            this.cbFullFind.Location = new System.Drawing.Point(53, 226);
+            this.cbFullFind.Margin = new System.Windows.Forms.Padding(4);
             this.cbFullFind.Name = "cbFullFind";
-            this.cbFullFind.Size = new System.Drawing.Size(108, 17);
+            this.cbFullFind.Size = new System.Drawing.Size(134, 21);
             this.cbFullFind.TabIndex = 20;
             this.cbFullFind.Text = "Сквозной поиск";
             this.cbFullFind.UseVisualStyleBackColor = true;
@@ -1735,9 +1804,10 @@ namespace FilmCollection
             // 
             this.btnHidePanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnHidePanel.Location = new System.Drawing.Point(154, 544);
+            this.btnHidePanel.Location = new System.Drawing.Point(205, 676);
+            this.btnHidePanel.Margin = new System.Windows.Forms.Padding(4);
             this.btnHidePanel.Name = "btnHidePanel";
-            this.btnHidePanel.Size = new System.Drawing.Size(75, 23);
+            this.btnHidePanel.Size = new System.Drawing.Size(1, 28);
             this.btnHidePanel.TabIndex = 19;
             this.btnHidePanel.Text = "Скрыть";
             this.btnHidePanel.UseVisualStyleBackColor = true;
@@ -1745,9 +1815,10 @@ namespace FilmCollection
             // 
             // btnFindReset
             // 
-            this.btnFindReset.Location = new System.Drawing.Point(58, 143);
+            this.btnFindReset.Location = new System.Drawing.Point(77, 176);
+            this.btnFindReset.Margin = new System.Windows.Forms.Padding(4);
             this.btnFindReset.Name = "btnFindReset";
-            this.btnFindReset.Size = new System.Drawing.Size(69, 23);
+            this.btnFindReset.Size = new System.Drawing.Size(92, 28);
             this.btnFindReset.TabIndex = 18;
             this.btnFindReset.Text = "Сброс";
             this.btnFindReset.UseVisualStyleBackColor = true;
@@ -1756,18 +1827,20 @@ namespace FilmCollection
             // lCritery
             // 
             this.lCritery.AutoSize = true;
-            this.lCritery.Location = new System.Drawing.Point(22, 91);
+            this.lCritery.Location = new System.Drawing.Point(29, 112);
+            this.lCritery.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lCritery.Name = "lCritery";
-            this.lCritery.Size = new System.Drawing.Size(94, 13);
+            this.lCritery.Size = new System.Drawing.Size(122, 17);
             this.lCritery.TabIndex = 17;
             this.lCritery.Text = "Критерий поиска";
             // 
             // lFindText
             // 
             this.lFindText.AutoSize = true;
-            this.lFindText.Location = new System.Drawing.Point(23, 43);
+            this.lFindText.Location = new System.Drawing.Point(31, 53);
+            this.lFindText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lFindText.Name = "lFindText";
-            this.lFindText.Size = new System.Drawing.Size(82, 13);
+            this.lFindText.Size = new System.Drawing.Size(105, 17);
             this.lFindText.TabIndex = 17;
             this.lFindText.Text = "Строка поиска";
             // 
@@ -1776,8 +1849,9 @@ namespace FilmCollection
             this.panelFindTitle.Controls.Add(this.lblFindTitle);
             this.panelFindTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelFindTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelFindTitle.Margin = new System.Windows.Forms.Padding(4);
             this.panelFindTitle.Name = "panelFindTitle";
-            this.panelFindTitle.Size = new System.Drawing.Size(368, 27);
+            this.panelFindTitle.Size = new System.Drawing.Size(369, 33);
             this.panelFindTitle.TabIndex = 16;
             // 
             // lblFindTitle
@@ -1785,8 +1859,9 @@ namespace FilmCollection
             this.lblFindTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFindTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblFindTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblFindTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFindTitle.Name = "lblFindTitle";
-            this.lblFindTitle.Size = new System.Drawing.Size(368, 27);
+            this.lblFindTitle.Size = new System.Drawing.Size(369, 33);
             this.lblFindTitle.TabIndex = 0;
             this.lblFindTitle.Text = "Панель поиска";
             this.lblFindTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1795,9 +1870,10 @@ namespace FilmCollection
             // 
             this.tbFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFind.Location = new System.Drawing.Point(22, 59);
+            this.tbFind.Location = new System.Drawing.Point(29, 73);
+            this.tbFind.Margin = new System.Windows.Forms.Padding(4);
             this.tbFind.Name = "tbFind";
-            this.tbFind.Size = new System.Drawing.Size(328, 20);
+            this.tbFind.Size = new System.Drawing.Size(314, 22);
             this.tbFind.TabIndex = 15;
             this.tbFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbFind_KeyDown);
             this.tbFind.MouseEnter += new System.EventHandler(this.tbFind_MouseEnter);
@@ -1807,9 +1883,10 @@ namespace FilmCollection
             // 
             this.btnFindNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFindNext.Enabled = false;
-            this.btnFindNext.Location = new System.Drawing.Point(227, 136);
+            this.btnFindNext.Location = new System.Drawing.Point(181, 167);
+            this.btnFindNext.Margin = new System.Windows.Forms.Padding(4);
             this.btnFindNext.Name = "btnFindNext";
-            this.btnFindNext.Size = new System.Drawing.Size(123, 23);
+            this.btnFindNext.Size = new System.Drawing.Size(164, 28);
             this.btnFindNext.TabIndex = 14;
             this.btnFindNext.Text = "Найти следующее";
             this.btnFindNext.UseVisualStyleBackColor = true;
@@ -1819,9 +1896,10 @@ namespace FilmCollection
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFind.Enabled = false;
-            this.btnFind.Location = new System.Drawing.Point(227, 107);
+            this.btnFind.Location = new System.Drawing.Point(181, 132);
+            this.btnFind.Margin = new System.Windows.Forms.Padding(4);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(123, 23);
+            this.btnFind.Size = new System.Drawing.Size(164, 28);
             this.btnFind.TabIndex = 14;
             this.btnFind.Text = "Найти все";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -1834,19 +1912,21 @@ namespace FilmCollection
             this.cbTypeFind.Items.AddRange(new object[] {
             "Название",
             "Год"});
-            this.cbTypeFind.Location = new System.Drawing.Point(22, 109);
+            this.cbTypeFind.Location = new System.Drawing.Point(29, 134);
+            this.cbTypeFind.Margin = new System.Windows.Forms.Padding(4);
             this.cbTypeFind.Name = "cbTypeFind";
-            this.cbTypeFind.Size = new System.Drawing.Size(138, 21);
+            this.cbTypeFind.Size = new System.Drawing.Size(183, 24);
             this.cbTypeFind.TabIndex = 13;
             this.cbTypeFind.SelectedIndexChanged += new System.EventHandler(this.cbTypeFind_SelectedIndexChanged);
             // 
             // tabActors
             // 
             this.tabActors.Controls.Add(this.scTabActors);
-            this.tabActors.Location = new System.Drawing.Point(4, 22);
+            this.tabActors.Location = new System.Drawing.Point(4, 25);
+            this.tabActors.Margin = new System.Windows.Forms.Padding(4);
             this.tabActors.Name = "tabActors";
-            this.tabActors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabActors.Size = new System.Drawing.Size(972, 614);
+            this.tabActors.Padding = new System.Windows.Forms.Padding(4);
+            this.tabActors.Size = new System.Drawing.Size(1363, 762);
             this.tabActors.TabIndex = 3;
             this.tabActors.Text = "Актеры";
             this.tabActors.UseVisualStyleBackColor = true;
@@ -1857,7 +1937,8 @@ namespace FilmCollection
             this.scTabActors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scTabActors.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.scTabActors.IsSplitterFixed = true;
-            this.scTabActors.Location = new System.Drawing.Point(3, 3);
+            this.scTabActors.Location = new System.Drawing.Point(4, 4);
+            this.scTabActors.Margin = new System.Windows.Forms.Padding(4);
             this.scTabActors.Name = "scTabActors";
             // 
             // scTabActors.Panel1
@@ -1871,8 +1952,9 @@ namespace FilmCollection
             this.scTabActors.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.scTabActors.Panel2.Controls.Add(this.panelEditAct);
             this.scTabActors.Panel2.Controls.Add(this.panelViewAct);
-            this.scTabActors.Size = new System.Drawing.Size(966, 608);
-            this.scTabActors.SplitterDistance = 537;
+            this.scTabActors.Size = new System.Drawing.Size(1355, 754);
+            this.scTabActors.SplitterDistance = 924;
+            this.scTabActors.SplitterWidth = 5;
             this.scTabActors.TabIndex = 1;
             // 
             // dgvTableActors
@@ -1890,13 +1972,14 @@ namespace FilmCollection
             this.colDateOfDeath,
             this.colCountry});
             this.dgvTableActors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTableActors.Location = new System.Drawing.Point(0, 27);
+            this.dgvTableActors.Location = new System.Drawing.Point(0, 32);
+            this.dgvTableActors.Margin = new System.Windows.Forms.Padding(4);
             this.dgvTableActors.MultiSelect = false;
             this.dgvTableActors.Name = "dgvTableActors";
             this.dgvTableActors.ReadOnly = true;
             this.dgvTableActors.RowHeadersVisible = false;
             this.dgvTableActors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTableActors.Size = new System.Drawing.Size(535, 579);
+            this.dgvTableActors.Size = new System.Drawing.Size(922, 720);
             this.dgvTableActors.TabIndex = 0;
             this.dgvTableActors.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_CellMouseDown);
             this.dgvTableActors.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvTableActors_ColumnHeaderMouseClick);
@@ -1932,18 +2015,20 @@ namespace FilmCollection
             this.colCountry.HeaderText = "Страна";
             this.colCountry.Name = "colCountry";
             this.colCountry.ReadOnly = true;
-            this.colCountry.Width = 68;
+            this.colCountry.Width = 85;
             // 
             // menuTableAct
             // 
             this.menuTableAct.BackColor = System.Drawing.SystemColors.Control;
+            this.menuTableAct.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuTableAct.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnResetFilterAct,
             this.tsActCountryFilter,
             this.tsActSort});
             this.menuTableAct.Location = new System.Drawing.Point(0, 0);
             this.menuTableAct.Name = "menuTableAct";
-            this.menuTableAct.Size = new System.Drawing.Size(535, 27);
+            this.menuTableAct.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuTableAct.Size = new System.Drawing.Size(922, 32);
             this.menuTableAct.TabIndex = 25;
             this.menuTableAct.Text = "menuStrip1";
             // 
@@ -1951,7 +2036,7 @@ namespace FilmCollection
             // 
             this.btnResetFilterAct.Image = global::FilmCollection.Properties.Resources.resetFiltr;
             this.btnResetFilterAct.Name = "btnResetFilterAct";
-            this.btnResetFilterAct.Size = new System.Drawing.Size(120, 23);
+            this.btnResetFilterAct.Size = new System.Drawing.Size(146, 28);
             this.btnResetFilterAct.Text = "Сброс фильтра";
             this.btnResetFilterAct.Click += new System.EventHandler(this.ResetFilter_Click);
             // 
@@ -1960,7 +2045,7 @@ namespace FilmCollection
             this.tsActCountryFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsActCountryFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tsActCountryFilter.Name = "tsActCountryFilter";
-            this.tsActCountryFilter.Size = new System.Drawing.Size(121, 23);
+            this.tsActCountryFilter.Size = new System.Drawing.Size(160, 28);
             this.tsActCountryFilter.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
             // tsActSort
@@ -1973,7 +2058,7 @@ namespace FilmCollection
             "По дате смерти",
             "По стране"});
             this.tsActSort.Name = "tsActSort";
-            this.tsActSort.Size = new System.Drawing.Size(121, 23);
+            this.tsActSort.Size = new System.Drawing.Size(160, 28);
             this.tsActSort.SelectedIndexChanged += new System.EventHandler(this.Filter);
             // 
             // panelEditAct
@@ -1986,8 +2071,9 @@ namespace FilmCollection
             this.panelEditAct.Controls.Add(this.label8);
             this.panelEditAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelEditAct.Location = new System.Drawing.Point(0, 0);
+            this.panelEditAct.Margin = new System.Windows.Forms.Padding(4);
             this.panelEditAct.Name = "panelEditAct";
-            this.panelEditAct.Size = new System.Drawing.Size(423, 606);
+            this.panelEditAct.Size = new System.Drawing.Size(424, 752);
             this.panelEditAct.TabIndex = 0;
             // 
             // groupBox1
@@ -1997,9 +2083,11 @@ namespace FilmCollection
             this.groupBox1.Controls.Add(this.lvSelectRecord);
             this.groupBox1.Controls.Add(this.tbFilmFind);
             this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Location = new System.Drawing.Point(20, 198);
+            this.groupBox1.Location = new System.Drawing.Point(27, 244);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(391, 302);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(521, 372);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фильмография";
@@ -2011,11 +2099,12 @@ namespace FilmCollection
             this.colYear});
             this.listViewFilm.FullRowSelect = true;
             this.listViewFilm.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewFilm.Location = new System.Drawing.Point(15, 19);
+            this.listViewFilm.Location = new System.Drawing.Point(20, 23);
+            this.listViewFilm.Margin = new System.Windows.Forms.Padding(4);
             this.listViewFilm.MultiSelect = false;
             this.listViewFilm.Name = "listViewFilm";
             this.listViewFilm.ShowGroups = false;
-            this.listViewFilm.Size = new System.Drawing.Size(364, 137);
+            this.listViewFilm.Size = new System.Drawing.Size(484, 168);
             this.listViewFilm.TabIndex = 62;
             this.listViewFilm.UseCompatibleStateImageBehavior = false;
             this.listViewFilm.View = System.Windows.Forms.View.Details;
@@ -2034,9 +2123,10 @@ namespace FilmCollection
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(116, 159);
+            this.label10.Location = new System.Drawing.Point(155, 196);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(160, 13);
+            this.label10.Size = new System.Drawing.Size(207, 17);
             this.label10.TabIndex = 53;
             this.label10.Text = "Введите названия для поиска";
             // 
@@ -2047,11 +2137,12 @@ namespace FilmCollection
             this.colSelectYear});
             this.lvSelectRecord.FullRowSelect = true;
             this.lvSelectRecord.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvSelectRecord.Location = new System.Drawing.Point(15, 214);
+            this.lvSelectRecord.Location = new System.Drawing.Point(20, 263);
+            this.lvSelectRecord.Margin = new System.Windows.Forms.Padding(4);
             this.lvSelectRecord.MultiSelect = false;
             this.lvSelectRecord.Name = "lvSelectRecord";
             this.lvSelectRecord.ShowGroups = false;
-            this.lvSelectRecord.Size = new System.Drawing.Size(364, 75);
+            this.lvSelectRecord.Size = new System.Drawing.Size(484, 91);
             this.lvSelectRecord.TabIndex = 62;
             this.lvSelectRecord.UseCompatibleStateImageBehavior = false;
             this.lvSelectRecord.View = System.Windows.Forms.View.Details;
@@ -2069,18 +2160,20 @@ namespace FilmCollection
             // 
             // tbFilmFind
             // 
-            this.tbFilmFind.Location = new System.Drawing.Point(15, 175);
+            this.tbFilmFind.Location = new System.Drawing.Point(20, 215);
+            this.tbFilmFind.Margin = new System.Windows.Forms.Padding(4);
             this.tbFilmFind.Name = "tbFilmFind";
-            this.tbFilmFind.Size = new System.Drawing.Size(364, 20);
+            this.tbFilmFind.Size = new System.Drawing.Size(484, 22);
             this.tbFilmFind.TabIndex = 55;
             this.tbFilmFind.TextChanged += new System.EventHandler(this.tbFilmFind_TextChanged);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 198);
+            this.label14.Location = new System.Drawing.Point(16, 244);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(137, 13);
+            this.label14.Size = new System.Drawing.Size(175, 17);
             this.label14.TabIndex = 53;
             this.label14.Text = "Кликом выберите записи";
             // 
@@ -2099,9 +2192,11 @@ namespace FilmCollection
             this.gActAbout.Controls.Add(this.label12);
             this.gActAbout.Controls.Add(this.label13);
             this.gActAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gActAbout.Location = new System.Drawing.Point(20, 30);
+            this.gActAbout.Location = new System.Drawing.Point(27, 37);
+            this.gActAbout.Margin = new System.Windows.Forms.Padding(4);
             this.gActAbout.Name = "gActAbout";
-            this.gActAbout.Size = new System.Drawing.Size(391, 157);
+            this.gActAbout.Padding = new System.Windows.Forms.Padding(4);
+            this.gActAbout.Size = new System.Drawing.Size(521, 193);
             this.gActAbout.TabIndex = 63;
             this.gActAbout.TabStop = false;
             this.gActAbout.Text = "Информация об актере";
@@ -2110,9 +2205,10 @@ namespace FilmCollection
             // 
             this.chLifeState.AutoSize = true;
             this.chLifeState.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chLifeState.Location = new System.Drawing.Point(327, 59);
+            this.chLifeState.Location = new System.Drawing.Point(436, 73);
+            this.chLifeState.Margin = new System.Windows.Forms.Padding(4);
             this.chLifeState.Name = "chLifeState";
-            this.chLifeState.Size = new System.Drawing.Size(49, 17);
+            this.chLifeState.Size = new System.Drawing.Size(58, 21);
             this.chLifeState.TabIndex = 61;
             this.chLifeState.Text = "Жив";
             this.chLifeState.UseVisualStyleBackColor = true;
@@ -2122,95 +2218,106 @@ namespace FilmCollection
             // 
             this.cBoxCountryActor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cBoxCountryActor.FormattingEnabled = true;
-            this.cBoxCountryActor.Location = new System.Drawing.Point(98, 90);
+            this.cBoxCountryActor.Location = new System.Drawing.Point(131, 111);
+            this.cBoxCountryActor.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxCountryActor.Name = "cBoxCountryActor";
-            this.cBoxCountryActor.Size = new System.Drawing.Size(281, 21);
+            this.cBoxCountryActor.Size = new System.Drawing.Size(373, 24);
             this.cBoxCountryActor.TabIndex = 59;
             // 
             // tbBIO
             // 
-            this.tbBIO.Location = new System.Drawing.Point(98, 123);
+            this.tbBIO.Location = new System.Drawing.Point(131, 151);
+            this.tbBIO.Margin = new System.Windows.Forms.Padding(4);
             this.tbBIO.Name = "tbBIO";
-            this.tbBIO.Size = new System.Drawing.Size(281, 20);
+            this.tbBIO.Size = new System.Drawing.Size(373, 22);
             this.tbBIO.TabIndex = 55;
             // 
             // tbFIO
             // 
             this.tbFIO.BackColor = System.Drawing.SystemColors.Window;
-            this.tbFIO.Location = new System.Drawing.Point(98, 23);
+            this.tbFIO.Location = new System.Drawing.Point(131, 28);
+            this.tbFIO.Margin = new System.Windows.Forms.Padding(4);
             this.tbFIO.Name = "tbFIO";
-            this.tbFIO.Size = new System.Drawing.Size(279, 20);
+            this.tbFIO.Size = new System.Drawing.Size(371, 22);
             this.tbFIO.TabIndex = 55;
             // 
             // maskDateOfBirth
             // 
-            this.maskDateOfBirth.Location = new System.Drawing.Point(98, 56);
+            this.maskDateOfBirth.Location = new System.Drawing.Point(131, 69);
+            this.maskDateOfBirth.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfBirth.Mask = "00/00/0000";
             this.maskDateOfBirth.Name = "maskDateOfBirth";
-            this.maskDateOfBirth.Size = new System.Drawing.Size(74, 20);
+            this.maskDateOfBirth.Size = new System.Drawing.Size(97, 22);
             this.maskDateOfBirth.TabIndex = 58;
             this.maskDateOfBirth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(49, 26);
+            this.label9.Location = new System.Drawing.Point(65, 32);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 13);
+            this.label9.Size = new System.Drawing.Size(54, 17);
             this.label9.TabIndex = 52;
             this.label9.Text = "Ф.И.О.";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(32, 127);
+            this.label15.Location = new System.Drawing.Point(43, 156);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(63, 13);
+            this.label15.Size = new System.Drawing.Size(81, 17);
             this.label15.TabIndex = 54;
             this.label15.Text = "Биография";
             // 
             // maskDateOfDeath
             // 
-            this.maskDateOfDeath.Location = new System.Drawing.Point(201, 57);
+            this.maskDateOfDeath.Location = new System.Drawing.Point(268, 70);
+            this.maskDateOfDeath.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfDeath.Mask = "00/00/0000";
             this.maskDateOfDeath.Name = "maskDateOfDeath";
-            this.maskDateOfDeath.Size = new System.Drawing.Size(121, 20);
+            this.maskDateOfDeath.Size = new System.Drawing.Size(160, 22);
             this.maskDateOfDeath.TabIndex = 58;
             this.maskDateOfDeath.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(49, 93);
+            this.label6.Location = new System.Drawing.Point(65, 114);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.Size = new System.Drawing.Size(56, 17);
             this.label6.TabIndex = 54;
             this.label6.Text = "Страна";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 59);
+            this.label11.Location = new System.Drawing.Point(16, 73);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(71, 13);
+            this.label11.Size = new System.Drawing.Size(90, 17);
             this.label11.TabIndex = 53;
             this.label11.Text = "Годы жизни:";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(85, 59);
+            this.label12.Location = new System.Drawing.Point(113, 73);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(13, 13);
+            this.label12.Size = new System.Drawing.Size(15, 17);
             this.label12.TabIndex = 53;
             this.label12.Text = "с";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(177, 59);
+            this.label13.Location = new System.Drawing.Point(236, 73);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(19, 13);
+            this.label13.Size = new System.Drawing.Size(24, 17);
             this.label13.TabIndex = 53;
             this.label13.Text = "по";
             // 
@@ -2219,9 +2326,10 @@ namespace FilmCollection
             this.btnSaveActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveActor.Image = global::FilmCollection.Properties.Resources.save;
             this.btnSaveActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveActor.Location = new System.Drawing.Point(294, 514);
+            this.btnSaveActor.Location = new System.Drawing.Point(252, 633);
+            this.btnSaveActor.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveActor.Name = "btnSaveActor";
-            this.btnSaveActor.Size = new System.Drawing.Size(86, 23);
+            this.btnSaveActor.Size = new System.Drawing.Size(115, 28);
             this.btnSaveActor.TabIndex = 57;
             this.btnSaveActor.Text = "Сохранить";
             this.btnSaveActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2231,9 +2339,10 @@ namespace FilmCollection
             // btnCancelActor
             // 
             this.btnCancelActor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelActor.Location = new System.Drawing.Point(294, 543);
+            this.btnCancelActor.Location = new System.Drawing.Point(252, 668);
+            this.btnCancelActor.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelActor.Name = "btnCancelActor";
-            this.btnCancelActor.Size = new System.Drawing.Size(86, 23);
+            this.btnCancelActor.Size = new System.Drawing.Size(115, 28);
             this.btnCancelActor.TabIndex = 56;
             this.btnCancelActor.Text = "Отмена";
             this.btnCancelActor.UseVisualStyleBackColor = true;
@@ -2243,9 +2352,10 @@ namespace FilmCollection
             // 
             this.btnNewActor.Image = global::FilmCollection.Properties.Resources.add;
             this.btnNewActor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewActor.Location = new System.Drawing.Point(47, 514);
+            this.btnNewActor.Location = new System.Drawing.Point(63, 633);
+            this.btnNewActor.Margin = new System.Windows.Forms.Padding(4);
             this.btnNewActor.Name = "btnNewActor";
-            this.btnNewActor.Size = new System.Drawing.Size(81, 23);
+            this.btnNewActor.Size = new System.Drawing.Size(108, 28);
             this.btnNewActor.TabIndex = 51;
             this.btnNewActor.Text = "Добавить";
             this.btnNewActor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2257,8 +2367,9 @@ namespace FilmCollection
             this.label8.Dock = System.Windows.Forms.DockStyle.Top;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(423, 27);
+            this.label8.Size = new System.Drawing.Size(424, 33);
             this.label8.TabIndex = 1;
             this.label8.Text = "Панель редактирования";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2270,16 +2381,19 @@ namespace FilmCollection
             this.panelViewAct.Controls.Add(this.label26);
             this.panelViewAct.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelViewAct.Location = new System.Drawing.Point(0, 0);
+            this.panelViewAct.Margin = new System.Windows.Forms.Padding(4);
             this.panelViewAct.Name = "panelViewAct";
-            this.panelViewAct.Size = new System.Drawing.Size(423, 606);
+            this.panelViewAct.Size = new System.Drawing.Size(424, 752);
             this.panelViewAct.TabIndex = 1;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listViewFilmV);
-            this.groupBox2.Location = new System.Drawing.Point(20, 198);
+            this.groupBox2.Location = new System.Drawing.Point(27, 244);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(391, 302);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(521, 372);
             this.groupBox2.TabIndex = 64;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Фильмография";
@@ -2292,11 +2406,12 @@ namespace FilmCollection
             this.column3});
             this.listViewFilmV.FullRowSelect = true;
             this.listViewFilmV.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewFilmV.Location = new System.Drawing.Point(15, 19);
+            this.listViewFilmV.Location = new System.Drawing.Point(20, 23);
+            this.listViewFilmV.Margin = new System.Windows.Forms.Padding(4);
             this.listViewFilmV.MultiSelect = false;
             this.listViewFilmV.Name = "listViewFilmV";
             this.listViewFilmV.ShowGroups = false;
-            this.listViewFilmV.Size = new System.Drawing.Size(364, 261);
+            this.listViewFilmV.Size = new System.Drawing.Size(484, 320);
             this.listViewFilmV.TabIndex = 62;
             this.listViewFilmV.UseCompatibleStateImageBehavior = false;
             this.listViewFilmV.View = System.Windows.Forms.View.Details;
@@ -2331,9 +2446,11 @@ namespace FilmCollection
             this.groupBox3.Controls.Add(this.label24);
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(20, 30);
+            this.groupBox3.Location = new System.Drawing.Point(27, 37);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(391, 157);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(521, 193);
             this.groupBox3.TabIndex = 63;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Информация об актере";
@@ -2344,10 +2461,11 @@ namespace FilmCollection
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFIOv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbFIOv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbFIOv.Location = new System.Drawing.Point(98, 24);
+            this.tbFIOv.Location = new System.Drawing.Point(131, 30);
+            this.tbFIOv.Margin = new System.Windows.Forms.Padding(4);
             this.tbFIOv.Name = "tbFIOv";
             this.tbFIOv.ReadOnly = true;
-            this.tbFIOv.Size = new System.Drawing.Size(278, 16);
+            this.tbFIOv.Size = new System.Drawing.Size(371, 19);
             this.tbFIOv.TabIndex = 66;
             // 
             // tbCountryAv
@@ -2356,18 +2474,20 @@ namespace FilmCollection
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCountryAv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbCountryAv.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbCountryAv.Location = new System.Drawing.Point(98, 92);
+            this.tbCountryAv.Location = new System.Drawing.Point(131, 113);
+            this.tbCountryAv.Margin = new System.Windows.Forms.Padding(4);
             this.tbCountryAv.Name = "tbCountryAv";
             this.tbCountryAv.ReadOnly = true;
-            this.tbCountryAv.Size = new System.Drawing.Size(278, 16);
+            this.tbCountryAv.Size = new System.Drawing.Size(371, 19);
             this.tbCountryAv.TabIndex = 66;
             // 
             // linkBIOv
             // 
-            this.linkBIOv.Location = new System.Drawing.Point(98, 123);
+            this.linkBIOv.Location = new System.Drawing.Point(131, 151);
+            this.linkBIOv.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkBIOv.Name = "linkBIOv";
-            this.linkBIOv.Padding = new System.Windows.Forms.Padding(3);
-            this.linkBIOv.Size = new System.Drawing.Size(281, 23);
+            this.linkBIOv.Padding = new System.Windows.Forms.Padding(4);
+            this.linkBIOv.Size = new System.Drawing.Size(375, 28);
             this.linkBIOv.TabIndex = 65;
             this.linkBIOv.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBIOv_LinkClicked);
             // 
@@ -2375,29 +2495,32 @@ namespace FilmCollection
             // 
             this.maskDateOfBirthV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskDateOfBirthV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskDateOfBirthV.Location = new System.Drawing.Point(108, 57);
+            this.maskDateOfBirthV.Location = new System.Drawing.Point(144, 70);
+            this.maskDateOfBirthV.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfBirthV.Mask = "00/00/0000";
             this.maskDateOfBirthV.Name = "maskDateOfBirthV";
             this.maskDateOfBirthV.ReadOnly = true;
-            this.maskDateOfBirthV.Size = new System.Drawing.Size(87, 16);
+            this.maskDateOfBirthV.Size = new System.Drawing.Size(116, 19);
             this.maskDateOfBirthV.TabIndex = 58;
             this.maskDateOfBirthV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(49, 26);
+            this.label20.Location = new System.Drawing.Point(65, 32);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(46, 13);
+            this.label20.Size = new System.Drawing.Size(58, 17);
             this.label20.TabIndex = 52;
             this.label20.Text = "Ф.И.О.:";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(32, 127);
+            this.label21.Location = new System.Drawing.Point(43, 156);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(66, 13);
+            this.label21.Size = new System.Drawing.Size(85, 17);
             this.label21.TabIndex = 54;
             this.label21.Text = "Биография:";
             // 
@@ -2405,46 +2528,51 @@ namespace FilmCollection
             // 
             this.maskDateOfDeathV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.maskDateOfDeathV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.maskDateOfDeathV.Location = new System.Drawing.Point(227, 56);
+            this.maskDateOfDeathV.Location = new System.Drawing.Point(303, 69);
+            this.maskDateOfDeathV.Margin = new System.Windows.Forms.Padding(4);
             this.maskDateOfDeathV.Mask = "00/00/0000";
             this.maskDateOfDeathV.Name = "maskDateOfDeathV";
             this.maskDateOfDeathV.ReadOnly = true;
-            this.maskDateOfDeathV.Size = new System.Drawing.Size(156, 16);
+            this.maskDateOfDeathV.Size = new System.Drawing.Size(208, 19);
             this.maskDateOfDeathV.TabIndex = 58;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(49, 93);
+            this.label22.Location = new System.Drawing.Point(65, 114);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(46, 13);
+            this.label22.Size = new System.Drawing.Size(60, 17);
             this.label22.TabIndex = 54;
             this.label22.Text = "Страна:";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(22, 59);
+            this.label23.Location = new System.Drawing.Point(29, 73);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(71, 13);
+            this.label23.Size = new System.Drawing.Size(90, 17);
             this.label23.TabIndex = 53;
             this.label23.Text = "Годы жизни:";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(96, 59);
+            this.label24.Location = new System.Drawing.Point(128, 73);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(13, 13);
+            this.label24.Size = new System.Drawing.Size(15, 17);
             this.label24.TabIndex = 53;
             this.label24.Text = "с";
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(200, 59);
+            this.label25.Location = new System.Drawing.Point(267, 73);
+            this.label25.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(19, 13);
+            this.label25.Size = new System.Drawing.Size(24, 17);
             this.label25.TabIndex = 53;
             this.label25.Text = "по";
             // 
@@ -2453,8 +2581,9 @@ namespace FilmCollection
             this.label26.Dock = System.Windows.Forms.DockStyle.Top;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label26.Location = new System.Drawing.Point(0, 0);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(423, 27);
+            this.label26.Size = new System.Drawing.Size(424, 33);
             this.label26.TabIndex = 1;
             this.label26.Text = "Информация об актере";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2464,10 +2593,11 @@ namespace FilmCollection
             this.tabImage.BackColor = System.Drawing.SystemColors.Control;
             this.tabImage.Controls.Add(this.panelMain);
             this.tabImage.Controls.Add(this.panel2);
-            this.tabImage.Location = new System.Drawing.Point(4, 22);
+            this.tabImage.Location = new System.Drawing.Point(4, 25);
+            this.tabImage.Margin = new System.Windows.Forms.Padding(4);
             this.tabImage.Name = "tabImage";
-            this.tabImage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabImage.Size = new System.Drawing.Size(972, 614);
+            this.tabImage.Padding = new System.Windows.Forms.Padding(4);
+            this.tabImage.Size = new System.Drawing.Size(1363, 762);
             this.tabImage.TabIndex = 4;
             this.tabImage.Text = "Постеры";
             // 
@@ -2475,9 +2605,10 @@ namespace FilmCollection
             // 
             this.panelMain.Controls.Add(this.flowLayoutPanelMain);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(3, 32);
+            this.panelMain.Location = new System.Drawing.Point(4, 40);
+            this.panelMain.Margin = new System.Windows.Forms.Padding(4);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(966, 579);
+            this.panelMain.Size = new System.Drawing.Size(1355, 718);
             this.panelMain.TabIndex = 7;
             // 
             // flowLayoutPanelMain
@@ -2487,8 +2618,9 @@ namespace FilmCollection
             this.flowLayoutPanelMain.CausesValidation = false;
             this.flowLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelMain.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanelMain.Name = "flowLayoutPanelMain";
-            this.flowLayoutPanelMain.Size = new System.Drawing.Size(966, 579);
+            this.flowLayoutPanelMain.Size = new System.Drawing.Size(1355, 718);
             this.flowLayoutPanelMain.TabIndex = 0;
             // 
             // panel2
@@ -2497,18 +2629,19 @@ namespace FilmCollection
             this.panel2.Controls.Add(this.buttonCancel);
             this.panel2.Controls.Add(this.trackBarSize);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(3);
-            this.panel2.Size = new System.Drawing.Size(966, 29);
+            this.panel2.Padding = new System.Windows.Forms.Padding(4);
+            this.panel2.Size = new System.Drawing.Size(1355, 36);
             this.panel2.TabIndex = 10;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(6, 3);
+            this.buttonCancel.Location = new System.Drawing.Point(8, 4);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(146, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(195, 28);
             this.buttonCancel.TabIndex = 9;
             this.buttonCancel.Text = "Cancel Scan Directory";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -2520,10 +2653,11 @@ namespace FilmCollection
             this.trackBarSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarSize.AutoSize = false;
             this.trackBarSize.LargeChange = 1;
-            this.trackBarSize.Location = new System.Drawing.Point(834, 6);
+            this.trackBarSize.Location = new System.Drawing.Point(1179, 7);
+            this.trackBarSize.Margin = new System.Windows.Forms.Padding(4);
             this.trackBarSize.Maximum = 2;
             this.trackBarSize.Name = "trackBarSize";
-            this.trackBarSize.Size = new System.Drawing.Size(124, 23);
+            this.trackBarSize.Size = new System.Drawing.Size(165, 28);
             this.trackBarSize.TabIndex = 6;
             this.trackBarSize.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarSize.Value = 2;
@@ -2533,9 +2667,10 @@ namespace FilmCollection
             // 
             this.tabDiagram.BackColor = System.Drawing.SystemColors.Control;
             this.tabDiagram.Controls.Add(this.ucDiagr);
-            this.tabDiagram.Location = new System.Drawing.Point(4, 22);
+            this.tabDiagram.Location = new System.Drawing.Point(4, 25);
+            this.tabDiagram.Margin = new System.Windows.Forms.Padding(4);
             this.tabDiagram.Name = "tabDiagram";
-            this.tabDiagram.Size = new System.Drawing.Size(972, 614);
+            this.tabDiagram.Size = new System.Drawing.Size(1363, 762);
             this.tabDiagram.TabIndex = 5;
             this.tabDiagram.Text = "Диаграмма";
             // 
@@ -2543,8 +2678,9 @@ namespace FilmCollection
             // 
             this.ucDiagr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucDiagr.Location = new System.Drawing.Point(0, 0);
+            this.ucDiagr.Margin = new System.Windows.Forms.Padding(5);
             this.ucDiagr.Name = "ucDiagr";
-            this.ucDiagr.Size = new System.Drawing.Size(972, 614);
+            this.ucDiagr.Size = new System.Drawing.Size(1363, 762);
             this.ucDiagr.TabIndex = 0;
             // 
             // timerLoad
@@ -2555,7 +2691,8 @@ namespace FilmCollection
             // 
             this.scMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.scMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.scMain.Location = new System.Drawing.Point(0, 49);
+            this.scMain.Location = new System.Drawing.Point(0, 55);
+            this.scMain.Margin = new System.Windows.Forms.Padding(4);
             this.scMain.Name = "scMain";
             // 
             // scMain.Panel1
@@ -2567,12 +2704,14 @@ namespace FilmCollection
             // 
             this.scMain.Panel2.Controls.Add(this.tabControl2);
             this.scMain.Panel2MinSize = 600;
-            this.scMain.Size = new System.Drawing.Size(1175, 640);
+            this.scMain.Size = new System.Drawing.Size(1567, 791);
             this.scMain.SplitterDistance = 191;
+            this.scMain.SplitterWidth = 5;
             this.scMain.TabIndex = 24;
             // 
             // mainMenuIcon
             // 
+            this.mainMenuIcon.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mainMenuIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsCreateDB,
             this.tsUpdateDB,
@@ -2588,9 +2727,9 @@ namespace FilmCollection
             this.toolStripSeparator2,
             this.tsFind,
             this.tsFindbyName});
-            this.mainMenuIcon.Location = new System.Drawing.Point(0, 24);
+            this.mainMenuIcon.Location = new System.Drawing.Point(0, 28);
             this.mainMenuIcon.Name = "mainMenuIcon";
-            this.mainMenuIcon.Size = new System.Drawing.Size(1175, 25);
+            this.mainMenuIcon.Size = new System.Drawing.Size(1567, 27);
             this.mainMenuIcon.TabIndex = 26;
             this.mainMenuIcon.Text = "toolStrip1";
             // 
@@ -2600,7 +2739,7 @@ namespace FilmCollection
             this.tsCreateDB.Image = global::FilmCollection.Properties.Resources.db;
             this.tsCreateDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsCreateDB.Name = "tsCreateDB";
-            this.tsCreateDB.Size = new System.Drawing.Size(23, 22);
+            this.tsCreateDB.Size = new System.Drawing.Size(24, 24);
             this.tsCreateDB.Text = "Создать базу";
             this.tsCreateDB.Click += new System.EventHandler(this.CreateBase_Click);
             // 
@@ -2610,14 +2749,14 @@ namespace FilmCollection
             this.tsUpdateDB.Image = global::FilmCollection.Properties.Resources.dbRebuild;
             this.tsUpdateDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsUpdateDB.Name = "tsUpdateDB";
-            this.tsUpdateDB.Size = new System.Drawing.Size(23, 22);
+            this.tsUpdateDB.Size = new System.Drawing.Size(24, 24);
             this.tsUpdateDB.Text = "Обновить базу";
             this.tsUpdateDB.Click += new System.EventHandler(this.UpdateBase_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
             // 
             // tsBackupDB
             // 
@@ -2625,7 +2764,7 @@ namespace FilmCollection
             this.tsBackupDB.Image = global::FilmCollection.Properties.Resources.dbBackup;
             this.tsBackupDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBackupDB.Name = "tsBackupDB";
-            this.tsBackupDB.Size = new System.Drawing.Size(23, 22);
+            this.tsBackupDB.Size = new System.Drawing.Size(24, 24);
             this.tsBackupDB.Text = "Создать копию базы";
             this.tsBackupDB.Click += new System.EventHandler(this.BackupBase_Click);
             // 
@@ -2635,14 +2774,14 @@ namespace FilmCollection
             this.tsRecoveryDB.Image = global::FilmCollection.Properties.Resources.dbRecovery;
             this.tsRecoveryDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsRecoveryDB.Name = "tsRecoveryDB";
-            this.tsRecoveryDB.Size = new System.Drawing.Size(23, 22);
+            this.tsRecoveryDB.Size = new System.Drawing.Size(24, 24);
             this.tsRecoveryDB.Text = "Восстановить из...";
             this.tsRecoveryDB.Click += new System.EventHandler(this.RecoveryBase_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
             // 
             // tsAdd
             // 
@@ -2650,7 +2789,7 @@ namespace FilmCollection
             this.tsAdd.Image = global::FilmCollection.Properties.Resources.add;
             this.tsAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsAdd.Name = "tsAdd";
-            this.tsAdd.Size = new System.Drawing.Size(23, 22);
+            this.tsAdd.Size = new System.Drawing.Size(24, 24);
             this.tsAdd.Text = "Добавить";
             this.tsAdd.Click += new System.EventHandler(this.tsAdd_Click);
             // 
@@ -2660,7 +2799,7 @@ namespace FilmCollection
             this.tsChange.Image = global::FilmCollection.Properties.Resources.change;
             this.tsChange.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsChange.Name = "tsChange";
-            this.tsChange.Size = new System.Drawing.Size(23, 22);
+            this.tsChange.Size = new System.Drawing.Size(24, 24);
             this.tsChange.Text = "Изменить";
             this.tsChange.Click += new System.EventHandler(this.tsChange_Click);
             // 
@@ -2670,39 +2809,14 @@ namespace FilmCollection
             this.tsRemove.Image = global::FilmCollection.Properties.Resources.del;
             this.tsRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsRemove.Name = "tsRemove";
-            this.tsRemove.Size = new System.Drawing.Size(23, 22);
+            this.tsRemove.Size = new System.Drawing.Size(24, 24);
             this.tsRemove.Text = "Удалить";
             this.tsRemove.Click += new System.EventHandler(this.tsRemove_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tsFind
-            // 
-            this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsFind.Image = global::FilmCollection.Properties.Resources.find;
-            this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsFind.Name = "tsFind";
-            this.tsFind.Size = new System.Drawing.Size(23, 22);
-            this.tsFind.Text = "Найти";
-            this.tsFind.Click += new System.EventHandler(this.tsFind_Click);
-            // 
-            // tsFindbyName
-            // 
-            this.tsFindbyName.AutoSize = false;
-            this.tsFindbyName.BackColor = System.Drawing.SystemColors.Window;
-            this.tsFindbyName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tsFindbyName.MaxLength = 150;
-            this.tsFindbyName.Name = "tsFindbyName";
-            this.tsFindbyName.Padding = new System.Windows.Forms.Padding(5);
-            this.tsFindbyName.Size = new System.Drawing.Size(150, 20);
-            this.tsFindbyName.ToolTipText = "Панель быстрого поиска по названию";
-            this.tsFindbyName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsFindbyName_KeyDown);
-            this.tsFindbyName.MouseEnter += new System.EventHandler(this.tsFindbyName_MouseEnter);
-            this.tsFindbyName.MouseLeave += new System.EventHandler(this.tsFindbyName_MouseLeave);
-            this.tsFindbyName.Paint += new System.Windows.Forms.PaintEventHandler(this.tsFindbyName_Paint);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
             // 
             // tsHidePanel
             // 
@@ -2711,10 +2825,39 @@ namespace FilmCollection
             this.tsHidePanel.Image = global::FilmCollection.Properties.Resources.hide;
             this.tsHidePanel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsHidePanel.Name = "tsHidePanel";
-            this.tsHidePanel.Size = new System.Drawing.Size(23, 22);
+            this.tsHidePanel.Size = new System.Drawing.Size(24, 24);
             this.tsHidePanel.Text = "Скрыть панель";
             this.tsHidePanel.ToolTipText = "Скрыть панель";
             this.tsHidePanel.CheckedChanged += new System.EventHandler(this.tsHidePanel_CheckedChanged);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tsFind
+            // 
+            this.tsFind.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsFind.Image = global::FilmCollection.Properties.Resources.find;
+            this.tsFind.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsFind.Name = "tsFind";
+            this.tsFind.Size = new System.Drawing.Size(24, 24);
+            this.tsFind.Text = "Найти";
+            this.tsFind.Click += new System.EventHandler(this.tsFind_Click);
+            // 
+            // tsFindbyName
+            // 
+            this.tsFindbyName.BackColor = System.Drawing.SystemColors.Window;
+            this.tsFindbyName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tsFindbyName.MaxLength = 150;
+            this.tsFindbyName.Name = "tsFindbyName";
+            this.tsFindbyName.Padding = new System.Windows.Forms.Padding(5);
+            this.tsFindbyName.Size = new System.Drawing.Size(177, 27);
+            this.tsFindbyName.ToolTipText = "Панель быстрого поиска по названию";
+            this.tsFindbyName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tsFindbyName_KeyDown);
+            this.tsFindbyName.MouseEnter += new System.EventHandler(this.tsFindbyName_MouseEnter);
+            this.tsFindbyName.MouseLeave += new System.EventHandler(this.tsFindbyName_MouseLeave);
+            this.tsFindbyName.Paint += new System.Windows.Forms.PaintEventHandler(this.tsFindbyName_Paint);
             // 
             // toolinfo
             // 
@@ -2730,18 +2873,19 @@ namespace FilmCollection
             // 
             // TrayMenu
             // 
+            this.TrayMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.TrayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ShowWindow,
             this.About,
             this.separator1,
             this.Exit});
             this.TrayMenu.Name = "TrayMenu";
-            this.TrayMenu.Size = new System.Drawing.Size(155, 76);
+            this.TrayMenu.Size = new System.Drawing.Size(185, 88);
             // 
             // ShowWindow
             // 
             this.ShowWindow.Name = "ShowWindow";
-            this.ShowWindow.Size = new System.Drawing.Size(154, 22);
+            this.ShowWindow.Size = new System.Drawing.Size(184, 26);
             this.ShowWindow.Text = "Показать окно";
             this.ShowWindow.Click += new System.EventHandler(this.ShowWindow_Click);
             // 
@@ -2749,20 +2893,20 @@ namespace FilmCollection
             // 
             this.About.Image = global::FilmCollection.Properties.Resources.help;
             this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(154, 22);
+            this.About.Size = new System.Drawing.Size(184, 26);
             this.About.Text = "О программе";
             this.About.Click += new System.EventHandler(this.About_Click);
             // 
             // separator1
             // 
             this.separator1.Name = "separator1";
-            this.separator1.Size = new System.Drawing.Size(151, 6);
+            this.separator1.Size = new System.Drawing.Size(181, 6);
             // 
             // Exit
             // 
             this.Exit.Image = global::FilmCollection.Properties.Resources.ExitV2;
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(154, 22);
+            this.Exit.Size = new System.Drawing.Size(184, 26);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -2771,21 +2915,17 @@ namespace FilmCollection
             this.timerForDateTime.Enabled = true;
             this.timerForDateTime.Tick += new System.EventHandler(this.timerForDateTime_Tick);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1175, 711);
+            this.ClientSize = new System.Drawing.Size(1567, 875);
             this.Controls.Add(this.scMain);
             this.Controls.Add(this.statusLine);
             this.Controls.Add(this.mainMenuIcon);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.menuTableRec;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Фильмотека";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
