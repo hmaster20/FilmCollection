@@ -45,7 +45,7 @@
             // btnOk
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(343, 359);
+            this.btnOk.Location = new System.Drawing.Point(343, 360);
             this.btnOk.Margin = new System.Windows.Forms.Padding(4);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(100, 28);
@@ -71,7 +71,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(427, 187);
+            this.groupBox1.Size = new System.Drawing.Size(427, 186);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Информация о программе";
@@ -85,7 +85,7 @@
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.ReadOnly = true;
             this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxDescription.Size = new System.Drawing.Size(407, 135);
+            this.textBoxDescription.Size = new System.Drawing.Size(407, 155);
             this.textBoxDescription.TabIndex = 24;
             this.textBoxDescription.TabStop = false;
             this.textBoxDescription.Text = "Описание";
@@ -141,7 +141,7 @@
             // 
             // btnLicense
             // 
-            this.btnLicense.Location = new System.Drawing.Point(16, 359);
+            this.btnLicense.Location = new System.Drawing.Point(16, 360);
             this.btnLicense.Margin = new System.Windows.Forms.Padding(4);
             this.btnLicense.Name = "btnLicense";
             this.btnLicense.Size = new System.Drawing.Size(100, 28);

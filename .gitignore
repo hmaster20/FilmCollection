@@ -12,3 +12,4 @@ FC.Provider/bin/
 DrExplain/FC/FC.zip
 UpgradeLog.htm
 *.bak
+*gitlab-ci.yml
