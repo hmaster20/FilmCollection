@@ -12,25 +12,26 @@ namespace FC.Provider.Class.Main.Collection
     /// <summary>Класс обслуживания базы фильмотеки</summary>
     public class CollectionService
     {
-        public void NewBase(FolderBrowserDialog fbDialog)
+        public DialogResult NewBase(FolderBrowserDialog fbDialog)
         {
-            if (File.Exists(CollectionOptions.BaseName) && (CollectionRecord.status())) // Если база есть, то запрашиваем удаление
+            if (File.Exists(Generic.GetBaseName()) && (CollectionRecord.status())) // Если база есть, то запрашиваем удаление
             {
                 DialogResult result = MessageBox.Show("Выполнить удаление текущей базы ?", "Удаление базы", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) BackupBase();
 
-                File.WriteAllText(CollectionOptions.BaseName, string.Empty); // Затираем содержимое файла базы
+                // Возможно не стоит удалять, а делать *.bak файл ?
+                File.WriteAllText(Generic.GetBaseName(), string.Empty); // Затираем содержимое файла базы
                 if (CollectionRecord.status()) CollectionRecord.CurrentInstance().Clear();       // очищаем коллекцию                    
             }
             else
             {
-                File.Create(CollectionOptions.BaseName).Close();    // Если базы нет, то выполняем создание файла и закрытие дескриптора (Объект FileStream)
+                File.Create(Generic.GetBaseName()).Close();    // Если базы нет, то создаем файл и закрываеи дескриптор (Объект FileStream)
             }
 
             DialogResult dialogStatus = fbDialog.ShowDialog();
             if (dialogStatus == DialogResult.OK)// Запрашиваем новый каталог с коллекцией видео
             {
-                string folderName = fbDialog.SelectedPath;  //Извлечение имени папки
+                string folderName = fbDialog.SelectedPath;  // Извлечение имени папки
 
                 DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
                                                                     MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
@@ -52,6 +53,7 @@ namespace FC.Provider.Class.Main.Collection
                 CollectionRecord.CurrentInstance().SaveToFile();
                 //main.FormLoad();
             }
+            return dialogStatus;
         }
 
 
@@ -253,15 +255,15 @@ namespace FC.Provider.Class.Main.Collection
 
         public static void BackupBase()
         {
-            if (File.Exists(CollectionOptions.BaseName)) // если есть, что резервировать...
+            if (File.Exists(Generic.GetBaseName())) // если есть, что резервировать...
             {
                 try
                 {   // создаем резервную копию
-                    string FileBase = Path.GetFileNameWithoutExtension(CollectionOptions.BaseName)
+                    string FileBase = Path.GetFileNameWithoutExtension(Generic.GetBaseName())
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss")
-                        + Path.GetExtension(CollectionOptions.BaseName);
+                        + Path.GetExtension(Generic.GetBaseName());
 
-                    File.Copy(CollectionOptions.BaseName, FileBase);
+                    File.Copy(Generic.GetBaseName(), FileBase);
 
                     MessageBox.Show("Создана резервная копия базы:\n" + FileBase + " ");
                 }
@@ -271,15 +273,15 @@ namespace FC.Provider.Class.Main.Collection
 
         public static void CrashBase()
         {
-            if (File.Exists(CollectionOptions.BaseName))
+            if (File.Exists(Generic.GetBaseName()))
             {
                 try
                 {
-                    string FileBase = Path.GetFileNameWithoutExtension(CollectionOptions.BaseName)
+                    string FileBase = Path.GetFileNameWithoutExtension(Generic.GetBaseName())
                         + DateTime.Now.ToString("-Error-ddMMyyyy-HHmmss")
-                        + Path.GetExtension(CollectionOptions.BaseName);
+                        + Path.GetExtension(Generic.GetBaseName());
 
-                    File.Move(CollectionOptions.BaseName, FileBase);
+                    File.Move(Generic.GetBaseName(), FileBase);
                 }
                 catch (IOException ex) { Logs.Log("Произошла ошибка при переименовании сбойного файла базы:", ex); }
             }
@@ -296,14 +298,14 @@ namespace FC.Provider.Class.Main.Collection
         {
             try
             {
-                if (File.Exists(CollectionOptions.BaseName)) // если файл базы существует, то создаем копию испорченной базы
+                if (File.Exists(Generic.GetBaseName())) // если файл базы существует, то создаем копию испорченной базы
                 {
-                    string BadFileBase = Path.GetFileNameWithoutExtension(CollectionOptions.BaseName)
+                    string BadFileBase = Path.GetFileNameWithoutExtension(Generic.GetBaseName())
                         + DateTime.Now.ToString("_dd.MM.yyyy_HH.mm.ss_BAD")
-                        + Path.GetExtension(CollectionOptions.BaseName);
-                    File.Copy(CollectionOptions.BaseName, BadFileBase);
+                        + Path.GetExtension(Generic.GetBaseName());
+                    File.Copy(Generic.GetBaseName(), BadFileBase);
                 }
-                File.Copy(recoverBase, CollectionOptions.BaseName, true);
+                File.Copy(recoverBase, Generic.GetBaseName(), true);
             }
             catch (IOException ex) { Logs.Log("Произошла ошибка при восстановлении файла базы:", ex); }
 

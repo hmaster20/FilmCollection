@@ -153,7 +153,7 @@ namespace FC.Provider.Class.Main.Collection
             try
             {
                 result = (fromFile)
-                    ? CollectionOptions.BaseName.LoadAndDeserialize<CollectionRecord>()
+                    ? Generic.GetBaseName().LoadAndDeserialize<CollectionRecord>()
                     : XmlSerializeHelper.LoadAndDeserializeMemory<CollectionRecord>();
             }
             catch (Exception ex)

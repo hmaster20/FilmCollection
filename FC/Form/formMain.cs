@@ -314,7 +314,7 @@ namespace FilmCollection
         {
             bool state = false;
 
-            if (File.Exists(CollectionOptions.BaseName))    // Если база создана, то загружаем
+            if (File.Exists(Generic.GetBaseName()))    // Если база создана, то загружаем
             {
                 RCollection.Clear();
 
@@ -473,14 +473,17 @@ namespace FilmCollection
                 fbDialog.Description = "Укажите расположение файлов мультимедиа:";
                 fbDialog.ShowNewFolderButton = false;
 
-                RCollection.Maintenance.NewBase(fbDialog);
+                if (RCollection.Maintenance.NewBase(fbDialog) == DialogResult.OK) {
+                    UpdateStatusMenuButton();
+                    FormLoad();
+                } 
+
                 //RCollection.Maintenance.NewBase(fbDialog.ShowDialog());
 
                 //DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
                 //if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
 
-                UpdateStatusMenuButton();
-                FormLoad();
+
             }
         }
 
@@ -1606,7 +1609,7 @@ namespace FilmCollection
 
         private void OpenFolderDB()
         {
-            string filePath = CollectionOptions.BaseName;
+            string filePath = Generic.GetBaseName();
             if (!File.Exists(filePath))
                 return;
 
