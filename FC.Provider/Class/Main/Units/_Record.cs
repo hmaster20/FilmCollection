@@ -20,10 +20,19 @@ namespace FC.Provider.Class.Main.Units
 
         public string getFilePath(string _file = "")
         {
-            if (string.IsNullOrWhiteSpace(_file)) _file = FileName;
-            //return Path.Combine((RecordCollection.GetInstance().SourceList.FindLast(x => x.Id == SourceID).Source).Trim(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
-            return Path.Combine((CollectionRecord.CurrentInstance().SourceList.FindLast(x => x.Id == SourceID).Source).TrimEnd(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
-        }
+            try
+            {
+                if (string.IsNullOrWhiteSpace(_file))
+                    _file = FileName;
+
+                return Path.Combine((CollectionRecord.CurrentInstance().SourceList.FindLast(x => x.Id == SourceID).Source).TrimEnd(Path.DirectorySeparatorChar), Path.Combine(FilePath.Trim(Path.DirectorySeparatorChar), _file));
+            }
+            catch (Exception ex)
+            {
+                Logs.Log("Файл " + FileName + " не найден!", ex);
+                return null;
+            }
+   }
 
         public void reName(string NewFileName)
         {
