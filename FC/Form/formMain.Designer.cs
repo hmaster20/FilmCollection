@@ -4,13 +4,6 @@ namespace FilmCollection
 {
     partial class MainForm
     {
-        public static bool isDebug { get; set; } =
-#if DEBUG
-            true;
-#else
-            false;
-#endif
-
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -2919,11 +2912,10 @@ namespace FilmCollection
             // 
             // timerForDateTime
             // 
-            if (!isDebug)
-            {
-                this.timerForDateTime.Enabled = true;
-                this.timerForDateTime.Tick += new System.EventHandler(this.timerForDateTime_Tick);
-            }
+#if !DEBUG
+            this.timerForDateTime.Enabled = true;
+            this.timerForDateTime.Tick += new System.EventHandler(this.timerForDateTime_Tick);
+#endif
             // 
             // MainForm
             // 
