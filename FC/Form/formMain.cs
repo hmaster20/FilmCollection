@@ -476,14 +476,7 @@ namespace FilmCollection
                 if (RCollection.Maintenance.NewBase(fbDialog) == DialogResult.OK) {
                     UpdateStatusMenuButton();
                     FormLoad();
-                } 
-
-                //RCollection.Maintenance.NewBase(fbDialog.ShowDialog());
-
-                //DialogResult dialogStatus = fbDialog.ShowDialog();  // Запрашиваем новый каталог с коллекцией видео
-                //if (dialogStatus == DialogResult.OK) CreateBase(fbDialog, main);
-
-
+                }
             }
         }
 
