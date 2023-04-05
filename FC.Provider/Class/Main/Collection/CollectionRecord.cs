@@ -25,6 +25,7 @@ namespace FC.Provider.Class.Main.Collection
             {
                 if (_recordCollection == null)
                     _recordCollection = Load(true);
+
                 return _recordCollection;
             }
             catch (ApplicationException ex)
@@ -34,6 +35,7 @@ namespace FC.Provider.Class.Main.Collection
             }
         }
 
+        /// <summary>Статус пуста или нет коллекция</summary>
         public static bool status()
         {
             bool status = (_recordCollection == null) ? false : true;
@@ -153,7 +155,7 @@ namespace FC.Provider.Class.Main.Collection
             try
             {
                 result = (fromFile)
-                    ? CollectionOptions.BaseName.LoadAndDeserialize<CollectionRecord>()
+                    ? Generic.GetBaseName().LoadAndDeserialize<CollectionRecord>()
                     : XmlSerializeHelper.LoadAndDeserializeMemory<CollectionRecord>();
             }
             catch (Exception ex)

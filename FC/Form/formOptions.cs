@@ -40,7 +40,7 @@ namespace FilmCollection
                 btnChangeSource.Enabled = true;
             }
 
-            lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), CollectionOptions.BaseName);
+            lCatalogPath.Text = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), Generic.GetBaseName());
 
             //foreach (DataColumn dc in dataSet.Tables[0].Columns)
             //{

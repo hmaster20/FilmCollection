@@ -17,12 +17,6 @@ namespace FC.Provider.Class.Main.Collection
             false;
 #endif
 
-        /// <summary>Файл базы коллекции "VideoList.xml"</summary>
-        [XmlIgnore]
-        //public static string BaseName { get; } = "VideoList.xml";
-        //static readonly string BaseName = "VideoList.xml";
-        public static string BaseName = "VideoList.xml";
-
         /// <summary>Метод генерирует массив вида ".avi", ".mkv", ".mp4", ".wmv", ".webm", ".rm", ".mpg", ".mpeg", ".flv", ".divx"</summary>
         public static List<string> getFormat()
         {
@@ -50,6 +44,7 @@ namespace FC.Provider.Class.Main.Collection
         public static string PicsFolder() => Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Pics");
   
         public static int scMainSplitter { get; set; }     // Сохранение параметров сплиттеров
+
         public static int scTabFilmSplitter { get; set; }
 
         public static string ColumnsWidth { get; set; }   // Поле сохранения параметра ширины колонок
