@@ -12,6 +12,7 @@ namespace FC.Provider.Class.Main.Collection
     /// <summary>Класс обслуживания базы фильмотеки</summary>
     public class CollectionService
     {
+        /// <summary>Запрашиваем новый каталог с коллекцией</summary>
         public DialogResult NewBase(FolderBrowserDialog fbDialog)
         {
             if (File.Exists(Generic.GetBaseName()) && (CollectionRecord.status())) // Если база есть, то запрашиваем удаление
@@ -21,11 +22,13 @@ namespace FC.Provider.Class.Main.Collection
 
                 // Возможно не стоит удалять, а делать *.bak файл ?
                 File.WriteAllText(Generic.GetBaseName(), string.Empty); // Затираем содержимое файла базы
-                if (CollectionRecord.status()) CollectionRecord.CurrentInstance().Clear();       // очищаем коллекцию                    
+                if (CollectionRecord.status())
+                    CollectionRecord.CurrentInstance().Clear();  // очищаем коллекцию                    
             }
             else
             {
-                File.Create(Generic.GetBaseName()).Close();    // Если базы нет, то создаем файл и закрываеи дескриптор (Объект FileStream)
+                // Если базы нет, то создаем файл и закрываеи дескриптор (Объект FileStream)
+                File.Create(Generic.GetBaseName()).Close();
             }
 
             DialogResult dialogStatus = fbDialog.ShowDialog();
@@ -33,8 +36,12 @@ namespace FC.Provider.Class.Main.Collection
             {
                 string folderName = fbDialog.SelectedPath;  // Извлечение имени папки
 
-                DialogResult CheckfolderName = MessageBox.Show("Источником фильмотеки выбран каталог: " + folderName, "Создание фильмотеки (" + folderName + ")",
-                                                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                DialogResult CheckfolderName = MessageBox.Show(
+                    "Источником фильмотеки выбран каталог: " + folderName, 
+                    "Создание фильмотеки (" + folderName + ")",
+                    MessageBoxButtons.OKCancel, 
+                    MessageBoxIcon.Information, 
+                    MessageBoxDefaultButton.Button1);
 
                 if (CheckfolderName == DialogResult.Cancel) NewBase(fbDialog);
 
