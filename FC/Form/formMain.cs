@@ -893,11 +893,13 @@ namespace FilmCollection
         //}
 
 
+        // Отрабатывает при клике мышкой
         private void Table_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)   // Порядок 1
         {
             Debug.WriteLine(" - CellMouseDown");
 
-            if (IsControlAtFront(panelFind))    // если отображается панель поиска, то пред просмотр только при двойном клике
+            // если отображается панель поиска, то пред просмотр только при двойном клике
+            if (IsControlAtFront(panelFind))
             {
                 if (e.Button == MouseButtons.Left && e.Clicks == 2)
                     SelectRec();
