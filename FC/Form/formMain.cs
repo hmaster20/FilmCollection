@@ -2926,21 +2926,21 @@ namespace FilmCollection
             }
         }
 
+        // Отрабатывает сразу при зарузке UI
+        // Отрабатывает после метода Table_CellMouseDown
         private void TableRec_SelectionChanged(object sender, EventArgs e)
         {
-            Debug.Print("TableRec_SelectionChanged");
-
-            Record record = new Record();
+            Debug.Print("TableRec_SelectionChanged = start");           
             if (TableRec.SelectedRows.Count > 0 && TableRec.SelectedRows[0].DataBoundItem is Record)
             {
-                record = TableRec.SelectedRows[0].DataBoundItem as Record;
-                Debug.Print(record.mName);
+                Record record = TableRec.SelectedRows[0].DataBoundItem as Record;
+                Debug.Print ("record = " + record.mName);
             }
             else
             {
                 Debug.Print("record = null");
             }
-
+            Debug.Print("TableRec_SelectionChanged = end");
         }
 
         private void cOpenCurrentFolder_Click(object sender, EventArgs e)
